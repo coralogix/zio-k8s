@@ -28,22 +28,19 @@ object ClassifiedResource {
   ): Set[SupportedResource] = {
     val groups = identified.groupBy(_.group)
 
-    groups.flatMap {
-      case (group, paths) =>
-        paths.groupBy(_.kind).flatMap {
-          case (kind, paths) =>
-            paths.groupBy(_.version).flatMap {
-              case (version, actions) =>
-                val classification =
-                  classifyResource(definitionMap, group, kind, version, actions.toSet)
-                classification match {
-                  case c: SupportedResource =>
-                    Set(c)
-                  case _: UnsupportedResource =>
-                    Set.empty[SupportedResource]
-                }
-            }
+    groups.flatMap { case (group, paths) =>
+      paths.groupBy(_.kind).flatMap { case (kind, paths) =>
+        paths.groupBy(_.version).flatMap { case (version, actions) =>
+          val classification =
+            classifyResource(definitionMap, group, kind, version, actions.toSet)
+          classification match {
+            case c: SupportedResource =>
+              Set(c)
+            case _: UnsupportedResource =>
+              Set.empty[SupportedResource]
+          }
         }
+      }
     }.toSet
   }
 
@@ -70,20 +67,19 @@ object ClassifiedResource {
             case (EndpointType.Unsupported(_), _) => false
             case _                                => true
           }
-          .foldLeft(Set.empty[String]) {
-            case (result, (_, action)) =>
-              result union action.deepRefs(definitions, Set.empty)
+          .foldLeft(Set.empty[String]) { case (result, (_, action)) =>
+            result union action.deepRefs(definitions, Set.empty)
           }
 
         val plural = endpoints.keys
-          .collectFirst {
-            case EndpointType.List(_, plural, _) => plural
+          .collectFirst { case EndpointType.List(_, plural, _) =>
+            plural
           }
           .getOrElse("???")
 
         val modelName = endpoints.keys
-          .collectFirst {
-            case EndpointType.Put(_, _, modelName) => modelName
+          .collectFirst { case EndpointType.Put(_, _, modelName) =>
+            modelName
           }
           .getOrElse("???")
 
@@ -117,38 +113,38 @@ object ClassifiedResource {
     supportsWatch: Boolean
   ): Boolean =
     endpoints
-      .collect {
-        case t: EndpointType.List => t
+      .collect { case t: EndpointType.List =>
+        t
       }
       .exists(t => t.namespaced == namespaced && t.supportsWatch == supportsWatch)
   private def hasGet(endpoints: Set[EndpointType], namespaced: Boolean): Boolean =
     endpoints
-      .collect {
-        case t: EndpointType.Get => t
+      .collect { case t: EndpointType.Get =>
+        t
       }
       .exists(t => t.namespaced == namespaced)
   private def hasPost(endpoints: Set[EndpointType], namespaced: Boolean): Boolean =
     endpoints
-      .collect {
-        case t: EndpointType.Post => t
+      .collect { case t: EndpointType.Post =>
+        t
       }
       .exists(t => t.namespaced == namespaced)
   private def hasPut(endpoints: Set[EndpointType], namespaced: Boolean): Boolean =
     endpoints
-      .collect {
-        case t: EndpointType.Put => t
+      .collect { case t: EndpointType.Put =>
+        t
       }
       .exists(t => t.namespaced == namespaced)
   private def hasPutStatus(endpoints: Set[EndpointType], namespaced: Boolean): Boolean =
     endpoints
-      .collect {
-        case t: EndpointType.PutStatus => t
+      .collect { case t: EndpointType.PutStatus =>
+        t
       }
       .exists(t => t.namespaced == namespaced)
   private def hasDelete(endpoints: Set[EndpointType], namespaced: Boolean): Boolean =
     endpoints
-      .collect {
-        case t: EndpointType.Delete => t
+      .collect { case t: EndpointType.Delete =>
+        t
       }
       .exists(t => t.namespaced == namespaced)
 

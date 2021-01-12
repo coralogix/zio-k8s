@@ -14,19 +14,18 @@ sealed trait Identified {
     definitions: Map[String, IdentifiedSchema],
     alreadyProcessed: Set[String]
   ): Set[String] =
-    flatRefs.foldLeft(Set.empty[String]) {
-      case (result, ref) =>
-        val name = ref.drop("#/components/schemas/".length)
-        if (!alreadyProcessed.contains(name))
-          definitions.get(name) match {
-            case Some(idef) =>
-              (result + name) union idef.deepRefs(definitions, result + name)
-            case None =>
-              println(s"!!! Cannot find reference $ref")
-              result
-          }
-        else
-          result
+    flatRefs.foldLeft(Set.empty[String]) { case (result, ref) =>
+      val name = ref.drop("#/components/schemas/".length)
+      if (!alreadyProcessed.contains(name))
+        definitions.get(name) match {
+          case Some(idef) =>
+            (result + name) union idef.deepRefs(definitions, result + name)
+          case None =>
+            println(s"!!! Cannot find reference $ref")
+            result
+        }
+      else
+        result
     }
 }
 
@@ -75,12 +74,11 @@ object IdentifiedSchema {
       extensions <- Option(schema.getExtensions)
       descs      <- extensions.asScala.get("x-kubernetes-group-version-kind")
       descsArray <- Try(descs.asInstanceOf[util.ArrayList[_]]).toOption
-      result = descsArray.asScala.foldLeft(Set.empty[IdentifiedSchema]) {
-                 case (result, desc) =>
-                   result + identifyOne(
-                     schema,
-                     desc.asInstanceOf[util.LinkedHashMap[String, Object]].asScala.toMap
-                   )
+      result = descsArray.asScala.foldLeft(Set.empty[IdentifiedSchema]) { case (result, desc) =>
+                 result + identifyOne(
+                   schema,
+                   desc.asInstanceOf[util.LinkedHashMap[String, Object]].asScala.toMap
+                 )
                }
     } yield result).getOrElse(Set(Regular(name, schema)))
   }

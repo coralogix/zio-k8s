@@ -76,16 +76,15 @@ trait ModelGenerator {
               val props = properties
                 .filterKeys(filterKeysOf(d))
                 .toList
-                .map {
-                  case (name, propSchema) =>
-                    val isRequired = requiredProperties.contains(name)
-                    val propT = toType(name, propSchema)
+                .map { case (name, propSchema) =>
+                  val isRequired = requiredProperties.contains(name)
+                  val propT = toType(name, propSchema)
 
-                    val nameN = Name(name)
-                    if (isRequired)
-                      param"""$nameN: $propT"""
-                    else
-                      param"""$nameN: Option[$propT] = None"""
+                  val nameN = Name(name)
+                  if (isRequired)
+                    param"""$nameN: $propT"""
+                  else
+                    param"""$nameN: Option[$propT] = None"""
                 }
 
               val classDef =
@@ -116,9 +115,8 @@ trait ModelGenerator {
               val encoder = {
                 val baseJsonFields = properties
                   .filterKeys(filterKeysOf(d))
-                  .map {
-                    case (k, _) =>
-                      q"""${Lit.String(k)} := value.${Term.Name(k)}"""
+                  .map { case (k, _) =>
+                    q"""${Lit.String(k)} := value.${Term.Name(k)}"""
                   }
                   .toList
 
@@ -141,17 +139,16 @@ trait ModelGenerator {
               val decoder = if (props.size > 22) {
                 val propDecoders = properties
                   .filterKeys(filterKeysOf(d))
-                  .map {
-                    case (k, propSchema) =>
-                      val isRequired = requiredProperties.contains(k)
-                      val propT =
-                        if (isRequired)
-                          toType(k, propSchema)
-                        else
-                          t"Option[${toType(k, propSchema)}]"
+                  .map { case (k, propSchema) =>
+                    val isRequired = requiredProperties.contains(k)
+                    val propT =
+                      if (isRequired)
+                        toType(k, propSchema)
+                      else
+                        t"Option[${toType(k, propSchema)}]"
 
-                      val fieldLit = Lit.String(k)
-                      enumerator"${Pat.Var(Term.Name(k))} <- cursor.downField($fieldLit).as[$propT]"
+                    val fieldLit = Lit.String(k)
+                    enumerator"${Pat.Var(Term.Name(k))} <- cursor.downField($fieldLit).as[$propT]"
                   }
                   .toList
                 val propTerms = properties.map { case (k, _) => Term.Name(k) }.toList
@@ -300,13 +297,12 @@ trait ModelGenerator {
 
           val list = properties
             .filterKeys(filterKeysOf(d))
-            .map {
-              case (name, propSchema) =>
-                val desc = Option(propSchema.getDescription)
-                  .getOrElse("")
-                  .replace("/*", "&#47;*")
-                  .replace("*/", "*&#47;")
-                s"  * @param $name $desc"
+            .map { case (name, propSchema) =>
+              val desc = Option(propSchema.getDescription)
+                .getOrElse("")
+                .replace("/*", "&#47;*")
+                .replace("*/", "*&#47;")
+              s"  * @param $name $desc"
             }
             .mkString("\n")
 

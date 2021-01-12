@@ -26,8 +26,8 @@ object K8sFailure {
     implicit class K8sZIOSyntax[R, A](val f: ZIO[R, K8sFailure, A]) {
       def ifFound: ZIO[R, K8sFailure, Option[A]] =
         f.map(Some.apply)
-          .catchSome {
-            case NotFound => ZIO.none
+          .catchSome { case NotFound =>
+            ZIO.none
           }
     }
   }
