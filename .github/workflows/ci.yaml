@@ -10,6 +10,11 @@ on:
       - '**:**'
 jobs:
   tests:
+    strategy:
+      matrix:
+        scala:
+          - 2.12.12
+          - 2.13.4
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -22,7 +27,7 @@ jobs:
         uses: coursier/cache-action@v5
       - name: Build and test
         run: |
-          sbt clean scalafmtCheckAll test
+          sbt ++${{ matrix.scala }} clean scalafmtCheckAll test
 
           rm -rf "$HOME/.ivy2/local" || true
           find $HOME/Library/Caches/Coursier/v1        -name "ivydata-*.properties" -delete || true
