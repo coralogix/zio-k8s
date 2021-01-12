@@ -39,8 +39,8 @@ object GuardrailModelGenerator {
       new CoreTermInterp[ScalaLanguage](
         "zio-k8s",
         ScalaModule.extract,
-        {
-          case "zio-k8s" => new ZioK8s
+        { case "zio-k8s" =>
+          new ZioK8s
         },
         _.parse[Importer].toEither.bimap(
           err => UnparseableArgument("import", err.toString),

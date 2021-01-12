@@ -17,8 +17,7 @@ import zio.duration.durationInt
 import zio.logging.{ log, Logging }
 import zio.stream.ZStream
 
-/**
-  * Core implementation of the operator logic.
+/** Core implementation of the operator logic.
   * Watches a stream and calls an event processor.
   *
   * An instance of this is tied to one particular resource type in one namespace.
@@ -34,8 +33,7 @@ trait Operator[R, E, T <: Object] {
   implicit def toThrowable: ConvertableToThrowable[E] =
     (error: E) => new RuntimeException(s"Operator failure: $error")
 
-  /**
-    * Starts the operator on a forked fiber
+  /** Starts the operator on a forked fiber
     */
   def start(): URIO[R with Clock with Logging, Fiber.Runtime[Nothing, Unit]] =
     watchStream()

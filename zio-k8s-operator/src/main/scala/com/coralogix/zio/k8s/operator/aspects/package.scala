@@ -7,8 +7,7 @@ import zio.logging.{ log, Logging }
 
 package object aspects {
 
-  /**
-    * Logs each watch event and event processor failures
+  /** Logs each watch event and event processor failures
     */
   def logEvents[T <: Object, E]: Aspect[Logging, OperatorFailure[E], T] =
     new Aspect[Logging, Nothing, T] {
