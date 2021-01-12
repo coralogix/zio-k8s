@@ -20,10 +20,10 @@ import scala.collection.JavaConverters._
 
 object K8sResourceCodegen extends ModelGenerator with ClientModuleGenerator {
 
-  def generateAll(targetDir: Path, log: Logger): ZIO[Blocking, Throwable, Seq[File]] =
+  def generateAll(log: Logger, from: Path, targetDir: Path): ZIO[Blocking, Throwable, Seq[File]] =
     for {
       // Loading
-      spec     <- loadK8sSwagger(log)
+      spec     <- loadK8sSwagger(log, from)
       scalafmt <- ZIO.effect(Scalafmt.create(this.getClass.getClassLoader))
 
       // Identifying
@@ -43,24 +43,25 @@ object K8sResourceCodegen extends ModelGenerator with ClientModuleGenerator {
       modelPaths   <- generateAllModels(scalafmt, log, targetDir, definitions)
     } yield (packagePaths union modelPaths).map(_.toFile).toSeq
 
-  private def loadK8sSwagger(log: Logger): Task[OpenAPI] =
-    Task.effect {
-      log.info("Loading k8s-swagger.json")
-      val stream = classOf[ClientModuleGenerator].getResourceAsStream("/k8s-swagger.json")
-      val rawJson = new String(stream.readAllBytes(), StandardCharsets.UTF_8)
+  private def loadK8sSwagger(log: Logger, from: Path): ZIO[Blocking, Throwable, OpenAPI] =
+    Task.effect(log.info("Loading k8s-swagger.json")) *>
+    Files.readAllBytes(from).flatMap { bytes =>
+      Task.effect {
+        val rawJson = new String(bytes.toArray[Byte], StandardCharsets.UTF_8)
 
-      val parser = new OpenAPIParser
-      val opts = new ParseOptions()
-      opts.setResolve(true)
-      val parserResult = parser.readContents(rawJson, List.empty.asJava, opts)
+        val parser = new OpenAPIParser
+        val opts = new ParseOptions()
+        opts.setResolve(true)
+        val parserResult = parser.readContents(rawJson, List.empty.asJava, opts)
 
-      Option(parserResult.getMessages).foreach { messages =>
-        messages.asScala.foreach(println)
-      }
+        Option(parserResult.getMessages).foreach { messages =>
+          messages.asScala.foreach(println)
+        }
 
-      Option(parserResult.getOpenAPI) match {
-        case Some(spec) => spec
-        case None       => throw new RuntimeException(s"Failed to parse k8s swagger specs")
+        Option(parserResult.getOpenAPI) match {
+          case Some(spec) => spec
+          case None => throw new RuntimeException(s"Failed to parse k8s swagger specs")
+        }
       }
     }
 
