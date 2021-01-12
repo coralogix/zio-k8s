@@ -9,7 +9,7 @@ import zio.{ Chunk, ZIO }
 
 import java.io.IOException
 import java.nio.charset.StandardCharsets
-import java.nio.file.{ Path => JPath }
+import java.nio.file.{ Paths => JPaths, Path => JPath }
 
 object CodegenIO {
 
@@ -28,7 +28,7 @@ object CodegenIO {
   def format(scalafmt: Scalafmt, path: Path) =
     for {
       code <- readTextFile(path)
-      formatted = scalafmt.format(JPath.of(".scalafmt.conf"), path.toFile.toPath, code)
+      formatted = scalafmt.format(JPaths.get(".scalafmt.conf"), path.toFile.toPath, code)
       _ <- writeTextFile(path, formatted)
     } yield path
 
