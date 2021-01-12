@@ -44,11 +44,6 @@ object K8sResourceCodegenPlugin extends AutoPlugin {
   override def projectSettings: Seq[Def.Setting[_]] =
     Seq(
       Compile / sourceGenerators += generateSources.taskValue,
-      mappings in (Compile, packageSrc) ++= {
-        val base = (sourceManaged in Compile).value
-        val files = (managedSources in Compile).value
-        files.map(f => (f, f.relativeTo(base).get.getPath))
-      },
       k8sVersion    := "v1.20.1",
       getK8sSwagger := getK8sSwaggerTask.value
     )

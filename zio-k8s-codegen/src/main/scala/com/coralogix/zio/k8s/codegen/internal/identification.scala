@@ -137,10 +137,7 @@ case class IdentifiedAction(
   method: PathItem.HttpMethod,
   op: Operation,
   outerParameters: List[Parameter]
-) extends IdentifiedPath {
-  override def toString: String =
-    s"$method ($action)"
-}
+) extends IdentifiedPath
 
 object IdentifiedPath {
 

@@ -4,14 +4,32 @@ val scala213Version = "2.13.4"
 
 val zioVersion = "1.0.3"
 
+inThisBuild(
+  List(
+    organization := "com.coralogix",
+    homepage     := Some(url("https://github.com/coralogix/zio-k8s")),
+    licenses     := List("Apache-2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0")),
+    developers := List(
+      Developer(
+        "vigoo",
+        "Daniel Vigovszky",
+        "daniel.vigovszky@gmail.com",
+        url("https://www.coralogix.com")
+      )
+    )
+  )
+)
+
 val commonSettings = Seq(
   organization       := "com.coralogix",
-  version            := "0.1",
   scalaVersion       := scala212Version,
   crossScalaVersions := List(scala212Version, scala213Version)
 )
 
 lazy val root = Project("zio-k8s", file("."))
+  .settings(
+    publish / skip := true
+  )
   .aggregate(
     client,
     crd,
@@ -36,7 +54,16 @@ lazy val client = Project("zio-k8s-client", file("zio-k8s-client"))
       "dev.zio"                       %% "zio-test"               % zioVersion % Test,
       "dev.zio"                       %% "zio-test-sbt"           % zioVersion % Test
     ),
-    testFrameworks += new TestFramework("zio.test.sbt.ZTestFramework")
+    testFrameworks += new TestFramework("zio.test.sbt.ZTestFramework"),
+
+    mappings in (Compile, packageSrc) ++= {
+      val base = (sourceManaged in Compile).value
+      val files = (managedSources in Compile).value
+      files.map { f =>
+        println(s"$f -> $base")
+        (f, f.relativeTo(base).get.getPath)
+      }
+    },
   )
   .enablePlugins(K8sResourceCodegenPlugin)
 
@@ -45,6 +72,7 @@ lazy val crd = Project("zio-k8s-crd", file("zio-k8s-crd"))
   .settings(
     sbtPlugin    := true,
     scalaVersion := "2.12.12",
+    crossVersion := CrossVersion.disabled,
     Compile / unmanagedSourceDirectories += baseDirectory.value / "../zio-k8s-codegen/src/shared/scala",
     libraryDependencies ++= Seq(
       "dev.zio"       %% "zio"              % zioVersion,
@@ -54,7 +82,19 @@ lazy val crd = Project("zio-k8s-crd", file("zio-k8s-crd"))
       "dev.zio"       %% "zio-test"         % zioVersion % Test,
       "dev.zio"       %% "zio-test-sbt"     % zioVersion % Test
     ),
-    testFrameworks += new TestFramework("zio.test.sbt.ZTestFramework")
+    testFrameworks += new TestFramework("zio.test.sbt.ZTestFramework"),
+    compile / skip := {
+      CrossVersion.partialVersion(scalaVersion.value) match {
+        case Some((2, 12)) => false
+        case _             => true
+      }
+    },
+    publish / skip := {
+      CrossVersion.partialVersion(scalaVersion.value) match {
+        case Some((2, 12)) => false
+        case _             => true
+      }
+    }
   )
   .dependsOn(client)
 

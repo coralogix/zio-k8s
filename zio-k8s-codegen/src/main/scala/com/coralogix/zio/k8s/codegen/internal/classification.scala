@@ -39,9 +39,7 @@ object ClassifiedResource {
                 classification match {
                   case c: SupportedResource =>
                     Set(c)
-                  case c: UnsupportedResource =>
-                    println(s"Unsupported: ${c.group}/${c.kind}/${c.version}")
-                    println(actions.map(s => " - " + s.toString).mkString("\n"))
+                  case _: UnsupportedResource =>
                     Set.empty[SupportedResource]
                 }
             }
