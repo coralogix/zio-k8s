@@ -1,0 +1,31 @@
+name: CI
+on:
+  push:
+  pull_request:
+    branches:
+      # Branches from forks have the form 'user:branch-name' so we only run
+      # this job on pull_request events for branches that look like fork
+      # branches. Without this we would end up running this job twice for non
+      # forked PRs, once for the push and then once for opening the PR.
+      - '**:**'
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup Scala
+        uses: olafurpg/setup-scala@v10
+        with:
+          java-version: "adopt@1.11"
+      - name: Coursier cache
+        uses: coursier/cache-action@v5
+      - name: Build and test
+        run: |
+          sbt clean scalafmtCheckAll test
+
+          rm -rf "$HOME/.ivy2/local" || true
+          find $HOME/Library/Caches/Coursier/v1        -name "ivydata-*.properties" -delete || true
+          find $HOME/.ivy2/cache                       -name "ivydata-*.properties" -delete || true
+          find $HOME/.cache/coursier/v1                -name "ivydata-*.properties" -delete || true
+          find $HOME/.sbt
