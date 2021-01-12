@@ -26,7 +26,7 @@ lazy val client = Project("zio-k8s-client", file("zio-k8s-client"))
       "dev.zio"                       %% "zio-streams"            % zioVersion,
       "dev.zio"                       %% "zio-config"             % "1.0.0-RC30-1",
       "dev.zio"                       %% "zio-config-magnolia"    % "1.0.0-RC30-1",
-      "dev.zio"                       %% "zio-logging"            % "0.5.3",
+      "dev.zio"                       %% "zio-logging"            % "0.5.4",
       "com.softwaremill.sttp.client3" %% "httpclient-backend-zio" % "3.0.0-RC10",
       "com.softwaremill.sttp.client3" %% "slf4j-backend"          % "3.0.0-RC10",
       "com.softwaremill.sttp.client3" %% "circe"                  % "3.0.0-RC10",
