@@ -9,8 +9,7 @@ package object internal {
   implicit class ZStreamOps[R, E, O](self: ZStream[R, E, O]) {
 
     // TODO: this will be part of next ZIO release
-    /**
-      * When the stream fails, retry it according to the given schedule
+    /** When the stream fails, retry it according to the given schedule
       *
       * This retries the entire stream, so will re-execute all of the stream's acquire operations.
       *
@@ -28,18 +27,17 @@ package object internal {
           _            <- switchStream(self.process).flatMap(currStream.set).toManaged_
           pull = {
             def loop: ZIO[R1 with Clock, Option[E], Chunk[O]] =
-              currStream.get.flatten.catchSome {
-                case Some(e) =>
-                  driver
-                    .next(e)
-                    .foldM(
-                      // Failure of the schedule indicates it doesn't accept the input
-                      _ => ZIO.fail(Some(e)),
-                      _ =>
-                        switchStream(self.process).flatMap(currStream.set) *>
-                          // Reset the schedule to its initial state when a chunk is successfully pulled
-                          loop.tap(_ => driver.reset)
-                    )
+              currStream.get.flatten.catchSome { case Some(e) =>
+                driver
+                  .next(e)
+                  .foldM(
+                    // Failure of the schedule indicates it doesn't accept the input
+                    _ => ZIO.fail(Some(e)),
+                    _ =>
+                      switchStream(self.process).flatMap(currStream.set) *>
+                        // Reset the schedule to its initial state when a chunk is successfully pulled
+                        loop.tap(_ => driver.reset)
+                  )
               }
 
             loop

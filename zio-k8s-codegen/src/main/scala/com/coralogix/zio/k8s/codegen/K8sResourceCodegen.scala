@@ -12,7 +12,7 @@ import com.coralogix.zio.k8s.codegen.internal.Conversions._
 import com.coralogix.zio.k8s.codegen.internal.CodegenIO._
 import zio.nio.core.file.Path
 import zio.nio.file.Files
-import zio.{Task, ZIO}
+import zio.{ Task, ZIO }
 
 import java.io.File
 import java.nio.charset.StandardCharsets
@@ -45,46 +45,46 @@ object K8sResourceCodegen extends ModelGenerator with ClientModuleGenerator {
 
   private def loadK8sSwagger(log: Logger, from: Path): ZIO[Blocking, Throwable, OpenAPI] =
     Task.effect(log.info("Loading k8s-swagger.json")) *>
-    Files.readAllBytes(from).flatMap { bytes =>
-      Task.effect {
-        val rawJson = new String(bytes.toArray[Byte], StandardCharsets.UTF_8)
+      Files.readAllBytes(from).flatMap { bytes =>
+        Task.effect {
+          val rawJson = new String(bytes.toArray[Byte], StandardCharsets.UTF_8)
 
-        val parser = new OpenAPIParser
-        val opts = new ParseOptions()
-        opts.setResolve(true)
-        val parserResult = parser.readContents(rawJson, List.empty.asJava, opts)
+          val parser = new OpenAPIParser
+          val opts = new ParseOptions()
+          opts.setResolve(true)
+          val parserResult = parser.readContents(rawJson, List.empty.asJava, opts)
 
-        Option(parserResult.getMessages).foreach { messages =>
-          messages.asScala.foreach(println)
-        }
+          Option(parserResult.getMessages).foreach { messages =>
+            messages.asScala.foreach(println)
+          }
 
-        Option(parserResult.getOpenAPI) match {
-          case Some(spec) => spec
-          case None => throw new RuntimeException(s"Failed to parse k8s swagger specs")
+          Option(parserResult.getOpenAPI) match {
+            case Some(spec) => spec
+            case None       => throw new RuntimeException(s"Failed to parse k8s swagger specs")
+          }
         }
       }
-    }
 
   private val clientRoot = Vector("com", "coralogix", "zio", "k8s", "client")
 
   def generateAllPackages(
-                           scalafmt: Scalafmt,
-                           log: Logger,
-                           targetRoot: Path,
-                           definitionMap: Map[String, IdentifiedSchema],
-                           resources: Set[SupportedResource]
-                         ): ZIO[Blocking, Throwable, Set[Path]] =
+    scalafmt: Scalafmt,
+    log: Logger,
+    targetRoot: Path,
+    definitionMap: Map[String, IdentifiedSchema],
+    resources: Set[SupportedResource]
+  ): ZIO[Blocking, Throwable, Set[Path]] =
     ZIO.foreach(resources) { resource =>
       generatePackage(scalafmt, log, targetRoot, definitionMap, resource)
     }
 
   private def generatePackage(
-                               scalafmt: Scalafmt,
-                               log: Logger,
-                               targetRoot: Path,
-                               definitionMap: Map[String, IdentifiedSchema],
-                               resource: SupportedResource
-                             ) =
+    scalafmt: Scalafmt,
+    log: Logger,
+    targetRoot: Path,
+    definitionMap: Map[String, IdentifiedSchema],
+    resource: SupportedResource
+  ) =
     for {
       _ <- ZIO.effect(log.info(s"Generating package code for ${resource.id}"))
 
@@ -94,18 +94,19 @@ object K8sResourceCodegen extends ModelGenerator with ClientModuleGenerator {
       (entityPkg, entity) = splitName(resource.modelName)
 
       src <- generateModuleCode(
-        basePackageName = clientRoot.mkString("."),
-        modelPackageName = "com.coralogix.zio.k8s.model." + entityPkg.mkString("."),
-        name = resource.plural,
-        entity = entity,
-        statusEntity =
-          findStatusEntity(definitionMap, resource.modelName).map(s => s"com.coralogix.zio.k8s.model.$s"),
-        group = resource.group,
-        kind = resource.kind,
-        version = resource.version,
-        isNamespaced = resource.namespaced,
-        None
-      )
+               basePackageName = clientRoot.mkString("."),
+               modelPackageName = "com.coralogix.zio.k8s.model." + entityPkg.mkString("."),
+               name = resource.plural,
+               entity = entity,
+               statusEntity = findStatusEntity(definitionMap, resource.modelName).map(s =>
+                 s"com.coralogix.zio.k8s.model.$s"
+               ),
+               group = resource.group,
+               kind = resource.kind,
+               version = resource.version,
+               isNamespaced = resource.namespaced,
+               None
+             )
       targetDir = pkg.foldLeft(targetRoot)(_ / _)
       _ <- Files.createDirectories(targetDir)
       targetPath = targetDir / "package.scala"
@@ -114,9 +115,9 @@ object K8sResourceCodegen extends ModelGenerator with ClientModuleGenerator {
     } yield targetPath
 
   protected def findStatusEntity(
-                                  definitions: Map[String, IdentifiedSchema],
-                                  modelName: String
-                                ): Option[String] = {
+    definitions: Map[String, IdentifiedSchema],
+    modelName: String
+  ): Option[String] = {
     val modelSchema = definitions(modelName).schema.asInstanceOf[ObjectSchema]
     for {
       properties       <- Option(modelSchema.getProperties)
