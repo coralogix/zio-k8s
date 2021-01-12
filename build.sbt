@@ -32,7 +32,7 @@ lazy val client = Project("zio-k8s-client", file("zio-k8s-client"))
       "com.softwaremill.sttp.client3" %% "circe"                  % "3.0.0-RC10",
       "io.circe"                      %% "circe-core"             % "0.13.0",
       "io.circe"                      %% "circe-parser"           % "0.13.0",
-      "io.circe"                      %% "circe-yaml"             % "0.13.0",
+      "io.circe"                      %% "circe-yaml"             % "0.13.1",
       "dev.zio"                       %% "zio-test"               % zioVersion % Test,
       "dev.zio"                       %% "zio-test-sbt"           % zioVersion % Test
     ),
