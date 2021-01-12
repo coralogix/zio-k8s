@@ -1,23 +1,20 @@
-package com.coralogix.operator.logic
+package com.coralogix.zio.k8s.operator
 
-import zio.k8s.client.model.{ Added, Deleted, Modified, Object, Reseted }
-import com.coralogix.operator.logging.OperatorLogging
-import com.coralogix.operator.logic.Operator._
-import com.coralogix.operator.monitoring.OperatorMetrics
+import com.coralogix.zio.k8s.client.model.{Added, Deleted, Modified, Object, Reseted}
+import com.coralogix.zio.k8s.operator.Operator.{Aspect, _}
 import zio.Cause
-import zio.clock.Clock
-import zio.logging.{ log, Logging }
+import zio.logging.{Logging, log}
 
 package object aspects {
 
   /**
     * Logs each watch event and event processor failures
     */
-  def logEvents[T <: Object]: Aspect[Logging, T] =
-    new Aspect[Logging, T] {
-      override def apply[R1 <: Logging](
-        f: EventProcessor[R1, T]
-      ): EventProcessor[R1, T] =
+  def logEvents[T <: Object, E]: Aspect[Logging, OperatorFailure[E], T] =
+    new Aspect[Logging, Nothing, T] {
+      override def apply[R1 <: Logging, E1 >: Nothing](
+        f: EventProcessor[R1, E1, T]
+      ): EventProcessor[R1, E1, T] =
         (ctx, event) =>
           log.locally(OperatorLogging(ctx.withSpecificNamespace(event.namespace))) {
             (event match {
@@ -45,38 +42,4 @@ package object aspects {
             }
           }
     }
-
-  /**
-    * Measures execution time and occurrence per event type
-    *
-    * @param operatorMetrics Pre-created shared Prometheus metric objects
-    */
-  def metered[T <: Object](
-    operatorMetrics: OperatorMetrics
-  ): Aspect[Clock, T] =
-    new Aspect[Clock, T] {
-      override def apply[R1 <: Clock](
-        f: EventProcessor[R1, T]
-      ): EventProcessor[R1, T] =
-        (ctx, event) => {
-          val labels = OperatorMetrics.labels(
-            event,
-            ctx.resourceType.resourceType,
-            ctx.namespace.orElse(event.namespace)
-          )
-
-          operatorMetrics.eventCounter.inc(labels).ignore *>
-            f(ctx, event).timed.flatMap {
-              case (duration, result) =>
-                operatorMetrics.eventProcessingTime
-                  .observe(
-                    duration.toMillis.toDouble / 1000.0,
-                    labels
-                  )
-                  .ignore
-                  .as(result)
-            }
-        }
-    }
-
 }

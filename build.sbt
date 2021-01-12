@@ -26,6 +26,7 @@ lazy val client = Project("zio-k8s-client", file("zio-k8s-client"))
       "dev.zio"                       %% "zio-streams"            % zioVersion,
       "dev.zio"                       %% "zio-config"             % "1.0.0-RC30-1",
       "dev.zio"                       %% "zio-config-magnolia"    % "1.0.0-RC30-1",
+      "dev.zio"                       %% "zio-logging"            % "0.5.3",
       "com.softwaremill.sttp.client3" %% "httpclient-backend-zio" % "3.0.0-RC10",
       "com.softwaremill.sttp.client3" %% "slf4j-backend"          % "3.0.0-RC10",
       "com.softwaremill.sttp.client3" %% "circe"                  % "3.0.0-RC10",
@@ -44,11 +45,14 @@ lazy val crd = Project("zio-k8s-crd", file("zio-k8s-crd"))
   .settings(
     sbtPlugin    := true,
     scalaVersion := "2.12.12",
+    Compile / unmanagedSourceDirectories += baseDirectory.value / "../zio-k8s-codegen/src/shared/scala",
     libraryDependencies ++= Seq(
-      "dev.zio" %% "zio"          % zioVersion,
-      "dev.zio" %% "zio-streams"  % zioVersion,
-      "dev.zio" %% "zio-test"     % zioVersion % Test,
-      "dev.zio" %% "zio-test-sbt" % zioVersion % Test
+      "dev.zio"       %% "zio"              % zioVersion,
+      "dev.zio"       %% "zio-streams"      % zioVersion,
+      "com.twilio"    %% "guardrail"        % "0.61.0",
+      "org.scalameta" %% "scalafmt-dynamic" % "2.7.5",
+      "dev.zio"       %% "zio-test"         % zioVersion % Test,
+      "dev.zio"       %% "zio-test-sbt"     % zioVersion % Test
     ),
     testFrameworks += new TestFramework("zio.test.sbt.ZTestFramework")
   )

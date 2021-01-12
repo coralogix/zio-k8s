@@ -1,28 +1,16 @@
-package com.coralogix.operator.logic
+package com.coralogix.zio.k8s.operator
 
-import zio.k8s.client.internal.CircePrettyFailure
-import zio.k8s.client.UndefinedField
-import com.coralogix.operator.logging.ConvertableToThrowable
-import zio.k8s.client.{
-  DecodedFailure,
-  DeserializationFailure,
-  Gone,
-  HttpFailure,
-  InvalidEvent,
-  K8sFailure,
-  NotFound,
-  RequestFailure,
-  Unauthorized,
-  UndefinedField
-}
+import com.coralogix.zio.k8s.client.internal.CircePrettyFailure
+import com.coralogix.zio.k8s.client._
+import com.coralogix.zio.k8s.operator.OperatorLogging.ConvertableToThrowable
 
-sealed trait OperatorFailure
-case class KubernetesFailure(failure: K8sFailure) extends OperatorFailure
-case class GrpcFailure(status: io.grpc.Status) extends OperatorFailure
-case class UndefinedGrpcField(name: String) extends OperatorFailure
+sealed trait OperatorFailure[+E]
+case class KubernetesFailure(failure: K8sFailure) extends OperatorFailure[Nothing]
+case class OperatorError[E](error: E) extends OperatorFailure[E]
 
 object OperatorFailure {
-  implicit val toThrowable: ConvertableToThrowable[OperatorFailure] = {
+  implicit def toThrowable[E: ConvertableToThrowable]
+    : ConvertableToThrowable[OperatorFailure[E]] = {
     case KubernetesFailure(failure) =>
       failure match {
         case Unauthorized(message) =>
@@ -46,9 +34,7 @@ object OperatorFailure {
         case NotFound =>
           new RuntimeException(s"Not found")
       }
-    case GrpcFailure(status) =>
-      status.asException()
-    case UndefinedGrpcField(fieldName) =>
-      new RuntimeException(s"Undefined field in gRPC data: $fieldName")
+    case OperatorError(error) =>
+      implicitly[ConvertableToThrowable[E]].toThrowable(error)
   }
 }
