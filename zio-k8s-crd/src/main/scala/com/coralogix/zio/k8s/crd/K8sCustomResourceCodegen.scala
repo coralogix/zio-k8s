@@ -15,17 +15,17 @@ import zio.blocking.Blocking
 import zio.nio.core.file.Path
 import zio.nio.file.Files
 import zio.stream.ZStream
-import zio.{Chunk, Task, ZIO}
+import zio.{ Chunk, Task, ZIO }
 
 import java.io.File
 import java.nio.file.StandardCopyOption
 
 object K8sCustomResourceCodegen extends ClientModuleGenerator {
   def generateCustomResourceModuleCode(
-                                        crd: CustomResourceDefinition,
-                                        version: String,
-                                        yamlPath: Path
-                                      ): Task[String] = {
+    crd: CustomResourceDefinition,
+    version: String,
+    yamlPath: Path
+  ): Task[String] = {
     val entityName = crd.spec.names.singular.getOrElse(crd.spec.names.plural)
     val moduleName = crd.spec.names.plural
     generateModuleCode(
@@ -48,7 +48,6 @@ object K8sCustomResourceCodegen extends ClientModuleGenerator {
       Some(yamlPath)
     )
   }
-
 
   private def adjustSchema(schema: JSONSchemaProps): JSONSchemaProps =
     schema.copy(properties = schema.properties.map { props =>
@@ -76,23 +75,28 @@ object K8sCustomResourceCodegen extends ClientModuleGenerator {
       case Some(originalSchema) =>
         val schema = adjustSchema(originalSchema)
         val schemaFragment = schema.asJson.deepDropNullValues
-        val basePackage = (Vector("com", "coralogix", "zio", "k8s", "client") ++ Conversions.groupNameToPackageName(crd.spec.group))
+        val basePackage =
+          (Vector("com", "coralogix", "zio", "k8s", "client") ++ Conversions.groupNameToPackageName(
+            crd.spec.group
+          ))
         for {
           generatedModels <- GuardrailModelGenerator.generateModelFiles(
-            K8sCodegenContext(
-              crd.spec.names.kind,
-              crd.spec.group,
-              version.name
-            ),
-            basePackage.toList,
-            useContextForSubPackage = true,
-            outputRoot,
-            entityName,
-            entityName -> schemaFragment
-          )
+                               K8sCodegenContext(
+                                 crd.spec.names.kind,
+                                 crd.spec.group,
+                                 version.name
+                               ),
+                               basePackage.toList,
+                               useContextForSubPackage = true,
+                               outputRoot,
+                               entityName,
+                               entityName -> schemaFragment
+                             )
 
-          crdModule <- generateCustomResourceModuleCode(crd, version.name, Path("crds") / yamlPath.filename)
-          modulePathComponents = (basePackage ++ Vector(pluralName, version.name, "package.scala")).map(s => Path(s))
+          crdModule <-
+            generateCustomResourceModuleCode(crd, version.name, Path("crds") / yamlPath.filename)
+          modulePathComponents =
+            (basePackage ++ Vector(pluralName, version.name, "package.scala")).map(s => Path(s))
           modulePath = modulePathComponents.foldLeft(outputRoot)(_ / _)
           _ <- Files.createDirectories(modulePath.parent.get)
           _ <- writeTextFile(modulePath, crdModule)

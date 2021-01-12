@@ -1,8 +1,8 @@
 package com.coralogix.zio.k8s.client.model
 
-import com.coralogix.zio.k8s.client.{K8sFailure, UndefinedField}
+import com.coralogix.zio.k8s.client.{ K8sFailure, UndefinedField }
 import com.coralogix.zio.k8s.model.pkg.apis.meta.v1.ObjectMeta
-import zio.{IO, ZIO}
+import zio.{ IO, ZIO }
 
 /** Object of a Kubernetes resource */
 trait Object {

@@ -4,12 +4,12 @@ import _root_.io.circe._
 import _root_.io.circe.parser._
 import _root_.io.circe.syntax._
 import com.coralogix.zio.k8s.client.model._
-import com.coralogix.zio.k8s.model.pkg.apis.meta.v1.{DeleteOptions, Status, WatchEvent}
+import com.coralogix.zio.k8s.model.pkg.apis.meta.v1.{ DeleteOptions, Status, WatchEvent }
 import sttp.capabilities.zio.ZioStreams
 import sttp.client3._
 import sttp.client3.circe._
 import sttp.client3.httpclient.zio._
-import sttp.model.{StatusCode, Uri}
+import sttp.model.{ StatusCode, Uri }
 import zio._
 import zio.clock.Clock
 import zio.config.ZConfig

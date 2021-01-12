@@ -1,8 +1,8 @@
 package com.coralogix.zio.k8s.client.model
 
-import com.coralogix.zio.k8s.client.{DeserializationFailure, InvalidEvent, K8sFailure}
+import com.coralogix.zio.k8s.client.{ DeserializationFailure, InvalidEvent, K8sFailure }
 import com.coralogix.zio.k8s.model.pkg.apis.meta.v1.WatchEvent
-import io.circe.{Decoder, Json}
+import io.circe.{ Decoder, Json }
 import zio.IO
 
 sealed trait TypedWatchEvent[+T] {
