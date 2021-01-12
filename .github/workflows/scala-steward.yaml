@@ -1,3 +1,4 @@
+name: Scala Steward
 on:
   schedule:
     - cron: '0 3 * * *'

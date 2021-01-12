@@ -2,7 +2,6 @@ sbtPlugin := true
 
 organization := "com.coralogix"
 name         := "zio-k8s-codegen"
-version      := "0.1"
 
 scalaVersion := "2.12.12"
 
