@@ -9,7 +9,7 @@ package object aspects {
 
   /** Logs each watch event and event processor failures
     */
-  def logEvents[T <: Object, E]: Aspect[Logging, OperatorFailure[E], T] =
+  def logEvents[T <: Object, E]: Aspect[Logging, E, T] =
     new Aspect[Logging, Nothing, T] {
       override def apply[R1 <: Logging, E1 >: Nothing](
         f: EventProcessor[R1, E1, T]
