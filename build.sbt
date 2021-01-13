@@ -60,8 +60,9 @@ lazy val client = Project("zio-k8s-client", file("zio-k8s-client"))
       val base = (sourceManaged in Compile).value
       val files = (managedSources in Compile).value
       files.map { f =>
-        println(s"$f -> $base")
-        (f, f.relativeTo(base).get.getPath)
+        (f, f.relativeTo(base).map(_.getPath))
+      }.collect {
+        case (f, Some(g)) => (f -> g)
       }
     },
   )

@@ -17,9 +17,10 @@ object K8sResourceCodegenPlugin extends AutoPlugin {
         val runtime = zio.Runtime.default
 
         val sourcesDir = (Compile / sourceManaged).value
+        val ver = scalaVersion.value
 
         val cachedFun = FileFunction.cached(
-          streams.value.cacheDirectory / "k8s-src",
+          streams.value.cacheDirectory / s"k8s-src-${ver}",
           FileInfo.hash
         ) { input: Set[File] =>
           input.foldLeft(Set.empty[File]) { (result, k8sSwagger) =>
@@ -35,6 +36,7 @@ object K8sResourceCodegenPlugin extends AutoPlugin {
         }
 
         val k8sSwagger = getK8sSwagger.value
+
         cachedFun(Set(k8sSwagger)).toSeq
       }
   }
