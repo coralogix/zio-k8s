@@ -25,17 +25,19 @@ package object model {
     name: Option[String],
     namespace: Option[K8sNamespace]
   ) extends K8sUri {
-    override def toUri(cluster: K8sCluster): Uri =
+    override def toUri(cluster: K8sCluster): Uri = {
+      val apiRoot = if (resource.group.nonEmpty) Seq("apis", resource.group) else Seq("api")
       (name, namespace) match {
         case (Some(n), Some(ns)) =>
-          uri"${cluster.host}/apis/${resource.group}/${resource.version}/namespaces/${ns.value}/${resource.resourceType}/$n"
+          uri"${cluster.host}/$apiRoot/${resource.version}/namespaces/${ns.value}/${resource.resourceType}/$n"
         case (None, Some(ns)) =>
-          uri"${cluster.host}/apis/${resource.group}/${resource.version}/namespaces/${ns.value}/${resource.resourceType}"
+          uri"${cluster.host}/$apiRoot/${resource.version}/namespaces/${ns.value}/${resource.resourceType}"
         case (Some(n), None) =>
-          uri"${cluster.host}/apis/${resource.group}/${resource.version}/${resource.resourceType}/$n"
+          uri"${cluster.host}/$apiRoot/${resource.version}/${resource.resourceType}/$n"
         case (None, None) =>
-          uri"${cluster.host}/apis/${resource.group}/${resource.version}/${resource.resourceType}"
+          uri"${cluster.host}/$apiRoot/${resource.version}/${resource.resourceType}"
       }
+    }
   }
 
   final case class K8sPaginatedUri(
@@ -83,13 +85,15 @@ package object model {
     namespace: Option[K8sNamespace],
     dryRun: Boolean
   ) extends K8sUri {
-    override def toUri(cluster: K8sCluster): Uri =
+    override def toUri(cluster: K8sCluster): Uri = {
+      val apiRoot = if (resource.group.nonEmpty) Seq("apis", resource.group) else Seq("api")
       (namespace match {
         case Some(ns) =>
-          uri"${cluster.host}/apis/${resource.group}/${resource.version}/namespaces/${ns.value}/${resource.resourceType}"
+          uri"${cluster.host}/$apiRoot/${resource.version}/namespaces/${ns.value}/${resource.resourceType}"
         case None =>
-          uri"${cluster.host}/apis/${resource.group}/${resource.version}/${resource.resourceType}"
+          uri"${cluster.host}/$apiRoot/${resource.version}/${resource.resourceType}"
       }).withParam("dryRun", if (dryRun) Some("All") else None)
+    }
   }
 
   final case class K8sWatchUri(
