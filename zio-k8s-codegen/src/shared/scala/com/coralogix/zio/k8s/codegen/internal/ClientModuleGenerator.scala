@@ -45,7 +45,11 @@ trait ClientModuleGenerator {
       val versionLit = Lit.String(version)
 
       val kindLit = Lit.String(kind)
-      val apiVersionLit = Lit.String(s"${group}/${version}")
+      val apiVersionLit =
+        if (group.isEmpty)
+          Lit.String(version)
+        else
+          Lit.String(s"${group}/${version}")
 
       val dtoPackage = modelPackageName.parse[Term].get.asInstanceOf[Term.Ref]
       val entityImport =
