@@ -5,6 +5,8 @@ import com.coralogix.zio.k8s.model.pkg.apis.meta.v1.WatchEvent
 import io.circe.{ Decoder, Json }
 import zio.IO
 
+import K8sObject._
+
 sealed trait TypedWatchEvent[+T] {
   val resourceVersion: Option[String]
   val namespace: Option[K8sNamespace]
@@ -15,19 +17,19 @@ case object Reseted extends TypedWatchEvent[Nothing] {
   override val namespace: Option[K8sNamespace] = None
 }
 
-final case class Added[T <: Object](item: T) extends TypedWatchEvent[T] {
+final case class Added[T: K8sObject](item: T) extends TypedWatchEvent[T] {
   override val resourceVersion: Option[String] = item.metadata.flatMap(_.resourceVersion)
   override val namespace: Option[K8sNamespace] =
     item.metadata.flatMap(_.namespace).map(K8sNamespace.apply)
 }
 
-final case class Modified[T <: Object](item: T) extends TypedWatchEvent[T] {
+final case class Modified[T: K8sObject](item: T) extends TypedWatchEvent[T] {
   override val resourceVersion: Option[String] = item.metadata.flatMap(_.resourceVersion)
   override val namespace: Option[K8sNamespace] =
     item.metadata.flatMap(_.namespace).map(K8sNamespace.apply)
 }
 
-final case class Deleted[T <: Object](item: T) extends TypedWatchEvent[T] {
+final case class Deleted[T: K8sObject](item: T) extends TypedWatchEvent[T] {
   override val resourceVersion: Option[String] = item.metadata.flatMap(_.resourceVersion)
   override val namespace: Option[K8sNamespace] =
     item.metadata.flatMap(_.namespace).map(K8sNamespace.apply)
@@ -38,7 +40,7 @@ object TypedWatchEvent {
     IO.fromEither(implicitly[Decoder[T]].decodeAccumulating(json.hcursor).toEither)
       .mapError(DeserializationFailure.apply)
 
-  def from[T <: Object: Decoder](
+  def from[T: K8sObject: Decoder](
     event: WatchEvent
   ): IO[K8sFailure, TypedWatchEvent[T]] =
     event.`type` match {

@@ -97,13 +97,9 @@ trait ModelGenerator {
 
                     (metadataT, metadataIsRequired) match {
                       case (Some(t), false) if t.toString == "pkg.apis.meta.v1.ObjectMeta" =>
-                        q"""case class $entityNameT(..$props)
-                          extends com.coralogix.zio.k8s.client.model.Object
-                        """
+                        q"""case class $entityNameT(..$props)"""
                       case (Some(t), true) if t.toString == "pkg.apis.meta.v1.ObjectMeta" =>
-                        q"""case class $entityNameT(..$props)
-                              extends com.coralogix.zio.k8s.client.model.Object {
-
+                        q"""case class $entityNameT(..$props) {
                               override val metadata: Option[com.coralogix.zio.k8s.model.pkg.apis.meta.v1.ObjectMeta] = Some(_metadata)
                             }
                         """
@@ -172,7 +168,7 @@ trait ModelGenerator {
                 """
               }
 
-              val transformations =
+              val k8sObject =
                 d match {
                   case Regular(name, schema) =>
                     List.empty
@@ -183,21 +179,35 @@ trait ModelGenerator {
                     (metadataT, metadataIsRequired) match {
                       case (Some(t), false) if t.toString == "pkg.apis.meta.v1.ObjectMeta" =>
                         List(
-                          q"""implicit val transformations: com.coralogix.zio.k8s.client.model.ObjectTransformations[$entityNameT] =
-                              new com.coralogix.zio.k8s.client.model.ObjectTransformations[$entityNameT] {
-                                def mapMetadata(f: pkg.apis.meta.v1.ObjectMeta => pkg.apis.meta.v1.ObjectMeta)(r: $entityNameT): $entityNameT =
-                                  r.copy(metadata = r.metadata.map(f))
+                          q"""implicit val k8sObject: com.coralogix.zio.k8s.client.model.K8sObject[$entityNameT] =
+                              new com.coralogix.zio.k8s.client.model.K8sObject[$entityNameT] {
+                                def metadata(obj: $entityNameT): Option[pkg.apis.meta.v1.ObjectMeta] =
+                                  obj.metadata
+                                def mapMetadata(f: pkg.apis.meta.v1.ObjectMeta => pkg.apis.meta.v1.ObjectMeta)(obj: $entityNameT): $entityNameT =
+                                  obj.copy(metadata = obj.metadata.map(f))
                               }
-                        """
+                        """,
+                          q"""implicit class Ops(protected val obj: $entityNameT)
+                                extends com.coralogix.zio.k8s.client.model.K8sObjectOps[$entityNameT] {
+                                protected override val impl: com.coralogix.zio.k8s.client.model.K8sObject[$entityNameT] = k8sObject
+                              }
+                           """
                         )
                       case (Some(t), true) if t.toString == "pkg.apis.meta.v1.ObjectMeta" =>
                         List(
-                          q"""implicit val transformations: com.coralogix.zio.k8s.client.model.ObjectTransformations[$entityNameT] =
-                              new com.coralogix.zio.k8s.client.model.ObjectTransformations[$entityNameT] {
-                                def mapMetadata(f: pkg.apis.meta.v1.ObjectMeta => pkg.apis.meta.v1.ObjectMeta)(r: $entityNameT): $entityNameT =
-                                  r.copy(metadata = f(r.metadata))
+                          q"""implicit val k8sObject: com.coralogix.zio.k8s.client.model.K8sObject[$entityNameT] =
+                              new com.coralogix.zio.k8s.client.model.K8sObject[$entityNameT] {
+                                def metadata(obj: $entityNameT): Option[pkg.apis.meta.v1.ObjectMeta] =
+                                  Some(obj.metadata)
+                                def mapMetadata(f: pkg.apis.meta.v1.ObjectMeta => pkg.apis.meta.v1.ObjectMeta)(obj: $entityNameT): $entityNameT =
+                                  obj.copy(metadata = f(obj.metadata))
                               }
-                        """
+                        """,
+                          q"""implicit class Ops(protected val obj: $entityNameT)
+                                extends com.coralogix.zio.k8s.client.model.K8sObjectOps[$entityNameT] {
+                                protected override val impl: com.coralogix.zio.k8s.client.model.K8sObject[$entityNameT] = k8sObject
+                              }
+                           """
                         )
                       case _ =>
                         List.empty
@@ -207,12 +217,12 @@ trait ModelGenerator {
               List(
                 classDef,
                 q"""
-                object $entityNameN {
-                  $encoder
-                  $decoder
-                  ..$transformations
-                }
-               """
+                      object $entityNameN {
+                        $encoder
+                        $decoder
+                        ..$k8sObject
+                      }
+                     """
               )
             case None =>
               q"""
