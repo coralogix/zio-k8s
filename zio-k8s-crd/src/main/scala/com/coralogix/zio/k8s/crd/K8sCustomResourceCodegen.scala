@@ -26,15 +26,16 @@ object K8sCustomResourceCodegen extends ClientModuleGenerator {
     version: String,
     yamlPath: Path
   ): Task[String] = {
-    val entityName = crd.spec.names.singular.getOrElse(crd.spec.names.plural)
+    val singular = crd.spec.names.singular.getOrElse(crd.spec.names.plural)
+    val entityName = crd.spec.names.kind
     val moduleName = crd.spec.names.plural
     generateModuleCode(
       "com.coralogix.zio.k8s.client",
       if (crd.spec.group.nonEmpty) {
         val groupPart = Conversions.groupNameToPackageName(crd.spec.group).mkString(".")
-        s"com.coralogix.zio.k8s.client.$groupPart.definitions.$entityName.$version"
+        s"com.coralogix.zio.k8s.client.$groupPart.definitions.$singular.$version"
       } else
-        s"com.coralogix.zio.k8s.client.definitions.$entityName.$version",
+        s"com.coralogix.zio.k8s.client.definitions.$singular.$version",
       moduleName,
       entityName.toPascalCase,
       crd.spec.versions
@@ -69,7 +70,8 @@ object K8sCustomResourceCodegen extends ClientModuleGenerator {
     yamlPath: Path,
     outputRoot: Path
   ): ZIO[Blocking, Throwable, List[Path]] = {
-    val entityName = crd.spec.names.singular.getOrElse(crd.spec.names.plural)
+    val singular = crd.spec.names.singular.getOrElse(crd.spec.names.plural)
+    val entityName = crd.spec.names.kind
     val pluralName = crd.spec.names.plural
     version.schema.flatMap(_.openAPIV3Schema) match {
       case Some(originalSchema) =>
@@ -89,7 +91,7 @@ object K8sCustomResourceCodegen extends ClientModuleGenerator {
                                basePackage.toList,
                                useContextForSubPackage = true,
                                outputRoot,
-                               entityName,
+                               singular,
                                entityName -> schemaFragment
                              )
 
