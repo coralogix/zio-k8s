@@ -18,7 +18,7 @@ import com.coralogix.zio.k8s.client.internal.ZStreamOps
 import com.coralogix.zio.k8s.client.model._
 import zio.stream._
 
-trait Resource[T <: Object] {
+trait Resource[T] {
   def getAll(namespace: Option[K8sNamespace], chunkSize: Int = 10): Stream[K8sFailure, T]
 
   def watch(
@@ -55,7 +55,7 @@ trait Resource[T <: Object] {
   ): IO[K8sFailure, Status]
 }
 
-trait ResourceStatus[StatusT, T <: Object] {
+trait ResourceStatus[StatusT, T] {
   def replaceStatus(
     of: T,
     updatedStatus: StatusT,
@@ -64,7 +64,7 @@ trait ResourceStatus[StatusT, T <: Object] {
   ): IO[K8sFailure, T]
 }
 
-class NamespacedResource[T <: Object](impl: Resource[T]) {
+class NamespacedResource[T](impl: Resource[T]) {
   def getAll(namespace: Option[K8sNamespace], chunkSize: Int = 10): Stream[K8sFailure, T] =
     impl.getAll(namespace, chunkSize)
 
@@ -102,7 +102,7 @@ class NamespacedResource[T <: Object](impl: Resource[T]) {
     impl.delete(name, deleteOptions, Some(namespace), dryRun)
 }
 
-class NamespacedResourceStatus[StatusT, T <: Object](impl: ResourceStatus[StatusT, T]) {
+class NamespacedResourceStatus[StatusT, T](impl: ResourceStatus[StatusT, T]) {
   def replaceStatus(
     of: T,
     updatedResource: StatusT,
@@ -112,7 +112,7 @@ class NamespacedResourceStatus[StatusT, T <: Object](impl: ResourceStatus[Status
     impl.replaceStatus(of, updatedResource, Some(namespace), dryRun)
 }
 
-class ClusterResource[T <: Object](
+class ClusterResource[T](
   impl: Resource[T]
 ) {
   def getAll(chunkSize: Int = 10): Stream[K8sFailure, T] =
@@ -145,7 +145,7 @@ class ClusterResource[T <: Object](
     impl.delete(name, deleteOptions, None, dryRun)
 }
 
-class ClusterResourceStatus[StatusT, T <: Object](impl: ResourceStatus[StatusT, T]) {
+class ClusterResourceStatus[StatusT, T](impl: ResourceStatus[StatusT, T]) {
   def replaceStatus(
     of: T,
     updatedStatus: StatusT,
@@ -217,7 +217,7 @@ trait ResourceClientBase {
 }
 
 class ResourceClient[
-  T <: Object: Encoder: Decoder
+  T: K8sObject: Encoder: Decoder
 ] private[client] (
   override protected val resourceType: K8sResourceType,
   override protected val cluster: K8sCluster,
@@ -365,11 +365,12 @@ class ResourceClient[
     }
 }
 
-class ResourceClientStatus[StatusT: Encoder, T <: Object: Encoder: Decoder] private[client] (
+class ResourceClientStatus[StatusT: Encoder, T: K8sObject: Encoder: Decoder] private[client] (
   override protected val resourceType: K8sResourceType,
   override protected val cluster: K8sCluster,
   override protected val backend: SttpClient.Service
 ) extends ResourceStatus[StatusT, T] with ResourceClientBase {
+  import K8sObject._
 
   override def replaceStatus(
     of: T,
@@ -396,7 +397,7 @@ class ResourceClientStatus[StatusT: Encoder, T <: Object: Encoder: Decoder] priv
 
 object ResourceClient {
   object namespaced {
-    def liveWithoutStatus[T <: Object: Encoder: Decoder: Tag](
+    def liveWithoutStatus[T: K8sObject: Encoder: Decoder: Tag](
       resourceType: K8sResourceType
     ): ZLayer[SttpClient with ZConfig[K8sCluster], Nothing, Has[NamespacedResource[T]]] =
       ZLayer.fromServices[SttpClient.Service, K8sCluster, NamespacedResource[T]] {
@@ -404,7 +405,7 @@ object ResourceClient {
           new NamespacedResource(new ResourceClient[T](resourceType, cluster, backend))
       }
 
-    def liveWithStatus[StatusT: Encoder: Tag, T <: Object: Encoder: Decoder: Tag](
+    def liveWithStatus[StatusT: Encoder: Tag, T: K8sObject: Encoder: Decoder: Tag](
       resourceType: K8sResourceType
     ): ZLayer[SttpClient with ZConfig[K8sCluster], Nothing, Has[
       NamespacedResourceStatus[StatusT, T]
@@ -416,39 +417,39 @@ object ResourceClient {
           )
       } ++ liveWithoutStatus(resourceType)
 
-    def getAll[T <: Object: Tag](
+    def getAll[T: Tag](
       namespace: Option[K8sNamespace],
       chunkSize: Int = 10
     ): ZStream[Has[NamespacedResource[T]], K8sFailure, T] =
       ZStream.accessStream(_.get.getAll(namespace, chunkSize))
 
-    def watch[T <: Object: Tag](
+    def watch[T: Tag](
       namespace: Option[K8sNamespace],
       resourceVersion: Option[String]
     ): ZStream[Has[NamespacedResource[T]], K8sFailure, TypedWatchEvent[T]] =
       ZStream.accessStream(_.get.watch(namespace, resourceVersion))
 
-    def watchForever[T <: Object: Tag](
+    def watchForever[T: Tag](
       namespace: Option[K8sNamespace]
     ): ZStream[Has[NamespacedResource[T]] with Clock, K8sFailure, TypedWatchEvent[
       T
     ]] =
       ZStream.accessStream(_.get.watchForever(namespace))
 
-    def get[T <: Object: Tag](
+    def get[T: Tag](
       name: String,
       namespace: K8sNamespace
     ): ZIO[Has[NamespacedResource[T]], K8sFailure, T] =
       ZIO.accessM(_.get.get(name, namespace))
 
-    def create[T <: Object: Tag](
+    def create[T: Tag](
       newResource: T,
       namespace: K8sNamespace,
       dryRun: Boolean = false
     ): ZIO[Has[NamespacedResource[T]], K8sFailure, T] =
       ZIO.accessM(_.get.create(newResource, namespace, dryRun))
 
-    def replace[T <: Object: Tag](
+    def replace[T: Tag](
       name: String,
       updatedResource: T,
       namespace: K8sNamespace,
@@ -456,7 +457,7 @@ object ResourceClient {
     ): ZIO[Has[NamespacedResource[T]], K8sFailure, T] =
       ZIO.accessM(_.get.replace(name, updatedResource, namespace, dryRun))
 
-    def replaceStatus[StatusT: Tag, T <: Object: Tag](
+    def replaceStatus[StatusT: Tag, T: Tag](
       of: T,
       updatedStatus: StatusT,
       namespace: K8sNamespace,
@@ -464,7 +465,7 @@ object ResourceClient {
     ): ZIO[Has[NamespacedResourceStatus[StatusT, T]], K8sFailure, T] =
       ZIO.accessM(_.get.replaceStatus(of, updatedStatus, namespace, dryRun))
 
-    def delete[T <: Object: Tag](
+    def delete[T: Tag](
       name: String,
       deleteOptions: DeleteOptions,
       namespace: K8sNamespace,
@@ -474,7 +475,7 @@ object ResourceClient {
   }
 
   object cluster {
-    def liveWithoutStatus[T <: Object: Encoder: Decoder: Tag](
+    def liveWithoutStatus[T: K8sObject: Encoder: Decoder: Tag](
       resourceType: K8sResourceType
     ): ZLayer[SttpClient with ZConfig[K8sCluster], Nothing, Has[
       ClusterResource[T]
@@ -486,7 +487,7 @@ object ResourceClient {
           )
       }
 
-    def liveWithStatus[StatusT: Tag: Encoder, T <: Object: Encoder: Decoder: Tag](
+    def liveWithStatus[StatusT: Tag: Encoder, T: K8sObject: Encoder: Decoder: Tag](
       resourceType: K8sResourceType
     ): ZLayer[SttpClient with ZConfig[K8sCluster], Nothing, Has[
       ClusterResourceStatus[StatusT, T]
@@ -498,46 +499,46 @@ object ResourceClient {
           )
       } ++ liveWithoutStatus(resourceType)
 
-    def getAll[T <: Object: Tag](
+    def getAll[T: Tag](
       chunkSize: Int = 10
     ): ZStream[Has[ClusterResource[T]], K8sFailure, T] =
       ZStream.accessStream(_.get.getAll(chunkSize))
 
-    def watch[T <: Object: Tag](
+    def watch[T: Tag](
       resourceVersion: Option[String]
     ): ZStream[Has[ClusterResource[T]], K8sFailure, TypedWatchEvent[T]] =
       ZStream.accessStream(_.get.watch(resourceVersion))
 
-    def watchForever[T <: Object: Tag](
+    def watchForever[T: Tag](
     ): ZStream[Has[ClusterResource[T]] with Clock, K8sFailure, TypedWatchEvent[T]] =
       ZStream.accessStream(_.get.watchForever())
 
-    def get[T <: Object: Tag](
+    def get[T: Tag](
       name: String
     ): ZIO[Has[ClusterResource[T]], K8sFailure, T] =
       ZIO.accessM(_.get.get(name))
 
-    def create[T <: Object: Tag](
+    def create[T: Tag](
       newResource: T,
       dryRun: Boolean = false
     ): ZIO[Has[ClusterResource[T]], K8sFailure, T] =
       ZIO.accessM(_.get.create(newResource, dryRun))
 
-    def replace[T <: Object: Tag](
+    def replace[T: Tag](
       name: String,
       updatedResource: T,
       dryRun: Boolean = false
     ): ZIO[Has[ClusterResource[T]], K8sFailure, T] =
       ZIO.accessM(_.get.replace(name, updatedResource, dryRun))
 
-    def replaceStatus[StatusT: Tag, T <: Object: Tag](
+    def replaceStatus[StatusT: Tag, T: Tag](
       of: T,
       updatedStatus: StatusT,
       dryRun: Boolean = false
     ): ZIO[Has[ClusterResourceStatus[StatusT, T]], K8sFailure, T] =
       ZIO.accessM(_.get.replaceStatus(of, updatedStatus, dryRun))
 
-    def delete[T <: Object: Tag](
+    def delete[T: Tag](
       name: String,
       deleteOptions: DeleteOptions,
       dryRun: Boolean = false

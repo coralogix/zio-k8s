@@ -95,9 +95,15 @@ lazy val crd = Project("zio-k8s-crd", file("zio-k8s-crd"))
         case Some((2, 12)) => false
         case _             => true
       }
-    }
+    },
+    scriptedLaunchOpts := { scriptedLaunchOpts.value ++
+      Seq("-Xmx1024M", "-Dplugin.version=" + version.value)
+    },
+    scriptedBufferLog := false,
+    publishLocal := publishLocal.dependsOn(publishLocal in client).value
   )
   .dependsOn(client)
+  .enablePlugins(SbtPlugin)
 
 lazy val operator = Project("zio-k8s-operator", file("zio-k8s-operator"))
   .settings(commonSettings)

@@ -3,7 +3,6 @@ package com.coralogix.zio.k8s.operator
 import com.coralogix.zio.k8s.client.model.{
   K8sNamespace,
   K8sResourceType,
-  Object,
   ResourceMetadata,
   TypedWatchEvent
 }
@@ -22,7 +21,7 @@ import zio.stream.ZStream
   *
   * An instance of this is tied to one particular resource type in one namespace.
   */
-trait Operator[R, E, T <: Object] {
+trait Operator[R, E, T] {
   protected def watchStream(): ZStream[Clock, K8sFailure, TypedWatchEvent[T]]
 
   def processEvent(event: TypedWatchEvent[T]): ZIO[R, OperatorFailure[E], Unit]
@@ -64,7 +63,7 @@ trait Operator[R, E, T <: Object] {
       .fork
 }
 
-abstract class NamespacedOperator[R, E, T <: Object](
+abstract class NamespacedOperator[R, E, T](
   client: NamespacedResource[T],
   namespace: Option[K8sNamespace]
 ) extends Operator[R, E, T] {
@@ -72,7 +71,7 @@ abstract class NamespacedOperator[R, E, T <: Object](
     client.watchForever(namespace)
 }
 
-abstract class ClusterOperator[R, E, T <: Object](
+abstract class ClusterOperator[R, E, T](
   client: ClusterResource[T]
 ) extends Operator[R, E, T] {
   override protected def watchStream(): ZStream[Clock, K8sFailure, TypedWatchEvent[T]] =
@@ -92,10 +91,10 @@ object Operator {
       }
   }
 
-  type EventProcessor[R, E, T <: Object] =
+  type EventProcessor[R, E, T] =
     (OperatorContext, TypedWatchEvent[T]) => ZIO[R, OperatorFailure[E], Unit]
 
-  def namespaced[R: Tag, E, T <: Object: Tag: ResourceMetadata](
+  def namespaced[R: Tag, E, T: Tag: ResourceMetadata](
     eventProcessor: EventProcessor[R, E, T]
   )(
     namespace: Option[K8sNamespace],
@@ -111,7 +110,7 @@ object Operator {
       }
     }
 
-  def cluster[R: Tag, E, T <: Object: Tag: ResourceMetadata](
+  def cluster[R: Tag, E, T: Tag: ResourceMetadata](
     eventProcessor: EventProcessor[R, E, T]
   )(buffer: Int): ZIO[Has[ClusterResource[T]], Nothing, Operator[R, E, T]] =
     ZIO.service[ClusterResource[T]].map { client =>
@@ -125,7 +124,7 @@ object Operator {
     }
 
   /** Event processor aspect */
-  trait Aspect[-R, +E, T <: Object] { self =>
+  trait Aspect[-R, +E, T] { self =>
     def apply[R1 <: R, E1 >: E](
       f: EventProcessor[R1, E1, T]
     ): EventProcessor[R1, E1, T]
@@ -142,7 +141,7 @@ object Operator {
       }
   }
 
-  implicit class EventProcessorOps[R, E, T <: Object](
+  implicit class EventProcessorOps[R, E, T](
     eventProcessor: EventProcessor[R, E, T]
   ) {
     def @@[R1 <: R, E1 >: E](aspect: Aspect[R1, E1, T]): EventProcessor[R1, E1, T] =

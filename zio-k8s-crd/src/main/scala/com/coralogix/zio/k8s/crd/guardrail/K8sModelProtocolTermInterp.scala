@@ -112,26 +112,15 @@ class K8sModelProtocolTermInterp(implicit
     } else
       List.empty[Defn.Def]
 
-    val baseObjectType = t"com.coralogix.zio.k8s.client.model.Object"
-
     // format: off
     val withoutParent =
-      if (containsObjectMetadataField) {
-        q"""case class ${Type.Name(clsName)}(..${terms}) extends ${init"$baseObjectType(...$Nil)"} { ..$toStringMethod }"""
-      } else {
         q"""case class ${Type.Name(clsName)}(..${terms}) { ..$toStringMethod }"""
-      }
 
     val code = parentOpt
       .fold(withoutParent) { parent =>
-        if (containsObjectMetadataField) {
-          q"""case class ${Type.Name(clsName)}(..${terms}) extends ${template"..${init"${Type.Name(parent.clsName)}(...$Nil)" ::
-          parent.interfaces.map(a => init"${Type.Name(a)}(...$Nil)")} with ${init"$baseObjectType(...$Nil)"} { ..$toStringMethod }"}"""
-      } else {
           q"""case class ${Type.Name(clsName)}(..${terms}) extends ${template"..${init"${Type.Name(parent.clsName)}(...$Nil)" ::
             parent.interfaces.map(a => init"${Type.Name(a)}(...$Nil)")} { ..$toStringMethod }"}"""
       }
-    }
 
     // format: on
     Target.pure(code)
@@ -382,14 +371,38 @@ class K8sModelProtocolTermInterp(implicit
     deps: List[Term.Name],
     encoder: Option[Defn.Val],
     decoder: Option[Defn.Val]
-  ): Target[StaticDefns[ScalaLanguage]] =
+  ): Target[StaticDefns[ScalaLanguage]] = {
+    val entityNameT = Type.Name(clsName)
+
+    val k8sObject: Defn =
+      q"""implicit val k8sObject: K8sObject[$entityNameT] =
+                  new K8sObject[$entityNameT] {
+                    def metadata(obj: $entityNameT): Option[ObjectMeta] =
+                      obj.metadata
+                    def mapMetadata(f: ObjectMeta => ObjectMeta)(obj: $entityNameT): $entityNameT =
+                      obj.copy(metadata = obj.metadata.map(f))
+                  }
+            """
+
+    val ops: Defn =
+      q"""implicit class Ops(protected val obj: $entityNameT)
+                  extends K8sObjectOps[$entityNameT] {
+                  protected override val impl: K8sObject[$entityNameT] = k8sObject
+                }
+             """
+
+    val isTopLevel = clsName.toLowerCase == k8sContext.kind.toLowerCase
+
     circe
       .renderDTOStaticDefns(clsName, deps, encoder, decoder)
       .map(sdefs =>
         sdefs.copy(
-          extraImports = q"import com.coralogix.zio.k8s.client.model.Object" ::
+          extraImports = q"import com.coralogix.zio.k8s.client.model._" ::
             q"import com.coralogix.zio.k8s.client.model.primitives._" ::
-            sdefs.extraImports
+            sdefs.extraImports,
+          definitions = if (isTopLevel) { k8sObject :: ops :: sdefs.definitions }
+          else sdefs.definitions
         )
       )
+  }
 }
