@@ -41,16 +41,16 @@ trait Operator[R, E, T] {
       .mapM(processEvent)
       .runDrain
       .foldCauseM(
-        {
-          case Cause.Fail(KubernetesFailure(NotFound)) =>
+        cause =>
+          if (cause.failureOption.contains(KubernetesFailure(NotFound))) {
             log.locally(OperatorLogging(context)) {
               log.info("Watched resource is not available yet")
             }
-          case failure =>
+          } else {
             log.locally(OperatorLogging(context)) {
-              logFailure(s"Watch stream failed", failure)
+              logFailure(s"Watch stream failed", cause)
             }
-        },
+          },
         _ =>
           log.locally(OperatorLogging(context)) {
             log.error(s"Watch stream terminated")
