@@ -71,7 +71,7 @@ trait ModelGenerator {
               val requiredProperties =
                 Option(objectSchema.getRequired)
                   .map(_.asScala.toSet)
-                  .getOrElse(Set.empty) - "metadata"
+                  .getOrElse(Set.empty)
 
               val props = properties
                 .filterKeys(filterKeysOf(d))
@@ -84,29 +84,31 @@ trait ModelGenerator {
                   if (isRequired)
                     param"""$nameN: $propT"""
                   else
-                    param"""$nameN: Option[$propT] = None"""
+                    param"""$nameN: Optional[$propT] = Optional.Absent"""
                 }
+
+              val getters =
+                properties
+                  .filterKeys(filterKeysOf(d))
+                  .toList
+                  .map { case (name, propSchema) =>
+                    val isRequired = requiredProperties.contains(name)
+                    val propT = toType(name, propSchema)
+                    val valueName = Term.Name(name)
+                    val valueLit = Lit.String(name)
+                    val getterName = Term.Name(s"get${name.capitalize}")
+
+                    if (isRequired)
+                      q"""def $getterName: IO[K8sFailure, $propT] = ZIO.succeed($valueName)"""
+                    else
+                      q"""def $getterName: IO[K8sFailure, $propT] = ZIO.fromEither($valueName.toRight(UndefinedField($valueLit)))"""
+                  }
 
               val classDef =
-                d match {
-                  case Regular(name, schema) =>
-                    q"""case class $entityNameT(..$props)"""
-                  case IdentifiedDefinition(name, group, kind, version, schema) =>
-                    val metadataT = properties.get("metadata").map(toType("metadata", _))
-                    val metadataIsRequired = requiredProperties.contains("metadata")
-
-                    (metadataT, metadataIsRequired) match {
-                      case (Some(t), false) if t.toString == "pkg.apis.meta.v1.ObjectMeta" =>
-                        q"""case class $entityNameT(..$props)"""
-                      case (Some(t), true) if t.toString == "pkg.apis.meta.v1.ObjectMeta" =>
-                        q"""case class $entityNameT(..$props) {
-                              override val metadata: Option[com.coralogix.zio.k8s.model.pkg.apis.meta.v1.ObjectMeta] = Some(_metadata)
-                            }
-                        """
-                      case _ =>
-                        q"""case class $entityNameT(..$props)"""
+                q"""case class $entityNameT(..$props) {
+                      ..$getters
                     }
-                }
+                 """
 
               val encoder = {
                 val baseJsonFields = properties
@@ -141,7 +143,7 @@ trait ModelGenerator {
                       if (isRequired)
                         toType(k, propSchema)
                       else
-                        t"Option[${toType(k, propSchema)}]"
+                        t"Optional[${toType(k, propSchema)}]"
 
                     val fieldLit = Lit.String(k)
                     enumerator"${Pat.Var(Term.Name(k))} <- cursor.downField($fieldLit).as[$propT]"
@@ -181,7 +183,7 @@ trait ModelGenerator {
                         List(
                           q"""implicit val k8sObject: com.coralogix.zio.k8s.client.model.K8sObject[$entityNameT] =
                               new com.coralogix.zio.k8s.client.model.K8sObject[$entityNameT] {
-                                def metadata(obj: $entityNameT): Option[pkg.apis.meta.v1.ObjectMeta] =
+                                def metadata(obj: $entityNameT): Optional[pkg.apis.meta.v1.ObjectMeta] =
                                   obj.metadata
                                 def mapMetadata(f: pkg.apis.meta.v1.ObjectMeta => pkg.apis.meta.v1.ObjectMeta)(obj: $entityNameT): $entityNameT =
                                   obj.copy(metadata = obj.metadata.map(f))
@@ -197,7 +199,7 @@ trait ModelGenerator {
                         List(
                           q"""implicit val k8sObject: com.coralogix.zio.k8s.client.model.K8sObject[$entityNameT] =
                               new com.coralogix.zio.k8s.client.model.K8sObject[$entityNameT] {
-                                def metadata(obj: $entityNameT): Option[pkg.apis.meta.v1.ObjectMeta] =
+                                def metadata(obj: $entityNameT): Optional[pkg.apis.meta.v1.ObjectMeta] =
                                   Some(obj.metadata)
                                 def mapMetadata(f: pkg.apis.meta.v1.ObjectMeta => pkg.apis.meta.v1.ObjectMeta)(obj: $entityNameT): $entityNameT =
                                   obj.copy(metadata = f(obj.metadata))
@@ -286,11 +288,14 @@ trait ModelGenerator {
     val tree =
       q"""package $packageTerm {
 
-          import zio.Chunk
           import io.circe._
           import io.circe.syntax._
           import java.time.OffsetDateTime
           import scala.util.Try
+          import zio.{Chunk, IO, ZIO}
+
+          import com.coralogix.zio.k8s.client.{K8sFailure, UndefinedField}
+          import com.coralogix.zio.k8s.client.model.Optional
 
           import $rootPackageTerm._
 

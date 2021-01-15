@@ -8,7 +8,7 @@ trait K8sObjectOps[T] {
   protected val obj: T
   protected val impl: K8sObject[T]
 
-  def metadata: Option[ObjectMeta] =
+  def metadata: Optional[ObjectMeta] =
     impl.metadata(obj)
 
   def getName: IO[K8sFailure, String] =

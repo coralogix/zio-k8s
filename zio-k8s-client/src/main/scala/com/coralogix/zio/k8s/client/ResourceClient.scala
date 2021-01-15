@@ -242,9 +242,9 @@ class ResourceClient[
             pull = for {
                      continueToken <- nextContinueToken.get
                      chunk <- continueToken match {
-                                case Some("") | None =>
+                                case Optional.Present("") | Optional.Absent =>
                                   ZIO.fail(None)
-                                case Some(token) =>
+                                case Optional.Present(token) =>
                                   for {
                                     lst <- handleFailures {
                                              k8sRequest

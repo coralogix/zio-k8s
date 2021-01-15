@@ -18,21 +18,21 @@ case object Reseted extends TypedWatchEvent[Nothing] {
 }
 
 final case class Added[T: K8sObject](item: T) extends TypedWatchEvent[T] {
-  override val resourceVersion: Option[String] = item.metadata.flatMap(_.resourceVersion)
+  override val resourceVersion: Option[String] = item.metadata.flatMap(_.resourceVersion).toOption
   override val namespace: Option[K8sNamespace] =
-    item.metadata.flatMap(_.namespace).map(K8sNamespace.apply)
+    item.metadata.flatMap(_.namespace).map(K8sNamespace.apply).toOption
 }
 
 final case class Modified[T: K8sObject](item: T) extends TypedWatchEvent[T] {
-  override val resourceVersion: Option[String] = item.metadata.flatMap(_.resourceVersion)
+  override val resourceVersion: Option[String] = item.metadata.flatMap(_.resourceVersion).toOption
   override val namespace: Option[K8sNamespace] =
-    item.metadata.flatMap(_.namespace).map(K8sNamespace.apply)
+    item.metadata.flatMap(_.namespace).map(K8sNamespace.apply).toOption
 }
 
 final case class Deleted[T: K8sObject](item: T) extends TypedWatchEvent[T] {
-  override val resourceVersion: Option[String] = item.metadata.flatMap(_.resourceVersion)
+  override val resourceVersion: Option[String] = item.metadata.flatMap(_.resourceVersion).toOption
   override val namespace: Option[K8sNamespace] =
-    item.metadata.flatMap(_.namespace).map(K8sNamespace.apply)
+    item.metadata.flatMap(_.namespace).map(K8sNamespace.apply).toOption
 }
 
 object TypedWatchEvent {
