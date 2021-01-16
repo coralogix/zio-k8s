@@ -14,6 +14,7 @@ object EndpointType {
   case class Put(namespaced: Boolean, detectedPlural: String, modelName: String)
       extends EndpointType
   case class PutStatus(namespaced: Boolean, detectedPlural: String) extends EndpointType
+  case class GetStatus(namespaced: Boolean, detectedPlural: String) extends EndpointType
   case class Delete(namespaced: Boolean, detectedPlural: String) extends EndpointType
 
   case class Unsupported(reason: String) extends EndpointType
@@ -97,6 +98,18 @@ object EndpointType {
           else
             s"""/apis/${endpoint.group}/${endpoint.version}/namespaces/\\{namespace\\}/([a-z]+)/\\{name\\}""".r
 
+        val clusterStatusPattern =
+          if (endpoint.group.isEmpty)
+            s"""/api/${endpoint.version}/([a-z]+)/\\{name\\}/status""".r
+          else
+            s"""/apis/${endpoint.group}/${endpoint.version}/([a-z]+)/\\{name\\}/status""".r
+
+        val namespacedStatusPattern =
+          if (endpoint.group.isEmpty)
+            s"""/api/${endpoint.version}/namespaces/\\{namespace\\}/([a-z]+)/\\{name\\}/status""".r
+          else
+            s"""/apis/${endpoint.group}/${endpoint.version}/namespaces/\\{namespace\\}/([a-z]+)/\\{name\\}/status""".r
+
         if (endpoint.method == PathItem.HttpMethod.GET)
           if (containsName)
             endpoint.name match {
@@ -114,8 +127,22 @@ object EndpointType {
                   )
                 else
                   EndpointType.Get(namespaced = true, plural)
+              case clusterStatusPattern(plural) =>
+                if (containsNamespace)
+                  EndpointType.Unsupported(
+                    "Matches cluster pattern but contains namespace parameter"
+                  )
+                else
+                  EndpointType.GetStatus(namespaced = false, plural)
+              case namespacedStatusPattern(plural) =>
+                if (!containsNamespace)
+                  EndpointType.Unsupported(
+                    "Matches namespaced pattern but does not contain namespace parameter"
+                  )
+                else
+                  EndpointType.GetStatus(namespaced = true, plural)
               case _ =>
-                EndpointType.Unsupported(s"Possibly subresource listing")
+                EndpointType.Unsupported("Possibly subresource listing")
             }
           else
             EndpointType.Unsupported("Does not have 'name' parameter")

@@ -80,7 +80,8 @@ trait ClientModuleGenerator {
         if (isNamespaced) {
           val statusDefinitions =
             if (statusEntity.isDefined)
-              List(q"""
+              List(
+                q"""
                def replaceStatus(
                 of: $entityT,
                 updatedStatus: $statusT,
@@ -89,7 +90,17 @@ trait ClientModuleGenerator {
               ): ZIO[Has[NamespacedResourceStatus[$statusT, $entityT]], K8sFailure, $entityT] = {
                   ResourceClient.namespaced.replaceStatus(of, updatedStatus, namespace, dryRun)
                 }
-             """)
+             """,
+                q"""
+                  def getStatus(
+                  name: String,
+                  namespace: K8sNamespace
+                ): ZIO[Has[
+                  NamespacedResourceStatus[$statusT, $entityT]
+                ], K8sFailure, $entityT] =
+                  ResourceClient.namespaced.getStatus(name, namespace)
+                 """
+              )
             else
               List.empty
 
@@ -206,7 +217,11 @@ trait ClientModuleGenerator {
               ): ZIO[Has[ClusterResourceStatus[$statusT, $entityT]], K8sFailure, $entityT] = {
                 ResourceClient.cluster.replaceStatus(of, updatedStatus, dryRun)
                 }
-               """
+               """,
+                q"""
+                  def getStatus(name: String): ZIO[Has[ClusterResourceStatus[$statusT, $entityT]], K8sFailure, $entityT] =
+                  ResourceClient.cluster.getStatus(name)
+                 """
               )
             else
               List.empty

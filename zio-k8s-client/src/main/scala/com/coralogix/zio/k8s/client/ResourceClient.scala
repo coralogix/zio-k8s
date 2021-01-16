@@ -62,6 +62,8 @@ trait ResourceStatus[StatusT, T] {
     namespace: Option[K8sNamespace],
     dryRun: Boolean = false
   ): IO[K8sFailure, T]
+
+  def getStatus(name: String, namespace: Option[K8sNamespace]): IO[K8sFailure, T]
 }
 
 class NamespacedResource[T](impl: Resource[T]) {
@@ -110,6 +112,9 @@ class NamespacedResourceStatus[StatusT, T](impl: ResourceStatus[StatusT, T]) {
     dryRun: Boolean = false
   ): IO[K8sFailure, T] =
     impl.replaceStatus(of, updatedResource, Some(namespace), dryRun)
+
+  def getStatus(name: String, namespace: K8sNamespace): IO[K8sFailure, T] =
+    impl.getStatus(name, Some(namespace))
 }
 
 class ClusterResource[T](
@@ -152,6 +157,9 @@ class ClusterResourceStatus[StatusT, T](impl: ResourceStatus[StatusT, T]) {
     dryRun: Boolean = false
   ): IO[K8sFailure, T] =
     impl.replaceStatus(of, updatedStatus, None, dryRun)
+
+  def getStatus(name: String): IO[K8sFailure, T] =
+    impl.getStatus(name, None)
 }
 
 trait ResourceClientBase {
@@ -191,8 +199,7 @@ trait ResourceClientBase {
   protected def handleFailures[A](
     f: Task[Response[Either[ResponseException[String, Error], A]]]
   ): IO[K8sFailure, A] =
-    f
-      .mapError(RequestFailure.apply)
+    f.mapError(RequestFailure.apply)
       .flatMap { response =>
         response.body match {
           case Left(HttpError(error, StatusCode.Unauthorized)) =>
@@ -294,9 +301,10 @@ class ResourceClient[
       .transduce(ZTransducer.utf8Decode >>> ZTransducer.splitLines)
       .mapM { line =>
         for {
-          parsedEvent <- ZIO
-                           .fromEither(decode[WatchEvent](line))
-                           .mapError(DeserializationFailure.single)
+          parsedEvent <-
+            ZIO
+              .fromEither(decode[WatchEvent](line))
+              .mapError(DeserializationFailure.single)
           event <- TypedWatchEvent.from[T](parsedEvent)
         } yield event
       }
@@ -389,6 +397,14 @@ class ResourceClientStatus[StatusT: Encoder, T: K8sObject: Encoder: Decoder] pri
                   }
     } yield response
 
+  override def getStatus(name: String, namespace: Option[K8sNamespace]): IO[K8sFailure, T] =
+    handleFailures {
+      k8sRequest
+        .get(simple(Some(name), namespace).addPath("status"))
+        .response(asJson[T])
+        .send(backend)
+    }
+
   private def toStatusUpdate(of: T, newStatus: StatusT): Json =
     of.asJson.mapObject(
       _.remove("spec").add("status", newStatus.asJson)
@@ -465,6 +481,12 @@ object ResourceClient {
     ): ZIO[Has[NamespacedResourceStatus[StatusT, T]], K8sFailure, T] =
       ZIO.accessM(_.get.replaceStatus(of, updatedStatus, namespace, dryRun))
 
+    def getStatus[StatusT: Tag, T: Tag](
+      name: String,
+      namespace: K8sNamespace
+    ): ZIO[Has[NamespacedResourceStatus[StatusT, T]], K8sFailure, T] =
+      ZIO.accessM(_.get.getStatus(name, namespace))
+
     def delete[T: Tag](
       name: String,
       deleteOptions: DeleteOptions,
@@ -538,7 +560,12 @@ object ResourceClient {
     ): ZIO[Has[ClusterResourceStatus[StatusT, T]], K8sFailure, T] =
       ZIO.accessM(_.get.replaceStatus(of, updatedStatus, dryRun))
 
-    def delete[T: Tag](
+    def getStatus[StatusT: Tag, T: Tag](
+      name: String
+    ): ZIO[Has[ClusterResourceStatus[StatusT, T]], K8sFailure, T] =
+      ZIO.accessM(_.get.getStatus(name))
+
+    def delete[T <: Object: Tag](
       name: String,
       deleteOptions: DeleteOptions,
       dryRun: Boolean = false
