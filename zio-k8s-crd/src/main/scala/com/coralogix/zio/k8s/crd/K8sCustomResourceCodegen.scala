@@ -86,7 +86,8 @@ object K8sCustomResourceCodegen extends ClientModuleGenerator {
                                K8sCodegenContext(
                                  crd.spec.names.kind,
                                  crd.spec.group,
-                                 version.name
+                                 version.name,
+                                 pluralName
                                ),
                                basePackage.toList,
                                useContextForSubPackage = true,
@@ -95,15 +96,15 @@ object K8sCustomResourceCodegen extends ClientModuleGenerator {
                                entityName -> schemaFragment
                              )
 
-          crdModule <-
+          crdModule           <-
             generateCustomResourceModuleCode(crd, version.name, Path("crds") / yamlPath.filename)
           modulePathComponents =
             (basePackage ++ Vector(pluralName, version.name, "package.scala")).map(s => Path(s))
-          modulePath = modulePathComponents.foldLeft(outputRoot)(_ / _)
-          _ <- Files.createDirectories(modulePath.parent.get)
-          _ <- writeTextFile(modulePath, crdModule)
+          modulePath           = modulePathComponents.foldLeft(outputRoot)(_ / _)
+          _                   <- Files.createDirectories(modulePath.parent.get)
+          _                   <- writeTextFile(modulePath, crdModule)
         } yield modulePath :: generatedModels
-      case None =>
+      case None                 =>
         ZIO.succeed(List.empty)
     }
   }
@@ -126,13 +127,13 @@ object K8sCustomResourceCodegen extends ClientModuleGenerator {
   ): ZIO[Blocking, Throwable, Seq[File]] =
     for {
       scalafmt <- ZIO.effect(Scalafmt.create(this.getClass.getClassLoader))
-      paths <- ZStream
-                 .fromEffect(generateForResource(yaml, targetDir))
-                 .map(Chunk.fromIterable)
-                 .flattenChunks
-                 .mapMPar(4)(format(scalafmt, _))
-                 .runCollect
-      _ <- ZIO.effect(log.info(s"Generated from $yaml:\n${paths.mkString("\n")}"))
+      paths    <- ZStream
+                    .fromEffect(generateForResource(yaml, targetDir))
+                    .map(Chunk.fromIterable)
+                    .flattenChunks
+                    .mapMPar(4)(format(scalafmt, _))
+                    .runCollect
+      _        <- ZIO.effect(log.info(s"Generated from $yaml:\n${paths.mkString("\n")}"))
     } yield paths.map(_.toFile)
 
   def generateResource(
@@ -142,10 +143,10 @@ object K8sCustomResourceCodegen extends ClientModuleGenerator {
   ): ZIO[Blocking, Throwable, Seq[File]] = {
     val crdResources = targetDir / "crds"
     for {
-      _ <- Files.createDirectories(crdResources)
+      _         <- Files.createDirectories(crdResources)
       copiedYaml = crdResources / yaml.filename
-      _ <- Files.copy(yaml, copiedYaml, StandardCopyOption.REPLACE_EXISTING)
-      _ <- ZIO.effect(log.info(s"Copied CRD to $copiedYaml"))
+      _         <- Files.copy(yaml, copiedYaml, StandardCopyOption.REPLACE_EXISTING)
+      _         <- ZIO.effect(log.info(s"Copied CRD to $copiedYaml"))
     } yield Seq(copiedYaml.toFile)
   }
 }

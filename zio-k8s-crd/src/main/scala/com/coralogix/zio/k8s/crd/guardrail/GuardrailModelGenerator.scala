@@ -61,8 +61,8 @@ object GuardrailModelGenerator {
     schemaFragments: (String, Json)*
   ): ZIO[Blocking, Exception, List[Path]] = {
     val fullSchema = Json.obj(
-      "swagger" := "2.0",
-      "info" := Json.obj(
+      "swagger"     := "2.0",
+      "info"        := Json.obj(
         "title"   := context.group,
         "version" := context.version
       ),
@@ -75,9 +75,9 @@ object GuardrailModelGenerator {
     for {
       schemaYamlPath <-
         Files.createTempFile(prefix = None, fileAttributes = Iterable.empty[FileAttribute[_]])
-      _ <- writeTextFile(schemaYamlPath, schemaYaml)
+      _              <- writeTextFile(schemaYamlPath, schemaYaml)
 
-      codegen = new K8sCodegen()(context)
+      codegen          = new K8sCodegen()(context)
       guardrailResult <- codegen
                            .guardrailRunner(
                              Map(

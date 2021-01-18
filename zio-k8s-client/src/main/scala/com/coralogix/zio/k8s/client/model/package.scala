@@ -30,11 +30,11 @@ package object model {
       (name, namespace) match {
         case (Some(n), Some(ns)) =>
           uri"${cluster.host}/$apiRoot/${resource.version}/namespaces/${ns.value}/${resource.resourceType}/$n"
-        case (None, Some(ns)) =>
+        case (None, Some(ns))    =>
           uri"${cluster.host}/$apiRoot/${resource.version}/namespaces/${ns.value}/${resource.resourceType}"
-        case (Some(n), None) =>
+        case (Some(n), None)     =>
           uri"${cluster.host}/$apiRoot/${resource.version}/${resource.resourceType}/$n"
-        case (None, None) =>
+        case (None, None)        =>
           uri"${cluster.host}/$apiRoot/${resource.version}/${resource.resourceType}"
       }
     }
@@ -90,7 +90,7 @@ package object model {
       (namespace match {
         case Some(ns) =>
           uri"${cluster.host}/$apiRoot/${resource.version}/namespaces/${ns.value}/${resource.resourceType}"
-        case None =>
+        case None     =>
           uri"${cluster.host}/$apiRoot/${resource.version}/${resource.resourceType}"
       }).withParam("dryRun", if (dryRun) Some("All") else None)
     }

@@ -46,7 +46,7 @@ trait Operator[R, E, T] {
             log.locally(OperatorLogging(context)) {
               log.info("Watched resource is not available yet")
             }
-          case failure =>
+          case failure                                 =>
             log.locally(OperatorLogging(context)) {
               logFailure(s"Watch stream failed", failure)
             }
