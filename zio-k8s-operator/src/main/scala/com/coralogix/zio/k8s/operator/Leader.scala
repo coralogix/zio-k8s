@@ -25,20 +25,27 @@ import com.coralogix.zio.k8s.client.DecodedFailure
 import java.io.IOException
 
 object Leader {
+  val defaultRetryPolicy: Schedule[Any, Any, Unit] =
+    (Schedule.exponential(base = 1.second, factor = 2.0) || Schedule.spaced(30.seconds)).unit
 
   def leaderForLife[R, E, A](
     lockName: String,
-    namespace: Option[K8sNamespace] = None
+    namespace: Option[K8sNamespace] = None,
+    retryPolicy: Schedule[Any, K8sFailure, Unit] = defaultRetryPolicy
   )(
     f: ZIO[R, E, A]
   ): ZIO[R with Blocking with System with Clock with Pods with ConfigMaps with Logging, E, Option[
     A
   ]] =
-    lease(lockName, namespace)
+    lease(lockName, namespace, retryPolicy)
       .use(_ => f.bimap(ApplicationError.apply, Some.apply))
       .catchAll((failure: LeaderElectionFailure[E]) => logLeaderElectionFailure(failure).as(None))
 
-  def lease(lockName: String, namespace: Option[K8sNamespace] = None): ZManaged[
+  def lease(
+    lockName: String,
+    namespace: Option[K8sNamespace] = None,
+    retryPolicy: Schedule[Any, K8sFailure, Unit] = defaultRetryPolicy
+  ): ZManaged[
     Blocking with System with Clock with Pods with ConfigMaps with Logging,
     LeaderElectionFailure[Nothing],
     Unit
@@ -46,7 +53,7 @@ object Leader {
     for {
       namespace   <- getNamespace(namespace).toManaged_
       pod         <- getPod(namespace).toManaged_
-      managedLock <- acquireLock(lockName, namespace, pod)
+      managedLock <- acquireLock(lockName, namespace, pod, retryPolicy)
     } yield managedLock
 
   def logLeaderElectionFailure[E](
@@ -135,24 +142,24 @@ object Leader {
   private def tryCreateLock(
     lockName: String,
     namespace: K8sNamespace,
-    self: Pod
+    self: Pod,
+    retryPolicy: Schedule[Any, K8sFailure, Unit]
   ): ZIO[ConfigMaps with Clock with Logging, LeaderElectionFailure[Nothing], Unit] =
     log.locally(LogAnnotation.Name("Leader" :: Nil)) {
       for {
-        _          <- log.info(s"Acquiring lock '$lockName' in namespace '${namespace.value}'")
-        lock       <- makeLock(lockName, namespace, self)
-        retryPolicy =
-          (Schedule.exponential(base = 1.second, factor = 2.0) || Schedule.spaced(30.seconds)) &&
-            Schedule.recurWhileM[Logging, K8sFailure] {
-              case DecodedFailure(status, code) if status.reason.contains("AlreadyExists") =>
-                log.info(s"Lock is already taken, retrying...").as(true)
-              case _                                                                       =>
-                ZIO.succeed(false)
-            }
-        _          <- configmaps
-                        .create(lock, namespace)
-                        .retry(retryPolicy)
-                        .mapError(KubernetesError.apply)
+        _               <- log.info(s"Acquiring lock '$lockName' in namespace '${namespace.value}'")
+        lock            <- makeLock(lockName, namespace, self)
+        finalRetryPolicy = retryPolicy && Schedule.recurWhileM[Logging, K8sFailure] {
+                             case DecodedFailure(status, code)
+                                 if status.reason.contains("AlreadyExists") =>
+                               log.info(s"Lock is already taken, retrying...").as(true)
+                             case _ =>
+                               ZIO.succeed(false)
+                           }
+        _               <- configmaps
+                             .create(lock, namespace)
+                             .retry(finalRetryPolicy)
+                             .mapError(KubernetesError.apply)
       } yield ()
     }
 
@@ -176,7 +183,8 @@ object Leader {
   private def acquireLock(
     lockName: String,
     namespace: K8sNamespace,
-    self: Pod
+    self: Pod,
+    retryPolicy: Schedule[Any, K8sFailure, Unit]
   ): ZManaged[ConfigMaps with Clock with Logging, LeaderElectionFailure[Nothing], Unit] =
     for {
       alreadyOwned <- checkIfAlreadyOwned(lockName, namespace, self).toManaged_
@@ -193,7 +201,7 @@ object Leader {
             ZManaged.make(ZIO.unit)(_ => deleteLock(lockName, namespace))
         else
           ZManaged.make(
-            tryCreateLock(lockName, namespace, self)
+            tryCreateLock(lockName, namespace, self, retryPolicy)
           )(_ => deleteLock(lockName, namespace))
     } yield lock
 
