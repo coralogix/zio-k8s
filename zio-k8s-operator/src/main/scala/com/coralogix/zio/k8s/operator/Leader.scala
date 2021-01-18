@@ -34,25 +34,38 @@ object Leader {
   ): ZIO[R with Blocking with System with Clock with Pods with ConfigMaps with Logging, E, Option[
     A
   ]] =
+    lease(lockName, namespace)
+      .use(_ => f.bimap(ApplicationError.apply, Some.apply))
+      .catchAll((failure: LeaderElectionFailure[E]) => logLeaderElectionFailure(failure).as(None))
+
+  def lease(lockName: String, namespace: Option[K8sNamespace] = None): ZManaged[
+    Blocking with System with Clock with Pods with ConfigMaps with Logging,
+    LeaderElectionFailure[Nothing],
+    Unit
+  ] =
+    for {
+      namespace   <- getNamespace(namespace).toManaged_
+      pod         <- getPod(namespace).toManaged_
+      managedLock <- acquireLock(lockName, namespace, pod)
+    } yield managedLock
+
+  def logLeaderElectionFailure[E](
+    failure: LeaderElectionFailure[E]
+  ): ZIO[Logging, E, Unit] =
     log.locally(LogAnnotation.Name("Leader" :: Nil)) {
-      (for {
-        namespace  <- getNamespace(namespace)
-        pod        <- getPod(namespace)
-        managedLock = acquireLock(lockName, namespace, pod)
-        result     <- managedLock.use(_ => f.bimap(ApplicationError.apply[E], Some.apply))
-      } yield result).catchAll {
+      failure match {
         case UnknownNamespace(Some(reason)) =>
-          log.throwable(s"Could not read namespace", reason) *> ZIO.none
+          log.throwable(s"Could not read namespace", reason)
         case UnknownNamespace(None)         =>
-          log.error(s"Could not read namespace") *> ZIO.none
+          log.error(s"Could not read namespace")
         case PodNameMissing(Some(reason))   =>
-          log.throwable(s"Could not read the POD_NAME environment variable", reason) *> ZIO.none
+          log.throwable(s"Could not read the POD_NAME environment variable", reason)
         case PodNameMissing(None)           =>
-          log.error(s"The POD_NAME environment variable is missing") *> ZIO.none
+          log.error(s"The POD_NAME environment variable is missing")
         case KubernetesError(error)         =>
-          logFailure(s"Kubernetes failure", Cause.fail(error)) *> ZIO.none
+          logFailure(s"Kubernetes failure", Cause.fail(error))
         case ApplicationError(error)        =>
-          ZIO.fail[E](error)
+          ZIO.fail(error)
       }
     }
 
@@ -124,37 +137,41 @@ object Leader {
     namespace: K8sNamespace,
     self: Pod
   ): ZIO[ConfigMaps with Clock with Logging, LeaderElectionFailure[Nothing], Unit] =
-    for {
-      _          <- log.info(s"Acquiring lock '$lockName' in namespace '${namespace.value}'")
-      lock       <- makeLock(lockName, namespace, self)
-      retryPolicy =
-        (Schedule.exponential(base = 1.second, factor = 2.0) || Schedule.spaced(30.seconds)) &&
-          Schedule.recurWhileM[Logging, K8sFailure] {
-            case DecodedFailure(status, code) if status.reason.contains("AlreadyExists") =>
-              log.info(s"Lock is already taken, retrying...").as(true)
-            case _                                                                       =>
-              ZIO.succeed(false)
-          }
-      _          <- configmaps
-                      .create(lock, namespace)
-                      .retry(retryPolicy)
-                      .mapError(KubernetesError.apply)
-    } yield ()
+    log.locally(LogAnnotation.Name("Leader" :: Nil)) {
+      for {
+        _          <- log.info(s"Acquiring lock '$lockName' in namespace '${namespace.value}'")
+        lock       <- makeLock(lockName, namespace, self)
+        retryPolicy =
+          (Schedule.exponential(base = 1.second, factor = 2.0) || Schedule.spaced(30.seconds)) &&
+            Schedule.recurWhileM[Logging, K8sFailure] {
+              case DecodedFailure(status, code) if status.reason.contains("AlreadyExists") =>
+                log.info(s"Lock is already taken, retrying...").as(true)
+              case _                                                                       =>
+                ZIO.succeed(false)
+            }
+        _          <- configmaps
+                        .create(lock, namespace)
+                        .retry(retryPolicy)
+                        .mapError(KubernetesError.apply)
+      } yield ()
+    }
 
   private def deleteLock(
     lockName: String,
     namespace: K8sNamespace
   ): ZIO[ConfigMaps with Logging, Nothing, Unit] =
-    log.info(s"Releasing lock '$lockName' in namespace '${namespace.value}'") *>
-      configmaps
-        .delete(lockName, DeleteOptions(), namespace)
-        .unit
-        .catchAll { (failure: K8sFailure) =>
-          logFailure(
-            s"Failed to delete lock '$lockName' in namespace '${namespace.value}'",
-            Cause.fail(failure)
-          )
-        }
+    log.locally(LogAnnotation.Name("Leader" :: Nil)) {
+      log.info(s"Releasing lock '$lockName' in namespace '${namespace.value}'") *>
+        configmaps
+          .delete(lockName, DeleteOptions(), namespace)
+          .unit
+          .catchAll { (failure: K8sFailure) =>
+            logFailure(
+              s"Failed to delete lock '$lockName' in namespace '${namespace.value}'",
+              Cause.fail(failure)
+            )
+          }
+    }
 
   private def acquireLock(
     lockName: String,
@@ -166,9 +183,12 @@ object Leader {
       lock         <-
         if (alreadyOwned)
           log
-            .info(
-              s"Lock '$lockName' in namespace '${namespace.value}' is already owned by the current pod"
-            )
+            .locally(LogAnnotation.Name("Leader" :: Nil)) {
+              log
+                .info(
+                  s"Lock '$lockName' in namespace '${namespace.value}' is already owned by the current pod"
+                )
+            }
             .toManaged_ *>
             ZManaged.make(ZIO.unit)(_ => deleteLock(lockName, namespace))
         else
@@ -177,11 +197,11 @@ object Leader {
           )(_ => deleteLock(lockName, namespace))
     } yield lock
 
-  private sealed trait LeaderElectionFailure[+E]
-  private final case class UnknownNamespace(reason: Option[IOException])
+  sealed trait LeaderElectionFailure[+E]
+  final case class UnknownNamespace(reason: Option[IOException])
       extends LeaderElectionFailure[Nothing]
-  private final case class PodNameMissing(reason: Option[SecurityException])
+  final case class PodNameMissing(reason: Option[SecurityException])
       extends LeaderElectionFailure[Nothing]
-  private final case class KubernetesError(error: K8sFailure) extends LeaderElectionFailure[Nothing]
-  private final case class ApplicationError[E](error: E) extends LeaderElectionFailure[E]
+  final case class KubernetesError(error: K8sFailure) extends LeaderElectionFailure[Nothing]
+  final case class ApplicationError[E](error: E) extends LeaderElectionFailure[E]
 }
