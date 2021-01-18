@@ -107,12 +107,12 @@ trait ClientModuleGenerator {
           val live =
             if (statusEntity.isDefined)
               q"""
-              def live: ZLayer[SttpClient with ZConfig[K8sCluster], Nothing, Has[NamespacedResource[$entityT]] with Has[NamespacedResourceStatus[$statusT, $entityT]]] =
+              def live: ZLayer[SttpClient with Has[K8sCluster], Nothing, Has[NamespacedResource[$entityT]] with Has[NamespacedResourceStatus[$statusT, $entityT]]] =
                 ResourceClient.namespaced.liveWithStatus[$statusT, $entityT](metadata.resourceType)
              """
             else
               q"""
-              def live: ZLayer[SttpClient with ZConfig[K8sCluster], Nothing, Has[NamespacedResource[$entityT]]] =
+              def live: ZLayer[SttpClient with Has[K8sCluster], Nothing, Has[NamespacedResource[$entityT]]] =
                 ResourceClient.namespaced.liveWithoutStatus[$entityT](metadata.resourceType)
              """
 
@@ -137,7 +137,6 @@ trait ClientModuleGenerator {
           import sttp.client3.httpclient.zio.SttpClient
           import zio.blocking.Blocking
           import zio.clock.Clock
-          import zio.config.ZConfig
           import zio.stream.{ZStream, ZTransducer}
           import zio.{ Has, Task, ZIO, ZLayer }
 
@@ -229,12 +228,12 @@ trait ClientModuleGenerator {
           val live =
             if (statusEntity.isDefined)
               q"""
-              def live: ZLayer[SttpClient with ZConfig[K8sCluster], Nothing, Has[ClusterResource[$entityT]] with Has[ClusterResourceStatus[$statusT, $entityT]]] =
+              def live: ZLayer[SttpClient with Has[K8sCluster], Nothing, Has[ClusterResource[$entityT]] with Has[ClusterResourceStatus[$statusT, $entityT]]] =
                 ResourceClient.cluster.liveWithStatus[$statusT, $entityT](metadata.resourceType)
              """
             else
               q"""
-              def live: ZLayer[SttpClient with ZConfig[K8sCluster], Nothing, Has[ClusterResource[$entityT]]] =
+              def live: ZLayer[SttpClient with Has[K8sCluster], Nothing, Has[ClusterResource[$entityT]]] =
                 ResourceClient.cluster.liveWithoutStatus[$entityT](metadata.resourceType)
              """
 
@@ -259,7 +258,6 @@ trait ClientModuleGenerator {
           import sttp.client3.httpclient.zio.SttpClient
           import zio.blocking.Blocking
           import zio.clock.Clock
-          import zio.config.ZConfig
           import zio.stream.{ZStream, ZTransducer}
           import zio.{ Has, Task, ZIO, ZLayer }
 
