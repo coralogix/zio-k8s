@@ -411,7 +411,7 @@ class K8sModelProtocolTermInterp(implicit
           extraImports = q"import com.coralogix.zio.k8s.client.model._" ::
             q"import com.coralogix.zio.k8s.client.model.primitives._" ::
             sdefs.extraImports,
-          definitions = if (isTopLevel) { k8sObject :: ops :: sdefs.definitions }
+          definitions = if (isTopLevel) { k8sObject :: ops :: metadata :: sdefs.definitions }
           else sdefs.definitions
         )
       )
