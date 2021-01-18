@@ -34,18 +34,18 @@ package object config {
   )
 
   implicit val uriDescriptor: Descriptor[Uri] =
-    Descriptor[String].xmapEither(
+    Descriptor[String].transformOrFail(
       s => Uri.parse(s),
       (uri: Uri) => Right(uri.toString)
     )
 
   implicit val pathDescriptor: Descriptor[Path] =
-    Descriptor[String].xmap(
+    Descriptor[String].transform(
       s => Path(s),
       (path: Path) => path.toString()
     )
 
-  val k8sCluster: ZLayer[Blocking with ZConfig[K8sClusterConfig], IOException, Has[K8sCluster]] =
+  val k8sCluster: ZLayer[Blocking with Has[K8sClusterConfig], IOException, Has[K8sCluster]] =
     ZLayer.fromEffect {
       for {
         config <- getConfig[K8sClusterConfig]
@@ -121,7 +121,7 @@ package object config {
       sslContext
     }
 
-  val k8sSttpClient: ZLayer[ZConfig[K8sClientConfig], Throwable, SttpClient] =
+  val k8sSttpClient: ZLayer[Has[K8sClientConfig], Throwable, SttpClient] =
     ZLayer.fromServiceManaged { config: K8sClientConfig =>
       for {
         sslContext <- (if (config.insecure)

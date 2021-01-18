@@ -93,8 +93,6 @@ class K8sModelProtocolTermInterp(implicit
         selfParams
     ).filterNot(param => discriminatorNames.contains(param.term.name.value))
 
-    val containsObjectMetadataField = params.exists(param => param.name.value == "metadata")
-    val containsStatusField = params.exists(param => param.name.value == "status")
     val terms = params.map(_.term)
 
     val toStringMethod = if (params.exists(_.dataRedaction != DataVisible)) {
@@ -343,13 +341,14 @@ class K8sModelProtocolTermInterp(implicit
       }
 
     val containsObjectMetadataField = params.exists(param => param.name.value == "metadata")
+    val isTopLevel = clsName.toLowerCase == k8sContext.kind.toLowerCase
 
     val encoder = encVal.map(e => q"""$e
                         .mapJsonObject(
                           _.filterKeys(key => !(readOnlyKeys contains key)))
                         .mapJsonObject(_.filter { case (_, v) => !v.isNull })""")
 
-    if (containsObjectMetadataField)
+    if (containsObjectMetadataField && isTopLevel)
       Target.pure(encoder.map(encoder => q"""
             implicit val ${suffixClsName("encode", clsName)}: ${circeVersion.encoderObject}[${Type.Name(clsName)}] = {
               val readOnlyKeys = Set[String](..${readOnlyKeys.map(Lit.String(_))})
