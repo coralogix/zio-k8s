@@ -12,7 +12,6 @@ import sttp.client3.httpclient.zio._
 import sttp.model.{ StatusCode, Uri }
 import zio._
 import zio.clock.Clock
-import zio.config.ZConfig
 import zio.duration._
 import com.coralogix.zio.k8s.client.internal.ZStreamOps
 import com.coralogix.zio.k8s.client.model._
@@ -398,7 +397,7 @@ object ResourceClient {
   object namespaced {
     def liveWithoutStatus[T <: Object: Encoder: Decoder: Tag](
       resourceType: K8sResourceType
-    ): ZLayer[SttpClient with ZConfig[K8sCluster], Nothing, Has[NamespacedResource[T]]] =
+    ): ZLayer[SttpClient with Has[K8sCluster], Nothing, Has[NamespacedResource[T]]] =
       ZLayer.fromServices[SttpClient.Service, K8sCluster, NamespacedResource[T]] {
         (backend: SttpClient.Service, cluster: K8sCluster) =>
           new NamespacedResource(new ResourceClient[T](resourceType, cluster, backend))
@@ -406,7 +405,7 @@ object ResourceClient {
 
     def liveWithStatus[StatusT: Encoder: Tag, T <: Object: Encoder: Decoder: Tag](
       resourceType: K8sResourceType
-    ): ZLayer[SttpClient with ZConfig[K8sCluster], Nothing, Has[
+    ): ZLayer[SttpClient with Has[K8sCluster], Nothing, Has[
       NamespacedResourceStatus[StatusT, T]
     ] with Has[NamespacedResource[T]]] =
       ZLayer.fromServices[SttpClient.Service, K8sCluster, NamespacedResourceStatus[StatusT, T]] {
@@ -476,7 +475,7 @@ object ResourceClient {
   object cluster {
     def liveWithoutStatus[T <: Object: Encoder: Decoder: Tag](
       resourceType: K8sResourceType
-    ): ZLayer[SttpClient with ZConfig[K8sCluster], Nothing, Has[
+    ): ZLayer[SttpClient with Has[K8sCluster], Nothing, Has[
       ClusterResource[T]
     ]] =
       ZLayer.fromServices[SttpClient.Service, K8sCluster, ClusterResource[T]] {
@@ -488,7 +487,7 @@ object ResourceClient {
 
     def liveWithStatus[StatusT: Tag: Encoder, T <: Object: Encoder: Decoder: Tag](
       resourceType: K8sResourceType
-    ): ZLayer[SttpClient with ZConfig[K8sCluster], Nothing, Has[
+    ): ZLayer[SttpClient with Has[K8sCluster], Nothing, Has[
       ClusterResourceStatus[StatusT, T]
     ] with Has[ClusterResource[T]]] =
       ZLayer.fromServices[SttpClient.Service, K8sCluster, ClusterResourceStatus[StatusT, T]] {
