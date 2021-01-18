@@ -35,23 +35,23 @@ object OperatorLogging {
     cause: Cause[E]
   ): ZIO[Logging, Nothing, Unit] =
     cause match {
-      case Empty() =>
+      case Empty()              =>
         log.error(message)
-      case Fail(value) =>
+      case Fail(value)          =>
         log.throwable(message, implicitly[ConvertableToThrowable[E]].toThrowable(value))
-      case Die(value) =>
+      case Die(value)           =>
         log.throwable(message, value)
-      case Interrupt(fiberId) =>
+      case Interrupt(fiberId)   =>
         log.throwable(message, new InterruptedException(fiberId.toString))
       case Traced(cause, trace) =>
         logFailure(message, cause)
-      case Then(left, right) =>
+      case Then(left, right)    =>
         logFailure(message + s" #1 ++", left) *>
           logFailure(message + s" ++ #2", right)
-      case Both(left, right) =>
+      case Both(left, right)    =>
         logFailure(message + s" #1 &&", left) *>
           logFailure(message + s" && #2", right)
-      case _ =>
+      case _                    =>
         log.error(message, cause)
     }
 }

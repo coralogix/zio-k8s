@@ -58,7 +58,7 @@ package object config {
                           token = token
                         )
                       )
-                    case None =>
+                    case None        =>
                       // No explicit token, loading from file
                       Files
                         .readAllBytes(config.tokenFile)
@@ -128,23 +128,23 @@ package object config {
                          insecureSSLContext()
                        else
                          secureSSLContext(config.cert)).toManaged_
-        client <- ZManaged
-                    .makeEffect(
-                      usingClient(
-                        HttpClient
-                          .newBuilder()
-                          .followRedirects(HttpClient.Redirect.NEVER)
-                          .sslContext(sslContext)
-                          .build()
-                      )
-                    )(_.close().ignore)
-                    .map { backend =>
-                      Slf4jLoggingBackend(
-                        backend,
-                        logRequestBody = config.debug,
-                        logResponseBody = config.debug
-                      )
-                    }
+        client     <- ZManaged
+                        .makeEffect(
+                          usingClient(
+                            HttpClient
+                              .newBuilder()
+                              .followRedirects(HttpClient.Redirect.NEVER)
+                              .sslContext(sslContext)
+                              .build()
+                          )
+                        )(_.close().ignore)
+                        .map { backend =>
+                          Slf4jLoggingBackend(
+                            backend,
+                            logRequestBody = config.debug,
+                            logResponseBody = config.debug
+                          )
+                        }
       } yield client
     }
 }

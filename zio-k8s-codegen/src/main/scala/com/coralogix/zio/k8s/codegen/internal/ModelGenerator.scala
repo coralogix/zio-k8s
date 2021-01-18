@@ -20,7 +20,8 @@ trait ModelGenerator {
     scalafmt: Scalafmt,
     log: Logger,
     targetRoot: Path,
-    definitions: Set[IdentifiedSchema]
+    definitions: Set[IdentifiedSchema],
+    resources: Set[SupportedResource]
   ): ZIO[Blocking, Throwable, Set[Path]] = {
     val filteredDefinitions = definitions.filter(d => !isListModel(d))
     for {
@@ -31,7 +32,7 @@ trait ModelGenerator {
 
                  for {
                    _ <- ZIO.effect(log.info(s"Generating '$entityName' to $pkg"))
-                   src       = generateModel(modelRoot, pkg, entityName, d)
+                   src       = generateModel(modelRoot, pkg, entityName, d, resources)
                    targetDir = pkg.foldLeft(targetRoot)(_ / _)
                    _ <- Files.createDirectories(targetDir)
                    targetPath = targetDir / s"$entityName.scala"
@@ -45,11 +46,18 @@ trait ModelGenerator {
   private def isListModel(model: IdentifiedSchema): Boolean =
     model.name.endsWith("List") // NOTE: better check: has 'metadata' field of type 'ListMeta'
 
+  private def findPluralName(group: String, kind: String, version: String, resources: Set[SupportedResource]): String =
+    resources
+      .find(r => r.group == group && r.kind == kind && r.version == version)
+      .map(_.plural)
+      .getOrElse(kind)
+
   private def generateModel(
     rootPackage: Vector[String],
     pkg: Vector[String],
     entityName: String,
-    d: IdentifiedSchema
+    d: IdentifiedSchema,
+    resources: Set[SupportedResource]
   ): String = {
     import scala.meta._
     val rootPackageTerm = rootPackage.mkString(".").parse[Term].get.asInstanceOf[Term.Ref]
@@ -175,6 +183,16 @@ trait ModelGenerator {
                   case IdentifiedDefinition(name, group, kind, version, schema) =>
                     val metadataT = properties.get("metadata").map(toType("metadata", _))
                     val metadataIsRequired = requiredProperties.contains("metadata")
+                    val groupLit = Lit.String(group)
+                    val versionLit = Lit.String(version)
+
+                    val pluralLit = findPluralName(group, kind, version, resources)
+                    val kindLit = Lit.String(kind)
+                    val apiVersionLit =
+                      if (group.isEmpty)
+                        Lit.String(version)
+                      else
+                        Lit.String(s"${group}/${version}")
 
                     (metadataT, metadataIsRequired) match {
                       case (Some(t), false) if t.toString == "pkg.apis.meta.v1.ObjectMeta" =>
@@ -191,6 +209,13 @@ trait ModelGenerator {
                                 extends com.coralogix.zio.k8s.client.model.K8sObjectOps[$entityNameT] {
                                 protected override val impl: com.coralogix.zio.k8s.client.model.K8sObject[$entityNameT] = k8sObject
                               }
+                           """,
+                          q"""implicit val metadata: ResourceMetadata[$entityNameT] =
+                                new ResourceMetadata[$entityNameT] {
+                                  override val kind: String = $kindLit
+                                  override val apiVersion: String = $apiVersionLit
+                                  override val resourceType: K8sResourceType = K8sResourceType($pluralLit, $groupLit, $versionLit)
+                                }
                            """
                         )
                       case (Some(t), true) if t.toString == "pkg.apis.meta.v1.ObjectMeta" =>
@@ -207,6 +232,13 @@ trait ModelGenerator {
                                 extends com.coralogix.zio.k8s.client.model.K8sObjectOps[$entityNameT] {
                                 protected override val impl: com.coralogix.zio.k8s.client.model.K8sObject[$entityNameT] = k8sObject
                               }
+                           """,
+                          q"""implicit val metadata: ResourceMetadata[$entityNameT] =
+                                new ResourceMetadata[$entityNameT] {
+                                  override val kind: String = $kindLit
+                                  override val apiVersion: String = $apiVersionLit
+                                  override val resourceType: K8sResourceType = K8sResourceType($pluralLit, $groupLit, $versionLit)
+                                }
                            """
                         )
                       case _ =>
@@ -291,6 +323,7 @@ trait ModelGenerator {
           import io.circe.syntax._
           import java.time.OffsetDateTime
           import scala.util.Try
+          import com.coralogix.zio.k8s.client.model.{K8sResourceType, ResourceMetadata}
 
           import $rootPackageTerm._
 

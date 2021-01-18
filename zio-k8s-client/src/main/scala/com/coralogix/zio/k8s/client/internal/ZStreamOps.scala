@@ -25,7 +25,7 @@ package object internal {
           currStream   <- Ref.make[ZIO[R, Option[E], Chunk[O]]](ZIO.fail(None)).toManaged_
           switchStream <- ZManaged.switchable[R, Nothing, ZIO[R, Option[E], Chunk[O]]]
           _            <- switchStream(self.process).flatMap(currStream.set).toManaged_
-          pull = {
+          pull          = {
             def loop: ZIO[R1 with Clock, Option[E], Chunk[O]] =
               currStream.get.flatten.catchSome { case Some(e) =>
                 driver

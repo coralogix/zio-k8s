@@ -21,11 +21,11 @@ object CircePrettyFailure {
     history.head match {
       case CursorOp.DownField(name) if predefinedDecoderFailureNames.contains(message) =>
         s"$describeFull is not a $message"
-      case CursorOp.DownField(name) =>
+      case CursorOp.DownField(name)                                                    =>
         prettyFailure(s"Could not find field: '$name' in $describeTail")
-      case CursorOp.DownN(n) =>
+      case CursorOp.DownN(n)                                                           =>
         prettyFailure(s"Could not find the $n${postfix(n)} element in $describeTail")
-      case _ =>
+      case _                                                                           =>
         s"$message: $describeFull"
     }
   }
@@ -35,24 +35,24 @@ object CircePrettyFailure {
       index match {
         case Some(currentIndex) =>
           ops match {
-            case CursorOp.MoveLeft :: remaining =>
+            case CursorOp.MoveLeft :: remaining  =>
               go(remaining, Some(currentIndex - 1))
             case CursorOp.MoveRight :: remaining =>
               go(remaining, Some(currentIndex + 1))
-            case head :: remaining =>
+            case head :: remaining               =>
               CursorOp.DownN(currentIndex) :: head :: go(remaining, None)
-            case Nil =>
+            case Nil                             =>
               Nil
           }
-        case None =>
+        case None               =>
           ops match {
             case CursorOp.DownArray :: remaining =>
               go(remaining, Some(0))
-            case CursorOp.DownN(n) :: remaining =>
+            case CursorOp.DownN(n) :: remaining  =>
               go(remaining, Some(n))
-            case head :: remaining =>
+            case head :: remaining               =>
               head :: go(remaining, None)
-            case Nil =>
+            case Nil                             =>
               Nil
           }
       }
@@ -62,18 +62,18 @@ object CircePrettyFailure {
 
   private def describePosition(ops: List[CursorOp], currentIndex: Int): List[String] =
     ops match {
-      case Nil => List("root")
+      case Nil                                   => List("root")
       case CursorOp.DownField(name) :: remaining =>
         s"$name" :: describePosition(remaining, currentIndex)
-      case CursorOp.DownN(n) :: remaining =>
+      case CursorOp.DownN(n) :: remaining        =>
         s"[$n]" :: describePosition(remaining, currentIndex = n)
-      case CursorOp.DownArray :: remaining =>
+      case CursorOp.DownArray :: remaining       =>
         s"[0]" :: describePosition(remaining, currentIndex = 0)
-      case CursorOp.MoveLeft :: remaining =>
+      case CursorOp.MoveLeft :: remaining        =>
         s"<${currentIndex - 1}]" :: describePosition(remaining, currentIndex - 1)
-      case CursorOp.MoveRight :: remaining =>
+      case CursorOp.MoveRight :: remaining       =>
         s"[${currentIndex + 1}>" :: describePosition(remaining, currentIndex + 1)
-      case _ => List(ops.toString()) // TODO: implement for more
+      case _                                     => List(ops.toString()) // TODO: implement for more
     }
   private def postfix(n: Int): String =
     n match {

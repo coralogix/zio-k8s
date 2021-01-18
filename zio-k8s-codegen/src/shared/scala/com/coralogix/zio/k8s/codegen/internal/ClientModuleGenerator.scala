@@ -41,15 +41,6 @@ trait ClientModuleGenerator {
       val ver = Term.Name(version)
 
       val pluaralLit = Lit.String(name)
-      val groupLit = Lit.String(group)
-      val versionLit = Lit.String(version)
-
-      val kindLit = Lit.String(kind)
-      val apiVersionLit =
-        if (group.isEmpty)
-          Lit.String(version)
-        else
-          Lit.String(s"${group}/${version}")
 
       val dtoPackage = modelPackageName.parse[Term].get.asInstanceOf[Term.Ref]
       val entityImport =
@@ -72,7 +63,7 @@ trait ClientModuleGenerator {
                   crd <- ZIO.fromEither(io.circe.yaml.parser.parse(rawYaml).flatMap(_.as[com.coralogix.zio.k8s.model.pkg.apis.apiextensions.v1.CustomResourceDefinition]))
                 } yield crd
              """)
-          case None =>
+          case None           =>
             List.empty
         }
 
@@ -108,12 +99,12 @@ trait ClientModuleGenerator {
             if (statusEntity.isDefined)
               q"""
               def live: ZLayer[SttpClient with Has[K8sCluster], Nothing, Has[NamespacedResource[$entityT]] with Has[NamespacedResourceStatus[$statusT, $entityT]]] =
-                ResourceClient.namespaced.liveWithStatus[$statusT, $entityT](metadata.resourceType)
+                ResourceClient.namespaced.liveWithStatus[$statusT, $entityT](implicitly[ResourceMetadata[$entityT]].resourceType)
              """
             else
               q"""
               def live: ZLayer[SttpClient with Has[K8sCluster], Nothing, Has[NamespacedResource[$entityT]]] =
-                ResourceClient.namespaced.liveWithoutStatus[$entityT](metadata.resourceType)
+                ResourceClient.namespaced.liveWithoutStatus[$entityT](implicitly[ResourceMetadata[$entityT]].resourceType)
              """
 
           val typeAlias =
@@ -142,13 +133,6 @@ trait ClientModuleGenerator {
 
           package object $ver {
             $typeAlias
-
-            implicit val metadata: ResourceMetadata[$entityT] =
-              new ResourceMetadata[$entityT] {
-                override val kind: String = $kindLit
-                override val apiVersion: String = $apiVersionLit
-                override val resourceType: K8sResourceType = K8sResourceType($pluaralLit, $groupLit, $versionLit)
-              }
 
             def getAll(
               namespace: Option[K8sNamespace],
@@ -229,12 +213,12 @@ trait ClientModuleGenerator {
             if (statusEntity.isDefined)
               q"""
               def live: ZLayer[SttpClient with Has[K8sCluster], Nothing, Has[ClusterResource[$entityT]] with Has[ClusterResourceStatus[$statusT, $entityT]]] =
-                ResourceClient.cluster.liveWithStatus[$statusT, $entityT](metadata.resourceType)
+                ResourceClient.cluster.liveWithStatus[$statusT, $entityT](implicitly[ResourceMetadata[$entityT]].resourceType)
              """
             else
               q"""
               def live: ZLayer[SttpClient with Has[K8sCluster], Nothing, Has[ClusterResource[$entityT]]] =
-                ResourceClient.cluster.liveWithoutStatus[$entityT](metadata.resourceType)
+                ResourceClient.cluster.liveWithoutStatus[$entityT](implicitly[ResourceMetadata[$entityT]].resourceType)
              """
 
           val typeAlias =
@@ -263,13 +247,6 @@ trait ClientModuleGenerator {
 
           package object $ver {
             $typeAlias
-
-            implicit val metadata: ResourceMetadata[$entityT] =
-              new ResourceMetadata[$entityT] {
-                override val kind: String = $kindLit
-                override val apiVersion: String = $apiVersionLit
-                override val resourceType: K8sResourceType = K8sResourceType($pluaralLit, $groupLit, $versionLit)
-              }
 
             def getAll(
               chunkSize: Int = 10

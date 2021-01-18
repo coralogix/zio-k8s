@@ -39,6 +39,9 @@ class K8sModelProtocolTermInterp(implicit
 
   private val kindLit = Lit.String(k8sContext.kind)
   private val apiVersionLit = Lit.String(s"${k8sContext.group}/${k8sContext.version}")
+  private val pluralLit = Lit.String(k8sContext.plural)
+  private val groupLit = Lit.String(k8sContext.group)
+  private val versionLit = Lit.String(k8sContext.version)
 
   override def MonadF: Monad[Target] = Target.targetInstances
 
@@ -97,7 +100,7 @@ class K8sModelProtocolTermInterp(implicit
         param match {
           case param if param.dataRedaction == DataVisible =>
             q"${Term.Name(param.term.name.value)}.toString()"
-          case _ => Lit.String("[redacted]")
+          case _                                           => Lit.String("[redacted]")
         }
 
       val toStringTerms =
@@ -143,112 +146,112 @@ class K8sModelProtocolTermInterp(implicit
     for {
       presence <-
         ScalaGenerator.ScalaInterp.selectTerm(NonEmptyList.ofInitLast(supportPackage, "Presence"))
-      decVal <- if (paramCount == 0)
-                  Target.pure(Option.empty[Term])
-                else if (paramCount <= 22 && !needsEmptyToNull) {
-                  val names: List[Lit] = params.map(_.name.value).map(Lit.String(_)).to[List]
-                  Target.pure(
-                    Option(
-                      q"""
+      decVal   <- if (paramCount == 0)
+                    Target.pure(Option.empty[Term])
+                  else if (paramCount <= 22 && !needsEmptyToNull) {
+                    val names: List[Lit] = params.map(_.name.value).map(Lit.String(_)).to[List]
+                    Target.pure(
+                      Option(
+                        q"""
                     Decoder.${Term.Name(s"forProduct${paramCount}")}(..${names})(${Term
-                        .Name(clsName)}.apply _)
+                          .Name(clsName)}.apply _)
                   """
+                      )
                     )
-                  )
-                } else
-                  params.zipWithIndex
-                    .traverse({ case (param, idx) =>
-                      for {
-                        rawTpe <- Target.fromOption(param.term.decltpe, UserError("Missing type"))
-                        tpe <- rawTpe match {
-                                 case tpe: Type => Target.pure(tpe)
-                                 case x =>
-                                   Target.raiseUserError(
-                                     s"Unsure how to map ${x.structure}, please report this bug!"
-                                   )
-                               }
-                      } yield {
-                        val term = Term.Name(s"v$idx")
-                        val name = Lit.String(param.name.value)
+                  } else
+                    params.zipWithIndex
+                      .traverse({ case (param, idx) =>
+                        for {
+                          rawTpe <- Target.fromOption(param.term.decltpe, UserError("Missing type"))
+                          tpe    <- rawTpe match {
+                                      case tpe: Type => Target.pure(tpe)
+                                      case x         =>
+                                        Target.raiseUserError(
+                                          s"Unsure how to map ${x.structure}, please report this bug!"
+                                        )
+                                    }
+                        } yield {
+                          val term = Term.Name(s"v$idx")
+                          val name = Lit.String(param.name.value)
 
-                        val emptyToNull: Term => Term = if (param.emptyToNull == EmptyIsNull) { t =>
-                          q"$t.withFocus(j => j.asString.fold(j)(s => if(s.isEmpty) Json.Null else j))"
-                        } else identity _
+                          val emptyToNull: Term => Term = if (param.emptyToNull == EmptyIsNull) { t =>
+                            q"$t.withFocus(j => j.asString.fold(j)(s => if(s.isEmpty) Json.Null else j))"
+                          } else identity _
 
-                        val decodeField: Type => NonEmptyVector[Term => Term] = { tpe =>
-                          NonEmptyVector.of[Term => Term](
-                            t => q"$t.downField($name)",
-                            emptyToNull,
-                            t => q"$t.as[${tpe}]"
-                          )
-                        }
+                          val decodeField: Type => NonEmptyVector[Term => Term] = { tpe =>
+                            NonEmptyVector.of[Term => Term](
+                              t => q"$t.downField($name)",
+                              emptyToNull,
+                              t => q"$t.as[${tpe}]"
+                            )
+                          }
 
-                        val decodeOptionalField
-                          : Type => (Term => Term, Term) => NonEmptyVector[Term => Term] = {
-                          tpe => (present, absent) =>
-                            NonEmptyVector.of[Term => Term](t =>
-                              q"""
+                          val decodeOptionalField
+                            : Type => (Term => Term, Term) => NonEmptyVector[Term => Term] = {
+                            tpe => (present, absent) =>
+                              NonEmptyVector.of[Term => Term](t =>
+                                q"""
                           ((c: HCursor) =>
                             c
                               .value
                               .asObject
                               .filter(!_.contains($name))
                               .fold(${emptyToNull(
-                                q"c.downField($name)"
-                              )}.as[${tpe}].map(x => ${present(q"x")})) { _ =>
+                                  q"c.downField($name)"
+                                )}.as[${tpe}].map(x => ${present(q"x")})) { _ =>
                                 Right($absent)
                               }
                           )($t)
                         """
-                            )
-                        }
-
-                        def decodeOptionalRequirement(
-                          param: ProtocolParameter[ScalaLanguage]
-                        ): PropertyRequirement.OptionalRequirement => NonEmptyVector[
-                          Term => Term
-                        ] = {
-                          case PropertyRequirement.OptionalLegacy =>
-                            decodeField(tpe)
-                          case PropertyRequirement.RequiredNullable =>
-                            decodeField(t"Json") :+ (t => q"$t.flatMap(_.as[${tpe}])")
-                          case PropertyRequirement.Optional => // matched only where there is inconsistency between encoder and decoder
-                            decodeOptionalField(param.baseType)(x => q"Option($x)", q"None")
-                        }
-
-                        val parseTermAccessors: NonEmptyVector[Term => Term] =
-                          param.propertyRequirement match {
-                            case PropertyRequirement.Required =>
-                              decodeField(tpe)
-                            case PropertyRequirement.OptionalNullable =>
-                              decodeOptionalField(t"Option[${param.baseType}]")(
-                                x => q"$presence.present($x)",
-                                q"$presence.absent"
                               )
-                            case PropertyRequirement.Optional | PropertyRequirement.Configured(
-                                  PropertyRequirement.Optional,
-                                  PropertyRequirement.Optional
-                                ) =>
-                              decodeOptionalField(param.baseType)(
-                                x => q"$presence.present($x)",
-                                q"$presence.absent"
-                              )
-                            case requirement: PropertyRequirement.OptionalRequirement =>
-                              decodeOptionalRequirement(param)(requirement)
-                            case PropertyRequirement.Configured(_, decoderRequirement) =>
-                              decodeOptionalRequirement(param)(decoderRequirement)
                           }
 
-                        val parseTerm =
-                          parseTermAccessors.foldLeft[Term](q"c")((acc, next) => next(acc))
-                        val enum = enumerator"""${Pat.Var(term)} <- $parseTerm"""
-                        (term, enum)
-                      }
-                    })(MonadF)
-                    .map({ pairs =>
-                      val (terms, enumerators) = pairs.unzip
-                      Option(
-                        q"""
+                          def decodeOptionalRequirement(
+                            param: ProtocolParameter[ScalaLanguage]
+                          ): PropertyRequirement.OptionalRequirement => NonEmptyVector[
+                            Term => Term
+                          ] = {
+                            case PropertyRequirement.OptionalLegacy   =>
+                              decodeField(tpe)
+                            case PropertyRequirement.RequiredNullable =>
+                              decodeField(t"Json") :+ (t => q"$t.flatMap(_.as[${tpe}])")
+                            case PropertyRequirement.Optional         => // matched only where there is inconsistency between encoder and decoder
+                              decodeOptionalField(param.baseType)(x => q"Option($x)", q"None")
+                          }
+
+                          val parseTermAccessors: NonEmptyVector[Term => Term] =
+                            param.propertyRequirement match {
+                              case PropertyRequirement.Required                          =>
+                                decodeField(tpe)
+                              case PropertyRequirement.OptionalNullable                  =>
+                                decodeOptionalField(t"Option[${param.baseType}]")(
+                                  x => q"$presence.present($x)",
+                                  q"$presence.absent"
+                                )
+                              case PropertyRequirement.Optional | PropertyRequirement.Configured(
+                                    PropertyRequirement.Optional,
+                                    PropertyRequirement.Optional
+                                  ) =>
+                                decodeOptionalField(param.baseType)(
+                                  x => q"$presence.present($x)",
+                                  q"$presence.absent"
+                                )
+                              case requirement: PropertyRequirement.OptionalRequirement  =>
+                                decodeOptionalRequirement(param)(requirement)
+                              case PropertyRequirement.Configured(_, decoderRequirement) =>
+                                decodeOptionalRequirement(param)(decoderRequirement)
+                            }
+
+                          val parseTerm =
+                            parseTermAccessors.foldLeft[Term](q"c")((acc, next) => next(acc))
+                          val enum = enumerator"""${Pat.Var(term)} <- $parseTerm"""
+                          (term, enum)
+                        }
+                      })(MonadF)
+                      .map({ pairs =>
+                        val (terms, enumerators) = pairs.unzip
+                        Option(
+                          q"""
                     new Decoder[${Type.Name(clsName)}] {
                       final def apply(c: HCursor): Decoder.Result[${Type.Name(clsName)}] =
                         for {
@@ -256,8 +259,8 @@ class K8sModelProtocolTermInterp(implicit
                         } yield ${Term.Name(clsName)}(..${terms})
                     }
                   """
-                      )
-                    })
+                        )
+                      })
     } yield decVal.map(decVal =>
       q"""
               implicit val ${suffixClsName("decode", clsName)}: Decoder[${Type
@@ -312,7 +315,7 @@ class K8sModelProtocolTermInterp(implicit
                   _
                 ) =>
               Right(encodeRequired(param))
-            case PropertyRequirement.Configured(PropertyRequirement.Optional, _) =>
+            case PropertyRequirement.Configured(PropertyRequirement.Optional, _)     =>
               Left(q"""a.${Term.Name(param.term.name.value)}.map(value => (${Lit.String(
                 param.name.value
               )}, value.asJson))""")
@@ -390,6 +393,15 @@ class K8sModelProtocolTermInterp(implicit
                 }
              """
 
+    val metadata: Defn =
+      q"""implicit val metadata: ResourceMetadata[$entityNameT] =
+                                new ResourceMetadata[$entityNameT] {
+                                  override val kind: String = $kindLit
+                                  override val apiVersion: String = $apiVersionLit
+                                  override val resourceType: K8sResourceType = K8sResourceType($pluralLit, $groupLit, $versionLit)
+                                }
+                           """
+
     val isTopLevel = clsName.toLowerCase == k8sContext.kind.toLowerCase
 
     circe
@@ -399,7 +411,7 @@ class K8sModelProtocolTermInterp(implicit
           extraImports = q"import com.coralogix.zio.k8s.client.model._" ::
             q"import com.coralogix.zio.k8s.client.model.primitives._" ::
             sdefs.extraImports,
-          definitions = if (isTopLevel) { k8sObject :: ops :: sdefs.definitions }
+          definitions = if (isTopLevel) { k8sObject :: ops :: metadata :: sdefs.definitions }
           else sdefs.definitions
         )
       )

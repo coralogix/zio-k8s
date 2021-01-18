@@ -18,10 +18,10 @@ package object aspects {
         (ctx, event) =>
           log.locally(OperatorLogging(ctx.withSpecificNamespace(event.namespace))) {
             (event match {
-              case event @ Reseted =>
+              case event @ Reseted            =>
                 log.debug(s"State reseted") *>
                   f(ctx, event)
-              case event @ Added(resource) =>
+              case event @ Added(resource)    =>
                 log.debug(s"Resource added: ${resource.metadata.flatMap(_.name).getOrElse("?")}") *>
                   f(ctx, event)
               case event @ Modified(resource) =>
@@ -29,7 +29,7 @@ package object aspects {
                   s"Resource modified: ${resource.metadata.flatMap(_.name).getOrElse("?")}"
                 ) *>
                   f(ctx, event)
-              case event @ Deleted(resource) =>
+              case event @ Deleted(resource)  =>
                 log.debug(
                   s"Resource deleted: ${resource.metadata.flatMap(_.name).getOrElse("?")}"
                 ) *>

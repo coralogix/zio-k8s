@@ -203,20 +203,20 @@ trait ResourceClientBase {
         response.body match {
           case Left(HttpError(error, StatusCode.Unauthorized)) =>
             IO.fail(Unauthorized(error))
-          case Left(HttpError(error, StatusCode.Gone)) =>
+          case Left(HttpError(error, StatusCode.Gone))         =>
             IO.fail(Gone)
-          case Left(HttpError(error, StatusCode.NotFound)) =>
+          case Left(HttpError(error, StatusCode.NotFound))     =>
             IO.fail(NotFound)
-          case Left(HttpError(error, code)) =>
+          case Left(HttpError(error, code))                    =>
             decode[Status](error) match {
-              case Left(_) =>
+              case Left(_)       =>
                 IO.fail(HttpFailure(error, code))
               case Right(status) =>
                 IO.fail(DecodedFailure(status, code))
             }
-          case Left(DeserializationException(_, error)) =>
+          case Left(DeserializationException(_, error))        =>
             IO.fail(DeserializationFailure.single(error))
-          case Right(value) =>
+          case Right(value)                                    =>
             IO.succeed(value)
         }
       }
@@ -245,29 +245,29 @@ class ResourceClient[
         val rest = ZStream {
           for {
             nextContinueToken <- Ref.make(initialResponse.metadata.flatMap(_.continue)).toManaged_
-            pull = for {
-                     continueToken <- nextContinueToken.get
-                     chunk <- continueToken match {
-                                case Some("") | None =>
-                                  ZIO.fail(None)
-                                case Some(token) =>
-                                  for {
-                                    lst <- handleFailures {
-                                             k8sRequest
-                                               .get(
-                                                 paginated(
-                                                   namespace,
-                                                   chunkSize,
-                                                   continueToken = Some(token)
-                                                 )
-                                               )
-                                               .response(asJson[ObjectList[T]])
-                                               .send(backend)
-                                           }.mapError(Some.apply)
-                                    _ <- nextContinueToken.set(lst.metadata.flatMap(_.continue))
-                                  } yield Chunk.fromIterable(lst.items)
-                              }
-                   } yield chunk
+            pull               = for {
+                                   continueToken <- nextContinueToken.get
+                                   chunk         <- continueToken match {
+                                                      case Some("") | None =>
+                                                        ZIO.fail(None)
+                                                      case Some(token)     =>
+                                                        for {
+                                                          lst <- handleFailures {
+                                                                   k8sRequest
+                                                                     .get(
+                                                                       paginated(
+                                                                         namespace,
+                                                                         chunkSize,
+                                                                         continueToken = Some(token)
+                                                                       )
+                                                                     )
+                                                                     .response(asJson[ObjectList[T]])
+                                                                     .send(backend)
+                                                                 }.mapError(Some.apply)
+                                                          _   <- nextContinueToken.set(lst.metadata.flatMap(_.continue))
+                                                        } yield Chunk.fromIterable(lst.items)
+                                                    }
+                                 } yield chunk
           } yield pull
         }
         ZStream.fromIterable(initialResponse.items).concat(rest)
@@ -304,7 +304,7 @@ class ResourceClient[
             ZIO
               .fromEither(decode[WatchEvent](line))
               .mapError(DeserializationFailure.single)
-          event <- TypedWatchEvent.from[T](parsedEvent)
+          event       <- TypedWatchEvent.from[T](parsedEvent)
         } yield event
       }
 
@@ -386,7 +386,7 @@ class ResourceClientStatus[StatusT: Encoder, T: K8sObject: Encoder: Decoder] pri
     dryRun: Boolean
   ): IO[K8sFailure, T] =
     for {
-      name <- of.getName
+      name     <- of.getName
       response <- handleFailures {
                     k8sRequest
                       .put(modifyingStatus(name = name, namespace, dryRun))

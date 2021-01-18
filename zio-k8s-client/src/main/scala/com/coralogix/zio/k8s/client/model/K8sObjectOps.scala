@@ -22,4 +22,16 @@ trait K8sObjectOps[T] {
 
   def mapMetadata(f: ObjectMeta => ObjectMeta): T =
     impl.mapMetadata(f)(obj)
+
+  def attachOwner(
+    ownerName: String,
+    ownerUid: String,
+    ownerType: K8sResourceType
+  ): T = impl.attachOwner(obj)(ownerName, ownerUid, ownerType)
+
+  def tryAttachOwner[OwnerT: K8sObject: ResourceMetadata](owner: OwnerT): IO[K8sFailure, T] =
+    impl.tryAttachOwner(obj)(owner)
+
+  def isOwnedBy[OwnerT: K8sObject: ResourceMetadata](owner: OwnerT): Boolean =
+    impl.isOwnedBy(obj)(owner)
 }

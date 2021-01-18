@@ -40,7 +40,7 @@ object K8sResourceCodegen extends ModelGenerator with ClientModuleGenerator {
 
       // Generating code
       packagePaths <- generateAllPackages(scalafmt, log, targetDir, definitionMap, resources)
-      modelPaths   <- generateAllModels(scalafmt, log, targetDir, definitions)
+      modelPaths   <- generateAllModels(scalafmt, log, targetDir, definitions, resources)
     } yield (packagePaths union modelPaths).map(_.toFile).toSeq
 
   private def loadK8sSwagger(log: Logger, from: Path): ZIO[Blocking, Throwable, OpenAPI] =
