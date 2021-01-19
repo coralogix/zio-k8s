@@ -14,6 +14,7 @@ object EndpointType {
   case class Put(namespaced: Boolean, detectedPlural: String, modelName: String)
       extends EndpointType
   case class PutStatus(namespaced: Boolean, detectedPlural: String) extends EndpointType
+  case class GetStatus(namespaced: Boolean, detectedPlural: String) extends EndpointType
   case class Delete(namespaced: Boolean, detectedPlural: String) extends EndpointType
 
   case class Unsupported(reason: String) extends EndpointType
@@ -57,7 +58,7 @@ object EndpointType {
           if (containsLimit)
             if (containsContinue)
               endpoint.name match {
-                case clusterPattern(plural) =>
+                case clusterPattern(plural)    =>
                   if (containsNamespace)
                     EndpointType.Unsupported(
                       "Matches cluster pattern but contains namespace parameter"
@@ -71,7 +72,7 @@ object EndpointType {
                     )
                   else
                     EndpointType.List(namespaced = true, plural, supportsWatch)
-                case _ =>
+                case _                         =>
                   EndpointType.Unsupported(s"Possibly subresource listing")
               }
             else
@@ -97,25 +98,51 @@ object EndpointType {
           else
             s"""/apis/${endpoint.group}/${endpoint.version}/namespaces/\\{namespace\\}/([a-z]+)/\\{name\\}""".r
 
+        val clusterStatusPattern =
+          if (endpoint.group.isEmpty)
+            s"""/api/${endpoint.version}/([a-z]+)/\\{name\\}/status""".r
+          else
+            s"""/apis/${endpoint.group}/${endpoint.version}/([a-z]+)/\\{name\\}/status""".r
+
+        val namespacedStatusPattern =
+          if (endpoint.group.isEmpty)
+            s"""/api/${endpoint.version}/namespaces/\\{namespace\\}/([a-z]+)/\\{name\\}/status""".r
+          else
+            s"""/apis/${endpoint.group}/${endpoint.version}/namespaces/\\{namespace\\}/([a-z]+)/\\{name\\}/status""".r
+
         if (endpoint.method == PathItem.HttpMethod.GET)
           if (containsName)
             endpoint.name match {
-              case clusterPattern(plural) =>
+              case clusterPattern(plural)          =>
                 if (containsNamespace)
                   EndpointType.Unsupported(
                     "Matches cluster pattern but contains namespace parameter"
                   )
                 else
                   EndpointType.Get(namespaced = false, plural)
-              case namespacedPattern(plural) =>
+              case namespacedPattern(plural)       =>
                 if (!containsNamespace)
                   EndpointType.Unsupported(
                     "Matches namespaced pattern but does not contain namespace parameter"
                   )
                 else
                   EndpointType.Get(namespaced = true, plural)
-              case _ =>
-                EndpointType.Unsupported(s"Possibly subresource listing")
+              case clusterStatusPattern(plural)    =>
+                if (containsNamespace)
+                  EndpointType.Unsupported(
+                    "Matches cluster pattern but contains namespace parameter"
+                  )
+                else
+                  EndpointType.GetStatus(namespaced = false, plural)
+              case namespacedStatusPattern(plural) =>
+                if (!containsNamespace)
+                  EndpointType.Unsupported(
+                    "Matches namespaced pattern but does not contain namespace parameter"
+                  )
+                else
+                  EndpointType.GetStatus(namespaced = true, plural)
+              case _                               =>
+                EndpointType.Unsupported("Possibly subresource listing")
             }
           else
             EndpointType.Unsupported("Does not have 'name' parameter")
@@ -140,7 +167,7 @@ object EndpointType {
         if (endpoint.method == PathItem.HttpMethod.POST)
           if (containsDryRun)
             endpoint.name match {
-              case clusterPattern(plural) =>
+              case clusterPattern(plural)    =>
                 if (containsNamespace)
                   EndpointType.Unsupported(
                     "Matches cluster pattern but contains namespace parameter"
@@ -154,7 +181,7 @@ object EndpointType {
                   )
                 else
                   EndpointType.Post(namespaced = true, plural)
-              case _ =>
+              case _                         =>
                 EndpointType.Unsupported(s"Possibly subresource listing")
             }
           else
@@ -192,21 +219,21 @@ object EndpointType {
             bodyType match {
               case Some(modelName) =>
                 endpoint.name match {
-                  case clusterPattern(plural) =>
+                  case clusterPattern(plural)          =>
                     if (containsNamespace)
                       EndpointType.Unsupported(
                         "Matches cluster pattern but contains namespace parameter"
                       )
                     else
                       EndpointType.Put(namespaced = false, plural, modelName)
-                  case namespacedPattern(plural) =>
+                  case namespacedPattern(plural)       =>
                     if (!containsNamespace)
                       EndpointType.Unsupported(
                         "Matches namespaced pattern but does not contain namespace parameter"
                       )
                     else
                       EndpointType.Put(namespaced = true, plural, modelName)
-                  case clusterStatusPattern(plural) =>
+                  case clusterStatusPattern(plural)    =>
                     if (containsNamespace)
                       EndpointType.Unsupported(
                         "Matches cluster pattern but contains namespace parameter"
@@ -220,10 +247,10 @@ object EndpointType {
                       )
                     else
                       EndpointType.PutStatus(namespaced = true, plural)
-                  case _ =>
+                  case _                               =>
                     EndpointType.Unsupported(s"Possibly subresource listing")
                 }
-              case None =>
+              case None            =>
                 EndpointType.Unsupported("Does not have 'body' parameter")
             }
           else
@@ -247,7 +274,7 @@ object EndpointType {
         if (endpoint.method == PathItem.HttpMethod.DELETE)
           if (containsName)
             endpoint.name match {
-              case clusterPattern(plural) =>
+              case clusterPattern(plural)    =>
                 if (containsNamespace)
                   EndpointType.Unsupported(
                     "Matches cluster pattern but contains namespace parameter"
@@ -261,7 +288,7 @@ object EndpointType {
                   )
                 else
                   EndpointType.Delete(namespaced = true, plural)
-              case _ =>
+              case _                         =>
                 EndpointType.Unsupported(s"Possibly subresource listing")
             }
           else

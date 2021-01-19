@@ -20,7 +20,7 @@ sealed trait Identified {
         definitions.get(name) match {
           case Some(idef) =>
             (result + name) union idef.deepRefs(definitions, result + name)
-          case None =>
+          case None       =>
             println(s"!!! Cannot find reference $ref")
             result
         }
@@ -46,12 +46,12 @@ object IdentifiedSchema {
       .flatMap { param =>
         Option(param.get$ref()) match {
           case Some(ref) => Option(ref)
-          case None =>
+          case None      =>
             param.getType match {
               case "array" =>
                 val arraySchema = param.asInstanceOf[ArraySchema]
                 Option(arraySchema.getItems).flatMap(items => Option(items.get$ref()))
-              case _ =>
+              case _       =>
                 None
             }
         }
@@ -74,12 +74,12 @@ object IdentifiedSchema {
       extensions <- Option(schema.getExtensions)
       descs      <- extensions.asScala.get("x-kubernetes-group-version-kind")
       descsArray <- Try(descs.asInstanceOf[util.ArrayList[_]]).toOption
-      result = descsArray.asScala.foldLeft(Set.empty[IdentifiedSchema]) { case (result, desc) =>
-                 result + identifyOne(
-                   schema,
-                   desc.asInstanceOf[util.LinkedHashMap[String, Object]].asScala.toMap
-                 )
-               }
+      result      = descsArray.asScala.foldLeft(Set.empty[IdentifiedSchema]) { case (result, desc) =>
+                      result + identifyOne(
+                        schema,
+                        desc.asInstanceOf[util.LinkedHashMap[String, Object]].asScala.toMap
+                      )
+                    }
     } yield result).getOrElse(Set(Regular(name, schema)))
   }
 }
@@ -149,11 +149,11 @@ object IdentifiedPath {
       (for {
         extensions <- Option(op.getExtensions)
         descs      <- extensions.asScala.get("x-kubernetes-group-version-kind")
-        descsMap = descs.asInstanceOf[util.LinkedHashMap[String, Object]].asScala
-        group   <- descsMap.get("group").map(_.asInstanceOf[String])
-        kind    <- descsMap.get("kind").map(_.asInstanceOf[String])
-        version <- descsMap.get("version").map(_.asInstanceOf[String])
-        action  <- extensions.asScala.get("x-kubernetes-action").map(_.asInstanceOf[String])
+        descsMap    = descs.asInstanceOf[util.LinkedHashMap[String, Object]].asScala
+        group      <- descsMap.get("group").map(_.asInstanceOf[String])
+        kind       <- descsMap.get("kind").map(_.asInstanceOf[String])
+        version    <- descsMap.get("version").map(_.asInstanceOf[String])
+        action     <- extensions.asScala.get("x-kubernetes-action").map(_.asInstanceOf[String])
       } yield IdentifiedAction(path, group, kind, version, action, method, op, params)).getOrElse(
         RegularAction(path, op, params)
       )

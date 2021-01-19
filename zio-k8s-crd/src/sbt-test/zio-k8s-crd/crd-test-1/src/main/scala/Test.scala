@@ -1,9 +1,9 @@
 
 object Test {
-  import com.coralogix.zio.k8s.client.com.example.stable.definitions.crontab.v1.Crontab
+  import com.coralogix.zio.k8s.client.com.example.stable.definitions.crontab.v1.CronTab
 
-  val test = Crontab(Some(
-    Crontab.Spec(
+  val test = CronTab(Some(
+    CronTab.Spec(
       cronSpec = Some("x"),
       image = Some("y"),
       replicas = None

@@ -34,7 +34,7 @@ object ClassifiedResource {
           val classification =
             classifyResource(definitionMap, group, kind, version, actions.toSet)
           classification match {
-            case c: SupportedResource =>
+            case c: SupportedResource   =>
               Set(c)
             case _: UnsupportedResource =>
               Set.empty[SupportedResource]
@@ -61,7 +61,8 @@ object ClassifiedResource {
         hasPut(endpoints.keySet, namespaced) &&
         hasDelete(endpoints.keySet, namespaced)
       ) {
-        val hasStatus = hasPutStatus(endpoints.keySet, namespaced)
+        val hasStatus =
+          hasGetStatus(endpoints.keySet, namespaced) && hasPutStatus(endpoints.keySet, namespaced)
         val refs = endpoints
           .filter {
             case (EndpointType.Unsupported(_), _) => false
@@ -138,6 +139,12 @@ object ClassifiedResource {
   private def hasPutStatus(endpoints: Set[EndpointType], namespaced: Boolean): Boolean =
     endpoints
       .collect { case t: EndpointType.PutStatus =>
+        t
+      }
+      .exists(t => t.namespaced == namespaced)
+  private def hasGetStatus(endpoints: Set[EndpointType], namespaced: Boolean): Boolean =
+    endpoints
+      .collect { case t: EndpointType.GetStatus =>
         t
       }
       .exists(t => t.namespaced == namespaced)

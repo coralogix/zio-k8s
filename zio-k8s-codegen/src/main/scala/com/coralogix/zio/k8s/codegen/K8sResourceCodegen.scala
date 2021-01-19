@@ -27,9 +27,9 @@ object K8sResourceCodegen extends ModelGenerator with ClientModuleGenerator {
       scalafmt <- ZIO.effect(Scalafmt.create(this.getClass.getClassLoader))
 
       // Identifying
-      definitions = spec.getComponents.getSchemas.asScala
-                      .flatMap((IdentifiedSchema.identifyDefinition _).tupled)
-                      .toSet
+      definitions   = spec.getComponents.getSchemas.asScala
+                        .flatMap((IdentifiedSchema.identifyDefinition _).tupled)
+                        .toSet
       definitionMap = definitions.map(d => d.name -> d).toMap
 
       paths      = spec.getPaths.asScala.flatMap((IdentifiedPath.identifyPath _).tupled)
@@ -40,7 +40,7 @@ object K8sResourceCodegen extends ModelGenerator with ClientModuleGenerator {
 
       // Generating code
       packagePaths <- generateAllPackages(scalafmt, log, targetDir, definitionMap, resources)
-      modelPaths   <- generateAllModels(scalafmt, log, targetDir, definitions)
+      modelPaths   <- generateAllModels(scalafmt, log, targetDir, definitions, resources)
     } yield (packagePaths union modelPaths).map(_.toFile).toSeq
 
   private def loadK8sSwagger(log: Logger, from: Path): ZIO[Blocking, Throwable, OpenAPI] =
@@ -93,25 +93,25 @@ object K8sResourceCodegen extends ModelGenerator with ClientModuleGenerator {
 
       (entityPkg, entity) = splitName(resource.modelName)
 
-      src <- generateModuleCode(
-               basePackageName = clientRoot.mkString("."),
-               modelPackageName = "com.coralogix.zio.k8s.model." + entityPkg.mkString("."),
-               name = resource.plural,
-               entity = entity,
-               statusEntity = findStatusEntity(definitionMap, resource.modelName).map(s =>
-                 s"com.coralogix.zio.k8s.model.$s"
-               ),
-               group = resource.group,
-               kind = resource.kind,
-               version = resource.version,
-               isNamespaced = resource.namespaced,
-               None
-             )
-      targetDir = pkg.foldLeft(targetRoot)(_ / _)
-      _ <- Files.createDirectories(targetDir)
+      src       <- generateModuleCode(
+                     basePackageName = clientRoot.mkString("."),
+                     modelPackageName = "com.coralogix.zio.k8s.model." + entityPkg.mkString("."),
+                     name = resource.plural,
+                     entity = entity,
+                     statusEntity = findStatusEntity(definitionMap, resource.modelName).map(s =>
+                       s"com.coralogix.zio.k8s.model.$s"
+                     ),
+                     group = resource.group,
+                     kind = resource.kind,
+                     version = resource.version,
+                     isNamespaced = resource.namespaced,
+                     None
+                   )
+      targetDir  = pkg.foldLeft(targetRoot)(_ / _)
+      _         <- Files.createDirectories(targetDir)
       targetPath = targetDir / "package.scala"
-      _ <- writeTextFile(targetPath, src)
-      _ <- format(scalafmt, targetPath)
+      _         <- writeTextFile(targetPath, src)
+      _         <- format(scalafmt, targetPath)
     } yield targetPath
 
   protected def findStatusEntity(
@@ -123,7 +123,7 @@ object K8sResourceCodegen extends ModelGenerator with ClientModuleGenerator {
       properties       <- Option(modelSchema.getProperties)
       statusPropSchema <- Option(properties.get("status"))
       ref              <- Option(statusPropSchema.get$ref())
-      (pkg, name) = splitName(ref.drop("#/components/schemas/".length))
+      (pkg, name)       = splitName(ref.drop("#/components/schemas/".length))
     } yield pkg.mkString(".") + "." + name
   }
 

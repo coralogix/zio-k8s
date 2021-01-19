@@ -1,9 +1,9 @@
-import com.coralogix.zio.k8s.client.{K8sFailure, UndefinedField}
+import com.coralogix.zio.k8s.client.{ K8sFailure, UndefinedField }
 import com.coralogix.zio.k8s.client.model.Optional
-import com.coralogix.zio.k8s.model.apps.v1.{DaemonSet, DaemonSetSpec}
-import com.coralogix.zio.k8s.model.core.v1.{PodSpec, PodTemplateSpec}
-import com.coralogix.zio.k8s.model.pkg.apis.meta.v1.{LabelSelector, ObjectMeta}
-import zio.{IO, ZIO}
+import com.coralogix.zio.k8s.model.apps.v1.{ DaemonSet, DaemonSetSpec }
+import com.coralogix.zio.k8s.model.core.v1.{ PodSpec, PodTemplateSpec }
+import com.coralogix.zio.k8s.model.pkg.apis.meta.v1.{ LabelSelector, ObjectMeta }
+import zio.{ IO, ZIO }
 
 object Test {
 
@@ -48,7 +48,7 @@ object Test {
   case class X(y: Optional[Y] = Optional.Absent) {
     def setY(f: Y => Y): X =
       y match {
-        case Optional.Absent => copy(y = f(Y()))
+        case Optional.Absent     => copy(y = f(Y()))
         case Optional.Present(_) => copy(y = y.map(f))
       }
   }
@@ -56,6 +56,6 @@ object Test {
   def set[A0, A1, A2](a0: A0)(f1: A0 => (A1 => A1) => A0)(f2: A1 => A2 => A1)(value: A2): A0 =
     f1(a0)(a1 => f2(a1)(value))
 
-  val x0  = X()
+  val x0 = X()
   val x1 = set(x0)(_.setY)(_.setA)("hello")
 }

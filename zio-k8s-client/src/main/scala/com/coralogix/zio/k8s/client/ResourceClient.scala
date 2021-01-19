@@ -12,7 +12,6 @@ import sttp.client3.httpclient.zio._
 import sttp.model.{ StatusCode, Uri }
 import zio._
 import zio.clock.Clock
-import zio.config.ZConfig
 import zio.duration._
 import com.coralogix.zio.k8s.client.internal.ZStreamOps
 import com.coralogix.zio.k8s.client.model._
@@ -62,6 +61,8 @@ trait ResourceStatus[StatusT, T] {
     namespace: Option[K8sNamespace],
     dryRun: Boolean = false
   ): IO[K8sFailure, T]
+
+  def getStatus(name: String, namespace: Option[K8sNamespace]): IO[K8sFailure, T]
 }
 
 class NamespacedResource[T](impl: Resource[T]) {
@@ -110,6 +111,9 @@ class NamespacedResourceStatus[StatusT, T](impl: ResourceStatus[StatusT, T]) {
     dryRun: Boolean = false
   ): IO[K8sFailure, T] =
     impl.replaceStatus(of, updatedResource, Some(namespace), dryRun)
+
+  def getStatus(name: String, namespace: K8sNamespace): IO[K8sFailure, T] =
+    impl.getStatus(name, Some(namespace))
 }
 
 class ClusterResource[T](
@@ -152,6 +156,9 @@ class ClusterResourceStatus[StatusT, T](impl: ResourceStatus[StatusT, T]) {
     dryRun: Boolean = false
   ): IO[K8sFailure, T] =
     impl.replaceStatus(of, updatedStatus, None, dryRun)
+
+  def getStatus(name: String): IO[K8sFailure, T] =
+    impl.getStatus(name, None)
 }
 
 trait ResourceClientBase {
@@ -191,26 +198,25 @@ trait ResourceClientBase {
   protected def handleFailures[A](
     f: Task[Response[Either[ResponseException[String, Error], A]]]
   ): IO[K8sFailure, A] =
-    f
-      .mapError(RequestFailure.apply)
+    f.mapError(RequestFailure.apply)
       .flatMap { response =>
         response.body match {
           case Left(HttpError(error, StatusCode.Unauthorized)) =>
             IO.fail(Unauthorized(error))
-          case Left(HttpError(error, StatusCode.Gone)) =>
+          case Left(HttpError(error, StatusCode.Gone))         =>
             IO.fail(Gone)
-          case Left(HttpError(error, StatusCode.NotFound)) =>
+          case Left(HttpError(error, StatusCode.NotFound))     =>
             IO.fail(NotFound)
-          case Left(HttpError(error, code)) =>
+          case Left(HttpError(error, code))                    =>
             decode[Status](error) match {
-              case Left(_) =>
+              case Left(_)       =>
                 IO.fail(HttpFailure(error, code))
               case Right(status) =>
                 IO.fail(DecodedFailure(status, code))
             }
-          case Left(DeserializationException(_, error)) =>
+          case Left(DeserializationException(_, error))        =>
             IO.fail(DeserializationFailure.single(error))
-          case Right(value) =>
+          case Right(value)                                    =>
             IO.succeed(value)
         }
       }
@@ -239,29 +245,29 @@ class ResourceClient[
         val rest = ZStream {
           for {
             nextContinueToken <- Ref.make(initialResponse.metadata.flatMap(_.continue)).toManaged_
-            pull = for {
-                     continueToken <- nextContinueToken.get
-                     chunk <- continueToken match {
-                                case Optional.Present("") | Optional.Absent =>
-                                  ZIO.fail(None)
-                                case Optional.Present(token) =>
-                                  for {
-                                    lst <- handleFailures {
-                                             k8sRequest
-                                               .get(
-                                                 paginated(
-                                                   namespace,
-                                                   chunkSize,
-                                                   continueToken = Some(token)
-                                                 )
-                                               )
-                                               .response(asJson[ObjectList[T]])
-                                               .send(backend)
-                                           }.mapError(Some.apply)
-                                    _ <- nextContinueToken.set(lst.metadata.flatMap(_.continue))
-                                  } yield Chunk.fromIterable(lst.items)
-                              }
-                   } yield chunk
+            pull               = for {
+                                   continueToken <- nextContinueToken.get
+                                   chunk         <- continueToken match {
+                                                      case Optional.Present("") | Optional.Absent =>
+                                                        ZIO.fail(None)
+                                                      case Optional.Present(token)                =>
+                                                        for {
+                                                          lst <- handleFailures {
+                                                                   k8sRequest
+                                                                     .get(
+                                                                       paginated(
+                                                                         namespace,
+                                                                         chunkSize,
+                                                                         continueToken = Some(token)
+                                                                       )
+                                                                     )
+                                                                     .response(asJson[ObjectList[T]])
+                                                                     .send(backend)
+                                                                 }.mapError(Some.apply)
+                                                          _   <- nextContinueToken.set(lst.metadata.flatMap(_.continue))
+                                                        } yield Chunk.fromIterable(lst.items)
+                                                    }
+                                 } yield chunk
           } yield pull
         }
         ZStream.fromIterable(initialResponse.items).concat(rest)
@@ -294,10 +300,11 @@ class ResourceClient[
       .transduce(ZTransducer.utf8Decode >>> ZTransducer.splitLines)
       .mapM { line =>
         for {
-          parsedEvent <- ZIO
-                           .fromEither(decode[WatchEvent](line))
-                           .mapError(DeserializationFailure.single)
-          event <- TypedWatchEvent.from[T](parsedEvent)
+          parsedEvent <-
+            ZIO
+              .fromEither(decode[WatchEvent](line))
+              .mapError(DeserializationFailure.single)
+          event       <- TypedWatchEvent.from[T](parsedEvent)
         } yield event
       }
 
@@ -379,7 +386,7 @@ class ResourceClientStatus[StatusT: Encoder, T: K8sObject: Encoder: Decoder] pri
     dryRun: Boolean
   ): IO[K8sFailure, T] =
     for {
-      name <- of.getName
+      name     <- of.getName
       response <- handleFailures {
                     k8sRequest
                       .put(modifyingStatus(name = name, namespace, dryRun))
@@ -388,6 +395,14 @@ class ResourceClientStatus[StatusT: Encoder, T: K8sObject: Encoder: Decoder] pri
                       .send(backend)
                   }
     } yield response
+
+  override def getStatus(name: String, namespace: Option[K8sNamespace]): IO[K8sFailure, T] =
+    handleFailures {
+      k8sRequest
+        .get(simple(Some(name), namespace).addPath("status"))
+        .response(asJson[T])
+        .send(backend)
+    }
 
   private def toStatusUpdate(of: T, newStatus: StatusT): Json =
     of.asJson.mapObject(
@@ -399,7 +414,7 @@ object ResourceClient {
   object namespaced {
     def liveWithoutStatus[T: K8sObject: Encoder: Decoder: Tag](
       resourceType: K8sResourceType
-    ): ZLayer[SttpClient with ZConfig[K8sCluster], Nothing, Has[NamespacedResource[T]]] =
+    ): ZLayer[SttpClient with Has[K8sCluster], Nothing, Has[NamespacedResource[T]]] =
       ZLayer.fromServices[SttpClient.Service, K8sCluster, NamespacedResource[T]] {
         (backend: SttpClient.Service, cluster: K8sCluster) =>
           new NamespacedResource(new ResourceClient[T](resourceType, cluster, backend))
@@ -407,7 +422,7 @@ object ResourceClient {
 
     def liveWithStatus[StatusT: Encoder: Tag, T: K8sObject: Encoder: Decoder: Tag](
       resourceType: K8sResourceType
-    ): ZLayer[SttpClient with ZConfig[K8sCluster], Nothing, Has[
+    ): ZLayer[SttpClient with Has[K8sCluster], Nothing, Has[
       NamespacedResourceStatus[StatusT, T]
     ] with Has[NamespacedResource[T]]] =
       ZLayer.fromServices[SttpClient.Service, K8sCluster, NamespacedResourceStatus[StatusT, T]] {
@@ -465,6 +480,12 @@ object ResourceClient {
     ): ZIO[Has[NamespacedResourceStatus[StatusT, T]], K8sFailure, T] =
       ZIO.accessM(_.get.replaceStatus(of, updatedStatus, namespace, dryRun))
 
+    def getStatus[StatusT: Tag, T: Tag](
+      name: String,
+      namespace: K8sNamespace
+    ): ZIO[Has[NamespacedResourceStatus[StatusT, T]], K8sFailure, T] =
+      ZIO.accessM(_.get.getStatus(name, namespace))
+
     def delete[T: Tag](
       name: String,
       deleteOptions: DeleteOptions,
@@ -477,7 +498,7 @@ object ResourceClient {
   object cluster {
     def liveWithoutStatus[T: K8sObject: Encoder: Decoder: Tag](
       resourceType: K8sResourceType
-    ): ZLayer[SttpClient with ZConfig[K8sCluster], Nothing, Has[
+    ): ZLayer[SttpClient with Has[K8sCluster], Nothing, Has[
       ClusterResource[T]
     ]] =
       ZLayer.fromServices[SttpClient.Service, K8sCluster, ClusterResource[T]] {
@@ -489,7 +510,7 @@ object ResourceClient {
 
     def liveWithStatus[StatusT: Tag: Encoder, T: K8sObject: Encoder: Decoder: Tag](
       resourceType: K8sResourceType
-    ): ZLayer[SttpClient with ZConfig[K8sCluster], Nothing, Has[
+    ): ZLayer[SttpClient with Has[K8sCluster], Nothing, Has[
       ClusterResourceStatus[StatusT, T]
     ] with Has[ClusterResource[T]]] =
       ZLayer.fromServices[SttpClient.Service, K8sCluster, ClusterResourceStatus[StatusT, T]] {
@@ -538,7 +559,12 @@ object ResourceClient {
     ): ZIO[Has[ClusterResourceStatus[StatusT, T]], K8sFailure, T] =
       ZIO.accessM(_.get.replaceStatus(of, updatedStatus, dryRun))
 
-    def delete[T: Tag](
+    def getStatus[StatusT: Tag, T: Tag](
+      name: String
+    ): ZIO[Has[ClusterResourceStatus[StatusT, T]], K8sFailure, T] =
+      ZIO.accessM(_.get.getStatus(name))
+
+    def delete[T <: Object: Tag](
       name: String,
       deleteOptions: DeleteOptions,
       dryRun: Boolean = false

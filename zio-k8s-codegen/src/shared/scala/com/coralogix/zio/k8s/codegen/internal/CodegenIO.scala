@@ -27,9 +27,9 @@ object CodegenIO {
 
   def format(scalafmt: Scalafmt, path: Path) =
     for {
-      code <- readTextFile(path)
+      code     <- readTextFile(path)
       formatted = scalafmt.format(JPaths.get(".scalafmt.conf"), path.toFile.toPath, code)
-      _ <- writeTextFile(path, formatted)
+      _        <- writeTextFile(path, formatted)
     } yield path
 
 }

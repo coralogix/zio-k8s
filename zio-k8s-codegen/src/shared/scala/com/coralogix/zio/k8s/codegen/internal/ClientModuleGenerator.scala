@@ -41,15 +41,6 @@ trait ClientModuleGenerator {
       val ver = Term.Name(version)
 
       val pluaralLit = Lit.String(name)
-      val groupLit = Lit.String(group)
-      val versionLit = Lit.String(version)
-
-      val kindLit = Lit.String(kind)
-      val apiVersionLit =
-        if (group.isEmpty)
-          Lit.String(version)
-        else
-          Lit.String(s"${group}/${version}")
 
       val dtoPackage = modelPackageName.parse[Term].get.asInstanceOf[Term.Ref]
       val entityImport =
@@ -72,7 +63,7 @@ trait ClientModuleGenerator {
                   crd <- ZIO.fromEither(io.circe.yaml.parser.parse(rawYaml).flatMap(_.as[com.coralogix.zio.k8s.model.pkg.apis.apiextensions.v1.CustomResourceDefinition]))
                 } yield crd
              """)
-          case None =>
+          case None           =>
             List.empty
         }
 
@@ -80,7 +71,8 @@ trait ClientModuleGenerator {
         if (isNamespaced) {
           val statusDefinitions =
             if (statusEntity.isDefined)
-              List(q"""
+              List(
+                q"""
                def replaceStatus(
                 of: $entityT,
                 updatedStatus: $statusT,
@@ -89,20 +81,30 @@ trait ClientModuleGenerator {
               ): ZIO[Has[NamespacedResourceStatus[$statusT, $entityT]], K8sFailure, $entityT] = {
                   ResourceClient.namespaced.replaceStatus(of, updatedStatus, namespace, dryRun)
                 }
-             """)
+             """,
+                q"""
+                  def getStatus(
+                  name: String,
+                  namespace: K8sNamespace
+                ): ZIO[Has[
+                  NamespacedResourceStatus[$statusT, $entityT]
+                ], K8sFailure, $entityT] =
+                  ResourceClient.namespaced.getStatus(name, namespace)
+                 """
+              )
             else
               List.empty
 
           val live =
             if (statusEntity.isDefined)
               q"""
-              def live: ZLayer[SttpClient with ZConfig[K8sCluster], Nothing, Has[NamespacedResource[$entityT]] with Has[NamespacedResourceStatus[$statusT, $entityT]]] =
-                ResourceClient.namespaced.liveWithStatus[$statusT, $entityT](metadata.resourceType)
+              def live: ZLayer[SttpClient with Has[K8sCluster], Nothing, Has[NamespacedResource[$entityT]] with Has[NamespacedResourceStatus[$statusT, $entityT]]] =
+                ResourceClient.namespaced.liveWithStatus[$statusT, $entityT](implicitly[ResourceMetadata[$entityT]].resourceType)
              """
             else
               q"""
-              def live: ZLayer[SttpClient with ZConfig[K8sCluster], Nothing, Has[NamespacedResource[$entityT]]] =
-                ResourceClient.namespaced.liveWithoutStatus[$entityT](metadata.resourceType)
+              def live: ZLayer[SttpClient with Has[K8sCluster], Nothing, Has[NamespacedResource[$entityT]]] =
+                ResourceClient.namespaced.liveWithoutStatus[$entityT](implicitly[ResourceMetadata[$entityT]].resourceType)
              """
 
           val typeAlias =
@@ -126,19 +128,11 @@ trait ClientModuleGenerator {
           import sttp.client3.httpclient.zio.SttpClient
           import zio.blocking.Blocking
           import zio.clock.Clock
-          import zio.config.ZConfig
           import zio.stream.{ZStream, ZTransducer}
           import zio.{ Has, Task, ZIO, ZLayer }
 
           package object $ver {
             $typeAlias
-
-            implicit val metadata: ResourceMetadata[$entityT] =
-              new ResourceMetadata[$entityT] {
-                override val kind: String = $kindLit
-                override val apiVersion: String = $apiVersionLit
-                override val resourceType: K8sResourceType = K8sResourceType($pluaralLit, $groupLit, $versionLit)
-              }
 
             def getAll(
               namespace: Option[K8sNamespace],
@@ -206,7 +200,11 @@ trait ClientModuleGenerator {
               ): ZIO[Has[ClusterResourceStatus[$statusT, $entityT]], K8sFailure, $entityT] = {
                 ResourceClient.cluster.replaceStatus(of, updatedStatus, dryRun)
                 }
-               """
+               """,
+                q"""
+                  def getStatus(name: String): ZIO[Has[ClusterResourceStatus[$statusT, $entityT]], K8sFailure, $entityT] =
+                  ResourceClient.cluster.getStatus(name)
+                 """
               )
             else
               List.empty
@@ -214,13 +212,13 @@ trait ClientModuleGenerator {
           val live =
             if (statusEntity.isDefined)
               q"""
-              def live: ZLayer[SttpClient with ZConfig[K8sCluster], Nothing, Has[ClusterResource[$entityT]] with Has[ClusterResourceStatus[$statusT, $entityT]]] =
-                ResourceClient.cluster.liveWithStatus[$statusT, $entityT](metadata.resourceType)
+              def live: ZLayer[SttpClient with Has[K8sCluster], Nothing, Has[ClusterResource[$entityT]] with Has[ClusterResourceStatus[$statusT, $entityT]]] =
+                ResourceClient.cluster.liveWithStatus[$statusT, $entityT](implicitly[ResourceMetadata[$entityT]].resourceType)
              """
             else
               q"""
-              def live: ZLayer[SttpClient with ZConfig[K8sCluster], Nothing, Has[ClusterResource[$entityT]]] =
-                ResourceClient.cluster.liveWithoutStatus[$entityT](metadata.resourceType)
+              def live: ZLayer[SttpClient with Has[K8sCluster], Nothing, Has[ClusterResource[$entityT]]] =
+                ResourceClient.cluster.liveWithoutStatus[$entityT](implicitly[ResourceMetadata[$entityT]].resourceType)
              """
 
           val typeAlias =
@@ -244,19 +242,11 @@ trait ClientModuleGenerator {
           import sttp.client3.httpclient.zio.SttpClient
           import zio.blocking.Blocking
           import zio.clock.Clock
-          import zio.config.ZConfig
           import zio.stream.{ZStream, ZTransducer}
           import zio.{ Has, Task, ZIO, ZLayer }
 
           package object $ver {
             $typeAlias
-
-            implicit val metadata: ResourceMetadata[$entityT] =
-              new ResourceMetadata[$entityT] {
-                override val kind: String = $kindLit
-                override val apiVersion: String = $apiVersionLit
-                override val resourceType: K8sResourceType = K8sResourceType($pluaralLit, $groupLit, $versionLit)
-              }
 
             def getAll(
               chunkSize: Int = 10
