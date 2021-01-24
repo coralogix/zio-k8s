@@ -3,7 +3,7 @@ val scala213Version = "2.13.4"
 // val scala3Version = "3.0.0-M3"
 
 val zioVersion = "1.0.3"
-val zioConfigVersion = "1.0.0-RC31-1"
+val zioConfigVersion = "1.0.0-RC32"
 
 inThisBuild(
   List(
