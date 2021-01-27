@@ -59,7 +59,7 @@ object GuardrailModelGenerator {
     outputRoot: Path,
     name: String,
     schemaFragments: (String, Json)*
-  ): ZIO[Blocking, Exception, List[Path]] = {
+  ): ZIO[Blocking, Throwable, List[Path]] = {
     val fullSchema = Json.obj(
       "swagger"     := "2.0",
       "info"        := Json.obj(
@@ -107,6 +107,27 @@ object GuardrailModelGenerator {
                                ZIO.fail(new RuntimeException(s"Guardrail failed with $error")),
                              files => ZIO.succeed(files)
                            )
-    } yield guardrailResult.map(Path.fromJava)
+      generatedFiles   = guardrailResult.map(Path.fromJava)
+      _               <- postProcessOptionals(generatedFiles)
+    } yield generatedFiles
   }
+
+  private def postProcessOptionals(files: List[Path]): ZIO[Blocking, Throwable, Unit] =
+    ZIO.foreach_(files)(postProcessOptionalsIn)
+
+  private def postProcessOptionalsIn(file: Path): ZIO[Blocking, Throwable, Unit] =
+    for {
+      rawSource    <- readTextFile(file)
+      ast          <- ZIO.fromEither(rawSource.parse[Source].toEither).mapError(_.details)
+      updatedAst    = postProcessOptionalsInAst(ast)
+      updatedSource = updatedAst.toString()
+      _            <- writeTextFile(file, updatedSource)
+    } yield ()
+
+  private def postProcessOptionalsInAst(ast: Source): Source =
+    ast
+      .transform {
+        case Type.Name(name) if name == "Option" => t"com.coralogix.zio.k8s.client.model.Optional"
+      }
+      .asInstanceOf[Source]
 }
