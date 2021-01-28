@@ -43,7 +43,7 @@ trait ModelGenerator {
     } yield paths
   }
 
-  private def isListModel(model: IdentifiedSchema): Boolean =
+  protected def isListModel(model: IdentifiedSchema): Boolean =
     model.name.endsWith("List") // NOTE: better check: has 'metadata' field of type 'ListMeta'
 
   private def findPluralName(
@@ -368,7 +368,7 @@ trait ModelGenerator {
       .replace("case class", classDesc + "\ncase class")
   }
 
-  private def toType(name: String, propSchema: Schema[_]): Type =
+  protected def toType(name: String, propSchema: Schema[_]): Type =
     (Option(propSchema.getType), Option(propSchema.get$ref())) match {
       case (None, Some(ref)) =>
         val (nsParts, n) = splitName(ref.drop("#/components/schemas/".length))
@@ -433,7 +433,7 @@ trait ModelGenerator {
         t"AnyRef"
     }
 
-  private def filterKeysOf(d: IdentifiedSchema) =
+  protected def filterKeysOf(d: IdentifiedSchema) =
     d match {
       case Regular(name, schema)                                    =>
         (_: String) => true
