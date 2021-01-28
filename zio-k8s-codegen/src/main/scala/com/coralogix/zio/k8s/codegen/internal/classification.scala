@@ -34,7 +34,7 @@ object ClassifiedResource {
           val classification =
             classifyResource(definitionMap, group, kind, version, actions.toSet)
           classification match {
-            case c: SupportedResource =>
+            case c: SupportedResource   =>
               Set(c)
             case _: UnsupportedResource =>
               Set.empty[SupportedResource]

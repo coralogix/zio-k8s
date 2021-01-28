@@ -5,7 +5,7 @@ import com.coralogix.zio.k8s.model.pkg.apis.meta.v1.{ ObjectMeta, OwnerReference
 import zio.{ IO, ZIO }
 
 trait K8sObject[T] {
-  def metadata(obj: T): Option[ObjectMeta]
+  def metadata(obj: T): Optional[ObjectMeta]
   def mapMetadata(f: ObjectMeta => ObjectMeta)(r: T): T
 
   def getName(obj: T): IO[K8sFailure, String] =

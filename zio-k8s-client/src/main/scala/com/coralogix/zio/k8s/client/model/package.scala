@@ -107,5 +107,4 @@ package object model {
         .addParam("watch", "1")
         .addParam("resourceVersion", resourceVersion)
   }
-
 }

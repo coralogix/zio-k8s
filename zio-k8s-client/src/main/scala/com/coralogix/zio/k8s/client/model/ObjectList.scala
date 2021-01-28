@@ -4,7 +4,7 @@ import io.circe._
 import io.circe.syntax._
 import com.coralogix.zio.k8s.model.pkg.apis.meta.v1.ListMeta
 
-case class ObjectList[+T](metadata: Option[ListMeta], items: List[T])
+case class ObjectList[+T](metadata: Optional[ListMeta], items: List[T])
 
 object ObjectList {
   implicit def encodeObjectList[T: Encoder]: Encoder[ObjectList[T]] =

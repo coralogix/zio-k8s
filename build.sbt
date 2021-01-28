@@ -33,6 +33,8 @@ lazy val root = Project("zio-k8s", file("."))
   )
   .aggregate(
     client,
+    clientMonocle,
+    clientQuicklens,
     crd,
     operator,
     examples
@@ -70,6 +72,56 @@ lazy val client = Project("zio-k8s-client", file("zio-k8s-client"))
     }
   )
   .enablePlugins(K8sResourceCodegenPlugin)
+
+lazy val clientQuicklens = Project("zio-k8s-client-quicklens", file("zio-k8s-client-quicklens"))
+  .settings(commonSettings)
+  .settings(
+    libraryDependencies ++= Seq(
+      "com.softwaremill.quicklens" %% "quicklens"    % "1.6.1",
+      "dev.zio"                    %% "zio-test"     % zioVersion % Test,
+      "dev.zio"                    %% "zio-test-sbt" % zioVersion % Test
+    ),
+    testFrameworks += new TestFramework("zio.test.sbt.ZTestFramework")
+  )
+  .dependsOn(client)
+
+lazy val clientMonocle = Project("zio-k8s-client-monocle", file("zio-k8s-client-monocle"))
+  .settings(commonSettings)
+  .settings(
+    Compile / scalacOptions ++= {
+      CrossVersion.partialVersion(scalaVersion.value) match {
+        case Some((2, n)) if n >= 13 => "-Ymacro-annotations" :: Nil
+        case _                       => Nil
+      }
+    },
+    libraryDependencies ++= {
+      CrossVersion.partialVersion(scalaVersion.value) match {
+        case Some((2, n)) if n <= 12 =>
+          List(compilerPlugin("org.scalamacros" % "paradise" % "2.1.1" cross CrossVersion.full))
+        case _                       => Nil
+      }
+    },
+    libraryDependencies ++= Seq(
+      "com.github.julien-truffaut" %% "monocle-core"  % "2.0.3",
+      "com.github.julien-truffaut" %% "monocle-macro" % "2.0.3",
+      "dev.zio"                    %% "zio-test"      % zioVersion % Test,
+      "dev.zio"                    %% "zio-test-sbt"  % zioVersion % Test
+    ),
+    testFrameworks += new TestFramework("zio.test.sbt.ZTestFramework"),
+    mappings in (Compile, packageSrc) ++= {
+      val base = (sourceManaged in Compile).value
+      val files = (managedSources in Compile).value
+      files
+        .map { f =>
+          (f, f.relativeTo(base).map(_.getPath))
+        }
+        .collect { case (f, Some(g)) =>
+          (f -> g)
+        }
+    }
+  )
+  .dependsOn(client)
+  .enablePlugins(K8sMonocleCodegenPlugin)
 
 lazy val crd = Project("zio-k8s-crd", file("zio-k8s-crd"))
   .settings(commonSettings)
@@ -127,7 +179,8 @@ lazy val examples = Project("examples", file("examples"))
     publish / skip := true
   )
   .aggregate(
-    leaderExample
+    leaderExample,
+    opticsExample
   )
 
 lazy val leaderExample = Project("leader-example", file("examples/leader-example"))
@@ -137,8 +190,12 @@ lazy val leaderExample = Project("leader-example", file("examples/leader-example
       "dev.zio" %% "zio-config-typesafe" % zioConfigVersion
     ),
     packageName in Docker := "leader-example",
-    version in Docker := "0.0.1",
-    dockerBaseImage := "openjdk:11"
+    version in Docker     := "0.0.1",
+    dockerBaseImage       := "openjdk:11"
   )
   .dependsOn(operator)
   .enablePlugins(JavaAppPackaging, DockerPlugin)
+
+val opticsExample = Project("optics-example", file("examples/optics-example"))
+  .settings(commonSettings)
+  .dependsOn(client, clientQuicklens, clientMonocle)

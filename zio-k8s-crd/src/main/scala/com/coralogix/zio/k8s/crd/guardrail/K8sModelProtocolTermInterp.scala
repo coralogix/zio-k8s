@@ -379,7 +379,7 @@ class K8sModelProtocolTermInterp(implicit
     val k8sObject: Defn =
       q"""implicit val k8sObject: K8sObject[$entityNameT] =
                   new K8sObject[$entityNameT] {
-                    def metadata(obj: $entityNameT): Option[ObjectMeta] =
+                    def metadata(obj: $entityNameT): Optional[ObjectMeta] =
                       obj.metadata
                     def mapMetadata(f: ObjectMeta => ObjectMeta)(obj: $entityNameT): $entityNameT =
                       obj.copy(metadata = obj.metadata.map(f))

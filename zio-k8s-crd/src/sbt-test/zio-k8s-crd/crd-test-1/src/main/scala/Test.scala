@@ -2,13 +2,13 @@
 object Test {
   import com.coralogix.zio.k8s.client.com.example.stable.definitions.crontab.v1.CronTab
 
-  val test = CronTab(Some(
+  val test = CronTab(
     CronTab.Spec(
-      cronSpec = Some("x"),
-      image = Some("y"),
+      cronSpec = "x",
+      image = "y",
       replicas = None
     )
-  ))
+  )
 
   val test2 = test.mapMetadata(_.copy(name = Some("name")))
 }

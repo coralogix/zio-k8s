@@ -25,28 +25,33 @@ trait ModelGenerator {
   ): ZIO[Blocking, Throwable, Set[Path]] = {
     val filteredDefinitions = definitions.filter(d => !isListModel(d))
     for {
-      _ <- ZIO.effect(log.info(s"Generating code for ${filteredDefinitions.size} models..."))
+      _     <- ZIO.effect(log.info(s"Generating code for ${filteredDefinitions.size} models..."))
       paths <- ZIO.foreach(filteredDefinitions) { d =>
                  val (groupName, entityName) = splitName(d.name)
                  val pkg = (modelRoot ++ groupName)
 
                  for {
-                   _ <- ZIO.effect(log.info(s"Generating '$entityName' to $pkg"))
-                   src       = generateModel(modelRoot, pkg, entityName, d, resources)
-                   targetDir = pkg.foldLeft(targetRoot)(_ / _)
-                   _ <- Files.createDirectories(targetDir)
+                   _         <- ZIO.effect(log.info(s"Generating '$entityName' to $pkg"))
+                   src        = generateModel(modelRoot, pkg, entityName, d, resources)
+                   targetDir  = pkg.foldLeft(targetRoot)(_ / _)
+                   _         <- Files.createDirectories(targetDir)
                    targetPath = targetDir / s"$entityName.scala"
-                   _ <- writeTextFile(targetPath, src)
-                   _ <- format(scalafmt, targetPath)
+                   _         <- writeTextFile(targetPath, src)
+                   _         <- format(scalafmt, targetPath)
                  } yield targetPath
                }
     } yield paths
   }
 
-  private def isListModel(model: IdentifiedSchema): Boolean =
+  protected def isListModel(model: IdentifiedSchema): Boolean =
     model.name.endsWith("List") // NOTE: better check: has 'metadata' field of type 'ListMeta'
 
-  private def findPluralName(group: String, kind: String, version: String, resources: Set[SupportedResource]): String =
+  private def findPluralName(
+    group: String,
+    kind: String,
+    version: String,
+    resources: Set[SupportedResource]
+  ): String =
     resources
       .find(r => r.group == group && r.kind == kind && r.version == version)
       .map(_.plural)
@@ -79,7 +84,7 @@ trait ModelGenerator {
               val requiredProperties =
                 Option(objectSchema.getRequired)
                   .map(_.asScala.toSet)
-                  .getOrElse(Set.empty) - "metadata"
+                  .getOrElse(Set.empty)
 
               val props = properties
                 .filterKeys(filterKeysOf(d))
@@ -92,29 +97,31 @@ trait ModelGenerator {
                   if (isRequired)
                     param"""$nameN: $propT"""
                   else
-                    param"""$nameN: Option[$propT] = None"""
+                    param"""$nameN: Optional[$propT] = Optional.Absent"""
                 }
+
+              val getters =
+                properties
+                  .filterKeys(filterKeysOf(d))
+                  .toList
+                  .map { case (name, propSchema) =>
+                    val isRequired = requiredProperties.contains(name)
+                    val propT = toType(name, propSchema)
+                    val valueName = Term.Name(name)
+                    val valueLit = Lit.String(name)
+                    val getterName = Term.Name(s"get${name.capitalize}")
+
+                    if (isRequired)
+                      q"""def $getterName: IO[K8sFailure, $propT] = ZIO.succeed($valueName)"""
+                    else
+                      q"""def $getterName: IO[K8sFailure, $propT] = ZIO.fromEither($valueName.toRight(UndefinedField($valueLit)))"""
+                  }
 
               val classDef =
-                d match {
-                  case Regular(name, schema) =>
-                    q"""case class $entityNameT(..$props)"""
-                  case IdentifiedDefinition(name, group, kind, version, schema) =>
-                    val metadataT = properties.get("metadata").map(toType("metadata", _))
-                    val metadataIsRequired = requiredProperties.contains("metadata")
-
-                    (metadataT, metadataIsRequired) match {
-                      case (Some(t), false) if t.toString == "pkg.apis.meta.v1.ObjectMeta" =>
-                        q"""case class $entityNameT(..$props)"""
-                      case (Some(t), true) if t.toString == "pkg.apis.meta.v1.ObjectMeta" =>
-                        q"""case class $entityNameT(..$props) {
-                              override val metadata: Option[com.coralogix.zio.k8s.model.pkg.apis.meta.v1.ObjectMeta] = Some(_metadata)
-                            }
-                        """
-                      case _ =>
-                        q"""case class $entityNameT(..$props)"""
+                q"""case class $entityNameT(..$props) {
+                      ..$getters
                     }
-                }
+                 """
 
               val encoder = {
                 val baseJsonFields = properties
@@ -125,7 +132,7 @@ trait ModelGenerator {
                   .toList
 
                 val jsonFields = d match {
-                  case Regular(name, schema) =>
+                  case Regular(name, schema)                                        =>
                     baseJsonFields
                   case d @ IdentifiedDefinition(name, group, kind, version, schema) =>
                     q""""kind" := ${Lit.String(kind)}""" ::
@@ -149,7 +156,7 @@ trait ModelGenerator {
                       if (isRequired)
                         toType(k, propSchema)
                       else
-                        t"Option[${toType(k, propSchema)}]"
+                        t"Optional[${toType(k, propSchema)}]"
 
                     val fieldLit = Lit.String(k)
                     enumerator"${Pat.Var(Term.Name(k))} <- cursor.downField($fieldLit).as[$propT]"
@@ -178,7 +185,7 @@ trait ModelGenerator {
 
               val k8sObject =
                 d match {
-                  case Regular(name, schema) =>
+                  case Regular(name, schema)                                    =>
                     List.empty
                   case IdentifiedDefinition(name, group, kind, version, schema) =>
                     val metadataT = properties.get("metadata").map(toType("metadata", _))
@@ -199,7 +206,7 @@ trait ModelGenerator {
                         List(
                           q"""implicit val k8sObject: com.coralogix.zio.k8s.client.model.K8sObject[$entityNameT] =
                               new com.coralogix.zio.k8s.client.model.K8sObject[$entityNameT] {
-                                def metadata(obj: $entityNameT): Option[pkg.apis.meta.v1.ObjectMeta] =
+                                def metadata(obj: $entityNameT): Optional[pkg.apis.meta.v1.ObjectMeta] =
                                   obj.metadata
                                 def mapMetadata(f: pkg.apis.meta.v1.ObjectMeta => pkg.apis.meta.v1.ObjectMeta)(obj: $entityNameT): $entityNameT =
                                   obj.copy(metadata = obj.metadata.map(f))
@@ -218,11 +225,11 @@ trait ModelGenerator {
                                 }
                            """
                         )
-                      case (Some(t), true) if t.toString == "pkg.apis.meta.v1.ObjectMeta" =>
+                      case (Some(t), true) if t.toString == "pkg.apis.meta.v1.ObjectMeta"  =>
                         List(
                           q"""implicit val k8sObject: com.coralogix.zio.k8s.client.model.K8sObject[$entityNameT] =
                               new com.coralogix.zio.k8s.client.model.K8sObject[$entityNameT] {
-                                def metadata(obj: $entityNameT): Option[pkg.apis.meta.v1.ObjectMeta] =
+                                def metadata(obj: $entityNameT): Optional[pkg.apis.meta.v1.ObjectMeta] =
                                   Some(obj.metadata)
                                 def mapMetadata(f: pkg.apis.meta.v1.ObjectMeta => pkg.apis.meta.v1.ObjectMeta)(obj: $entityNameT): $entityNameT =
                                   obj.copy(metadata = f(obj.metadata))
@@ -241,7 +248,7 @@ trait ModelGenerator {
                                 }
                            """
                         )
-                      case _ =>
+                      case _                                                               =>
                         List.empty
                     }
                 }
@@ -256,7 +263,7 @@ trait ModelGenerator {
                       }
                      """
               )
-            case None =>
+            case None             =>
               q"""
                 case class $entityNameT(value: Json)
                 object $entityNameN {
@@ -267,7 +274,7 @@ trait ModelGenerator {
           }
         case Some("string") =>
           Option(d.schema.getFormat) match {
-            case None =>
+            case None                  =>
               q"""case class $entityNameT(value: String) extends AnyVal
                   object $entityNameN {
                     implicit val $encoderName: Encoder[$entityNameT] = Encoder.encodeString.contramap(_.value)
@@ -297,7 +304,7 @@ trait ModelGenerator {
                       }
                   }
               """.stats
-            case Some("date-time") =>
+            case Some("date-time")     =>
               q"""case class $entityNameT(value: OffsetDateTime) extends AnyVal
                   object $entityNameN {
                     implicit val $encoderName: Encoder[$entityNameT] =
@@ -306,11 +313,11 @@ trait ModelGenerator {
                       Decoder.decodeString.emapTry(str => Try(OffsetDateTime.parse(str, java.time.format.DateTimeFormatter.ISO_OFFSET_DATE_TIME)).map($entityNameN.apply))
                   }
                """.stats
-            case Some(other) =>
+            case Some(other)           =>
               println(s"!!! Unknown format for string alias: $other")
               List.empty
           }
-        case _ =>
+        case _              =>
           println(s"!!! Special type $entityName not handled yet")
           List.empty
       }
@@ -318,12 +325,14 @@ trait ModelGenerator {
     val tree =
       q"""package $packageTerm {
 
-          import zio.Chunk
           import io.circe._
           import io.circe.syntax._
           import java.time.OffsetDateTime
           import scala.util.Try
-          import com.coralogix.zio.k8s.client.model.{K8sResourceType, ResourceMetadata}
+          import zio.{Chunk, IO, ZIO}
+
+          import com.coralogix.zio.k8s.client.{K8sFailure, UndefinedField}
+          import com.coralogix.zio.k8s.client.model.{K8sResourceType, Optional, ResourceMetadata}
 
           import $rootPackageTerm._
 
@@ -350,7 +359,7 @@ trait ModelGenerator {
             .mkString("\n")
 
           s"\n$list\n"
-        case _ => ""
+        case _        => ""
       }
     val classDesc =
       s"/**\n  * ${Option(d.schema.getDescription).getOrElse("")}\n$paramDescs */"
@@ -359,7 +368,7 @@ trait ModelGenerator {
       .replace("case class", classDesc + "\ncase class")
   }
 
-  private def toType(name: String, propSchema: Schema[_]): Type =
+  protected def toType(name: String, propSchema: Schema[_]): Type =
     (Option(propSchema.getType), Option(propSchema.get$ref())) match {
       case (None, Some(ref)) =>
         val (nsParts, n) = splitName(ref.drop("#/components/schemas/".length))
@@ -368,12 +377,12 @@ trait ModelGenerator {
 
       case (Some("string"), _) =>
         Option(propSchema.getFormat) match {
-          case Some("byte") =>
+          case Some("byte")  =>
             t"Chunk[Byte]"
           case Some(unknown) =>
             println(s"!!! UNHANDLED STRING FORMAT for $name: $unknown")
             t"String"
-          case None =>
+          case None          =>
             t"String"
         }
 
@@ -388,20 +397,20 @@ trait ModelGenerator {
           case Some(unknown) =>
             println(s"!!! UNHANDLED INT FORMAT for $name: $unknown")
             t"Int"
-          case None =>
+          case None          =>
             t"Int"
         }
-      case (Some("number"), _) =>
+      case (Some("number"), _)  =>
         Option(propSchema.getFormat) match {
           case Some("double") =>
             t"Double"
-          case Some(unknown) =>
+          case Some(unknown)  =>
             println(s"!!! UNHANDLED NUMBER FORMAT for $name: $unknown")
             t"Double"
-          case None =>
+          case None           =>
             t"Double"
         }
-      case (Some("array"), _) =>
+      case (Some("array"), _)   =>
         val arraySchema = propSchema.asInstanceOf[ArraySchema]
         val itemType = toType(s"$name items", arraySchema.getItems)
         t"Vector[$itemType]"
@@ -411,7 +420,7 @@ trait ModelGenerator {
           case Some(additionalProperties) =>
             val keyType = toType(s"$name values", additionalProperties)
             t"Map[String, $keyType]"
-          case None =>
+          case None                       =>
             println(s"!!! UNHANDLED object type for $name")
             t"AnyRef"
         }
@@ -419,14 +428,14 @@ trait ModelGenerator {
       case (Some(unknown), _) =>
         println(s"!!! UNHANDLED TYPE for $name: $unknown")
         t"AnyRef"
-      case (None, None) =>
+      case (None, None)       =>
         println(s"!!! No type and no ref for $name")
         t"AnyRef"
     }
 
-  private def filterKeysOf(d: IdentifiedSchema) =
+  protected def filterKeysOf(d: IdentifiedSchema) =
     d match {
-      case Regular(name, schema) =>
+      case Regular(name, schema)                                    =>
         (_: String) => true
       case IdentifiedDefinition(name, group, kind, version, schema) =>
         (name: String) => name != "kind" && name != "apiVersion"

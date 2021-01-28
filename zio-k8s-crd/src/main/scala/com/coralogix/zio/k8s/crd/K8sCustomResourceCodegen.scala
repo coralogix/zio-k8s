@@ -40,7 +40,7 @@ object K8sCustomResourceCodegen extends ClientModuleGenerator {
       entityName.toPascalCase,
       crd.spec.versions
         .find(_.name == version)
-        .flatMap(_.subresources.flatMap(_.status))
+        .flatMap(_.subresources.flatMap(_.status).toOption)
         .map(_ => entityName.toPascalCase + ".Status"),
       crd.spec.group,
       crd.spec.names.kind,
@@ -73,7 +73,7 @@ object K8sCustomResourceCodegen extends ClientModuleGenerator {
     val singular = crd.spec.names.singular.getOrElse(crd.spec.names.plural)
     val entityName = crd.spec.names.kind
     val pluralName = crd.spec.names.plural
-    version.schema.flatMap(_.openAPIV3Schema) match {
+    version.schema.flatMap(_.openAPIV3Schema).toOption match {
       case Some(originalSchema) =>
         val schema = adjustSchema(originalSchema)
         val schemaFragment = schema.asJson.deepDropNullValues
