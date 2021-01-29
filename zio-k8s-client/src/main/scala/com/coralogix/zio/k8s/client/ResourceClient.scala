@@ -65,26 +65,26 @@ trait ResourceStatus[StatusT, T] {
   def getStatus(name: String, namespace: Option[K8sNamespace]): IO[K8sFailure, T]
 }
 
-class NamespacedResource[T](impl: Resource[T]) {
+class NamespacedResource[T](val asGenericResource: Resource[T]) {
   def getAll(namespace: Option[K8sNamespace], chunkSize: Int = 10): Stream[K8sFailure, T] =
-    impl.getAll(namespace, chunkSize)
+    asGenericResource.getAll(namespace, chunkSize)
 
   def watch(
     namespace: Option[K8sNamespace],
     resourceVersion: Option[String]
   ): Stream[K8sFailure, TypedWatchEvent[T]] =
-    impl.watch(namespace, resourceVersion)
+    asGenericResource.watch(namespace, resourceVersion)
 
   def watchForever(
     namespace: Option[K8sNamespace]
   ): ZStream[Clock, K8sFailure, TypedWatchEvent[T]] =
-    impl.watchForever(namespace)
+    asGenericResource.watchForever(namespace)
 
   def get(name: String, namespace: K8sNamespace): IO[K8sFailure, T] =
-    impl.get(name, Some(namespace))
+    asGenericResource.get(name, Some(namespace))
 
   def create(newResource: T, namespace: K8sNamespace, dryRun: Boolean = false): IO[K8sFailure, T] =
-    impl.create(newResource, Some(namespace), dryRun)
+    asGenericResource.create(newResource, Some(namespace), dryRun)
 
   def replace(
     name: String,
@@ -92,7 +92,7 @@ class NamespacedResource[T](impl: Resource[T]) {
     namespace: K8sNamespace,
     dryRun: Boolean = false
   ): IO[K8sFailure, T] =
-    impl.replace(name, updatedResource, Some(namespace), dryRun)
+    asGenericResource.replace(name, updatedResource, Some(namespace), dryRun)
 
   def delete(
     name: String,
@@ -100,65 +100,63 @@ class NamespacedResource[T](impl: Resource[T]) {
     namespace: K8sNamespace,
     dryRun: Boolean = false
   ): IO[K8sFailure, Status] =
-    impl.delete(name, deleteOptions, Some(namespace), dryRun)
+    asGenericResource.delete(name, deleteOptions, Some(namespace), dryRun)
 }
 
-class NamespacedResourceStatus[StatusT, T](impl: ResourceStatus[StatusT, T]) {
+class NamespacedResourceStatus[StatusT, T](val asGenericResource: ResourceStatus[StatusT, T]) {
   def replaceStatus(
     of: T,
     updatedResource: StatusT,
     namespace: K8sNamespace,
     dryRun: Boolean = false
   ): IO[K8sFailure, T] =
-    impl.replaceStatus(of, updatedResource, Some(namespace), dryRun)
+    asGenericResource.replaceStatus(of, updatedResource, Some(namespace), dryRun)
 
   def getStatus(name: String, namespace: K8sNamespace): IO[K8sFailure, T] =
-    impl.getStatus(name, Some(namespace))
+    asGenericResource.getStatus(name, Some(namespace))
 }
 
-class ClusterResource[T](
-  impl: Resource[T]
-) {
+class ClusterResource[T](val asGenericResource: Resource[T]) {
   def getAll(chunkSize: Int = 10): Stream[K8sFailure, T] =
-    impl.getAll(None, chunkSize)
+    asGenericResource.getAll(None, chunkSize)
 
   def watch(resourceVersion: Option[String]): Stream[K8sFailure, TypedWatchEvent[T]] =
-    impl.watch(None, resourceVersion)
+    asGenericResource.watch(None, resourceVersion)
 
   def watchForever(): ZStream[Clock, K8sFailure, TypedWatchEvent[T]] =
-    impl.watchForever(None)
+    asGenericResource.watchForever(None)
 
   def get(name: String): IO[K8sFailure, T] =
-    impl.get(name, None)
+    asGenericResource.get(name, None)
 
   def create(newResource: T, dryRun: Boolean = false): IO[K8sFailure, T] =
-    impl.create(newResource, None, dryRun)
+    asGenericResource.create(newResource, None, dryRun)
 
   def replace(
     name: String,
     updatedResource: T,
     dryRun: Boolean = false
   ): IO[K8sFailure, T] =
-    impl.replace(name, updatedResource, None, dryRun)
+    asGenericResource.replace(name, updatedResource, None, dryRun)
 
   def delete(
     name: String,
     deleteOptions: DeleteOptions,
     dryRun: Boolean = false
   ): IO[K8sFailure, Status] =
-    impl.delete(name, deleteOptions, None, dryRun)
+    asGenericResource.delete(name, deleteOptions, None, dryRun)
 }
 
-class ClusterResourceStatus[StatusT, T](impl: ResourceStatus[StatusT, T]) {
+class ClusterResourceStatus[StatusT, T](val asGenericResource: ResourceStatus[StatusT, T]) {
   def replaceStatus(
     of: T,
     updatedStatus: StatusT,
     dryRun: Boolean = false
   ): IO[K8sFailure, T] =
-    impl.replaceStatus(of, updatedStatus, None, dryRun)
+    asGenericResource.replaceStatus(of, updatedStatus, None, dryRun)
 
   def getStatus(name: String): IO[K8sFailure, T] =
-    impl.getStatus(name, None)
+    asGenericResource.getStatus(name, None)
 }
 
 trait ResourceClientBase {
