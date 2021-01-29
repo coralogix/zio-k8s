@@ -7,6 +7,8 @@ scalaVersion := "2.12.12"
 
 Compile / unmanagedSourceDirectories += baseDirectory.value / "src/shared/scala"
 
+scalacOptions ++= Seq("-feature", "-deprecation")
+
 libraryDependencies ++= Seq(
   "dev.zio"             %% "zio"              % "1.0.4",
   "dev.zio"             %% "zio-nio"          % "1.0.0-RC10",

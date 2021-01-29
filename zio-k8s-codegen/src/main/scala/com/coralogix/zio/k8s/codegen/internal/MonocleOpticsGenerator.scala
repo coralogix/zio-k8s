@@ -19,24 +19,24 @@ trait MonocleOpticsGenerator {
 
   protected def generateAllOptics(
     scalafmt: Scalafmt,
-    log: Logger,
     targetRoot: Path,
-    definitions: Set[IdentifiedSchema],
-    resources: Set[SupportedResource]
+    definitions: Set[IdentifiedSchema]
   ): ZIO[Blocking, Throwable, Set[Path]] = {
     val filteredDefinitions = definitions.filter(d => !isListModel(d))
     for {
       _     <-
-        ZIO.effect(log.info(s"Generating Monocle optics for ${filteredDefinitions.size} models..."))
+        ZIO.effect(
+          logger.info(s"Generating Monocle optics for ${filteredDefinitions.size} models...")
+        )
       paths <- ZIO.foreach(filteredDefinitions) { d =>
                  val (groupName, entityName) = splitName(d.name)
                  val pkg = (monocleRoot ++ groupName)
                  val modelPkg = (modelRoot ++ groupName)
 
                  for {
-                   _         <- ZIO.effect(log.info(s"Generating '$entityName' to $pkg"))
+                   _         <- ZIO.effect(logger.info(s"Generating '$entityName' to ${pkg.mkString(".")}"))
                    src        =
-                     generateOptics(monocleRoot, modelRoot, pkg, modelPkg, entityName, d, resources)
+                     generateOptics(modelRoot, pkg, modelPkg, entityName, d)
                    targetDir  = pkg.foldLeft(targetRoot)(_ / _)
                    _         <- Files.createDirectories(targetDir)
                    targetPath = targetDir / s"$entityName.scala"
@@ -48,20 +48,17 @@ trait MonocleOpticsGenerator {
   }
 
   private def generateOptics(
-    rootPackage: Vector[String],
     modelRootPackage: Vector[String],
     pkg: Vector[String],
     modelPkg: Vector[String],
     entityName: String,
-    d: IdentifiedSchema,
-    resources: Set[SupportedResource]
+    d: IdentifiedSchema
   ): String = {
     import scala.meta._
     val modelRootPackageTerm = modelRootPackage.mkString(".").parse[Term].get.asInstanceOf[Term.Ref]
     val modelPackageTerm = modelPkg.mkString(".").parse[Term].get.asInstanceOf[Term.Ref]
     val packageTerm = pkg.mkString(".").parse[Term].get.asInstanceOf[Term.Ref]
 
-    val entityNameN = Term.Name(entityName)
     val entityNameT = Type.Name(entityName)
     val entityOpticsN = Term.Name(entityName + "O")
 

@@ -3,7 +3,7 @@ package com.coralogix.zio.k8s.codegen
 import sbt.Keys._
 import sbt._
 import scala.sys.process._
-import zio.nio.core.file.{ Path => ZPath }
+import scala.language.postfixOps
 
 object K8sSwaggerPlugin extends AutoPlugin {
   object autoImport {
