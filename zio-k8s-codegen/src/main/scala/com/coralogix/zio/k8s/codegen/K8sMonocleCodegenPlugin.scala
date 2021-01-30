@@ -2,7 +2,6 @@ package com.coralogix.zio.k8s.codegen
 
 import sbt.Keys._
 import sbt._
-import scala.sys.process._
 import zio.nio.core.file.{ Path => ZPath }
 import K8sSwaggerPlugin.autoImport._
 
@@ -12,6 +11,7 @@ object K8sMonocleCodegenPlugin extends AutoPlugin {
       Def.task {
         val log = streams.value.log
         val runtime = zio.Runtime.default
+        val codegen = new K8sResourceCodegen(log)
 
         val sourcesDir = (Compile / sourceManaged).value
         val ver = scalaVersion.value
@@ -21,9 +21,8 @@ object K8sMonocleCodegenPlugin extends AutoPlugin {
           FileInfo.hash
         ) { input: Set[File] =>
           input.foldLeft(Set.empty[File]) { (result, k8sSwagger) =>
-            val fs = runtime.unsafeRun(
-              K8sResourceCodegen.generateAllMonocle(
-                log,
+            val fs = runtime.unsafeRunTask(
+              codegen.generateAllMonocle(
                 ZPath.fromJava(k8sSwagger.toPath),
                 ZPath.fromJava(sourcesDir.toPath)
               )
@@ -46,17 +45,4 @@ object K8sMonocleCodegenPlugin extends AutoPlugin {
     Seq(
       Compile / sourceGenerators += generateSources.taskValue
     )
-
-  private lazy val getK8sSwaggerTask =
-    Def.task {
-      val ver = k8sVersion.value
-      val targetDir = target.value / "k8s-swagger.json"
-      val source =
-        url(
-          s"https://raw.githubusercontent.com/kubernetes/kubernetes/$ver/api/openapi-spec/swagger.json"
-        )
-      source #> targetDir !
-
-      targetDir
-    }
 }

@@ -11,6 +11,7 @@ import scala.util.Try
 sealed trait Identified {
   def flatRefs: Set[String]
   def deepRefs(
+    logger: sbt.Logger,
     definitions: Map[String, IdentifiedSchema],
     alreadyProcessed: Set[String]
   ): Set[String] =
@@ -19,9 +20,9 @@ sealed trait Identified {
       if (!alreadyProcessed.contains(name))
         definitions.get(name) match {
           case Some(idef) =>
-            (result + name) union idef.deepRefs(definitions, result + name)
+            (result + name) union idef.deepRefs(logger, definitions, result + name)
           case None       =>
-            println(s"!!! Cannot find reference $ref")
+            logger.error(s"!!! Cannot find reference $ref")
             result
         }
       else
@@ -100,6 +101,7 @@ case class IdentifiedDefinition(
 }
 
 sealed trait IdentifiedPath extends Identified {
+  val name: String
   val op: Operation
 
   def flatRefs: Set[String] = {
@@ -126,6 +128,17 @@ sealed trait IdentifiedPath extends Identified {
 
 case class RegularAction(name: String, op: Operation, parameters: List[Parameter])
     extends IdentifiedPath
+
+case class ApiGroupInfo(name: String, op: Operation) extends IdentifiedPath
+
+case class ApiVersionInfo(name: String, op: Operation) extends IdentifiedPath
+
+case class ApiResourceListing(name: String, op: Operation) extends IdentifiedPath
+
+case class ApiGroupListing(name: String, op: Operation) extends IdentifiedPath
+
+case class GetKubernetesVesion(name: String, op: Operation) extends IdentifiedPath
+
 case class IdentifiedAction(
   name: String,
   group: String,
@@ -135,13 +148,38 @@ case class IdentifiedAction(
   method: PathItem.HttpMethod,
   op: Operation,
   outerParameters: List[Parameter]
-) extends IdentifiedPath
+) extends IdentifiedPath {
+
+  def describe: String =
+    s"[$action] $method $name"
+}
 
 object IdentifiedPath {
 
   def identifyPath(path: String, item: PathItem): Set[IdentifiedPath] = {
+    def identifyApiReflection(op: Operation): Option[IdentifiedPath] =
+      for {
+        responses    <- Option(op.getResponses)
+        okResponse   <- Option(responses.get("200"))
+        content      <- Option(okResponse.getContent)
+        firstContent <- content.asScala.values.headOption
+        schema       <- Option(firstContent.getSchema)
+        ref          <- Option(schema.get$ref())
+        result       <-
+          if (ref == "#/components/schemas/io.k8s.apimachinery.pkg.apis.meta.v1.APIResourceList")
+            Some(ApiResourceListing(path, op))
+          else if (ref == "#/components/schemas/io.k8s.apimachinery.pkg.apis.meta.v1.APIGroup")
+            Some(ApiGroupInfo(path, op))
+          else if (ref == "#/components/schemas/io.k8s.apimachinery.pkg.apis.meta.v1.APIGroupList")
+            Some(ApiGroupListing(path, op))
+          else if (ref == "#/components/schemas/io.k8s.apimachinery.pkg.apis.meta.v1.APIVersions")
+            Some(ApiVersionInfo(path, op))
+          else if (ref == "#/components/schemas/io.k8s.apimachinery.pkg.version.Info")
+            Some(GetKubernetesVesion(path, op))
+          else None
+      } yield result
+
     def identifyOne(
-      item: PathItem,
       params: List[Parameter],
       method: PathItem.HttpMethod,
       op: Operation
@@ -154,13 +192,15 @@ object IdentifiedPath {
         kind       <- descsMap.get("kind").map(_.asInstanceOf[String])
         version    <- descsMap.get("version").map(_.asInstanceOf[String])
         action     <- extensions.asScala.get("x-kubernetes-action").map(_.asInstanceOf[String])
-      } yield IdentifiedAction(path, group, kind, version, action, method, op, params)).getOrElse(
-        RegularAction(path, op, params)
-      )
+      } yield IdentifiedAction(path, group, kind, version, action, method, op, params))
+        .orElse(identifyApiReflection(op))
+        .getOrElse(
+          RegularAction(path, op, params)
+        )
 
     val params = Option(item.getParameters).map(_.asScala.toList).getOrElse(List.empty)
     val ops = item.readOperationsMap.asScala
 
-    ops.map { case (method, op) => identifyOne(item, params, method, op) }.toSet
+    ops.map { case (method, op) => identifyOne(params, method, op) }.toSet
   }
 }

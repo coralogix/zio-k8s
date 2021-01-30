@@ -18,13 +18,13 @@ import java.io.File
 import java.nio.charset.StandardCharsets
 import scala.collection.JavaConverters._
 
-object K8sResourceCodegen
+class K8sResourceCodegen(val logger: sbt.Logger)
     extends ModelGenerator with ClientModuleGenerator with MonocleOpticsGenerator {
 
-  def generateAll(log: Logger, from: Path, targetDir: Path): ZIO[Blocking, Throwable, Seq[File]] =
+  def generateAll(from: Path, targetDir: Path): ZIO[Blocking, Throwable, Seq[File]] =
     for {
       // Loading
-      spec     <- loadK8sSwagger(log, from)
+      spec     <- loadK8sSwagger(from)
       scalafmt <- ZIO.effect(Scalafmt.create(this.getClass.getClassLoader))
 
       // Identifying
@@ -33,45 +33,42 @@ object K8sResourceCodegen
                         .toSet
       definitionMap = definitions.map(d => d.name -> d).toMap
 
-      paths      = spec.getPaths.asScala.flatMap((IdentifiedPath.identifyPath _).tupled)
-      identified = paths.collect { case i: IdentifiedAction => i }
+      paths        = spec.getPaths.asScala.flatMap((IdentifiedPath.identifyPath _).tupled).toList
+      identified   = paths.collect { case i: IdentifiedAction => i }
+      unidentified = paths.filter {
+                       case _: IdentifiedAction => false
+                       case _                   => true
+                     }
+      _           <- checkUnidentifiedPaths(unidentified)
 
       // Classifying
-      resources = ClassifiedResource.classifyActions(definitionMap, identified)
+      resources <- ClassifiedResource.classifyActions(logger, definitionMap, identified)
 
       // Generating code
-      packagePaths <- generateAllPackages(scalafmt, log, targetDir, definitionMap, resources)
-      modelPaths   <- generateAllModels(scalafmt, log, targetDir, definitions, resources)
+      packagePaths <- generateAllPackages(scalafmt, targetDir, definitionMap, resources)
+      modelPaths   <- generateAllModels(scalafmt, targetDir, definitions, resources)
     } yield (packagePaths union modelPaths).map(_.toFile).toSeq
 
   def generateAllMonocle(
-    log: Logger,
     from: Path,
     targetDir: Path
   ): ZIO[Blocking, Throwable, Seq[File]] =
     for {
       // Loading
-      spec     <- loadK8sSwagger(log, from)
+      spec     <- loadK8sSwagger(from)
       scalafmt <- ZIO.effect(Scalafmt.create(this.getClass.getClassLoader))
 
       // Identifying
-      definitions   = spec.getComponents.getSchemas.asScala
-                        .flatMap((IdentifiedSchema.identifyDefinition _).tupled)
-                        .toSet
-      definitionMap = definitions.map(d => d.name -> d).toMap
-
-      paths      = spec.getPaths.asScala.flatMap((IdentifiedPath.identifyPath _).tupled)
-      identified = paths.collect { case i: IdentifiedAction => i }
-
-      // Classifying
-      resources = ClassifiedResource.classifyActions(definitionMap, identified)
+      definitions  = spec.getComponents.getSchemas.asScala
+                       .flatMap((IdentifiedSchema.identifyDefinition _).tupled)
+                       .toSet
 
       // Generating code
-      opticsPaths <- generateAllOptics(scalafmt, log, targetDir, definitions, resources)
+      opticsPaths <- generateAllOptics(scalafmt, targetDir, definitions)
     } yield opticsPaths.map(_.toFile).toSeq
 
-  private def loadK8sSwagger(log: Logger, from: Path): ZIO[Blocking, Throwable, OpenAPI] =
-    Task.effect(log.info("Loading k8s-swagger.json")) *>
+  private def loadK8sSwagger(from: Path): ZIO[Blocking, Throwable, OpenAPI] =
+    Task.effect(logger.info("Loading k8s-swagger.json")) *>
       Files.readAllBytes(from).flatMap { bytes =>
         Task.effect {
           val rawJson = new String(bytes.toArray[Byte], StandardCharsets.UTF_8)
@@ -96,24 +93,22 @@ object K8sResourceCodegen
 
   def generateAllPackages(
     scalafmt: Scalafmt,
-    log: Logger,
     targetRoot: Path,
     definitionMap: Map[String, IdentifiedSchema],
     resources: Set[SupportedResource]
   ): ZIO[Blocking, Throwable, Set[Path]] =
     ZIO.foreach(resources) { resource =>
-      generatePackage(scalafmt, log, targetRoot, definitionMap, resource)
+      generatePackage(scalafmt, targetRoot, definitionMap, resource)
     }
 
   private def generatePackage(
     scalafmt: Scalafmt,
-    log: Logger,
     targetRoot: Path,
     definitionMap: Map[String, IdentifiedSchema],
     resource: SupportedResource
   ) =
     for {
-      _ <- ZIO.effect(log.info(s"Generating package code for ${resource.id}"))
+      _ <- ZIO.effect(logger.info(s"Generating package code for ${resource.id}"))
 
       groupName = groupNameToPackageName(resource.group)
       pkg       = (clientRoot ++ groupName) :+ resource.plural :+ resource.version
@@ -154,4 +149,30 @@ object K8sResourceCodegen
     } yield pkg.mkString(".") + "." + name
   }
 
+  private def checkUnidentifiedPaths(paths: Seq[IdentifiedPath]): Task[Unit] =
+    for {
+      whitelistInfo <- ZIO.foreach(paths) { path =>
+                         Whitelist.isWhitelistedPath(path) match {
+                           case s @ Some(_) => ZIO.succeed(s)
+                           case None        =>
+                             ZIO
+                               .effect(
+                                 logger.error(s"Unsupported, non-whitelisted path: ${path.name}")
+                               )
+                               .as(None)
+                         }
+                       }
+      issues         = whitelistInfo.collect { case Some(issueRef) => issueRef }.toSet
+      _             <- ZIO
+                         .fail(
+                           new sbt.MessageOnlyException(
+                             "Unknown, non-whitelisted path found. See the code generation log."
+                           )
+                         )
+                         .when(whitelistInfo.contains(None))
+      _             <- ZIO.effect(logger.info(s"Issues for currently unsupported paths:"))
+      _             <- ZIO.foreach_(issues) { issue =>
+                         ZIO.effect(logger.info(s" - ${issue.url}"))
+                       }
+    } yield ()
 }

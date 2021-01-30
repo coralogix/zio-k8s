@@ -15,23 +15,23 @@ import scala.meta._
 
 trait ModelGenerator {
   val modelRoot = Vector("com", "coralogix", "zio", "k8s", "model")
+  def logger: sbt.Logger
 
   protected def generateAllModels(
     scalafmt: Scalafmt,
-    log: Logger,
     targetRoot: Path,
     definitions: Set[IdentifiedSchema],
     resources: Set[SupportedResource]
   ): ZIO[Blocking, Throwable, Set[Path]] = {
     val filteredDefinitions = definitions.filter(d => !isListModel(d))
     for {
-      _     <- ZIO.effect(log.info(s"Generating code for ${filteredDefinitions.size} models..."))
+      _     <- ZIO.effect(logger.info(s"Generating code for ${filteredDefinitions.size} models..."))
       paths <- ZIO.foreach(filteredDefinitions) { d =>
                  val (groupName, entityName) = splitName(d.name)
                  val pkg = (modelRoot ++ groupName)
 
                  for {
-                   _         <- ZIO.effect(log.info(s"Generating '$entityName' to $pkg"))
+                   _         <- ZIO.effect(logger.info(s"Generating '$entityName' to ${pkg.mkString(".")}"))
                    src        = generateModel(modelRoot, pkg, entityName, d, resources)
                    targetDir  = pkg.foldLeft(targetRoot)(_ / _)
                    _         <- Files.createDirectories(targetDir)
@@ -380,8 +380,8 @@ trait ModelGenerator {
           case Some("byte")  =>
             t"Chunk[Byte]"
           case Some(unknown) =>
-            println(s"!!! UNHANDLED STRING FORMAT for $name: $unknown")
-            t"String"
+            logger.error(s"UNHANDLED STRING FORMAT for $name: $unknown")
+            t"CodeGeneratorError"
           case None          =>
             t"String"
         }
@@ -395,8 +395,8 @@ trait ModelGenerator {
           case Some("int64") =>
             t"Long"
           case Some(unknown) =>
-            println(s"!!! UNHANDLED INT FORMAT for $name: $unknown")
-            t"Int"
+            logger.error(s"UNHANDLED INT FORMAT for $name: $unknown")
+            t"CodeGeneratorError"
           case None          =>
             t"Int"
         }
@@ -405,8 +405,8 @@ trait ModelGenerator {
           case Some("double") =>
             t"Double"
           case Some(unknown)  =>
-            println(s"!!! UNHANDLED NUMBER FORMAT for $name: $unknown")
-            t"Double"
+            logger.error(s"UNHANDLED NUMBER FORMAT for $name: $unknown")
+            t"CodeGeneratorError"
           case None           =>
             t"Double"
         }
@@ -421,19 +421,19 @@ trait ModelGenerator {
             val keyType = toType(s"$name values", additionalProperties)
             t"Map[String, $keyType]"
           case None                       =>
-            println(s"!!! UNHANDLED object type for $name")
-            t"AnyRef"
+            logger.error(s"UNHANDLED object type for $name")
+            t"CodeGeneratorError"
         }
 
       case (Some(unknown), _) =>
-        println(s"!!! UNHANDLED TYPE for $name: $unknown")
-        t"AnyRef"
+        logger.error(s"!!! UNHANDLED TYPE for $name: $unknown")
+        t"CodeGeneratorError"
       case (None, None)       =>
-        println(s"!!! No type and no ref for $name")
-        t"AnyRef"
+        logger.error(s"!!! No type and no ref for $name")
+        t"CodeGeneratorError"
     }
 
-  protected def filterKeysOf(d: IdentifiedSchema) =
+  protected def filterKeysOf(d: IdentifiedSchema): String => Boolean =
     d match {
       case Regular(name, schema)                                    =>
         (_: String) => true

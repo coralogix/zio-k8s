@@ -12,6 +12,7 @@ object K8sResourceCodegenPlugin extends AutoPlugin {
       Def.task {
         val log = streams.value.log
         val runtime = zio.Runtime.default
+        val codegen = new K8sResourceCodegen(log)
 
         val sourcesDir = (Compile / sourceManaged).value
         val ver = scalaVersion.value
@@ -21,9 +22,8 @@ object K8sResourceCodegenPlugin extends AutoPlugin {
           FileInfo.hash
         ) { input: Set[File] =>
           input.foldLeft(Set.empty[File]) { (result, k8sSwagger) =>
-            val fs = runtime.unsafeRun(
-              K8sResourceCodegen.generateAll(
-                log,
+            val fs = runtime.unsafeRunTask(
+              codegen.generateAll(
                 ZPath.fromJava(k8sSwagger.toPath),
                 ZPath.fromJava(sourcesDir.toPath)
               )
