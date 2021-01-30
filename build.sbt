@@ -102,8 +102,8 @@ lazy val clientMonocle = Project("zio-k8s-client-monocle", file("zio-k8s-client-
       }
     },
     libraryDependencies ++= Seq(
-      "com.github.julien-truffaut" %% "monocle-core"  % "2.0.5",
-      "com.github.julien-truffaut" %% "monocle-macro" % "2.0.5",
+      "com.github.julien-truffaut" %% "monocle-core"  % "2.1.0",
+      "com.github.julien-truffaut" %% "monocle-macro" % "2.1.0",
       "dev.zio"                    %% "zio-test"      % zioVersion % Test,
       "dev.zio"                    %% "zio-test-sbt"  % zioVersion % Test
     ),
