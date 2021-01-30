@@ -21,13 +21,72 @@ object EndpointType {
 
   case class Unsupported(reason: String) extends EndpointType
 
-  def detectEndpointType(endpoint: IdentifiedAction): EndpointType = {
-    val bodyType = getBodyType(endpoint)
+  private def detectSubresourceEndpoints(
+    endpoint: IdentifiedAction,
+    clusterPatterns: Patterns,
+    namespacedPatterns: Patterns,
+    guards: Guards
+  ): EndpointType =
+    endpoint.action match {
+      case "get" =>
+        val clusterStatusPattern = clusterPatterns.getStatus
+        val namespacedStatusPattern = namespacedPatterns.getStatus
 
-    val clusterPatterns = Patterns.cluster(endpoint)
-    val namespacedPatterns = Patterns.namespaced(endpoint)
-    val guards = Guards(endpoint)
+        // TODO: match any subresource pattern
+        guards.mustHaveMethod(PathItem.HttpMethod.GET) {
+          guards.mustHaveParameters("name") {
+            endpoint.name match {
+              case clusterStatusPattern(plural)    =>
+                guards.mustHaveNotHaveParameter("namespace") {
+                  EndpointType.GetStatus(namespaced = false, plural)
+                }
+              case namespacedStatusPattern(plural) =>
+                guards.mustHaveParameters("namespace") {
+                  EndpointType.GetStatus(namespaced = true, plural)
+                }
+              case _                               =>
+                EndpointType.Unsupported("fallback")
+            }
+          }
+        }
 
+      case "post" =>
+        // TODO: match any subresources
+        EndpointType.Unsupported("fallback")
+
+      case "put" =>
+        val clusterStatusPattern = clusterPatterns.putStatus
+        val namespacedStatusPattern = namespacedPatterns.putStatus
+        // TODO: match any subresources
+
+        guards.mustHaveMethod(PathItem.HttpMethod.PUT) {
+          guards.mustHaveParameters("name") {
+            guards.mustHaveBody { _ =>
+              endpoint.name match {
+                case clusterStatusPattern(plural)    =>
+                  guards.mustHaveNotHaveParameter("namespace") {
+                    EndpointType.PutStatus(namespaced = false, plural)
+                  }
+                case namespacedStatusPattern(plural) =>
+                  guards.mustHaveParameters("namespace") {
+                    EndpointType.PutStatus(namespaced = true, plural)
+                  }
+                case _                               =>
+                  EndpointType.Unsupported("fallback")
+              }
+            }
+          }
+        }
+
+      case _ => EndpointType.Unsupported("fallback")
+    }
+
+  private def detectResourceEndpoints(
+    endpoint: IdentifiedAction,
+    clusterPatterns: Patterns,
+    namespacedPatterns: Patterns,
+    guards: Guards
+  ): EndpointType =
     endpoint.action match {
       case "list" =>
         val supportsWatch = guards.haveOptionalParameters("watch", "resourceVersion")
@@ -56,31 +115,18 @@ object EndpointType {
         val clusterPattern = clusterPatterns.get
         val namespacedPattern = namespacedPatterns.get
 
-        val clusterStatusPattern = clusterPatterns.getStatus
-        val namespacedStatusPattern = namespacedPatterns.getStatus
-
-        // TODO: match any subresource pattern
-
         guards.mustHaveMethod(PathItem.HttpMethod.GET) {
           guards.mustHaveParameters("name") {
             endpoint.name match {
-              case clusterPattern(plural)          =>
+              case clusterPattern(plural)    =>
                 guards.mustHaveNotHaveParameter("namespace") {
                   EndpointType.Get(namespaced = false, plural)
                 }
-              case namespacedPattern(plural)       =>
+              case namespacedPattern(plural) =>
                 guards.mustHaveParameters("namespace") {
                   EndpointType.Get(namespaced = true, plural)
                 }
-              case clusterStatusPattern(plural)    =>
-                guards.mustHaveNotHaveParameter("namespace") {
-                  EndpointType.GetStatus(namespaced = false, plural)
-                }
-              case namespacedStatusPattern(plural) =>
-                guards.mustHaveParameters("namespace") {
-                  EndpointType.GetStatus(namespaced = true, plural)
-                }
-              case _                               =>
+              case _                         =>
                 EndpointType.Unsupported("Possibly subresource listing")
             }
           }
@@ -112,37 +158,22 @@ object EndpointType {
       case "put" =>
         val clusterPattern = clusterPatterns.put
         val namespacedPattern = namespacedPatterns.put
-        val clusterStatusPattern = clusterPatterns.putStatus
-        val namespacedStatusPattern = namespacedPatterns.putStatus
-
-        // TODO: match any subresources
 
         guards.mustHaveMethod(PathItem.HttpMethod.PUT) {
           guards.mustHaveParameters("name") {
-            bodyType match {
-              case Some(modelName) =>
-                endpoint.name match {
-                  case clusterPattern(plural)          =>
-                    guards.mustHaveNotHaveParameter("namespace") {
-                      EndpointType.Put(namespaced = false, plural, modelName)
-                    }
-                  case namespacedPattern(plural)       =>
-                    guards.mustHaveParameters("namespace") {
-                      EndpointType.Put(namespaced = true, plural, modelName)
-                    }
-                  case clusterStatusPattern(plural)    =>
-                    guards.mustHaveNotHaveParameter("namespace") {
-                      EndpointType.PutStatus(namespaced = false, plural)
-                    }
-                  case namespacedStatusPattern(plural) =>
-                    guards.mustHaveParameters("namespace") {
-                      EndpointType.PutStatus(namespaced = true, plural)
-                    }
-                  case _                               =>
-                    EndpointType.Unsupported(s"Possibly subresource listing")
-                }
-              case None            =>
-                EndpointType.Unsupported("Does not have 'body' parameter")
+            guards.mustHaveBody { modelName =>
+              endpoint.name match {
+                case clusterPattern(plural)    =>
+                  guards.mustHaveNotHaveParameter("namespace") {
+                    EndpointType.Put(namespaced = false, plural, modelName)
+                  }
+                case namespacedPattern(plural) =>
+                  guards.mustHaveParameters("namespace") {
+                    EndpointType.Put(namespaced = true, plural, modelName)
+                  }
+                case _                         =>
+                  EndpointType.Unsupported(s"Possibly subresource listing")
+              }
             }
           }
         }
@@ -175,16 +206,18 @@ object EndpointType {
       case _           =>
         EndpointType.Unsupported(s"Unsupported action: ${endpoint.action}")
     }
-  }
 
-  private def getBodyType(endpoint: IdentifiedAction) = {
-    for {
-      requestBody <- Option(endpoint.op.getRequestBody)
-      content <- Option(requestBody.getContent)
-      firstContent <- content.asScala.values.headOption
-      schema <- Option(firstContent.getSchema)
-      ref <- Option(schema.get$ref())
-    } yield ref.drop("#/components/schemas/".length)
+  def detectEndpointType(endpoint: IdentifiedAction): EndpointType = {
+    val clusterPatterns = Patterns.cluster(endpoint)
+    val namespacedPatterns = Patterns.namespaced(endpoint)
+    val guards = Guards(endpoint)
+
+    detectSubresourceEndpoints(endpoint, clusterPatterns, namespacedPatterns, guards) match {
+      case _: EndpointType.Unsupported =>
+        detectResourceEndpoints(endpoint, clusterPatterns, namespacedPatterns, guards)
+      case result: EndpointType        =>
+        result
+    }
   }
 
   private def containsParameterDefinition(
@@ -240,6 +273,22 @@ object EndpointType {
         EndpointType.Unsupported(s"Should not have '$name' parameter")
       else
         f
+
+    def mustHaveBody(f: String => EndpointType): EndpointType =
+      getBodyType match {
+        case Some(modelName) => f(modelName)
+        case None            => EndpointType.Unsupported("Does not have 'body' parameter")
+      }
+
+    private def getBodyType =
+      for {
+        requestBody  <- Option(endpoint.op.getRequestBody)
+        content      <- Option(requestBody.getContent)
+        firstContent <- content.asScala.values.headOption
+        schema       <- Option(firstContent.getSchema)
+        ref          <- Option(schema.get$ref())
+      } yield ref.drop("#/components/schemas/".length)
+
   }
 
   object Guards {
