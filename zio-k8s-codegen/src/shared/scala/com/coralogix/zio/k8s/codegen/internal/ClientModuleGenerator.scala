@@ -19,16 +19,14 @@ trait ClientModuleGenerator {
     name: String,
     entity: String,
     statusEntity: Option[String],
-    group: String,
-    kind: String,
-    version: String,
+    gvk: GroupVersionKind,
     isNamespaced: Boolean,
     crdYaml: Option[Path]
   ): Task[String] =
     ZIO.effect {
       val basePackage =
-        if (group.nonEmpty)
-          s"$basePackageName.${groupNameToPackageName(group).mkString(".")}"
+        if (gvk.group.nonEmpty)
+          s"$basePackageName.${groupNameToPackageName(gvk.group).mkString(".")}"
             .parse[Term]
             .get
             .asInstanceOf[Term.Ref]
@@ -38,9 +36,7 @@ trait ClientModuleGenerator {
       val entityName = Term.Name(entity)
       val entityT = Type.Name(entityName.value)
 
-      val ver = Term.Name(version)
-
-      val pluaralLit = Lit.String(name)
+      val ver = Term.Name(gvk.version)
 
       val dtoPackage = modelPackageName.parse[Term].get.asInstanceOf[Term.Ref]
       val entityImport =

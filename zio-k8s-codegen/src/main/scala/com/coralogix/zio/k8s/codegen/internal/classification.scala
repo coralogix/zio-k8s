@@ -1,111 +1,161 @@
 package com.coralogix.zio.k8s.codegen.internal
 
+import com.coralogix.zio.k8s.codegen.internal.EndpointType.SubresourceEndpoint
 import com.coralogix.zio.k8s.codegen.internal.Whitelist.IssueReference
 import zio.Task
 
 sealed trait ClassifiedResource {
-  val unsupportedEndpoints: Map[IdentifiedAction, EndpointType.Unsupported]
+  val unsupportedEndpoints: Set[IdentifiedAction]
 }
 case class SupportedResource(
   namespaced: Boolean,
   hasStatus: Boolean,
-  group: String,
-  kind: String,
-  version: String,
+  gvk: GroupVersionKind,
   modelName: String,
   plural: String,
   modelReferences: Set[String],
   actions: Set[IdentifiedAction],
-  unsupportedEndpoints: Map[IdentifiedAction, EndpointType.Unsupported]
+  unsupportedEndpoints: Set[IdentifiedAction]
 ) extends ClassifiedResource {
-  def id: String = s"$group/$version/$kind"
+  def id: String = gvk.toString
 
   def toUnsupported(reason: String): UnsupportedResource =
     UnsupportedResource(
-      group,
-      kind,
-      version,
+      gvk,
       actions,
       reason,
       unsupportedEndpoints
     )
+
+  def subresources: Set[Subresource] =
+    actions
+      .map(action => (action, action.endpointType))
+      .collect { case (action, s: SubresourceEndpoint) =>
+        (action, s)
+      }
+      .groupBy { case (_, s) => s.subresourceName }
+      .filterKeys(_ != "status")
+      .map { case (subresourceName, actions) =>
+        val modelName =
+          actions
+            .map(_._2)
+            .collectFirst {
+              case EndpointType.PutSubresource(_, _, modelName, _, _)  => modelName
+              case EndpointType.PostSubresource(_, _, modelName, _, _) => modelName
+            }
+            .getOrElse("String")
+
+        Subresource(
+          name = subresourceName,
+          modelName = modelName,
+          actions.map(_._1)
+        )
+      }
+      .toSet
 }
 case class UnsupportedResource(
-  group: String,
-  kind: String,
-  version: String,
+  gvk: GroupVersionKind,
   actions: Set[IdentifiedAction],
   reason: String,
-  unsupportedEndpoints: Map[IdentifiedAction, EndpointType.Unsupported]
+  unsupportedEndpoints: Set[IdentifiedAction]
 ) extends ClassifiedResource {
 
+  def isGVK(groupVersionKind: GroupVersionKind): Boolean =
+    this.gvk == groupVersionKind
+
   def isGVK(group: String, version: String, kind: String): Boolean =
-    this.group == group && this.version == version && this.kind == kind
+    isGVK(GroupVersionKind(group, version, kind))
 
   def describe: String = {
-    val supportedActions = actions diff unsupportedEndpoints.keySet
+    val supportedActions = actions diff unsupportedEndpoints
     val supportedDescs = supportedActions.map(action => s"  - ${action.describe}").mkString("\n")
     val unsupportedDescs = unsupportedEndpoints
-      .map { case (action, reason) => s"  - ${action.describe} - ${reason.reason}" }
+      .map(action => s"  - ${action.describe} - ${getReason(action.endpointType)}")
       .mkString("\n")
-    s"($group/$version/$kind) $reason, actions:\n$supportedDescs\n$unsupportedDescs"
+    s"(${gvk.group}/${gvk.version}/${gvk.kind}) $reason, actions:\n$supportedDescs\n$unsupportedDescs"
   }
+
+  private def getReason(endpointType: EndpointType): String =
+    endpointType match {
+      case EndpointType.Unsupported(reason) => reason
+      case _                                => "???"
+    }
+}
+
+case class Subresource(
+  name: String,
+  modelName: String,
+  actions: Set[IdentifiedAction]
+) {
+  def describe: String = s"$name ($modelName) [${actions.map(_.action).mkString(", ")}]"
 }
 
 object ClassifiedResource {
   def classifyActions(
     logger: sbt.Logger,
     definitionMap: Map[String, IdentifiedSchema],
-    identified: Iterable[IdentifiedAction]
+    identified: Set[IdentifiedAction]
   ): Task[Set[SupportedResource]] = {
-    val groups = identified.groupBy(_.group)
+    val byPath: Map[String, IdentifiedAction] =
+      identified.map(action => action.name -> action).toMap
+    val rootGVKs: Map[IdentifiedAction, GroupVersionKind] =
+      identified.map(action => action -> action.rootGVK(byPath)).toMap
 
-    val all = groups.map { case (group, paths) =>
-      paths.groupBy(_.kind).map { case (kind, paths) =>
-        paths.groupBy(_.version).map { case (version, actions) =>
-          val classification =
-            classifyResource(logger, definitionMap, group, kind, version, actions.toSet)
+    val groups = identified.groupBy(rootGVKs(_).group)
 
-          classification match {
-            case supported: SupportedResource     =>
-              val endpointWhitelist = classification.unsupportedEndpoints.map { case (action, _) =>
-                Whitelist.isWhitelistedAction(action)
-              }.toSet
-              val hasUnexpectedUnsupportedEndpoints = endpointWhitelist.contains(None)
-              val whitelistedIssues = endpointWhitelist.collect { case Some(issueRef) => issueRef }
+    val all = groups
+      .map { case (group, paths) =>
+        paths.groupBy(rootGVKs(_).kind).map { case (kind, paths) =>
+          paths.groupBy(rootGVKs(_).version).map { case (version, actions) =>
+            val groupVersionKind = GroupVersionKind(group, version, kind)
+            val classification =
+              classifyResource(logger, definitionMap, groupVersionKind, actions)
 
-              if (hasUnexpectedUnsupportedEndpoints) {
-                val unsupported = supported.toUnsupported("Unsupported non-whitelisted actions")
+            classification match {
+              case supported: SupportedResource     =>
+                val endpointWhitelist =
+                  classification.unsupportedEndpoints.map(Whitelist.isWhitelistedAction)
+                val hasUnexpectedUnsupportedEndpoints = endpointWhitelist.contains(None)
+                val whitelistedIssues = endpointWhitelist.collect { case Some(issueRef) =>
+                  issueRef
+                }
 
-                logger.error(s"Unsupported resource action found: ${unsupported.describe}")
+                if (hasUnexpectedUnsupportedEndpoints) {
+                  val unsupported = supported.toUnsupported("Unsupported non-whitelisted actions")
 
-                List[(Set[ClassifiedResource], Set[IssueReference])](
-                  (Set(unsupported), whitelistedIssues)
-                )
-              } else {
-                List[(Set[ClassifiedResource], Set[IssueReference])](
-                  (Set(supported), whitelistedIssues)
-                )
-              }
-            case unsupported: UnsupportedResource =>
-              Whitelist.isWhitelisted(unsupported) match {
-                case Some(issueRef) =>
-                  List[(Set[ClassifiedResource], Set[IssueReference])](
-                    (
-                      Set.empty[ClassifiedResource],
-                      Set(issueRef)
-                    )
-                  )
-                case None           =>
                   logger.error(s"Unsupported resource action found: ${unsupported.describe}")
+
                   List[(Set[ClassifiedResource], Set[IssueReference])](
-                    (Set(unsupported), Set.empty)
+                    (Set(unsupported), whitelistedIssues)
                   )
-              }
+                } else {
+                  List[(Set[ClassifiedResource], Set[IssueReference])](
+                    (Set(supported), whitelistedIssues)
+                  )
+                }
+              case unsupported: UnsupportedResource =>
+                Whitelist.isWhitelisted(unsupported) match {
+                  case Some(issueRef) =>
+                    List[(Set[ClassifiedResource], Set[IssueReference])](
+                      (
+                        Set.empty[ClassifiedResource],
+                        Set(issueRef)
+                      )
+                    )
+                  case None           =>
+                    logger.error(s"Unsupported resource action found: ${unsupported.describe}")
+                    List[(Set[ClassifiedResource], Set[IssueReference])](
+                      (Set(unsupported), Set.empty)
+                    )
+                }
+            }
           }
         }
       }
-    }.toList.flatten.flatten.flatten
+      .toList
+      .flatten
+      .flatten
+      .flatten
 
     val allResources = all.flatMap(_._1).toSet
     val allIssues = all.flatMap(_._2).toSet
@@ -142,16 +192,13 @@ object ClassifiedResource {
   private def classifyResource(
     logger: sbt.Logger,
     definitions: Map[String, IdentifiedSchema],
-    group: String,
-    kind: String,
-    version: String,
+    gvk: GroupVersionKind,
     actions: Set[IdentifiedAction]
   ): ClassifiedResource = {
-    val endpoints = actions.map(action => EndpointType.detectEndpointType(action) -> action).toMap
+    val endpoints = actions.map(action => action.endpointType -> action).toMap
     val unsupportedEndpoints = actions
-      .map(action => action -> EndpointType.detectEndpointType(action))
-      .collect { case (action, t @ EndpointType.Unsupported(_)) => (action, t) }
-      .toMap
+      .map(action => action -> action.endpointType)
+      .collect { case (action, EndpointType.Unsupported(_)) => action }
 
     def classifyAs(namespaced: Boolean): Option[ClassifiedResource] =
       if (
@@ -188,9 +235,7 @@ object ClassifiedResource {
         } yield SupportedResource(
           namespaced,
           hasStatus,
-          group,
-          kind,
-          version = version,
+          gvk,
           modelName,
           plural,
           modelReferences = refs,
@@ -201,9 +246,7 @@ object ClassifiedResource {
         None
 
     classifyAs(true) orElse classifyAs(false) getOrElse UnsupportedResource(
-      group,
-      kind,
-      version,
+      gvk,
       actions,
       "Not implemented yet",
       unsupportedEndpoints
@@ -240,14 +283,18 @@ object ClassifiedResource {
       .exists(t => t.namespaced == namespaced)
   private def hasPutStatus(endpoints: Set[EndpointType], namespaced: Boolean): Boolean =
     endpoints
-      .collect { case t: EndpointType.PutStatus =>
-        t
+      .collect {
+        case t @ EndpointType.PutSubresource(subresourceName, _, _, _, _)
+            if subresourceName == "status" =>
+          t
       }
       .exists(t => t.namespaced == namespaced)
   private def hasGetStatus(endpoints: Set[EndpointType], namespaced: Boolean): Boolean =
     endpoints
-      .collect { case t: EndpointType.GetStatus =>
-        t
+      .collect {
+        case t @ EndpointType.GetSubresource(subresourceName, _, _, _)
+            if subresourceName == "status" =>
+          t
       }
       .exists(t => t.namespaced == namespaced)
   private def hasDelete(endpoints: Set[EndpointType], namespaced: Boolean): Boolean =

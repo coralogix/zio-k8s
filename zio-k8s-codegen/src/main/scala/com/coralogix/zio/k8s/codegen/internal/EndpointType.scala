@@ -5,7 +5,7 @@ import io.swagger.v3.oas.models.parameters.Parameter
 
 import scala.annotation.tailrec
 import scala.collection.JavaConverters._
-import scala.util.matching.Regex
+import scala.util.matching._
 
 sealed trait EndpointType
 object EndpointType {
@@ -15,63 +15,166 @@ object EndpointType {
   case class Post(namespaced: Boolean, detectedPlural: String) extends EndpointType
   case class Put(namespaced: Boolean, detectedPlural: String, modelName: String)
       extends EndpointType
-  case class PutStatus(namespaced: Boolean, detectedPlural: String) extends EndpointType
-  case class GetStatus(namespaced: Boolean, detectedPlural: String) extends EndpointType
+  case class Patch(namespaced: Boolean, detectedPlural: String, modelName: String)
+      extends EndpointType
   case class Delete(namespaced: Boolean, detectedPlural: String) extends EndpointType
+
+  trait SubresourceEndpoint extends EndpointType {
+    val subresourceName: String
+    val rootPath: String
+  }
+
+  case class GetSubresource(
+    subresourceName: String,
+    namespaced: Boolean,
+    detectedPlural: String,
+    rootPath: String
+  ) extends SubresourceEndpoint
+  case class PutSubresource(
+    subresourceName: String,
+    namespaced: Boolean,
+    modelName: String,
+    detectedPlural: String,
+    rootPath: String
+  ) extends SubresourceEndpoint
+  case class PatchSubresource(
+    subresourceName: String,
+    namespaced: Boolean,
+    detectedPlural: String,
+    rootPath: String
+  ) extends SubresourceEndpoint
+  case class PostSubresource(
+    subresourceName: String,
+    namespaced: Boolean,
+    modelName: String,
+    detectedPlural: String,
+    rootPath: String
+  ) extends SubresourceEndpoint
 
   case class Unsupported(reason: String) extends EndpointType
 
+  def detectEndpointType(endpoint: IdentifiedAction): EndpointType = {
+    val guards = Guards(endpoint)
+
+    detectSubresourceEndpoints(endpoint, guards) match {
+      case (EndpointType.Unsupported("fallback")) =>
+        detectResourceEndpoints(endpoint, guards)
+      case result: EndpointType                   =>
+        result
+    }
+  }
+
   private def detectSubresourceEndpoints(
     endpoint: IdentifiedAction,
-    clusterPatterns: Patterns,
-    namespacedPatterns: Patterns,
     guards: Guards
   ): EndpointType =
     endpoint.action match {
       case "get" =>
-        val clusterStatusPattern = clusterPatterns.getStatus
-        val namespacedStatusPattern = namespacedPatterns.getStatus
+        val clusterStatusPattern = ClusterPatterns.getSubresource
+        val namespacedStatusPattern = NamespacedPatterns.getSubresource
 
-        // TODO: match any subresource pattern
         guards.mustHaveMethod(PathItem.HttpMethod.GET) {
           guards.mustHaveParameters("name") {
             endpoint.name match {
-              case clusterStatusPattern(plural)    =>
+              case clusterStatusPattern(rootPath, _, _, _, _, plural, subresource)    =>
                 guards.mustHaveNotHaveParameter("namespace") {
-                  EndpointType.GetStatus(namespaced = false, plural)
+                  EndpointType.GetSubresource(subresource, namespaced = false, plural, rootPath)
                 }
-              case namespacedStatusPattern(plural) =>
+              case namespacedStatusPattern(rootPath, _, _, _, _, plural, subresource) =>
                 guards.mustHaveParameters("namespace") {
-                  EndpointType.GetStatus(namespaced = true, plural)
+                  EndpointType.GetSubresource(subresource, namespaced = true, plural, rootPath)
                 }
-              case _                               =>
+              case _                                                                  =>
                 EndpointType.Unsupported("fallback")
             }
           }
         }
 
       case "post" =>
-        // TODO: match any subresources
-        EndpointType.Unsupported("fallback")
+        val clusterStatusPattern = ClusterPatterns.putSubresource
+        val namespacedStatusPattern = NamespacedPatterns.putSubresource
+
+        guards.mustHaveMethod(PathItem.HttpMethod.POST) {
+          guards.mustHaveBody { modelName =>
+            endpoint.name match {
+              case clusterStatusPattern(rootPath, _, _, _, _, plural, subresource)    =>
+                guards.mustHaveNotHaveParameter("namespace") {
+                  EndpointType.PostSubresource(
+                    subresource,
+                    namespaced = false,
+                    modelName,
+                    plural,
+                    rootPath
+                  )
+                }
+              case namespacedStatusPattern(rootPath, _, _, _, _, plural, subresource) =>
+                guards.mustHaveParameters("namespace") {
+                  EndpointType.PostSubresource(
+                    subresource,
+                    namespaced = true,
+                    modelName,
+                    plural,
+                    rootPath
+                  )
+                }
+              case _                                                                  =>
+                EndpointType.Unsupported("fallback")
+            }
+          }
+        }
 
       case "put" =>
-        val clusterStatusPattern = clusterPatterns.putStatus
-        val namespacedStatusPattern = namespacedPatterns.putStatus
-        // TODO: match any subresources
+        val clusterStatusPattern = ClusterPatterns.putSubresource
+        val namespacedStatusPattern = NamespacedPatterns.putSubresource
 
         guards.mustHaveMethod(PathItem.HttpMethod.PUT) {
           guards.mustHaveParameters("name") {
+            guards.mustHaveBody { modelName =>
+              endpoint.name match {
+                case clusterStatusPattern(rootPath, _, _, _, _, plural, subresource)    =>
+                  guards.mustHaveNotHaveParameter("namespace") {
+                    EndpointType.PutSubresource(
+                      subresource,
+                      namespaced = false,
+                      modelName,
+                      plural,
+                      rootPath
+                    )
+                  }
+                case namespacedStatusPattern(rootPath, _, _, _, _, plural, subresource) =>
+                  guards.mustHaveParameters("namespace") {
+                    EndpointType.PutSubresource(
+                      subresource,
+                      namespaced = true,
+                      modelName,
+                      plural,
+                      rootPath
+                    )
+                  }
+                case _                                                                  =>
+                  EndpointType.Unsupported("fallback")
+              }
+            }
+          }
+        }
+
+      case "patch" =>
+        val clusterStatusPattern = ClusterPatterns.patchSubresource
+        val namespacedStatusPattern = NamespacedPatterns.patchSubresource
+
+        guards.mustHaveMethod(PathItem.HttpMethod.PATCH) {
+          guards.mustHaveParameters("name") {
             guards.mustHaveBody { _ =>
               endpoint.name match {
-                case clusterStatusPattern(plural)    =>
+                case clusterStatusPattern(rootPath, _, _, _, _, plural, subresource)    =>
                   guards.mustHaveNotHaveParameter("namespace") {
-                    EndpointType.PutStatus(namespaced = false, plural)
+                    EndpointType.PatchSubresource(subresource, namespaced = false, plural, rootPath)
                   }
-                case namespacedStatusPattern(plural) =>
+                case namespacedStatusPattern(rootPath, _, _, _, _, plural, subresource) =>
                   guards.mustHaveParameters("namespace") {
-                    EndpointType.PutStatus(namespaced = true, plural)
+                    EndpointType.PatchSubresource(subresource, namespaced = true, plural, rootPath)
                   }
-                case _                               =>
+                case _                                                                  =>
                   EndpointType.Unsupported("fallback")
               }
             }
@@ -83,118 +186,160 @@ object EndpointType {
 
   private def detectResourceEndpoints(
     endpoint: IdentifiedAction,
-    clusterPatterns: Patterns,
-    namespacedPatterns: Patterns,
     guards: Guards
   ): EndpointType =
     endpoint.action match {
       case "list" =>
         val supportsWatch = guards.haveOptionalParameters("watch", "resourceVersion")
 
-        val clusterPattern = clusterPatterns.list
-        val namespacedPattern = namespacedPatterns.list
+        val clusterPattern = ClusterPatterns.list
+        val namespacedPattern = NamespacedPatterns.list
 
         guards.mustHaveMethod(PathItem.HttpMethod.GET) {
           guards.mustHaveParameters("limit", "continue") {
             endpoint.name match {
-              case clusterPattern(plural)    =>
-                guards.mustHaveNotHaveParameter("namespace") {
-                  EndpointType.List(namespaced = false, plural, supportsWatch)
+              case clusterPattern(_, _, group, version, plural)    =>
+                guards.mustHaveSame(group, version) {
+                  guards.mustHaveNotHaveParameter("namespace") {
+                    EndpointType.List(namespaced = false, plural, supportsWatch)
+                  }
                 }
-              case namespacedPattern(plural) =>
-                guards.mustHaveParameters("namespace") {
-                  EndpointType.List(namespaced = true, plural, supportsWatch)
+              case namespacedPattern(_, _, group, version, plural) =>
+                guards.mustHaveSame(group, version) {
+                  guards.mustHaveParameters("namespace") {
+                    EndpointType.List(namespaced = true, plural, supportsWatch)
+                  }
                 }
-              case _                         =>
+              case _                                               =>
                 EndpointType.Unsupported(s"Possibly subresource listing")
             }
           }
         }
 
       case "get" =>
-        val clusterPattern = clusterPatterns.get
-        val namespacedPattern = namespacedPatterns.get
+        val clusterPattern = ClusterPatterns.get
+        val namespacedPattern = NamespacedPatterns.get
 
         guards.mustHaveMethod(PathItem.HttpMethod.GET) {
           guards.mustHaveParameters("name") {
             endpoint.name match {
-              case clusterPattern(plural)    =>
-                guards.mustHaveNotHaveParameter("namespace") {
-                  EndpointType.Get(namespaced = false, plural)
+              case clusterPattern(_, _, group, version, plural)    =>
+                guards.mustHaveSame(group, version) {
+                  guards.mustHaveNotHaveParameter("namespace") {
+                    EndpointType.Get(namespaced = false, plural)
+                  }
                 }
-              case namespacedPattern(plural) =>
-                guards.mustHaveParameters("namespace") {
-                  EndpointType.Get(namespaced = true, plural)
+              case namespacedPattern(_, _, group, version, plural) =>
+                guards.mustHaveSame(group, version) {
+                  guards.mustHaveParameters("namespace") {
+                    EndpointType.Get(namespaced = true, plural)
+                  }
                 }
-              case _                         =>
-                EndpointType.Unsupported("Possibly subresource listing")
+              case _                                               =>
+                EndpointType.Unsupported("Possibly subresource get")
             }
           }
         }
 
       case "post" =>
-        val clusterPattern = clusterPatterns.post
-        val namespacedPattern = namespacedPatterns.post
-
-        // TODO: match any subresources
+        val clusterPattern = ClusterPatterns.post
+        val namespacedPattern = NamespacedPatterns.post
 
         guards.mustHaveMethod(PathItem.HttpMethod.POST) {
           guards.mustHaveParameters("dryRun") {
             endpoint.name match {
-              case clusterPattern(plural)    =>
-                guards.mustHaveNotHaveParameter("namespace") {
-                  EndpointType.Post(namespaced = false, plural)
+              case clusterPattern(_, _, group, version, plural)    =>
+                guards.mustHaveSame(group, version) {
+                  guards.mustHaveNotHaveParameter("namespace") {
+                    EndpointType.Post(namespaced = false, plural)
+                  }
                 }
-              case namespacedPattern(plural) =>
-                guards.mustHaveParameters("namespace") {
-                  EndpointType.Post(namespaced = true, plural)
+              case namespacedPattern(_, _, group, version, plural) =>
+                guards.mustHaveSame(group, version) {
+                  guards.mustHaveParameters("namespace") {
+                    EndpointType.Post(namespaced = true, plural)
+                  }
                 }
-              case _                         =>
-                EndpointType.Unsupported(s"Possibly subresource listing")
+              case _                                               =>
+                EndpointType.Unsupported(s"Possibly subresource post")
             }
           }
         }
 
       case "put" =>
-        val clusterPattern = clusterPatterns.put
-        val namespacedPattern = namespacedPatterns.put
+        val clusterPattern = ClusterPatterns.put
+        val namespacedPattern = NamespacedPatterns.put
 
         guards.mustHaveMethod(PathItem.HttpMethod.PUT) {
           guards.mustHaveParameters("name") {
             guards.mustHaveBody { modelName =>
               endpoint.name match {
-                case clusterPattern(plural)    =>
-                  guards.mustHaveNotHaveParameter("namespace") {
-                    EndpointType.Put(namespaced = false, plural, modelName)
+                case clusterPattern(_, _, group, version, plural)    =>
+                  guards.mustHaveSame(group, version) {
+                    guards.mustHaveNotHaveParameter("namespace") {
+                      EndpointType.Put(namespaced = false, plural, modelName)
+                    }
                   }
-                case namespacedPattern(plural) =>
-                  guards.mustHaveParameters("namespace") {
-                    EndpointType.Put(namespaced = true, plural, modelName)
+                case namespacedPattern(_, _, group, version, plural) =>
+                  guards.mustHaveSame(group, version) {
+                    guards.mustHaveParameters("namespace") {
+                      EndpointType.Put(namespaced = true, plural, modelName)
+                    }
                   }
-                case _                         =>
-                  EndpointType.Unsupported(s"Possibly subresource listing")
+                case _                                               =>
+                  EndpointType.Unsupported(s"Possibly subresource put")
               }
             }
           }
         }
 
       case "delete" =>
-        val clusterPattern = clusterPatterns.delete
-        val namespacedPattern = namespacedPatterns.delete
+        val clusterPattern = ClusterPatterns.delete
+        val namespacedPattern = NamespacedPatterns.delete
 
         guards.mustHaveMethod(PathItem.HttpMethod.DELETE) {
           guards.mustHaveParameters("name") {
             endpoint.name match {
-              case clusterPattern(plural)    =>
-                guards.mustHaveNotHaveParameter("namespace") {
-                  EndpointType.Delete(namespaced = false, plural)
+              case clusterPattern(_, _, group, version, plural)    =>
+                guards.mustHaveSame(group, version) {
+                  guards.mustHaveNotHaveParameter("namespace") {
+                    EndpointType.Delete(namespaced = false, plural)
+                  }
                 }
-              case namespacedPattern(plural) =>
-                guards.mustHaveParameters("namespace") {
-                  EndpointType.Delete(namespaced = true, plural)
+              case namespacedPattern(_, _, group, version, plural) =>
+                guards.mustHaveSame(group, version) {
+                  guards.mustHaveParameters("namespace") {
+                    EndpointType.Delete(namespaced = true, plural)
+                  }
                 }
-              case _                         =>
-                EndpointType.Unsupported(s"Possibly subresource listing")
+              case _                                               =>
+                EndpointType.Unsupported(s"Possibly subresource delete")
+            }
+          }
+        }
+      case "patch"  =>
+        val clusterPattern = ClusterPatterns.patch
+        val namespacedPattern = NamespacedPatterns.patch
+
+        guards.mustHaveMethod(PathItem.HttpMethod.PATCH) {
+          guards.mustHaveParameters("name") {
+            guards.mustHaveBody { modelName =>
+              endpoint.name match {
+                case clusterPattern(_, _, group, version, plural)    =>
+                  guards.mustHaveSame(group, version) {
+                    guards.mustHaveNotHaveParameter("namespace") {
+                      EndpointType.Patch(namespaced = false, plural, modelName)
+                    }
+                  }
+                case namespacedPattern(_, _, group, version, plural) =>
+                  guards.mustHaveSame(group, version) {
+                    guards.mustHaveParameters("namespace") {
+                      EndpointType.Patch(namespaced = true, plural, modelName)
+                    }
+                  }
+                case _                                               =>
+                  EndpointType.Unsupported(s"Possibly subresource patch")
+              }
             }
           }
         }
@@ -207,19 +352,6 @@ object EndpointType {
         EndpointType.Unsupported(s"Unsupported action: ${endpoint.action}")
     }
 
-  def detectEndpointType(endpoint: IdentifiedAction): EndpointType = {
-    val clusterPatterns = Patterns.cluster(endpoint)
-    val namespacedPatterns = Patterns.namespaced(endpoint)
-    val guards = Guards(endpoint)
-
-    detectSubresourceEndpoints(endpoint, clusterPatterns, namespacedPatterns, guards) match {
-      case _: EndpointType.Unsupported =>
-        detectResourceEndpoints(endpoint, clusterPatterns, namespacedPatterns, guards)
-      case result: EndpointType        =>
-        result
-    }
-  }
-
   private def containsParameterDefinition(
     outerParameters: scala.List[Parameter],
     innerParameters: scala.List[Parameter],
@@ -230,17 +362,6 @@ object EndpointType {
     ) || innerParameters.exists(
       _.getName == name
     )
-
-  trait Patterns {
-    val list: Regex
-    val get: Regex
-    val post: Regex
-    val put: Regex
-    val delete: Regex
-
-    val getStatus: Regex
-    val putStatus: Regex
-  }
 
   final class Guards(endpoint: IdentifiedAction) {
     private val outer: scala.List[Parameter] = endpoint.outerParameters
@@ -280,6 +401,12 @@ object EndpointType {
         case None            => EndpointType.Unsupported("Does not have 'body' parameter")
       }
 
+    def mustHaveSame(group: String, version: String)(f: => EndpointType): EndpointType =
+      if (endpoint.gvk.group == Option(group).getOrElse("") && endpoint.gvk.version == version)
+        f
+      else
+        EndpointType.Unsupported("Group/version mismatch")
+
     private def getBodyType =
       for {
         requestBody  <- Option(endpoint.op.getRequestBody)
@@ -295,63 +422,49 @@ object EndpointType {
     def apply(endpoint: IdentifiedAction): Guards = new Guards(endpoint)
   }
 
-  object Patterns {
-    def cluster(endpoint: IdentifiedAction): Patterns =
-      if (endpoint.group.isEmpty)
-        new CoreClusterPatterns(endpoint.version)
-      else
-        new ExtendedClusterPatterns(endpoint.group, endpoint.version)
-    def namespaced(endpoint: IdentifiedAction): Patterns =
-      if (endpoint.group.isEmpty)
-        new CoreNamespacedPatterns(endpoint.version)
-      else
-        new ExtendedNamespacedPatterns(endpoint.group, endpoint.version)
+  trait Patterns {
+    val list: Regex
+    val get: Regex
+    val post: Regex
+    val put: Regex
+    val patch: Regex
+    val delete: Regex
+
+    val getSubresource: Regex
+    val putSubresource: Regex
+    val patchSubresource: Regex
+    val postSubresource: Regex
   }
 
-  final class CoreClusterPatterns(version: String) extends Patterns {
-    val list: Regex = s"""/api/$version/([a-z]+)""".r
-    val get: Regex = s"""/api/$version/([a-z]+)/\\{name\\}""".r
+  final object ClusterPatterns extends Patterns {
+    val list: Regex = s"""/api(/|(s/([a-z0-9.]+))/)([a-z0-9]+)/([a-z]+)""".r
+    val get: Regex = s"""/api(/|(s/([a-z0-9.]+))/)([a-z0-9]+)/([a-z]+)/\\{name\\}""".r
     val post: Regex = list
+    val patch: Regex = get
     val put: Regex = get
     val delete: Regex = get
 
-    val getStatus: Regex = s"""/api/$version/([a-z]+)/\\{name\\}/status""".r
-    val putStatus: Regex = getStatus
+    val getSubresource: Regex =
+      s"""(/api(/|(s/([a-z0-9.]+))/)([a-z0-9]+)/([a-z]+)/\\{name\\})/([a-z]+)""".r
+    val putSubresource: Regex = getSubresource
+    val patchSubresource: Regex = getSubresource
+    val postSubresource: Regex = getSubresource
   }
 
-  final class ExtendedClusterPatterns(group: String, version: String) extends Patterns {
-    val list: Regex = s"""/apis/$group/$version/([a-z]+)""".r
-    val get: Regex = s"""/apis/$group/$version/([a-z]+)/\\{name\\}""".r
+  final object NamespacedPatterns extends Patterns {
+    val list: Regex =
+      s"""/api(/|(s/([a-z0-9.]+))/)([a-z0-9]+)/namespaces/\\{namespace\\}/([a-z]+)""".r
+    val get: Regex =
+      s"""/api(/|(s/([a-z0-9.]+))/)([a-z0-9]+)/namespaces/\\{namespace\\}/([a-z]+)/\\{name\\}""".r
     val post: Regex = list
+    val patch: Regex = get
     val put: Regex = get
     val delete: Regex = get
 
-    val getStatus: Regex = s"""/apis/$group/$version/([a-z]+)/\\{name\\}/status""".r
-    val putStatus: Regex = getStatus
-
-  }
-
-  final class CoreNamespacedPatterns(version: String) extends Patterns {
-    val list: Regex = s"""/api/$version/namespaces/\\{namespace\\}/([a-z]+)""".r
-    val get: Regex = s"""/api/$version/namespaces/\\{namespace\\}/([a-z]+)/\\{name\\}""".r
-    val post: Regex = list
-    val put: Regex = get
-    val delete: Regex = get
-
-    val getStatus: Regex =
-      s"""/api/$version/namespaces/\\{namespace\\}/([a-z]+)/\\{name\\}/status""".r
-    val putStatus: Regex = getStatus
-  }
-
-  final class ExtendedNamespacedPatterns(group: String, version: String) extends Patterns {
-    val list: Regex = s"""/apis/$group/$version/namespaces/\\{namespace\\}/([a-z]+)""".r
-    val get: Regex = s"""/apis/$group/$version/namespaces/\\{namespace\\}/([a-z]+)/\\{name\\}""".r
-    val post: Regex = list
-    val put: Regex = get
-    val delete: Regex = get
-
-    val getStatus: Regex =
-      s"""/apis/$group/$version/namespaces/\\{namespace\\}/([a-z]+)/\\{name\\}/status""".r
-    val putStatus: Regex = getStatus
+    val getSubresource: Regex =
+      s"""(/api(/|(s/([a-z0-9.]+))/)([a-z0-9]+)/namespaces/\\{namespace\\}/([a-z]+)/\\{name\\})/([a-z]+)""".r
+    val putSubresource: Regex = getSubresource
+    val patchSubresource: Regex = getSubresource
+    val postSubresource: Regex = getSubresource
   }
 }

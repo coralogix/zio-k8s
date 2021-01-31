@@ -47,15 +47,13 @@ trait ModelGenerator {
     model.name.endsWith("List") // NOTE: better check: has 'metadata' field of type 'ListMeta'
 
   private def findPluralName(
-    group: String,
-    kind: String,
-    version: String,
+    gvk: GroupVersionKind,
     resources: Set[SupportedResource]
   ): String =
     resources
-      .find(r => r.group == group && r.kind == kind && r.version == version)
+      .find(r => r.gvk == gvk)
       .map(_.plural)
-      .getOrElse(kind)
+      .getOrElse(gvk.kind)
 
   private def generateModel(
     rootPackage: Vector[String],
@@ -132,9 +130,13 @@ trait ModelGenerator {
                   .toList
 
                 val jsonFields = d match {
-                  case Regular(name, schema)                                        =>
+                  case Regular(name, schema) =>
                     baseJsonFields
-                  case d @ IdentifiedDefinition(name, group, kind, version, schema) =>
+                  case d @ IdentifiedDefinition(
+                        name,
+                        GroupVersionKind(group, version, kind),
+                        schema
+                      ) =>
                     q""""kind" := ${Lit.String(kind)}""" ::
                       q""""apiVersion" := ${Lit.String(d.apiVersion)}""" ::
                       baseJsonFields
@@ -185,15 +187,19 @@ trait ModelGenerator {
 
               val k8sObject =
                 d match {
-                  case Regular(name, schema)                                    =>
+                  case Regular(name, schema) =>
                     List.empty
-                  case IdentifiedDefinition(name, group, kind, version, schema) =>
+                  case IdentifiedDefinition(
+                        name,
+                        gvk @ GroupVersionKind(group, version, kind),
+                        schema
+                      ) =>
                     val metadataT = properties.get("metadata").map(toType("metadata", _))
                     val metadataIsRequired = requiredProperties.contains("metadata")
                     val groupLit = Lit.String(group)
                     val versionLit = Lit.String(version)
 
-                    val pluralLit = findPluralName(group, kind, version, resources)
+                    val pluralLit = findPluralName(gvk, resources)
                     val kindLit = Lit.String(kind)
                     val apiVersionLit =
                       if (group.isEmpty)
@@ -314,11 +320,11 @@ trait ModelGenerator {
                   }
                """.stats
             case Some(other)           =>
-              println(s"!!! Unknown format for string alias: $other")
+              logger.error(s"!!! Unknown format for string alias: $other")
               List.empty
           }
         case _              =>
-          println(s"!!! Special type $entityName not handled yet")
+          logger.error(s"!!! Special type $entityName not handled yet")
           List.empty
       }
 
@@ -435,9 +441,9 @@ trait ModelGenerator {
 
   protected def filterKeysOf(d: IdentifiedSchema): String => Boolean =
     d match {
-      case Regular(name, schema)                                    =>
+      case Regular(name, schema)                                                      =>
         (_: String) => true
-      case IdentifiedDefinition(name, group, kind, version, schema) =>
+      case IdentifiedDefinition(name, GroupVersionKind(group, version, kind), schema) =>
         (name: String) => name != "kind" && name != "apiVersion"
     }
 

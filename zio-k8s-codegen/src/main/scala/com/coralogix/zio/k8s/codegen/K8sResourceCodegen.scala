@@ -1,15 +1,14 @@
 package com.coralogix.zio.k8s.codegen
 
+import com.coralogix.zio.k8s.codegen.internal.CodegenIO._
+import com.coralogix.zio.k8s.codegen.internal.Conversions._
+import com.coralogix.zio.k8s.codegen.internal._
 import io.swagger.parser.OpenAPIParser
 import io.swagger.v3.oas.models.OpenAPI
 import io.swagger.v3.oas.models.media.ObjectSchema
 import io.swagger.v3.parser.core.models.ParseOptions
 import org.scalafmt.interfaces.Scalafmt
-import sbt.util.Logger
 import zio.blocking.Blocking
-import com.coralogix.zio.k8s.codegen.internal._
-import com.coralogix.zio.k8s.codegen.internal.Conversions._
-import com.coralogix.zio.k8s.codegen.internal.CodegenIO._
 import zio.nio.core.file.Path
 import zio.nio.file.Files
 import zio.{ Task, ZIO }
@@ -42,7 +41,11 @@ class K8sResourceCodegen(val logger: sbt.Logger)
       _           <- checkUnidentifiedPaths(unidentified)
 
       // Classifying
-      resources <- ClassifiedResource.classifyActions(logger, definitionMap, identified)
+      resources    <- ClassifiedResource.classifyActions(logger, definitionMap, identified.toSet)
+      subresources  = resources.flatMap(_.subresources)
+      _            <- Task.effect(
+                        logger.info(s"Detected subresources:\n${subresources.map(_.describe).mkString("\n")}")
+                      )
 
       // Generating code
       packagePaths <- generateAllPackages(scalafmt, targetDir, definitionMap, resources)
@@ -110,8 +113,8 @@ class K8sResourceCodegen(val logger: sbt.Logger)
     for {
       _ <- ZIO.effect(logger.info(s"Generating package code for ${resource.id}"))
 
-      groupName = groupNameToPackageName(resource.group)
-      pkg       = (clientRoot ++ groupName) :+ resource.plural :+ resource.version
+      groupName = groupNameToPackageName(resource.gvk.group)
+      pkg       = (clientRoot ++ groupName) :+ resource.plural :+ resource.gvk.version
 
       (entityPkg, entity) = splitName(resource.modelName)
 
@@ -123,9 +126,7 @@ class K8sResourceCodegen(val logger: sbt.Logger)
                      statusEntity = findStatusEntity(definitionMap, resource.modelName).map(s =>
                        s"com.coralogix.zio.k8s.model.$s"
                      ),
-                     group = resource.group,
-                     kind = resource.kind,
-                     version = resource.version,
+                     gvk = resource.gvk,
                      isNamespaced = resource.namespaced,
                      None
                    )
