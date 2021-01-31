@@ -95,30 +95,32 @@ object EndpointType {
         val namespacedStatusPattern = NamespacedPatterns.putSubresource
 
         guards.mustHaveMethod(PathItem.HttpMethod.POST) {
-          guards.mustHaveBody { modelName =>
-            endpoint.name match {
-              case clusterStatusPattern(rootPath, _, _, _, _, plural, subresource)    =>
-                guards.mustHaveNotHaveParameter("namespace") {
-                  EndpointType.PostSubresource(
-                    subresource,
-                    namespaced = false,
-                    modelName,
-                    plural,
-                    rootPath
-                  )
-                }
-              case namespacedStatusPattern(rootPath, _, _, _, _, plural, subresource) =>
-                guards.mustHaveParameters("namespace") {
-                  EndpointType.PostSubresource(
-                    subresource,
-                    namespaced = true,
-                    modelName,
-                    plural,
-                    rootPath
-                  )
-                }
-              case _                                                                  =>
-                EndpointType.Unsupported("fallback")
+          guards.mustHaveParameters("dryRun") {
+            guards.mustHaveBody { modelName =>
+              endpoint.name match {
+                case clusterStatusPattern(rootPath, _, _, _, _, plural, subresource) =>
+                  guards.mustHaveNotHaveParameter("namespace") {
+                    EndpointType.PostSubresource(
+                      subresource,
+                      namespaced = false,
+                      modelName,
+                      plural,
+                      rootPath
+                    )
+                  }
+                case namespacedStatusPattern(rootPath, _, _, _, _, plural, subresource) =>
+                  guards.mustHaveParameters("namespace") {
+                    EndpointType.PostSubresource(
+                      subresource,
+                      namespaced = true,
+                      modelName,
+                      plural,
+                      rootPath
+                    )
+                  }
+                case _ =>
+                  EndpointType.Unsupported("fallback")
+              }
             }
           }
         }
@@ -129,30 +131,32 @@ object EndpointType {
 
         guards.mustHaveMethod(PathItem.HttpMethod.PUT) {
           guards.mustHaveParameters("name") {
-            guards.mustHaveBody { modelName =>
-              endpoint.name match {
-                case clusterStatusPattern(rootPath, _, _, _, _, plural, subresource)    =>
-                  guards.mustHaveNotHaveParameter("namespace") {
-                    EndpointType.PutSubresource(
-                      subresource,
-                      namespaced = false,
-                      modelName,
-                      plural,
-                      rootPath
-                    )
-                  }
-                case namespacedStatusPattern(rootPath, _, _, _, _, plural, subresource) =>
-                  guards.mustHaveParameters("namespace") {
-                    EndpointType.PutSubresource(
-                      subresource,
-                      namespaced = true,
-                      modelName,
-                      plural,
-                      rootPath
-                    )
-                  }
-                case _                                                                  =>
-                  EndpointType.Unsupported("fallback")
+            guards.mustHaveParameters("dryRun") {
+              guards.mustHaveBody { modelName =>
+                endpoint.name match {
+                  case clusterStatusPattern(rootPath, _, _, _, _, plural, subresource) =>
+                    guards.mustHaveNotHaveParameter("namespace") {
+                      EndpointType.PutSubresource(
+                        subresource,
+                        namespaced = false,
+                        modelName,
+                        plural,
+                        rootPath
+                      )
+                    }
+                  case namespacedStatusPattern(rootPath, _, _, _, _, plural, subresource) =>
+                    guards.mustHaveParameters("namespace") {
+                      EndpointType.PutSubresource(
+                        subresource,
+                        namespaced = true,
+                        modelName,
+                        plural,
+                        rootPath
+                      )
+                    }
+                  case _ =>
+                    EndpointType.Unsupported("fallback")
+                }
               }
             }
           }

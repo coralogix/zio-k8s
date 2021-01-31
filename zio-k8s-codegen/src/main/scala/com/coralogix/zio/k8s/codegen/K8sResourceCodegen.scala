@@ -128,6 +128,7 @@ class K8sResourceCodegen(val logger: sbt.Logger)
                      ),
                      gvk = resource.gvk,
                      isNamespaced = resource.namespaced,
+                     subresources = resource.subresources,
                      None
                    )
       targetDir  = pkg.foldLeft(targetRoot)(_ / _)
