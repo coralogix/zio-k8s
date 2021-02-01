@@ -98,7 +98,7 @@ object EndpointType {
           guards.mustHaveParameters("dryRun") {
             guards.mustHaveBody { modelName =>
               endpoint.name match {
-                case clusterStatusPattern(rootPath, _, _, _, _, plural, subresource) =>
+                case clusterStatusPattern(rootPath, _, _, _, _, plural, subresource)    =>
                   guards.mustHaveNotHaveParameter("namespace") {
                     EndpointType.PostSubresource(
                       subresource,
@@ -118,7 +118,7 @@ object EndpointType {
                       rootPath
                     )
                   }
-                case _ =>
+                case _                                                                  =>
                   EndpointType.Unsupported("fallback")
               }
             }
@@ -134,7 +134,7 @@ object EndpointType {
             guards.mustHaveParameters("dryRun") {
               guards.mustHaveBody { modelName =>
                 endpoint.name match {
-                  case clusterStatusPattern(rootPath, _, _, _, _, plural, subresource) =>
+                  case clusterStatusPattern(rootPath, _, _, _, _, plural, subresource)    =>
                     guards.mustHaveNotHaveParameter("namespace") {
                       EndpointType.PutSubresource(
                         subresource,
@@ -154,7 +154,7 @@ object EndpointType {
                         rootPath
                       )
                     }
-                  case _ =>
+                  case _                                                                  =>
                     EndpointType.Unsupported("fallback")
                 }
               }

@@ -18,7 +18,8 @@ import java.nio.charset.StandardCharsets
 import scala.collection.JavaConverters._
 
 class K8sResourceCodegen(val logger: sbt.Logger)
-    extends ModelGenerator with ClientModuleGenerator with MonocleOpticsGenerator with SubresourceClientGenerator {
+    extends ModelGenerator with ClientModuleGenerator with MonocleOpticsGenerator
+    with SubresourceClientGenerator {
 
   def generateAll(from: Path, targetDir: Path): ZIO[Blocking, Throwable, Seq[File]] =
     for {
@@ -41,8 +42,8 @@ class K8sResourceCodegen(val logger: sbt.Logger)
       _           <- checkUnidentifiedPaths(unidentified)
 
       // Classifying
-      resources    <- ClassifiedResource.classifyActions(logger, definitionMap, identified.toSet)
-      subresources  = resources.flatMap(_.subresources)
+      resources        <- ClassifiedResource.classifyActions(logger, definitionMap, identified.toSet)
+      subresources      = resources.flatMap(_.subresources)
       subresourcePaths <- generateSubresourceAliases(scalafmt, targetDir, subresources)
 
       // Generating code

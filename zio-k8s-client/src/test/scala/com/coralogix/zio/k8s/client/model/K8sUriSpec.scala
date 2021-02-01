@@ -37,7 +37,9 @@ object K8sUriSpec extends DefaultRunnableSpec {
       ),
       suite("simple with empty group")(
         test("simple with name and namespace")(
-          assert(K8sSimpleUri(resourceTypeWithEmptyGroup, Some(name), None, Some(ns)).toUri(cluster))(
+          assert(
+            K8sSimpleUri(resourceTypeWithEmptyGroup, Some(name), None, Some(ns)).toUri(cluster)
+          )(
             equalTo(uri"https://localhost:32768/api/v8/namespaces/def/rt/n-123")
           )
         ),
@@ -134,14 +136,16 @@ object K8sUriSpec extends DefaultRunnableSpec {
       suite("modifier with empty group")(
         test("modifier without namespace")(
           assert(
-            K8sModifierUri(resourceTypeWithEmptyGroup, name, None, None, dryRun = false).toUri(cluster)
+            K8sModifierUri(resourceTypeWithEmptyGroup, name, None, None, dryRun = false)
+              .toUri(cluster)
           )(
             equalTo(uri"https://localhost:32768/api/v8/rt/n-123")
           )
         ),
         test("modifier without namespace, dry run")(
           assert(
-            K8sModifierUri(resourceTypeWithEmptyGroup, name, None, None, dryRun = true).toUri(cluster)
+            K8sModifierUri(resourceTypeWithEmptyGroup, name, None, None, dryRun = true)
+              .toUri(cluster)
           )(
             equalTo(uri"https://localhost:32768/api/v8/rt/n-123?dryRun=All")
           )
@@ -156,7 +160,8 @@ object K8sUriSpec extends DefaultRunnableSpec {
         ),
         test("modifier with namespace, dry run")(
           assert(
-            K8sModifierUri(resourceTypeWithEmptyGroup, name, None, Some(ns), dryRun = true).toUri(cluster)
+            K8sModifierUri(resourceTypeWithEmptyGroup, name, None, Some(ns), dryRun = true)
+              .toUri(cluster)
           )(
             equalTo(uri"https://localhost:32768/api/v8/namespaces/def/rt/n-123?dryRun=All")
           )
@@ -164,22 +169,32 @@ object K8sUriSpec extends DefaultRunnableSpec {
       ),
       suite("status modifier")(
         test("status modifier without namespace")(
-          assert(K8sModifierUri(resourceType, name, Some("status"), None, dryRun = false).toUri(cluster))(
+          assert(
+            K8sModifierUri(resourceType, name, Some("status"), None, dryRun = false).toUri(cluster)
+          )(
             equalTo(uri"https://localhost:32768/apis/gr/v8/rt/n-123/status")
           )
         ),
         test("status modifier without namespace, dry run")(
-          assert(K8sModifierUri(resourceType, name, Some("status"), None, dryRun = true).toUri(cluster))(
+          assert(
+            K8sModifierUri(resourceType, name, Some("status"), None, dryRun = true).toUri(cluster)
+          )(
             equalTo(uri"https://localhost:32768/apis/gr/v8/rt/n-123/status?dryRun=All")
           )
         ),
         test("status modifier with namespace")(
-          assert(K8sModifierUri(resourceType, name, Some("status"), Some(ns), dryRun = false).toUri(cluster))(
+          assert(
+            K8sModifierUri(resourceType, name, Some("status"), Some(ns), dryRun = false)
+              .toUri(cluster)
+          )(
             equalTo(uri"https://localhost:32768/apis/gr/v8/namespaces/def/rt/n-123/status")
           )
         ),
         test("status modifier with namespace, dry run")(
-          assert(K8sModifierUri(resourceType, name, Some("status"), Some(ns), dryRun = true).toUri(cluster))(
+          assert(
+            K8sModifierUri(resourceType, name, Some("status"), Some(ns), dryRun = true)
+              .toUri(cluster)
+          )(
             equalTo(
               uri"https://localhost:32768/apis/gr/v8/namespaces/def/rt/n-123/status?dryRun=All"
             )
@@ -205,7 +220,13 @@ object K8sUriSpec extends DefaultRunnableSpec {
         ),
         test("status modifier with namespace")(
           assert(
-            K8sModifierUri(resourceTypeWithEmptyGroup, name, Some("status"), Some(ns), dryRun = false)
+            K8sModifierUri(
+              resourceTypeWithEmptyGroup,
+              name,
+              Some("status"),
+              Some(ns),
+              dryRun = false
+            )
               .toUri(cluster)
           )(
             equalTo(uri"https://localhost:32768/api/v8/namespaces/def/rt/n-123/status")
@@ -213,7 +234,13 @@ object K8sUriSpec extends DefaultRunnableSpec {
         ),
         test("status modifier with namespace, dry run")(
           assert(
-            K8sModifierUri(resourceTypeWithEmptyGroup, name, Some("status"), Some(ns), dryRun = true)
+            K8sModifierUri(
+              resourceTypeWithEmptyGroup,
+              name,
+              Some("status"),
+              Some(ns),
+              dryRun = true
+            )
               .toUri(cluster)
           )(
             equalTo(
@@ -246,12 +273,16 @@ object K8sUriSpec extends DefaultRunnableSpec {
       ),
       suite("creator with empty group")(
         test("creator without namespace")(
-          assert(K8sCreatorUri(resourceTypeWithEmptyGroup, None, None, dryRun = false).toUri(cluster))(
+          assert(
+            K8sCreatorUri(resourceTypeWithEmptyGroup, None, None, dryRun = false).toUri(cluster)
+          )(
             equalTo(uri"https://localhost:32768/api/v8/rt")
           )
         ),
         test("creator without namespace, dry run")(
-          assert(K8sCreatorUri(resourceTypeWithEmptyGroup, None, None, dryRun = true).toUri(cluster))(
+          assert(
+            K8sCreatorUri(resourceTypeWithEmptyGroup, None, None, dryRun = true).toUri(cluster)
+          )(
             equalTo(uri"https://localhost:32768/api/v8/rt?dryRun=All")
           )
         ),
@@ -263,7 +294,9 @@ object K8sUriSpec extends DefaultRunnableSpec {
           )
         ),
         test("creator with namespace, dry run")(
-          assert(K8sCreatorUri(resourceTypeWithEmptyGroup, None, Some(ns), dryRun = true).toUri(cluster))(
+          assert(
+            K8sCreatorUri(resourceTypeWithEmptyGroup, None, Some(ns), dryRun = true).toUri(cluster)
+          )(
             equalTo(uri"https://localhost:32768/api/v8/namespaces/def/rt?dryRun=All")
           )
         )
