@@ -88,6 +88,9 @@ case class Subresource(
   actions: Set[IdentifiedAction]
 ) {
   def describe: String = s"$name ($modelName) [${actions.map(_.action).mkString(", ")}]"
+
+  def id: SubresourceId =
+    SubresourceId(name, modelName, actions.map(_.action))
 }
 
 object ClassifiedResource {

@@ -21,7 +21,7 @@ trait ClientModuleGenerator {
     statusEntity: Option[String],
     gvk: GroupVersionKind,
     isNamespaced: Boolean,
-    subresources: Set[Subresource],
+    subresources: Set[SubresourceId],
     crdYaml: Option[Path]
   ): Task[String] =
     ZIO.effect {
@@ -104,21 +104,20 @@ trait ClientModuleGenerator {
                 val modelT: Type.Ref = getSubresourceModelType(subresource)
                 val clientT = getNamespacedSubresourceWrapperType(subresource, entityT)
 
-                subresource.actions.flatMap { action =>
-                  action.endpointType match {
-                    case EndpointType.GetSubresource(_, _, _, _)     =>
-                      List(
-                        q"""
+                subresource.actionVerbs.flatMap {
+                  case "get"  =>
+                    List(
+                      q"""
                         def $getTerm(
                           name: String,
                           namespace: K8sNamespace
                         ): ZIO[Has[$clientT], K8sFailure, $modelT] =
                           ZIO.accessM[Has[$clientT]](_.get.$getTerm(name, namespace))
                         """
-                      )
-                    case EndpointType.PutSubresource(_, _, _, _, _)  =>
-                      List(
-                        q"""
+                    )
+                  case "put"  =>
+                    List(
+                      q"""
                           def $putTerm(
                             name: String,
                             updatedValue: $modelT,
@@ -127,10 +126,10 @@ trait ClientModuleGenerator {
                           ): ZIO[Has[$clientT], K8sFailure, $modelT] =
                             ZIO.accessM[Has[$clientT]](_.get.$putTerm(name, updatedValue, namespace, dryRun))
                         """
-                      )
-                    case EndpointType.PostSubresource(_, _, _, _, _) =>
-                      List(
-                        q"""
+                    )
+                  case "post" =>
+                    List(
+                      q"""
                           def $postTerm(
                             value: $modelT,
                             namespace: K8sNamespace,
@@ -138,9 +137,8 @@ trait ClientModuleGenerator {
                           ): ZIO[Has[$clientT], K8sFailure, $modelT] =
                             ZIO.accessM[Has[$clientT]](_.get.$postTerm(value, namespace, dryRun))
                         """
-                      )
-                    case _                                           => List.empty
-                  }
+                    )
+                  case _      => List.empty
                 }
               }
 
@@ -283,20 +281,19 @@ trait ClientModuleGenerator {
                 val modelT: Type.Ref = getSubresourceModelType(subresource)
                 val clientT = getClusterSubresourceWrapperType(subresource, entityT)
 
-                subresource.actions.flatMap { action =>
-                  action.endpointType match {
-                    case EndpointType.GetSubresource(_, _, _, _)     =>
-                      List(
-                        q"""
+                subresource.actionVerbs.flatMap {
+                  case "get"  =>
+                    List(
+                      q"""
                         def $getTerm(
                           name: String,
                         ): ZIO[Has[$clientT], K8sFailure, $modelT] =
                           ZIO.accessM[Has[$clientT]](_.get.$getTerm(name))
                         """
-                      )
-                    case EndpointType.PutSubresource(_, _, _, _, _)  =>
-                      List(
-                        q"""
+                    )
+                  case "put"  =>
+                    List(
+                      q"""
                           def $putTerm(
                             name: String,
                             updatedValue: $modelT,
@@ -304,19 +301,18 @@ trait ClientModuleGenerator {
                           ): ZIO[Has[$clientT], K8sFailure, $modelT] =
                             ZIO.accessM[Has[$clientT]](_.get.$putTerm(name, updatedValue, dryRun))
                         """
-                      )
-                    case EndpointType.PostSubresource(_, _, _, _, _) =>
-                      List(
-                        q"""
+                    )
+                  case "post" =>
+                    List(
+                      q"""
                           def $postTerm(
                             value: $modelT,
                             dryRun: Boolean = false
                           ): ZIO[Has[$clientT], K8sFailure, $modelT] =
                             ZIO.accessM[Has[$clientT]](_.get.$postTerm(value, dryRun))
                         """
-                      )
-                    case _                                           => List.empty
-                  }
+                    )
+                  case _      => List.empty
                 }
               }
 
@@ -423,7 +419,7 @@ trait ClientModuleGenerator {
       code.toString()
     }
 
-  private def getSubresourceModelType(subresource: Subresource): Type.Ref = {
+  private def getSubresourceModelType(subresource: SubresourceId): Type.Ref = {
     val (modelPkg, modelName) = splitName(subresource.modelName)
     if (modelPkg.nonEmpty) {
       val modelNs = modelPkg.mkString(".").parse[Term].get.asInstanceOf[Term.Ref]
@@ -434,7 +430,7 @@ trait ClientModuleGenerator {
   }
 
   private def getSubresourceWrapperType(
-    subresource: Subresource,
+    subresource: SubresourceId,
     wrapperName: Type.Name,
     entityT: Type
   ): Type = {
@@ -450,20 +446,23 @@ trait ClientModuleGenerator {
     t"$cons[$entityT]"
   }
 
-  private def getNamespacedSubresourceWrapperType(subresource: Subresource, entityT: Type): Type = {
+  private def getNamespacedSubresourceWrapperType(
+    subresource: SubresourceId,
+    entityT: Type
+  ): Type = {
     val capName = subresource.name.capitalize
     val wrapperName = Type.Name(s"Namespaced${capName}Subresource")
     getSubresourceWrapperType(subresource, wrapperName, entityT)
   }
 
-  private def getClusterSubresourceWrapperType(subresource: Subresource, entityT: Type): Type = {
+  private def getClusterSubresourceWrapperType(subresource: SubresourceId, entityT: Type): Type = {
     val capName = subresource.name.capitalize
     val wrapperName = Type.Name(s"Cluster${capName}Subresource")
     getSubresourceWrapperType(subresource, wrapperName, entityT)
   }
 
   private def getSubresourceWrapperTerm(
-    subresource: Subresource,
+    subresource: SubresourceId,
     wrapperName: Term.Name
   ): Term = {
     val (modelPkg, _) = splitName(subresource.modelName)
@@ -477,13 +476,13 @@ trait ClientModuleGenerator {
     Term.Select(modelNs, wrapperName)
   }
 
-  private def getNamespacedSubresourceWrapperTerm(subresource: Subresource): Term = {
+  private def getNamespacedSubresourceWrapperTerm(subresource: SubresourceId): Term = {
     val capName = subresource.name.capitalize
     val wrapperName = Term.Name(s"Namespaced${capName}Subresource")
     getSubresourceWrapperTerm(subresource, wrapperName)
   }
 
-  private def getClusterSubresourceWrapperTerm(subresource: Subresource): Term = {
+  private def getClusterSubresourceWrapperTerm(subresource: SubresourceId): Term = {
     val capName = subresource.name.capitalize
     val wrapperName = Term.Name(s"Cluster${capName}Subresource")
     getSubresourceWrapperTerm(subresource, wrapperName)

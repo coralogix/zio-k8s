@@ -9,10 +9,6 @@ import java.util
 import scala.collection.JavaConverters._
 import scala.util.Try
 
-case class GroupVersionKind(group: String, version: String, kind: String) {
-  override def toString: String = s"$group/$version/$kind"
-}
-
 sealed trait Identified {
   def flatRefs: Set[String]
   def deepRefs(

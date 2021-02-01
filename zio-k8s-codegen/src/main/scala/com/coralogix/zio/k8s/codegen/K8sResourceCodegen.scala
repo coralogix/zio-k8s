@@ -44,7 +44,8 @@ class K8sResourceCodegen(val logger: sbt.Logger)
       // Classifying
       resources        <- ClassifiedResource.classifyActions(logger, definitionMap, identified.toSet)
       subresources      = resources.flatMap(_.subresources)
-      subresourcePaths <- generateSubresourceAliases(scalafmt, targetDir, subresources)
+      subresourceIds    = subresources.map(_.id)
+      subresourcePaths <- generateSubresourceAliases(scalafmt, targetDir, subresourceIds)
 
       // Generating code
       packagePaths <- generateAllPackages(scalafmt, targetDir, definitionMap, resources)
@@ -127,7 +128,7 @@ class K8sResourceCodegen(val logger: sbt.Logger)
                      ),
                      gvk = resource.gvk,
                      isNamespaced = resource.namespaced,
-                     subresources = resource.subresources,
+                     subresources = resource.subresources.map(_.id),
                      None
                    )
       targetDir  = pkg.foldLeft(targetRoot)(_ / _)

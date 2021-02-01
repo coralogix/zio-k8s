@@ -13,36 +13,24 @@ import scala.meta._
 trait SubresourceClientGenerator {
   this: ModelGenerator =>
 
-  case class SubresourceId(name: String, modelName: String, actionVerbs: Set[String])
-
-  object SubresourceId {
-    def fromSubresource(subresource: Subresource): SubresourceId =
-      SubresourceId(subresource.name, subresource.modelName, subresource.actions.map(_.action))
-  }
-
   def generateSubresourceAliases(
     scalafmt: Scalafmt,
     targetRoot: Path,
-    subresources: Set[Subresource]
-  ): ZIO[Blocking, Throwable, Set[Path]] =
-    for {
-      _        <- Task.effect(
-                    logger.info(s"Detected subresources:\n${subresources.map(_.describe).mkString("\n")}")
-                  )
-      targetDir = targetRoot / "com" / "coralogix" / "zio" / "k8s" / "client" / "subresources"
-      subids    = subresources.map(SubresourceId.fromSubresource)
-      result   <- ZIO.foreach(subids) { subid =>
-                    val (modelPkg, modelName) = splitName(subid.modelName)
-                    val src = subresourceSource(subid, modelPkg, modelName)
-                    val targetPkgDir = modelPkg.foldLeft(targetDir)(_ / _)
-                    val targetPath = targetPkgDir / (subid.name + ".scala")
-                    for {
-                      _ <- Files.createDirectories(targetPkgDir)
-                      _ <- writeTextFile(targetPath, src)
-                      _ <- format(scalafmt, targetPath)
-                    } yield targetPath
-                  }
-    } yield result
+    subresources: Set[SubresourceId]
+  ): ZIO[Blocking, Throwable, Set[Path]] = {
+    val targetDir = targetRoot / "com" / "coralogix" / "zio" / "k8s" / "client" / "subresources"
+    ZIO.foreach(subresources) { subid =>
+      val (modelPkg, modelName) = splitName(subid.modelName)
+      val src = subresourceSource(subid, modelPkg, modelName)
+      val targetPkgDir = modelPkg.foldLeft(targetDir)(_ / _)
+      val targetPath = targetPkgDir / (subid.name + ".scala")
+      for {
+        _ <- Files.createDirectories(targetPkgDir)
+        _ <- writeTextFile(targetPath, src)
+        _ <- format(scalafmt, targetPath)
+      } yield targetPath
+    }
+  }
 
   def subresourceSource(
     subresource: SubresourceId,

@@ -42,10 +42,13 @@ object K8sCustomResourceCodegen extends ClientModuleGenerator {
         .find(_.name == version)
         .flatMap(_.subresources.flatMap(_.status).toOption)
         .map(_ => entityName.toPascalCase + ".Status"),
-      crd.spec.group,
-      crd.spec.names.kind,
-      version,
+      GroupVersionKind(
+        crd.spec.group,
+        version,
+        crd.spec.names.kind
+      ),
       crd.spec.scope == "Namespaced",
+      subresources = Set.empty, // TODO
       Some(yamlPath)
     )
   }
