@@ -167,21 +167,27 @@ trait ResourceClientBase {
   protected val k8sRequest: RequestT[Empty, Either[String, String], Any] =
     basicRequest.auth.bearer(cluster.token)
 
-  protected def simple(name: Option[String], namespace: Option[K8sNamespace]): Uri =
-    K8sSimpleUri(resourceType, name, namespace).toUri(cluster)
+  protected def simple(
+    name: Option[String],
+    subresource: Option[String],
+    namespace: Option[K8sNamespace]
+  ): Uri =
+    K8sSimpleUri(resourceType, name, subresource, namespace).toUri(cluster)
 
-  protected def creating(namespace: Option[K8sNamespace], dryRun: Boolean): Uri =
-    K8sCreatorUri(resourceType, namespace, dryRun).toUri(cluster)
-
-  protected def modifying(name: String, namespace: Option[K8sNamespace], dryRun: Boolean): Uri =
-    K8sModifierUri(resourceType, name, namespace, dryRun).toUri(cluster)
-
-  protected def modifyingStatus(
-    name: String,
+  protected def creating(
+    subresource: Option[String],
     namespace: Option[K8sNamespace],
     dryRun: Boolean
   ): Uri =
-    K8sStatusModifierUri(resourceType, name, namespace, dryRun).toUri(cluster)
+    K8sCreatorUri(resourceType, subresource, namespace, dryRun).toUri(cluster)
+
+  protected def modifying(
+    name: String,
+    subresource: Option[String],
+    namespace: Option[K8sNamespace],
+    dryRun: Boolean
+  ): Uri =
+    K8sModifierUri(resourceType, name, subresource, namespace, dryRun).toUri(cluster)
 
   protected def paginated(
     namespace: Option[K8sNamespace],
@@ -323,7 +329,7 @@ class ResourceClient[
   def get(name: String, namespace: Option[K8sNamespace]): IO[K8sFailure, T] =
     handleFailures {
       k8sRequest
-        .get(simple(Some(name), namespace))
+        .get(simple(Some(name), subresource = None, namespace))
         .response(asJson[T])
         .send(backend)
     }
@@ -335,7 +341,7 @@ class ResourceClient[
   ): IO[K8sFailure, T] =
     handleFailures {
       k8sRequest
-        .post(creating(namespace, dryRun))
+        .post(creating(subresource = None, namespace, dryRun))
         .body(newResource)
         .response(asJson[T])
         .send(backend)
@@ -349,7 +355,7 @@ class ResourceClient[
   ): IO[K8sFailure, T] =
     handleFailures {
       k8sRequest
-        .put(modifying(name = name, namespace, dryRun))
+        .put(modifying(name = name, subresource = None, namespace, dryRun))
         .body(updatedResource)
         .response(asJson[T])
         .send(backend)
@@ -363,7 +369,7 @@ class ResourceClient[
   ): IO[K8sFailure, Status] =
     handleFailures {
       k8sRequest
-        .delete(modifying(name = name, namespace, dryRun))
+        .delete(modifying(name = name, subresource = None, namespace, dryRun))
         .body(deleteOptions)
         .response(asJson[Status])
         .send(backend)
@@ -387,7 +393,7 @@ class ResourceClientStatus[StatusT: Encoder, T: K8sObject: Encoder: Decoder] pri
       name     <- of.getName
       response <- handleFailures {
                     k8sRequest
-                      .put(modifyingStatus(name = name, namespace, dryRun))
+                      .put(modifying(name = name, subresource = Some("status"), namespace, dryRun))
                       .body(toStatusUpdate(of, updatedStatus))
                       .response(asJson[T])
                       .send(backend)
@@ -397,7 +403,7 @@ class ResourceClientStatus[StatusT: Encoder, T: K8sObject: Encoder: Decoder] pri
   override def getStatus(name: String, namespace: Option[K8sNamespace]): IO[K8sFailure, T] =
     handleFailures {
       k8sRequest
-        .get(simple(Some(name), namespace).addPath("status"))
+        .get(simple(Some(name), subresource = Some("status"), namespace))
         .response(asJson[T])
         .send(backend)
     }
