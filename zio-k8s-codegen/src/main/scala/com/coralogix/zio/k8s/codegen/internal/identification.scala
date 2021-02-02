@@ -1,5 +1,6 @@
 package com.coralogix.zio.k8s.codegen.internal
 
+import com.coralogix.zio.k8s.codegen.internal.EndpointType.SubresourceEndpoint
 import io.swagger.v3.oas.models.{ Operation, PathItem }
 import io.swagger.v3.oas.models.media.{ ArraySchema, Schema }
 import io.swagger.v3.oas.models.parameters.Parameter
@@ -68,7 +69,7 @@ object IdentifiedSchema {
         group   <- desc.get("group").map(_.asInstanceOf[String])
         kind    <- desc.get("kind").map(_.asInstanceOf[String])
         version <- desc.get("version").map(_.asInstanceOf[String])
-      } yield IdentifiedDefinition(name, group, kind, version, schema))
+      } yield IdentifiedDefinition(name, GroupVersionKind(group, version, kind), schema))
         .getOrElse(Regular(name, schema))
 
     (for {
@@ -88,16 +89,14 @@ object IdentifiedSchema {
 case class Regular(name: String, schema: Schema[_]) extends IdentifiedSchema
 case class IdentifiedDefinition(
   name: String,
-  group: String,
-  kind: String,
-  version: String,
+  gvk: GroupVersionKind,
   schema: Schema[_]
 ) extends IdentifiedSchema {
   def apiVersion: String =
-    if (group.nonEmpty)
-      s"$group/$version"
+    if (gvk.group.nonEmpty)
+      s"${gvk.group}/${gvk.version}"
     else
-      version
+      gvk.version
 }
 
 sealed trait IdentifiedPath extends Identified {
@@ -141,17 +140,22 @@ case class GetKubernetesVesion(name: String, op: Operation) extends IdentifiedPa
 
 case class IdentifiedAction(
   name: String,
-  group: String,
-  kind: String,
-  version: String,
+  gvk: GroupVersionKind,
   action: String,
   method: PathItem.HttpMethod,
   op: Operation,
-  outerParameters: List[Parameter]
+  outerParameters: List[Parameter],
+  endpointType: EndpointType
 ) extends IdentifiedPath {
 
-  def describe: String =
+  final def describe: String =
     s"[$action] $method $name"
+
+  def rootGVK(allActions: Map[String, IdentifiedAction]): GroupVersionKind =
+    endpointType match {
+      case s: SubresourceEndpoint => allActions(s.rootPath).gvk
+      case _                      => gvk
+    }
 }
 
 object IdentifiedPath {
@@ -185,14 +189,24 @@ object IdentifiedPath {
       op: Operation
     ): IdentifiedPath =
       (for {
-        extensions <- Option(op.getExtensions)
-        descs      <- extensions.asScala.get("x-kubernetes-group-version-kind")
-        descsMap    = descs.asInstanceOf[util.LinkedHashMap[String, Object]].asScala
-        group      <- descsMap.get("group").map(_.asInstanceOf[String])
-        kind       <- descsMap.get("kind").map(_.asInstanceOf[String])
-        version    <- descsMap.get("version").map(_.asInstanceOf[String])
-        action     <- extensions.asScala.get("x-kubernetes-action").map(_.asInstanceOf[String])
-      } yield IdentifiedAction(path, group, kind, version, action, method, op, params))
+        extensions      <- Option(op.getExtensions)
+        descs           <- extensions.asScala.get("x-kubernetes-group-version-kind")
+        descsMap         = descs.asInstanceOf[util.LinkedHashMap[String, Object]].asScala
+        group           <- descsMap.get("group").map(_.asInstanceOf[String])
+        kind            <- descsMap.get("kind").map(_.asInstanceOf[String])
+        version         <- descsMap.get("version").map(_.asInstanceOf[String])
+        action          <- extensions.asScala.get("x-kubernetes-action").map(_.asInstanceOf[String])
+        identifiedAction = IdentifiedAction(
+                             path,
+                             GroupVersionKind(group, version, kind),
+                             action,
+                             method,
+                             op,
+                             params,
+                             EndpointType.Unsupported("not processed yet")
+                           )
+        endpointType     = EndpointType.detectEndpointType(identifiedAction)
+      } yield identifiedAction.copy(endpointType = endpointType))
         .orElse(identifyApiReflection(op))
         .getOrElse(
           RegularAction(path, op, params)

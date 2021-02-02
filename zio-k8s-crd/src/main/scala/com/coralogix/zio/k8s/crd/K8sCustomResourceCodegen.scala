@@ -5,6 +5,7 @@ import com.coralogix.zio.k8s.codegen.internal._
 import com.coralogix.zio.k8s.codegen.internal.CodegenIO._
 import com.coralogix.zio.k8s.model.pkg.apis.apiextensions.v1._
 import com.coralogix.zio.k8s.client.model._
+import com.coralogix.zio.k8s.model.pkg.apis.apiextensions.v1
 import com.twilio.guardrail.generators.syntax._
 import io.circe.syntax._
 import io.circe.yaml.parser.parse
@@ -42,10 +43,19 @@ object K8sCustomResourceCodegen extends ClientModuleGenerator {
         .find(_.name == version)
         .flatMap(_.subresources.flatMap(_.status).toOption)
         .map(_ => entityName.toPascalCase + ".Status"),
-      crd.spec.group,
-      crd.spec.names.kind,
-      version,
+      GroupVersionKind(
+        crd.spec.group,
+        version,
+        crd.spec.names.kind
+      ),
       crd.spec.scope == "Namespaced",
+      subresources = crd.spec.versions
+        .find(_.name == version)
+        .flatMap(_.subresources.flatMap(_.scale).toOption)
+        .toSet
+        .map { (_: CustomResourceSubresourceScale) =>
+          SubresourceId("scale", "io.k8s.api.autoscaling.v1.Scale", Set("get", "patch", "put"))
+        },
       Some(yamlPath)
     )
   }

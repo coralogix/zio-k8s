@@ -1,15 +1,14 @@
 package com.coralogix.zio.k8s.codegen
 
+import com.coralogix.zio.k8s.codegen.internal.CodegenIO._
+import com.coralogix.zio.k8s.codegen.internal.Conversions._
+import com.coralogix.zio.k8s.codegen.internal._
 import io.swagger.parser.OpenAPIParser
 import io.swagger.v3.oas.models.OpenAPI
 import io.swagger.v3.oas.models.media.ObjectSchema
 import io.swagger.v3.parser.core.models.ParseOptions
 import org.scalafmt.interfaces.Scalafmt
-import sbt.util.Logger
 import zio.blocking.Blocking
-import com.coralogix.zio.k8s.codegen.internal._
-import com.coralogix.zio.k8s.codegen.internal.Conversions._
-import com.coralogix.zio.k8s.codegen.internal.CodegenIO._
 import zio.nio.core.file.Path
 import zio.nio.file.Files
 import zio.{ Task, ZIO }
@@ -19,7 +18,8 @@ import java.nio.charset.StandardCharsets
 import scala.collection.JavaConverters._
 
 class K8sResourceCodegen(val logger: sbt.Logger)
-    extends ModelGenerator with ClientModuleGenerator with MonocleOpticsGenerator {
+    extends ModelGenerator with ClientModuleGenerator with MonocleOpticsGenerator
+    with SubresourceClientGenerator {
 
   def generateAll(from: Path, targetDir: Path): ZIO[Blocking, Throwable, Seq[File]] =
     for {
@@ -42,12 +42,15 @@ class K8sResourceCodegen(val logger: sbt.Logger)
       _           <- checkUnidentifiedPaths(unidentified)
 
       // Classifying
-      resources <- ClassifiedResource.classifyActions(logger, definitionMap, identified)
+      resources        <- ClassifiedResource.classifyActions(logger, definitionMap, identified.toSet)
+      subresources      = resources.flatMap(_.subresources)
+      subresourceIds    = subresources.map(_.id)
+      subresourcePaths <- generateSubresourceAliases(scalafmt, targetDir, subresourceIds)
 
       // Generating code
       packagePaths <- generateAllPackages(scalafmt, targetDir, definitionMap, resources)
       modelPaths   <- generateAllModels(scalafmt, targetDir, definitions, resources)
-    } yield (packagePaths union modelPaths).map(_.toFile).toSeq
+    } yield (packagePaths union modelPaths union subresourcePaths).map(_.toFile).toSeq
 
   def generateAllMonocle(
     from: Path,
@@ -110,8 +113,8 @@ class K8sResourceCodegen(val logger: sbt.Logger)
     for {
       _ <- ZIO.effect(logger.info(s"Generating package code for ${resource.id}"))
 
-      groupName = groupNameToPackageName(resource.group)
-      pkg       = (clientRoot ++ groupName) :+ resource.plural :+ resource.version
+      groupName = groupNameToPackageName(resource.gvk.group)
+      pkg       = (clientRoot ++ groupName) :+ resource.plural :+ resource.gvk.version
 
       (entityPkg, entity) = splitName(resource.modelName)
 
@@ -123,10 +126,9 @@ class K8sResourceCodegen(val logger: sbt.Logger)
                      statusEntity = findStatusEntity(definitionMap, resource.modelName).map(s =>
                        s"com.coralogix.zio.k8s.model.$s"
                      ),
-                     group = resource.group,
-                     kind = resource.kind,
-                     version = resource.version,
+                     gvk = resource.gvk,
                      isNamespaced = resource.namespaced,
+                     subresources = resource.subresources.map(_.id),
                      None
                    )
       targetDir  = pkg.foldLeft(targetRoot)(_ / _)

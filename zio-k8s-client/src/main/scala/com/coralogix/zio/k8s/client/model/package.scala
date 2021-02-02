@@ -2,7 +2,6 @@ package com.coralogix.zio.k8s.client
 
 import sttp.client3.UriContext
 import sttp.model._
-import zio.stream.ZStream
 
 package object model {
 
@@ -23,11 +22,12 @@ package object model {
   final case class K8sSimpleUri(
     resource: K8sResourceType,
     name: Option[String],
+    subresource: Option[String],
     namespace: Option[K8sNamespace]
   ) extends K8sUri {
     override def toUri(cluster: K8sCluster): Uri = {
       val apiRoot = if (resource.group.nonEmpty) Seq("apis", resource.group) else Seq("api")
-      (name, namespace) match {
+      ((name, namespace) match {
         case (Some(n), Some(ns)) =>
           uri"${cluster.host}/$apiRoot/${resource.version}/namespaces/${ns.value}/${resource.resourceType}/$n"
         case (None, Some(ns))    =>
@@ -36,7 +36,7 @@ package object model {
           uri"${cluster.host}/$apiRoot/${resource.version}/${resource.resourceType}/$n"
         case (None, None)        =>
           uri"${cluster.host}/$apiRoot/${resource.version}/${resource.resourceType}"
-      }
+      }).addPath(subresource.toSeq)
     }
   }
 
@@ -47,7 +47,7 @@ package object model {
     continueToken: Option[String]
   ) extends K8sUri {
     override def toUri(cluster: K8sCluster): Uri =
-      K8sSimpleUri(resource, None, namespace)
+      K8sSimpleUri(resource, None, None, namespace)
         .toUri(cluster)
         .addParam("limit", limit.toString)
         .addParam("continue", continueToken)
@@ -56,32 +56,20 @@ package object model {
   final case class K8sModifierUri(
     resource: K8sResourceType,
     name: String,
+    subresource: Option[String],
     namespace: Option[K8sNamespace],
     dryRun: Boolean
   ) extends K8sUri {
     override def toUri(cluster: K8sCluster): Uri =
-      K8sSimpleUri(resource, Some(name), namespace)
+      K8sSimpleUri(resource, Some(name), subresource, namespace)
         .toUri(cluster)
-        .withParam("dryRun", if (dryRun) Some("All") else None)
-
-  }
-
-  final case class K8sStatusModifierUri(
-    resource: K8sResourceType,
-    name: String,
-    namespace: Option[K8sNamespace],
-    dryRun: Boolean
-  ) extends K8sUri {
-    override def toUri(cluster: K8sCluster): Uri =
-      K8sSimpleUri(resource, Some(name), namespace)
-        .toUri(cluster)
-        .addPath("status")
         .withParam("dryRun", if (dryRun) Some("All") else None)
 
   }
 
   final case class K8sCreatorUri(
     resource: K8sResourceType,
+    subresource: Option[String],
     namespace: Option[K8sNamespace],
     dryRun: Boolean
   ) extends K8sUri {
@@ -102,7 +90,7 @@ package object model {
     resourceVersion: Option[String]
   ) extends K8sUri {
     override def toUri(cluster: K8sCluster): Uri =
-      K8sSimpleUri(resource, None, namespace)
+      K8sSimpleUri(resource, None, None, namespace)
         .toUri(cluster)
         .addParam("watch", "1")
         .addParam("resourceVersion", resourceVersion)
