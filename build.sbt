@@ -133,7 +133,7 @@ lazy val crd = Project("zio-k8s-crd", file("zio-k8s-crd"))
     libraryDependencies ++= Seq(
       "dev.zio"       %% "zio"              % zioVersion,
       "dev.zio"       %% "zio-streams"      % zioVersion,
-      "com.twilio"    %% "guardrail"        % "0.61.0",
+      "com.twilio"    %% "guardrail"        % "0.62.1",
       "org.scalameta" %% "scalafmt-dynamic" % "2.7.5",
       "dev.zio"       %% "zio-test"         % zioVersion % Test,
       "dev.zio"       %% "zio-test-sbt"     % zioVersion % Test
