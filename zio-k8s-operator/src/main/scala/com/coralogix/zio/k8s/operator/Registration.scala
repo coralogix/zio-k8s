@@ -12,8 +12,9 @@ import zio.logging.{ log, Logging }
 
 object Registration {
   def registerIfMissing[T](
-    metadata: ResourceMetadata[T],
     customResourceDefinition: ZIO[Blocking, Throwable, CustomResourceDefinition]
+  )(implicit
+    metadata: ResourceMetadata[T]
   ): ZIO[Logging with Blocking with CustomResourceDefinitions, Throwable, Unit] = {
     val name = s"${metadata.resourceType.resourceType}.${metadata.resourceType.group}"
     log.info(s"Checking that $name CRD is registered") *>
