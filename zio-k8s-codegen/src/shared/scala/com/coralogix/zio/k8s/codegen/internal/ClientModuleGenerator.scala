@@ -170,7 +170,7 @@ trait ClientModuleGenerator {
           }
           val typeAlias = q"""type ${typeAliasT} = $typeAliasRhs"""
 
-          q"""package $basePackage.$moduleName {
+          q"""package $basePackage.$ver {
 
           $entityImport
           import com.coralogix.zio.k8s.model.pkg.apis.meta.v1._
@@ -189,7 +189,7 @@ trait ClientModuleGenerator {
           import zio.stream.{ZStream, ZTransducer}
           import zio.{ Has, Task, ZIO, ZLayer }
 
-          package object $ver {
+          package object $moduleName {
             $typeAlias
 
             def getAll(
@@ -345,7 +345,7 @@ trait ClientModuleGenerator {
           }
           val typeAlias = q"""type ${typeAliasT} = $typeAliasRhs"""
 
-          q"""package $basePackage.$moduleName {
+          q"""package $basePackage.$ver {
 
           $entityImport
           import com.coralogix.zio.k8s.model.pkg.apis.meta.v1._
@@ -364,7 +364,7 @@ trait ClientModuleGenerator {
           import zio.stream.{ZStream, ZTransducer}
           import zio.{ Has, Task, ZIO, ZLayer }
 
-          package object $ver {
+          package object $moduleName {
             $typeAlias
 
             def getAll(

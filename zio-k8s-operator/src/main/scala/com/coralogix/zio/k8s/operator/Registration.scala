@@ -2,11 +2,11 @@ package com.coralogix.zio.k8s.operator
 
 import com.coralogix.zio.k8s.client.K8sFailure
 import K8sFailure.syntax._
-import com.coralogix.zio.k8s.client.io.k8s.apiextensions.customresourcedefinitions.{ v1 => crd }
+import com.coralogix.zio.k8s.client.apiextensions.v1.{ customresourcedefinitions => crd }
 import com.coralogix.zio.k8s.client.model.ResourceMetadata
 import zio.ZIO
 import zio.blocking.Blocking
-import com.coralogix.zio.k8s.client.io.k8s.apiextensions.customresourcedefinitions.v1.CustomResourceDefinitions
+import com.coralogix.zio.k8s.client.apiextensions.v1.customresourcedefinitions.CustomResourceDefinitions
 import com.coralogix.zio.k8s.model.pkg.apis.apiextensions.v1.CustomResourceDefinition
 import zio.logging.{ log, Logging }
 

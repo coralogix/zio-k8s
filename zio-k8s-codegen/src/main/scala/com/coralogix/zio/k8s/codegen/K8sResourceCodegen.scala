@@ -114,7 +114,7 @@ class K8sResourceCodegen(val logger: sbt.Logger)
       _ <- ZIO.effect(logger.info(s"Generating package code for ${resource.id}"))
 
       groupName = groupNameToPackageName(resource.gvk.group)
-      pkg       = (clientRoot ++ groupName) :+ resource.plural :+ resource.gvk.version
+      pkg       = (clientRoot ++ groupName) :+ resource.gvk.version :+ resource.plural
 
       (entityPkg, entity) = splitName(resource.modelName)
 

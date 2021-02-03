@@ -1,16 +1,15 @@
 package com.coralogix.zio.k8s.operator
 
-import com.coralogix.zio.k8s.client.{ K8sFailure, NamespacedResource }
+import com.coralogix.zio.k8s.client.{ DecodedFailure, K8sFailure }
 import com.coralogix.zio.k8s.client.K8sFailure.syntax._
-import com.coralogix.zio.k8s.client.configmaps.{ v1 => configmaps }
-import com.coralogix.zio.k8s.client.configmaps.v1.ConfigMaps
 import com.coralogix.zio.k8s.client.model.K8sNamespace
-import com.coralogix.zio.k8s.client.pods.v1.Pods
-import com.coralogix.zio.k8s.client.pods.{ v1 => pods }
+import com.coralogix.zio.k8s.client.v1.configmaps.ConfigMaps
+import com.coralogix.zio.k8s.client.v1.{ configmaps, pods }
+import com.coralogix.zio.k8s.client.v1.pods.Pods
 import com.coralogix.zio.k8s.model.core.v1.{ ConfigMap, Pod }
-import com.coralogix.zio.k8s.model.pkg.apis.meta.v1.ObjectMeta
-import com.coralogix.zio.k8s.operator.OperatorLogging.logFailure
+import com.coralogix.zio.k8s.model.pkg.apis.meta.v1.{ DeleteOptions, ObjectMeta }
 import com.coralogix.zio.k8s.operator.OperatorFailure.k8sFailureToThrowable
+import com.coralogix.zio.k8s.operator.OperatorLogging.logFailure
 import zio._
 import zio.blocking.Blocking
 import zio.clock._
@@ -19,8 +18,6 @@ import zio.logging._
 import zio.nio.core.file.Path
 import zio.nio.file.Files
 import zio.system._
-import com.coralogix.zio.k8s.model.pkg.apis.meta.v1.DeleteOptions
-import com.coralogix.zio.k8s.client.DecodedFailure
 
 import java.io.IOException
 

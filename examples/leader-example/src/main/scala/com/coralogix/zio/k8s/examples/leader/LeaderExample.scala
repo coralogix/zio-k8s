@@ -1,12 +1,9 @@
 package com.coralogix.zio.k8s.examples.leader
 
-import com.coralogix.zio.k8s.client.K8sFailure
 import com.coralogix.zio.k8s.client.config._
-import com.coralogix.zio.k8s.client.configmaps.v1.ConfigMaps
-import com.coralogix.zio.k8s.client.configmaps.{ v1 => configmaps }
-import com.coralogix.zio.k8s.client.model.K8sNamespace
-import com.coralogix.zio.k8s.client.pods.v1.Pods
-import com.coralogix.zio.k8s.client.pods.{ v1 => pods }
+import com.coralogix.zio.k8s.client.v1.configmaps.ConfigMaps
+import com.coralogix.zio.k8s.client.v1.{ configmaps, pods }
+import com.coralogix.zio.k8s.client.v1.pods.Pods
 import com.coralogix.zio.k8s.operator.Leader
 import zio._
 import zio.blocking.Blocking
