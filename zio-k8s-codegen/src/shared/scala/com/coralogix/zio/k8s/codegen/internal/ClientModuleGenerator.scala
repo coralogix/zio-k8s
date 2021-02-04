@@ -47,7 +47,9 @@ trait ClientModuleGenerator {
       val dtoPackage = modelPackageName.parse[Term].get.asInstanceOf[Term.Ref]
       val entityImport =
         if (entity == "Service")
-          Import(List(Importer(dtoPackage, List(Importee.Rename(Name("Service"), Name("ServiceModel"))))))
+          Import(
+            List(Importer(dtoPackage, List(Importee.Rename(Name("Service"), Name("ServiceModel")))))
+          )
         else
           Import(List(Importer(dtoPackage, List(Importee.Name(Name(entityName.value))))))
 
@@ -75,10 +77,10 @@ trait ClientModuleGenerator {
       val clientList =
         param"client: ResourceClient[$entityT]" ::
           (((if (statusEntity.isDefined)
-            List[Term.Param](
-              param"statusClient: ResourceStatusClient[$statusT, $entityT]"
-            )
-          else Nil) ::
+               List[Term.Param](
+                 param"statusClient: ResourceStatusClient[$statusT, $entityT]"
+               )
+             else Nil) ::
             subresources.toList.map { subresource =>
               val clientName = Term.Name(subresource.name + "Client")
               val modelT = getSubresourceModelType(subresource)
@@ -88,10 +90,10 @@ trait ClientModuleGenerator {
       val clientExposure =
         q"override val asGenericResource: Resource[$entityT] = client" ::
           (((if (statusEntity.isDefined)
-            List(
-              q"override val asGenericResourceStatus: ResourceStatus[$statusT, $entityT] = statusClient"
-            )
-          else Nil) ::
+               List(
+                 q"override val asGenericResourceStatus: ResourceStatus[$statusT, $entityT] = statusClient"
+               )
+             else Nil) ::
             subresources.toList.map { subresource =>
               val capName = subresource.name.capitalize
               val clientName = Term.Name(subresource.name + "Client")
@@ -103,10 +105,10 @@ trait ClientModuleGenerator {
       val clientConstruction =
         q"new ResourceClient[$entityT](resourceType, cluster, backend)" ::
           (((if (statusEntity.isDefined)
-            List(
-              q"new ResourceStatusClient[$statusT, $entityT](resourceType, cluster, backend)"
-            )
-          else Nil) ::
+               List(
+                 q"new ResourceStatusClient[$statusT, $entityT](resourceType, cluster, backend)"
+               )
+             else Nil) ::
             subresources.toList.map { subresource =>
               val nameLit = Lit.String(subresource.name)
               val modelT = getSubresourceModelType(subresource)
@@ -296,9 +298,8 @@ trait ClientModuleGenerator {
           val extraInterfaceIs = extraInterfaces.map(t => Init(t, Name.Anonymous(), List.empty))
 
           val interfacesWrappedInHas =
-            extraInterfaces.foldLeft[Term](q"Has[$mainInterface](this)") {
-              case (l, t) =>
-                q"$l ++ Has[$t](this)"
+            extraInterfaces.foldLeft[Term](q"Has[$mainInterface](this)") { case (l, t) =>
+              q"$l ++ Has[$t](this)"
             }
 
           q"""package $basePackage.$ver {
@@ -586,8 +587,8 @@ trait ClientModuleGenerator {
           val mainInterface = t"ClusterResource[$entityT]"
           val extraInterfaces =
             ((if (statusEntity.isDefined)
-              List[Type](t"ClusterResourceStatus[$statusT, $entityT]")
-            else Nil) ::
+                List[Type](t"ClusterResourceStatus[$statusT, $entityT]")
+              else Nil) ::
               subresources.toList.map { subresource =>
                 List(getClusterSubresourceWrapperType(subresource, entityT))
               }).flatten
@@ -602,9 +603,8 @@ trait ClientModuleGenerator {
           val extraInterfaceIs = extraInterfaces.map(t => Init(t, Name.Anonymous(), List.empty))
 
           val interfacesWrappedInHas =
-            extraInterfaces.foldLeft[Term](q"Has[$mainInterface](this)") {
-              case (l, t) =>
-                q"$l ++ Has[$t](this)"
+            extraInterfaces.foldLeft[Term](q"Has[$mainInterface](this)") { case (l, t) =>
+              q"$l ++ Has[$t](this)"
             }
 
           q"""package $basePackage.$ver {

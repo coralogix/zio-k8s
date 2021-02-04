@@ -4,7 +4,7 @@ import _root_.io.circe._
 import _root_.io.circe.parser._
 import com.coralogix.zio.k8s.client.model._
 import com.coralogix.zio.k8s.client._
-import com.coralogix.zio.k8s.model.pkg.apis.meta.v1.{DeleteOptions, Status, WatchEvent}
+import com.coralogix.zio.k8s.model.pkg.apis.meta.v1.{ DeleteOptions, Status, WatchEvent }
 import sttp.capabilities.zio.ZioStreams
 import sttp.client3._
 import sttp.client3.circe._
@@ -16,7 +16,7 @@ import zio.stream._
 
 final class ResourceClient[
   T: K8sObject: Encoder: Decoder
-] (
+](
   override protected val resourceType: K8sResourceType,
   override protected val cluster: K8sCluster,
   override protected val backend: SttpClient.Service

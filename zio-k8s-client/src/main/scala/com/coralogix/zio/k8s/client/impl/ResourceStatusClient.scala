@@ -1,7 +1,7 @@
 package com.coralogix.zio.k8s.client.impl
 
-import com.coralogix.zio.k8s.client.model.{K8sCluster, K8sNamespace, K8sObject, K8sResourceType}
-import com.coralogix.zio.k8s.client.{K8sFailure, ResourceClientBase, ResourceStatus}
+import com.coralogix.zio.k8s.client.model.{ K8sCluster, K8sNamespace, K8sObject, K8sResourceType }
+import com.coralogix.zio.k8s.client.{ K8sFailure, ResourceClientBase, ResourceStatus }
 import io.circe._
 import io.circe.syntax._
 import sttp.client3.circe._
