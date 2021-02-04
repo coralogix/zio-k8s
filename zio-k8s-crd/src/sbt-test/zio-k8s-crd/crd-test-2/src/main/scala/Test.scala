@@ -1,5 +1,5 @@
 import com.coralogix.zio.k8s.client.com.example.stable.definitions.crontab.v1.CronTab
-import com.coralogix.zio.k8s.client.com.example.stable.crontabs.{v1 => crontabs}
+import com.coralogix.zio.k8s.client.com.example.stable.v1.crontabs
 import com.coralogix.zio.k8s.model.autoscaling.v1.Scale
 import com.coralogix.zio.k8s.client.model.K8sNamespace
 import com.coralogix.zio.k8s.client.K8sFailure
