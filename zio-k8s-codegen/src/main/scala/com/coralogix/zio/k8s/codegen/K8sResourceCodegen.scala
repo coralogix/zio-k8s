@@ -19,7 +19,7 @@ import scala.collection.JavaConverters._
 
 class K8sResourceCodegen(val logger: sbt.Logger)
     extends ModelGenerator with ClientModuleGenerator with MonocleOpticsGenerator
-    with SubresourceClientGenerator {
+    with SubresourceClientGenerator with UnifiedClientModuleGenerator {
 
   def generateAll(from: Path, targetDir: Path): ZIO[Blocking, Throwable, Seq[File]] =
     for {
@@ -50,7 +50,16 @@ class K8sResourceCodegen(val logger: sbt.Logger)
       // Generating code
       packagePaths <- generateAllPackages(scalafmt, targetDir, definitionMap, resources)
       modelPaths   <- generateAllModels(scalafmt, targetDir, definitions, resources)
-    } yield (packagePaths union modelPaths union subresourcePaths).map(_.toFile).toSeq
+      unifiedPaths <- generateUnifiedClientModule(
+                        scalafmt,
+                        targetDir,
+                        clientRoot.mkString("."),
+                        definitionMap,
+                        resources
+                      )
+    } yield (packagePaths union modelPaths union subresourcePaths union unifiedPaths)
+      .map(_.toFile)
+      .toSeq
 
   def generateAllMonocle(
     from: Path,
@@ -109,7 +118,7 @@ class K8sResourceCodegen(val logger: sbt.Logger)
     targetRoot: Path,
     definitionMap: Map[String, IdentifiedSchema],
     resource: SupportedResource
-  ) =
+  ): ZIO[Blocking, Throwable, Path] =
     for {
       _ <- ZIO.effect(logger.info(s"Generating package code for ${resource.id}"))
 
@@ -137,19 +146,6 @@ class K8sResourceCodegen(val logger: sbt.Logger)
       _         <- writeTextFile(targetPath, src)
       _         <- format(scalafmt, targetPath)
     } yield targetPath
-
-  protected def findStatusEntity(
-    definitions: Map[String, IdentifiedSchema],
-    modelName: String
-  ): Option[String] = {
-    val modelSchema = definitions(modelName).schema.asInstanceOf[ObjectSchema]
-    for {
-      properties       <- Option(modelSchema.getProperties)
-      statusPropSchema <- Option(properties.get("status"))
-      ref              <- Option(statusPropSchema.get$ref())
-      (pkg, name)       = splitName(ref.drop("#/components/schemas/".length))
-    } yield pkg.mkString(".") + "." + name
-  }
 
   private def checkUnidentifiedPaths(paths: Seq[IdentifiedPath]): Task[Unit] =
     for {

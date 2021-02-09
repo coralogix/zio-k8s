@@ -83,7 +83,7 @@ trait ClientModuleGenerator {
              else Nil) ::
             subresources.toList.map { subresource =>
               val clientName = Term.Name(subresource.name + "Client")
-              val modelT = getSubresourceModelType(subresource)
+              val modelT = getSubresourceModelType(modelPackageName, subresource)
               List(param"$clientName: SubresourceClient[$modelT]")
             }).flatten)
 
@@ -98,25 +98,15 @@ trait ClientModuleGenerator {
               val capName = subresource.name.capitalize
               val clientName = Term.Name(subresource.name + "Client")
               val asGenericTerm = Pat.Var(Term.Name(s"asGeneric${capName}Subresource"))
-              val modelT = getSubresourceModelType(subresource)
+              val modelT = getSubresourceModelType(modelPackageName, subresource)
               List(q"override val $asGenericTerm: SubresourceClient[$modelT] = $clientName")
             }).flatten)
 
-      val clientConstruction =
-        q"new ResourceClient[$entityT](resourceType, cluster, backend)" ::
-          (((if (statusEntity.isDefined)
-               List(
-                 q"new ResourceStatusClient[$statusT, $entityT](resourceType, cluster, backend)"
-               )
-             else Nil) ::
-            subresources.toList.map { subresource =>
-              val nameLit = Lit.String(subresource.name)
-              val modelT = getSubresourceModelType(subresource)
-              List(q"new SubresourceClient[$modelT](resourceType, cluster, backend, $nameLit)")
-            }).flatten)
+      val clientConstruction: List[Term] =
+        getClientConstruction(modelPackageName, statusEntity, subresources, entityT, statusT)
 
       val live =
-        q"""def live: ZLayer[SttpClient with Has[K8sCluster], Nothing, $typeAliasT] =
+        q"""val live: ZLayer[SttpClient with Has[K8sCluster], Nothing, $typeAliasT] =
                   ZLayer.fromServicesMany[SttpClient.Service, K8sCluster, $typeAliasT] {
                     (backend: SttpClient.Service, cluster: K8sCluster) => {
                       val resourceType = implicitly[ResourceMetadata[$entityT]].resourceType
@@ -189,7 +179,7 @@ trait ClientModuleGenerator {
                 val postTerm = Term.Name(s"create$capName")
 
                 val clientName = Term.Name(subresource.name + "Client")
-                val modelT: Type.Ref = getSubresourceModelType(subresource)
+                val modelT: Type.Ref = getSubresourceModelType(modelPackageName, subresource)
 
                 subresource.actionVerbs.flatMap {
                   case "get"  =>
@@ -238,7 +228,7 @@ trait ClientModuleGenerator {
                 val putTerm = Term.Name(s"replace$capName")
                 val postTerm = Term.Name(s"create$capName")
 
-                val modelT: Type.Ref = getSubresourceModelType(subresource)
+                val modelT: Type.Ref = getSubresourceModelType(modelPackageName, subresource)
                 val clientT = getNamespacedSubresourceWrapperType(subresource, entityT)
 
                 subresource.actionVerbs.flatMap {
@@ -500,7 +490,7 @@ trait ClientModuleGenerator {
                 val postTerm = Term.Name(s"create$capName")
 
                 val clientName = Term.Name(subresource.name + "Client")
-                val modelT: Type.Ref = getSubresourceModelType(subresource)
+                val modelT: Type.Ref = getSubresourceModelType(modelPackageName, subresource)
 
                 subresource.actionVerbs.flatMap {
                   case "get"  =>
@@ -546,7 +536,7 @@ trait ClientModuleGenerator {
                 val putTerm = Term.Name(s"replace$capName")
                 val postTerm = Term.Name(s"create$capName")
 
-                val modelT: Type.Ref = getSubresourceModelType(subresource)
+                val modelT: Type.Ref = getSubresourceModelType(modelPackageName, subresource)
                 val clientT = getClusterSubresourceWrapperType(subresource, entityT)
 
                 subresource.actionVerbs.flatMap {
@@ -737,10 +727,52 @@ trait ClientModuleGenerator {
       code.toString()
     }
 
-  private def getSubresourceModelType(subresource: SubresourceId): Type.Ref = {
+  protected def getClientConstruction(
+    modelPackageName: String,
+    statusEntity: Option[String],
+    subresources: Set[SubresourceId],
+    entityT: Type,
+    statusT: Type,
+    fullyQualifiedSubresourceModels: Boolean = false
+  ): List[Term] =
+    q"new ResourceClient[$entityT](resourceType, cluster, backend)" ::
+      (((if (statusEntity.isDefined)
+           List(
+             q"new ResourceStatusClient[$statusT, $entityT](resourceType, cluster, backend)"
+           )
+         else Nil) ::
+        subresources.toList.map { subresource =>
+          val nameLit = Lit.String(subresource.name)
+          val modelT =
+            getSubresourceModelType(modelPackageName, subresource, fullyQualifiedSubresourceModels)
+          List(q"new SubresourceClient[$modelT](resourceType, cluster, backend, $nameLit)")
+        }).flatten)
+
+  protected def findStatusEntity(
+    definitions: Map[String, IdentifiedSchema],
+    modelName: String
+  ): Option[String] = {
+    val modelSchema = definitions(modelName).schema.asInstanceOf[ObjectSchema]
+    for {
+      properties       <- Option(modelSchema.getProperties)
+      statusPropSchema <- Option(properties.get("status"))
+      ref              <- Option(statusPropSchema.get$ref())
+      (pkg, name)       = splitName(ref.drop("#/components/schemas/".length))
+    } yield pkg.mkString(".") + "." + name
+  }
+
+  private def getSubresourceModelType(
+    modelPackageName: String,
+    subresource: SubresourceId,
+    fullyQualified: Boolean = false
+  ): Type.Ref = {
     val (modelPkg, modelName) = splitName(subresource.modelName)
     if (modelPkg.nonEmpty) {
-      val modelNs = modelPkg.mkString(".").parse[Term].get.asInstanceOf[Term.Ref]
+      val modelNs =
+        (if (fullyQualified)
+           modelPackageName + "." + modelPkg.mkString(".")
+         else
+           modelPkg.mkString(".")).parse[Term].get.asInstanceOf[Term.Ref]
       Type.Select(modelNs, Type.Name(modelName))
     } else {
       Type.Name(modelName)

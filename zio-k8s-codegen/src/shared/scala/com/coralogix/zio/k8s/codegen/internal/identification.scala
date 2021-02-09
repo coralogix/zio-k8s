@@ -1,9 +1,9 @@
 package com.coralogix.zio.k8s.codegen.internal
 
 import com.coralogix.zio.k8s.codegen.internal.EndpointType.SubresourceEndpoint
-import io.swagger.v3.oas.models.{ Operation, PathItem }
 import io.swagger.v3.oas.models.media.{ ArraySchema, Schema }
 import io.swagger.v3.oas.models.parameters.Parameter
+import io.swagger.v3.oas.models.{ Operation, PathItem }
 
 import java.util
 import scala.collection.JavaConverters._
