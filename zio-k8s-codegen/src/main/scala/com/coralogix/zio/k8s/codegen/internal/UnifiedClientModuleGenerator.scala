@@ -152,12 +152,13 @@ trait UnifiedClientModuleGenerator {
         fullyQualifiedSubresourceModels = true
       )
 
+    val serviceT = Type.Select(pkg, Type.Name("Service"))
     val liveInit = Init(
       Type.Select(pkg, Type.Name("Live")),
       Name.Anonymous(),
       List(cons)
     )
-    q"""lazy val $namePat = {
+    q"""lazy val $namePat: $serviceT = {
           val resourceType = implicitly[ResourceMetadata[$entityT]].resourceType
           new $liveInit
         }"""

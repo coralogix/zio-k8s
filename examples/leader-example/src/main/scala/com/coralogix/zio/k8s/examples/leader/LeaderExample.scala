@@ -45,8 +45,8 @@ object LeaderExample extends App {
     example()
       //.provideCustomLayer(k8s ++ logging)
       .provideCustomLayer(
-        k8s.focus[pods.Service](_.v1.pods) ++
-          k8s.focus[configmaps.Service](_.v1.configmaps) ++
+        k8s.narrow(_.v1.pods) ++
+          k8s.narrow(_.v1.configmaps) ++
           logging
       )
       .exitCode
