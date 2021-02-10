@@ -1,5 +1,6 @@
 package com.coralogix.zio.k8s.examples.leader
 
+import com.coralogix.zio.k8s.client._
 import com.coralogix.zio.k8s.client.config._
 import com.coralogix.zio.k8s.client.kubernetes
 import com.coralogix.zio.k8s.client.kubernetes.Kubernetes
@@ -44,8 +45,8 @@ object LeaderExample extends App {
     example()
       //.provideCustomLayer(k8s ++ logging)
       .provideCustomLayer(
-        k8s.map(_.get.v1.pods.asLayer) ++
-          k8s.map(_.get.v1.configmaps.asLayer) ++
+        k8s.focus[pods.Service](_.v1.pods) ++
+          k8s.focus[configmaps.Service](_.v1.configmaps) ++
           logging
       )
       .exitCode
