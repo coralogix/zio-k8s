@@ -55,7 +55,8 @@ trait ClientModuleGenerator {
 
       val statusT = statusEntity.map(s => s.parse[Type].get).getOrElse(t"Nothing")
       val typeAliasT = Type.Name(entity + "s")
-      val typeAliasGenericT = Type.Name(entity + "sGeneric")
+      val typeAliasTerm = Term.Name(entity + "s")
+      val typeAliasGenericT = Type.Select(typeAliasTerm, Type.Name("Generic"))
 
       val customResourceDefinition =
         crdYaml match {
@@ -282,7 +283,11 @@ trait ClientModuleGenerator {
               Type.With(l, t"Has[$r]")
           }
           val typeAlias = q"""type ${typeAliasT} = ${t"Has[Service]"}"""
-          val typeAliasGeneric = q"""type ${typeAliasGenericT} = $typeAliasRhs"""
+          val typeAliasGeneric =
+            q"""object $typeAliasTerm {
+                  type Generic = $typeAliasRhs
+                }
+             """
 
           val mainInterfaceI = Init(mainInterface, Name.Anonymous(), List.empty)
           val extraInterfaceIs = extraInterfaces.map(t => Init(t, Name.Anonymous(), List.empty))
@@ -587,7 +592,11 @@ trait ClientModuleGenerator {
               Type.With(l, t"Has[$r]")
           }
           val typeAlias = q"""type ${typeAliasT} = ${t"Has[Service]"}"""
-          val typeAliasGeneric = q"""type ${typeAliasGenericT} = $typeAliasRhs"""
+          val typeAliasGeneric =
+            q"""object $typeAliasTerm {
+                  type Generic = $typeAliasRhs
+                }
+             """
 
           val mainInterfaceI = Init(mainInterface, Name.Anonymous(), List.empty)
           val extraInterfaceIs = extraInterfaces.map(t => Init(t, Name.Anonymous(), List.empty))
