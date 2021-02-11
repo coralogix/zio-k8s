@@ -35,16 +35,28 @@ trait ClientModuleGenerator {
           basePackageName.parse[Term].get.asInstanceOf[Term.Ref]
       val moduleName = Term.Name(name)
       val entityName = Term.Name(entity)
-      val entityT = Type.Name(entityName.value)
+
+      val entityT =
+        if (entity == "Service")
+          Type.Name("ServiceModel")
+        else
+          Type.Name(entity)
 
       val ver = Term.Name(gvk.version)
 
       val dtoPackage = modelPackageName.parse[Term].get.asInstanceOf[Term.Ref]
       val entityImport =
-        Import(List(Importer(dtoPackage, List(Importee.Name(Name(entityName.value))))))
+        if (entity == "Service")
+          Import(
+            List(Importer(dtoPackage, List(Importee.Rename(Name("Service"), Name("ServiceModel")))))
+          )
+        else
+          Import(List(Importer(dtoPackage, List(Importee.Name(Name(entityName.value))))))
 
       val statusT = statusEntity.map(s => s.parse[Type].get).getOrElse(t"Nothing")
       val typeAliasT = Type.Name(entity + "s")
+      val typeAliasTerm = Term.Name(entity + "s")
+      val typeAliasGenericT = Type.Select(typeAliasTerm, Type.Name("Generic"))
 
       val customResourceDefinition =
         crdYaml match {
@@ -64,9 +76,76 @@ trait ClientModuleGenerator {
             List.empty
         }
 
+      val clientList =
+        param"client: ResourceClient[$entityT]" ::
+          (((if (statusEntity.isDefined)
+               List[Term.Param](
+                 param"statusClient: ResourceStatusClient[$statusT, $entityT]"
+               )
+             else Nil) ::
+            subresources.toList.map { subresource =>
+              val clientName = Term.Name(subresource.name + "Client")
+              val modelT = getSubresourceModelType(modelPackageName, subresource)
+              List(param"$clientName: SubresourceClient[$modelT]")
+            }).flatten)
+
+      val clientExposure =
+        q"override val asGenericResource: Resource[$entityT] = client" ::
+          (((if (statusEntity.isDefined)
+               List(
+                 q"override val asGenericResourceStatus: ResourceStatus[$statusT, $entityT] = statusClient"
+               )
+             else Nil) ::
+            subresources.toList.map { subresource =>
+              val capName = subresource.name.capitalize
+              val clientName = Term.Name(subresource.name + "Client")
+              val asGenericTerm = Pat.Var(Term.Name(s"asGeneric${capName}Subresource"))
+              val modelT = getSubresourceModelType(modelPackageName, subresource)
+              List(q"override val $asGenericTerm: SubresourceClient[$modelT] = $clientName")
+            }).flatten)
+
+      val clientConstruction: List[Term] =
+        getClientConstruction(modelPackageName, statusEntity, subresources, entityT, statusT)
+
+      val live =
+        q"""val live: ZLayer[SttpClient with Has[K8sCluster], Nothing, $typeAliasT] =
+                  ZLayer.fromServices[SttpClient.Service, K8sCluster, Service] {
+                    (backend: SttpClient.Service, cluster: K8sCluster) => {
+                      val resourceType = implicitly[ResourceMetadata[$entityT]].resourceType
+                      new Live(..$clientConstruction)
+                    }
+                  }
+             """
+
       val code =
         if (isNamespaced) {
-          val statusDefinitions =
+          // NAMESPACED RESOURCE
+
+          val statusImpls =
+            if (statusEntity.isDefined)
+              List(
+                q"""
+               override def replaceStatus(
+                of: $entityT,
+                updatedStatus: $statusT,
+                namespace: K8sNamespace,
+                dryRun: Boolean = false
+              ): ZIO[Any, K8sFailure, $entityT] = {
+                  statusClient.replaceStatus(of, updatedStatus, Some(namespace), dryRun)
+                }
+             """,
+                q"""
+                  override def getStatus(
+                  name: String,
+                  namespace: K8sNamespace
+                ): ZIO[Any, K8sFailure, $entityT] =
+                  statusClient.getStatus(name, Some(namespace))
+                 """
+              )
+            else
+              List.empty
+
+          val statusAccessors =
             if (statusEntity.isDefined)
               List(
                 q"""
@@ -75,24 +154,22 @@ trait ClientModuleGenerator {
                 updatedStatus: $statusT,
                 namespace: K8sNamespace,
                 dryRun: Boolean = false
-              ): ZIO[Has[NamespacedResourceStatus[$statusT, $entityT]], K8sFailure, $entityT] = {
-                  ResourceClient.namespaced.replaceStatus(of, updatedStatus, namespace, dryRun)
+              ): ZIO[$typeAliasT, K8sFailure, $entityT] = {
+                  ZIO.accessM(_.get.replaceStatus(of, updatedStatus, namespace, dryRun))
                 }
              """,
                 q"""
                   def getStatus(
                   name: String,
                   namespace: K8sNamespace
-                ): ZIO[Has[
-                  NamespacedResourceStatus[$statusT, $entityT]
-                ], K8sFailure, $entityT] =
-                  ResourceClient.namespaced.getStatus(name, namespace)
+                ): ZIO[$typeAliasT, K8sFailure, $entityT] =
+                  ZIO.accessM(_.get.getStatus(name, namespace))
                  """
               )
             else
               List.empty
 
-          val subresourceDefinitions =
+          val subresourceImpls =
             subresources.toList
               .sortBy(_.name)
               .flatMap { subresource =>
@@ -101,7 +178,57 @@ trait ClientModuleGenerator {
                 val putTerm = Term.Name(s"replace$capName")
                 val postTerm = Term.Name(s"create$capName")
 
-                val modelT: Type.Ref = getSubresourceModelType(subresource)
+                val clientName = Term.Name(subresource.name + "Client")
+                val modelT: Type.Ref = getSubresourceModelType(modelPackageName, subresource)
+
+                subresource.actionVerbs.flatMap {
+                  case "get"  =>
+                    List(
+                      q"""
+                        override def $getTerm(
+                          name: String,
+                          namespace: K8sNamespace
+                        ): ZIO[Any, K8sFailure, $modelT] =
+                          $clientName.get(name, Some(namespace))
+                        """
+                    )
+                  case "put"  =>
+                    List(
+                      q"""
+                          override def $putTerm(
+                            name: String,
+                            updatedValue: $modelT,
+                            namespace: K8sNamespace,
+                            dryRun: Boolean = false
+                          ): ZIO[Any, K8sFailure, $modelT] =
+                            $clientName.replace(name, updatedValue, Some(namespace), dryRun)
+                        """
+                    )
+                  case "post" =>
+                    List(
+                      q"""
+                          override def $postTerm(
+                            value: $modelT,
+                            namespace: K8sNamespace,
+                            dryRun: Boolean = false
+                          ): ZIO[Any, K8sFailure, $modelT] =
+                            $clientName.create(value, Some(namespace), dryRun)
+                        """
+                    )
+                  case _      => List.empty
+                }
+              }
+
+          val subresourceAccessors =
+            subresources.toList
+              .sortBy(_.name)
+              .flatMap { subresource =>
+                val capName = subresource.name.capitalize
+                val getTerm = Term.Name(s"get$capName")
+                val putTerm = Term.Name(s"replace$capName")
+                val postTerm = Term.Name(s"create$capName")
+
+                val modelT: Type.Ref = getSubresourceModelType(modelPackageName, subresource)
                 val clientT = getNamespacedSubresourceWrapperType(subresource, entityT)
 
                 subresource.actionVerbs.flatMap {
@@ -111,8 +238,8 @@ trait ClientModuleGenerator {
                         def $getTerm(
                           name: String,
                           namespace: K8sNamespace
-                        ): ZIO[Has[$clientT], K8sFailure, $modelT] =
-                          ZIO.accessM[Has[$clientT]](_.get.$getTerm(name, namespace))
+                        ): ZIO[$typeAliasT, K8sFailure, $modelT] =
+                          ZIO.accessM(_.get.$getTerm(name, namespace))
                         """
                     )
                   case "put"  =>
@@ -123,8 +250,8 @@ trait ClientModuleGenerator {
                             updatedValue: $modelT,
                             namespace: K8sNamespace,
                             dryRun: Boolean = false
-                          ): ZIO[Has[$clientT], K8sFailure, $modelT] =
-                            ZIO.accessM[Has[$clientT]](_.get.$putTerm(name, updatedValue, namespace, dryRun))
+                          ): ZIO[$typeAliasT, K8sFailure, $modelT] =
+                            ZIO.accessM(_.get.$putTerm(name, updatedValue, namespace, dryRun))
                         """
                     )
                   case "post" =>
@@ -134,48 +261,49 @@ trait ClientModuleGenerator {
                             value: $modelT,
                             namespace: K8sNamespace,
                             dryRun: Boolean = false
-                          ): ZIO[Has[$clientT], K8sFailure, $modelT] =
-                            ZIO.accessM[Has[$clientT]](_.get.$postTerm(value, namespace, dryRun))
+                          ): ZIO[$typeAliasT, K8sFailure, $modelT] =
+                            ZIO.accessM(_.get.$postTerm(value, namespace, dryRun))
                         """
                     )
                   case _      => List.empty
                 }
               }
 
-          val baseConstructor =
-            if (statusEntity.isDefined)
-              q"""ResourceClient.namespaced.liveWithStatus[$statusT, $entityT](implicitly[ResourceMetadata[$entityT]].resourceType)"""
-            else
-              q"""ResourceClient.namespaced.liveWithoutStatus[$entityT](implicitly[ResourceMetadata[$entityT]].resourceType)"""
-
-          val constructor =
-            subresources.toList.foldLeft[Term](baseConstructor) { case (expr, subresource) =>
-              val clientTerm = getNamespacedSubresourceWrapperTerm(subresource)
-              q"""$expr ++ $clientTerm.live[$entityT]"""
-            }
-
-          val live =
-            q"""def live: ZLayer[SttpClient with Has[K8sCluster], Nothing, $typeAliasT] = $constructor"""
-          val hasTypes =
+          val mainInterface = t"NamespacedResource[$entityT]"
+          val extraInterfaces =
             ((if (statusEntity.isDefined)
-                List[Type](t"Has[NamespacedResourceStatus[$statusT, $entityT]]")
+                List[Type](t"NamespacedResourceStatus[$statusT, $entityT]")
               else Nil) ::
               subresources.toList.map { subresource =>
-                val clientT = getNamespacedSubresourceWrapperType(subresource, entityT)
-                List[Type](t"Has[$clientT]")
+                List(getNamespacedSubresourceWrapperType(subresource, entityT))
               }).flatten
-          val typeAliasRhs: Type = hasTypes.foldLeft[Type](t"Has[NamespacedResource[$entityT]]") {
+
+          val typeAliasRhs: Type = extraInterfaces.foldLeft[Type](t"Has[$mainInterface]") {
             case (l, r) =>
-              Type.With(l, r)
+              Type.With(l, t"Has[$r]")
           }
-          val typeAlias = q"""type ${typeAliasT} = $typeAliasRhs"""
+          val typeAlias = q"""type ${typeAliasT} = ${t"Has[Service]"}"""
+          val typeAliasGeneric =
+            q"""object $typeAliasTerm {
+                  type Generic = $typeAliasRhs
+                }
+             """
+
+          val mainInterfaceI = Init(mainInterface, Name.Anonymous(), List.empty)
+          val extraInterfaceIs = extraInterfaces.map(t => Init(t, Name.Anonymous(), List.empty))
+
+          val interfacesWrappedInHas =
+            extraInterfaces.foldLeft[Term](q"Has[$mainInterface](this)") { case (l, t) =>
+              q"$l ++ Has[$t](this)"
+            }
 
           q"""package $basePackage.$ver {
 
           $entityImport
           import com.coralogix.zio.k8s.model.pkg.apis.meta.v1._
           import com.coralogix.zio.k8s.model._
-          import com.coralogix.zio.k8s.client.{NamespacedResource, NamespacedResourceStatus, K8sFailure, ResourceClient}
+          import com.coralogix.zio.k8s.client.{Resource, ResourceStatus, NamespacedResource, NamespacedResourceStatus, K8sFailure}
+          import com.coralogix.zio.k8s.client.impl.{ResourceClient, ResourceStatusClient, SubresourceClient}
           import com.coralogix.zio.k8s.client.model.{
             K8sCluster,
             K8sNamespace,
@@ -190,66 +318,151 @@ trait ClientModuleGenerator {
           import zio.{ Has, Task, ZIO, ZLayer }
 
           package object $moduleName {
-            $typeAlias
+            trait Service
+              extends $mainInterfaceI with ..${extraInterfaceIs} {
+
+              val asGeneric: $typeAliasGenericT = $interfacesWrappedInHas
+            }
+
+            final class Live(..$clientList) extends Service {
+              override def getAll(
+                namespace: Option[K8sNamespace],
+                chunkSize: Int = 10
+              ): ZStream[Any, K8sFailure, $entityT] =
+                 client.getAll(namespace, chunkSize)
+
+              override def watch(
+                namespace: Option[K8sNamespace],
+                resourceVersion: Option[String]
+              ): ZStream[Any, K8sFailure, TypedWatchEvent[$entityT]] =
+                client.watch(namespace, resourceVersion)
+
+              override def watchForever(
+                namespace: Option[K8sNamespace]
+              ): ZStream[Clock, K8sFailure, TypedWatchEvent[$entityT]] =
+                client.watchForever(namespace)
+
+              override def get(
+                name: String,
+                namespace: K8sNamespace
+              ): ZIO[Any, K8sFailure, $entityT] =
+                client.get(name, Some(namespace))
+
+              override def create(
+                newResource: $entityT,
+                namespace: K8sNamespace,
+                dryRun: Boolean = false
+              ): ZIO[Any, K8sFailure, $entityT] =
+                client.create(newResource, Some(namespace), dryRun)
+
+              override def replace(
+                name: String,
+                updatedResource: $entityT,
+                namespace: K8sNamespace,
+                dryRun: Boolean = false
+              ): ZIO[Any, K8sFailure, $entityT] =
+               client.replace(name, updatedResource, Some(namespace), dryRun)
+
+              override def delete(
+                name: String,
+                deleteOptions: DeleteOptions,
+                namespace: K8sNamespace,
+                dryRun: Boolean = false
+              ): ZIO[Any, K8sFailure, Status] =
+                client.delete(name, deleteOptions, Some(namespace), dryRun)
+
+              ..$statusImpls
+
+              ..$subresourceImpls
+
+              ..$clientExposure
+            }
 
             def getAll(
               namespace: Option[K8sNamespace],
               chunkSize: Int = 10
-            ): ZStream[Has[NamespacedResource[$entityT]], K8sFailure, $entityT] =
-              ResourceClient.namespaced.getAll(namespace, chunkSize)
+            ): ZStream[$typeAliasT, K8sFailure, $entityT] =
+              ZStream.accessStream(_.get.getAll(namespace, chunkSize))
 
             def watch(
               namespace: Option[K8sNamespace],
               resourceVersion: Option[String]
-            ): ZStream[Has[NamespacedResource[$entityT]], K8sFailure, TypedWatchEvent[$entityT]] =
-              ResourceClient.namespaced.watch(namespace, resourceVersion)
+            ): ZStream[$typeAliasT, K8sFailure, TypedWatchEvent[$entityT]] =
+              ZStream.accessStream(_.get.watch(namespace, resourceVersion))
 
             def watchForever(
               namespace: Option[K8sNamespace]
-            ): ZStream[Has[NamespacedResource[$entityT]] with Clock, K8sFailure, TypedWatchEvent[$entityT]] =
-              ResourceClient.namespaced.watchForever(namespace)
+            ): ZStream[$typeAliasT with Clock, K8sFailure, TypedWatchEvent[$entityT]] =
+              ZStream.accessStream(_.get.watchForever(namespace))
 
             def get(
               name: String,
               namespace: K8sNamespace
-            ): ZIO[Has[NamespacedResource[$entityT]], K8sFailure, $entityT] =
-              ResourceClient.namespaced.get(name, namespace)
+            ): ZIO[$typeAliasT, K8sFailure, $entityT] =
+              ZIO.accessM(_.get.get(name, namespace))
 
             def create(
               newResource: $entityT,
               namespace: K8sNamespace,
               dryRun: Boolean = false
-            ): ZIO[Has[NamespacedResource[$entityT]], K8sFailure, $entityT] =
-              ResourceClient.namespaced.create(newResource, namespace, dryRun)
+            ): ZIO[$typeAliasT, K8sFailure, $entityT] =
+              ZIO.accessM(_.get.create(newResource, namespace, dryRun))
 
             def replace(
               name: String,
               updatedResource: $entityT,
               namespace: K8sNamespace,
               dryRun: Boolean = false
-            ): ZIO[Has[NamespacedResource[$entityT]], K8sFailure, $entityT] =
-              ResourceClient.namespaced.replace(name, updatedResource, namespace, dryRun)
+            ): ZIO[$typeAliasT, K8sFailure, $entityT] =
+              ZIO.accessM(_.get.replace(name, updatedResource, namespace, dryRun))
 
             def delete(
               name: String,
               deleteOptions: DeleteOptions,
               namespace: K8sNamespace,
               dryRun: Boolean = false
-            ): ZIO[Has[NamespacedResource[$entityT]], K8sFailure, Status] =
-              ResourceClient.namespaced.delete(name, deleteOptions, namespace, dryRun)
+            ): ZIO[$typeAliasT, K8sFailure, Status] =
+              ZIO.accessM(_.get.delete(name, deleteOptions, namespace, dryRun))
 
-            ..$statusDefinitions
+            ..$statusAccessors
 
-            ..$subresourceDefinitions
+            ..$subresourceAccessors
 
             ..$customResourceDefinition
 
             $live
+
+            $typeAliasGeneric
+            $typeAlias
           }
           }
           """
         } else {
-          val statusDefinitions =
+          // CLUSTER RESOURCE
+
+          val statusImpls =
+            if (statusEntity.isDefined)
+              List(
+                q"""
+               override def replaceStatus(
+                of: $entityT,
+                updatedStatus: $statusT,
+                dryRun: Boolean = false
+              ): ZIO[Any, K8sFailure, $entityT] = {
+                  statusClient.replaceStatus(of, updatedStatus, None, dryRun)
+                }
+             """,
+                q"""
+                  override def getStatus(
+                  name: String
+                ): ZIO[Any, K8sFailure, $entityT] =
+                  statusClient.getStatus(name, None)
+                 """
+              )
+            else
+              List.empty
+
+          val statusAccessors =
             if (statusEntity.isDefined)
               List(
                 q"""
@@ -257,19 +470,21 @@ trait ClientModuleGenerator {
                 of: $entityT,
                 updatedStatus: $statusT,
                 dryRun: Boolean = false
-              ): ZIO[Has[ClusterResourceStatus[$statusT, $entityT]], K8sFailure, $entityT] = {
-                ResourceClient.cluster.replaceStatus(of, updatedStatus, dryRun)
+              ): ZIO[$typeAliasT, K8sFailure, $entityT] = {
+                  ZIO.accessM(_.get.replaceStatus(of, updatedStatus, dryRun))
                 }
-               """,
+             """,
                 q"""
-                  def getStatus(name: String): ZIO[Has[ClusterResourceStatus[$statusT, $entityT]], K8sFailure, $entityT] =
-                  ResourceClient.cluster.getStatus(name)
+                  def getStatus(
+                  name: String,
+                ): ZIO[$typeAliasT, K8sFailure, $entityT] =
+                  ZIO.accessM(_.get.getStatus(name))
                  """
               )
             else
               List.empty
 
-          val subresourceDefinitions =
+          val subresourceImpls =
             subresources.toList
               .sortBy(_.name)
               .flatMap { subresource =>
@@ -278,7 +493,54 @@ trait ClientModuleGenerator {
                 val putTerm = Term.Name(s"replace$capName")
                 val postTerm = Term.Name(s"create$capName")
 
-                val modelT: Type.Ref = getSubresourceModelType(subresource)
+                val clientName = Term.Name(subresource.name + "Client")
+                val modelT: Type.Ref = getSubresourceModelType(modelPackageName, subresource)
+
+                subresource.actionVerbs.flatMap {
+                  case "get"  =>
+                    List(
+                      q"""
+                        override def $getTerm(
+                          name: String,
+                        ): ZIO[Any, K8sFailure, $modelT] =
+                          $clientName.get(name, None)
+                        """
+                    )
+                  case "put"  =>
+                    List(
+                      q"""
+                          override def $putTerm(
+                            name: String,
+                            updatedValue: $modelT,
+                            dryRun: Boolean = false
+                          ): ZIO[Any, K8sFailure, $modelT] =
+                            $clientName.replace(name, updatedValue, None, dryRun)
+                        """
+                    )
+                  case "post" =>
+                    List(
+                      q"""
+                          override def $postTerm(
+                            value: $modelT,
+                            dryRun: Boolean = false
+                          ): ZIO[Any, K8sFailure, $modelT] =
+                            $clientName.create(value, None, dryRun)
+                        """
+                    )
+                  case _      => List.empty
+                }
+              }
+
+          val subresourceAccessors =
+            subresources.toList
+              .sortBy(_.name)
+              .flatMap { subresource =>
+                val capName = subresource.name.capitalize
+                val getTerm = Term.Name(s"get$capName")
+                val putTerm = Term.Name(s"replace$capName")
+                val postTerm = Term.Name(s"create$capName")
+
+                val modelT: Type.Ref = getSubresourceModelType(modelPackageName, subresource)
                 val clientT = getClusterSubresourceWrapperType(subresource, entityT)
 
                 subresource.actionVerbs.flatMap {
@@ -286,9 +548,9 @@ trait ClientModuleGenerator {
                     List(
                       q"""
                         def $getTerm(
-                          name: String,
-                        ): ZIO[Has[$clientT], K8sFailure, $modelT] =
-                          ZIO.accessM[Has[$clientT]](_.get.$getTerm(name))
+                          name: String
+                        ): ZIO[$typeAliasT, K8sFailure, $modelT] =
+                          ZIO.accessM(_.get.$getTerm(name))
                         """
                     )
                   case "put"  =>
@@ -298,8 +560,8 @@ trait ClientModuleGenerator {
                             name: String,
                             updatedValue: $modelT,
                             dryRun: Boolean = false
-                          ): ZIO[Has[$clientT], K8sFailure, $modelT] =
-                            ZIO.accessM[Has[$clientT]](_.get.$putTerm(name, updatedValue, dryRun))
+                          ): ZIO[$typeAliasT, K8sFailure, $modelT] =
+                            ZIO.accessM(_.get.$putTerm(name, updatedValue, dryRun))
                         """
                     )
                   case "post" =>
@@ -308,49 +570,49 @@ trait ClientModuleGenerator {
                           def $postTerm(
                             value: $modelT,
                             dryRun: Boolean = false
-                          ): ZIO[Has[$clientT], K8sFailure, $modelT] =
-                            ZIO.accessM[Has[$clientT]](_.get.$postTerm(value, dryRun))
+                          ): ZIO[$typeAliasT, K8sFailure, $modelT] =
+                            ZIO.accessM(_.get.$postTerm(value, dryRun))
                         """
                     )
                   case _      => List.empty
                 }
               }
 
-          val baseConstructor =
-            if (statusEntity.isDefined)
-              q"""ResourceClient.cluster.liveWithStatus[$statusT, $entityT](implicitly[ResourceMetadata[$entityT]].resourceType)"""
-            else
-              q"""ResourceClient.cluster.liveWithoutStatus[$entityT](implicitly[ResourceMetadata[$entityT]].resourceType)"""
-
-          val constructor =
-            subresources.toList.foldLeft[Term](baseConstructor) { case (expr, subresource) =>
-              val clientTerm = getClusterSubresourceWrapperTerm(subresource)
-              q"""$expr ++ $clientTerm.live[$entityT]"""
-            }
-
-          val live =
-            q"""def live: ZLayer[SttpClient with Has[K8sCluster], Nothing, $typeAliasT] = $constructor"""
-
-          val hasTypes =
+          val mainInterface = t"ClusterResource[$entityT]"
+          val extraInterfaces =
             ((if (statusEntity.isDefined)
-                List[Type](t"Has[ClusterResourceStatus[$statusT, $entityT]]")
+                List[Type](t"ClusterResourceStatus[$statusT, $entityT]")
               else Nil) ::
               subresources.toList.map { subresource =>
-                val clientT = getClusterSubresourceWrapperType(subresource, entityT)
-                List[Type](t"Has[$clientT]")
+                List(getClusterSubresourceWrapperType(subresource, entityT))
               }).flatten
-          val typeAliasRhs: Type = hasTypes.foldLeft[Type](t"Has[ClusterResource[$entityT]]") {
+
+          val typeAliasRhs: Type = extraInterfaces.foldLeft[Type](t"Has[$mainInterface]") {
             case (l, r) =>
-              Type.With(l, r)
+              Type.With(l, t"Has[$r]")
           }
-          val typeAlias = q"""type ${typeAliasT} = $typeAliasRhs"""
+          val typeAlias = q"""type ${typeAliasT} = ${t"Has[Service]"}"""
+          val typeAliasGeneric =
+            q"""object $typeAliasTerm {
+                  type Generic = $typeAliasRhs
+                }
+             """
+
+          val mainInterfaceI = Init(mainInterface, Name.Anonymous(), List.empty)
+          val extraInterfaceIs = extraInterfaces.map(t => Init(t, Name.Anonymous(), List.empty))
+
+          val interfacesWrappedInHas =
+            extraInterfaces.foldLeft[Term](q"Has[$mainInterface](this)") { case (l, t) =>
+              q"$l ++ Has[$t](this)"
+            }
 
           q"""package $basePackage.$ver {
 
           $entityImport
           import com.coralogix.zio.k8s.model.pkg.apis.meta.v1._
           import com.coralogix.zio.k8s.model._
-          import com.coralogix.zio.k8s.client.{ClusterResource, ClusterResourceStatus, K8sFailure, ResourceClient}
+          import com.coralogix.zio.k8s.client.{Resource, ResourceStatus, ClusterResource, ClusterResourceStatus, K8sFailure}
+          import com.coralogix.zio.k8s.client.impl.{ResourceClient, ResourceStatusClient, SubresourceClient}
           import com.coralogix.zio.k8s.client.model.{
             K8sCluster,
             K8sNamespace,
@@ -365,52 +627,108 @@ trait ClientModuleGenerator {
           import zio.{ Has, Task, ZIO, ZLayer }
 
           package object $moduleName {
-            $typeAlias
+            trait Service
+              extends $mainInterfaceI with ..${extraInterfaceIs} {
+
+              val asGeneric: $typeAliasGenericT = $interfacesWrappedInHas
+            }
+
+            final class Live(..$clientList) extends Service {
+              override def getAll(
+                chunkSize: Int = 10
+              ): ZStream[Any, K8sFailure, $entityT] =
+                 client.getAll(None, chunkSize)
+
+              override def watch(
+                resourceVersion: Option[String]
+              ): ZStream[Any, K8sFailure, TypedWatchEvent[$entityT]] =
+                client.watch(None, resourceVersion)
+
+              override def watchForever(
+              ): ZStream[Clock, K8sFailure, TypedWatchEvent[$entityT]] =
+                client.watchForever(None)
+
+              override def get(
+                name: String
+              ): ZIO[Any, K8sFailure, $entityT] =
+                client.get(name, None)
+
+              override def create(
+                newResource: $entityT,
+                dryRun: Boolean = false
+              ): ZIO[Any, K8sFailure, $entityT] =
+                client.create(newResource, None, dryRun)
+
+              override def replace(
+                name: String,
+                updatedResource: $entityT,
+                dryRun: Boolean = false
+              ): ZIO[Any, K8sFailure, $entityT] =
+               client.replace(name, updatedResource, None, dryRun)
+
+              override def delete(
+                name: String,
+                deleteOptions: DeleteOptions,
+                dryRun: Boolean = false
+              ): ZIO[Any, K8sFailure, Status] =
+                client.delete(name, deleteOptions, None, dryRun)
+
+              ..$statusImpls
+
+              ..$subresourceImpls
+
+              ..$clientExposure
+            }
 
             def getAll(
               chunkSize: Int = 10
-            ): ZStream[Has[ClusterResource[$entityT]], K8sFailure, $entityT] =
-              ResourceClient.cluster.getAll(chunkSize)
+            ): ZStream[$typeAliasT, K8sFailure, $entityT] =
+              ZStream.accessStream(_.get.getAll(chunkSize))
 
             def watch(
               resourceVersion: Option[String]
-            ): ZStream[Has[ClusterResource[$entityT]], K8sFailure, TypedWatchEvent[$entityT]] =
-              ResourceClient.cluster.watch(resourceVersion)
+            ): ZStream[$typeAliasT, K8sFailure, TypedWatchEvent[$entityT]] =
+              ZStream.accessStream(_.get.watch(resourceVersion))
 
             def watchForever(
-            ): ZStream[Has[ClusterResource[$entityT]] with Clock, K8sFailure, TypedWatchEvent[$entityT]] =
-              ResourceClient.cluster.watchForever()
+            ): ZStream[$typeAliasT with Clock, K8sFailure, TypedWatchEvent[$entityT]] =
+              ZStream.accessStream(_.get.watchForever())
 
-            def get(name: String): ZIO[Has[ClusterResource[$entityT]], K8sFailure, $entityT] =
-              ResourceClient.cluster.get(name)
+            def get(
+              name: String,
+            ): ZIO[$typeAliasT, K8sFailure, $entityT] =
+              ZIO.accessM(_.get.get(name))
 
             def create(
               newResource: $entityT,
               dryRun: Boolean = false
-            ): ZIO[Has[ClusterResource[$entityT]], K8sFailure, $entityT] =
-              ResourceClient.cluster.create(newResource, dryRun)
+            ): ZIO[$typeAliasT, K8sFailure, $entityT] =
+              ZIO.accessM(_.get.create(newResource, dryRun))
 
             def replace(
               name: String,
               updatedResource: $entityT,
               dryRun: Boolean = false
-            ): ZIO[Has[ClusterResource[$entityT]], K8sFailure, $entityT] =
-              ResourceClient.cluster.replace(name, updatedResource, dryRun)
+            ): ZIO[$typeAliasT, K8sFailure, $entityT] =
+              ZIO.accessM(_.get.replace(name, updatedResource, dryRun))
 
             def delete(
               name: String,
               deleteOptions: DeleteOptions,
               dryRun: Boolean = false
-            ): ZIO[Has[ClusterResource[$entityT]], K8sFailure, Status] =
-              ResourceClient.cluster.delete(name, deleteOptions, dryRun)
+            ): ZIO[$typeAliasT, K8sFailure, Status] =
+              ZIO.accessM(_.get.delete(name, deleteOptions, dryRun))
 
-            ..$statusDefinitions
+            ..$statusAccessors
 
-            ..$subresourceDefinitions
+            ..$subresourceAccessors
 
             ..$customResourceDefinition
 
             $live
+
+            $typeAlias
+            $typeAliasGeneric
           }
           }
           """
@@ -419,10 +737,52 @@ trait ClientModuleGenerator {
       code.toString()
     }
 
-  private def getSubresourceModelType(subresource: SubresourceId): Type.Ref = {
+  protected def getClientConstruction(
+    modelPackageName: String,
+    statusEntity: Option[String],
+    subresources: Set[SubresourceId],
+    entityT: Type,
+    statusT: Type,
+    fullyQualifiedSubresourceModels: Boolean = false
+  ): List[Term] =
+    q"new ResourceClient[$entityT](resourceType, cluster, backend)" ::
+      (((if (statusEntity.isDefined)
+           List(
+             q"new ResourceStatusClient[$statusT, $entityT](resourceType, cluster, backend)"
+           )
+         else Nil) ::
+        subresources.toList.map { subresource =>
+          val nameLit = Lit.String(subresource.name)
+          val modelT =
+            getSubresourceModelType(modelPackageName, subresource, fullyQualifiedSubresourceModels)
+          List(q"new SubresourceClient[$modelT](resourceType, cluster, backend, $nameLit)")
+        }).flatten)
+
+  protected def findStatusEntity(
+    definitions: Map[String, IdentifiedSchema],
+    modelName: String
+  ): Option[String] = {
+    val modelSchema = definitions(modelName).schema.asInstanceOf[ObjectSchema]
+    for {
+      properties       <- Option(modelSchema.getProperties)
+      statusPropSchema <- Option(properties.get("status"))
+      ref              <- Option(statusPropSchema.get$ref())
+      (pkg, name)       = splitName(ref.drop("#/components/schemas/".length))
+    } yield pkg.mkString(".") + "." + name
+  }
+
+  private def getSubresourceModelType(
+    modelPackageName: String,
+    subresource: SubresourceId,
+    fullyQualified: Boolean = false
+  ): Type.Ref = {
     val (modelPkg, modelName) = splitName(subresource.modelName)
     if (modelPkg.nonEmpty) {
-      val modelNs = modelPkg.mkString(".").parse[Term].get.asInstanceOf[Term.Ref]
+      val modelNs =
+        (if (fullyQualified)
+           modelPackageName + "." + modelPkg.mkString(".")
+         else
+           modelPkg.mkString(".")).parse[Term].get.asInstanceOf[Term.Ref]
       Type.Select(modelNs, Type.Name(modelName))
     } else {
       Type.Name(modelName)

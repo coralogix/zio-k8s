@@ -44,10 +44,8 @@ trait SubresourceClientGenerator {
       .asInstanceOf[Term.Ref]
     val capName = subresource.name.capitalize
     val namespacedT = Type.Name(s"Namespaced${capName}Subresource")
-    val namespacedTT = t"$namespacedT[T]"
     val namespacedTerm = Term.Name(s"Namespaced${capName}Subresource")
     val clusterT = Type.Name(s"Cluster${capName}Subresource")
-    val clusterTT = t"$clusterT[T]"
     val clusterTerm = Term.Name(s"Cluster${capName}Subresource")
     val modelT =
       if (pkg.nonEmpty) {
@@ -60,53 +58,48 @@ trait SubresourceClientGenerator {
     val getTerm = Term.Name(s"get$capName")
     val putTerm = Term.Name(s"replace$capName")
     val postTerm = Term.Name(s"create$capName")
+    val asGenericTerm = Term.Name(s"asGeneric${capName}Subresource")
 
     val nameLit = Lit.String(subresource.name)
 
-    val clusterWrappers = subresource.actionVerbs.toList.flatMap {
+    val clusterDefs = subresource.actionVerbs.toList.flatMap {
       case "get"  =>
         List(q"""
-          final def $getTerm(name: String): ZIO[Any, K8sFailure, $modelT] =
-            asGenericSubresource.get(name, None)
+          def $getTerm(name: String): ZIO[Any, K8sFailure, $modelT]
           """)
       case "put"  =>
         List(q"""
-          final def $putTerm(name: String,
+          def $putTerm(name: String,
                              updatedValue: $modelT,
                              dryRun: Boolean = false
-                            ): IO[K8sFailure, $modelT] =
-            asGenericSubresource.replace(name, updatedValue, None, dryRun)
+                            ): IO[K8sFailure, $modelT]
            """)
       case "post" =>
         List(q"""
-           final def $postTerm(value: $modelT,
-                         dryRun: Boolean = false): IO[K8sFailure, $modelT] =
-            asGenericSubresource.create(value, None, dryRun)
+           def $postTerm(value: $modelT,
+                         dryRun: Boolean = false): IO[K8sFailure, $modelT]
          """)
       case _      => List.empty
     }
 
-    val namespacedWrappers = subresource.actionVerbs.toList.flatMap {
+    val namespacedDefs = subresource.actionVerbs.toList.flatMap {
       case "get"  =>
         List(q"""
-          final def $getTerm(name: String, namespace: K8sNamespace): ZIO[Any, K8sFailure, $modelT] =
-            asGenericSubresource.get(name, Some(namespace))
+          def $getTerm(name: String, namespace: K8sNamespace): ZIO[Any, K8sFailure, $modelT]
           """)
       case "put"  =>
         List(q"""
-          final def $putTerm(name: String,
+          def $putTerm(name: String,
                              updatedValue: $modelT,
                              namespace: K8sNamespace,
                              dryRun: Boolean = false
-                            ): IO[K8sFailure, $modelT] =
-            asGenericSubresource.replace(name, updatedValue, Some(namespace), dryRun)
+                            ): IO[K8sFailure, $modelT]
            """)
       case "post" =>
         List(q"""
-           final def $postTerm(value: $modelT,
+           def $postTerm(value: $modelT,
                          namespace: K8sNamespace,
-                         dryRun: Boolean = false): IO[K8sFailure, $modelT] =
-            asGenericSubresource.create(value, Some(namespace), dryRun)
+                         dryRun: Boolean = false): IO[K8sFailure, $modelT]
          """)
       case _      => List.empty
     }
@@ -116,39 +109,31 @@ trait SubresourceClientGenerator {
         import com.coralogix.zio.k8s.model._
         import com.coralogix.zio.k8s.client.K8sFailure
         import com.coralogix.zio.k8s.client.model.{K8sCluster, K8sNamespace, ResourceMetadata}
-        import com.coralogix.zio.k8s.client.SubresourceClient
+        import com.coralogix.zio.k8s.client.Subresource
+        import com.coralogix.zio.k8s.client.impl.SubresourceClient
         import sttp.client3.httpclient.zio.SttpClient
         import zio._
 
-        class $namespacedT[T](asGenericSubresource: SubresourceClient[$modelT]) {
-          {}
+        trait $namespacedT[T] {
+          val $asGenericTerm: Subresource[$modelT]
 
-          ..$namespacedWrappers
+          ..$namespacedDefs
         }
 
         object $namespacedTerm {
-          def live[T : Tag : ResourceMetadata] =
-            ZLayer.fromServices[SttpClient.Service, K8sCluster, $namespacedT[T]] {
-              (backend: SttpClient.Service, cluster: K8sCluster) =>
-                new $namespacedTT(
-                  new SubresourceClient[$modelT](implicitly[ResourceMetadata[T]].resourceType, cluster, backend, $nameLit)
-                )
-            }
+          def makeClient[T : Tag : ResourceMetadata](backend: SttpClient.Service, cluster: K8sCluster): SubresourceClient[$modelT] =
+            new SubresourceClient[$modelT](implicitly[ResourceMetadata[T]].resourceType, cluster, backend, $nameLit)
         }
 
-        class $clusterT[T](asGenericSubresource: SubresourceClient[$modelT]) {
-          {}
-          ..$clusterWrappers
+        trait $clusterT[T] {
+          val $asGenericTerm: Subresource[$modelT]
+
+          ..$clusterDefs
         }
 
         object $clusterTerm {
-          def live[T : Tag : ResourceMetadata] =
-            ZLayer.fromServices[SttpClient.Service, K8sCluster, $clusterT[T]] {
-              (backend: SttpClient.Service, cluster: K8sCluster) =>
-                new $clusterTT(
-                  new SubresourceClient[$modelT](implicitly[ResourceMetadata[T]].resourceType, cluster, backend, $nameLit)
-                )
-            }
+          def makeClient[T : Tag : ResourceMetadata](backend: SttpClient.Service, cluster: K8sCluster): SubresourceClient[$modelT] =
+            new SubresourceClient[$modelT](implicitly[ResourceMetadata[T]].resourceType, cluster, backend, $nameLit)
         }
         }
      """.toString

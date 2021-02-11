@@ -1,6 +1,9 @@
 package com.coralogix.zio.k8s.examples.leader
 
+import com.coralogix.zio.k8s.client._
 import com.coralogix.zio.k8s.client.config._
+import com.coralogix.zio.k8s.client.kubernetes
+import com.coralogix.zio.k8s.client.kubernetes.Kubernetes
 import com.coralogix.zio.k8s.client.v1.configmaps.ConfigMaps
 import com.coralogix.zio.k8s.client.v1.{ configmaps, pods }
 import com.coralogix.zio.k8s.client.v1.pods.Pods
@@ -13,6 +16,8 @@ import zio.config.magnolia.name
 import zio.config.syntax._
 import zio.config.typesafe.TypesafeConfig
 import zio.logging.{ log, LogFormat, LogLevel, Logging }
+
+import scala.languageFeature.implicitConversions
 
 object LeaderExample extends App {
   case class Config(cluster: K8sClusterConfig, @name("k8s-client") client: K8sClientConfig)
@@ -33,14 +38,17 @@ object LeaderExample extends App {
     val cluster = (Blocking.any ++ config.narrow(_.cluster)) >>> k8sCluster
 
     // Pods and ConfigMaps API
-    val k8s = (cluster ++ client) >>> (
-      pods.live ++
-        configmaps.live
-    )
+    val k8s = (cluster ++ client) >>> kubernetes.live
+    //val k8s = (cluster ++ client) >>> (pods.live ++ configmaps.live)
 
     // Example code
     example()
-      .provideCustomLayer(k8s ++ logging)
+      //.provideCustomLayer(k8s ++ logging)
+      .provideCustomLayer(
+        k8s.narrow(_.v1.pods) ++
+          k8s.narrow(_.v1.configmaps) ++
+          logging
+      )
       .exitCode
   }
 

@@ -16,5 +16,5 @@ object Test {
     )
   )
 
-  val scale: ZIO[Has[NamespacedScaleSubresource[CronTab]], K8sFailure, Scale] = crontabs.getScale("name", K8sNamespace.default)
+  val scale: ZIO[crontabs.CronTabs, K8sFailure, Scale] = crontabs.getScale("name", K8sNamespace.default)
 }
