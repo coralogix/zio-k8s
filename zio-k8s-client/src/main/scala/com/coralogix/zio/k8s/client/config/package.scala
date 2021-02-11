@@ -50,7 +50,7 @@ package object config {
       for {
         config <- getConfig[K8sClusterConfig]
         result <- config.token match {
-                    case Some(token) =>
+                    case Some(token) if token.nonEmpty =>
                       // Explicit API token
                       ZIO.succeed(
                         K8sCluster(
@@ -58,7 +58,7 @@ package object config {
                           token = token
                         )
                       )
-                    case None        =>
+                    case _                             =>
                       // No explicit token, loading from file
                       Files
                         .readAllBytes(config.tokenFile)
