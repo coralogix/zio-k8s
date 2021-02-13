@@ -40,7 +40,7 @@ trait UnifiedClientModuleGenerator {
     definitionMap: Map[String, IdentifiedSchema]
   ): String = {
     val liveClass =
-      pkgNodeToDef(definitionMap, basePackageName, "KubernetesApi", gvkTree, isTopLevel = true)
+      pkgNodeToDef(definitionMap, basePackageName, "Api", gvkTree, isTopLevel = true)
     val pkg = basePackageName
       .parse[Term]
       .get
@@ -55,16 +55,17 @@ trait UnifiedClientModuleGenerator {
 
         package object kubernetes {
 
-        $liveClass
+        type Kubernetes = Has[Kubernetes.Api]
+        object Kubernetes {
+          $liveClass
 
-        type Kubernetes = Has[KubernetesApi]
-
-        val live: ZLayer[SttpClient with Has[K8sCluster], Nothing, Kubernetes] =
-                  ZLayer.fromServices[SttpClient.Service, K8sCluster, KubernetesApi] {
-                    (backend: SttpClient.Service, cluster: K8sCluster) => {
-                      new KubernetesApi(backend, cluster)
+          val live: ZLayer[SttpClient with Has[K8sCluster], Nothing, Kubernetes] =
+                    ZLayer.fromServices[SttpClient.Service, K8sCluster, Api] {
+                      (backend: SttpClient.Service, cluster: K8sCluster) => {
+                        new Api(backend, cluster)
+                      }
                     }
-                  }
+          }
         }
         }
      """.toString
@@ -152,9 +153,10 @@ trait UnifiedClientModuleGenerator {
         fullyQualifiedSubresourceModels = true
       )
 
-    val serviceT = Type.Select(pkg, Type.Name("Service"))
+    val obj = Term.Select(pkg, Term.Name(entity + "s"))
+    val serviceT = Type.Select(obj, Type.Name("Service"))
     val liveInit = Init(
-      Type.Select(pkg, Type.Name("Live")),
+      Type.Select(obj, Type.Name("Live")),
       Name.Anonymous(),
       List(cons)
     )
