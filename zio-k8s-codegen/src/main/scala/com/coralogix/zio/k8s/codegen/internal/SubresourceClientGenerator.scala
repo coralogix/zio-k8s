@@ -76,7 +76,8 @@ trait SubresourceClientGenerator {
            """)
       case "post" =>
         List(q"""
-           def $postTerm(value: $modelT,
+           def $postTerm(name: String,
+                         value: $modelT,
                          dryRun: Boolean = false): IO[K8sFailure, $modelT]
          """)
       case _      => List.empty
@@ -97,7 +98,8 @@ trait SubresourceClientGenerator {
            """)
       case "post" =>
         List(q"""
-           def $postTerm(value: $modelT,
+           def $postTerm(name: String,
+                         value: $modelT,
                          namespace: K8sNamespace,
                          dryRun: Boolean = false): IO[K8sFailure, $modelT]
          """)

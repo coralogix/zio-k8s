@@ -13,6 +13,8 @@ import zio.nio.file.Files
 import scala.meta._
 
 trait ClientModuleGenerator {
+  this: Common =>
+
   def generateModuleCode(
     basePackageName: String,
     modelPackageName: String,
@@ -77,16 +79,16 @@ trait ClientModuleGenerator {
         }
 
       val clientList =
-        param"client: ResourceClient[$entityT]" ::
+        param"client: Resource[$entityT]" ::
           (((if (statusEntity.isDefined)
                List[Term.Param](
-                 param"statusClient: ResourceStatusClient[$statusT, $entityT]"
+                 param"statusClient: ResourceStatus[$statusT, $entityT]"
                )
              else Nil) ::
             subresources.toList.map { subresource =>
               val clientName = Term.Name(subresource.name + "Client")
               val modelT = getSubresourceModelType(modelPackageName, subresource)
-              List(param"$clientName: SubresourceClient[$modelT]")
+              List(param"$clientName: Subresource[$modelT]")
             }).flatten)
 
       val clientExposure =
@@ -101,11 +103,13 @@ trait ClientModuleGenerator {
               val clientName = Term.Name(subresource.name + "Client")
               val asGenericTerm = Pat.Var(Term.Name(s"asGeneric${capName}Subresource"))
               val modelT = getSubresourceModelType(modelPackageName, subresource)
-              List(q"override val $asGenericTerm: SubresourceClient[$modelT] = $clientName")
+              List(q"override val $asGenericTerm: Subresource[$modelT] = $clientName")
             }).flatten)
 
       val clientConstruction: List[Term] =
         getClientConstruction(modelPackageName, statusEntity, subresources, entityT, statusT)
+      val testClientConstruction: List[(Term, Enumerator)] =
+        getTestClientConstruction(modelPackageName, statusEntity, subresources, entityT, statusT)
 
       val live =
         q"""val live: ZLayer[SttpClient with Has[K8sCluster], Nothing, $typeAliasT] =
@@ -120,8 +124,14 @@ trait ClientModuleGenerator {
       val any =
         q"""val any: ZLayer[$typeAliasT, Nothing, $typeAliasT] = ZLayer.requires[$typeAliasT]"""
 
-//      val test =
-//        q"""val test: ZLayer[$typeAliasT with $typeAliasTestT"""
+      val test =
+        q"""val test: ZLayer[Any, Nothing, $typeAliasT] =
+              ZLayer.fromEffect {
+                for {
+                  ..${testClientConstruction.map(_._2)}
+                } yield new Live(..${testClientConstruction.map(_._1)})
+              }
+         """
 
       val code =
         if (isNamespaced) {
@@ -214,11 +224,12 @@ trait ClientModuleGenerator {
                     List(
                       q"""
                           override def $postTerm(
+                            name: String,
                             value: $modelT,
                             namespace: K8sNamespace,
                             dryRun: Boolean = false
                           ): ZIO[Any, K8sFailure, $modelT] =
-                            $clientName.create(value, Some(namespace), dryRun)
+                            $clientName.create(name, value, Some(namespace), dryRun)
                         """
                     )
                   case _      => List.empty
@@ -263,11 +274,12 @@ trait ClientModuleGenerator {
                     List(
                       q"""
                           def $postTerm(
+                            name: String,
                             value: $modelT,
                             namespace: K8sNamespace,
                             dryRun: Boolean = false
                           ): ZIO[$typeAliasT, K8sFailure, $modelT] =
-                            ZIO.accessM(_.get.$postTerm(value, namespace, dryRun))
+                            ZIO.accessM(_.get.$postTerm(name, value, namespace, dryRun))
                         """
                     )
                   case _      => List.empty
@@ -304,8 +316,9 @@ trait ClientModuleGenerator {
           $entityImport
           import com.coralogix.zio.k8s.model.pkg.apis.meta.v1._
           import com.coralogix.zio.k8s.model._
-          import com.coralogix.zio.k8s.client.{Resource, ResourceStatus, NamespacedResource, NamespacedResourceStatus, K8sFailure}
+          import com.coralogix.zio.k8s.client.{Resource, ResourceStatus, Subresource, NamespacedResource, NamespacedResourceStatus, K8sFailure}
           import com.coralogix.zio.k8s.client.impl.{ResourceClient, ResourceStatusClient, SubresourceClient}
+          import com.coralogix.zio.k8s.client.test.{TestResourceClient, TestResourceStatusClient, TestSubresourceClient}
           import com.coralogix.zio.k8s.client.model.{
             K8sCluster,
             K8sNamespace,
@@ -387,6 +400,7 @@ trait ClientModuleGenerator {
 
               $live
               $any
+              $test
             }
 
             def getAll(
@@ -614,8 +628,9 @@ trait ClientModuleGenerator {
           $entityImport
           import com.coralogix.zio.k8s.model.pkg.apis.meta.v1._
           import com.coralogix.zio.k8s.model._
-          import com.coralogix.zio.k8s.client.{Resource, ResourceStatus, ClusterResource, ClusterResourceStatus, K8sFailure}
+          import com.coralogix.zio.k8s.client.{Resource, ResourceStatus, Subresource, ClusterResource, ClusterResourceStatus, K8sFailure}
           import com.coralogix.zio.k8s.client.impl.{ResourceClient, ResourceStatusClient, SubresourceClient}
+          import com.coralogix.zio.k8s.client.test.{TestResourceClient, TestResourceStatusClient, TestSubresourceClient}
           import com.coralogix.zio.k8s.client.model.{
             K8sCluster,
             K8sNamespace,
@@ -690,6 +705,7 @@ trait ClientModuleGenerator {
 
               $live
               $any
+              $test
             }
 
             def getAll(
@@ -766,17 +782,31 @@ trait ClientModuleGenerator {
           List(q"new SubresourceClient[$modelT](resourceType, cluster, backend, $nameLit)")
         }).flatten)
 
-  protected def findStatusEntity(
-    definitions: Map[String, IdentifiedSchema],
-    modelName: String
-  ): Option[String] = {
-    val modelSchema = definitions(modelName).schema.asInstanceOf[ObjectSchema]
-    for {
-      properties       <- Option(modelSchema.getProperties)
-      statusPropSchema <- Option(properties.get("status"))
-      ref              <- Option(statusPropSchema.get$ref())
-      (pkg, name)       = splitName(ref.drop("#/components/schemas/".length))
-    } yield pkg.mkString(".") + "." + name
+  protected def getTestClientConstruction(
+    modelPackageName: String,
+    statusEntity: Option[String],
+    subresources: Set[SubresourceId],
+    entityT: Type,
+    statusT: Type,
+    fullyQualifiedSubresourceModels: Boolean = false
+  ): List[(Term, Enumerator)] = {
+    def create(name: String, expr: Term) =
+      Term.Name(name) -> Enumerator.Val(Pat.Var(Term.Name(name)), expr)
+    def createM(name: String, expr: Term) =
+      Term.Name(name) -> Enumerator.Generator(Pat.Var(Term.Name(name)), expr)
+
+    createM("client", q"TestResourceClient.make[$entityT]") ::
+      (((if (statusEntity.isDefined)
+           List(
+             create("statusClient", q"new TestResourceStatusClient(client)")
+           )
+         else Nil) ::
+        subresources.toList.map { subresource =>
+          val name = subresource.name + "Client"
+          val modelT =
+            getSubresourceModelType(modelPackageName, subresource, fullyQualifiedSubresourceModels)
+          List(createM(name, q"TestSubresourceClient.make[$modelT]"))
+        }).flatten)
   }
 
   private def getSubresourceModelType(

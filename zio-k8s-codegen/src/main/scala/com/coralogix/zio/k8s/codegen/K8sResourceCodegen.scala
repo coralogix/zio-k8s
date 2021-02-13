@@ -5,20 +5,19 @@ import com.coralogix.zio.k8s.codegen.internal.Conversions._
 import com.coralogix.zio.k8s.codegen.internal._
 import io.swagger.parser.OpenAPIParser
 import io.swagger.v3.oas.models.OpenAPI
-import io.swagger.v3.oas.models.media.ObjectSchema
 import io.swagger.v3.parser.core.models.ParseOptions
 import org.scalafmt.interfaces.Scalafmt
 import zio.blocking.Blocking
 import zio.nio.core.file.Path
 import zio.nio.file.Files
-import zio.{ Task, ZIO }
+import zio.{Task, ZIO}
 
 import java.io.File
 import java.nio.charset.StandardCharsets
 import scala.collection.JavaConverters._
 
 class K8sResourceCodegen(val logger: sbt.Logger)
-    extends ModelGenerator with ClientModuleGenerator with MonocleOpticsGenerator
+    extends Common with ModelGenerator with ClientModuleGenerator with MonocleOpticsGenerator
     with SubresourceClientGenerator with UnifiedClientModuleGenerator {
 
   def generateAll(from: Path, targetDir: Path): ZIO[Blocking, Throwable, Seq[File]] =

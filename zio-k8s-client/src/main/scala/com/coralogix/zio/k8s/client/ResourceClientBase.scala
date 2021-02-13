@@ -1,18 +1,10 @@
 package com.coralogix.zio.k8s.client
 
-import com.coralogix.zio.k8s.client.model.{
-  K8sCluster,
-  K8sCreatorUri,
-  K8sModifierUri,
-  K8sNamespace,
-  K8sPaginatedUri,
-  K8sResourceType,
-  K8sSimpleUri,
-  K8sWatchUri
-}
+import com.coralogix.zio.k8s.client.model._
 import com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Status
 import io.circe.Error
 import io.circe.parser.decode
+import sttp.client3.httpclient.zio.SttpClient
 import sttp.client3.{
   basicRequest,
   DeserializationException,
@@ -22,7 +14,6 @@ import sttp.client3.{
   Response,
   ResponseException
 }
-import sttp.client3.httpclient.zio.SttpClient
 import sttp.model.{ StatusCode, Uri }
 import zio.{ IO, Task }
 
@@ -42,11 +33,10 @@ trait ResourceClientBase {
     K8sSimpleUri(resourceType, name, subresource, namespace).toUri(cluster)
 
   protected def creating(
-    subresource: Option[String],
     namespace: Option[K8sNamespace],
     dryRun: Boolean
   ): Uri =
-    K8sCreatorUri(resourceType, subresource, namespace, dryRun).toUri(cluster)
+    K8sCreatorUri(resourceType, namespace, dryRun).toUri(cluster)
 
   protected def modifying(
     name: String,

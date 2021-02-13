@@ -69,7 +69,6 @@ package object model {
 
   final case class K8sCreatorUri(
     resource: K8sResourceType,
-    subresource: Option[String],
     namespace: Option[K8sNamespace],
     dryRun: Boolean
   ) extends K8sUri {

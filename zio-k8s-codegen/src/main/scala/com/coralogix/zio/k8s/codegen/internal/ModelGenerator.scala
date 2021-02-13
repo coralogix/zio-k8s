@@ -14,6 +14,8 @@ import scala.collection.JavaConverters._
 import scala.meta._
 
 trait ModelGenerator {
+  this: Common =>
+
   val modelRoot = Vector("com", "coralogix", "zio", "k8s", "model")
   def logger: sbt.Logger
 
@@ -207,7 +209,41 @@ trait ModelGenerator {
                       else
                         Lit.String(s"${group}/${version}")
 
-                    (metadataT, metadataIsRequired) match {
+                    val statusOps =
+                      findStatusEntityOfSchema(schema.asInstanceOf[ObjectSchema]) match {
+                        case Some(statusEntity) =>
+                          val statusT = s"com.coralogix.zio.k8s.model.$statusEntity".parse[Type].get
+                          val statusIsRequired = requiredProperties.contains("status")
+                          List(
+                            if (statusIsRequired)
+                              q"""implicit val k8sObjectStatus: com.coralogix.zio.k8s.client.model.K8sObjectStatus[$entityNameT, $statusT] =
+                              new com.coralogix.zio.k8s.client.model.K8sObjectStatus[$entityNameT, $statusT] {
+                                def status(obj: $entityNameT): Optional[$statusT] =
+                                  Optional.Present(obj.status)
+                                def mapStatus(f: $statusT => $statusT)(obj: $entityNameT): $entityNameT =
+                                  obj.copy(status = f(obj.status))
+                              }
+                              """
+                            else
+                              q"""implicit val k8sObjectStatus: com.coralogix.zio.k8s.client.model.K8sObjectStatus[$entityNameT, $statusT] =
+                              new com.coralogix.zio.k8s.client.model.K8sObjectStatus[$entityNameT, $statusT] {
+                                def status(obj: $entityNameT): Optional[$statusT] =
+                                  obj.status
+                                def mapStatus(f: $statusT => $statusT)(obj: $entityNameT): $entityNameT =
+                                  obj.copy(status = obj.status.map(f))
+                              }
+                        """,
+                            q"""implicit class StatusOps(protected val obj: $entityNameT)
+                                extends com.coralogix.zio.k8s.client.model.K8sObjectStatusOps[$entityNameT, $statusT] {
+                                protected override val impl: com.coralogix.zio.k8s.client.model.K8sObjectStatus[$entityNameT, $statusT] = k8sObjectStatus
+                              }
+                           """
+                          )
+                        case None               =>
+                          List.empty
+                      }
+
+                    statusOps ++ ((metadataT, metadataIsRequired) match {
                       case (Some(t), false) if t.toString == "pkg.apis.meta.v1.ObjectMeta" =>
                         List(
                           q"""implicit val k8sObject: com.coralogix.zio.k8s.client.model.K8sObject[$entityNameT] =
@@ -256,7 +292,7 @@ trait ModelGenerator {
                         )
                       case _                                                               =>
                         List.empty
-                    }
+                    })
                 }
 
               List(

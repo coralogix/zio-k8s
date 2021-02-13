@@ -11,5 +11,10 @@ trait Subresource[T] {
     namespace: Option[K8sNamespace],
     dryRun: Boolean
   ): IO[K8sFailure, T]
-  def create(value: T, namespace: Option[K8sNamespace], dryRun: Boolean): IO[K8sFailure, T]
+  def create(
+    name: String,
+    value: T,
+    namespace: Option[K8sNamespace],
+    dryRun: Boolean
+  ): IO[K8sFailure, T]
 }

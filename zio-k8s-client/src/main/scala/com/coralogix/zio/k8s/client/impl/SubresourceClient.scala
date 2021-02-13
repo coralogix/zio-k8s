@@ -36,10 +36,15 @@ final class SubresourceClient[T: Encoder: Decoder](
         .send(backend)
     }
 
-  def create(value: T, namespace: Option[K8sNamespace], dryRun: Boolean): IO[K8sFailure, T] =
+  def create(
+    name: String,
+    value: T,
+    namespace: Option[K8sNamespace],
+    dryRun: Boolean
+  ): IO[K8sFailure, T] =
     handleFailures {
       k8sRequest
-        .post(creating(Some(subresourceName), namespace, dryRun))
+        .post(modifying(name, Some(subresourceName), namespace, dryRun))
         .body(value)
         .response(asJson[T])
         .send(backend)

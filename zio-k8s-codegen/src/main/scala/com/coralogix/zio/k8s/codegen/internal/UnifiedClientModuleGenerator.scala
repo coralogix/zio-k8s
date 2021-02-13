@@ -12,7 +12,7 @@ import zio.nio.core.file.Path
 import zio.nio.file.Files
 
 trait UnifiedClientModuleGenerator {
-  this: ClientModuleGenerator =>
+  this: Common with ClientModuleGenerator =>
 
   def generateUnifiedClientModule(
     scalafmt: Scalafmt,
