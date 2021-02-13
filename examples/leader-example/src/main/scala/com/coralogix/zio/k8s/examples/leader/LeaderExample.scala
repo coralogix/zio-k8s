@@ -2,10 +2,8 @@ package com.coralogix.zio.k8s.examples.leader
 
 import com.coralogix.zio.k8s.client._
 import com.coralogix.zio.k8s.client.config._
-import com.coralogix.zio.k8s.client.kubernetes
 import com.coralogix.zio.k8s.client.kubernetes.Kubernetes
 import com.coralogix.zio.k8s.client.v1.configmaps.ConfigMaps
-import com.coralogix.zio.k8s.client.v1.{ configmaps, pods }
 import com.coralogix.zio.k8s.client.v1.pods.Pods
 import com.coralogix.zio.k8s.operator.Leader
 import zio._
@@ -38,8 +36,8 @@ object LeaderExample extends App {
     val cluster = (Blocking.any ++ config.narrow(_.cluster)) >>> k8sCluster
 
     // Pods and ConfigMaps API
-    val k8s = (cluster ++ client) >>> kubernetes.live
-    //val k8s = (cluster ++ client) >>> (pods.live ++ configmaps.live)
+    val k8s = (cluster ++ client) >>> Kubernetes.live
+    // val k8s = (cluster ++ client) >>> (Pods.live ++ ConfigMaps.live)
 
     // Example code
     example()
