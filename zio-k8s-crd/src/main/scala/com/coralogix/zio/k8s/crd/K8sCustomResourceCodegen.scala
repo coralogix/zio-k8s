@@ -21,7 +21,7 @@ import zio.{ Chunk, Task, ZIO }
 import java.io.File
 import java.nio.file.StandardCopyOption
 
-object K8sCustomResourceCodegen extends ClientModuleGenerator {
+object K8sCustomResourceCodegen extends Common with ClientModuleGenerator {
   def generateCustomResourceModuleCode(
     crd: CustomResourceDefinition,
     version: String,
@@ -86,6 +86,7 @@ object K8sCustomResourceCodegen extends ClientModuleGenerator {
     version.schema.flatMap(_.openAPIV3Schema).toOption match {
       case Some(originalSchema) =>
         val schema = adjustSchema(originalSchema)
+        val hasStatus = version.subresources.map(_.status.isDefined).getOrElse(false)
         val schemaFragment = schema.asJson.deepDropNullValues
         val basePackage =
           (Vector("com", "coralogix", "zio", "k8s", "client") ++ Conversions.groupNameToPackageName(
@@ -97,7 +98,8 @@ object K8sCustomResourceCodegen extends ClientModuleGenerator {
                                  crd.spec.names.kind,
                                  crd.spec.group,
                                  version.name,
-                                 pluralName
+                                 pluralName,
+                                 hasStatus
                                ),
                                basePackage.toList,
                                useContextForSubPackage = true,

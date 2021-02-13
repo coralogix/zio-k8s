@@ -129,7 +129,7 @@ final class ResourceClient[
   ): IO[K8sFailure, T] =
     handleFailures {
       k8sRequest
-        .post(creating(subresource = None, namespace, dryRun))
+        .post(creating(namespace, dryRun))
         .body(newResource)
         .response(asJson[T])
         .send(backend)

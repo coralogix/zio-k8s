@@ -375,6 +375,7 @@ class K8sModelProtocolTermInterp(implicit
     decoder: Option[Defn.Val]
   ): Target[StaticDefns[ScalaLanguage]] = {
     val entityNameT = Type.Name(clsName)
+    val entityNameTerm = Term.Name(clsName)
 
     val k8sObject: Defn =
       q"""implicit val k8sObject: K8sObject[$entityNameT] =
@@ -392,6 +393,31 @@ class K8sModelProtocolTermInterp(implicit
                   protected override val impl: K8sObject[$entityNameT] = k8sObject
                 }
              """
+
+    val status =
+      if (k8sContext.hasStatus) {
+        val statusT = Type.Select(entityNameTerm, Type.Name("Status"))
+        val k8sObjectStatus: Defn =
+          q"""implicit val k8sObjectStatus: com.coralogix.zio.k8s.client.model.K8sObjectStatus[$entityNameT, $statusT] =
+                new com.coralogix.zio.k8s.client.model.K8sObjectStatus[$entityNameT, $statusT] {
+                  def status(obj: $entityNameT): Optional[$statusT] =
+                    obj.status
+                  def mapStatus(f: $statusT => $statusT)(obj: $entityNameT): $entityNameT =
+                    obj.copy(status = obj.status.map(f))
+                }
+            """
+
+        val statusOps: Defn =
+          q"""implicit class StatusOps(protected val obj: $entityNameT)
+                extends com.coralogix.zio.k8s.client.model.K8sObjectStatusOps[$entityNameT, $statusT] {
+                protected override val impl: com.coralogix.zio.k8s.client.model.K8sObjectStatus[$entityNameT, $statusT] = k8sObjectStatus
+              }
+             """
+
+        List(k8sObjectStatus, statusOps)
+      } else {
+        Nil
+      }
 
     val metadata: Defn =
       q"""implicit val metadata: ResourceMetadata[$entityNameT] =
@@ -411,8 +437,9 @@ class K8sModelProtocolTermInterp(implicit
           extraImports = q"import com.coralogix.zio.k8s.client.model._" ::
             q"import com.coralogix.zio.k8s.client.model.primitives._" ::
             sdefs.extraImports,
-          definitions = if (isTopLevel) { k8sObject :: ops :: metadata :: sdefs.definitions }
-          else sdefs.definitions
+          definitions = if (isTopLevel) {
+            k8sObject :: ops :: metadata :: status ::: sdefs.definitions
+          } else sdefs.definitions
         )
       )
   }

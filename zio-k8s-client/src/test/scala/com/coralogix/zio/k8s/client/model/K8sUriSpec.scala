@@ -251,22 +251,22 @@ object K8sUriSpec extends DefaultRunnableSpec {
       ),
       suite("creator")(
         test("creator without namespace")(
-          assert(K8sCreatorUri(resourceType, None, None, dryRun = false).toUri(cluster))(
+          assert(K8sCreatorUri(resourceType, None, dryRun = false).toUri(cluster))(
             equalTo(uri"https://localhost:32768/apis/gr/v8/rt")
           )
         ),
         test("creator without namespace, dry run")(
-          assert(K8sCreatorUri(resourceType, None, None, dryRun = true).toUri(cluster))(
+          assert(K8sCreatorUri(resourceType, None, dryRun = true).toUri(cluster))(
             equalTo(uri"https://localhost:32768/apis/gr/v8/rt?dryRun=All")
           )
         ),
         test("creator with namespace")(
-          assert(K8sCreatorUri(resourceType, None, Some(ns), dryRun = false).toUri(cluster))(
+          assert(K8sCreatorUri(resourceType, Some(ns), dryRun = false).toUri(cluster))(
             equalTo(uri"https://localhost:32768/apis/gr/v8/namespaces/def/rt")
           )
         ),
         test("creator with namespace, dry run")(
-          assert(K8sCreatorUri(resourceType, None, Some(ns), dryRun = true).toUri(cluster))(
+          assert(K8sCreatorUri(resourceType, Some(ns), dryRun = true).toUri(cluster))(
             equalTo(uri"https://localhost:32768/apis/gr/v8/namespaces/def/rt?dryRun=All")
           )
         )
@@ -274,28 +274,28 @@ object K8sUriSpec extends DefaultRunnableSpec {
       suite("creator with empty group")(
         test("creator without namespace")(
           assert(
-            K8sCreatorUri(resourceTypeWithEmptyGroup, None, None, dryRun = false).toUri(cluster)
+            K8sCreatorUri(resourceTypeWithEmptyGroup, None, dryRun = false).toUri(cluster)
           )(
             equalTo(uri"https://localhost:32768/api/v8/rt")
           )
         ),
         test("creator without namespace, dry run")(
           assert(
-            K8sCreatorUri(resourceTypeWithEmptyGroup, None, None, dryRun = true).toUri(cluster)
+            K8sCreatorUri(resourceTypeWithEmptyGroup, None, dryRun = true).toUri(cluster)
           )(
             equalTo(uri"https://localhost:32768/api/v8/rt?dryRun=All")
           )
         ),
         test("creator with namespace")(
           assert(
-            K8sCreatorUri(resourceTypeWithEmptyGroup, None, Some(ns), dryRun = false).toUri(cluster)
+            K8sCreatorUri(resourceTypeWithEmptyGroup, Some(ns), dryRun = false).toUri(cluster)
           )(
             equalTo(uri"https://localhost:32768/api/v8/namespaces/def/rt")
           )
         ),
         test("creator with namespace, dry run")(
           assert(
-            K8sCreatorUri(resourceTypeWithEmptyGroup, None, Some(ns), dryRun = true).toUri(cluster)
+            K8sCreatorUri(resourceTypeWithEmptyGroup, Some(ns), dryRun = true).toUri(cluster)
           )(
             equalTo(uri"https://localhost:32768/api/v8/namespaces/def/rt?dryRun=All")
           )
