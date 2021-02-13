@@ -10,7 +10,7 @@ import org.scalafmt.interfaces.Scalafmt
 import zio.blocking.Blocking
 import zio.nio.core.file.Path
 import zio.nio.file.Files
-import zio.{Task, ZIO}
+import zio.{ Task, ZIO }
 
 import java.io.File
 import java.nio.charset.StandardCharsets

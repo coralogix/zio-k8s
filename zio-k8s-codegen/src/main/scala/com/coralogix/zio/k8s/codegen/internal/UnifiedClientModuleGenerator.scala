@@ -11,6 +11,8 @@ import zio.blocking.Blocking
 import zio.nio.core.file.Path
 import zio.nio.file.Files
 
+import scala.collection.immutable
+
 trait UnifiedClientModuleGenerator {
   this: Common with ClientModuleGenerator =>
 
@@ -39,36 +41,131 @@ trait UnifiedClientModuleGenerator {
     basePackageName: String,
     definitionMap: Map[String, IdentifiedSchema]
   ): String = {
+    val interfaces =
+      pkgNodeToInterfaces(definitionMap, basePackageName, "Service", gvkTree)
     val liveClass =
-      pkgNodeToDef(definitionMap, basePackageName, "Api", gvkTree, isTopLevel = true)
+      pkgNodeToDef(definitionMap, basePackageName, "Api", gvkTree, Vector.empty, isTest = false)
+    val testClass =
+      pkgNodeToDef(definitionMap, basePackageName, "TestApi", gvkTree, Vector.empty, isTest = true)
     val pkg = basePackageName
       .parse[Term]
       .get
       .asInstanceOf[Term.Ref]
 
+    val liveLayer =
+      q"""val live: ZLayer[SttpClient with Has[K8sCluster], Nothing, Kubernetes] =
+            ZLayer.fromServices[SttpClient.Service, K8sCluster, Service] {
+              (backend: SttpClient.Service, cluster: K8sCluster) => {
+                new Api(backend, cluster)
+            }
+          }
+       """
+
+    val anyLayer =
+      q"""val any: ZLayer[Kubernetes, Nothing, Kubernetes] = ZLayer.requires[Kubernetes]"""
+
+    val testLayer =
+      q"""val test: ZLayer[Any, Nothing, Kubernetes] =
+            ZIO.runtime[Any].map { runtime => new TestApi(runtime) }.toLayer
+       """
+
+    val defs = interfaces ++ List(liveClass, testClass, liveLayer, anyLayer, testLayer)
+
     q"""package $pkg {
 
         import com.coralogix.zio.k8s.client.model.{K8sCluster, ResourceMetadata}
         import com.coralogix.zio.k8s.client.impl.{ResourceClient, ResourceStatusClient, SubresourceClient}
+        import com.coralogix.zio.k8s.client.test.{TestResourceClient, TestResourceStatusClient, TestSubresourceClient}
         import sttp.client3.httpclient.zio.SttpClient
-        import zio.{ Has, Task, ZIO, ZLayer }
+        import zio.{ Has, Runtime, Task, ZIO, ZLayer }
 
         package object kubernetes {
 
-        type Kubernetes = Has[Kubernetes.Api]
-        object Kubernetes {
-          $liveClass
-
-          val live: ZLayer[SttpClient with Has[K8sCluster], Nothing, Kubernetes] =
-                    ZLayer.fromServices[SttpClient.Service, K8sCluster, Api] {
-                      (backend: SttpClient.Service, cluster: K8sCluster) => {
-                        new Api(backend, cluster)
-                      }
-                    }
+          type Kubernetes = Has[Kubernetes.Service]
+          object Kubernetes {
+            ..${defs}
           }
         }
         }
      """.toString
+  }
+
+  private def toInterfaceName(name: String): String =
+    name.capitalize + "Service"
+
+  private def pkgNodeToInterfaces(
+    definitionMap: Map[String, IdentifiedSchema],
+    basePackageName: String,
+    name: String,
+    node: PackageNode
+  ): List[Defn] = {
+    val childInterfaces = node.children
+      .collect { case (childName, pkgNode: PackageNode) =>
+        pkgNodeToInterfaces(
+          definitionMap,
+          basePackageName,
+          toInterfaceName(childName),
+          pkgNode
+        )
+      }
+      .flatten
+      .toList
+
+    val children = node.children.collect { case (childName, pkgNode: PackageNode) =>
+      q"""def ${Term.Name(childName)}: ${Type.Select(
+        Term.Name(name),
+        Type.Name(toInterfaceName(childName))
+      )}"""
+    }.toList
+
+    val resources = node.children.collect { case (childName, ResourceNode(resource)) =>
+      resourceToInterfaceDef(basePackageName, childName, resource)
+    }.toList
+
+    List(
+      Some(q"""
+       trait ${Type.Name(name)} {
+          ..$children
+          ..$resources
+       }
+       """),
+      if (childInterfaces.nonEmpty)
+        Some(
+          q"""
+       object ${Term.Name(name)} {
+         ..$childInterfaces
+       }
+       """
+        )
+      else None
+    ).flatten
+  }
+
+  private def resourceToInterfaceDef(
+    basePackageName: String,
+    name: String,
+    resource: SupportedResource
+  ): Stat = {
+    val pkg =
+      if (resource.gvk.group.nonEmpty)
+        s"$basePackageName.${groupNameToPackageName(resource.gvk.group).mkString(".")}.${resource.gvk.version}.${resource.plural}"
+          .parse[Term]
+          .get
+          .asInstanceOf[Term.Ref]
+      else
+        s"$basePackageName.${resource.gvk.version}.${resource.plural}"
+          .parse[Term]
+          .get
+          .asInstanceOf[Term.Ref]
+
+    val (_, entity) = splitName(resource.modelName)
+
+    val nameTerm = Term.Name(name)
+
+    val obj = Term.Select(pkg, Term.Name(entity + "s"))
+    val serviceT = Type.Select(obj, Type.Name("Service"))
+
+    q"""def $nameTerm: $serviceT"""
   }
 
   private def pkgNodeToDef(
@@ -76,37 +173,60 @@ trait UnifiedClientModuleGenerator {
     basePackageName: String,
     name: String,
     node: PackageNode,
-    isTopLevel: Boolean = false
+    ifaceStack: Vector[String],
+    isTest: Boolean
   ): Defn = {
     val childDefs = node.children.map { case (childName, node) =>
       node match {
         case pkgNode: PackageNode   =>
-          pkgNodeToDef(definitionMap, basePackageName, childName, pkgNode)
+          pkgNodeToDef(
+            definitionMap,
+            basePackageName,
+            childName,
+            pkgNode,
+            if (ifaceStack.isEmpty)
+              Vector("Service")
+            else
+              ifaceStack :+ toInterfaceName(name),
+            isTest
+          )
         case ResourceNode(resource) =>
-          resourceToDef(definitionMap, basePackageName, childName, resource)
+          resourceToDef(definitionMap, basePackageName, childName, resource, isTest)
       }
     }.toList
 
-    if (isTopLevel) {
-      topLevelToDef(name, childDefs)
+    if (ifaceStack.isEmpty) {
+      topLevelToDef(name, childDefs, isTest)
     } else {
-      innerLevelToDef(name, childDefs)
+      innerLevelToDef(name, childDefs, ifaceStack :+ toInterfaceName(name))
     }
   }
 
-  private def topLevelToDef(name: String, childDefs: List[Stat]): Defn = {
+  private def topLevelToDef(name: String, childDefs: List[Stat], isTest: Boolean): Defn = {
     val nameT = Type.Name(name)
-    q"""
-       class $nameT(backend: SttpClient.Service, cluster: K8sCluster) {
+    if (isTest)
+      q"""
+       class $nameT(runtime: Runtime[Any]) extends Service {
+         ..${childDefs}
+       }
+     """
+    else
+      q"""
+       class $nameT(backend: SttpClient.Service, cluster: K8sCluster) extends Service {
          ..${childDefs}
        }
      """
   }
 
-  private def innerLevelToDef(name: String, childDefs: List[Stat]): Defn = {
-    val nameTerm = Term.Name(name)
+  private def innerLevelToDef(
+    name: String,
+    childDefs: List[Stat],
+    ifaceStack: Vector[String]
+  ): Defn = {
+    val namePat = Pat.Var(Term.Name(name))
+    val ifaceType = Init(ifaceStack.mkString(".").parse[Type].get, Name.Anonymous(), List.empty)
     q"""
-       object $nameTerm {
+       lazy val $namePat = new $ifaceType {
          ..${childDefs}
        }
      """
@@ -116,7 +236,8 @@ trait UnifiedClientModuleGenerator {
     definitionMap: Map[String, IdentifiedSchema],
     basePackageName: String,
     name: String,
-    resource: SupportedResource
+    resource: SupportedResource,
+    isTest: Boolean
   ): Stat = {
     val pkg =
       if (resource.gvk.group.nonEmpty)
@@ -143,8 +264,12 @@ trait UnifiedClientModuleGenerator {
     )
     val entityT = Type.Select(dtoPackage, Type.Name(entity))
     val statusT = statusEntity.map(s => s.parse[Type].get).getOrElse(t"Nothing")
-    val cons =
-      getClientConstruction(
+
+    val obj = Term.Select(pkg, Term.Name(entity + "s"))
+    val serviceT = Type.Select(obj, Type.Name("Service"))
+
+    if (isTest) {
+      val testClientConstruction: List[(Term, Enumerator)] = getTestClientConstruction(
         "com.coralogix.zio.k8s.model",
         statusEntity,
         resource.subresources.map(_.id),
@@ -153,17 +278,40 @@ trait UnifiedClientModuleGenerator {
         fullyQualifiedSubresourceModels = true
       )
 
-    val obj = Term.Select(pkg, Term.Name(entity + "s"))
-    val serviceT = Type.Select(obj, Type.Name("Service"))
-    val liveInit = Init(
-      Type.Select(obj, Type.Name("Live")),
-      Name.Anonymous(),
-      List(cons)
-    )
-    q"""lazy val $namePat: $serviceT = {
-          val resourceType = implicitly[ResourceMetadata[$entityT]].resourceType
-          new $liveInit
-        }"""
+      val liveInit = Init(
+        Type.Select(obj, Type.Name("Live")),
+        Name.Anonymous(),
+        List(testClientConstruction.map(_._1))
+      )
+
+      q"""lazy val $namePat: $serviceT = {
+            runtime.unsafeRun {
+              for {
+                ..${testClientConstruction.map(_._2)}
+              } yield new $liveInit
+            }
+          }"""
+    } else {
+      val cons =
+        getClientConstruction(
+          "com.coralogix.zio.k8s.model",
+          statusEntity,
+          resource.subresources.map(_.id),
+          entityT,
+          statusT,
+          fullyQualifiedSubresourceModels = true
+        )
+
+      val liveInit = Init(
+        Type.Select(obj, Type.Name("Live")),
+        Name.Anonymous(),
+        List(cons)
+      )
+      q"""lazy val $namePat: $serviceT = {
+            val resourceType = implicitly[ResourceMetadata[$entityT]].resourceType
+            new $liveInit
+          }"""
+    }
   }
 
   private def toTree(resources: Set[SupportedResource]): PackageNode = {
