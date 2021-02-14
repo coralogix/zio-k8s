@@ -1,0 +1,88 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Operator library · ZIO K8s</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="The `zio-k8s-operator` library is a higher level library built on top of the client providing support for implementing [Kubernetes Operators](https://kubernetes.io/docs/concepts/extend-kubernetes/operator/)."/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Operator library · ZIO K8s"/><meta property="og:type" content="website"/><meta property="og:url" content="https://coralogix.github.io/zio-k8s/"/><meta property="og:description" content="The `zio-k8s-operator` library is a higher level library built on top of the client providing support for implementing [Kubernetes Operators](https://kubernetes.io/docs/concepts/extend-kubernetes/operator/)."/><meta property="og:image" content="https://coralogix.github.io/zio-k8s/img/undraw_online.svg"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://coralogix.github.io/zio-k8s/img/undraw_tweetstorm.svg"/><link rel="shortcut icon" href="/zio-k8s/img/favicon.png"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script src="https://unpkg.com/vanilla-back-to-top@7.1.14/dist/vanilla-back-to-top.min.js"></script><script>
+        document.addEventListener('DOMContentLoaded', function() {
+          addBackToTop(
+            {"zIndex":100,"cornerOffset":100}
+          )
+        });
+        </script><script src="/zio-k8s/js/scrollSpy.js"></script><link rel="stylesheet" href="/zio-k8s/css/main.css"/><script src="/zio-k8s/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/zio-k8s/"><img class="logo" src="/zio-k8s/img/navbar_brand2x.png" alt="ZIO K8s"/><h2 class="headerTitleWithLogo">ZIO K8s</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/zio-k8s/docs/overview/overview_index" target="_self">Overview</a></li><li class=""><a href="/zio-k8s/docs/crd/crd_index" target="_self">CRDs</a></li><li class="siteNavGroupActive siteNavItemActive"><a href="/zio-k8s/docs/operator/operator_index" target="_self">Operators</a></li><li class=""><a href="/zio-k8s/docs/internals/internals_index" target="_self">Internals</a></li><li class=""><a href="/zio-k8s/docs/about/about_index" target="_self">About</a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>Operator</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Operator</h3><ul class=""><li class="navListItem navListItemActive"><a class="navItem" href="/zio-k8s/docs/operator/operator_index">Operator library</a></li><li class="navListItem"><a class="navItem" href="/zio-k8s/docs/operator/operator_operator">Implementing operators</a></li><li class="navListItem"><a class="navItem" href="/zio-k8s/docs/operator/operator_registration">Auto-registering CRDs</a></li><li class="navListItem"><a class="navItem" href="/zio-k8s/docs/operator/operator_leaderelection">Leader election</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">Operator library</h1></header><article><div><span><p>The <code>zio-k8s-operator</code> library is a higher level library built on top of the client providing support for implementing <a href="https://kubernetes.io/docs/concepts/extend-kubernetes/operator/">Kubernetes Operators</a>.</p>
+<ul>
+<li><a href="/zio-k8s/docs/operator/operator_operator">Implementing operators</a> - shows how to launch operators for any resource and customize them with aspects</li>
+<li><a href="/zio-k8s/docs/operator/operator_registration">Auto-registering CRDs</a> - register <em>custom resource definitions</em> from the application at startup</li>
+<li><a href="/zio-k8s/docs/operator/operator_leaderelection">Leader election</a> - a simple leader election mechanism to guarantee the operator runs only in a single instance</li>
+</ul>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-next button" href="/zio-k8s/docs/operator/operator_operator"><span>Implementing operators</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/zio-k8s/" class="nav-home"><img src="/zio-k8s/img/sidebar_brand2x.png" alt="ZIO K8s"/></a><div><h5>GitHub</h5><a class="github-button" href="https://github.com/coralogix/zio-k8s" data-icon="octicon-star" data-count-href="/coralogix/zio-k8s/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div><div><h5>Chat with us on Discord</h5><a href="https://discord.gg/2ccFBr4"><img src="/zio-k8s//img/discord.png" width="120" alt="discord"/></a></div><div><h5>Additional resources</h5><a href="/zio-k8s/api/index.html">Scaladoc of zio-k8s</a></div></section><section class="copyright">Copyright © 2021 ZIO Maintainers</section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
+                document.addEventListener('keyup', function(e) {
+                  if (e.target !== document.body) {
+                    return;
+                  }
+                  // keyCode for '/' (slash)
+                  if (e.keyCode === 191) {
+                    const search = document.getElementById('search_input_react');
+                    search && search.focus();
+                  }
+                });
+              </script><script>
+              var search = docsearch({
+                
+                apiKey: 'b7978c4d7d28a5a9181d2eea975b0e99',
+                indexName: 'zio-k8s',
+                inputSelector: '#search_input_react',
+                algoliaOptions: {}
+              });
+            </script></body></html>

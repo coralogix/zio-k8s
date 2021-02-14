@@ -1,0 +1,302 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Working with resources · ZIO K8s</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="## Per-resource layers"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Working with resources · ZIO K8s"/><meta property="og:type" content="website"/><meta property="og:url" content="https://coralogix.github.io/zio-k8s/"/><meta property="og:description" content="## Per-resource layers"/><meta property="og:image" content="https://coralogix.github.io/zio-k8s/img/undraw_online.svg"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://coralogix.github.io/zio-k8s/img/undraw_tweetstorm.svg"/><link rel="shortcut icon" href="/zio-k8s/img/favicon.png"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script src="https://unpkg.com/vanilla-back-to-top@7.1.14/dist/vanilla-back-to-top.min.js"></script><script>
+        document.addEventListener('DOMContentLoaded', function() {
+          addBackToTop(
+            {"zIndex":100,"cornerOffset":100}
+          )
+        });
+        </script><script src="/zio-k8s/js/scrollSpy.js"></script><link rel="stylesheet" href="/zio-k8s/css/main.css"/><script src="/zio-k8s/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/zio-k8s/"><img class="logo" src="/zio-k8s/img/navbar_brand2x.png" alt="ZIO K8s"/><h2 class="headerTitleWithLogo">ZIO K8s</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class="siteNavGroupActive"><a href="/zio-k8s/docs/overview/overview_index" target="_self">Overview</a></li><li class=""><a href="/zio-k8s/docs/crd/crd_index" target="_self">CRDs</a></li><li class=""><a href="/zio-k8s/docs/operator/operator_index" target="_self">Operators</a></li><li class=""><a href="/zio-k8s/docs/internals/internals_index" target="_self">Internals</a></li><li class=""><a href="/zio-k8s/docs/about/about_index" target="_self">About</a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>Overview</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Overview</h3><ul class=""><li class="navListItem"><a class="navItem" href="/zio-k8s/docs/overview/overview_index">Contents</a></li><li class="navListItem"><a class="navItem" href="/zio-k8s/docs/overview/overview_gettingstarted">Getting started</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/zio-k8s/docs/overview/overview_resources">Working with resources</a></li><li class="navListItem"><a class="navItem" href="/zio-k8s/docs/overview/overview_generic">Generic code</a></li><li class="navListItem"><a class="navItem" href="/zio-k8s/docs/overview/overview_monocle">Monocle support</a></li><li class="navListItem"><a class="navItem" href="/zio-k8s/docs/overview/overview_quicklens">QuickLens support</a></li><li class="navListItem"><a class="navItem" href="/zio-k8s/docs/overview/overview_testing">Test clients</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">Working with resources</h1></header><article><div><span><h2><a class="anchor" aria-hidden="true" id="per-resource-layers"></a><a href="#per-resource-layers" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Per-resource layers</h2>
+<p>The <a href="/zio-k8s/docs/overview/overview_gettingstarted">getting started</a> page demonstrated how to get access <strong>per-resource client layers</strong>,
+for example <em>pods</em> and <em>configmaps</em>:</p>
+<pre><code class="hljs css language-scala"><span class="hljs-keyword">import</span> com.coralogix.zio.k8s.client.v1.configmaps.<span class="hljs-type">ConfigMaps</span>
+<span class="hljs-keyword">import</span> com.coralogix.zio.k8s.client.v1.pods.<span class="hljs-type">Pods</span>
+<span class="hljs-keyword">import</span> com.coralogix.zio.k8s.client.<span class="hljs-type">K8sFailure</span>
+
+<span class="hljs-keyword">val</span> k8s: <span class="hljs-type">ZLayer</span>[<span class="hljs-type">Blocking</span>, <span class="hljs-type">Throwable</span>, <span class="hljs-type">Pods</span> <span class="hljs-keyword">with</span> <span class="hljs-type">ConfigMaps</span>] = 
+  (cluster ++ client) &gt;&gt;&gt; (<span class="hljs-type">Pods</span>.live ++ <span class="hljs-type">ConfigMaps</span>.live)
+</code></pre>
+<p>With this approach we gain a clear understanding of exactly what parts our application
+uses of the <em>Kubernetes API</em>, and for each function the <em>type signature</em> documents
+which resources the given function works with.</p>
+<p>As an example, the above created <code>Pods with ConfigMaps</code> could be provided to some
+functions working with a subset of these resource types:</p>
+<pre><code class="hljs css language-scala"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">launchNewPods</span></span>(count: <span class="hljs-type">Int</span>): <span class="hljs-type">ZIO</span>[<span class="hljs-type">Pods</span>, <span class="hljs-type">K8sFailure</span>, <span class="hljs-type">Unit</span>] = <span class="hljs-type">ZIO</span>.unit <span class="hljs-comment">// ...</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">getFromConfigMap</span></span>(key: <span class="hljs-type">String</span>): <span class="hljs-type">ZIO</span>[<span class="hljs-type">ConfigMaps</span>, <span class="hljs-type">K8sFailure</span>, <span class="hljs-type">String</span>] = <span class="hljs-type">ZIO</span>.succeed(<span class="hljs-string">"TODO"</span>) <span class="hljs-comment">// ...</span>
+
+launchNewPods(<span class="hljs-number">5</span>).provideCustomLayer(k8s)
+getFromConfigMap(<span class="hljs-string">"something"</span>).provideCustomLayer(k8s)
+</code></pre>
+<p>when using this style, use the <em>accessor functions</em> that are available for every resource in its
+package. This is explained in details below, but as an example, see the following function from
+the <code>com.coralogix.zio.k8s.client.v1.pods</code> package:</p>
+<pre><code class="hljs css language-scala"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">create</span></span>(newResource: <span class="hljs-type">Pod</span>, namespace: <span class="hljs-type">K8sNamespace</span>, dryRun: <span class="hljs-type">Boolean</span> = <span class="hljs-literal">false</span>): <span class="hljs-type">ZIO</span>[<span class="hljs-type">Pods</span>, <span class="hljs-type">K8sFailure</span>, <span class="hljs-type">Pod</span>]
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="unified-layer"></a><a href="#unified-layer" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Unified layer</h2>
+<p>An alternative style is supported by the library, recommended in cases when there are so many different
+resource types used by the application logic that creating and specifying the per-resource layers creates
+too much boilerplate.</p>
+<p>In this case it is possible to create a <em>single, unfied Kubernetes API layer</em>:</p>
+<pre><code class="hljs css language-scala"><span class="hljs-keyword">import</span> com.coralogix.zio.k8s.client.kubernetes.<span class="hljs-type">Kubernetes</span>
+
+<span class="hljs-keyword">val</span> api = (cluster ++ client) &gt;&gt;&gt; <span class="hljs-type">Kubernetes</span>.live
+</code></pre>
+<p>This is a huge interface providing <em>all operations</em> for <em>all Kubernetes resources</em>. The
+initialization and the type signatures becomes much simpler, but on the other hand
+we loose the ability to see what parts of the API does our functions use:</p>
+<pre><code class="hljs css language-scala"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">launchNewPods2</span></span>(count: <span class="hljs-type">Int</span>): <span class="hljs-type">ZIO</span>[<span class="hljs-type">Kubernetes</span>, <span class="hljs-type">K8sFailure</span>, <span class="hljs-type">Unit</span>] = 
+  <span class="hljs-type">ZIO</span>.service[<span class="hljs-type">Kubernetes</span>.<span class="hljs-type">Service</span>].flatMap { k8s =&gt; 
+    <span class="hljs-comment">// ...</span>
+    <span class="hljs-type">ZIO</span>.unit
+  }
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">getFromConfigMap2</span></span>(key: <span class="hljs-type">String</span>): <span class="hljs-type">ZIO</span>[<span class="hljs-type">Kubernetes</span>, <span class="hljs-type">K8sFailure</span>, <span class="hljs-type">String</span>] = 
+  <span class="hljs-type">ZIO</span>.service[<span class="hljs-type">Kubernetes</span>.<span class="hljs-type">Service</span>].flatMap { k8s =&gt; 
+    <span class="hljs-comment">// ...</span>
+    <span class="hljs-type">ZIO</span>.succeed(<span class="hljs-string">"TODO"</span>)
+  }
+
+launchNewPods2(<span class="hljs-number">5</span>).provideCustomLayer(api)
+getFromConfigMap2(<span class="hljs-string">"something"</span>).provideCustomLayer(api)
+</code></pre>
+<p>Also, instead of the <em>accessor functions</em> like <code>pods.create</code> shown in the previous section,
+in this case the pod creation is accessed through the <code>Kubernetes.Service</code> interface:</p>
+<pre><code class="hljs css language-scala"><span class="hljs-type">ZIO</span>.service[<span class="hljs-type">Kubernetes</span>.<span class="hljs-type">Service</span>].flatMap { k8s =&gt; 
+  k8s.v1.pods.create(...)
+}
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="narrowing-the-unified-layer"></a><a href="#narrowing-the-unified-layer" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Narrowing the unified layer</h3>
+<p>The two styles - per-resource layers and the unified API layer - can be mixed together.
+If we have initialized the single unified API layer like above, called <code>api</code>, we can still
+provide it for functions that have per-resource layer requirements:</p>
+<pre><code class="hljs css language-scala"><span class="hljs-keyword">import</span> zio.config.syntax._
+
+launchNewPods(<span class="hljs-number">5</span>).provideCustomLayer(api.narrow(_.v1.pods))
+getFromConfigMap(<span class="hljs-string">"something"</span>).provideCustomLayer(api.narrow(_.v1.configmaps))
+</code></pre>
+<p><strong>NOTE</strong>: currently <code>narrow</code> is provided by <code>zio-config</code></p>
+<h2><a class="anchor" aria-hidden="true" id="operations"></a><a href="#operations" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Operations</h2>
+<p>Each <em>resource client</em> provides a set of <strong>operations</strong> and depending on the resource, some
+additional capabilities related to <em>subresources</em>.</p>
+<p>Let's see what the supported operations by looking at an example, the <code>StatefulSet</code> resource!</p>
+<p>The following functions are the <em>basic operations</em> the resource supports:</p>
+<h4><a class="anchor" aria-hidden="true" id="get"></a><a href="#get" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Get</h4>
+<pre><code class="hljs css language-scala"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">getAll</span></span>(namespace: <span class="hljs-type">Option</span>[<span class="hljs-type">K8sNamespace</span>], chunkSize: <span class="hljs-type">Int</span> = <span class="hljs-number">10</span>): <span class="hljs-type">ZStream</span>[<span class="hljs-type">StatefulSets</span>, <span class="hljs-type">K8sFailure</span>, <span class="hljs-type">StatefulSet</span>]
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get</span></span>(name: <span class="hljs-type">String</span>, namespace: <span class="hljs-type">K8sNamespace</span>): <span class="hljs-type">ZIO</span>[<span class="hljs-type">StatefulSets</span>, <span class="hljs-type">K8sFailure</span>, <span class="hljs-type">StatefulSet</span>]
+</code></pre>
+<ul>
+<li><code>getAll</code> returns a <strong>stream</strong> of all resources in the cluster, optionally filtered to a single <em>namespace</em>.</li>
+<li><code>get</code> returns a single <code>StatefulSet</code> from a given <em>namespace</em></li>
+</ul>
+<h4><a class="anchor" aria-hidden="true" id="watch"></a><a href="#watch" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Watch</h4>
+<pre><code class="hljs css language-scala"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">watch</span></span>(namespace: <span class="hljs-type">Option</span>[<span class="hljs-type">K8sNamespace</span>], resourceVersion: <span class="hljs-type">Option</span>[<span class="hljs-type">String</span>]): <span class="hljs-type">ZStream</span>[<span class="hljs-type">StatefulSets</span>, <span class="hljs-type">K8sFailure</span>, <span class="hljs-type">TypedWatchEvent</span>[<span class="hljs-type">StatefulSet</span>]]
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">watchForever</span></span>(namespace: <span class="hljs-type">Option</span>[<span class="hljs-type">K8sNamespace</span>]): <span class="hljs-type">ZStream</span>[<span class="hljs-type">StatefulSets</span> <span class="hljs-keyword">with</span> <span class="hljs-type">Clock</span>, <span class="hljs-type">K8sFailure</span>, <span class="hljs-type">TypedWatchEvent</span>[<span class="hljs-type">StatefulSet</span>]]
+</code></pre>
+<ul>
+<li><code>watch</code> starts a <strong>stream</strong> of <em>watch events</em> starting from a given resource version. The lifecycle of this stream corresponds with the underlying Kubernetes API request.</li>
+<li><code>watchForever</code> is built on top of <code>watch</code> and handles reconnection when the underlying connection closes.</li>
+</ul>
+<p>A watch event is one of the following:</p>
+<ul>
+<li><code>Reseted</code> when the underlying watch stream got restarted. If the watch stream is processed in a stateful way, the state must be rebuilt from scratch when this event arrives.</li>
+<li><code>Added</code></li>
+<li><code>Modified</code></li>
+<li><code>Deleted</code></li>
+</ul>
+<h4><a class="anchor" aria-hidden="true" id="create"></a><a href="#create" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Create</h4>
+<pre><code class="hljs css language-scala"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">create</span></span>(
+    newResource: <span class="hljs-type">StatefulSet</span>, 
+    namespace: <span class="hljs-type">K8sNamespace</span>, 
+    dryRun: <span class="hljs-type">Boolean</span> = <span class="hljs-literal">false</span>
+  ): <span class="hljs-type">ZIO</span>[<span class="hljs-type">StatefulSets</span>, <span class="hljs-type">K8sFailure</span>, <span class="hljs-type">StatefulSet</span>]
+</code></pre>
+<ul>
+<li><code>create</code> creates a new <em>Kubernetes resource</em> in the given namespace. The <a href="#model">model section below</a> describes how to assemble the resource data.</li>
+</ul>
+<h4><a class="anchor" aria-hidden="true" id="replace"></a><a href="#replace" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Replace</h4>
+<pre><code class="hljs css language-scala"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">replace</span></span>(
+    name: <span class="hljs-type">String</span>,
+    updatedResource: <span class="hljs-type">StatefulSet</span>,
+    namespace: <span class="hljs-type">K8sNamespace</span>,
+    dryRun: <span class="hljs-type">Boolean</span> = <span class="hljs-literal">false</span>
+  ): <span class="hljs-type">ZIO</span>[<span class="hljs-type">StatefulSets</span>, <span class="hljs-type">K8sFailure</span>, <span class="hljs-type">StatefulSet</span>]
+</code></pre>
+<ul>
+<li><code>replace</code> updates an existing <em>Kubernetes resource</em> identified by its name in the given namespace with the new value.</li>
+</ul>
+<h4><a class="anchor" aria-hidden="true" id="delete"></a><a href="#delete" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Delete</h4>
+<pre><code class="hljs css language-scala"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">delete</span></span>(
+    name: <span class="hljs-type">String</span>,
+    deleteOptions: <span class="hljs-type">DeleteOptions</span>,
+    namespace: <span class="hljs-type">K8sNamespace</span>,
+    dryRun: <span class="hljs-type">Boolean</span> = <span class="hljs-literal">false</span>
+  ): <span class="hljs-type">ZIO</span>[<span class="hljs-type">StatefulSets</span>, <span class="hljs-type">K8sFailure</span>, <span class="hljs-type">Status</span>]
+</code></pre>
+<ul>
+<li><code>delete</code> deletes an existing <em>Kubernetes resource</em> identified by its name in the given namespace.</li>
+</ul>
+<h3><a class="anchor" aria-hidden="true" id="namespaced-vs-cluster-resources"></a><a href="#namespaced-vs-cluster-resources" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Namespaced vs cluster resources</h3>
+<p>Some <em>Kubernetes resources</em> are <strong>cluster level</strong> while others like the example <code>StatefulSet</code> above are split in <em>namespaces</em>. The <code>zio-k8s</code> library encodes this property in the resource interfaces, and for <em>cluster resources</em> the operations does not
+have a <code>namespace</code> parameter at all.</p>
+<h3><a class="anchor" aria-hidden="true" id="status-subresource"></a><a href="#status-subresource" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Status subresource</h3>
+<p>Most of the resources have a <em>status subresource</em>. This capability is provided by the following extra functions:</p>
+<pre><code class="hljs css language-scala"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">getStatus</span></span>(name: <span class="hljs-type">String</span>, namespace: <span class="hljs-type">K8sNamespace</span>): <span class="hljs-type">ZIO</span>[<span class="hljs-type">StatefulSets</span>, <span class="hljs-type">K8sFailure</span>, <span class="hljs-type">StatefulSet</span>]
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">replaceStatus</span></span>(
+    of: <span class="hljs-type">StatefulSet</span>,
+    updatedStatus: <span class="hljs-type">StatefulSetStatus</span>,
+    namespace: <span class="hljs-type">K8sNamespace</span>,
+    dryRun: <span class="hljs-type">Boolean</span> = <span class="hljs-literal">false</span>
+  ): <span class="hljs-type">ZIO</span>[<span class="hljs-type">StatefulSets</span>, <span class="hljs-type">K8sFailure</span>, <span class="hljs-type">StatefulSet</span>]
+</code></pre>
+<p>Note that although that currently the Scala interface closely reflects the underlying HTTP API's behavior and for this reason the type of these functions can be a bit surprising:</p>
+<ul>
+<li><code>getStatus</code> returns the <em>whole resource</em> not just the status</li>
+<li><code>replaceStatus</code> requires the <em>whole resource</em> to be updated but <em>Kubernetes</em> will only update the status part while using the <em>metadata</em> part for collision detection.</li>
+</ul>
+<h3><a class="anchor" aria-hidden="true" id="other-subresources"></a><a href="#other-subresources" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Other subresources</h3>
+<p>Some resources have <em>additional subresources</em>. Our example, the <code>StatefulSet</code> has one, the <code>Scale</code> subresource.</p>
+<p>For each subresource a set of additional operations are provided, in the example case a get/replace pair:</p>
+<pre><code class="hljs css language-scala"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">getScale</span></span>(
+    name: <span class="hljs-type">String</span>,
+    namespace: <span class="hljs-type">K8sNamespace</span>
+  ): <span class="hljs-type">ZIO</span>[<span class="hljs-type">StatefulSets</span>, <span class="hljs-type">K8sFailure</span>, <span class="hljs-type">Scale</span>]
+  
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">replaceScale</span></span>(
+    name: <span class="hljs-type">String</span>,
+    updatedValue: <span class="hljs-type">Scale</span>,
+    namespace: <span class="hljs-type">K8sNamespace</span>,
+    dryRun: <span class="hljs-type">Boolean</span> = <span class="hljs-literal">false</span>
+  ): <span class="hljs-type">ZIO</span>[<span class="hljs-type">StatefulSets</span>, <span class="hljs-type">K8sFailure</span>, autoscaling.v1.<span class="hljs-type">Scale</span>]
+</code></pre>
+<p>Some important things to note:</p>
+<ul>
+<li>The subresource API does not share the weird properties of the status subresource API. The main resource is identified by its name (and namespace), and only the subresource data type get sent in the request.</li>
+<li>Not all subresources have a <code>get</code> and a <code>replace</code> operation. Some only have a <code>create</code> (for example <code>Eviction</code>), and some only have a <code>get</code> (for example <code>Log</code>).</li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="model"></a><a href="#model" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Model</h2>
+<p>For all <em>Kubernetes data types</em> - the resources, subresources and inner data structures - there is a corresponding  Scala <em>case class</em> defined in the <code>zio-k8s-client</code> library. Because a huge part of the model consists of <em>optional fields</em> and very deep structures, a couple of features were added to reduce boilerplate caused by this.</p>
+<p>Let's take a look at the example <code>StatefulSet</code> resource's data model:</p>
+<pre><code class="hljs css language-scala"><span class="hljs-keyword">case</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">StatefulSet</span>(<span class="hljs-params">
+  metadata: <span class="hljs-type">Optional</span>[<span class="hljs-type">ObjectMeta</span>] = <span class="hljs-type">Optional</span>.<span class="hljs-type">Absent</span>,
+  spec: <span class="hljs-type">Optional</span>[<span class="hljs-type">StatefulSetSpec</span>] = <span class="hljs-type">Optional</span>.<span class="hljs-type">Absent</span>,
+  status: <span class="hljs-type">Optional</span>[<span class="hljs-type">StatefulSetStatus</span>] = <span class="hljs-type">Optional</span>.<span class="hljs-type">Absent</span>
+</span>) </span>{
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">getMetadata</span></span>: <span class="hljs-type">IO</span>[<span class="hljs-type">K8sFailure</span>, <span class="hljs-type">ObjectMeta</span>]
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">getSpec</span></span>: <span class="hljs-type">IO</span>[<span class="hljs-type">K8sFailure</span>, <span class="hljs-type">StatefulSetSpec</span>]
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">getStatus</span></span>: <span class="hljs-type">IO</span>[<span class="hljs-type">K8sFailure</span>, <span class="hljs-type">StatefulSetStatus</span>]
+}
+</code></pre>
+<ul>
+<li>Instead of the standard <code>Option</code> type, <code>zio-k8s</code> uses a custom <code>Optional</code> type</li>
+<li>Additionally to the case class fields it has ZIO getter functions that fail in case of absence of value</li>
+</ul>
+<h3><a class="anchor" aria-hidden="true" id="creating"></a><a href="#creating" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Creating</h3>
+<p>The custom <code>Optional[T]</code> type used in the model classes provides implicit conversion from both <code>T</code> and <code>Option[T]</code>. This provides a boilerplate-free way to specify large Kubernetes resources, with a syntax that is not far from to the usual YAML representation of <em>Kubernetes resources</em>.</p>
+<p>The following example demonstrates this:</p>
+<pre><code class="hljs css language-scala"><span class="hljs-keyword">import</span> com.coralogix.zio.k8s.client.model.<span class="hljs-type">K8sNamespace</span>
+<span class="hljs-keyword">import</span> com.coralogix.zio.k8s.model.core.v1._
+<span class="hljs-keyword">import</span> com.coralogix.zio.k8s.model.pkg.apis.meta.v1._
+<span class="hljs-keyword">import</span> com.coralogix.zio.k8s.model.rbac.v1._
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">clusterRoleBinding</span></span>(name: <span class="hljs-type">String</span>, namespace: <span class="hljs-type">K8sNamespace</span>): <span class="hljs-type">ClusterRoleBinding</span> =
+  <span class="hljs-type">ClusterRoleBinding</span>(
+    metadata = <span class="hljs-type">ObjectMeta</span>(
+        name = <span class="hljs-string">"fluentd-coralogix-role-binding"</span>,
+        namespace = namespace.value,
+        labels = <span class="hljs-type">Map</span>(
+            <span class="hljs-string">"k8s-app"</span> -&gt; <span class="hljs-string">s"fluentd-coralogix-<span class="hljs-subst">$name</span>"</span>
+        )
+    ),
+    roleRef = <span class="hljs-type">RoleRef</span>(
+        apiGroup = <span class="hljs-string">"rbac.authorization.k8s.io"</span>,
+        kind = <span class="hljs-string">"ClusterRole"</span>,
+        name = <span class="hljs-string">"fluentd-coralogix-role"</span>
+    ),
+    subjects = <span class="hljs-type">Vector</span>(
+        <span class="hljs-type">Subject</span>(
+            kind = <span class="hljs-string">"ServiceAccount"</span>,
+            name = <span class="hljs-string">"fluentd-coralogix-service-account"</span>,
+            namespace = namespace.value
+        )
+    ))
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="accessing"></a><a href="#accessing" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Accessing</h3>
+<p>The <code>Optional</code> fields support all the usual combinators <code>Option</code> has and when needed they can be converted back with <code>.toOption</code>.
+In many cases we expect that the optional fields are specified in the appication logic that works with the <em>Kubernetes</em> clients. To support these there are <em>getter effects</em> on each case class failing the ZIO effect in case the field is not present.</p>
+<h3><a class="anchor" aria-hidden="true" id="optics"></a><a href="#optics" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Optics</h3>
+<p>Support for <a href="/zio-k8s/docs/overview/overview_quicklens">Quicklens</a> and <a href="/zio-k8s/docs/overview/overview_monocle">Monocle</a> is also available.</p>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/zio-k8s/docs/overview/overview_gettingstarted"><span class="arrow-prev">← </span><span>Getting started</span></a><a class="docs-next button" href="/zio-k8s/docs/overview/overview_generic"><span>Generic code</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#per-resource-layers">Per-resource layers</a></li><li><a href="#unified-layer">Unified layer</a><ul class="toc-headings"><li><a href="#narrowing-the-unified-layer">Narrowing the unified layer</a></li></ul></li><li><a href="#operations">Operations</a><ul class="toc-headings"><li><a href="#namespaced-vs-cluster-resources">Namespaced vs cluster resources</a></li><li><a href="#status-subresource">Status subresource</a></li><li><a href="#other-subresources">Other subresources</a></li></ul></li><li><a href="#model">Model</a><ul class="toc-headings"><li><a href="#creating">Creating</a></li><li><a href="#accessing">Accessing</a></li><li><a href="#optics">Optics</a></li></ul></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/zio-k8s/" class="nav-home"><img src="/zio-k8s/img/sidebar_brand2x.png" alt="ZIO K8s"/></a><div><h5>GitHub</h5><a class="github-button" href="https://github.com/coralogix/zio-k8s" data-icon="octicon-star" data-count-href="/coralogix/zio-k8s/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div><div><h5>Chat with us on Discord</h5><a href="https://discord.gg/2ccFBr4"><img src="/zio-k8s//img/discord.png" width="120" alt="discord"/></a></div><div><h5>Additional resources</h5><a href="/zio-k8s/api/index.html">Scaladoc of zio-k8s</a></div></section><section class="copyright">Copyright © 2021 ZIO Maintainers</section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
+                document.addEventListener('keyup', function(e) {
+                  if (e.target !== document.body) {
+                    return;
+                  }
+                  // keyCode for '/' (slash)
+                  if (e.keyCode === 191) {
+                    const search = document.getElementById('search_input_react');
+                    search && search.focus();
+                  }
+                });
+              </script><script>
+              var search = docsearch({
+                
+                apiKey: 'b7978c4d7d28a5a9181d2eea975b0e99',
+                indexName: 'zio-k8s',
+                inputSelector: '#search_input_react',
+                algoliaOptions: {}
+              });
+            </script></body></html>

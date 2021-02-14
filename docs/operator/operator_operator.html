@@ -1,0 +1,196 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Implementing operators · ZIO K8s</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="## Event processor"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Implementing operators · ZIO K8s"/><meta property="og:type" content="website"/><meta property="og:url" content="https://coralogix.github.io/zio-k8s/"/><meta property="og:description" content="## Event processor"/><meta property="og:image" content="https://coralogix.github.io/zio-k8s/img/undraw_online.svg"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://coralogix.github.io/zio-k8s/img/undraw_tweetstorm.svg"/><link rel="shortcut icon" href="/zio-k8s/img/favicon.png"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script src="https://unpkg.com/vanilla-back-to-top@7.1.14/dist/vanilla-back-to-top.min.js"></script><script>
+        document.addEventListener('DOMContentLoaded', function() {
+          addBackToTop(
+            {"zIndex":100,"cornerOffset":100}
+          )
+        });
+        </script><script src="/zio-k8s/js/scrollSpy.js"></script><link rel="stylesheet" href="/zio-k8s/css/main.css"/><script src="/zio-k8s/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/zio-k8s/"><img class="logo" src="/zio-k8s/img/navbar_brand2x.png" alt="ZIO K8s"/><h2 class="headerTitleWithLogo">ZIO K8s</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/zio-k8s/docs/overview/overview_index" target="_self">Overview</a></li><li class=""><a href="/zio-k8s/docs/crd/crd_index" target="_self">CRDs</a></li><li class="siteNavGroupActive"><a href="/zio-k8s/docs/operator/operator_index" target="_self">Operators</a></li><li class=""><a href="/zio-k8s/docs/internals/internals_index" target="_self">Internals</a></li><li class=""><a href="/zio-k8s/docs/about/about_index" target="_self">About</a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>Operator</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Operator</h3><ul class=""><li class="navListItem"><a class="navItem" href="/zio-k8s/docs/operator/operator_index">Operator library</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/zio-k8s/docs/operator/operator_operator">Implementing operators</a></li><li class="navListItem"><a class="navItem" href="/zio-k8s/docs/operator/operator_registration">Auto-registering CRDs</a></li><li class="navListItem"><a class="navItem" href="/zio-k8s/docs/operator/operator_leaderelection">Leader election</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">Implementing operators</h1></header><article><div><span><h2><a class="anchor" aria-hidden="true" id="event-processor"></a><a href="#event-processor" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Event processor</h2>
+<p>The library defines an <code>Operator</code> by providing an <code>EventProcessor</code>:</p>
+<pre><code class="hljs css language-scala"><span class="hljs-class"><span class="hljs-keyword">type</span> <span class="hljs-title">EventProcessor</span>[<span class="hljs-type">R</span>, <span class="hljs-type">E</span>, <span class="hljs-type">T</span>] </span>=
+    (<span class="hljs-type">OperatorContext</span>, <span class="hljs-type">TypedWatchEvent</span>[<span class="hljs-type">T</span>]) =&gt; <span class="hljs-type">ZIO</span>[<span class="hljs-type">R</span>, <span class="hljs-type">OperatorFailure</span>[<span class="hljs-type">E</span>], <span class="hljs-type">Unit</span>]
+</code></pre>
+<p>To start an operator, use either the <code>Operator.cluster</code> or <code>Operator.namespaced</code> functions:</p>
+<pre><code class="hljs css language-scala"><span class="hljs-keyword">import</span> com.coralogix.zio.k8s.client.<span class="hljs-type">NamespacedResource</span>
+<span class="hljs-keyword">import</span> com.coralogix.zio.k8s.client.model._
+<span class="hljs-keyword">import</span> com.coralogix.zio.k8s.model.core.v1.<span class="hljs-type">Pod</span>
+<span class="hljs-keyword">import</span> com.coralogix.zio.k8s.operator._
+<span class="hljs-keyword">import</span> com.coralogix.zio.k8s.operator.<span class="hljs-type">Operator</span>._
+
+<span class="hljs-keyword">import</span> zio._
+<span class="hljs-keyword">import</span> zio.clock.<span class="hljs-type">Clock</span>
+
+<span class="hljs-keyword">sealed</span> <span class="hljs-class"><span class="hljs-keyword">trait</span> <span class="hljs-title">CustomOperatorFailures</span></span>
+
+<span class="hljs-keyword">val</span> eventProcessor: <span class="hljs-type">EventProcessor</span>[<span class="hljs-type">Clock</span>, <span class="hljs-type">CustomOperatorFailures</span>, <span class="hljs-type">Pod</span>] = 
+    (ctx, event) =&gt; 
+        event <span class="hljs-keyword">match</span> {
+            <span class="hljs-keyword">case</span> <span class="hljs-type">Reseted</span> =&gt;
+                <span class="hljs-type">ZIO</span>.unit
+            <span class="hljs-keyword">case</span> <span class="hljs-type">Added</span>(item) =&gt;
+                <span class="hljs-type">ZIO</span>.unit
+            <span class="hljs-keyword">case</span> <span class="hljs-type">Modified</span>(item) =&gt;
+                <span class="hljs-type">ZIO</span>.unit
+            <span class="hljs-keyword">case</span> <span class="hljs-type">Deleted</span>(item) =&gt;
+                <span class="hljs-type">ZIO</span>.unit
+        }
+
+<span class="hljs-keyword">val</span> operator = 
+    <span class="hljs-type">Operator</span>.namespaced(
+        eventProcessor
+    )(namespace = <span class="hljs-type">None</span>, buffer = <span class="hljs-number">1024</span>)
+</code></pre>
+<p>Passing <code>None</code> as namespace to <code>Operator.namespaced</code> means watching <em>all</em> namespaces.</p>
+<h2><a class="anchor" aria-hidden="true" id="aspects"></a><a href="#aspects" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Aspects</h2>
+<p>The event processor logic can be modified by various <em>aspects</em> such as logging and monitoring. The library currently only provides a single <em>logging aspect</em> that can be applied with the <code>@@</code> operator:</p>
+<pre><code class="hljs css language-scala"><span class="hljs-keyword">import</span> com.coralogix.zio.k8s.operator.aspects._
+<span class="hljs-keyword">import</span> zio.logging.<span class="hljs-type">Logging</span>
+
+<span class="hljs-keyword">val</span> operator2 = 
+    <span class="hljs-type">Operator</span>.namespaced(
+        <span class="hljs-type">EventProcessorOps</span>(eventProcessor) @@ logEvents
+    )(namespace = <span class="hljs-type">None</span>, buffer = <span class="hljs-number">1024</span>)
+<span class="hljs-comment">// operator2: ZIO[Has[NamespacedResource[Pod]], Nothing, Operator[Clock with Logging, CustomOperatorFailures, Pod]] = zio.ZIO$FlatMap@775b360f</span>
+</code></pre>
+<p><strong>NOTE</strong>: Having to explicitly wrap in the <code>EventProcessorOps</code> is a temporary regression and should not be necessary. Will be fixed.</p>
+<h3><a class="anchor" aria-hidden="true" id="defining-an-aspect"></a><a href="#defining-an-aspect" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Defining an aspect</h3>
+<p>In this example we define another aspect for monitoring the <em>event processing time</em> and the number of different events processed with <em>Prometheus</em> metrics using the <a href="https://zio.github.io/zio-metrics/">zio-metrics</a> library.</p>
+<p>Assuming we have a type <code>OperatorMetrics</code> with the following fields:</p>
+<pre><code class="hljs css language-scala"><span class="hljs-keyword">import</span> zio.metrics.prometheus.helpers._
+<span class="hljs-keyword">import</span> zio.metrics.prometheus.{ <span class="hljs-type">Counter</span>, <span class="hljs-type">Histogram</span>, <span class="hljs-type">Registry</span> }
+
+<span class="hljs-keyword">case</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">OperatorMetrics</span>(<span class="hljs-params">
+  eventCounter: <span class="hljs-type">Counter</span>,
+  eventProcessingTime: <span class="hljs-type">Histogram</span>
+</span>)</span>
+
+<span class="hljs-class"><span class="hljs-keyword">object</span> <span class="hljs-title">OperatorMetrics</span> </span>{
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">labels</span></span>(
+        event: <span class="hljs-type">TypedWatchEvent</span>[_],
+        resourceName: <span class="hljs-type">String</span>,
+        namespace: <span class="hljs-type">Option</span>[<span class="hljs-type">K8sNamespace</span>]
+    ): <span class="hljs-type">Array</span>[<span class="hljs-type">String</span>] = {
+        <span class="hljs-keyword">val</span> eventType = event <span class="hljs-keyword">match</span> {
+            <span class="hljs-keyword">case</span> <span class="hljs-type">Reseted</span> =&gt; <span class="hljs-string">"reseted"</span>
+            <span class="hljs-keyword">case</span> <span class="hljs-type">Added</span>(_) =&gt; <span class="hljs-string">"added"</span>
+            <span class="hljs-keyword">case</span> <span class="hljs-type">Modified</span>(_) =&gt; <span class="hljs-string">"modified"</span>
+            <span class="hljs-keyword">case</span> <span class="hljs-type">Deleted</span>(_) =&gt; <span class="hljs-string">"deleted"</span>
+        }
+        <span class="hljs-type">Array</span>(eventType, resourceName, namespace.map(_.value).getOrElse(<span class="hljs-string">""</span>))
+  }
+}
+</code></pre>
+<p>we can define a <code>metered</code> aspect:</p>
+<pre><code class="hljs css language-scala"><span class="hljs-keyword">import</span> zio.clock.<span class="hljs-type">Clock</span>
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">metered</span></span>[<span class="hljs-type">T</span>, <span class="hljs-type">E</span>](operatorMetrics: <span class="hljs-type">OperatorMetrics</span>): <span class="hljs-type">Aspect</span>[<span class="hljs-type">Clock</span>, <span class="hljs-type">E</span>, <span class="hljs-type">T</span>] =
+    <span class="hljs-keyword">new</span> <span class="hljs-type">Aspect</span>[<span class="hljs-type">Clock</span>, <span class="hljs-type">E</span>, <span class="hljs-type">T</span>] {
+      <span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">apply</span></span>[<span class="hljs-type">R1</span> &lt;: <span class="hljs-type">Clock</span>, <span class="hljs-type">E1</span> &gt;: <span class="hljs-type">E</span>](
+        f: <span class="hljs-type">EventProcessor</span>[<span class="hljs-type">R1</span>, <span class="hljs-type">E1</span>, <span class="hljs-type">T</span>]
+      ): <span class="hljs-type">EventProcessor</span>[<span class="hljs-type">R1</span>, <span class="hljs-type">E1</span>, <span class="hljs-type">T</span>] =
+        (ctx, event) =&gt; {
+          <span class="hljs-comment">// Using the operator context and the event to produce some Prometheus labels</span>
+          <span class="hljs-keyword">val</span> labels = <span class="hljs-type">OperatorMetrics</span>.labels(
+            event,
+            ctx.resourceType.resourceType,
+            ctx.namespace.orElse(event.namespace)
+          )
+
+          <span class="hljs-comment">// Increasing the event counter</span>
+          operatorMetrics.eventCounter.inc(labels).ignore *&gt;
+            <span class="hljs-comment">// Running the event processor</span>
+            f(ctx, event).timed.flatMap {
+              <span class="hljs-keyword">case</span> (duration, result) =&gt;
+                <span class="hljs-comment">// Recording the event processing time</span>
+                operatorMetrics.eventProcessingTime
+                  .observe(
+                    duration.toMillis.toDouble / <span class="hljs-number">1000.0</span>,
+                    labels
+                  )
+                  .ignore
+                  .as(result)
+            }
+        }
+    }
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">operator3</span></span>(metrics: <span class="hljs-type">OperatorMetrics</span>) = 
+    <span class="hljs-type">Operator</span>.namespaced(
+        <span class="hljs-type">EventProcessorOps</span>(eventProcessor) @@ logEvents @@ metered(metrics)
+    )(namespace = <span class="hljs-type">None</span>, buffer = <span class="hljs-number">1024</span>)
+</code></pre>
+<p>To learn more about the general idea of <em>aspects</em>, check <a href="https://www.youtube.com/watch?v=gcqWdNwNEPg">the presentation of Adam Fraser</a> from ZIO Meetup London on September 24, 2020.</p>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/zio-k8s/docs/operator/operator_index"><span class="arrow-prev">← </span><span>Operator library</span></a><a class="docs-next button" href="/zio-k8s/docs/operator/operator_registration"><span>Auto-registering CRDs</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#event-processor">Event processor</a></li><li><a href="#aspects">Aspects</a><ul class="toc-headings"><li><a href="#defining-an-aspect">Defining an aspect</a></li></ul></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/zio-k8s/" class="nav-home"><img src="/zio-k8s/img/sidebar_brand2x.png" alt="ZIO K8s"/></a><div><h5>GitHub</h5><a class="github-button" href="https://github.com/coralogix/zio-k8s" data-icon="octicon-star" data-count-href="/coralogix/zio-k8s/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div><div><h5>Chat with us on Discord</h5><a href="https://discord.gg/2ccFBr4"><img src="/zio-k8s//img/discord.png" width="120" alt="discord"/></a></div><div><h5>Additional resources</h5><a href="/zio-k8s/api/index.html">Scaladoc of zio-k8s</a></div></section><section class="copyright">Copyright © 2021 ZIO Maintainers</section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
+                document.addEventListener('keyup', function(e) {
+                  if (e.target !== document.body) {
+                    return;
+                  }
+                  // keyCode for '/' (slash)
+                  if (e.keyCode === 191) {
+                    const search = document.getElementById('search_input_react');
+                    search && search.focus();
+                  }
+                });
+              </script><script>
+              var search = docsearch({
+                
+                apiKey: 'b7978c4d7d28a5a9181d2eea975b0e99',
+                indexName: 'zio-k8s',
+                inputSelector: '#search_input_react',
+                algoliaOptions: {}
+              });
+            </script></body></html>

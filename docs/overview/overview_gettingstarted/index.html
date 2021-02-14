@@ -1,0 +1,168 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Getting started · ZIO K8s</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="## Dependencies"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Getting started · ZIO K8s"/><meta property="og:type" content="website"/><meta property="og:url" content="https://coralogix.github.io/zio-k8s/"/><meta property="og:description" content="## Dependencies"/><meta property="og:image" content="https://coralogix.github.io/zio-k8s/img/undraw_online.svg"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://coralogix.github.io/zio-k8s/img/undraw_tweetstorm.svg"/><link rel="shortcut icon" href="/zio-k8s/img/favicon.png"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script src="https://unpkg.com/vanilla-back-to-top@7.1.14/dist/vanilla-back-to-top.min.js"></script><script>
+        document.addEventListener('DOMContentLoaded', function() {
+          addBackToTop(
+            {"zIndex":100,"cornerOffset":100}
+          )
+        });
+        </script><script src="/zio-k8s/js/scrollSpy.js"></script><link rel="stylesheet" href="/zio-k8s/css/main.css"/><script src="/zio-k8s/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/zio-k8s/"><img class="logo" src="/zio-k8s/img/navbar_brand2x.png" alt="ZIO K8s"/><h2 class="headerTitleWithLogo">ZIO K8s</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class="siteNavGroupActive"><a href="/zio-k8s/docs/overview/overview_index" target="_self">Overview</a></li><li class=""><a href="/zio-k8s/docs/crd/crd_index" target="_self">CRDs</a></li><li class=""><a href="/zio-k8s/docs/operator/operator_index" target="_self">Operators</a></li><li class=""><a href="/zio-k8s/docs/internals/internals_index" target="_self">Internals</a></li><li class=""><a href="/zio-k8s/docs/about/about_index" target="_self">About</a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>Overview</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Overview</h3><ul class=""><li class="navListItem"><a class="navItem" href="/zio-k8s/docs/overview/overview_index">Contents</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/zio-k8s/docs/overview/overview_gettingstarted">Getting started</a></li><li class="navListItem"><a class="navItem" href="/zio-k8s/docs/overview/overview_resources">Working with resources</a></li><li class="navListItem"><a class="navItem" href="/zio-k8s/docs/overview/overview_generic">Generic code</a></li><li class="navListItem"><a class="navItem" href="/zio-k8s/docs/overview/overview_monocle">Monocle support</a></li><li class="navListItem"><a class="navItem" href="/zio-k8s/docs/overview/overview_quicklens">QuickLens support</a></li><li class="navListItem"><a class="navItem" href="/zio-k8s/docs/overview/overview_testing">Test clients</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">Getting started</h1></header><article><div><span><h2><a class="anchor" aria-hidden="true" id="dependencies"></a><a href="#dependencies" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Dependencies</h2>
+<p>Start by adding <code>zio-k8s-client</code> as a dependency to your project:</p>
+<pre><code class="hljs css language-scala">resolvers += <span class="hljs-type">Resolver</span>.sonatypeRepo(<span class="hljs-string">"snapshots"</span>)
+libraryDependencies += <span class="hljs-string">"com.coralogix"</span> %% <span class="hljs-string">"zio-k8s-client"</span> % <span class="hljs-string">"0.0.0+1-cc8f6b5c-SNAPSHOT"</span>
+</code></pre>
+<p>in addition to this, you need to choose an <a href="https://sttp.softwaremill.com/en/latest/">sttp</a> <em>backend</em> that <code>zio-k8s</code> will use to make HTTP requests with. There are two official backends that can be used out of the box:</p>
+<p>In case your application runs on <strong>Java 11</strong> or above, choose the <code>HttpClient</code> based version:</p>
+<pre><code class="hljs css language-scala"><span class="hljs-string">"com.softwaremill.sttp.client3"</span> %% <span class="hljs-string">"httpclient-backend-zio"</span> % <span class="hljs-string">"3.1.1"</span>
+<span class="hljs-string">"com.softwaremill.sttp.client3"</span> %% <span class="hljs-string">"slf4j-backend"</span>          % <span class="hljs-string">"3.1.1"</span>
+</code></pre>
+<p>Otherwise choose the <code>async-http-client</code> based backend:</p>
+<pre><code class="hljs css language-scala"><span class="hljs-string">"com.softwaremill.sttp.client3"</span> %% <span class="hljs-string">"async-http-client-backend-zio"</span> % <span class="hljs-string">"3.1.1"</span>
+<span class="hljs-string">"com.softwaremill.sttp.client3"</span> %% <span class="hljs-string">"slf4j-backend"</span>                 % <span class="hljs-string">"3.1.1"</span>
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="configuration"></a><a href="#configuration" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Configuration</h2>
+<p>With all the dependencies added, we have to create an <em>sttp client</em> and a <em>k8s cluster</em> ZIO layers.
+This two together specifies how to connect to the <em>Kubernetes API</em>. There are <a href="https://zio.github.io/zio-config/">zio-config</a> <em>descriptors</em> for the data structures necessary to configure this.</p>
+<h3><a class="anchor" aria-hidden="true" id="providing-configuration-from-code"></a><a href="#providing-configuration-from-code" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Providing configuration from code</h3>
+<pre><code class="hljs css language-scala"><span class="hljs-keyword">import</span> com.coralogix.zio.k8s.client.config._
+<span class="hljs-keyword">import</span> com.coralogix.zio.k8s.client.config.httpclient._
+<span class="hljs-keyword">import</span> sttp.client3._
+<span class="hljs-keyword">import</span> sttp.model._
+<span class="hljs-keyword">import</span> zio.<span class="hljs-type">ZLayer</span>
+<span class="hljs-keyword">import</span> zio.blocking.<span class="hljs-type">Blocking</span>
+<span class="hljs-keyword">import</span> zio.nio.core.file.<span class="hljs-type">Path</span>
+
+<span class="hljs-comment">// Configuration</span>
+<span class="hljs-keyword">val</span> clientConfig = <span class="hljs-type">K8sClientConfig</span>(
+    insecure = <span class="hljs-literal">false</span>, <span class="hljs-comment">// set true for testing locally with minikube</span>
+    debug = <span class="hljs-literal">false</span>,
+    cert = <span class="hljs-type">Path</span>(<span class="hljs-string">"/var/run/secrets/kubernetes.io/serviceaccount/ca.crt"</span>)
+)
+
+<span class="hljs-keyword">val</span> clusterConfig = <span class="hljs-type">K8sClusterConfig</span>(
+    host = <span class="hljs-string">uri"https://kubernetes.default.svc"</span>,
+    token = <span class="hljs-type">None</span>,
+    tokenFile = <span class="hljs-type">Path</span>(<span class="hljs-string">"/var/run/secrets/kubernetes.io/serviceaccount/token"</span>)
+)
+</code></pre>
+<pre><code class="hljs css language-scala"><span class="hljs-comment">// K8s configuration and client layers</span>
+<span class="hljs-keyword">val</span> client = <span class="hljs-type">ZLayer</span>.succeed(clientConfig) &gt;&gt;&gt; k8sSttpClient
+<span class="hljs-keyword">val</span> cluster = <span class="hljs-type">Blocking</span>.any ++ <span class="hljs-type">ZLayer</span>.succeed(clusterConfig) &gt;&gt;&gt; k8sCluster
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="configuring-with-zio-config--typesafe-config"></a><a href="#configuring-with-zio-config--typesafe-config" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Configuring with zio-config + Typesafe Config</h3>
+<pre><code class="hljs css language-scala"><span class="hljs-keyword">import</span> com.coralogix.zio.k8s.client.config._
+<span class="hljs-keyword">import</span> com.coralogix.zio.k8s.client.config.httpclient._
+<span class="hljs-keyword">import</span> zio.blocking.<span class="hljs-type">Blocking</span>
+<span class="hljs-keyword">import</span> zio.config.magnolia.<span class="hljs-type">DeriveConfigDescriptor</span>._
+<span class="hljs-keyword">import</span> zio.config.magnolia.name
+<span class="hljs-keyword">import</span> zio.config.syntax._
+<span class="hljs-keyword">import</span> zio.config.typesafe._
+
+<span class="hljs-keyword">case</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Config</span>(<span class="hljs-params">cluster: <span class="hljs-type">K8sClusterConfig</span>, @name("k8s-client"</span>) <span class="hljs-title">client</span></span>: <span class="hljs-type">K8sClientConfig</span>)
+
+<span class="hljs-comment">// Loading config from HOCON</span>
+<span class="hljs-keyword">val</span> configDesc = descriptor[<span class="hljs-type">Config</span>]
+<span class="hljs-keyword">val</span> config = <span class="hljs-type">TypesafeConfig</span>.fromDefaultLoader[<span class="hljs-type">Config</span>](configDesc)
+
+<span class="hljs-comment">// K8s configuration and client layers</span>
+<span class="hljs-keyword">val</span> client = config.narrow(_.client) &gt;&gt;&gt; k8sSttpClient
+<span class="hljs-keyword">val</span> cluster = (<span class="hljs-type">Blocking</span>.any ++ config.narrow(_.cluster)) &gt;&gt;&gt; k8sCluster
+</code></pre>
+<p>and place the configuration in <code>application.conf</code>, for example:</p>
+<pre><code class="hljs css language-conf">k8s-client {
+  insecure = <span class="hljs-literal">false</span>
+  <span class="hljs-builtin-name">debug</span> = <span class="hljs-literal">false</span>
+  cert = <span class="hljs-string">"/var/run/secrets/kubernetes.io/serviceaccount/ca.crt"</span> # <span class="hljs-keyword">not</span> used <span class="hljs-keyword">if</span> insecure
+}
+
+cluster {
+  host = <span class="hljs-string">"https://kubernetes.default.svc"</span> #<span class="hljs-built_in"> Default
+</span>  token-file = <span class="hljs-string">"/var/run/secrets/kubernetes.io/serviceaccount/token"</span>
+}
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="clients"></a><a href="#clients" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Clients</h2>
+<p>The above created <code>client</code> and <code>cluster</code> modules can be fed to any of the <code>zio-k8s</code> <strong>client modules</strong>
+to access <em>Kubernetes</em> resources. This is explained in details in the <a href="/zio-k8s/docs/overview/overview_resources">resources</a> section.</p>
+<p>The following example demonstrates how to gain access to the <em>Kubernetes pods and config maps</em>:</p>
+<pre><code class="hljs css language-scala"><span class="hljs-keyword">import</span> com.coralogix.zio.k8s.client.v1.configmaps.<span class="hljs-type">ConfigMaps</span>
+<span class="hljs-keyword">import</span> com.coralogix.zio.k8s.client.v1.pods.<span class="hljs-type">Pods</span>
+
+<span class="hljs-keyword">val</span> k8s = (cluster ++ client) &gt;&gt;&gt; (<span class="hljs-type">Pods</span>.live ++ <span class="hljs-type">ConfigMaps</span>.live)
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="notes"></a><a href="#notes" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Notes</h2>
+<p>This library is built on the <em>ZIO modules and layers concept</em>. To learn more about that,
+check <a href="https://zio.dev/docs/howto/howto_use_layers">the official documentation</a>.</p>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/zio-k8s/docs/overview/overview_index"><span class="arrow-prev">← </span><span>Contents</span></a><a class="docs-next button" href="/zio-k8s/docs/overview/overview_resources"><span>Working with resources</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#dependencies">Dependencies</a></li><li><a href="#configuration">Configuration</a><ul class="toc-headings"><li><a href="#providing-configuration-from-code">Providing configuration from code</a></li><li><a href="#configuring-with-zio-config--typesafe-config">Configuring with zio-config + Typesafe Config</a></li></ul></li><li><a href="#clients">Clients</a></li><li><a href="#notes">Notes</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/zio-k8s/" class="nav-home"><img src="/zio-k8s/img/sidebar_brand2x.png" alt="ZIO K8s"/></a><div><h5>GitHub</h5><a class="github-button" href="https://github.com/coralogix/zio-k8s" data-icon="octicon-star" data-count-href="/coralogix/zio-k8s/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div><div><h5>Chat with us on Discord</h5><a href="https://discord.gg/2ccFBr4"><img src="/zio-k8s//img/discord.png" width="120" alt="discord"/></a></div><div><h5>Additional resources</h5><a href="/zio-k8s/api/index.html">Scaladoc of zio-k8s</a></div></section><section class="copyright">Copyright © 2021 ZIO Maintainers</section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
+                document.addEventListener('keyup', function(e) {
+                  if (e.target !== document.body) {
+                    return;
+                  }
+                  // keyCode for '/' (slash)
+                  if (e.keyCode === 191) {
+                    const search = document.getElementById('search_input_react');
+                    search && search.focus();
+                  }
+                });
+              </script><script>
+              var search = docsearch({
+                
+                apiKey: 'b7978c4d7d28a5a9181d2eea975b0e99',
+                indexName: 'zio-k8s',
+                inputSelector: '#search_input_react',
+                algoliaOptions: {}
+              });
+            </script></body></html>

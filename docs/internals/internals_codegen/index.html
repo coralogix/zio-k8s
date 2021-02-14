@@ -1,0 +1,134 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Code generation pipeline · ZIO K8s</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="The `zio-k8s-client` library consists of hand-written base code and a huge number of generated scala files. This code generation step is implemented as an `sbt` _code generator_. "/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Code generation pipeline · ZIO K8s"/><meta property="og:type" content="website"/><meta property="og:url" content="https://coralogix.github.io/zio-k8s/"/><meta property="og:description" content="The `zio-k8s-client` library consists of hand-written base code and a huge number of generated scala files. This code generation step is implemented as an `sbt` _code generator_. "/><meta property="og:image" content="https://coralogix.github.io/zio-k8s/img/undraw_online.svg"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://coralogix.github.io/zio-k8s/img/undraw_tweetstorm.svg"/><link rel="shortcut icon" href="/zio-k8s/img/favicon.png"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script src="https://unpkg.com/vanilla-back-to-top@7.1.14/dist/vanilla-back-to-top.min.js"></script><script>
+        document.addEventListener('DOMContentLoaded', function() {
+          addBackToTop(
+            {"zIndex":100,"cornerOffset":100}
+          )
+        });
+        </script><script src="/zio-k8s/js/scrollSpy.js"></script><link rel="stylesheet" href="/zio-k8s/css/main.css"/><script src="/zio-k8s/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/zio-k8s/"><img class="logo" src="/zio-k8s/img/navbar_brand2x.png" alt="ZIO K8s"/><h2 class="headerTitleWithLogo">ZIO K8s</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/zio-k8s/docs/overview/overview_index" target="_self">Overview</a></li><li class=""><a href="/zio-k8s/docs/crd/crd_index" target="_self">CRDs</a></li><li class=""><a href="/zio-k8s/docs/operator/operator_index" target="_self">Operators</a></li><li class="siteNavGroupActive"><a href="/zio-k8s/docs/internals/internals_index" target="_self">Internals</a></li><li class=""><a href="/zio-k8s/docs/about/about_index" target="_self">About</a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>Internals</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Internals</h3><ul class=""><li class="navListItem"><a class="navItem" href="/zio-k8s/docs/internals/internals_index">Internals</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/zio-k8s/docs/internals/internals_codegen">Code generation pipeline</a></li><li class="navListItem"><a class="navItem" href="/zio-k8s/docs/internals/internals_clients">Client implementation</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">Code generation pipeline</h1></header><article><div><span><p>The <code>zio-k8s-client</code> library consists of hand-written base code and a huge number of generated scala files. This code generation step is implemented as an <code>sbt</code> <em>code generator</em>.</p>
+<p>It is responsible for generating the following <em>types</em> of code:</p>
+<ul>
+<li>Kubernetes model classes</li>
+<li>Monocle optics for the model classes</li>
+<li>Kubernetes resource client modules</li>
+<li>Subresource interfaces</li>
+<li>The unified kubernetes client module</li>
+</ul>
+<p>Some parts of the <code>zio-k8s-client</code> plugin is shared with the public <code>zio-k8s-crd</code> plugin. The source code is generated using <a href="https://scalameta.org/">Scalameta</a> and formatted with <a href="https://scalameta.org/scalafmt/">Scalafmt</a>. The source OpenAPI specification is parsed with the official Java swagger parser library.</p>
+<p>The following list describes the primary steps of the code generator:</p>
+<ul>
+<li>Downloading and parsing the <em>Kubernetes OpenAPI specification</em> from the official <a href="https://github.com/kubernetes/kubernetes/">Kubernetes GitHub repo</a></li>
+<li><strong>Identifying</strong> the model definitions</li>
+<li><strong>Classifying</strong> the endpoints</li>
+<li>Generating the <strong>subresource interfaces</strong></li>
+<li>Generating <strong>client modules</strong></li>
+<li>Generating <strong>models</strong></li>
+<li>Generating the <strong>unified client module</strong></li>
+</ul>
+<p>The monocle optics code generator is invoked separately as a code generator for the <code>zio-k8s-client-monocle</code> subproject.</p>
+<p>In the following sections we discuss the code generator steps.</p>
+<h2><a class="anchor" aria-hidden="true" id="identification"></a><a href="#identification" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Identification</h2>
+<p>In the <em>identification</em> phase, implemented by <code>IdentifiedSchema.identifyDefinition</code> and <code>IdentifiedPath.identifyPath</code>, the code enumerates <em>all</em> model definitions and endpoints from the OpenAPI schema, extracts some information about them and stores them in subtypes of the <code>Identified</code> trait.</p>
+<p>For model definitions this can be:</p>
+<ul>
+<li><code>Regular</code> is a model schema with no special info about it. These are simple data types, not Kubernetes resources</li>
+<li><code>IdentifiedDefinition</code> is a model that has an associated <em>Group/Version/Kind</em> coordinate.</li>
+</ul>
+<p>Path identification is more complicated. Results can be:</p>
+<ul>
+<li><code>RegularAction</code> is an unidentified/not supported operation</li>
+<li><code>ApiGroupInfo</code>, <code>ApiVersionInfo</code>, <code>ApiResourceListing</code>, <code>ApiGroupListing</code> and <code>GetKubernetesVersion</code> are special known endpoints</li>
+<li><code>IdentifiedAction</code> is a single endpoint that has an associated <em>Group/Version/Kind</em> coordinate, and a specified <em>action verb</em>.</li>
+</ul>
+<p>For each identified action we also run an <em>endpoint type detection</em> (<code>EndpointType.detectEndpointType</code>) which examines the url, method, parameters and other properties of the endpoint and tags the action with one of the known endpoint types if possible.</p>
+<p>This is a very important step, because this guarantees that the code generator <strong>only generates client modules for resources that has exactly the expected endpoints</strong>. Those endpoint that does not 100% match the expected properties cannot be safely called with the generic Kubernetes client, therefore they get rejected by the endpoint detector and later in the classification phase.</p>
+<h2><a class="anchor" aria-hidden="true" id="classification"></a><a href="#classification" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Classification</h2>
+<p>The <em>classification</em> phase collects all the identified actions and identifies supported resources and their actions from it. Its entry point is <code>ClassifiedResource.classifyActions</code>.</p>
+<p>First we group the identified actions by GVK, then for each identified coordinate, we run the classification, passing all the identified actions to it.</p>
+<p>If the actions with their <em>detected endpoint types</em> match the criteria of a supported kubernetes resource, the classification returns a <code>SupportedResource</code> otherwise an <code>UnsupportedResource</code>.</p>
+<p>Part of this step is to collect and verify the <em>subresources</em> too.</p>
+<h3><a class="anchor" aria-hidden="true" id="validation-whitelist"></a><a href="#validation-whitelist" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Validation, whitelist</h3>
+<p>In multiple points during the identification and classification the <strong>unidentified/unsupported elements</strong> are being checked against a <strong>whitelist</strong> implemented in the <code>Whitelist</code> object.</p>
+<p>Everything that is not in the Whitelist breaks the build. This way we can detect breaking changes in case of a Kubernetes API upgrade.</p>
+<p>The <em>whitelist</em> can only allow items that are well understood and have a corresponding GitHub issue documenting it.</p>
+<h2><a class="anchor" aria-hidden="true" id="client-code-generator"></a><a href="#client-code-generator" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Client code generator</h2>
+<p>The <code>ClientModuleGenerator</code> module is responsible for generating the packages that implement the <em>per-resource ZIO client modules</em>.</p>
+<h2><a class="anchor" aria-hidden="true" id="model-generator"></a><a href="#model-generator" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Model generator</h2>
+<p>The <code>ModelGenerator</code> module is responsible for generating the <em>case classes</em> for all the data types in the OpenAPI specification, with implementation of JSON codecs and the type classes described in <a href="/zio-k8s/docs/overview/overview_generic">the overview</a>.</p>
+<h2><a class="anchor" aria-hidden="true" id="unified-client-module-generator"></a><a href="#unified-client-module-generator" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Unified client module generator</h2>
+<p>The <code>UnifiedClientModuleGenerator</code> module outputs a single ZIO module that defines the unified <em>Kubernetes API</em> service traits and its implementation. It is just an extra layer on top of the <em>per-resource modules</em> so its implementation is relatively simple.</p>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/zio-k8s/docs/internals/internals_index"><span class="arrow-prev">← </span><span>Internals</span></a><a class="docs-next button" href="/zio-k8s/docs/internals/internals_clients"><span>Client implementation</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#identification">Identification</a></li><li><a href="#classification">Classification</a><ul class="toc-headings"><li><a href="#validation-whitelist">Validation, whitelist</a></li></ul></li><li><a href="#client-code-generator">Client code generator</a></li><li><a href="#model-generator">Model generator</a></li><li><a href="#unified-client-module-generator">Unified client module generator</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/zio-k8s/" class="nav-home"><img src="/zio-k8s/img/sidebar_brand2x.png" alt="ZIO K8s"/></a><div><h5>GitHub</h5><a class="github-button" href="https://github.com/coralogix/zio-k8s" data-icon="octicon-star" data-count-href="/coralogix/zio-k8s/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div><div><h5>Chat with us on Discord</h5><a href="https://discord.gg/2ccFBr4"><img src="/zio-k8s//img/discord.png" width="120" alt="discord"/></a></div><div><h5>Additional resources</h5><a href="/zio-k8s/api/index.html">Scaladoc of zio-k8s</a></div></section><section class="copyright">Copyright © 2021 ZIO Maintainers</section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
+                document.addEventListener('keyup', function(e) {
+                  if (e.target !== document.body) {
+                    return;
+                  }
+                  // keyCode for '/' (slash)
+                  if (e.keyCode === 191) {
+                    const search = document.getElementById('search_input_react');
+                    search && search.focus();
+                  }
+                });
+              </script><script>
+              var search = docsearch({
+                
+                apiKey: 'b7978c4d7d28a5a9181d2eea975b0e99',
+                indexName: 'zio-k8s',
+                inputSelector: '#search_input_react',
+                algoliaOptions: {}
+              });
+            </script></body></html>

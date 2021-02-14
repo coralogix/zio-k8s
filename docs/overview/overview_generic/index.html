@@ -1,0 +1,145 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Generic code · ZIO K8s</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="While having a specific ZIO module and strictly typed interface for each available _Kubernetes resource_, sometimes we want to write more generic functions:"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Generic code · ZIO K8s"/><meta property="og:type" content="website"/><meta property="og:url" content="https://coralogix.github.io/zio-k8s/"/><meta property="og:description" content="While having a specific ZIO module and strictly typed interface for each available _Kubernetes resource_, sometimes we want to write more generic functions:"/><meta property="og:image" content="https://coralogix.github.io/zio-k8s/img/undraw_online.svg"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://coralogix.github.io/zio-k8s/img/undraw_tweetstorm.svg"/><link rel="shortcut icon" href="/zio-k8s/img/favicon.png"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script src="https://unpkg.com/vanilla-back-to-top@7.1.14/dist/vanilla-back-to-top.min.js"></script><script>
+        document.addEventListener('DOMContentLoaded', function() {
+          addBackToTop(
+            {"zIndex":100,"cornerOffset":100}
+          )
+        });
+        </script><script src="/zio-k8s/js/scrollSpy.js"></script><link rel="stylesheet" href="/zio-k8s/css/main.css"/><script src="/zio-k8s/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/zio-k8s/"><img class="logo" src="/zio-k8s/img/navbar_brand2x.png" alt="ZIO K8s"/><h2 class="headerTitleWithLogo">ZIO K8s</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class="siteNavGroupActive"><a href="/zio-k8s/docs/overview/overview_index" target="_self">Overview</a></li><li class=""><a href="/zio-k8s/docs/crd/crd_index" target="_self">CRDs</a></li><li class=""><a href="/zio-k8s/docs/operator/operator_index" target="_self">Operators</a></li><li class=""><a href="/zio-k8s/docs/internals/internals_index" target="_self">Internals</a></li><li class=""><a href="/zio-k8s/docs/about/about_index" target="_self">About</a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>Overview</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Overview</h3><ul class=""><li class="navListItem"><a class="navItem" href="/zio-k8s/docs/overview/overview_index">Contents</a></li><li class="navListItem"><a class="navItem" href="/zio-k8s/docs/overview/overview_gettingstarted">Getting started</a></li><li class="navListItem"><a class="navItem" href="/zio-k8s/docs/overview/overview_resources">Working with resources</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/zio-k8s/docs/overview/overview_generic">Generic code</a></li><li class="navListItem"><a class="navItem" href="/zio-k8s/docs/overview/overview_monocle">Monocle support</a></li><li class="navListItem"><a class="navItem" href="/zio-k8s/docs/overview/overview_quicklens">QuickLens support</a></li><li class="navListItem"><a class="navItem" href="/zio-k8s/docs/overview/overview_testing">Test clients</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">Generic code</h1></header><article><div><span><p>While having a specific ZIO module and strictly typed interface for each available <em>Kubernetes resource</em>, sometimes we want to write more generic functions:</p>
+<ul>
+<li>that work on any given resource (maybe regardless of being namespaced or cluster level)</li>
+<li>that work on a given capability for example on any resource having a <em>scale subresource</em></li>
+</ul>
+<p>This section shows the available tools for implementing such functions.</p>
+<h2><a class="anchor" aria-hidden="true" id="generic-layers"></a><a href="#generic-layers" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Generic layers</h2>
+<p>Every resource client module defines an <em>alternative</em> type alias called <code>Generic</code>.</p>
+<p>For example the default <code>Pods</code> type is defined as the following:</p>
+<pre><code class="hljs css language-scala"><span class="hljs-class"><span class="hljs-keyword">type</span> <span class="hljs-title">Pods</span> </span>= <span class="hljs-type">Has</span>[<span class="hljs-type">Pods</span>.<span class="hljs-type">Service</span>]
+</code></pre>
+<p>and it's generic version, <code>Pods.Generic</code> defined in the companion object of <code>Pods</code> as:</p>
+<pre><code class="hljs css language-scala"><span class="hljs-class"><span class="hljs-keyword">type</span> <span class="hljs-title">Generic</span> </span>= 
+    <span class="hljs-type">Has</span>[<span class="hljs-type">NamespacedResource</span>[<span class="hljs-type">Pod</span>]]
+        <span class="hljs-keyword">with</span> <span class="hljs-type">Has</span>[<span class="hljs-type">NamespacedResourceStatus</span>[<span class="hljs-type">PodStatus</span>, <span class="hljs-type">Pod</span>]]
+        <span class="hljs-keyword">with</span> <span class="hljs-type">Has</span>[<span class="hljs-type">NamespacedLogSubresource</span>[<span class="hljs-type">Pod</span>]] 
+        <span class="hljs-keyword">with</span> <span class="hljs-type">Has</span>[<span class="hljs-type">NamespacedEvictionSubresource</span>[<span class="hljs-type">Pod</span>]]
+        <span class="hljs-keyword">with</span> <span class="hljs-type">Has</span>[<span class="hljs-type">NamespacedBindingSubresource</span>[<span class="hljs-type">Pod</span>]]
+</code></pre>
+<p>The <code>pods</code> layer can be converted to its <code>Generic</code> representation with <code>.asGeneric</code>:</p>
+<pre><code class="hljs css language-scala"><span class="hljs-keyword">import</span> com.coralogix.zio.k8s.client.v1.pods.<span class="hljs-type">Pods</span>
+<span class="hljs-keyword">import</span> com.coralogix.zio.k8s.client.<span class="hljs-type">K8sFailure</span>
+
+<span class="hljs-keyword">val</span> pods: <span class="hljs-type">ZLayer</span>[<span class="hljs-type">Blocking</span>, <span class="hljs-type">Throwable</span>, <span class="hljs-type">Pods</span>] = (cluster ++ client) &gt;&gt;&gt; <span class="hljs-type">Pods</span>.live
+<span class="hljs-keyword">val</span> generic: <span class="hljs-type">ZLayer</span>[<span class="hljs-type">Blocking</span>, <span class="hljs-type">Throwable</span>, <span class="hljs-type">Pods</span>.<span class="hljs-type">Generic</span>] = pods.map(_.get.asGeneric)
+</code></pre>
+<p>This <code>generic</code> layer can be provided to generic functions that work with any kind of resource:</p>
+<pre><code class="hljs css language-scala"><span class="hljs-keyword">import</span> com.coralogix.zio.k8s.client._
+<span class="hljs-keyword">import</span> com.coralogix.zio.k8s.client.model.<span class="hljs-type">K8sNamespace</span>
+<span class="hljs-keyword">import</span> com.coralogix.zio.k8s.client.impl.<span class="hljs-type">ResourceClient</span>
+<span class="hljs-keyword">import</span> zio._
+<span class="hljs-keyword">import</span> zio.console.<span class="hljs-type">Console</span>
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">getAndPrint</span></span>[<span class="hljs-type">T</span> : <span class="hljs-type">Tag</span>](name: <span class="hljs-type">String</span>, namespace: <span class="hljs-type">K8sNamespace</span>): <span class="hljs-type">ZIO</span>[<span class="hljs-type">Console</span> <span class="hljs-keyword">with</span> <span class="hljs-type">Has</span>[<span class="hljs-type">NamespacedResource</span>[<span class="hljs-type">T</span>]], <span class="hljs-type">K8sFailure</span>, <span class="hljs-type">Unit</span>] =
+    <span class="hljs-keyword">for</span> {
+        obj &lt;- <span class="hljs-type">ResourceClient</span>.namespaced.get(name, namespace)
+        _ &lt;- console.putStrLn(obj.toString)
+    } <span class="hljs-keyword">yield</span> ()
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="k8sobject"></a><a href="#k8sobject" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>K8sObject</h2>
+<p>Not knowing anything about the resource type in these generic functions is very limiting.
+There are a couple of <em>type classes</em> available implemented by the <em>Kubernetes model classes</em> that can be used in these scenarios.</p>
+<h3><a class="anchor" aria-hidden="true" id="k8sobject-1"></a><a href="#k8sobject-1" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>K8sObject</h3>
+<p>The <code>K8sObject</code> type class provides access to the object's metadata, that always have the type <code>ObjectMeta</code>, and some other
+helper functions to get parts of this metadata and to manipulate <em>ownership</em>.</p>
+<p>For example the above example can be extended to print the object's UID instead:</p>
+<pre><code class="hljs css language-scala"><span class="hljs-keyword">import</span> com.coralogix.zio.k8s.client.model.<span class="hljs-type">K8sObject</span>
+<span class="hljs-keyword">import</span> com.coralogix.zio.k8s.client.model.<span class="hljs-type">K8sObject</span>._
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">getAndPrintUid</span></span>[<span class="hljs-type">T</span> : <span class="hljs-type">Tag</span> : <span class="hljs-type">K8sObject</span>](name: <span class="hljs-type">String</span>, namespace: <span class="hljs-type">K8sNamespace</span>): <span class="hljs-type">ZIO</span>[<span class="hljs-type">Console</span> <span class="hljs-keyword">with</span> <span class="hljs-type">Has</span>[<span class="hljs-type">NamespacedResource</span>[<span class="hljs-type">T</span>]], <span class="hljs-type">K8sFailure</span>, <span class="hljs-type">Unit</span>] =
+    <span class="hljs-keyword">for</span> {
+        obj &lt;- <span class="hljs-type">ResourceClient</span>.namespaced.get(name, namespace)
+        uid &lt;- obj.getUid
+        _ &lt;- console.putStrLn(uid)
+    } <span class="hljs-keyword">yield</span> ()
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="k8sobjectstatus"></a><a href="#k8sobjectstatus" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>K8sObjectStatus</h3>
+<p>Similarily to <code>K8sObject</code>, the <code>K8sObjectStatus</code> type class provides access to the resouce's <em>status subresource</em>. It is parametrized by both the resouce type and the status type:</p>
+<pre><code class="hljs css language-scala"><span class="hljs-class"><span class="hljs-keyword">trait</span> <span class="hljs-title">K8sObjectStatus</span>[<span class="hljs-type">ResourceT</span>, <span class="hljs-type">StatusT</span>]</span>
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="resource-metadata"></a><a href="#resource-metadata" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Resource metadata</h3>
+<p>Finally each resource model class has an implicit <code>ResourceMetadata</code> value as well. This can be used to get information about
+the underlying resource's <em>group/version/kind</em>.</p>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/zio-k8s/docs/overview/overview_resources"><span class="arrow-prev">← </span><span>Working with resources</span></a><a class="docs-next button" href="/zio-k8s/docs/overview/overview_monocle"><span>Monocle support</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#generic-layers">Generic layers</a></li><li><a href="#k8sobject">K8sObject</a><ul class="toc-headings"><li><a href="#k8sobject-1">K8sObject</a></li><li><a href="#k8sobjectstatus">K8sObjectStatus</a></li><li><a href="#resource-metadata">Resource metadata</a></li></ul></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/zio-k8s/" class="nav-home"><img src="/zio-k8s/img/sidebar_brand2x.png" alt="ZIO K8s"/></a><div><h5>GitHub</h5><a class="github-button" href="https://github.com/coralogix/zio-k8s" data-icon="octicon-star" data-count-href="/coralogix/zio-k8s/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div><div><h5>Chat with us on Discord</h5><a href="https://discord.gg/2ccFBr4"><img src="/zio-k8s//img/discord.png" width="120" alt="discord"/></a></div><div><h5>Additional resources</h5><a href="/zio-k8s/api/index.html">Scaladoc of zio-k8s</a></div></section><section class="copyright">Copyright © 2021 ZIO Maintainers</section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
+                document.addEventListener('keyup', function(e) {
+                  if (e.target !== document.body) {
+                    return;
+                  }
+                  // keyCode for '/' (slash)
+                  if (e.keyCode === 191) {
+                    const search = document.getElementById('search_input_react');
+                    search && search.focus();
+                  }
+                });
+              </script><script>
+              var search = docsearch({
+                
+                apiKey: 'b7978c4d7d28a5a9181d2eea975b0e99',
+                indexName: 'zio-k8s',
+                inputSelector: '#search_input_react',
+                algoliaOptions: {}
+              });
+            </script></body></html>

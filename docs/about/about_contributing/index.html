@@ -1,0 +1,206 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>zio-k8s Contributor Guidelines · ZIO K8s</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="Thank you for your interest in contributing to zio-k8s!"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="zio-k8s Contributor Guidelines · ZIO K8s"/><meta property="og:type" content="website"/><meta property="og:url" content="https://coralogix.github.io/zio-k8s/"/><meta property="og:description" content="Thank you for your interest in contributing to zio-k8s!"/><meta property="og:image" content="https://coralogix.github.io/zio-k8s/img/undraw_online.svg"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://coralogix.github.io/zio-k8s/img/undraw_tweetstorm.svg"/><link rel="shortcut icon" href="/zio-k8s/img/favicon.png"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script src="https://unpkg.com/vanilla-back-to-top@7.1.14/dist/vanilla-back-to-top.min.js"></script><script>
+        document.addEventListener('DOMContentLoaded', function() {
+          addBackToTop(
+            {"zIndex":100,"cornerOffset":100}
+          )
+        });
+        </script><script src="/zio-k8s/js/scrollSpy.js"></script><link rel="stylesheet" href="/zio-k8s/css/main.css"/><script src="/zio-k8s/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/zio-k8s/"><img class="logo" src="/zio-k8s/img/navbar_brand2x.png" alt="ZIO K8s"/><h2 class="headerTitleWithLogo">ZIO K8s</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/zio-k8s/docs/overview/overview_index" target="_self">Overview</a></li><li class=""><a href="/zio-k8s/docs/crd/crd_index" target="_self">CRDs</a></li><li class=""><a href="/zio-k8s/docs/operator/operator_index" target="_self">Operators</a></li><li class=""><a href="/zio-k8s/docs/internals/internals_index" target="_self">Internals</a></li><li class="siteNavGroupActive"><a href="/zio-k8s/docs/about/about_index" target="_self">About</a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>About</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">About</h3><ul class=""><li class="navListItem"><a class="navItem" href="/zio-k8s/docs/about/about_index">About ZIO K8s</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/zio-k8s/docs/about/about_contributing">zio-k8s Contributor Guidelines</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">zio-k8s Contributor Guidelines</h1></header><article><div><span><p>Thank you for your interest in contributing to zio-k8s!</p>
+<h1><a class="anchor" aria-hidden="true" id="contributing"></a><a href="#contributing" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Contributing</h1>
+<h2><a class="anchor" aria-hidden="true" id="getting-started"></a><a href="#getting-started" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Getting Started</h2>
+<p>To begin contributing, please follow these steps:</p>
+<h3><a class="anchor" aria-hidden="true" id="get-the-project"></a><a href="#get-the-project" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Get The Project</h3>
+<p>If you don't already have one, sign up for a free <a href="https://github.com/join?source=header-home">GitHub Account</a>.</p>
+<p>After you <a href="https://github.com/login">log into</a> GitHub using your account, go to the <a href="https://github.com/coralogix/zio-k8s">zio-k8s Project Page</a>, and click on <a href="https://github.com/coralogix/zio-k8s/fork">Fork</a> to fork the zio-k8s repository into your own account.</p>
+<p>You will make <em>all</em> contributions from your own account. No one contributes <em>directly</em> to the main repository. Contributors only ever merge code from other people's forks into the main repository.</p>
+<p>Once you have forked the repository, you can now clone your forked repository to your own machine, so you have a complete copy of the project and can begin safely making your modifications (even without an Internet connection).</p>
+<p>To clone your forked repository, first make sure you have installed <a href="https://git-scm.com/downloads">Git</a>, the version control system used by GitHub. Then open a Terminal and type the following commands:</p>
+<pre><code class="hljs css language-bash">git <span class="hljs-built_in">clone</span> git@github.com:your-user-name/zio-k8s.git .
+</code></pre>
+<p>If these steps were successful, then congratulations, you now have a complete copy of the ZIO K8s project!</p>
+<p>The next step is to build the project on your machine, to ensure you know how to compile the project and run tests.</p>
+<h3><a class="anchor" aria-hidden="true" id="build-the-project"></a><a href="#build-the-project" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Build the Project</h3>
+<p>The official way to build the project is with sbt. An sbt build file is included in the project, so if you choose to build the project this way, you won't have to do any additional configuration or setup (others choose to build the project using IntelliJ IDEA, Gradle, Maven, Mill, or Fury).</p>
+<p>We use a custom sbt script, which is included in the repository, in order to ensure settings are uniform across all development machines, and the continuous integration service (GitHub Actions).</p>
+<p>The sbt script is in the root of the repository. To launch this script from your Terminal window, simply type:</p>
+<pre><code class="hljs css language-bash">./sbt
+</code></pre>
+<p>Sbt will launch, read the project build file, and download dependencies as required.</p>
+<p>You can now compile the production source code with the following sbt command:</p>
+<pre><code class="hljs css language-bash">compile
+</code></pre>
+<p>You can compile the test source code with the following sbt command:</p>
+<pre><code class="hljs css language-bash"><span class="hljs-built_in">test</span>:compile
+</code></pre>
+<p><a href="https://www.scala-sbt.org">Learn more</a> about sbt to understand how you can list projects, switch projects, and otherwise manage an sbt project.</p>
+<h3><a class="anchor" aria-hidden="true" id="find-an-issue"></a><a href="#find-an-issue" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Find an Issue</h3>
+<p>You may have your own idea about what contributions to make to zio-k8s, which is great! If you want to make sure the ZIO contributors are open to your idea, you can <a href="https://github.com/zio/zio-k8s/issues/new">open an issue</a> first on the ZIO project site.</p>
+<p>Otherwise, if you have no ideas about what to contribute, you can find a large supply of feature requests and bugs on the project's <a href="https://github.com/zio/zio-k8s/issues">issue tracker</a>.</p>
+<p>Issues are tagged with various labels, such as <code>good first issue</code>, which help you find issues that are a fit for you.</p>
+<p>If some issue is confusing or you think you might need help, then just post a comment on the issue asking for help. Typically, the author of the issue will provide as much help as you need, and if the issue is critical, leading zio-k8s contributors will probably step in to mentor you and give you a hand, making sure you understand the issue thoroughly.</p>
+<p>Once you've decided on an issue and understand what is necessary to complete the issue, then it's a good idea to post a comment on the issue saying that you intend to work on it. Otherwise, someone else might work on it too!</p>
+<h3><a class="anchor" aria-hidden="true" id="fix-an-issue"></a><a href="#fix-an-issue" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Fix an Issue</h3>
+<p>Once you have an issue, the next step is to fix the bug or implement the feature. Since zio-k8s is an open source project, there are no deadlines. Take your time!</p>
+<p>The only thing you have to worry about is if you take too long, especially for a critical issue, eventually someone else will come along and work on the issue.</p>
+<p>If you shoot for 2-3 weeks for most issues, this should give you plenty of time without having to worry about having your issue stolen.</p>
+<p>If you get stuck, please consider <a href="https://github.com/coralogix/zio-k8s/compare">opening a pull request</a> for your incomplete work, and asking for help (just prefix the pull request by <em>WIP</em>). In addition, you can comment on the original issue, pointing people to your own fork. Both of these are great ways to get outside help from people more familiar with the project.</p>
+<h3><a class="anchor" aria-hidden="true" id="prepare-your-code"></a><a href="#prepare-your-code" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Prepare Your Code</h3>
+<p>If you've gotten this far, congratulations! You've implemented a new feature or fixed a bug. Now you're in the last mile, and the next step is submitting your code for review, so that other contributors can spot issues and help improve the quality of the code.</p>
+<p>To do this, you need to commit your changes locally. A good way to find out what you did locally is to use the <code>git status</code> command:</p>
+<pre><code class="hljs css language-bash">git status
+</code></pre>
+<p>If you see new files, you will have to tell <code>git</code> to add them to the repository using <code>git add</code>:</p>
+<pre><code class="hljs css language-bash">git add zio-k8s-client/src/main/com/coralogix/zio/k8s/NewFile.scala
+</code></pre>
+<p>Then you can commit all your changes at once with the following command:</p>
+<pre><code class="hljs css language-bash">git commit -am <span class="hljs-string">"Fixed #94211 - Optimized race for lists of effects"</span>
+</code></pre>
+<p>At this point, you have saved your work locally, to your machine, but you still need to push your changes to your fork of the repository. To do that, use the <code>git push</code> command:</p>
+<pre><code class="hljs css language-bash">git push
+</code></pre>
+<p>Now while you were working on this great improvement, it's quite likely that other zio-k8s contributors were making their own improvements. You need to pull all those improvements into your own code base to resolve any conflicts and make sure the changes all work well together.</p>
+<p>To do that, use the <code>git pull</code> command:</p>
+<pre><code class="hljs css language-bash">git pull git@github.com:coralogix/zio-k8s.git master
+</code></pre>
+<p>You may get a warning from Git that some files conflicted. Don't worry! That just means you and another contributor edited the same parts of the same files.</p>
+<p>Using a text editor, open up the conflicted files, and try to merge them together, preserving your changes and the other changes (both are important!).</p>
+<p>Once you are done, you can commit again:</p>
+<pre><code class="hljs css language-bash">git commit -am <span class="hljs-string">"merged upstream changes"</span>
+</code></pre>
+<p>At this point, you should re-run all tests to make sure everything is passing:</p>
+<pre><code class="hljs css language-bash"><span class="hljs-comment"># If you are already in a SBT session you can type only 'test'</span>
+
+sbt <span class="hljs-built_in">test</span>
+</code></pre>
+<p>Also test that the CRD support is not broken:</p>
+<pre><code class="hljs css language-bash">sbt zio-k8s-crd/scripted
+</code></pre>
+<p>If all the tests are passing, then you can format your code:</p>
+<pre><code class="hljs css language-bash"><span class="hljs-comment"># If you are already in a SBT session you can type only 'scalafmtAll'</span>
+
+sbt scalafmtAll
+</code></pre>
+<p>If you also changed the <code>zio-k8s-codegen</code> subproject, format that separately:</p>
+<pre><code class="hljs css language-bash"><span class="hljs-built_in">cd</span> zio-k8s-codegen
+sbt scalafmtAll
+</code></pre>
+<p>If your changes altered an API, then you may need to rebuild the microsite to make sure none of the (compiled) documentation breaks:</p>
+<pre><code class="hljs css language-bash"><span class="hljs-comment"># If you are already in a SBT session you can type only 'docs/docusaurusCreateSite'</span>
+
+sbt docs/docusaurusCreateSite
+</code></pre>
+<p>Finally, if you are up-to-date with master, all your tests are passing, you have properly formatted your code, and the microsite builds properly, then it's time to submit your work for review!</p>
+<h3><a class="anchor" aria-hidden="true" id="create-a-pull-request"></a><a href="#create-a-pull-request" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Create a Pull Request</h3>
+<p>To create a pull request, first push all your changes to your fork of the project repository:</p>
+<pre><code class="hljs css language-bash">git push
+</code></pre>
+<p>Next, <a href="https://github.com/coralogix/zio-k8s/compare">open a new pull request</a> on GitHub, and select <em>Compare Across Forks</em>. On the right hand side, choose your own fork of the zio-k8s repository, in which you've been making your contribution.</p>
+<p>Provide a description for the pull request, which details the issue it is fixing, and has other information that may be helpful to developers reviewing the pull request.</p>
+<p>Finally, click <em>Create Pull Request</em>!</p>
+<h3><a class="anchor" aria-hidden="true" id="get-your-pull-request-merged"></a><a href="#get-your-pull-request-merged" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Get Your Pull Request Merged</h3>
+<p>Once you have a pull request open, it's still your job to get it merged! To get it merged, you need at least one core zio-k8s contributor to approve the code.</p>
+<p>If you know someone who would be qualified to review your code, you can request that person, either in the comments of the pull request, or on the right-hand side, if you have appropriate permissions.</p>
+<p>Code reviews can sometimes take a few days, because open source projects are largely done outside of work, in people's leisure time. Be patient, but don't wait forever. If you haven't gotten a review within a few days, then consider gently reminding people that you need a review.</p>
+<p>Once you receive a review, you will probably have to go back and make minor changes that improve your contribution and make it follow existing conventions in the code base. This is normal, even for experienced contributors, and the rigorous reviews help ensure zio-k8s' code base stays high quality.</p>
+<p>After you make changes, you may need to remind reviewers to check out the code again. If they give a final approval, it means your code is ready for merge! Usually this will happen at the same time, though for controversial changes, a contributor may wait for someone more senior to merge.</p>
+<p>If you don't get a merge in a day after your review is successful, then please gently remind folks that your code is ready to be merged.</p>
+<p>Sit back, relax, and enjoy being a zio-k8s contributor!</p>
+<h2><a class="anchor" aria-hidden="true" id="tips-for-working-on-zio-k8s"></a><a href="#tips-for-working-on-zio-k8s" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Tips for working on zio-k8s</h2>
+<h3><a class="anchor" aria-hidden="true" id="minikube"></a><a href="#minikube" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>minikube</h3>
+<p>The library can be tested locally using <a href="https://minikube.sigs.k8s.io/docs/">minikube</a>. Once it has been installed, start it:</p>
+<pre><code class="hljs css language-bash">minikube start
+</code></pre>
+<p>Once it is running, figure out the <em>host</em> and <em>token</em> to be able to connect to it with <code>zio-k8s</code>:</p>
+<pre><code class="hljs css language-bash"><span class="hljs-built_in">export</span> K8S_HOST=$(kubectl config view --minify -o jsonpath=<span class="hljs-string">'{.clusters[0].cluster.server}'</span>)
+<span class="hljs-built_in">export</span> K8S_TOKEN=$(kubectl get secret $(kubectl get serviceaccount default -o jsonpath=<span class="hljs-string">'{.secrets[0].name}'</span>) -o jsonpath=<span class="hljs-string">'{.data.token}'</span> | base64 -D )
+</code></pre>
+<p>You can pass these manually or with zio-config to the zio-k8s layer as described <a href="/zio-k8s/docs/overview/overview_gettingstarted">on the getting started page</a>. Additionally you have to set <code>insecure</code> to true.</p>
+<p>If you are using the <em>Typesafe Config</em> based configuration, here is a good override:</p>
+<pre><code class="hljs css language-hocon">k8s-client {
+  <span class="hljs-attr">insecure</span> = <span class="hljs-literal">true</span>
+  <span class="hljs-attr">debug</span> = <span class="hljs-literal">true</span>
+}
+
+cluster {
+  <span class="hljs-attr">host</span> = ${K8S_HOST}
+  <span class="hljs-attr">token</span> = ${K8S_TOKEN}
+}
+</code></pre>
+<p>The <code>debug</code> option enables additional logging. Make sure the zio-logger is configured to output debug logs.</p>
+<h3><a class="anchor" aria-hidden="true" id="kubectl"></a><a href="#kubectl" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>kubectl</h3>
+<p>If you can express the new feature you are working on with a <code>kubectl</code> command line operation, you can check the HTTP communication it performs by passing the <code>-v=9</code> (or <code>-v=6</code> if you are not interested in the content just the URLs) to <code>kubectl</code>. This is a very useful technique to verify that your code is doing the thing that Kubernetes expects.</p>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/zio-k8s/docs/about/about_index"><span class="arrow-prev">← </span><span>About ZIO K8s</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#getting-started">Getting Started</a><ul class="toc-headings"><li><a href="#get-the-project">Get The Project</a></li><li><a href="#build-the-project">Build the Project</a></li><li><a href="#find-an-issue">Find an Issue</a></li><li><a href="#fix-an-issue">Fix an Issue</a></li><li><a href="#prepare-your-code">Prepare Your Code</a></li><li><a href="#create-a-pull-request">Create a Pull Request</a></li><li><a href="#get-your-pull-request-merged">Get Your Pull Request Merged</a></li></ul></li><li><a href="#tips-for-working-on-zio-k8s">Tips for working on zio-k8s</a><ul class="toc-headings"><li><a href="#minikube">minikube</a></li><li><a href="#kubectl">kubectl</a></li></ul></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/zio-k8s/" class="nav-home"><img src="/zio-k8s/img/sidebar_brand2x.png" alt="ZIO K8s"/></a><div><h5>GitHub</h5><a class="github-button" href="https://github.com/coralogix/zio-k8s" data-icon="octicon-star" data-count-href="/coralogix/zio-k8s/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div><div><h5>Chat with us on Discord</h5><a href="https://discord.gg/2ccFBr4"><img src="/zio-k8s//img/discord.png" width="120" alt="discord"/></a></div><div><h5>Additional resources</h5><a href="/zio-k8s/api/index.html">Scaladoc of zio-k8s</a></div></section><section class="copyright">Copyright © 2021 ZIO Maintainers</section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
+                document.addEventListener('keyup', function(e) {
+                  if (e.target !== document.body) {
+                    return;
+                  }
+                  // keyCode for '/' (slash)
+                  if (e.keyCode === 191) {
+                    const search = document.getElementById('search_input_react');
+                    search && search.focus();
+                  }
+                });
+              </script><script>
+              var search = docsearch({
+                
+                apiKey: 'b7978c4d7d28a5a9181d2eea975b0e99',
+                indexName: 'zio-k8s',
+                inputSelector: '#search_input_react',
+                algoliaOptions: {}
+              });
+            </script></body></html>

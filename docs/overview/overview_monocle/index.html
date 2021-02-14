@@ -1,0 +1,112 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Monocle support · ZIO K8s</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="[Moncole](https://www.optics.dev/Monocle/) is an _optics library_ that helps writing code that modified deeply nested data structures. This fits well some of the _Kubernetes resources_ that can consists of many layers of data structures, including"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Monocle support · ZIO K8s"/><meta property="og:type" content="website"/><meta property="og:url" content="https://coralogix.github.io/zio-k8s/"/><meta property="og:description" content="[Moncole](https://www.optics.dev/Monocle/) is an _optics library_ that helps writing code that modified deeply nested data structures. This fits well some of the _Kubernetes resources_ that can consists of many layers of data structures, including"/><meta property="og:image" content="https://coralogix.github.io/zio-k8s/img/undraw_online.svg"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://coralogix.github.io/zio-k8s/img/undraw_tweetstorm.svg"/><link rel="shortcut icon" href="/zio-k8s/img/favicon.png"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script src="https://unpkg.com/vanilla-back-to-top@7.1.14/dist/vanilla-back-to-top.min.js"></script><script>
+        document.addEventListener('DOMContentLoaded', function() {
+          addBackToTop(
+            {"zIndex":100,"cornerOffset":100}
+          )
+        });
+        </script><script src="/zio-k8s/js/scrollSpy.js"></script><link rel="stylesheet" href="/zio-k8s/css/main.css"/><script src="/zio-k8s/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/zio-k8s/"><img class="logo" src="/zio-k8s/img/navbar_brand2x.png" alt="ZIO K8s"/><h2 class="headerTitleWithLogo">ZIO K8s</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class="siteNavGroupActive"><a href="/zio-k8s/docs/overview/overview_index" target="_self">Overview</a></li><li class=""><a href="/zio-k8s/docs/crd/crd_index" target="_self">CRDs</a></li><li class=""><a href="/zio-k8s/docs/operator/operator_index" target="_self">Operators</a></li><li class=""><a href="/zio-k8s/docs/internals/internals_index" target="_self">Internals</a></li><li class=""><a href="/zio-k8s/docs/about/about_index" target="_self">About</a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>Overview</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Overview</h3><ul class=""><li class="navListItem"><a class="navItem" href="/zio-k8s/docs/overview/overview_index">Contents</a></li><li class="navListItem"><a class="navItem" href="/zio-k8s/docs/overview/overview_gettingstarted">Getting started</a></li><li class="navListItem"><a class="navItem" href="/zio-k8s/docs/overview/overview_resources">Working with resources</a></li><li class="navListItem"><a class="navItem" href="/zio-k8s/docs/overview/overview_generic">Generic code</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/zio-k8s/docs/overview/overview_monocle">Monocle support</a></li><li class="navListItem"><a class="navItem" href="/zio-k8s/docs/overview/overview_quicklens">QuickLens support</a></li><li class="navListItem"><a class="navItem" href="/zio-k8s/docs/overview/overview_testing">Test clients</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">Monocle support</h1></header><article><div><span><p><a href="https://www.optics.dev/Monocle/">Moncole</a> is an <em>optics library</em> that helps writing code that modified deeply nested data structures. This fits well some of the <em>Kubernetes resources</em> that can consists of many layers of data structures, including
+optional fields, lists and maps in the middle.</p>
+<p>To enable the <em>Monocle support</em> of <code>zio-k8s</code> an additional dependency has to be imported:</p>
+<pre><code class="hljs css language-scala">resolvers += <span class="hljs-type">Resolver</span>.sonatypeRepo(<span class="hljs-string">"snapshots"</span>)
+libraryDependencies += <span class="hljs-string">"com.coralogix"</span> %% <span class="hljs-string">"zio-k8s-client-monocle"</span> % <span class="hljs-string">"0.0.0+1-cc8f6b5c-SNAPSHOT"</span>
+</code></pre>
+<p>This library defines a hierarchy of <strong>optics</strong> defined for the <em>Kubernetes resource types</em>.
+The following example demonstrates how to create a lens that can set the namespace inside the metadata section of a <em>pod</em>:</p>
+<pre><code class="hljs css language-scala"><span class="hljs-keyword">import</span> com.coralogix.zio.k8s.model.core.v1.{ <span class="hljs-type">Container</span>, <span class="hljs-type">Pod</span>, <span class="hljs-type">PodSpec</span> }
+<span class="hljs-keyword">import</span> com.coralogix.zio.k8s.model.pkg.apis.meta.v1.<span class="hljs-type">ObjectMeta</span>
+<span class="hljs-keyword">import</span> com.coralogix.zio.k8s.monocle.core.v1.<span class="hljs-type">PodO</span>._
+<span class="hljs-keyword">import</span> com.coralogix.zio.k8s.monocle.pkg.apis.meta.v1.<span class="hljs-type">ObjectMetaO</span>._
+
+<span class="hljs-keyword">val</span> pod = <span class="hljs-type">Pod</span>(
+    metadata = <span class="hljs-type">ObjectMeta</span>(
+        name = <span class="hljs-string">"test-pod"</span>
+    ),
+    spec = <span class="hljs-type">PodSpec</span>(
+        containers = <span class="hljs-type">Vector</span>(
+            <span class="hljs-type">Container</span>(
+                name = <span class="hljs-string">"test-container-1"</span>
+            )
+        )
+    )
+  )
+
+<span class="hljs-keyword">val</span> f = (metadataO composeOptional namespaceO).set(<span class="hljs-string">"namespace-1"</span>)
+
+f(pod)
+</code></pre>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/zio-k8s/docs/overview/overview_generic"><span class="arrow-prev">← </span><span>Generic code</span></a><a class="docs-next button" href="/zio-k8s/docs/overview/overview_quicklens"><span class="function-name-prevnext">QuickLens support</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/zio-k8s/" class="nav-home"><img src="/zio-k8s/img/sidebar_brand2x.png" alt="ZIO K8s"/></a><div><h5>GitHub</h5><a class="github-button" href="https://github.com/coralogix/zio-k8s" data-icon="octicon-star" data-count-href="/coralogix/zio-k8s/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div><div><h5>Chat with us on Discord</h5><a href="https://discord.gg/2ccFBr4"><img src="/zio-k8s//img/discord.png" width="120" alt="discord"/></a></div><div><h5>Additional resources</h5><a href="/zio-k8s/api/index.html">Scaladoc of zio-k8s</a></div></section><section class="copyright">Copyright © 2021 ZIO Maintainers</section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
+                document.addEventListener('keyup', function(e) {
+                  if (e.target !== document.body) {
+                    return;
+                  }
+                  // keyCode for '/' (slash)
+                  if (e.keyCode === 191) {
+                    const search = document.getElementById('search_input_react');
+                    search && search.focus();
+                  }
+                });
+              </script><script>
+              var search = docsearch({
+                
+                apiKey: 'b7978c4d7d28a5a9181d2eea975b0e99',
+                indexName: 'zio-k8s',
+                inputSelector: '#search_input_react',
+                algoliaOptions: {}
+              });
+            </script></body></html>
