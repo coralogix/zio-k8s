@@ -39,3 +39,8 @@ a {
 .input-group-append {
     margin-left: -1px;
 }
+
+.coralogixLogo {
+    text-align: center;
+    padding-top: 20px;
+}
