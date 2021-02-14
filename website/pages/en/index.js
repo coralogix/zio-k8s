@@ -116,13 +116,13 @@ class Index extends React.Component {
 
         return (
             <div>
-                <div className="coralogixLogo">
-                    <img src={`${baseUrl}img/coralogix-logo.png`} alt="Coralogix Logo"/>
-                </div>
                 <HomeSplash siteConfig={siteConfig} language={language}/>
                 <div className="mainContainer">
                     <Features/>
                     <FeatureCallout/>
+                    <div className="coralogixLogo">
+                        <img src={`${baseUrl}img/coralogix-logo.png`} alt="Coralogix Logo"/>
+                    </div>
                 </div>
             </div>
         );
