@@ -5,10 +5,10 @@ import _root_.io.circe.parser._
 import com.coralogix.zio.k8s.client.model._
 import com.coralogix.zio.k8s.client._
 import com.coralogix.zio.k8s.model.pkg.apis.meta.v1.{ DeleteOptions, Status, WatchEvent }
+import sttp.capabilities.WebSockets
 import sttp.capabilities.zio.ZioStreams
 import sttp.client3._
 import sttp.client3.circe._
-import sttp.client3.httpclient.zio._
 import zio._
 import zio.clock.Clock
 import zio.duration._
@@ -19,7 +19,7 @@ final class ResourceClient[
 ](
   override protected val resourceType: K8sResourceType,
   override protected val cluster: K8sCluster,
-  override protected val backend: SttpClient.Service
+  override protected val backend: SttpBackend[Task, ZioStreams with WebSockets]
 ) extends Resource[T] with ResourceClientBase {
 
   // See https://kubernetes.io/docs/reference/using-api/api-concepts/

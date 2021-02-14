@@ -1,10 +1,21 @@
-package com.coralogix.zio.k8s.client
+package com.coralogix.zio.k8s.client.impl
 
 import com.coralogix.zio.k8s.client.model._
+import com.coralogix.zio.k8s.client.{
+  DecodedFailure,
+  DeserializationFailure,
+  Gone,
+  HttpFailure,
+  K8sFailure,
+  NotFound,
+  RequestFailure,
+  Unauthorized
+}
 import com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Status
 import io.circe.Error
 import io.circe.parser.decode
-import sttp.client3.httpclient.zio.SttpClient
+import sttp.capabilities.WebSockets
+import sttp.capabilities.zio.ZioStreams
 import sttp.client3.{
   basicRequest,
   DeserializationException,
@@ -12,7 +23,8 @@ import sttp.client3.{
   HttpError,
   RequestT,
   Response,
-  ResponseException
+  ResponseException,
+  SttpBackend
 }
 import sttp.model.{ StatusCode, Uri }
 import zio.{ IO, Task }
@@ -20,7 +32,7 @@ import zio.{ IO, Task }
 trait ResourceClientBase {
   protected val resourceType: K8sResourceType
   protected val cluster: K8sCluster
-  protected val backend: SttpClient.Service
+  protected val backend: SttpBackend[Task, ZioStreams with WebSockets]
 
   protected val k8sRequest: RequestT[Empty, Either[String, String], Any] =
     basicRequest.auth.bearer(cluster.token)

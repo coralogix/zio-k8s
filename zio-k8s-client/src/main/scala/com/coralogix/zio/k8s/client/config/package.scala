@@ -1,23 +1,19 @@
 package com.coralogix.zio.k8s.client
 
-import sttp.client3.httpclient.zio.HttpClientZioBackend.usingClient
-import sttp.client3.httpclient.zio.SttpClient
-import sttp.client3.logging.slf4j.Slf4jLoggingBackend
-import zio.config._
-import zio.config.magnolia.DeriveConfigDescriptor.Descriptor
-import zio.config.derivation.name
+import com.coralogix.zio.k8s.client.model.K8sCluster
 import sttp.model.Uri
 import zio.blocking.Blocking
-import com.coralogix.zio.k8s.client.model.K8sCluster
-import zio.{ Has, Task, ZIO, ZLayer, ZManaged }
+import zio.config._
+import zio.config.derivation.name
+import zio.config.magnolia.DeriveConfigDescriptor.Descriptor
 import zio.nio.core.file.Path
 import zio.nio.file.Files
+import zio.{ Has, Task, ZIO, ZLayer, ZManaged }
 
 import java.io.{ FileInputStream, IOException, InputStream }
-import java.net.http.HttpClient
 import java.nio.charset.StandardCharsets
-import java.security.{ KeyStore, SecureRandom }
 import java.security.cert.{ CertificateFactory, X509Certificate }
+import java.security.{ KeyStore, SecureRandom }
 import javax.net.ssl.{ SSLContext, TrustManager, TrustManagerFactory, X509TrustManager }
 
 package object config {
@@ -46,34 +42,32 @@ package object config {
     )
 
   val k8sCluster: ZLayer[Blocking with Has[K8sClusterConfig], IOException, Has[K8sCluster]] =
-    ZLayer.fromEffect {
-      for {
-        config <- getConfig[K8sClusterConfig]
-        result <- config.token match {
-                    case Some(token) if token.nonEmpty =>
-                      // Explicit API token
-                      ZIO.succeed(
+    (for {
+      config <- getConfig[K8sClusterConfig]
+      result <- config.token match {
+                  case Some(token) if token.nonEmpty =>
+                    // Explicit API token
+                    ZIO.succeed(
+                      K8sCluster(
+                        host = config.host,
+                        token = token
+                      )
+                    )
+                  case _                             =>
+                    // No explicit token, loading from file
+                    Files
+                      .readAllBytes(config.tokenFile)
+                      .map(bytes => new String(bytes.toArray, StandardCharsets.UTF_8))
+                      .map { token =>
                         K8sCluster(
                           host = config.host,
                           token = token
                         )
-                      )
-                    case _                             =>
-                      // No explicit token, loading from file
-                      Files
-                        .readAllBytes(config.tokenFile)
-                        .map(bytes => new String(bytes.toArray, StandardCharsets.UTF_8))
-                        .map { token =>
-                          K8sCluster(
-                            host = config.host,
-                            token = token
-                          )
-                        }
-                  }
-      } yield result
-    }
+                      }
+                }
+    } yield result).toLayer
 
-  private def insecureSSLContext(): Task[SSLContext] = {
+  private[client] def insecureSSLContext(): Task[SSLContext] = {
     val trustAllCerts = Array[TrustManager](new X509TrustManager {
       override def checkClientTrusted(chain: Array[X509Certificate], authType: String): Unit = {}
       override def checkServerTrusted(chain: Array[X509Certificate], authType: String): Unit = {}
@@ -86,7 +80,7 @@ package object config {
     }
   }
 
-  private def secureSSLContext(certFile: Path): Task[SSLContext] =
+  private[client] def secureSSLContext(certFile: Path): Task[SSLContext] =
     ZManaged.fromAutoCloseable(Task.effect(new FileInputStream(certFile.toFile))).use {
       certStream =>
         for {
@@ -119,32 +113,5 @@ package object config {
       val sslContext = SSLContext.getInstance("TLSv1.2")
       sslContext.init(null, trustManagers, new SecureRandom())
       sslContext
-    }
-
-  val k8sSttpClient: ZLayer[Has[K8sClientConfig], Throwable, SttpClient] =
-    ZLayer.fromServiceManaged { config: K8sClientConfig =>
-      for {
-        sslContext <- (if (config.insecure)
-                         insecureSSLContext()
-                       else
-                         secureSSLContext(config.cert)).toManaged_
-        client     <- ZManaged
-                        .makeEffect(
-                          usingClient(
-                            HttpClient
-                              .newBuilder()
-                              .followRedirects(HttpClient.Redirect.NEVER)
-                              .sslContext(sslContext)
-                              .build()
-                          )
-                        )(_.close().ignore)
-                        .map { backend =>
-                          Slf4jLoggingBackend(
-                            backend,
-                            logRequestBody = config.debug,
-                            logResponseBody = config.debug
-                          )
-                        }
-      } yield client
     }
 }
