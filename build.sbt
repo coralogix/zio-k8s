@@ -221,7 +221,8 @@ lazy val docs = project
     scalacOptions -= "-Xfatal-warnings",
     libraryDependencies ++= Seq(
       "dev.zio"                       %% "zio-config-typesafe"    % zioConfigVersion,
-      "com.softwaremill.sttp.client3" %% "httpclient-backend-zio" % sttpVersion
+      "com.softwaremill.sttp.client3" %% "httpclient-backend-zio" % sttpVersion,
+      "dev.zio"                       %% "zio-metrics-prometheus" % "1.0.1"
     ),
     unidocProjectFilter in (ScalaUnidoc, unidoc) := inProjects(root),
     target in (ScalaUnidoc, unidoc)              := (baseDirectory in LocalRootProject).value / "website" / "static" / "api",
