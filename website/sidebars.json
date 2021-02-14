@@ -1,0 +1,40 @@
+{
+  "overview-sidebar": {
+    "Overview": [
+      "overview/overview_index",
+      "overview/overview_gettingstarted",
+      "overview/overview_resources",
+      "overview/overview_generic",
+      "overview/overview_monocle",
+      "overview/overview_quicklens",
+      "overview/overview_testing"
+    ]
+  },
+  "crd-sidebar": {
+    "CRD": [
+      "crd/crd_index",
+      "crd/crd_howto"
+    ]
+  },
+  "operator-sidebar": {
+    "Operator": [
+      "operator/operator_index",
+      "operator/operator_operator",
+      "operator/operator_registration",
+      "operator/operator_leaderelection"
+    ]
+  },
+  "internals-sidebar": {
+    "Internals": [
+      "internals/internals_index",
+      "internals/internals_codegen",
+      "internals/internals_clients"
+    ]
+  },
+  "about-sidebar": {
+    "About": [
+      "about/about_index",
+      "about/about_contributing"
+    ]
+  }
+}
