@@ -4,3 +4,8 @@ target
 .metals
 .bloop
 metals.sbt
+website/node_modules
+website/build
+website/i18n/en.json
+website/static/api
+.vscode

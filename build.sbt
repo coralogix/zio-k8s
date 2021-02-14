@@ -73,9 +73,12 @@ lazy val client = Project("zio-k8s-client", file("zio-k8s-client"))
         .collect { case (f, Some(g)) =>
           (f -> g)
         }
-    }
+    },
+    buildInfoKeys    := Seq[BuildInfoKey](name, version, scalaVersion, sbtVersion, isSnapshot),
+    buildInfoPackage := "zio.k8s",
+    buildInfoObject  := "BuildInfo"
   )
-  .enablePlugins(K8sResourceCodegenPlugin)
+  .enablePlugins(K8sResourceCodegenPlugin, BuildInfoPlugin)
 
 lazy val clientQuicklens = Project("zio-k8s-client-quicklens", file("zio-k8s-client-quicklens"))
   .settings(commonSettings)
@@ -208,3 +211,23 @@ lazy val leaderExample = Project("leader-example", file("examples/leader-example
 val opticsExample = Project("optics-example", file("examples/optics-example"))
   .settings(commonSettings)
   .dependsOn(client, clientQuicklens, clientMonocle)
+
+lazy val docs = project
+  .in(file("zio-k8s-docs"))
+  .settings(
+    skip.in(publish)                             := true,
+    moduleName                                   := "zio-k8s-docs",
+    scalacOptions -= "-Yno-imports",
+    scalacOptions -= "-Xfatal-warnings",
+    libraryDependencies ++= Seq(
+      "dev.zio"                       %% "zio-config-typesafe"    % zioConfigVersion,
+      "com.softwaremill.sttp.client3" %% "httpclient-backend-zio" % sttpVersion
+    ),
+    unidocProjectFilter in (ScalaUnidoc, unidoc) := inProjects(root),
+    target in (ScalaUnidoc, unidoc)              := (baseDirectory in LocalRootProject).value / "website" / "static" / "api",
+    cleanFiles += (target in (ScalaUnidoc, unidoc)).value,
+    docusaurusCreateSite                         := docusaurusCreateSite.dependsOn(unidoc in Compile).value,
+    docusaurusPublishGhpages                     := docusaurusPublishGhpages.dependsOn(unidoc in Compile).value
+  )
+  .dependsOn(client, clientQuicklens, clientMonocle, operator)
+  .enablePlugins(MdocPlugin, DocusaurusPlugin, ScalaUnidocPlugin)
