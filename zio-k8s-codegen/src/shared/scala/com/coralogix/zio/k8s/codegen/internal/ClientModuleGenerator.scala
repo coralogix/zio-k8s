@@ -112,9 +112,9 @@ trait ClientModuleGenerator {
         getTestClientConstruction(modelPackageName, statusEntity, subresources, entityT, statusT)
 
       val live =
-        q"""val live: ZLayer[SttpClient with Has[K8sCluster], Nothing, $typeAliasT] =
-                  ZLayer.fromServices[SttpClient.Service, K8sCluster, Service] {
-                    (backend: SttpClient.Service, cluster: K8sCluster) => {
+        q"""val live: ZLayer[Has[SttpBackend[Task, ZioStreams with WebSockets]] with Has[K8sCluster], Nothing, $typeAliasT] =
+                  ZLayer.fromServices[SttpBackend[Task, ZioStreams with WebSockets], K8sCluster, Service] {
+                    (backend: SttpBackend[Task, ZioStreams with WebSockets], cluster: K8sCluster) => {
                       val resourceType = implicitly[ResourceMetadata[$entityT]].resourceType
                       new Live(..$clientConstruction)
                     }
@@ -326,7 +326,9 @@ trait ClientModuleGenerator {
             ResourceMetadata,
             TypedWatchEvent
           }
-          import sttp.client3.httpclient.zio.SttpClient
+          import sttp.capabilities.WebSockets
+          import sttp.capabilities.zio.ZioStreams
+          import sttp.client3.SttpBackend
           import zio.blocking.Blocking
           import zio.clock.Clock
           import zio.stream.{ZStream, ZTransducer}
@@ -638,7 +640,9 @@ trait ClientModuleGenerator {
             ResourceMetadata,
             TypedWatchEvent
           }
-          import sttp.client3.httpclient.zio.SttpClient
+          import sttp.capabilities.WebSockets
+          import sttp.capabilities.zio.ZioStreams
+          import sttp.client3.SttpBackend
           import zio.blocking.Blocking
           import zio.clock.Clock
           import zio.stream.{ZStream, ZTransducer}

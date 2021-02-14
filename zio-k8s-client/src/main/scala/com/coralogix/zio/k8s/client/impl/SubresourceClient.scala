@@ -2,15 +2,17 @@ package com.coralogix.zio.k8s.client.impl
 
 import _root_.io.circe._
 import com.coralogix.zio.k8s.client.model.{ K8sCluster, K8sNamespace, K8sResourceType }
-import com.coralogix.zio.k8s.client.{ K8sFailure, ResourceClientBase, Subresource }
+import com.coralogix.zio.k8s.client.{ K8sFailure, Subresource }
+import sttp.capabilities.WebSockets
+import sttp.capabilities.zio.ZioStreams
+import sttp.client3.SttpBackend
 import sttp.client3.circe._
-import sttp.client3.httpclient.zio._
-import zio.IO
+import zio.{ IO, Task }
 
 final class SubresourceClient[T: Encoder: Decoder](
   override protected val resourceType: K8sResourceType,
   override protected val cluster: K8sCluster,
-  override protected val backend: SttpClient.Service,
+  override protected val backend: SttpBackend[Task, ZioStreams with WebSockets],
   subresourceName: String
 ) extends Subresource[T] with ResourceClientBase {
 

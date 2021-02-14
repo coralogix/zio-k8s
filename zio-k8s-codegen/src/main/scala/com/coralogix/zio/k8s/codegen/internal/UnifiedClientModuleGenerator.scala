@@ -53,9 +53,9 @@ trait UnifiedClientModuleGenerator {
       .asInstanceOf[Term.Ref]
 
     val liveLayer =
-      q"""val live: ZLayer[SttpClient with Has[K8sCluster], Nothing, Kubernetes] =
-            ZLayer.fromServices[SttpClient.Service, K8sCluster, Service] {
-              (backend: SttpClient.Service, cluster: K8sCluster) => {
+      q"""val live: ZLayer[Has[SttpBackend[Task, ZioStreams with WebSockets]] with Has[K8sCluster], Nothing, Kubernetes] =
+            ZLayer.fromServices[SttpBackend[Task, ZioStreams with WebSockets], K8sCluster, Service] {
+              (backend: SttpBackend[Task, ZioStreams with WebSockets], cluster: K8sCluster) => {
                 new Api(backend, cluster)
             }
           }
@@ -76,7 +76,9 @@ trait UnifiedClientModuleGenerator {
         import com.coralogix.zio.k8s.client.model.{K8sCluster, ResourceMetadata}
         import com.coralogix.zio.k8s.client.impl.{ResourceClient, ResourceStatusClient, SubresourceClient}
         import com.coralogix.zio.k8s.client.test.{TestResourceClient, TestResourceStatusClient, TestSubresourceClient}
-        import sttp.client3.httpclient.zio.SttpClient
+        import sttp.capabilities.WebSockets
+        import sttp.capabilities.zio.ZioStreams
+        import sttp.client3.SttpBackend
         import zio.{ Has, Runtime, Task, ZIO, ZLayer }
 
         package object kubernetes {
@@ -212,7 +214,7 @@ trait UnifiedClientModuleGenerator {
      """
     else
       q"""
-       class $nameT(backend: SttpClient.Service, cluster: K8sCluster) extends Service {
+       class $nameT(backend: SttpBackend[Task, ZioStreams with WebSockets], cluster: K8sCluster) extends Service {
          ..${childDefs}
        }
      """

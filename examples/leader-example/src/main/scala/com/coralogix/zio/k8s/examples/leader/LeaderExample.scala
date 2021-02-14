@@ -2,6 +2,7 @@ package com.coralogix.zio.k8s.examples.leader
 
 import com.coralogix.zio.k8s.client._
 import com.coralogix.zio.k8s.client.config._
+import com.coralogix.zio.k8s.client.config.httpclient._
 import com.coralogix.zio.k8s.client.kubernetes.Kubernetes
 import com.coralogix.zio.k8s.client.v1.configmaps.ConfigMaps
 import com.coralogix.zio.k8s.client.v1.pods.Pods
