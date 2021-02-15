@@ -113,13 +113,9 @@ If we have initialized the single unified API layer like above, called `api`, we
 provide it for functions that have per-resource layer requirements:
 
 ```scala mdoc:silent
-import zio.config.syntax._
-
-launchNewPods(5).provideCustomLayer(api.narrow(_.v1.pods))
-getFromConfigMap("something").provideCustomLayer(api.narrow(_.v1.configmaps))
+launchNewPods(5).provideCustomLayer(api.project(_.v1.pods))
+getFromConfigMap("something").provideCustomLayer(api.project(_.v1.configmaps))
 ```
-
-**NOTE**: currently `narrow` is provided by `zio-config`
 
 ## Operations
 

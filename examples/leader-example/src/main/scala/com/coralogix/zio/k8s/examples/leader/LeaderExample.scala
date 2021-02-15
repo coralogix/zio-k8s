@@ -12,7 +12,6 @@ import zio.blocking.Blocking
 import zio.clock.Clock
 import zio.config.magnolia.DeriveConfigDescriptor._
 import zio.config.magnolia.name
-import zio.config.syntax._
 import zio.config.typesafe.TypesafeConfig
 import zio.logging.{ log, LogFormat, LogLevel, Logging }
 
@@ -33,8 +32,8 @@ object LeaderExample extends App {
     val config = TypesafeConfig.fromDefaultLoader[Config](configDesc)
 
     // K8s configuration and client layers
-    val client = config.narrow(_.client) >>> k8sSttpClient
-    val cluster = (Blocking.any ++ config.narrow(_.cluster)) >>> k8sCluster
+    val client = config.project(_.client) >>> k8sSttpClient
+    val cluster = (Blocking.any ++ config.project(_.cluster)) >>> k8sCluster
 
     // Pods and ConfigMaps API
     val k8s = (cluster ++ client) >>> Kubernetes.live
@@ -44,8 +43,8 @@ object LeaderExample extends App {
     example()
       //.provideCustomLayer(k8s ++ logging)
       .provideCustomLayer(
-        k8s.narrow(_.v1.pods) ++
-          k8s.narrow(_.v1.configmaps) ++
+        k8s.project(_.v1.pods) ++
+          k8s.project(_.v1.configmaps) ++
           logging
       )
       .exitCode

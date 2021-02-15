@@ -78,7 +78,6 @@ import com.coralogix.zio.k8s.client.config.httpclient._
 import zio.blocking.Blocking
 import zio.config.magnolia.DeriveConfigDescriptor._
 import zio.config.magnolia.name
-import zio.config.syntax._
 import zio.config.typesafe._
 
 case class Config(cluster: K8sClusterConfig, @name("k8s-client") client: K8sClientConfig)
@@ -88,8 +87,8 @@ val configDesc = descriptor[Config]
 val config = TypesafeConfig.fromDefaultLoader[Config](configDesc)
 
 // K8s configuration and client layers
-val client = config.narrow(_.client) >>> k8sSttpClient
-val cluster = (Blocking.any ++ config.narrow(_.cluster)) >>> k8sCluster
+val client = config.project(_.client) >>> k8sSttpClient
+val cluster = (Blocking.any ++ config.project(_.cluster)) >>> k8sCluster
 ```
 
 and place the configuration in `application.conf`, for example:
