@@ -275,7 +275,7 @@ object EndpointType {
         val namespacedPattern = NamespacedPatterns.put
 
         guards.mustHaveMethod(PathItem.HttpMethod.PUT) {
-          guards.mustHaveParameters("name") {
+          guards.mustHaveParameters("name", "dryRun") {
             guards.mustHaveBody { modelName =>
               endpoint.name match {
                 case clusterPattern(_, _, group, version, plural)    =>
@@ -302,7 +302,7 @@ object EndpointType {
         val namespacedPattern = NamespacedPatterns.delete
 
         guards.mustHaveMethod(PathItem.HttpMethod.DELETE) {
-          guards.mustHaveParameters("name") {
+          guards.mustHaveParameters("name", "dryRun", "gracePeriodSeconds", "propagationPolicy") {
             endpoint.name match {
               case clusterPattern(_, _, group, version, plural)    =>
                 guards.mustHaveSame(group, version) {

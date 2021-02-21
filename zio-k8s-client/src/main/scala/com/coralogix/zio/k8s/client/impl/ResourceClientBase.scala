@@ -27,6 +27,7 @@ import sttp.client3.{
   SttpBackend
 }
 import sttp.model.{ StatusCode, Uri }
+import zio.duration.Duration
 import zio.{ IO, Task }
 
 trait ResourceClientBase {
@@ -57,6 +58,24 @@ trait ResourceClientBase {
     dryRun: Boolean
   ): Uri =
     K8sModifierUri(resourceType, name, subresource, namespace, dryRun).toUri(cluster)
+
+  protected def deleting(
+    name: String,
+    subresource: Option[String],
+    namespace: Option[K8sNamespace],
+    dryRun: Boolean,
+    gracePeriod: Option[Duration],
+    propagationPolicy: Option[PropagationPolicy]
+  ): Uri =
+    K8sDeletingUri(
+      resourceType,
+      name,
+      subresource,
+      namespace,
+      dryRun,
+      gracePeriod,
+      propagationPolicy
+    ).toUri(cluster)
 
   protected def paginated(
     namespace: Option[K8sNamespace],

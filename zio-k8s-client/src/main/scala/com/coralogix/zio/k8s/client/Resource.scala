@@ -1,9 +1,15 @@
 package com.coralogix.zio.k8s.client
 
-import com.coralogix.zio.k8s.client.model.{ K8sNamespace, Reseted, TypedWatchEvent }
+import com.coralogix.zio.k8s.client.model.{
+  K8sNamespace,
+  PropagationPolicy,
+  Reseted,
+  TypedWatchEvent
+}
 import com.coralogix.zio.k8s.model.pkg.apis.meta.v1.{ DeleteOptions, Status }
 import zio.{ IO, Schedule }
 import zio.clock.Clock
+import zio.duration.Duration
 import zio.stream.{ Stream, ZStream }
 
 trait Resource[T] {
@@ -39,7 +45,9 @@ trait Resource[T] {
     name: String,
     deleteOptions: DeleteOptions,
     namespace: Option[K8sNamespace],
-    dryRun: Boolean = false
+    dryRun: Boolean = false,
+    gracePeriod: Option[Duration] = None,
+    propagationPolicy: Option[PropagationPolicy] = None
   ): IO[K8sFailure, Status]
 }
 
@@ -71,7 +79,9 @@ trait NamespacedResource[T] {
     name: String,
     deleteOptions: DeleteOptions,
     namespace: K8sNamespace,
-    dryRun: Boolean = false
+    dryRun: Boolean = false,
+    gracePeriod: Option[Duration] = None,
+    propagationPolicy: Option[PropagationPolicy] = None
   ): IO[K8sFailure, Status]
 }
 
@@ -97,6 +107,8 @@ trait ClusterResource[T] {
   def delete(
     name: String,
     deleteOptions: DeleteOptions,
-    dryRun: Boolean = false
+    dryRun: Boolean = false,
+    gracePeriod: Option[Duration] = None,
+    propagationPolicy: Option[PropagationPolicy] = None
   ): IO[K8sFailure, Status]
 }

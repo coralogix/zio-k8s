@@ -326,6 +326,7 @@ trait ClientModuleGenerator {
             K8sCluster,
             K8sNamespace,
             K8sResourceType,
+            PropagationPolicy,
             ResourceMetadata,
             TypedWatchEvent
           }
@@ -334,6 +335,7 @@ trait ClientModuleGenerator {
           import sttp.client3.SttpBackend
           import zio.blocking.Blocking
           import zio.clock.Clock
+          import zio.duration.Duration
           import zio.stream.{ZStream, ZTransducer}
           import zio.{ Has, Task, ZIO, ZLayer }
 
@@ -392,9 +394,11 @@ trait ClientModuleGenerator {
                   name: String,
                   deleteOptions: DeleteOptions,
                   namespace: K8sNamespace,
-                  dryRun: Boolean = false
+                  dryRun: Boolean = false,
+                  gracePeriod: Option[Duration] = None,
+                  propagationPolicy: Option[PropagationPolicy] = None
                 ): ZIO[Any, K8sFailure, Status] =
-                  client.delete(name, deleteOptions, Some(namespace), dryRun)
+                  client.delete(name, deleteOptions, Some(namespace), dryRun, gracePeriod, propagationPolicy)
 
                 ..$statusImpls
 
@@ -450,9 +454,11 @@ trait ClientModuleGenerator {
               name: String,
               deleteOptions: DeleteOptions,
               namespace: K8sNamespace,
-              dryRun: Boolean = false
+              dryRun: Boolean = false,
+              gracePeriod: Option[Duration] = None,
+              propagationPolicy: Option[PropagationPolicy] = None
             ): ZIO[$typeAliasT, K8sFailure, Status] =
-              ZIO.accessM(_.get.delete(name, deleteOptions, namespace, dryRun))
+              ZIO.accessM(_.get.delete(name, deleteOptions, namespace, dryRun, gracePeriod, propagationPolicy))
 
             ..$statusAccessors
 
@@ -640,6 +646,7 @@ trait ClientModuleGenerator {
             K8sCluster,
             K8sNamespace,
             K8sResourceType,
+            PropagationPolicy,
             ResourceMetadata,
             TypedWatchEvent
           }
@@ -648,6 +655,7 @@ trait ClientModuleGenerator {
           import sttp.client3.SttpBackend
           import zio.blocking.Blocking
           import zio.clock.Clock
+          import zio.duration.Duration
           import zio.stream.{ZStream, ZTransducer}
           import zio.{ Has, Task, ZIO, ZLayer }
 
@@ -699,9 +707,11 @@ trait ClientModuleGenerator {
                 override def delete(
                   name: String,
                   deleteOptions: DeleteOptions,
-                  dryRun: Boolean = false
+                  dryRun: Boolean = false,
+                  gracePeriod: Option[Duration] = None,
+                  propagationPolicy: Option[PropagationPolicy] = None
                 ): ZIO[Any, K8sFailure, Status] =
-                  client.delete(name, deleteOptions, None, dryRun)
+                  client.delete(name, deleteOptions, None, dryRun, gracePeriod, propagationPolicy)
 
                 ..$statusImpls
 
@@ -750,9 +760,11 @@ trait ClientModuleGenerator {
             def delete(
               name: String,
               deleteOptions: DeleteOptions,
-              dryRun: Boolean = false
+              dryRun: Boolean = false,
+              gracePeriod: Option[Duration] = None,
+              propagationPolicy: Option[PropagationPolicy] = None
             ): ZIO[$typeAliasT, K8sFailure, Status] =
-              ZIO.accessM(_.get.delete(name, deleteOptions, dryRun))
+              ZIO.accessM(_.get.delete(name, deleteOptions, dryRun, gracePeriod, propagationPolicy))
 
             ..$statusAccessors
 
@@ -879,17 +891,5 @@ trait ClientModuleGenerator {
       }
     val modelNs = ns.parse[Term].get.asInstanceOf[Term.Ref]
     Term.Select(modelNs, wrapperName)
-  }
-
-  private def getNamespacedSubresourceWrapperTerm(subresource: SubresourceId): Term = {
-    val capName = subresource.name.capitalize
-    val wrapperName = Term.Name(s"Namespaced${capName}Subresource")
-    getSubresourceWrapperTerm(subresource, wrapperName)
-  }
-
-  private def getClusterSubresourceWrapperTerm(subresource: SubresourceId): Term = {
-    val capName = subresource.name.capitalize
-    val wrapperName = Term.Name(s"Cluster${capName}Subresource")
-    getSubresourceWrapperTerm(subresource, wrapperName)
   }
 }

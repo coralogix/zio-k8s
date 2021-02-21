@@ -2,6 +2,7 @@ package com.coralogix.zio.k8s.client
 
 import sttp.client3.UriContext
 import sttp.model._
+import zio.duration._
 
 package object model {
 
@@ -65,6 +66,30 @@ package object model {
         .toUri(cluster)
         .withParam("dryRun", if (dryRun) Some("All") else None)
 
+  }
+
+  final case class K8sDeletingUri(
+    resource: K8sResourceType,
+    name: String,
+    subresource: Option[String],
+    namespace: Option[K8sNamespace],
+    dryRun: Boolean,
+    gracePeriod: Option[Duration],
+    propagationPolicy: Option[PropagationPolicy]
+  ) extends K8sUri {
+    override def toUri(cluster: K8sCluster): Uri =
+      K8sSimpleUri(resource, Some(name), subresource, namespace)
+        .toUri(cluster)
+        .addParam("dryRun", if (dryRun) Some("All") else None)
+        .addParam("gracePeriodSeconds", gracePeriod.map(_.toSeconds.toString))
+        .addParam(
+          "propagationPolicy",
+          propagationPolicy.map {
+            case PropagationPolicy.Orphan     => "Orphan"
+            case PropagationPolicy.Background => "Background"
+            case PropagationPolicy.Foreground => "Foreground"
+          }
+        )
   }
 
   final case class K8sCreatorUri(
