@@ -7,6 +7,7 @@ import zio.blocking.Blocking
 import zio.{ Task, ZIO }
 import com.coralogix.zio.k8s.codegen.internal.Conversions.{ groupNameToPackageName, splitName }
 import com.coralogix.zio.k8s.codegen.internal.CodegenIO._
+import org.atteo.evo.inflector.English
 import zio.nio.core.file.Path
 import zio.nio.file.Files
 
@@ -38,6 +39,8 @@ trait ClientModuleGenerator {
       val moduleName = Term.Name(name)
       val entityName = Term.Name(entity)
 
+      val pluralEntity = English.plural(entity)
+
       val entityT =
         if (entity == "Service")
           Type.Name("ServiceModel")
@@ -56,8 +59,8 @@ trait ClientModuleGenerator {
           Import(List(Importer(dtoPackage, List(Importee.Name(Name(entityName.value))))))
 
       val statusT = statusEntity.map(s => s.parse[Type].get).getOrElse(t"Nothing")
-      val typeAliasT = Type.Name(entity + "s")
-      val typeAliasTerm = Term.Name(entity + "s")
+      val typeAliasT = Type.Name(pluralEntity)
+      val typeAliasTerm = Term.Name(pluralEntity)
       val typeAliasGenericT = Type.Select(typeAliasTerm, Type.Name("Generic"))
 
       val customResourceDefinition: List[Defn] =

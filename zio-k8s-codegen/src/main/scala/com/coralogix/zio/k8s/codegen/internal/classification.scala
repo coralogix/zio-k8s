@@ -1,7 +1,9 @@
 package com.coralogix.zio.k8s.codegen.internal
 
+import com.coralogix.zio.k8s.codegen.internal.Conversions.splitName
 import com.coralogix.zio.k8s.codegen.internal.EndpointType.SubresourceEndpoint
 import com.coralogix.zio.k8s.codegen.internal.Whitelist.IssueReference
+import org.atteo.evo.inflector.English
 import zio.Task
 
 sealed trait ClassifiedResource {
@@ -52,6 +54,11 @@ case class SupportedResource(
         )
       }
       .toSet
+
+  def pluralEntityName: String = {
+    val (_, entity) = splitName(modelName)
+    English.plural(entity)
+  }
 }
 case class UnsupportedResource(
   gvk: GroupVersionKind,
