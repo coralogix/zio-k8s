@@ -64,7 +64,7 @@
 optional fields, lists and maps in the middle.</p>
 <p>To enable the <em>Monocle support</em> of <code>zio-k8s</code> an additional dependency has to be imported:</p>
 <pre><code class="hljs css language-scala">resolvers += <span class="hljs-type">Resolver</span>.sonatypeRepo(<span class="hljs-string">"snapshots"</span>)
-libraryDependencies += <span class="hljs-string">"com.coralogix"</span> %% <span class="hljs-string">"zio-k8s-client-monocle"</span> % <span class="hljs-string">"0.0.0+1-0d151927-SNAPSHOT"</span>
+libraryDependencies += <span class="hljs-string">"com.coralogix"</span> %% <span class="hljs-string">"zio-k8s-client-monocle"</span> % <span class="hljs-string">"0.0.0+1-b36225dd-SNAPSHOT"</span>
 </code></pre>
 <p>This library defines a hierarchy of <strong>optics</strong> defined for the <em>Kubernetes resource types</em>.
 The following example demonstrates how to create a lens that can set the namespace inside the metadata section of a <em>pod</em>:</p>
