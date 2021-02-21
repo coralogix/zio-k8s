@@ -7,7 +7,7 @@ import com.coralogix.zio.k8s.client.model.{
   TypedWatchEvent
 }
 import com.coralogix.zio.k8s.client.{ ClusterResource, K8sFailure, NamespacedResource, NotFound }
-import com.coralogix.zio.k8s.operator.Operator.OperatorContext
+import com.coralogix.zio.k8s.operator.Operator.{ EventProcessor, OperatorContext }
 import com.coralogix.zio.k8s.operator.OperatorLogging._
 import izumi.reflect.Tag
 import zio._
@@ -21,7 +21,7 @@ import zio.stream.ZStream
   *
   * An instance of this is tied to one particular resource type in one namespace.
   */
-trait Operator[R, E, T] {
+trait Operator[R, E, T] { self =>
   protected def watchStream(): ZStream[Clock, K8sFailure, TypedWatchEvent[T]]
 
   def processEvent(event: TypedWatchEvent[T]): ZIO[R, OperatorFailure[E], Unit]
@@ -61,21 +61,77 @@ trait Operator[R, E, T] {
           Schedule.spaced(30.seconds)).unit
       )
       .fork
+
+  def mapEventProcessor[R1, E1](
+    f: ZIO[R, OperatorFailure[E], Unit] => ZIO[R1, OperatorFailure[E1], Unit]
+  ): Operator[R1, E1, T]
+
+  final def provide(r: R)(implicit ev: NeedsEnv[R]): Operator[Any, E, T] =
+    provideSome(_ => r)
+
+  final def provideSome[R0](f: R0 => R)(implicit ev: NeedsEnv[R]): Operator[R0, E, T] =
+    mapEventProcessor(_.provideSome[R0](f))
+
+  final def provideLayer[E1 >: E, R0, R1](
+    layer: ZLayer[R0, OperatorFailure[E1], R1]
+  )(implicit ev1: R1 <:< R, ev2: NeedsEnv[R]): Operator[R0, E1, T] =
+    mapEventProcessor(_.provideLayer(layer))
+
+  final def provideCustomLayer[E1 >: E, R1 <: Has[_]](
+    layer: ZLayer[ZEnv, OperatorFailure[E1], R1]
+  )(implicit ev: ZEnv with R1 <:< R, tagged: Tag[R1]): Operator[ZEnv, E1, T] =
+    mapEventProcessor(_.provideCustomLayer(layer))
+
+  final def provideSomeLayer[R0 <: Has[_]]: Operator.ProvideSomeLayer[R0, R, E, T] =
+    new Operator.ProvideSomeLayer[R0, R, E, T](self)
 }
 
-abstract class NamespacedOperator[R, E, T](
+final class NamespacedOperator[R, E, T](
   client: NamespacedResource[T],
-  namespace: Option[K8sNamespace]
+  namespace: Option[K8sNamespace],
+  eventProcessor: EventProcessor[R, E, T],
+  override val context: OperatorContext,
+  override val bufferSize: Int
 ) extends Operator[R, E, T] {
   override protected def watchStream(): ZStream[Clock, K8sFailure, TypedWatchEvent[T]] =
     client.watchForever(namespace)
+
+  override def processEvent(event: TypedWatchEvent[T]): ZIO[R, OperatorFailure[E], Unit] =
+    eventProcessor(context, event)
+
+  override def mapEventProcessor[R1, E1](
+    f: ZIO[R, OperatorFailure[E], Unit] => ZIO[R1, OperatorFailure[E1], Unit]
+  ): Operator[R1, E1, T] =
+    new NamespacedOperator[R1, E1, T](
+      client,
+      namespace,
+      (ctx: OperatorContext, evt: TypedWatchEvent[T]) => f(eventProcessor(ctx, evt)),
+      context,
+      bufferSize
+    )
 }
 
-abstract class ClusterOperator[R, E, T](
-  client: ClusterResource[T]
+final class ClusterOperator[R, E, T](
+  client: ClusterResource[T],
+  eventProcessor: EventProcessor[R, E, T],
+  override val context: OperatorContext,
+  override val bufferSize: Int
 ) extends Operator[R, E, T] {
   override protected def watchStream(): ZStream[Clock, K8sFailure, TypedWatchEvent[T]] =
     client.watchForever()
+
+  override def processEvent(event: TypedWatchEvent[T]): ZIO[R, OperatorFailure[E], Unit] =
+    eventProcessor(context, event)
+
+  override def mapEventProcessor[R1, E1](
+    f: ZIO[R, OperatorFailure[E], Unit] => ZIO[R1, OperatorFailure[E1], Unit]
+  ): Operator[R1, E1, T] =
+    new ClusterOperator[R1, E1, T](
+      client,
+      (ctx: OperatorContext, evt: TypedWatchEvent[T]) => f(eventProcessor(ctx, evt)),
+      context,
+      bufferSize
+    )
 }
 
 object Operator {
@@ -102,12 +158,7 @@ object Operator {
   ): ZIO[Has[NamespacedResource[T]], Nothing, Operator[R, E, T]] =
     ZIO.service[NamespacedResource[T]].map { client =>
       val ctx = OperatorContext(implicitly[ResourceMetadata[T]].resourceType, namespace)
-      new NamespacedOperator[R, E, T](client, namespace) {
-        override def processEvent(event: TypedWatchEvent[T]): ZIO[R, OperatorFailure[E], Unit] =
-          eventProcessor(ctx, event)
-        override val context: OperatorContext = ctx
-        override val bufferSize: Int = buffer
-      }
+      new NamespacedOperator[R, E, T](client, namespace, eventProcessor, ctx, buffer)
     }
 
   def cluster[R: Tag, E, T: Tag: ResourceMetadata](
@@ -115,12 +166,7 @@ object Operator {
   )(buffer: Int): ZIO[Has[ClusterResource[T]], Nothing, Operator[R, E, T]] =
     ZIO.service[ClusterResource[T]].map { client =>
       val ctx = OperatorContext(implicitly[ResourceMetadata[T]].resourceType, None)
-      new ClusterOperator[R, E, T](client) {
-        override def processEvent(event: TypedWatchEvent[T]): ZIO[R, OperatorFailure[E], Unit] =
-          eventProcessor(ctx, event)
-        override val context: OperatorContext = ctx
-        override val bufferSize: Int = buffer
-      }
+      new ClusterOperator[R, E, T](client, eventProcessor, ctx, buffer)
     }
 
   /** Event processor aspect */
@@ -146,5 +192,15 @@ object Operator {
   ) {
     def @@[R1 <: R, E1 >: E](aspect: Aspect[R1, E1, T]): EventProcessor[R1, E1, T] =
       aspect[R1, E1](eventProcessor)
+  }
+
+  final class ProvideSomeLayer[R0 <: Has[_], R, E, T](private val self: Operator[R, E, T])
+      extends AnyVal {
+    def apply[E1 >: E, R1 <: Has[_]](
+      layer: ZLayer[R0, OperatorFailure[E1], R1]
+    )(implicit ev1: R0 with R1 <:< R, ev2: NeedsEnv[R], tagged: Tag[R1]): Operator[R0, E1, T] =
+      self.mapEventProcessor(
+        _.provideLayer[OperatorFailure[E1], R0, R0 with R1](ZLayer.identity[R0] ++ layer)
+      )
   }
 }
