@@ -1,6 +1,7 @@
 package com.coralogix.zio.k8s.client.model
 
 import sttp.client3.UriContext
+import zio.duration.durationInt
 import zio.test._
 import zio.test.Assertion._
 
@@ -164,6 +165,169 @@ object K8sUriSpec extends DefaultRunnableSpec {
               .toUri(cluster)
           )(
             equalTo(uri"https://localhost:32768/api/v8/namespaces/def/rt/n-123?dryRun=All")
+          )
+        )
+      ),
+      suite("deleting")(
+        test("deleting without namespace")(
+          assert(
+            K8sDeletingUri(
+              resourceType,
+              name,
+              None,
+              None,
+              dryRun = false,
+              gracePeriod = None,
+              propagationPolicy = None
+            ).toUri(cluster)
+          )(
+            equalTo(uri"https://localhost:32768/apis/gr/v8/rt/n-123")
+          )
+        ),
+        test("deleting without namespace, dry run")(
+          assert(
+            K8sDeletingUri(
+              resourceType,
+              name,
+              None,
+              None,
+              dryRun = true,
+              gracePeriod = None,
+              propagationPolicy = None
+            ).toUri(cluster)
+          )(
+            equalTo(uri"https://localhost:32768/apis/gr/v8/rt/n-123?dryRun=All")
+          )
+        ),
+        test("deleting with namespace")(
+          assert(
+            K8sDeletingUri(
+              resourceType,
+              name,
+              None,
+              Some(ns),
+              dryRun = false,
+              gracePeriod = None,
+              propagationPolicy = None
+            ).toUri(cluster)
+          )(
+            equalTo(uri"https://localhost:32768/apis/gr/v8/namespaces/def/rt/n-123")
+          )
+        ),
+        test("deleting with namespace, dry run")(
+          assert(
+            K8sDeletingUri(
+              resourceType,
+              name,
+              None,
+              Some(ns),
+              dryRun = true,
+              gracePeriod = None,
+              propagationPolicy = None
+            ).toUri(cluster)
+          )(
+            equalTo(uri"https://localhost:32768/apis/gr/v8/namespaces/def/rt/n-123?dryRun=All")
+          )
+        ),
+        test("deleting with namespace, grace period and propagation policy")(
+          assert(
+            K8sDeletingUri(
+              resourceType,
+              name,
+              None,
+              Some(ns),
+              dryRun = false,
+              gracePeriod = Some(1.minute),
+              propagationPolicy = Some(PropagationPolicy.Background)
+            ).toUri(cluster)
+          )(
+            equalTo(
+              uri"https://localhost:32768/apis/gr/v8/namespaces/def/rt/n-123?gracePeriodSeconds=60&propagationPolicy=Background"
+            )
+          )
+        )
+      ),
+      suite("deleting with empty group")(
+        test("deleting without namespace")(
+          assert(
+            K8sDeletingUri(
+              resourceTypeWithEmptyGroup,
+              name,
+              None,
+              None,
+              dryRun = false,
+              gracePeriod = None,
+              propagationPolicy = None
+            )
+              .toUri(cluster)
+          )(
+            equalTo(uri"https://localhost:32768/api/v8/rt/n-123")
+          )
+        ),
+        test("deleting without namespace, dry run")(
+          assert(
+            K8sDeletingUri(
+              resourceTypeWithEmptyGroup,
+              name,
+              None,
+              None,
+              dryRun = true,
+              gracePeriod = None,
+              propagationPolicy = None
+            )
+              .toUri(cluster)
+          )(
+            equalTo(uri"https://localhost:32768/api/v8/rt/n-123?dryRun=All")
+          )
+        ),
+        test("deleting with namespace")(
+          assert(
+            K8sDeletingUri(
+              resourceTypeWithEmptyGroup,
+              name,
+              None,
+              Some(ns),
+              dryRun = false,
+              gracePeriod = None,
+              propagationPolicy = None
+            )
+              .toUri(cluster)
+          )(
+            equalTo(uri"https://localhost:32768/api/v8/namespaces/def/rt/n-123")
+          )
+        ),
+        test("deleting with namespace, dry run")(
+          assert(
+            K8sDeletingUri(
+              resourceTypeWithEmptyGroup,
+              name,
+              None,
+              Some(ns),
+              dryRun = true,
+              gracePeriod = None,
+              propagationPolicy = None
+            )
+              .toUri(cluster)
+          )(
+            equalTo(uri"https://localhost:32768/api/v8/namespaces/def/rt/n-123?dryRun=All")
+          )
+        ),
+        test("deleting with namespace, graceful period and propagation policy")(
+          assert(
+            K8sDeletingUri(
+              resourceTypeWithEmptyGroup,
+              name,
+              None,
+              Some(ns),
+              dryRun = false,
+              gracePeriod = Some(10.seconds),
+              propagationPolicy = Some(PropagationPolicy.Orphan)
+            )
+              .toUri(cluster)
+          )(
+            equalTo(
+              uri"https://localhost:32768/api/v8/namespaces/def/rt/n-123?gracePeriodSeconds=10&propagationPolicy=Orphan"
+            )
           )
         )
       ),

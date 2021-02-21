@@ -153,11 +153,22 @@ final class ResourceClient[
     name: String,
     deleteOptions: DeleteOptions,
     namespace: Option[K8sNamespace],
-    dryRun: Boolean
+    dryRun: Boolean,
+    gracePeriod: Option[Duration] = None,
+    propagationPolicy: Option[PropagationPolicy] = None
   ): IO[K8sFailure, Status] =
     handleFailures {
       k8sRequest
-        .delete(modifying(name = name, subresource = None, namespace, dryRun))
+        .delete(
+          deleting(
+            name = name,
+            subresource = None,
+            namespace,
+            dryRun,
+            gracePeriod,
+            propagationPolicy
+          )
+        )
         .body(deleteOptions)
         .response(asJson[Status])
         .send(backend)
@@ -224,9 +235,13 @@ object ResourceClient {
       name: String,
       deleteOptions: DeleteOptions,
       namespace: K8sNamespace,
-      dryRun: Boolean = false
+      dryRun: Boolean = false,
+      gracePeriod: Option[Duration] = None,
+      propagationPolicy: Option[PropagationPolicy] = None
     ): ZIO[Has[NamespacedResource[T]], K8sFailure, Status] =
-      ZIO.accessM(_.get.delete(name, deleteOptions, namespace, dryRun))
+      ZIO.accessM(
+        _.get.delete(name, deleteOptions, namespace, dryRun, gracePeriod, propagationPolicy)
+      )
   }
 
   object cluster {
@@ -277,8 +292,10 @@ object ResourceClient {
     def delete[T <: Object: Tag](
       name: String,
       deleteOptions: DeleteOptions,
-      dryRun: Boolean = false
+      dryRun: Boolean = false,
+      gracePeriod: Option[Duration] = None,
+      propagationPolicy: Option[PropagationPolicy] = None
     ): ZIO[Has[ClusterResource[T]], K8sFailure, Status] =
-      ZIO.accessM(_.get.delete(name, deleteOptions, dryRun))
+      ZIO.accessM(_.get.delete(name, deleteOptions, dryRun, gracePeriod, propagationPolicy))
   }
 }

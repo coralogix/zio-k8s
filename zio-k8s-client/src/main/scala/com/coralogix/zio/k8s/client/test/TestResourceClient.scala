@@ -7,10 +7,12 @@ import com.coralogix.zio.k8s.client.model.{
   K8sNamespace,
   K8sObject,
   Modified,
+  PropagationPolicy,
   TypedWatchEvent
 }
 import com.coralogix.zio.k8s.client.{ K8sFailure, NotFound, Resource }
 import com.coralogix.zio.k8s.model.pkg.apis.meta.v1.{ DeleteOptions, Status }
+import zio.duration.Duration
 import zio.stm.{ TMap, TQueue, ZSTM }
 import zio.stream._
 import zio.{ IO, ZIO }
@@ -92,7 +94,9 @@ final class TestResourceClient[T: K8sObject] private (
     name: String,
     deleteOptions: DeleteOptions,
     namespace: Option[K8sNamespace],
-    dryRun: Boolean
+    dryRun: Boolean,
+    gracePeriod: Option[Duration],
+    propagationPolicy: Option[PropagationPolicy]
   ): IO[K8sFailure, Status] = {
     val prefix = keyPrefix(namespace)
     if (!dryRun) {
