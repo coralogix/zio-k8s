@@ -160,11 +160,9 @@ trait UnifiedClientModuleGenerator {
           .get
           .asInstanceOf[Term.Ref]
 
-    val (_, entity) = splitName(resource.modelName)
-
     val nameTerm = Term.Name(name)
 
-    val obj = Term.Select(pkg, Term.Name(entity + "s"))
+    val obj = Term.Select(pkg, Term.Name(resource.pluralEntityName))
     val serviceT = Type.Select(obj, Type.Name("Service"))
 
     q"""def $nameTerm: $serviceT"""
@@ -267,7 +265,7 @@ trait UnifiedClientModuleGenerator {
     val entityT = Type.Select(dtoPackage, Type.Name(entity))
     val statusT = statusEntity.map(s => s.parse[Type].get).getOrElse(t"Nothing")
 
-    val obj = Term.Select(pkg, Term.Name(entity + "s"))
+    val obj = Term.Select(pkg, Term.Name(resource.pluralEntityName))
     val serviceT = Type.Select(obj, Type.Name("Service"))
 
     if (isTest) {
