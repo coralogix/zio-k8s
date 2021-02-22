@@ -79,7 +79,7 @@ val api = (cluster ++ client) >>> Kubernetes.live
 
 This is a huge interface providing _all operations_ for _all Kubernetes resources_. The 
 initialization and the type signatures becomes much simpler, but on the other hand 
-we loose the ability to see what parts of the API does our functions use:
+we lose the ability to see what parts of the API our functions use:
 
 ```scala mdoc:silent
 def launchNewPods2(count: Int): ZIO[Kubernetes, K8sFailure, Unit] = 
@@ -205,7 +205,7 @@ def replaceStatus(
   ): ZIO[StatefulSets, K8sFailure, StatefulSet]
 ```
 
-Note that although that currently the Scala interface closely reflects the underlying HTTP API's behavior and for this reason the type of these functions can be a bit surprising:
+Note that currently the Scala interface closely reflects the underlying HTTP API's behavior and for this reason the type of these functions can be a bit surprising:
 
 - `getStatus` returns the _whole resource_ not just the status
 - `replaceStatus` requires the _whole resource_ to be updated but _Kubernetes_ will only update the status part while using the _metadata_ part for collision detection.
@@ -236,7 +236,7 @@ Some important things to note:
 
 ## Model
 
-For all _Kubernetes data types_ - the resources, subresources and inner data structures - there is a corresponding  Scala _case class_ defined in the `zio-k8s-client` library. Because a huge part of the model consists of _optional fields_ and very deep structures, a couple of features were added to reduce boilerplate caused by this.
+For all _Kubernetes data types_ - the resources, subresources and inner data structures - there are corresponding Scala _case classes_ defined in the `zio-k8s-client` library. Because a huge part of the model consists of _optional fields_ and very deep structures, a couple of features were added to reduce boilerplate caused by this.
 
 Let's take a look at the example `StatefulSet` resource's data model:
 
@@ -253,7 +253,7 @@ case class StatefulSet(
 ```
 
 - Instead of the standard `Option` type, `zio-k8s` uses a custom `Optional` type
-- Additionally to the case class fields it has ZIO getter functions that fail in case of absence of value
+- In addition to the case class fields, it has ZIO getter functions that fail in case of absence of value
 
 ### Creating 
 The custom `Optional[T]` type used in the model classes provides implicit conversion from both `T` and `Option[T]`. This provides a boilerplate-free way to specify large Kubernetes resources, with a syntax that is not far from to the usual YAML representation of _Kubernetes resources_.
@@ -292,7 +292,7 @@ def clusterRoleBinding(name: String, namespace: K8sNamespace): ClusterRoleBindin
 ### Accessing
 
 The `Optional` fields support all the usual combinators `Option` has and when needed they can be converted back with `.toOption`.
-In many cases we expect that the optional fields are specified in the appication logic that works with the _Kubernetes_ clients. To support these there are _getter effects_ on each case class failing the ZIO effect in case the field is not present.
+In many cases we expect that the optional fields are specified in the application logic that works with the _Kubernetes_ clients. To support these there are _getter effects_ on each case class failing the ZIO effect in case the field is not present.
 
 ### Optics
 Support for [Quicklens](quicklens.md) and [Monocle](monocle.md) is also available.
