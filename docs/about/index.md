@@ -9,9 +9,7 @@ the [ZIO](https://github.com/zio/zio) library.
 
 **Additional resources**:
 - [Coralogix Operator](https://github.com/coralogix/cx-operator/) an operator implemented with `zio-k8s`
-- Blog post
-- Presentation
-
+- [Blog post: The Coralogix Operator: A Tale of ZIO and Kubernetes](https://coralogix.com/log-analytics-blog/the-coralogix-operator-a-tale-of-zio-and-kubernetes/)
 
 **Built on**:
 - [ZIO](https://github.com/zio/zio)
