@@ -194,13 +194,20 @@ object EndpointType {
   ): EndpointType =
     endpoint.action match {
       case "list" =>
-        val supportsWatch = guards.haveOptionalParameters("watch", "resourceVersion")
+        val supportsWatch = guards.haveOptionalParameters("watch")
 
         val clusterPattern = ClusterPatterns.list
         val namespacedPattern = NamespacedPatterns.list
 
         guards.mustHaveMethod(PathItem.HttpMethod.GET) {
-          guards.mustHaveParameters("limit", "continue") {
+          guards.mustHaveParameters(
+            "limit",
+            "continue",
+            "resourceVersion",
+            "resourceVersionMatch",
+            "fieldSelector",
+            "labelSelector"
+          ) {
             endpoint.name match {
               case clusterPattern(_, _, group, version, plural)    =>
                 guards.mustHaveSame(group, version) {

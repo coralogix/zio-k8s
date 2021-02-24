@@ -82,6 +82,51 @@ object K8sUriSpec extends DefaultRunnableSpec {
               uri"https://localhost:32768/apis/gr/v8/namespaces/def/rt?limit=100&continue=NEXT"
             )
           )
+        ),
+        test("paginated with namespace and field selector")(
+          assert(
+            K8sPaginatedUri(
+              resourceType,
+              Some(ns),
+              100,
+              None,
+              fieldSelector = Some(field("object.metadata") === "x")
+            ).toUri(cluster)
+          )(
+            equalTo(
+              uri"https://localhost:32768/apis/gr/v8/namespaces/def/rt?limit=100&fieldSelector=object.metadata==x"
+            )
+          )
+        ),
+        test("paginated with namespace and label selector")(
+          assert(
+            K8sPaginatedUri(
+              resourceType,
+              Some(ns),
+              100,
+              None,
+              labelSelector = Some(label("service").in("x", "y"))
+            ).toUri(cluster)
+          )(
+            equalTo(
+              uri"https://localhost:32768/apis/gr/v8/namespaces/def/rt?limit=100&labelSelector=service in (x, y)"
+            )
+          )
+        ),
+        test("paginated with namespace and resource version")(
+          assert(
+            K8sPaginatedUri(
+              resourceType,
+              Some(ns),
+              100,
+              None,
+              resourceVersion = ListResourceVersion.NotOlderThan("100")
+            ).toUri(cluster)
+          )(
+            equalTo(
+              uri"https://localhost:32768/apis/gr/v8/namespaces/def/rt?limit=100&resourceVersion=100&resourceVersionMatch=NotOlderThan"
+            )
+          )
         )
       ),
       suite("paginated with empty group")(

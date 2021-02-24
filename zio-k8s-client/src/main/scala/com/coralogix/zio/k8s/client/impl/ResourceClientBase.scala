@@ -80,9 +80,20 @@ trait ResourceClientBase {
   protected def paginated(
     namespace: Option[K8sNamespace],
     limit: Int,
-    continueToken: Option[String]
+    continueToken: Option[String],
+    fieldSelector: Option[FieldSelector],
+    labelSelector: Option[LabelSelector],
+    resourceVersion: ListResourceVersion
   ): Uri =
-    K8sPaginatedUri(resourceType, namespace, limit, continueToken).toUri(cluster)
+    K8sPaginatedUri(
+      resourceType,
+      namespace,
+      limit,
+      continueToken,
+      fieldSelector,
+      labelSelector,
+      resourceVersion
+    ).toUri(cluster)
 
   protected def watching(namespace: Option[K8sNamespace], resourceVersion: Option[String]): Uri =
     K8sWatchUri(resourceType, namespace, resourceVersion).toUri(cluster)

@@ -323,9 +323,12 @@ trait ClientModuleGenerator {
           import com.coralogix.zio.k8s.client.impl.{ResourceClient, ResourceStatusClient, SubresourceClient}
           import com.coralogix.zio.k8s.client.test.{TestResourceClient, TestResourceStatusClient, TestSubresourceClient}
           import com.coralogix.zio.k8s.client.model.{
+            FieldSelector,
             K8sCluster,
             K8sNamespace,
             K8sResourceType,
+            LabelSelector,
+            ListResourceVersion,
             PropagationPolicy,
             ResourceMetadata,
             TypedWatchEvent
@@ -354,9 +357,12 @@ trait ClientModuleGenerator {
               final class Live(..$clientList) extends Service {
                 override def getAll(
                   namespace: Option[K8sNamespace],
-                  chunkSize: Int = 10
+                  chunkSize: Int = 10,
+                  fieldSelector: Option[FieldSelector] = None,
+                  labelSelector: Option[LabelSelector] = None,
+                  resourceVersion: ListResourceVersion = ListResourceVersion.MostRecent
                 ): ZStream[Any, K8sFailure, $entityT] =
-                   client.getAll(namespace, chunkSize)
+                   client.getAll(namespace, chunkSize, fieldSelector, labelSelector, resourceVersion)
 
                 override def watch(
                   namespace: Option[K8sNamespace],
@@ -414,9 +420,12 @@ trait ClientModuleGenerator {
 
             def getAll(
               namespace: Option[K8sNamespace],
-              chunkSize: Int = 10
+              chunkSize: Int = 10,
+              fieldSelector: Option[FieldSelector] = None,
+              labelSelector: Option[LabelSelector] = None,
+              resourceVersion: ListResourceVersion = ListResourceVersion.MostRecent
             ): ZStream[$typeAliasT, K8sFailure, $entityT] =
-              ZStream.accessStream(_.get.getAll(namespace, chunkSize))
+              ZStream.accessStream(_.get.getAll(namespace, chunkSize, fieldSelector, labelSelector, resourceVersion))
 
             def watch(
               namespace: Option[K8sNamespace],
@@ -643,9 +652,12 @@ trait ClientModuleGenerator {
           import com.coralogix.zio.k8s.client.impl.{ResourceClient, ResourceStatusClient, SubresourceClient}
           import com.coralogix.zio.k8s.client.test.{TestResourceClient, TestResourceStatusClient, TestSubresourceClient}
           import com.coralogix.zio.k8s.client.model.{
+            FieldSelector,
             K8sCluster,
             K8sNamespace,
             K8sResourceType,
+            LabelSelector,
+            ListResourceVersion,
             PropagationPolicy,
             ResourceMetadata,
             TypedWatchEvent
@@ -673,9 +685,12 @@ trait ClientModuleGenerator {
 
               final class Live(..$clientList) extends Service {
                 override def getAll(
-                  chunkSize: Int = 10
+                  chunkSize: Int = 10,
+                  fieldSelector: Option[FieldSelector] = None,
+                  labelSelector: Option[LabelSelector] = None,
+                  resourceVersion: ListResourceVersion = ListResourceVersion.MostRecent
                 ): ZStream[Any, K8sFailure, $entityT] =
-                   client.getAll(None, chunkSize)
+                   client.getAll(None, chunkSize, fieldSelector, labelSelector, resourceVersion)
 
                 override def watch(
                   resourceVersion: Option[String]
@@ -726,9 +741,12 @@ trait ClientModuleGenerator {
             }
 
             def getAll(
-              chunkSize: Int = 10
+              chunkSize: Int = 10,
+              fieldSelector: Option[FieldSelector] = None,
+              labelSelector: Option[LabelSelector] = None,
+              resourceVersion: ListResourceVersion = ListResourceVersion.MostRecent
             ): ZStream[$typeAliasT, K8sFailure, $entityT] =
-              ZStream.accessStream(_.get.getAll(chunkSize))
+              ZStream.accessStream(_.get.getAll(chunkSize, fieldSelector, labelSelector, resourceVersion))
 
             def watch(
               resourceVersion: Option[String]
@@ -876,20 +894,5 @@ trait ClientModuleGenerator {
     val capName = subresource.name.capitalize
     val wrapperName = Type.Name(s"Cluster${capName}Subresource")
     getSubresourceWrapperType(subresource, wrapperName, entityT)
-  }
-
-  private def getSubresourceWrapperTerm(
-    subresource: SubresourceId,
-    wrapperName: Term.Name
-  ): Term = {
-    val (modelPkg, _) = splitName(subresource.modelName)
-    val ns =
-      if (modelPkg.nonEmpty) {
-        "com.coralogix.zio.k8s.client.subresources." + modelPkg.mkString(".")
-      } else {
-        "com.coralogix.zio.k8s.client.subresources"
-      }
-    val modelNs = ns.parse[Term].get.asInstanceOf[Term.Ref]
-    Term.Select(modelNs, wrapperName)
   }
 }

@@ -4,7 +4,7 @@ import sttp.client3.UriContext
 import sttp.model._
 import zio.duration._
 
-package object model {
+package object model extends LabelSelector.Syntax with FieldSelector.Syntax {
 
   case class K8sCluster(host: Uri, token: String)
 
@@ -45,13 +45,20 @@ package object model {
     resource: K8sResourceType,
     namespace: Option[K8sNamespace],
     limit: Int,
-    continueToken: Option[String]
+    continueToken: Option[String],
+    fieldSelector: Option[FieldSelector] = None,
+    labelSelector: Option[LabelSelector] = None,
+    resourceVersion: ListResourceVersion = ListResourceVersion.MostRecent
   ) extends K8sUri {
     override def toUri(cluster: K8sCluster): Uri =
       K8sSimpleUri(resource, None, None, namespace)
         .toUri(cluster)
         .addParam("limit", limit.toString)
         .addParam("continue", continueToken)
+        .addParam("fieldSelector", fieldSelector.map(_.asQuery))
+        .addParam("labelSelector", labelSelector.map(_.asQuery))
+        .addParam("resourceVersion", resourceVersion.resourceVersion)
+        .addParam("resourceVersionMatch", resourceVersion.resourceVersionMatch)
   }
 
   final case class K8sModifierUri(

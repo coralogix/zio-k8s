@@ -4,8 +4,11 @@ import com.coralogix.zio.k8s.client.model.K8sObject._
 import com.coralogix.zio.k8s.client.model.{
   Added,
   Deleted,
+  FieldSelector,
   K8sNamespace,
   K8sObject,
+  LabelSelector,
+  ListResourceVersion,
   Modified,
   PropagationPolicy,
   TypedWatchEvent
@@ -24,8 +27,13 @@ final class TestResourceClient[T: K8sObject] private (
 
   override def getAll(
     namespace: Option[K8sNamespace],
-    chunkSize: Int
+    chunkSize: Int,
+    fieldSelector: Option[FieldSelector] = None,
+    labelSelector: Option[LabelSelector] = None,
+    resourceVersion: ListResourceVersion = ListResourceVersion.MostRecent
   ): Stream[K8sFailure, T] = {
+    // TODO: support fieldSelector, labelSelector and resourceVersion
+
     val prefix = keyPrefix(namespace)
     ZStream.unwrap {
       store.toList.commit.map { items =>

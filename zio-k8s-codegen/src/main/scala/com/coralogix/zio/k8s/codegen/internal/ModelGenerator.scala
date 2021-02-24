@@ -22,10 +22,10 @@ trait ModelGenerator {
   protected def generateAllModels(
     scalafmt: Scalafmt,
     targetRoot: Path,
-    definitions: Set[IdentifiedSchema],
+    definitionMap: Map[String, IdentifiedSchema],
     resources: Set[SupportedResource]
   ): ZIO[Blocking, Throwable, Set[Path]] = {
-    val filteredDefinitions = definitions.filter(d => !isListModel(d))
+    val filteredDefinitions = definitionMap.values.filter(d => !isListModel(d)).toSet
     for {
       _     <- ZIO.effect(logger.info(s"Generating code for ${filteredDefinitions.size} models..."))
       paths <- ZIO.foreach(filteredDefinitions) { d =>
@@ -34,7 +34,7 @@ trait ModelGenerator {
 
                  for {
                    _         <- ZIO.effect(logger.info(s"Generating '$entityName' to ${pkg.mkString(".")}"))
-                   src        = generateModel(modelRoot, pkg, entityName, d, resources)
+                   src        = generateModel(modelRoot, pkg, entityName, d, resources, definitionMap)
                    targetDir  = pkg.foldLeft(targetRoot)(_ / _)
                    _         <- Files.createDirectories(targetDir)
                    targetPath = targetDir / s"$entityName.scala"
@@ -62,7 +62,8 @@ trait ModelGenerator {
     pkg: Vector[String],
     entityName: String,
     d: IdentifiedSchema,
-    resources: Set[SupportedResource]
+    resources: Set[SupportedResource],
+    definitionMap: Map[String, IdentifiedSchema]
   ): String = {
     import scala.meta._
     val rootPackageTerm = rootPackage.mkString(".").parse[Term].get.asInstanceOf[Term.Ref]
@@ -73,6 +74,8 @@ trait ModelGenerator {
 
     val entityNameN = Term.Name(entityName)
     val entityNameT = Type.Name(entityName)
+    val entityFieldsT = Type.Name(entityName + "Fields")
+    val entityFieldsInit = Init(entityFieldsT, Name.Anonymous(), List(List(q"Chunk.empty[String]")))
 
     val defs: List[Stat] =
       Option(d.schema.getType) match {
@@ -259,7 +262,7 @@ trait ModelGenerator {
                                 protected override val impl: com.coralogix.zio.k8s.client.model.K8sObject[$entityNameT] = k8sObject
                               }
                            """,
-                          q"""implicit val metadata: ResourceMetadata[$entityNameT] =
+                          q"""implicit val resourceMetadata: ResourceMetadata[$entityNameT] =
                                 new ResourceMetadata[$entityNameT] {
                                   override val kind: String = $kindLit
                                   override val apiVersion: String = $apiVersionLit
@@ -282,7 +285,7 @@ trait ModelGenerator {
                                 protected override val impl: com.coralogix.zio.k8s.client.model.K8sObject[$entityNameT] = k8sObject
                               }
                            """,
-                          q"""implicit val metadata: ResourceMetadata[$entityNameT] =
+                          q"""implicit val resourceMetadata: ResourceMetadata[$entityNameT] =
                                 new ResourceMetadata[$entityNameT] {
                                   override val kind: String = $kindLit
                                   override val apiVersion: String = $apiVersionLit
@@ -295,15 +298,41 @@ trait ModelGenerator {
                     })
                 }
 
+              val fieldSelectors =
+                properties
+                  .filterKeys(filterKeysOf(d))
+                  .toList
+                  .map { case (name, propSchema) =>
+                    val propT = toType(name, propSchema)
+                    val valueName = Term.Name(name)
+                    val valueLit = Lit.String(name)
+
+                    propT match {
+                      case Type.Select(ns, Type.Name(n))
+                          if refersToObject(definitionMap, propSchema) =>
+                        val propN = Term.Select(ns, Term.Name(n))
+                        val propFieldsT = Type.Select(ns, Type.Name(n + "Fields"))
+
+                        q"""def $valueName: $propFieldsT = $propN.nestedField(_prefix :+ $valueLit)"""
+                      case _ =>
+                        q"""def $valueName: Field = com.coralogix.zio.k8s.client.model.field(_prefix :+ $valueLit)"""
+                    }
+                  }
+
               List(
                 classDef,
                 q"""
-                      object $entityNameN {
+                      object $entityNameN extends $entityFieldsInit {
+                        def nestedField(prefix: Chunk[String]): $entityFieldsT = new $entityFieldsT(prefix)
+
                         $encoder
                         $decoder
                         ..$k8sObject
-                      }
-                     """
+                      }""",
+                q"""class $entityFieldsT(_prefix: Chunk[String]) {
+                        ..$fieldSelectors
+                    }
+                 """
               )
             case None             =>
               q"""
@@ -311,6 +340,12 @@ trait ModelGenerator {
                 object $entityNameN {
                   implicit val $encoderName: Encoder[$entityNameT] = (v: $entityNameT) => v.value
                   implicit val $decoderName: Decoder[$entityNameT] = (cursor: HCursor) => Right($entityNameN(cursor.value))
+
+                  def nestedField(prefix: Chunk[String]): $entityFieldsT = new $entityFieldsT(prefix)
+                }
+
+                class $entityFieldsT(_prefix: Chunk[String]) {
+                  def field(subPath: String): Field = com.coralogix.zio.k8s.client.model.field(_prefix ++ Chunk.fromArray(subPath.split('.')))
                 }
                """.stats
           }
@@ -374,7 +409,7 @@ trait ModelGenerator {
           import zio.{Chunk, IO, ZIO}
 
           import com.coralogix.zio.k8s.client.{K8sFailure, UndefinedField}
-          import com.coralogix.zio.k8s.client.model.{K8sResourceType, Optional, ResourceMetadata}
+          import com.coralogix.zio.k8s.client.model.{Field, K8sResourceType, Optional, ResourceMetadata}
 
           import $rootPackageTerm._
 
@@ -483,4 +518,18 @@ trait ModelGenerator {
         (name: String) => name != "kind" && name != "apiVersion"
     }
 
+  private def refersToObject(
+    definitionMap: Map[String, IdentifiedSchema],
+    schema: Schema[_]
+  ): Boolean = {
+    val name = schema.get$ref().drop("#/components/schemas/".length)
+    definitionMap.get(name) match {
+      case Some(d) =>
+        d.schema.getType == "object"
+      case None    =>
+        println(s"Could not find $name in ${definitionMap.keySet}")
+        false
+    }
+
+  }
 }
