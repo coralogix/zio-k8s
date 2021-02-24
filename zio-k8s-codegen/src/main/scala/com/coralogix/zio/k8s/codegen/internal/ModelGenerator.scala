@@ -75,7 +75,7 @@ trait ModelGenerator {
     val entityNameN = Term.Name(entityName)
     val entityNameT = Type.Name(entityName)
     val entityFieldsT = Type.Name(entityName + "Fields")
-    val entityFieldsInit = Init(entityFieldsT, Name.Anonymous(), List(List(q"Chunk.empty[String]")))
+    val entityFieldsInit = Init(entityFieldsT, Name.Anonymous(), List(List(q"Chunk.empty")))
 
     val defs: List[Stat] =
       Option(d.schema.getType) match {
