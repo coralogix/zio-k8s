@@ -26,11 +26,26 @@ final class ResourceClient[
 
   // TODO: error-accumulating json unmarshallers instead of asJson
 
-  def getAll(namespace: Option[K8sNamespace], chunkSize: Int): Stream[K8sFailure, T] =
+  def getAll(
+    namespace: Option[K8sNamespace],
+    chunkSize: Int,
+    fieldSelector: Option[FieldSelector] = None,
+    labelSelector: Option[LabelSelector] = None,
+    resourceVersion: ListResourceVersion = ListResourceVersion.MostRecent
+  ): Stream[K8sFailure, T] =
     ZStream.unwrap {
       handleFailures {
         k8sRequest
-          .get(paginated(namespace, chunkSize, continueToken = None))
+          .get(
+            paginated(
+              namespace,
+              chunkSize,
+              continueToken = None,
+              fieldSelector,
+              labelSelector,
+              resourceVersion
+            )
+          )
           .response(asJson[ObjectList[T]])
           .send(backend)
       }.map { initialResponse =>
@@ -50,7 +65,10 @@ final class ResourceClient[
                                                                        paginated(
                                                                          namespace,
                                                                          chunkSize,
-                                                                         continueToken = Some(token)
+                                                                         continueToken = Some(token),
+                                                                         fieldSelector,
+                                                                         labelSelector,
+                                                                         resourceVersion
                                                                        )
                                                                      )
                                                                      .response(asJson[ObjectList[T]])
@@ -179,9 +197,14 @@ object ResourceClient {
   object namespaced {
     def getAll[T: Tag](
       namespace: Option[K8sNamespace],
-      chunkSize: Int = 10
+      chunkSize: Int = 10,
+      fieldSelector: Option[FieldSelector] = None,
+      labelSelector: Option[LabelSelector] = None,
+      resourceVersion: ListResourceVersion = ListResourceVersion.MostRecent
     ): ZStream[Has[NamespacedResource[T]], K8sFailure, T] =
-      ZStream.accessStream(_.get.getAll(namespace, chunkSize))
+      ZStream.accessStream(
+        _.get.getAll(namespace, chunkSize, fieldSelector, labelSelector, resourceVersion)
+      )
 
     def watch[T: Tag](
       namespace: Option[K8sNamespace],
@@ -246,9 +269,12 @@ object ResourceClient {
 
   object cluster {
     def getAll[T: Tag](
-      chunkSize: Int = 10
+      chunkSize: Int = 10,
+      fieldSelector: Option[FieldSelector] = None,
+      labelSelector: Option[LabelSelector] = None,
+      resourceVersion: ListResourceVersion = ListResourceVersion.MostRecent
     ): ZStream[Has[ClusterResource[T]], K8sFailure, T] =
-      ZStream.accessStream(_.get.getAll(chunkSize))
+      ZStream.accessStream(_.get.getAll(chunkSize, fieldSelector, labelSelector, resourceVersion))
 
     def watch[T: Tag](
       resourceVersion: Option[String]

@@ -128,12 +128,46 @@ The following functions are the _basic operations_ the resource supports:
 
 #### Get
 ```scala
-def getAll(namespace: Option[K8sNamespace], chunkSize: Int = 10): ZStream[StatefulSets, K8sFailure, StatefulSet]
+def getAll(
+  namespace: Option[K8sNamespace], 
+  chunkSize: Int = 10,
+  fieldSelector: Option[FieldSelector] = None,
+  labelSelector: Option[LabelSelector] = None,
+  resourceVersion: ListResourceVersion = ListResourceVersion.MostRecent
+): ZStream[StatefulSets, K8sFailure, StatefulSet]
 def get(name: String, namespace: K8sNamespace): ZIO[StatefulSets, K8sFailure, StatefulSet]
 ```
 
 - `getAll` returns a **stream** of all resources in the cluster, optionally filtered to a single _namespace_.
 - `get` returns a single `StatefulSet` from a given _namespace_
+
+##### Field and label selector DSL
+There is a small DSL for assembling field and label selector expressions. 
+
+The following examples demonstrate how to create _label selectors_:
+
+```scala mdoc
+import com.coralogix.zio.k8s.client.model._
+
+label("release") === "my-release"
+
+label("version") in ("v1", "v2")
+
+(label("release") === "my-release") && (label("version") in ("v1", "v2")) 
+```
+
+For building _field selectors_, the resource data model's companion objects have field selectors
+that can be used to recursively point to the field to be used in the filter expression:
+
+```scala mdoc
+import com.coralogix.zio.k8s.model.core.v1.Pod
+
+Pod.metadata.name === "something"
+
+Pod.spec.securityContext.fsGroup !== "admin"
+
+(Pod.metadata.name === "something") && (Pod.spec.securityContext.fsGroup !== "admin")
+```
 
 #### Watch
 ```scala

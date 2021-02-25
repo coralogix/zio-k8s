@@ -48,7 +48,7 @@ class K8sResourceCodegen(val logger: sbt.Logger)
 
       // Generating code
       packagePaths <- generateAllPackages(scalafmt, targetDir, definitionMap, resources)
-      modelPaths   <- generateAllModels(scalafmt, targetDir, definitions, resources)
+      modelPaths   <- generateAllModels(scalafmt, targetDir, definitionMap, resources)
       unifiedPaths <- generateUnifiedClientModule(
                         scalafmt,
                         targetDir,

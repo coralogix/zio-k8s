@@ -1,7 +1,10 @@
 package com.coralogix.zio.k8s.client
 
 import com.coralogix.zio.k8s.client.model.{
+  FieldSelector,
   K8sNamespace,
+  LabelSelector,
+  ListResourceVersion,
   PropagationPolicy,
   Reseted,
   TypedWatchEvent
@@ -13,7 +16,13 @@ import zio.duration.Duration
 import zio.stream.{ Stream, ZStream }
 
 trait Resource[T] {
-  def getAll(namespace: Option[K8sNamespace], chunkSize: Int = 10): Stream[K8sFailure, T]
+  def getAll(
+    namespace: Option[K8sNamespace],
+    chunkSize: Int = 10,
+    fieldSelector: Option[FieldSelector] = None,
+    labelSelector: Option[LabelSelector] = None,
+    resourceVersion: ListResourceVersion = ListResourceVersion.MostRecent
+  ): Stream[K8sFailure, T]
 
   def watch(
     namespace: Option[K8sNamespace],
@@ -54,7 +63,13 @@ trait Resource[T] {
 trait NamespacedResource[T] {
   val asGenericResource: Resource[T]
 
-  def getAll(namespace: Option[K8sNamespace], chunkSize: Int = 10): Stream[K8sFailure, T]
+  def getAll(
+    namespace: Option[K8sNamespace],
+    chunkSize: Int = 10,
+    fieldSelector: Option[FieldSelector] = None,
+    labelSelector: Option[LabelSelector] = None,
+    resourceVersion: ListResourceVersion = ListResourceVersion.MostRecent
+  ): Stream[K8sFailure, T]
   def watch(
     namespace: Option[K8sNamespace],
     resourceVersion: Option[String]
@@ -88,7 +103,12 @@ trait NamespacedResource[T] {
 trait ClusterResource[T] {
   val asGenericResource: Resource[T]
 
-  def getAll(chunkSize: Int = 10): Stream[K8sFailure, T]
+  def getAll(
+    chunkSize: Int = 10,
+    fieldSelector: Option[FieldSelector] = None,
+    labelSelector: Option[LabelSelector] = None,
+    resourceVersion: ListResourceVersion = ListResourceVersion.MostRecent
+  ): Stream[K8sFailure, T]
 
   def watch(resourceVersion: Option[String]): Stream[K8sFailure, TypedWatchEvent[T]]
 
