@@ -204,13 +204,17 @@ lazy val leaderExample = Project("leader-example", file("examples/leader-example
     ),
     packageName in Docker := "leader-example",
     version in Docker     := "0.0.1",
-    dockerBaseImage       := "openjdk:11"
+    dockerBaseImage       := "openjdk:11",
+    publish / skip        := true
   )
   .dependsOn(operator)
   .enablePlugins(JavaAppPackaging, DockerPlugin)
 
 val opticsExample = Project("optics-example", file("examples/optics-example"))
   .settings(commonSettings)
+  .settings(
+    publish / skip := true
+  )
   .dependsOn(client, clientQuicklens, clientMonocle)
 
 lazy val docs = project
