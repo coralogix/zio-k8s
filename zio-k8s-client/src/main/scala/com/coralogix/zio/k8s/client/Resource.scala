@@ -26,13 +26,17 @@ trait Resource[T] {
 
   def watch(
     namespace: Option[K8sNamespace],
-    resourceVersion: Option[String]
+    resourceVersion: Option[String],
+    fieldSelector: Option[FieldSelector] = None,
+    labelSelector: Option[LabelSelector] = None
   ): Stream[K8sFailure, TypedWatchEvent[T]]
 
   def watchForever(
-    namespace: Option[K8sNamespace]
+    namespace: Option[K8sNamespace],
+    fieldSelector: Option[FieldSelector] = None,
+    labelSelector: Option[LabelSelector] = None
   ): ZStream[Clock, K8sFailure, TypedWatchEvent[T]] =
-    ZStream.succeed(Reseted) ++ watch(namespace, None)
+    ZStream.succeed(Reseted) ++ watch(namespace, None, fieldSelector, labelSelector)
       .retry(Schedule.recurWhileEquals(Gone))
 
   def get(name: String, namespace: Option[K8sNamespace]): IO[K8sFailure, T]
@@ -72,11 +76,15 @@ trait NamespacedResource[T] {
   ): Stream[K8sFailure, T]
   def watch(
     namespace: Option[K8sNamespace],
-    resourceVersion: Option[String]
+    resourceVersion: Option[String],
+    fieldSelector: Option[FieldSelector] = None,
+    labelSelector: Option[LabelSelector] = None
   ): Stream[K8sFailure, TypedWatchEvent[T]]
 
   def watchForever(
-    namespace: Option[K8sNamespace]
+    namespace: Option[K8sNamespace],
+    fieldSelector: Option[FieldSelector] = None,
+    labelSelector: Option[LabelSelector] = None
   ): ZStream[Clock, K8sFailure, TypedWatchEvent[T]]
 
   def get(name: String, namespace: K8sNamespace): IO[K8sFailure, T]
@@ -110,9 +118,16 @@ trait ClusterResource[T] {
     resourceVersion: ListResourceVersion = ListResourceVersion.MostRecent
   ): Stream[K8sFailure, T]
 
-  def watch(resourceVersion: Option[String]): Stream[K8sFailure, TypedWatchEvent[T]]
+  def watch(
+    resourceVersion: Option[String],
+    fieldSelector: Option[FieldSelector] = None,
+    labelSelector: Option[LabelSelector] = None
+  ): Stream[K8sFailure, TypedWatchEvent[T]]
 
-  def watchForever(): ZStream[Clock, K8sFailure, TypedWatchEvent[T]]
+  def watchForever(
+    fieldSelector: Option[FieldSelector] = None,
+    labelSelector: Option[LabelSelector] = None
+  ): ZStream[Clock, K8sFailure, TypedWatchEvent[T]]
 
   def get(name: String): IO[K8sFailure, T]
 

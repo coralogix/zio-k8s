@@ -532,6 +532,34 @@ object K8sUriSpec extends DefaultRunnableSpec {
               uri"https://localhost:32768/apis/gr/v8/namespaces/def/rt?watch=1&resourceVersion=VER"
             )
           )
+        ),
+        test("watch with namespace and field selector")(
+          assert(
+            K8sWatchUri(
+              resourceType,
+              Some(ns),
+              None,
+              fieldSelector = Some(field("object.metadata") === "x")
+            ).toUri(cluster)
+          )(
+            equalTo(
+              uri"https://localhost:32768/apis/gr/v8/namespaces/def/rt?watch=1&fieldSelector=object.metadata==x"
+            )
+          )
+        ),
+        test("watch with namespace and label selector")(
+          assert(
+            K8sWatchUri(
+              resourceType,
+              Some(ns),
+              None,
+              labelSelector = Some(label("service").in("x", "y"))
+            ).toUri(cluster)
+          )(
+            equalTo(
+              uri"https://localhost:32768/apis/gr/v8/namespaces/def/rt?watch=1&labelSelector=service in (x, y)"
+            )
+          )
         )
       ),
       suite("watch with empty group")(
