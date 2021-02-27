@@ -118,12 +118,16 @@ package object model extends LabelSelector.Syntax with FieldSelector.Syntax {
   final case class K8sWatchUri(
     resource: K8sResourceType,
     namespace: Option[K8sNamespace],
-    resourceVersion: Option[String]
+    resourceVersion: Option[String],
+    fieldSelector: Option[FieldSelector] = None,
+    labelSelector: Option[LabelSelector] = None
   ) extends K8sUri {
     override def toUri(cluster: K8sCluster): Uri =
       K8sSimpleUri(resource, None, None, namespace)
         .toUri(cluster)
         .addParam("watch", "1")
         .addParam("resourceVersion", resourceVersion)
+        .addParam("fieldSelector", fieldSelector.map(_.asQuery))
+        .addParam("labelSelector", labelSelector.map(_.asQuery))
   }
 }

@@ -366,14 +366,18 @@ trait ClientModuleGenerator {
 
                 override def watch(
                   namespace: Option[K8sNamespace],
-                  resourceVersion: Option[String]
+                  resourceVersion: Option[String],
+                  fieldSelector: Option[FieldSelector] = None,
+                  labelSelector: Option[LabelSelector] = None,
                 ): ZStream[Any, K8sFailure, TypedWatchEvent[$entityT]] =
-                  client.watch(namespace, resourceVersion)
+                  client.watch(namespace, resourceVersion, fieldSelector, labelSelector)
 
                 override def watchForever(
-                  namespace: Option[K8sNamespace]
+                  namespace: Option[K8sNamespace],
+                  fieldSelector: Option[FieldSelector] = None,
+                  labelSelector: Option[LabelSelector] = None,
                 ): ZStream[Clock, K8sFailure, TypedWatchEvent[$entityT]] =
-                  client.watchForever(namespace)
+                  client.watchForever(namespace, fieldSelector, labelSelector)
 
                 override def get(
                   name: String,
@@ -429,14 +433,18 @@ trait ClientModuleGenerator {
 
             def watch(
               namespace: Option[K8sNamespace],
-              resourceVersion: Option[String]
+              resourceVersion: Option[String],
+              fieldSelector: Option[FieldSelector] = None,
+              labelSelector: Option[LabelSelector] = None,
             ): ZStream[$typeAliasT, K8sFailure, TypedWatchEvent[$entityT]] =
-              ZStream.accessStream(_.get.watch(namespace, resourceVersion))
+              ZStream.accessStream(_.get.watch(namespace, resourceVersion, fieldSelector, labelSelector))
 
             def watchForever(
-              namespace: Option[K8sNamespace]
+              namespace: Option[K8sNamespace],
+              fieldSelector: Option[FieldSelector] = None,
+              labelSelector: Option[LabelSelector] = None,
             ): ZStream[$typeAliasT with Clock, K8sFailure, TypedWatchEvent[$entityT]] =
-              ZStream.accessStream(_.get.watchForever(namespace))
+              ZStream.accessStream(_.get.watchForever(namespace, fieldSelector, labelSelector))
 
             def get(
               name: String,
@@ -693,13 +701,17 @@ trait ClientModuleGenerator {
                    client.getAll(None, chunkSize, fieldSelector, labelSelector, resourceVersion)
 
                 override def watch(
-                  resourceVersion: Option[String]
+                  resourceVersion: Option[String],
+                  fieldSelector: Option[FieldSelector] = None,
+                  labelSelector: Option[LabelSelector] = None,
                 ): ZStream[Any, K8sFailure, TypedWatchEvent[$entityT]] =
-                  client.watch(None, resourceVersion)
+                  client.watch(None, resourceVersion, fieldSelector, labelSelector)
 
                 override def watchForever(
+                  fieldSelector: Option[FieldSelector] = None,
+                  labelSelector: Option[LabelSelector] = None,
                 ): ZStream[Clock, K8sFailure, TypedWatchEvent[$entityT]] =
-                  client.watchForever(None)
+                  client.watchForever(None, fieldSelector, labelSelector)
 
                 override def get(
                   name: String
@@ -749,13 +761,17 @@ trait ClientModuleGenerator {
               ZStream.accessStream(_.get.getAll(chunkSize, fieldSelector, labelSelector, resourceVersion))
 
             def watch(
-              resourceVersion: Option[String]
+              resourceVersion: Option[String],
+              fieldSelector: Option[FieldSelector] = None,
+              labelSelector: Option[LabelSelector] = None,
             ): ZStream[$typeAliasT, K8sFailure, TypedWatchEvent[$entityT]] =
-              ZStream.accessStream(_.get.watch(resourceVersion))
+              ZStream.accessStream(_.get.watch(resourceVersion, fieldSelector, labelSelector))
 
             def watchForever(
+              fieldSelector: Option[FieldSelector] = None,
+              labelSelector: Option[LabelSelector] = None,
             ): ZStream[$typeAliasT with Clock, K8sFailure, TypedWatchEvent[$entityT]] =
-              ZStream.accessStream(_.get.watchForever())
+              ZStream.accessStream(_.get.watchForever(fieldSelector, labelSelector))
 
             def get(
               name: String,

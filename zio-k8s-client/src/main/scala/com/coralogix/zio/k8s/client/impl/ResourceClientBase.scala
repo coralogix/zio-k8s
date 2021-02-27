@@ -95,8 +95,15 @@ trait ResourceClientBase {
       resourceVersion
     ).toUri(cluster)
 
-  protected def watching(namespace: Option[K8sNamespace], resourceVersion: Option[String]): Uri =
-    K8sWatchUri(resourceType, namespace, resourceVersion).toUri(cluster)
+  protected def watching(
+    namespace: Option[K8sNamespace],
+    resourceVersion: Option[String],
+    fieldSelector: Option[FieldSelector],
+    labelSelector: Option[LabelSelector]
+  ): Uri =
+    K8sWatchUri(resourceType, namespace, resourceVersion, fieldSelector, labelSelector).toUri(
+      cluster
+    )
 
   protected def handleFailures[A](
     f: Task[Response[Either[ResponseException[String, Error], A]]]

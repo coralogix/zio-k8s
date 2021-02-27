@@ -169,10 +169,24 @@ Pod.spec.securityContext.fsGroup !== "admin"
 (Pod.metadata.name === "something") && (Pod.spec.securityContext.fsGroup !== "admin")
 ```
 
+**NOTE** that Kubernetes does not support field selectors on _all_ fields and `zio-k8s` currently does not have
+any information about which one it does. So the library provides a `Field` value for all fields and it is the library
+user's responsibility to know what fields are selectable for a given resource.
+
 #### Watch
 ```scala
-def watch(namespace: Option[K8sNamespace], resourceVersion: Option[String]): ZStream[StatefulSets, K8sFailure, TypedWatchEvent[StatefulSet]]
-def watchForever(namespace: Option[K8sNamespace]): ZStream[StatefulSets with Clock, K8sFailure, TypedWatchEvent[StatefulSet]]
+def watch(
+   namespace: Option[K8sNamespace], 
+   resourceVersion: Option[String],
+   fieldSelector: Option[FieldSelector] = None,
+   labelSelector: Option[LabelSelector] = None
+): ZStream[StatefulSets, K8sFailure, TypedWatchEvent[StatefulSet]]
+
+def watchForever(
+  namespace: Option[K8sNamespace],
+  fieldSelector: Option[FieldSelector] = None,
+  labelSelector: Option[LabelSelector] = None
+): ZStream[StatefulSets with Clock, K8sFailure, TypedWatchEvent[StatefulSet]]
 ```
 
 - `watch` starts a **stream** of _watch events_ starting from a given resource version. The lifecycle of this stream corresponds with the underlying Kubernetes API request.

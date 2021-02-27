@@ -95,13 +95,15 @@ final class ResourceClient[
 
   private def watchStream(
     namespace: Option[K8sNamespace],
+    fieldSelector: Option[FieldSelector],
+    labelSelector: Option[LabelSelector],
     resourceVersion: Option[String]
   ): Stream[K8sFailure, TypedWatchEvent[T]] =
     ZStream
       .unwrap {
         handleFailures {
           k8sRequest
-            .get(watching(namespace, resourceVersion))
+            .get(watching(namespace, resourceVersion, fieldSelector, labelSelector))
             .response(asStreamUnsafeWithError)
             .readTimeout(10.minutes.asScala)
             .send(backend)
@@ -120,13 +122,15 @@ final class ResourceClient[
 
   override def watch(
     namespace: Option[K8sNamespace],
-    resourceVersion: Option[String]
+    resourceVersion: Option[String],
+    fieldSelector: Option[FieldSelector] = None,
+    labelSelector: Option[LabelSelector] = None
   ): ZStream[Any, K8sFailure, TypedWatchEvent[T]] =
     ZStream.unwrap {
       Ref.make(resourceVersion).map { lastResourceVersion =>
         ZStream
           .fromEffect(lastResourceVersion.get)
-          .flatMap(watchStream(namespace, _))
+          .flatMap(watchStream(namespace, fieldSelector, labelSelector, _))
           .tap(event => lastResourceVersion.set(event.resourceVersion))
           .forever
       }
@@ -208,16 +212,20 @@ object ResourceClient {
 
     def watch[T: Tag](
       namespace: Option[K8sNamespace],
-      resourceVersion: Option[String]
+      resourceVersion: Option[String],
+      fieldSelector: Option[FieldSelector] = None,
+      labelSelector: Option[LabelSelector] = None
     ): ZStream[Has[NamespacedResource[T]], K8sFailure, TypedWatchEvent[T]] =
-      ZStream.accessStream(_.get.watch(namespace, resourceVersion))
+      ZStream.accessStream(_.get.watch(namespace, resourceVersion, fieldSelector, labelSelector))
 
     def watchForever[T: Tag](
-      namespace: Option[K8sNamespace]
+      namespace: Option[K8sNamespace],
+      fieldSelector: Option[FieldSelector] = None,
+      labelSelector: Option[LabelSelector] = None
     ): ZStream[Has[NamespacedResource[T]] with Clock, K8sFailure, TypedWatchEvent[
       T
     ]] =
-      ZStream.accessStream(_.get.watchForever(namespace))
+      ZStream.accessStream(_.get.watchForever(namespace, fieldSelector, labelSelector))
 
     def get[T: Tag](
       name: String,
@@ -277,13 +285,17 @@ object ResourceClient {
       ZStream.accessStream(_.get.getAll(chunkSize, fieldSelector, labelSelector, resourceVersion))
 
     def watch[T: Tag](
-      resourceVersion: Option[String]
+      resourceVersion: Option[String],
+      fieldSelector: Option[FieldSelector] = None,
+      labelSelector: Option[LabelSelector] = None
     ): ZStream[Has[ClusterResource[T]], K8sFailure, TypedWatchEvent[T]] =
-      ZStream.accessStream(_.get.watch(resourceVersion))
+      ZStream.accessStream(_.get.watch(resourceVersion, fieldSelector, labelSelector))
 
     def watchForever[T: Tag](
+      fieldSelector: Option[FieldSelector] = None,
+      labelSelector: Option[LabelSelector] = None
     ): ZStream[Has[ClusterResource[T]] with Clock, K8sFailure, TypedWatchEvent[T]] =
-      ZStream.accessStream(_.get.watchForever())
+      ZStream.accessStream(_.get.watchForever(fieldSelector, labelSelector))
 
     def get[T: Tag](
       name: String

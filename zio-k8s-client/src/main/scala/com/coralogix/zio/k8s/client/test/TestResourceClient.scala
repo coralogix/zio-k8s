@@ -48,7 +48,9 @@ final class TestResourceClient[T: K8sObject] private (
 
   override def watch(
     namespace: Option[K8sNamespace],
-    resourceVersion: Option[String]
+    resourceVersion: Option[String],
+    fieldSelector: Option[FieldSelector] = None,
+    labelSelector: Option[LabelSelector] = None
   ): Stream[K8sFailure, TypedWatchEvent[T]] =
     ZStream.fromTQueue(events)
 
