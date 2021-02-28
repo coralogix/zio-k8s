@@ -99,6 +99,32 @@ package object model extends LabelSelector.Syntax with FieldSelector.Syntax {
         )
   }
 
+  final case class K8sDeletingManyUri(
+    resource: K8sResourceType,
+    namespace: Option[K8sNamespace],
+    dryRun: Boolean,
+    gracePeriod: Option[Duration],
+    propagationPolicy: Option[PropagationPolicy],
+    fieldSelector: Option[FieldSelector],
+    labelSelector: Option[LabelSelector]
+  ) extends K8sUri {
+    override def toUri(cluster: K8sCluster): Uri =
+      K8sSimpleUri(resource, None, None, namespace)
+        .toUri(cluster)
+        .addParam("dryRun", if (dryRun) Some("All") else None)
+        .addParam("gracePeriodSeconds", gracePeriod.map(_.toSeconds.toString))
+        .addParam(
+          "propagationPolicy",
+          propagationPolicy.map {
+            case PropagationPolicy.Orphan     => "Orphan"
+            case PropagationPolicy.Background => "Background"
+            case PropagationPolicy.Foreground => "Foreground"
+          }
+        )
+        .addParam("fieldSelector", fieldSelector.map(_.asQuery))
+        .addParam("labelSelector", labelSelector.map(_.asQuery))
+  }
+
   final case class K8sCreatorUri(
     resource: K8sResourceType,
     namespace: Option[K8sNamespace],

@@ -376,6 +376,168 @@ object K8sUriSpec extends DefaultRunnableSpec {
           )
         )
       ),
+      suite("deleting many")(
+        test("deleting many without namespace")(
+          assert(
+            K8sDeletingManyUri(
+              resourceType,
+              None,
+              dryRun = false,
+              gracePeriod = None,
+              propagationPolicy = None,
+              labelSelector = None,
+              fieldSelector = None
+            ).toUri(cluster)
+          )(
+            equalTo(uri"https://localhost:32768/apis/gr/v8/rt")
+          )
+        ),
+        test("deleting many without namespace, dry run")(
+          assert(
+            K8sDeletingManyUri(
+              resourceType,
+              None,
+              dryRun = true,
+              gracePeriod = None,
+              propagationPolicy = None,
+              labelSelector = None,
+              fieldSelector = None
+            ).toUri(cluster)
+          )(
+            equalTo(uri"https://localhost:32768/apis/gr/v8/rt?dryRun=All")
+          )
+        ),
+        test("deleting many with namespace")(
+          assert(
+            K8sDeletingManyUri(
+              resourceType,
+              Some(ns),
+              dryRun = false,
+              gracePeriod = None,
+              propagationPolicy = None,
+              labelSelector = None,
+              fieldSelector = None
+            ).toUri(cluster)
+          )(
+            equalTo(uri"https://localhost:32768/apis/gr/v8/namespaces/def/rt")
+          )
+        ),
+        test("deleting with namespace, dry run")(
+          assert(
+            K8sDeletingUri(
+              resourceType,
+              name,
+              None,
+              Some(ns),
+              dryRun = true,
+              gracePeriod = None,
+              propagationPolicy = None
+            ).toUri(cluster)
+          )(
+            equalTo(uri"https://localhost:32768/apis/gr/v8/namespaces/def/rt/n-123?dryRun=All")
+          )
+        ),
+        test("deleting many with namespace, grace period and propagation policy")(
+          assert(
+            K8sDeletingManyUri(
+              resourceType,
+              Some(ns),
+              dryRun = false,
+              gracePeriod = Some(1.minute),
+              propagationPolicy = Some(PropagationPolicy.Background),
+              labelSelector = None,
+              fieldSelector = None
+            ).toUri(cluster)
+          )(
+            equalTo(
+              uri"https://localhost:32768/apis/gr/v8/namespaces/def/rt?gracePeriodSeconds=60&propagationPolicy=Background"
+            )
+          )
+        )
+      ),
+      suite("deleting many with empty group")(
+        test("deleting many without namespace")(
+          assert(
+            K8sDeletingManyUri(
+              resourceTypeWithEmptyGroup,
+              None,
+              dryRun = false,
+              gracePeriod = None,
+              propagationPolicy = None,
+              labelSelector = None,
+              fieldSelector = None
+            )
+              .toUri(cluster)
+          )(
+            equalTo(uri"https://localhost:32768/api/v8/rt")
+          )
+        ),
+        test("deleting many without namespace, dry run")(
+          assert(
+            K8sDeletingManyUri(
+              resourceTypeWithEmptyGroup,
+              None,
+              dryRun = true,
+              gracePeriod = None,
+              propagationPolicy = None,
+              labelSelector = None,
+              fieldSelector = None
+            )
+              .toUri(cluster)
+          )(
+            equalTo(uri"https://localhost:32768/api/v8/rt?dryRun=All")
+          )
+        ),
+        test("deleting many with namespace")(
+          assert(
+            K8sDeletingManyUri(
+              resourceTypeWithEmptyGroup,
+              Some(ns),
+              dryRun = false,
+              gracePeriod = None,
+              propagationPolicy = None,
+              labelSelector = None,
+              fieldSelector = None
+            ).toUri(cluster)
+          )(
+            equalTo(uri"https://localhost:32768/api/v8/namespaces/def/rt")
+          )
+        ),
+        test("deleting many with namespace, dry run")(
+          assert(
+            K8sDeletingManyUri(
+              resourceTypeWithEmptyGroup,
+              Some(ns),
+              dryRun = true,
+              gracePeriod = None,
+              propagationPolicy = None,
+              labelSelector = None,
+              fieldSelector = None
+            )
+              .toUri(cluster)
+          )(
+            equalTo(uri"https://localhost:32768/api/v8/namespaces/def/rt?dryRun=All")
+          )
+        ),
+        test("deleting many with namespace, graceful period and propagation policy")(
+          assert(
+            K8sDeletingManyUri(
+              resourceTypeWithEmptyGroup,
+              Some(ns),
+              dryRun = false,
+              gracePeriod = Some(10.seconds),
+              propagationPolicy = Some(PropagationPolicy.Orphan),
+              labelSelector = None,
+              fieldSelector = None
+            )
+              .toUri(cluster)
+          )(
+            equalTo(
+              uri"https://localhost:32768/api/v8/namespaces/def/rt?gracePeriodSeconds=10&propagationPolicy=Orphan"
+            )
+          )
+        )
+      ),
       suite("status modifier")(
         test("status modifier without namespace")(
           assert(

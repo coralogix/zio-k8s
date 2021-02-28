@@ -56,7 +56,8 @@ object K8sCustomResourceCodegen extends Common with ClientModuleGenerator {
         .map { (_: CustomResourceSubresourceScale) =>
           SubresourceId("scale", "io.k8s.api.autoscaling.v1.Scale", Set("get", "patch", "put"))
         },
-      Some(yamlPath)
+      Some(yamlPath),
+      true
     )
   }
 

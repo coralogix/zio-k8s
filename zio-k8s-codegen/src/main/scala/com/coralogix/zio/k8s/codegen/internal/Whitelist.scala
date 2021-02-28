@@ -31,8 +31,7 @@ object Whitelist {
   def isWhitelistedAction(action: IdentifiedAction): Option[IssueReference] =
     (action.action == "patch").as(32) ||
       (action.action == "watchlist").as(58) ||
-      (action.action == "watch").as(58) ||
-      (action.action == "deletecollection").as(25)
+      (action.action == "watch").as(58)
 
   def isWhitelistedPath(
     path: IdentifiedPath

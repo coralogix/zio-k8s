@@ -29,6 +29,14 @@ case class SupportedResource(
       unsupportedEndpoints
     )
 
+  def supportsDeleteMany: Boolean =
+    actions
+      .map(_.endpointType)
+      .collectFirst { case EndpointType.DeleteMany(_, _) =>
+        true
+      }
+      .isDefined
+
   def subresources: Set[Subresource] =
     actions
       .map(action => (action, action.endpointType))
@@ -310,6 +318,12 @@ object ClassifiedResource {
   private def hasDelete(endpoints: Set[EndpointType], namespaced: Boolean): Boolean =
     endpoints
       .collect { case t: EndpointType.Delete =>
+        t
+      }
+      .exists(t => t.namespaced == namespaced)
+  private def hasDeleteMany(endpoints: Set[EndpointType], namespaced: Boolean): Boolean =
+    endpoints
+      .collect { case t: EndpointType.DeleteMany =>
         t
       }
       .exists(t => t.namespaced == namespaced)
