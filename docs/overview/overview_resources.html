@@ -244,9 +244,20 @@ user's responsibility to know what fields are selectable for a given resource.</
     namespace: <span class="hljs-type">K8sNamespace</span>,
     dryRun: <span class="hljs-type">Boolean</span> = <span class="hljs-literal">false</span>
   ): <span class="hljs-type">ZIO</span>[<span class="hljs-type">StatefulSets</span>, <span class="hljs-type">K8sFailure</span>, <span class="hljs-type">Status</span>]
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">deleteAll</span></span>(
+   deleteOptions: <span class="hljs-type">DeleteOptions</span>,
+   namespace: <span class="hljs-type">K8sNamespace</span>,
+   dryRun: <span class="hljs-type">Boolean</span> = <span class="hljs-literal">false</span>,
+   gracePeriod: <span class="hljs-type">Option</span>[<span class="hljs-type">Duration</span>] = <span class="hljs-type">None</span>,
+   propagationPolicy: <span class="hljs-type">Option</span>[<span class="hljs-type">PropagationPolicy</span>] = <span class="hljs-type">None</span>,
+   fieldSelector: <span class="hljs-type">Option</span>[<span class="hljs-type">FieldSelector</span>] = <span class="hljs-type">None</span>,
+   labelSelector: <span class="hljs-type">Option</span>[<span class="hljs-type">LabelSelector</span>] = <span class="hljs-type">None</span>
+): <span class="hljs-type">ZIO</span>[<span class="hljs-type">StatefulSets</span>, <span class="hljs-type">K8sFailure</span>, <span class="hljs-type">Status</span>]
 </code></pre>
 <ul>
 <li><code>delete</code> deletes an existing <em>Kubernetes resource</em> identified by its name in the given namespace.</li>
+<li><code>deleteAll</code> deletes multiple existing <em>Kubernetes resources</em>. Field and label selectors can be used to select the subset to be deleted. The default behavior is to delete all existing items.</li>
 </ul>
 <h3><a class="anchor" aria-hidden="true" id="namespaced-vs-cluster-resources"></a><a href="#namespaced-vs-cluster-resources" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Namespaced vs cluster resources</h3>
 <p>Some <em>Kubernetes resources</em> are <strong>cluster level</strong> while others like the example <code>StatefulSet</code> above are split in <em>namespaces</em>. The <code>zio-k8s</code> library encodes this property in the resource interfaces, and for <em>cluster resources</em> the operations does not
