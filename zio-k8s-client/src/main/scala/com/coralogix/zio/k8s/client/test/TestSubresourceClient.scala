@@ -6,7 +6,11 @@ import zio.stm.TMap
 import zio.{ IO, ZIO }
 
 final class TestSubresourceClient[T] private (store: TMap[String, T]) extends Subresource[T] {
-  override def get(name: String, namespace: Option[K8sNamespace]): IO[K8sFailure, T] = {
+  override def get(
+    name: String,
+    namespace: Option[K8sNamespace],
+    customParameters: Map[String, String] = Map.empty
+  ): IO[K8sFailure, T] = {
     val prefix = keyPrefix(namespace)
     store.get(prefix + name).commit.flatMap {
       case Some(value) => ZIO.succeed(value)

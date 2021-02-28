@@ -408,11 +408,7 @@ object EndpointType {
 
   final class Guards(endpoint: IdentifiedAction) {
     private val outer: scala.List[Parameter] = endpoint.outerParameters
-    private val inner: scala.List[Parameter] =
-      Option(endpoint.op.getParameters).map(_.asScala.toList).getOrElse(scala.List.empty)
-
-    val allParameters: Set[String] =
-      (outer.map(_.getName) ++ inner.map(_.getName)).toSet
+    private val inner: scala.List[Parameter] = endpoint.innerParameters
 
     def mustHaveMethod(method: PathItem.HttpMethod)(f: => EndpointType): EndpointType =
       if (endpoint.method == method) {

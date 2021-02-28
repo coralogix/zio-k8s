@@ -6,6 +6,9 @@ import com.coralogix.zio.k8s.codegen.internal.Whitelist.IssueReference
 import org.atteo.evo.inflector.English
 import zio.Task
 
+import scala.meta._
+import _root_.io.swagger.v3.oas.models.parameters.QueryParameter
+
 sealed trait ClassifiedResource {
   val unsupportedEndpoints: Set[IdentifiedAction]
 }
@@ -104,8 +107,32 @@ case class Subresource(
 ) {
   def describe: String = s"$name ($modelName) [${actions.map(_.action).mkString(", ")}]"
 
-  def id: SubresourceId =
-    SubresourceId(name, modelName, actions.map(_.action))
+  def id: SubresourceId = {
+    val customParameters: Map[String, Type] =
+      actions.find(_.action == "get") match {
+        case Some(getAction) =>
+          getAction.allParameters
+            .filter { case (_, param) => param.getIn == "query" }
+            .filter { case (name, _) => name != "pretty" }
+            .map { case (name, param) =>
+              val baseParamType: Type = param.getSchema.getType match {
+                case "boolean"     => t"Boolean"
+                case "integer"     => t"Int"
+                case "string"      => t"String"
+                case other: String =>
+                  throw new NotImplementedError(
+                    s"Custom query parameter type $other is not supported"
+                  )
+              }
+              val paramType = if (param.getRequired) baseParamType else t"Option[$baseParamType]"
+
+              name -> paramType
+            }
+
+        case None => Map.empty
+      }
+    SubresourceId(name, modelName, actions.map(_.action), customParameters)
+  }
 }
 
 object ClassifiedResource {

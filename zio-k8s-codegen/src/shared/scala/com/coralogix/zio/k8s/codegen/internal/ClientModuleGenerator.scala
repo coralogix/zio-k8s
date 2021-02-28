@@ -248,13 +248,16 @@ trait ClientModuleGenerator {
 
                 subresource.actionVerbs.flatMap {
                   case "get"  =>
+                    val params =
+                      param"name: String" :: param"namespace: K8sNamespace" :: subresource.toMethodParameters
+                    val customParamsMap = subresource.toMapFromParameters
+
                     List(
                       q"""
                         override def $getTerm(
-                          name: String,
-                          namespace: K8sNamespace
+                          ..$params
                         ): ZIO[Any, K8sFailure, $modelT] =
-                          $clientName.get(name, Some(namespace))
+                          $clientName.get(name, Some(namespace), $customParamsMap)
                         """
                     )
                   case "put"  =>
@@ -298,13 +301,15 @@ trait ClientModuleGenerator {
 
                 subresource.actionVerbs.flatMap {
                   case "get"  =>
+                    val paramDefs =
+                      param"name: String" :: param"namespace: K8sNamespace" :: subresource.toMethodParameters
+                    val params = q"name" :: q"namespace" :: subresource.toParameterAccess
                     List(
                       q"""
                         def $getTerm(
-                          name: String,
-                          namespace: K8sNamespace
+                          ..$paramDefs
                         ): ZIO[$typeAliasT, K8sFailure, $modelT] =
-                          ZIO.accessM(_.get.$getTerm(name, namespace))
+                          ZIO.accessM(_.get.$getTerm(..$params))
                         """
                     )
                   case "put"  =>
@@ -638,12 +643,15 @@ trait ClientModuleGenerator {
 
                 subresource.actionVerbs.flatMap {
                   case "get"  =>
+                    val params = param"name: String" :: subresource.toMethodParameters
+                    val customParamsMap = subresource.toMapFromParameters
+
                     List(
                       q"""
                         override def $getTerm(
-                          name: String,
+                          ..$params
                         ): ZIO[Any, K8sFailure, $modelT] =
-                          $clientName.get(name, None)
+                          $clientName.get(name, None, $customParamsMap)
                         """
                     )
                   case "put"  =>
@@ -684,12 +692,14 @@ trait ClientModuleGenerator {
 
                 subresource.actionVerbs.flatMap {
                   case "get"  =>
+                    val paramDefs = param"name: String" :: subresource.toMethodParameters
+                    val params = q"name" :: subresource.toParameterAccess
                     List(
                       q"""
                         def $getTerm(
-                          name: String
+                          ..$paramDefs
                         ): ZIO[$typeAliasT, K8sFailure, $modelT] =
-                          ZIO.accessM(_.get.$getTerm(name))
+                          ZIO.accessM(_.get.$getTerm(..$params))
                         """
                     )
                   case "put"  =>
