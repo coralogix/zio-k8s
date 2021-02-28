@@ -64,7 +64,7 @@
 optional fields, lists and maps in the middle.</p>
 <p>To enable the <em>Quicklens support</em> of <code>zio-k8s</code> an additional dependency has to be imported:</p>
 <pre><code class="hljs css language-scala">resolvers += <span class="hljs-type">Resolver</span>.sonatypeRepo(<span class="hljs-string">"snapshots"</span>)
-libraryDependencies += <span class="hljs-string">"com.coralogix"</span> %% <span class="hljs-string">"zio-k8s-client-quicklens"</span> % <span class="hljs-string">"0.0.0+1-c5005c9b-SNAPSHOT"</span>
+libraryDependencies += <span class="hljs-string">"com.coralogix"</span> %% <span class="hljs-string">"zio-k8s-client-quicklens"</span> % <span class="hljs-string">"0.0.0+1-66aee1fa-SNAPSHOT"</span>
 </code></pre>
 <p>Then by importing both <code>com.softwaremill.quicklens._</code> and <code>com.coralogix.zio.k8s.quicklens._</code>, the library can be used as expected:</p>
 <pre><code class="hljs css language-scala"><span class="hljs-keyword">import</span> com.coralogix.zio.k8s.quicklens._
