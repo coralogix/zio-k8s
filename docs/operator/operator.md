@@ -8,8 +8,9 @@ title:  "Implementing operators"
 The library defines an `Operator` by providing an `EventProcessor`:
 
 ```scala
-type EventProcessor[R, E, T] =
-    (OperatorContext, TypedWatchEvent[T]) => ZIO[R, OperatorFailure[E], Unit]
+trait EventProcessor[-R, +E, T] {
+  def apply(context: OperatorContext, event: TypedWatchEvent[T]): ZIO[R, OperatorFailure[E], Unit]
+}
 ```
 
 To start an operator, use either the `Operator.cluster` or `Operator.namespaced` functions:
