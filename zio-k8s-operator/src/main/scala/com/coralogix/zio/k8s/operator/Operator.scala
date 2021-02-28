@@ -1,14 +1,19 @@
 package com.coralogix.zio.k8s.operator
 
-import com.coralogix.zio.k8s.client.model.{K8sNamespace, K8sResourceType, ResourceMetadata, TypedWatchEvent}
-import com.coralogix.zio.k8s.client.{ClusterResource, K8sFailure, NamespacedResource, NotFound}
-import com.coralogix.zio.k8s.operator.Operator.{EventProcessor, OperatorContext}
+import com.coralogix.zio.k8s.client.model.{
+  K8sNamespace,
+  K8sResourceType,
+  ResourceMetadata,
+  TypedWatchEvent
+}
+import com.coralogix.zio.k8s.client.{ ClusterResource, K8sFailure, NamespacedResource, NotFound }
+import com.coralogix.zio.k8s.operator.Operator.{ EventProcessor, OperatorContext }
 import com.coralogix.zio.k8s.operator.OperatorLogging._
 import izumi.reflect.Tag
 import zio._
 import zio.clock.Clock
 import zio.duration.durationInt
-import zio.logging.{Logging, log}
+import zio.logging.{ log, Logging }
 import zio.stream.ZStream
 
 /** Core implementation of the operator logic.
