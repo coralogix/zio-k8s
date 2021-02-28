@@ -3,8 +3,8 @@ package com.coralogix.zio.k8s.codegen.internal
 import com.coralogix.zio.k8s.codegen.internal.CodegenIO.{ format, writeTextFile }
 import com.coralogix.zio.k8s.codegen.internal.Conversions.splitName
 import org.scalafmt.interfaces.Scalafmt
+import zio.ZIO
 import zio.blocking.Blocking
-import zio.{ Task, ZIO }
 import zio.nio.core.file.Path
 import zio.nio.file.Files
 
@@ -64,8 +64,9 @@ trait SubresourceClientGenerator {
 
     val clusterDefs = subresource.actionVerbs.toList.flatMap {
       case "get"  =>
+        val params = param"name: String" :: subresource.toMethodParameters
         List(q"""
-          def $getTerm(name: String): ZIO[Any, K8sFailure, $modelT]
+          def $getTerm(..$params): ZIO[Any, K8sFailure, $modelT]
           """)
       case "put"  =>
         List(q"""
@@ -85,8 +86,10 @@ trait SubresourceClientGenerator {
 
     val namespacedDefs = subresource.actionVerbs.toList.flatMap {
       case "get"  =>
+        val params =
+          param"name: String" :: param"namespace: K8sNamespace" :: subresource.toMethodParameters
         List(q"""
-          def $getTerm(name: String, namespace: K8sNamespace): ZIO[Any, K8sFailure, $modelT]
+          def $getTerm(..$params): ZIO[Any, K8sFailure, $modelT]
           """)
       case "put"  =>
         List(q"""

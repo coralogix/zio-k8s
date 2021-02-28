@@ -16,10 +16,17 @@ final class SubresourceClient[T: Encoder: Decoder](
   subresourceName: String
 ) extends Subresource[T] with ResourceClientBase {
 
-  def get(name: String, namespace: Option[K8sNamespace]): IO[K8sFailure, T] =
+  def get(
+    name: String,
+    namespace: Option[K8sNamespace],
+    customParameters: Map[String, String] = Map.empty
+  ): IO[K8sFailure, T] =
     handleFailures {
       k8sRequest
-        .get(simple(Some(name), Some(subresourceName), namespace).addPath("status"))
+        .get(
+          simple(Some(name), Some(subresourceName), namespace)
+            .addParams(customParameters)
+        )
         .response(asJson[T])
         .send(backend)
     }
@@ -51,5 +58,4 @@ final class SubresourceClient[T: Encoder: Decoder](
         .response(asJson[T])
         .send(backend)
     }
-
 }

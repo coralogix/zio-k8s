@@ -156,6 +156,12 @@ case class IdentifiedAction(
       case s: SubresourceEndpoint => allActions(s.rootPath).gvk
       case _                      => gvk
     }
+
+  lazy val innerParameters: List[Parameter] =
+    Option(op.getParameters).map(_.asScala.toList).getOrElse(List.empty)
+
+  lazy val allParameters: Map[String, Parameter] =
+    (outerParameters ++ innerParameters).map(p => p.getName -> p).toMap
 }
 
 object IdentifiedPath {

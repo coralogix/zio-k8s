@@ -54,7 +54,12 @@ object K8sCustomResourceCodegen extends Common with ClientModuleGenerator {
         .flatMap(_.subresources.flatMap(_.scale).toOption)
         .toSet
         .map { (_: CustomResourceSubresourceScale) =>
-          SubresourceId("scale", "io.k8s.api.autoscaling.v1.Scale", Set("get", "patch", "put"))
+          SubresourceId(
+            "scale",
+            "io.k8s.api.autoscaling.v1.Scale",
+            Set("get", "patch", "put"),
+            Map.empty
+          )
         },
       Some(yamlPath),
       true
