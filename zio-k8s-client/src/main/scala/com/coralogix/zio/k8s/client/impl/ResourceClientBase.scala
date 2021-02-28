@@ -101,7 +101,14 @@ trait ResourceClientBase {
     fieldSelector: Option[FieldSelector],
     labelSelector: Option[LabelSelector]
   ): Uri =
-    K8sWatchUri(resourceType, namespace, resourceVersion, fieldSelector, labelSelector).toUri(
+    K8sWatchUri(
+      resourceType,
+      namespace,
+      resourceVersion,
+      allowBookmarks = true,
+      fieldSelector,
+      labelSelector
+    ).toUri(
       cluster
     )
 

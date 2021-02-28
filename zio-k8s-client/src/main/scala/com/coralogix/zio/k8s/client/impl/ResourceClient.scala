@@ -98,7 +98,7 @@ final class ResourceClient[
     fieldSelector: Option[FieldSelector],
     labelSelector: Option[LabelSelector],
     resourceVersion: Option[String]
-  ): Stream[K8sFailure, TypedWatchEvent[T]] =
+  ): Stream[K8sFailure, ParsedWatchEvent[T]] =
     ZStream
       .unwrap {
         handleFailures {
@@ -112,11 +112,11 @@ final class ResourceClient[
       .transduce(ZTransducer.utf8Decode >>> ZTransducer.splitLines)
       .mapM { line =>
         for {
-          parsedEvent <-
+          rawEvent <-
             ZIO
               .fromEither(decode[WatchEvent](line))
               .mapError(DeserializationFailure.single)
-          event       <- TypedWatchEvent.from[T](parsedEvent)
+          event    <- ParsedWatchEvent.from[T](rawEvent)
         } yield event
       }
 
@@ -131,7 +131,13 @@ final class ResourceClient[
         ZStream
           .fromEffect(lastResourceVersion.get)
           .flatMap(watchStream(namespace, fieldSelector, labelSelector, _))
-          .tap(event => lastResourceVersion.set(event.resourceVersion))
+          .tap {
+            case ParsedTypedWatchEvent(event)    => lastResourceVersion.set(event.resourceVersion)
+            case ParsedBookmark(resourceVersion) => lastResourceVersion.set(Some(resourceVersion))
+          }
+          .collect { case ParsedTypedWatchEvent(event) =>
+            event
+          }
           .forever
       }
     }

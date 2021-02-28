@@ -14,6 +14,9 @@ trait K8sObject[T] {
   def getUid(obj: T): IO[K8sFailure, String] =
     ZIO.fromEither(metadata(obj).flatMap(_.uid).toRight(UndefinedField("metadata.uid")))
 
+  def getMetadata(obj: T): IO[K8sFailure, ObjectMeta] =
+    ZIO.fromEither(metadata(obj).toRight(UndefinedField("metadata")))
+
   def generation(obj: T): Long = metadata(obj).flatMap(_.generation).getOrElse(0L)
 
   def attachOwner(obj: T)(

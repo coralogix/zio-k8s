@@ -34,23 +34,3 @@ final case class Deleted[T: K8sObject](item: T) extends TypedWatchEvent[T] {
   override val namespace: Option[K8sNamespace] =
     item.metadata.flatMap(_.namespace).map(K8sNamespace.apply).toOption
 }
-
-object TypedWatchEvent {
-  private def parseOrFail[T: Decoder](json: Json): IO[K8sFailure, T] =
-    IO.fromEither(implicitly[Decoder[T]].decodeAccumulating(json.hcursor).toEither)
-      .mapError(DeserializationFailure.apply)
-
-  def from[T: K8sObject: Decoder](
-    event: WatchEvent
-  ): IO[K8sFailure, TypedWatchEvent[T]] =
-    event.`type` match {
-      case "ADDED"    =>
-        parseOrFail[T](event.`object`.value).map(Added.apply[T])
-      case "MODIFIED" =>
-        parseOrFail[T](event.`object`.value).map(Modified.apply[T])
-      case "DELETED"  =>
-        parseOrFail[T](event.`object`.value).map(Deleted.apply[T])
-      case _          =>
-        IO.fail(InvalidEvent(event.`type`))
-    }
-}

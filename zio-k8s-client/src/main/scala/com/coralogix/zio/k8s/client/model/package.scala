@@ -119,6 +119,7 @@ package object model extends LabelSelector.Syntax with FieldSelector.Syntax {
     resource: K8sResourceType,
     namespace: Option[K8sNamespace],
     resourceVersion: Option[String],
+    allowBookmarks: Boolean,
     fieldSelector: Option[FieldSelector] = None,
     labelSelector: Option[LabelSelector] = None
   ) extends K8sUri {
@@ -129,5 +130,6 @@ package object model extends LabelSelector.Syntax with FieldSelector.Syntax {
         .addParam("resourceVersion", resourceVersion)
         .addParam("fieldSelector", fieldSelector.map(_.asQuery))
         .addParam("labelSelector", labelSelector.map(_.asQuery))
+        .addParam("allowWatchBookmarks", if (allowBookmarks) Some("true") else None)
   }
 }
