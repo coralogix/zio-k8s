@@ -147,8 +147,12 @@ object Operator {
       }
   }
 
-  type EventProcessor[R, E, T] =
-    (OperatorContext, TypedWatchEvent[T]) => ZIO[R, OperatorFailure[E], Unit]
+  trait EventProcessor[-R, +E, T] { self =>
+    def apply(context: OperatorContext, event: TypedWatchEvent[T]): ZIO[R, OperatorFailure[E], Unit]
+
+    def @@[R1 <: R, E1 >: E](aspect: Aspect[R1, E1, T]): EventProcessor[R1, E1, T] =
+      aspect[R1, E1](self)
+  }
 
   def namespaced[R: Tag, E, T: Tag: ResourceMetadata](
     eventProcessor: EventProcessor[R, E, T]
@@ -185,13 +189,6 @@ object Operator {
         ): EventProcessor[R2, E2, T] =
           that(self(f))
       }
-  }
-
-  implicit class EventProcessorOps[R, E, T](
-    eventProcessor: EventProcessor[R, E, T]
-  ) {
-    def @@[R1 <: R, E1 >: E](aspect: Aspect[R1, E1, T]): EventProcessor[R1, E1, T] =
-      aspect[R1, E1](eventProcessor)
   }
 
   final class ProvideSomeLayer[R0 <: Has[_], R, E, T](private val self: Operator[R, E, T])
