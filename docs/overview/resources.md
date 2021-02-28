@@ -231,9 +231,20 @@ def delete(
     namespace: K8sNamespace,
     dryRun: Boolean = false
   ): ZIO[StatefulSets, K8sFailure, Status]
+
+def deleteAll(
+   deleteOptions: DeleteOptions,
+   namespace: K8sNamespace,
+   dryRun: Boolean = false,
+   gracePeriod: Option[Duration] = None,
+   propagationPolicy: Option[PropagationPolicy] = None,
+   fieldSelector: Option[FieldSelector] = None,
+   labelSelector: Option[LabelSelector] = None
+): ZIO[StatefulSets, K8sFailure, Status]
 ```
 
 - `delete` deletes an existing _Kubernetes resource_ identified by its name in the given namespace.
+- `deleteAll` deletes multiple existing _Kubernetes resources_. Field and label selectors can be used to select the subset to be deleted. The default behavior is to delete all existing items.
 
 ### Namespaced vs cluster resources
 Some _Kubernetes resources_ are **cluster level** while others like the example `StatefulSet` above are split in _namespaces_. The `zio-k8s` library encodes this property in the resource interfaces, and for _cluster resources_ the operations does not

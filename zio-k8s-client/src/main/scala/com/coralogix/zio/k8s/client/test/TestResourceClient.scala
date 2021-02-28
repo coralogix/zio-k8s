@@ -13,7 +13,7 @@ import com.coralogix.zio.k8s.client.model.{
   PropagationPolicy,
   TypedWatchEvent
 }
-import com.coralogix.zio.k8s.client.{ K8sFailure, NotFound, Resource }
+import com.coralogix.zio.k8s.client.{ K8sFailure, NotFound, Resource, ResourceDeleteAll }
 import com.coralogix.zio.k8s.model.pkg.apis.meta.v1.{ DeleteOptions, Status }
 import zio.duration.Duration
 import zio.stm.{ TMap, TQueue, ZSTM }
@@ -23,7 +23,7 @@ import zio.{ IO, ZIO }
 final class TestResourceClient[T: K8sObject] private (
   store: TMap[String, T],
   events: TQueue[TypedWatchEvent[T]]
-) extends Resource[T] {
+) extends Resource[T] with ResourceDeleteAll[T] {
 
   override def getAll(
     namespace: Option[K8sNamespace],
@@ -52,6 +52,7 @@ final class TestResourceClient[T: K8sObject] private (
     fieldSelector: Option[FieldSelector] = None,
     labelSelector: Option[LabelSelector] = None
   ): Stream[K8sFailure, TypedWatchEvent[T]] =
+    // TODO: support fieldSelector, labelSelector
     ZStream.fromTQueue(events)
 
   override def get(name: String, namespace: Option[K8sNamespace]): IO[K8sFailure, T] = {
@@ -118,6 +119,39 @@ final class TestResourceClient[T: K8sObject] private (
                     _ <- events.offer(Deleted(item))
                   } yield ()
                 }
+      } yield Status()
+      stm.commit
+    } else {
+      ZIO.succeed(Status())
+    }
+  }
+
+  override def deleteAll(
+    deleteOptions: DeleteOptions,
+    namespace: Option[K8sNamespace],
+    dryRun: Boolean,
+    gracePeriod: Option[Duration],
+    propagationPolicy: Option[PropagationPolicy],
+    fieldSelector: Option[FieldSelector],
+    labelSelector: Option[LabelSelector]
+  ): IO[K8sFailure, Status] = {
+    // TODO: support fieldSelector, labelSelector
+    val prefix = keyPrefix(namespace)
+    if (!dryRun) {
+      val stm = for {
+        keys        <- store.keys
+        filteredKeys = keys.filter(_.startsWith(prefix))
+        _           <- ZSTM.foreach_(filteredKeys) { key =>
+                         for {
+                           item <- store.get(key)
+                           _    <- ZSTM.foreach_(item) { item =>
+                                     for {
+                                       _ <- store.delete(key)
+                                       _ <- events.offer(Deleted(item))
+                                     } yield ()
+                                   }
+                         } yield ()
+                       }
       } yield Status()
       stm.commit
     } else {

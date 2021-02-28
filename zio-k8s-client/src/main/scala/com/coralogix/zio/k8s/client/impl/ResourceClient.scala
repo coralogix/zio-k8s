@@ -20,7 +20,7 @@ final class ResourceClient[
   override protected val resourceType: K8sResourceType,
   override protected val cluster: K8sCluster,
   override protected val backend: SttpBackend[Task, ZioStreams with WebSockets]
-) extends Resource[T] with ResourceClientBase {
+) extends Resource[T] with ResourceDeleteAll[T] with ResourceClientBase {
 
   // See https://kubernetes.io/docs/reference/using-api/api-concepts/
 
@@ -195,6 +195,32 @@ final class ResourceClient[
         .response(asJson[Status])
         .send(backend)
     }
+
+  def deleteAll(
+    deleteOptions: DeleteOptions,
+    namespace: Option[K8sNamespace],
+    dryRun: Boolean = false,
+    gracePeriod: Option[Duration] = None,
+    propagationPolicy: Option[PropagationPolicy] = None,
+    fieldSelector: Option[FieldSelector] = None,
+    labelSelector: Option[LabelSelector] = None
+  ): IO[K8sFailure, Status] =
+    handleFailures {
+      k8sRequest
+        .delete(
+          deletingMany(
+            namespace,
+            dryRun,
+            gracePeriod,
+            propagationPolicy,
+            fieldSelector,
+            labelSelector
+          )
+        )
+        .body(deleteOptions)
+        .response(asJson[Status])
+        .send(backend)
+    }
 }
 
 object ResourceClient {
@@ -273,6 +299,27 @@ object ResourceClient {
       ZIO.accessM(
         _.get.delete(name, deleteOptions, namespace, dryRun, gracePeriod, propagationPolicy)
       )
+
+    def deleteAll[T: Tag](
+      deleteOptions: DeleteOptions,
+      namespace: K8sNamespace,
+      dryRun: Boolean = false,
+      gracePeriod: Option[Duration] = None,
+      propagationPolicy: Option[PropagationPolicy] = None,
+      fieldSelector: Option[FieldSelector] = None,
+      labelSelector: Option[LabelSelector] = None
+    ): ZIO[Has[NamespacedResourceDeleteAll[T]], K8sFailure, Status] =
+      ZIO.accessM(
+        _.get.deleteAll(
+          deleteOptions,
+          namespace,
+          dryRun,
+          gracePeriod,
+          propagationPolicy,
+          fieldSelector,
+          labelSelector
+        )
+      )
   }
 
   object cluster {
@@ -327,7 +374,7 @@ object ResourceClient {
     ): ZIO[Has[ClusterResourceStatus[StatusT, T]], K8sFailure, T] =
       ZIO.accessM(_.get.getStatus(name))
 
-    def delete[T <: Object: Tag](
+    def delete[T: Tag](
       name: String,
       deleteOptions: DeleteOptions,
       dryRun: Boolean = false,
@@ -335,5 +382,24 @@ object ResourceClient {
       propagationPolicy: Option[PropagationPolicy] = None
     ): ZIO[Has[ClusterResource[T]], K8sFailure, Status] =
       ZIO.accessM(_.get.delete(name, deleteOptions, dryRun, gracePeriod, propagationPolicy))
+
+    def deleteAll[T: Tag](
+      deleteOptions: DeleteOptions,
+      dryRun: Boolean = false,
+      gracePeriod: Option[Duration] = None,
+      propagationPolicy: Option[PropagationPolicy] = None,
+      fieldSelector: Option[FieldSelector] = None,
+      labelSelector: Option[LabelSelector] = None
+    ): ZIO[Has[ClusterResourceDeleteAll[T]], K8sFailure, Status] =
+      ZIO.accessM(
+        _.get.deleteAll(
+          deleteOptions,
+          dryRun,
+          gracePeriod,
+          propagationPolicy,
+          fieldSelector,
+          labelSelector
+        )
+      )
   }
 }

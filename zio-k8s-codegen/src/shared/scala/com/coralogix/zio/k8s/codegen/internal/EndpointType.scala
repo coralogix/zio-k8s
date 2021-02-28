@@ -18,6 +18,7 @@ object EndpointType {
   case class Patch(namespaced: Boolean, detectedPlural: String, modelName: String)
       extends EndpointType
   case class Delete(namespaced: Boolean, detectedPlural: String) extends EndpointType
+  case class DeleteMany(namespaced: Boolean, detectedPlural: String) extends EndpointType
 
   trait SubresourceEndpoint extends EndpointType {
     val subresourceName: String
@@ -304,7 +305,7 @@ object EndpointType {
           }
         }
 
-      case "delete" =>
+      case "delete"           =>
         val clusterPattern = ClusterPatterns.delete
         val namespacedPattern = NamespacedPatterns.delete
 
@@ -328,7 +329,38 @@ object EndpointType {
             }
           }
         }
-      case "patch"  =>
+      case "deletecollection" =>
+        val clusterPattern = ClusterPatterns.deleteMany
+        val namespacedPattern = NamespacedPatterns.deleteMany
+
+        guards.mustHaveMethod(PathItem.HttpMethod.DELETE) {
+          guards.mustHaveParameters(
+            "dryRun",
+            "gracePeriodSeconds",
+            "propagationPolicy",
+            "fieldSelector",
+            "labelSelector"
+          ) {
+            endpoint.name match {
+              case clusterPattern(_, _, group, version, plural)    =>
+                guards.mustHaveSame(group, version) {
+                  guards.mustHaveNotHaveParameter("namespace") {
+                    EndpointType.DeleteMany(namespaced = false, plural)
+                  }
+                }
+              case namespacedPattern(_, _, group, version, plural) =>
+                guards.mustHaveSame(group, version) {
+                  guards.mustHaveParameters("namespace") {
+                    EndpointType.DeleteMany(namespaced = true, plural)
+                  }
+                }
+              case _                                               =>
+                EndpointType.Unsupported(s"Possibly subresource deletecollection")
+            }
+          }
+        }
+
+      case "patch" =>
         val clusterPattern = ClusterPatterns.patch
         val namespacedPattern = NamespacedPatterns.patch
 
@@ -378,6 +410,9 @@ object EndpointType {
     private val outer: scala.List[Parameter] = endpoint.outerParameters
     private val inner: scala.List[Parameter] =
       Option(endpoint.op.getParameters).map(_.asScala.toList).getOrElse(scala.List.empty)
+
+    val allParameters: Set[String] =
+      (outer.map(_.getName) ++ inner.map(_.getName)).toSet
 
     def mustHaveMethod(method: PathItem.HttpMethod)(f: => EndpointType): EndpointType =
       if (endpoint.method == method) {
@@ -440,6 +475,7 @@ object EndpointType {
     val put: Regex
     val patch: Regex
     val delete: Regex
+    val deleteMany: Regex
 
     val getSubresource: Regex
     val putSubresource: Regex
@@ -454,6 +490,7 @@ object EndpointType {
     val patch: Regex = get
     val put: Regex = get
     val delete: Regex = get
+    val deleteMany: Regex = list
 
     val getSubresource: Regex =
       s"""(/api(/|(s/([a-z0-9.]+))/)([a-z0-9]+)/([a-z]+)/\\{name\\})/([a-z]+)""".r
@@ -471,6 +508,7 @@ object EndpointType {
     val patch: Regex = get
     val put: Regex = get
     val delete: Regex = get
+    val deleteMany: Regex = list
 
     val getSubresource: Regex =
       s"""(/api(/|(s/([a-z0-9.]+))/)([a-z0-9]+)/namespaces/\\{namespace\\}/([a-z]+)/\\{name\\})/([a-z]+)""".r

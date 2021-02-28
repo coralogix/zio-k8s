@@ -25,7 +25,8 @@ trait ClientModuleGenerator {
     gvk: GroupVersionKind,
     isNamespaced: Boolean,
     subresources: Set[SubresourceId],
-    crdYaml: Option[Path]
+    crdYaml: Option[Path],
+    supportsDeleteMany: Boolean
   ): Task[String] =
     ZIO.effect {
       val basePackage =
@@ -82,21 +83,28 @@ trait ClientModuleGenerator {
         }
 
       val clientList =
-        param"client: Resource[$entityT]" ::
-          (((if (statusEntity.isDefined)
-               List[Term.Param](
-                 param"statusClient: ResourceStatus[$statusT, $entityT]"
-               )
-             else Nil) ::
-            subresources.toList.map { subresource =>
-              val clientName = Term.Name(subresource.name + "Client")
-              val modelT = getSubresourceModelType(modelPackageName, subresource)
-              List(param"$clientName: Subresource[$modelT]")
-            }).flatten)
+        ((if (supportsDeleteMany)
+            param"client: Resource[$entityT] with ResourceDeleteAll[$entityT]"
+          else
+            param"client: Resource[$entityT]") :: ((if (statusEntity.isDefined)
+                                                      List[Term.Param](
+                                                        param"statusClient: ResourceStatus[$statusT, $entityT]"
+                                                      )
+                                                    else Nil) ::
+          subresources.toList.map { subresource =>
+            val clientName = Term.Name(subresource.name + "Client")
+            val modelT = getSubresourceModelType(modelPackageName, subresource)
+            List(param"$clientName: Subresource[$modelT]")
+          }).flatten)
 
       val clientExposure =
         q"override val asGenericResource: Resource[$entityT] = client" ::
-          (((if (statusEntity.isDefined)
+          (((if (supportsDeleteMany)
+               List(
+                 q"override val asGenericResourceDeleteAll: ResourceDeleteAll[$entityT] = client"
+               )
+             else Nil) ::
+            (if (statusEntity.isDefined)
                List(
                  q"override val asGenericResourceStatus: ResourceStatus[$statusT, $entityT] = statusClient"
                )
@@ -140,6 +148,25 @@ trait ClientModuleGenerator {
         if (isNamespaced) {
           // NAMESPACED RESOURCE
 
+          val deleteManyImpls =
+            if (supportsDeleteMany)
+              List(
+                q"""
+                 override def deleteAll(
+                   deleteOptions: DeleteOptions,
+                   namespace: K8sNamespace,
+                   dryRun: Boolean = false,
+                   gracePeriod: Option[Duration] = None,
+                   propagationPolicy: Option[PropagationPolicy] = None,
+                   fieldSelector: Option[FieldSelector] = None,
+                   labelSelector: Option[LabelSelector] = None
+                 ): ZIO[Any, K8sFailure, Status] =
+                   client.deleteAll(deleteOptions, Some(namespace), dryRun, gracePeriod, propagationPolicy, fieldSelector, labelSelector)
+                 """
+              )
+            else
+              List.empty
+
           val statusImpls =
             if (statusEntity.isDefined)
               List(
@@ -159,6 +186,25 @@ trait ClientModuleGenerator {
                   namespace: K8sNamespace
                 ): ZIO[Any, K8sFailure, $entityT] =
                   statusClient.getStatus(name, Some(namespace))
+                 """
+              )
+            else
+              List.empty
+
+          val deleteManyAccessors: List[Defn] =
+            if (supportsDeleteMany)
+              List(
+                q"""
+                 def deleteAll(
+                    deleteOptions: DeleteOptions,
+                    namespace: K8sNamespace,
+                    dryRun: Boolean = false,
+                    gracePeriod: Option[Duration] = None,
+                    propagationPolicy: Option[PropagationPolicy] = None,
+                    fieldSelector: Option[FieldSelector] = None,
+                    labelSelector: Option[LabelSelector] = None
+                  ): ZIO[$typeAliasT, K8sFailure, Status] =
+                    ZIO.accessM(_.get.deleteAll(deleteOptions, namespace, dryRun, gracePeriod, propagationPolicy, fieldSelector, labelSelector))
                  """
               )
             else
@@ -291,9 +337,12 @@ trait ClientModuleGenerator {
 
           val mainInterface = t"NamespacedResource[$entityT]"
           val extraInterfaces =
-            ((if (statusEntity.isDefined)
-                List[Type](t"NamespacedResourceStatus[$statusT, $entityT]")
+            ((if (supportsDeleteMany)
+                List[Type](t"NamespacedResourceDeleteAll[$entityT]")
               else Nil) ::
+              (if (statusEntity.isDefined)
+                 List[Type](t"NamespacedResourceStatus[$statusT, $entityT]")
+               else Nil) ::
               subresources.toList.map { subresource =>
                 List(getNamespacedSubresourceWrapperType(subresource, entityT))
               }).flatten
@@ -319,7 +368,7 @@ trait ClientModuleGenerator {
           $entityImport
           import com.coralogix.zio.k8s.model.pkg.apis.meta.v1._
           import com.coralogix.zio.k8s.model._
-          import com.coralogix.zio.k8s.client.{Resource, ResourceStatus, Subresource, NamespacedResource, NamespacedResourceStatus, K8sFailure}
+          import com.coralogix.zio.k8s.client.{Resource, ResourceDeleteAll, ResourceStatus, Subresource, NamespacedResource, NamespacedResourceDeleteAll, NamespacedResourceStatus, K8sFailure}
           import com.coralogix.zio.k8s.client.impl.{ResourceClient, ResourceStatusClient, SubresourceClient}
           import com.coralogix.zio.k8s.client.test.{TestResourceClient, TestResourceStatusClient, TestSubresourceClient}
           import com.coralogix.zio.k8s.client.model.{
@@ -410,6 +459,8 @@ trait ClientModuleGenerator {
                 ): ZIO[Any, K8sFailure, Status] =
                   client.delete(name, deleteOptions, Some(namespace), dryRun, gracePeriod, propagationPolicy)
 
+                ..$deleteManyImpls
+
                 ..$statusImpls
 
                 ..$subresourceImpls
@@ -477,6 +528,8 @@ trait ClientModuleGenerator {
             ): ZIO[$typeAliasT, K8sFailure, Status] =
               ZIO.accessM(_.get.delete(name, deleteOptions, namespace, dryRun, gracePeriod, propagationPolicy))
 
+            ..$deleteManyAccessors
+
             ..$statusAccessors
 
             ..$subresourceAccessors
@@ -488,6 +541,25 @@ trait ClientModuleGenerator {
           """
         } else {
           // CLUSTER RESOURCE
+
+          val deleteManyImpls =
+            if (supportsDeleteMany) {
+              List(
+                q"""
+                def deleteAll(
+                  deleteOptions: DeleteOptions,
+                  dryRun: Boolean = false,
+                  gracePeriod: Option[Duration] = None,
+                  propagationPolicy: Option[PropagationPolicy] = None,
+                  fieldSelector: Option[FieldSelector] = None,
+                  labelSelector: Option[LabelSelector] = None
+                ): ZIO[Any, K8sFailure, Status] =
+                  client.deleteAll(deleteOptions, None, dryRun, gracePeriod, propagationPolicy, fieldSelector, labelSelector)
+                 """
+              )
+            } else {
+              List.empty
+            }
 
           val statusImpls =
             if (statusEntity.isDefined)
@@ -510,6 +582,25 @@ trait ClientModuleGenerator {
               )
             else
               List.empty
+
+          val deleteManyAccessors: List[Defn] =
+            if (supportsDeleteMany) {
+              List(
+                q"""
+                  def deleteAll(
+                    deleteOptions: DeleteOptions,
+                    dryRun: Boolean = false,
+                    gracePeriod: Option[Duration] = None,
+                    propagationPolicy: Option[PropagationPolicy] = None,
+                    fieldSelector: Option[FieldSelector] = None,
+                    labelSelector: Option[LabelSelector] = None
+                  ): ZIO[$typeAliasT, K8sFailure, Status] =
+                    ZIO.accessM(_.get.deleteAll(deleteOptions, dryRun, gracePeriod, propagationPolicy, fieldSelector, labelSelector))
+               """
+              )
+            } else {
+              List.empty
+            }
 
           val statusAccessors: List[Defn] =
             if (statusEntity.isDefined)
@@ -628,9 +719,12 @@ trait ClientModuleGenerator {
 
           val mainInterface = t"ClusterResource[$entityT]"
           val extraInterfaces =
-            ((if (statusEntity.isDefined)
-                List[Type](t"ClusterResourceStatus[$statusT, $entityT]")
+            ((if (supportsDeleteMany)
+                List[Type](t"ClusterResourceDeleteAll[$entityT]")
               else Nil) ::
+              (if (statusEntity.isDefined)
+                 List[Type](t"ClusterResourceStatus[$statusT, $entityT]")
+               else Nil) ::
               subresources.toList.map { subresource =>
                 List(getClusterSubresourceWrapperType(subresource, entityT))
               }).flatten
@@ -656,7 +750,7 @@ trait ClientModuleGenerator {
           $entityImport
           import com.coralogix.zio.k8s.model.pkg.apis.meta.v1._
           import com.coralogix.zio.k8s.model._
-          import com.coralogix.zio.k8s.client.{Resource, ResourceStatus, Subresource, ClusterResource, ClusterResourceStatus, K8sFailure}
+          import com.coralogix.zio.k8s.client.{Resource, ResourceDeleteAll, ResourceStatus, Subresource, ClusterResource, ClusterResourceDeleteAll, ClusterResourceStatus, K8sFailure}
           import com.coralogix.zio.k8s.client.impl.{ResourceClient, ResourceStatusClient, SubresourceClient}
           import com.coralogix.zio.k8s.client.test.{TestResourceClient, TestResourceStatusClient, TestSubresourceClient}
           import com.coralogix.zio.k8s.client.model.{
@@ -740,6 +834,8 @@ trait ClientModuleGenerator {
                 ): ZIO[Any, K8sFailure, Status] =
                   client.delete(name, deleteOptions, None, dryRun, gracePeriod, propagationPolicy)
 
+                ..$deleteManyImpls
+
                 ..$statusImpls
 
                 ..$subresourceImpls
@@ -799,6 +895,8 @@ trait ClientModuleGenerator {
               propagationPolicy: Option[PropagationPolicy] = None
             ): ZIO[$typeAliasT, K8sFailure, Status] =
               ZIO.accessM(_.get.delete(name, deleteOptions, dryRun, gracePeriod, propagationPolicy))
+
+            ..$deleteManyAccessors
 
             ..$statusAccessors
 

@@ -77,6 +77,24 @@ trait ResourceClientBase {
       propagationPolicy
     ).toUri(cluster)
 
+  protected def deletingMany(
+    namespace: Option[K8sNamespace],
+    dryRun: Boolean,
+    gracePeriod: Option[Duration],
+    propagationPolicy: Option[PropagationPolicy],
+    fieldSelector: Option[FieldSelector],
+    labelSelector: Option[LabelSelector]
+  ): Uri =
+    K8sDeletingManyUri(
+      resourceType,
+      namespace,
+      dryRun,
+      gracePeriod,
+      propagationPolicy,
+      fieldSelector,
+      labelSelector
+    ).toUri(cluster)
+
   protected def paginated(
     namespace: Option[K8sNamespace],
     limit: Int,

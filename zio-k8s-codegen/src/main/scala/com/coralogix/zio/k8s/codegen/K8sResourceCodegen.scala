@@ -137,7 +137,8 @@ class K8sResourceCodegen(val logger: sbt.Logger)
                      gvk = resource.gvk,
                      isNamespaced = resource.namespaced,
                      subresources = resource.subresources.map(_.id),
-                     None
+                     None,
+                     resource.supportsDeleteMany
                    )
       targetDir  = pkg.foldLeft(targetRoot)(_ / _)
       _         <- Files.createDirectories(targetDir)
