@@ -11,6 +11,9 @@ trait K8sObjectOps[T] {
   def metadata: Optional[ObjectMeta] =
     impl.metadata(obj)
 
+  def getMetadata: IO[K8sFailure, ObjectMeta] =
+    impl.getMetadata(obj)
+
   def getName: IO[K8sFailure, String] =
     impl.getName(obj)
 

@@ -512,22 +512,26 @@ object K8sUriSpec extends DefaultRunnableSpec {
       ),
       suite("watch")(
         test("watch without namespace or version")(
-          assert(K8sWatchUri(resourceType, None, None).toUri(cluster))(
+          assert(K8sWatchUri(resourceType, None, None, allowBookmarks = false).toUri(cluster))(
             equalTo(uri"https://localhost:32768/apis/gr/v8/rt?watch=1")
           )
         ),
         test("watch without namespace but with version")(
-          assert(K8sWatchUri(resourceType, None, Some("VER")).toUri(cluster))(
+          assert(
+            K8sWatchUri(resourceType, None, Some("VER"), allowBookmarks = false).toUri(cluster)
+          )(
             equalTo(uri"https://localhost:32768/apis/gr/v8/rt?watch=1&resourceVersion=VER")
           )
         ),
         test("watch with namespace but no version")(
-          assert(K8sWatchUri(resourceType, Some(ns), None).toUri(cluster))(
+          assert(K8sWatchUri(resourceType, Some(ns), None, allowBookmarks = false).toUri(cluster))(
             equalTo(uri"https://localhost:32768/apis/gr/v8/namespaces/def/rt?watch=1")
           )
         ),
         test("watch with namespace and version")(
-          assert(K8sWatchUri(resourceType, Some(ns), Some("VER")).toUri(cluster))(
+          assert(
+            K8sWatchUri(resourceType, Some(ns), Some("VER"), allowBookmarks = false).toUri(cluster)
+          )(
             equalTo(
               uri"https://localhost:32768/apis/gr/v8/namespaces/def/rt?watch=1&resourceVersion=VER"
             )
@@ -539,11 +543,12 @@ object K8sUriSpec extends DefaultRunnableSpec {
               resourceType,
               Some(ns),
               None,
+              allowBookmarks = true,
               fieldSelector = Some(field("object.metadata") === "x")
             ).toUri(cluster)
           )(
             equalTo(
-              uri"https://localhost:32768/apis/gr/v8/namespaces/def/rt?watch=1&fieldSelector=object.metadata==x"
+              uri"https://localhost:32768/apis/gr/v8/namespaces/def/rt?watch=1&fieldSelector=object.metadata==x&allowWatchBookmarks=true"
             )
           )
         ),
@@ -553,33 +558,46 @@ object K8sUriSpec extends DefaultRunnableSpec {
               resourceType,
               Some(ns),
               None,
+              allowBookmarks = true,
               labelSelector = Some(label("service").in("x", "y"))
             ).toUri(cluster)
           )(
             equalTo(
-              uri"https://localhost:32768/apis/gr/v8/namespaces/def/rt?watch=1&labelSelector=service in (x, y)"
+              uri"https://localhost:32768/apis/gr/v8/namespaces/def/rt?watch=1&labelSelector=service in (x, y)&allowWatchBookmarks=true"
             )
           )
         )
       ),
       suite("watch with empty group")(
         test("watch without namespace or version")(
-          assert(K8sWatchUri(resourceTypeWithEmptyGroup, None, None).toUri(cluster))(
+          assert(
+            K8sWatchUri(resourceTypeWithEmptyGroup, None, None, allowBookmarks = false)
+              .toUri(cluster)
+          )(
             equalTo(uri"https://localhost:32768/api/v8/rt?watch=1")
           )
         ),
         test("watch without namespace but with version")(
-          assert(K8sWatchUri(resourceTypeWithEmptyGroup, None, Some("VER")).toUri(cluster))(
+          assert(
+            K8sWatchUri(resourceTypeWithEmptyGroup, None, Some("VER"), allowBookmarks = false)
+              .toUri(cluster)
+          )(
             equalTo(uri"https://localhost:32768/api/v8/rt?watch=1&resourceVersion=VER")
           )
         ),
         test("watch with namespace but no version")(
-          assert(K8sWatchUri(resourceTypeWithEmptyGroup, Some(ns), None).toUri(cluster))(
+          assert(
+            K8sWatchUri(resourceTypeWithEmptyGroup, Some(ns), None, allowBookmarks = false)
+              .toUri(cluster)
+          )(
             equalTo(uri"https://localhost:32768/api/v8/namespaces/def/rt?watch=1")
           )
         ),
         test("watch with namespace and version")(
-          assert(K8sWatchUri(resourceTypeWithEmptyGroup, Some(ns), Some("VER")).toUri(cluster))(
+          assert(
+            K8sWatchUri(resourceTypeWithEmptyGroup, Some(ns), Some("VER"), allowBookmarks = false)
+              .toUri(cluster)
+          )(
             equalTo(
               uri"https://localhost:32768/api/v8/namespaces/def/rt?watch=1&resourceVersion=VER"
             )
