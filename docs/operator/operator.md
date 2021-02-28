@@ -56,11 +56,9 @@ import zio.logging.Logging
 
 val operator2 = 
     Operator.namespaced(
-        EventProcessorOps(eventProcessor) @@ logEvents
+        eventProcessor @@ logEvents
     )(namespace = None, buffer = 1024)
 ```
-
-**NOTE**: Having to explicitly wrap in the `EventProcessorOps` is a temporary regression and should not be necessary. Will be fixed.
 
 ### Defining an aspect
 In this example we define another aspect for monitoring the _event processing time_ and the number of different events processed with _Prometheus_ metrics using the [zio-metrics](https://zio.github.io/zio-metrics/) library.
@@ -130,7 +128,7 @@ def metered[T, E](operatorMetrics: OperatorMetrics): Aspect[Clock, E, T] =
 
 def operator3(metrics: OperatorMetrics) = 
     Operator.namespaced(
-        EventProcessorOps(eventProcessor) @@ logEvents @@ metered(metrics)
+        eventProcessor @@ logEvents @@ metered(metrics)
     )(namespace = None, buffer = 1024)
 ```
 
