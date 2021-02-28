@@ -62,8 +62,9 @@
             });
         </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">Implementing operators</h1></header><article><div><span><h2><a class="anchor" aria-hidden="true" id="event-processor"></a><a href="#event-processor" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Event processor</h2>
 <p>The library defines an <code>Operator</code> by providing an <code>EventProcessor</code>:</p>
-<pre><code class="hljs css language-scala"><span class="hljs-class"><span class="hljs-keyword">type</span> <span class="hljs-title">EventProcessor</span>[<span class="hljs-type">R</span>, <span class="hljs-type">E</span>, <span class="hljs-type">T</span>] </span>=
-    (<span class="hljs-type">OperatorContext</span>, <span class="hljs-type">TypedWatchEvent</span>[<span class="hljs-type">T</span>]) =&gt; <span class="hljs-type">ZIO</span>[<span class="hljs-type">R</span>, <span class="hljs-type">OperatorFailure</span>[<span class="hljs-type">E</span>], <span class="hljs-type">Unit</span>]
+<pre><code class="hljs css language-scala"><span class="hljs-class"><span class="hljs-keyword">trait</span> <span class="hljs-title">EventProcessor</span>[-<span class="hljs-type">R</span>, +<span class="hljs-type">E</span>, <span class="hljs-type">T</span>] </span>{
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">apply</span></span>(context: <span class="hljs-type">OperatorContext</span>, event: <span class="hljs-type">TypedWatchEvent</span>[<span class="hljs-type">T</span>]): <span class="hljs-type">ZIO</span>[<span class="hljs-type">R</span>, <span class="hljs-type">OperatorFailure</span>[<span class="hljs-type">E</span>], <span class="hljs-type">Unit</span>]
+}
 </code></pre>
 <p>To start an operator, use either the <code>Operator.cluster</code> or <code>Operator.namespaced</code> functions:</p>
 <pre><code class="hljs css language-scala"><span class="hljs-keyword">import</span> com.coralogix.zio.k8s.client.<span class="hljs-type">NamespacedResource</span>
@@ -103,11 +104,10 @@
 
 <span class="hljs-keyword">val</span> operator2 = 
     <span class="hljs-type">Operator</span>.namespaced(
-        <span class="hljs-type">EventProcessorOps</span>(eventProcessor) @@ logEvents
+        eventProcessor @@ logEvents
     )(namespace = <span class="hljs-type">None</span>, buffer = <span class="hljs-number">1024</span>)
-<span class="hljs-comment">// operator2: ZIO[Has[NamespacedResource[Pod]], Nothing, Operator[Clock with Logging, CustomOperatorFailures, Pod]] = zio.ZIO$FlatMap@48f30ad8</span>
+<span class="hljs-comment">// operator2: ZIO[Has[NamespacedResource[Pod]], Nothing, Operator[Clock with Logging, CustomOperatorFailures, Pod]] = zio.ZIO$FlatMap@4112e2d2</span>
 </code></pre>
-<p><strong>NOTE</strong>: Having to explicitly wrap in the <code>EventProcessorOps</code> is a temporary regression and should not be necessary. Will be fixed.</p>
 <h3><a class="anchor" aria-hidden="true" id="defining-an-aspect"></a><a href="#defining-an-aspect" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Defining an aspect</h3>
 <p>In this example we define another aspect for monitoring the <em>event processing time</em> and the number of different events processed with <em>Prometheus</em> metrics using the <a href="https://zio.github.io/zio-metrics/">zio-metrics</a> library.</p>
 <p>Assuming we have a type <code>OperatorMetrics</code> with the following fields:</p>
@@ -170,7 +170,7 @@
 
 <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">operator3</span></span>(metrics: <span class="hljs-type">OperatorMetrics</span>) = 
     <span class="hljs-type">Operator</span>.namespaced(
-        <span class="hljs-type">EventProcessorOps</span>(eventProcessor) @@ logEvents @@ metered(metrics)
+        eventProcessor @@ logEvents @@ metered(metrics)
     )(namespace = <span class="hljs-type">None</span>, buffer = <span class="hljs-number">1024</span>)
 </code></pre>
 <p>To learn more about the general idea of <em>aspects</em>, check <a href="https://www.youtube.com/watch?v=gcqWdNwNEPg">the presentation of Adam Fraser</a> from ZIO Meetup London on September 24, 2020.</p>
