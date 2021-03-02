@@ -35,6 +35,7 @@ const siteConfig = {
     {doc: 'crd/crd_index', label: 'CRDs'},
     {doc: 'operator/operator_index', label: 'Operators'},
     {doc: 'internals/internals_index', label: 'Internals'},
+    {href: 'api/com/coralogix/zio/k8s/index.html', label: 'API'},
     {doc: 'about/about_index', label: 'About'}
   ],
 

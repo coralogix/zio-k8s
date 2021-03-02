@@ -25,7 +25,8 @@ inThisBuild(
 val commonSettings = Seq(
   organization       := "com.coralogix",
   scalaVersion       := scala212Version,
-  crossScalaVersions := List(scala212Version, scala213Version)
+  crossScalaVersions := List(scala212Version, scala213Version),
+  autoAPIMappings    := true
 )
 
 lazy val root = Project("zio-k8s", file("."))
@@ -220,8 +221,8 @@ val opticsExample = Project("optics-example", file("examples/optics-example"))
 lazy val docs = project
   .in(file("zio-k8s-docs"))
   .settings(
-    skip.in(publish)                             := true,
-    moduleName                                   := "zio-k8s-docs",
+    skip.in(publish)                           := true,
+    moduleName                                 := "zio-k8s-docs",
     scalacOptions -= "-Yno-imports",
     scalacOptions -= "-Xfatal-warnings",
     libraryDependencies ++= Seq(
@@ -229,11 +230,16 @@ lazy val docs = project
       "com.softwaremill.sttp.client3" %% "httpclient-backend-zio" % sttpVersion,
       "dev.zio"                       %% "zio-metrics-prometheus" % "1.0.1"
     ),
-    unidocProjectFilter in (ScalaUnidoc, unidoc) := inProjects(root),
-    target in (ScalaUnidoc, unidoc)              := (baseDirectory in LocalRootProject).value / "website" / "static" / "api",
-    cleanFiles += (target in (ScalaUnidoc, unidoc)).value,
-    docusaurusCreateSite                         := docusaurusCreateSite.dependsOn(unidoc in Compile).value,
-    docusaurusPublishGhpages                     := docusaurusPublishGhpages.dependsOn(unidoc in Compile).value
+    ScalaUnidoc / unidoc / unidocProjectFilter := inProjects(
+      client,
+      clientMonocle,
+      clientQuicklens,
+      operator
+    ),
+    ScalaUnidoc / unidoc / target              := (baseDirectory in LocalRootProject).value / "website" / "static" / "api",
+    cleanFiles += (ScalaUnidoc / unidoc / target).value,
+    docusaurusCreateSite                       := docusaurusCreateSite.dependsOn(unidoc in Compile).value,
+    docusaurusPublishGhpages                   := docusaurusPublishGhpages.dependsOn(unidoc in Compile).value
   )
   .dependsOn(client, clientQuicklens, clientMonocle, operator)
   .enablePlugins(MdocPlugin, DocusaurusPlugin, ScalaUnidocPlugin)
