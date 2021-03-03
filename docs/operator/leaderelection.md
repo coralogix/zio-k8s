@@ -56,21 +56,6 @@ import sttp.model._
 import zio._
 import zio.blocking.Blocking
 import zio.nio.core.file.Path
-
-// Configuration
-val clientConfig = K8sClientConfig(
-    insecure = false, // set true for testing locally with minikube
-    debug = false,
-    cert = Path("/var/run/secrets/kubernetes.io/serviceaccount/ca.crt")
-)
-
-val clusterConfig = K8sClusterConfig(
-    host = uri"https://kubernetes.default.svc",
-    token = None,
-    tokenFile = Path("/var/run/secrets/kubernetes.io/serviceaccount/token")
-)
-val client = ZLayer.succeed(clientConfig) >>> k8sSttpClient
-val cluster = Blocking.any ++ ZLayer.succeed(clusterConfig) >>> k8sCluster
 ```
 
 ```scala mdoc:silent
@@ -89,8 +74,8 @@ val logging = Logging.console(
       format = LogFormat.ColoredLogFormat()
     ) >>> Logging.withRootLoggerName("leader-example")
 
-val k8s: ZLayer[Blocking, Throwable, Pods with ConfigMaps] = 
-  (cluster ++ client) >>> (Pods.live ++ ConfigMaps.live)
+val k8s: ZLayer[Blocking with System, Throwable, Pods with ConfigMaps] = 
+  k8sDefault >>> (Pods.live ++ ConfigMaps.live)
 
 def example(): ZIO[
     Logging with Blocking with System with Clock with Pods with ConfigMaps,

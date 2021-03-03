@@ -63,35 +63,46 @@ trait SubresourceClientGenerator {
     val nameLit = Lit.String(subresource.name)
 
     val clusterDefs = subresource.actionVerbs.toList.flatMap {
-      case "get"  =>
+      case "get" if subresource.hasStreamingGet =>
+        val params = param"name: String" :: subresource.toMethodParameters
+        List(q"""
+          def $getTerm(..$params): ZStream[Any, K8sFailure, $modelT]
+          """)
+      case "get"                                =>
         val params = param"name: String" :: subresource.toMethodParameters
         List(q"""
           def $getTerm(..$params): ZIO[Any, K8sFailure, $modelT]
           """)
-      case "put"  =>
+      case "put"                                =>
         List(q"""
           def $putTerm(name: String,
                              updatedValue: $modelT,
                              dryRun: Boolean = false
                             ): IO[K8sFailure, $modelT]
            """)
-      case "post" =>
+      case "post"                               =>
         List(q"""
            def $postTerm(name: String,
                          value: $modelT,
                          dryRun: Boolean = false): IO[K8sFailure, $modelT]
          """)
-      case _      => List.empty
+      case _                                    => List.empty
     }
 
     val namespacedDefs = subresource.actionVerbs.toList.flatMap {
-      case "get"  =>
+      case "get" if subresource.hasStreamingGet =>
+        val params =
+          param"name: String" :: param"namespace: K8sNamespace" :: subresource.toMethodParameters
+        List(q"""
+          def $getTerm(..$params): ZStream[Any, K8sFailure, $modelT]
+          """)
+      case "get"                                =>
         val params =
           param"name: String" :: param"namespace: K8sNamespace" :: subresource.toMethodParameters
         List(q"""
           def $getTerm(..$params): ZIO[Any, K8sFailure, $modelT]
           """)
-      case "put"  =>
+      case "put"                                =>
         List(q"""
           def $putTerm(name: String,
                              updatedValue: $modelT,
@@ -99,14 +110,14 @@ trait SubresourceClientGenerator {
                              dryRun: Boolean = false
                             ): IO[K8sFailure, $modelT]
            """)
-      case "post" =>
+      case "post"                               =>
         List(q"""
            def $postTerm(name: String,
                          value: $modelT,
                          namespace: K8sNamespace,
                          dryRun: Boolean = false): IO[K8sFailure, $modelT]
          """)
-      case _      => List.empty
+      case _                                    => List.empty
     }
 
     q"""package $packageTerm {
@@ -120,6 +131,7 @@ trait SubresourceClientGenerator {
         import sttp.capabilities.zio.ZioStreams
         import sttp.client3.SttpBackend
         import zio._
+        import zio.stream._
 
         trait $namespacedT[T] {
           val $asGenericTerm: Subresource[$modelT]

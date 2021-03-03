@@ -1,12 +1,17 @@
 package com.coralogix.zio.k8s.client
 
-import sttp.client3.UriContext
+import sttp.client3.{ Empty, RequestT, UriContext }
 import sttp.model._
 import zio.duration._
 
 package object model extends LabelSelector.Syntax with FieldSelector.Syntax {
 
-  case class K8sCluster(host: Uri, token: String)
+  case class K8sCluster(
+    host: Uri,
+    applyToken: Option[
+      RequestT[Empty, Either[String, String], Any] => RequestT[Empty, Either[String, String], Any]
+    ]
+  )
 
   case class K8sResourceType(resourceType: String, group: String, version: String)
 

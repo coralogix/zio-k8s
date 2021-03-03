@@ -1,5 +1,6 @@
 package com.coralogix.zio.k8s.client.impl
 
+import com.coralogix.zio.k8s.client.config.K8sAuthentication
 import com.coralogix.zio.k8s.client.model._
 import com.coralogix.zio.k8s.client.{
   DecodedFailure,
@@ -36,7 +37,10 @@ trait ResourceClientBase {
   protected val backend: SttpBackend[Task, ZioStreams with WebSockets]
 
   protected val k8sRequest: RequestT[Empty, Either[String, String], Any] =
-    basicRequest.auth.bearer(cluster.token)
+    cluster.applyToken match {
+      case Some(f) => f(basicRequest)
+      case None    => basicRequest
+    }
 
   protected def simple(
     name: Option[String],

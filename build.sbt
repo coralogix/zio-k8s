@@ -51,17 +51,21 @@ lazy val client = Project("zio-k8s-client", file("zio-k8s-client"))
       "dev.zio"                       %% "zio-config"                    % zioConfigVersion,
       "dev.zio"                       %% "zio-config-magnolia"           % zioConfigVersion,
       "dev.zio"                       %% "zio-logging"                   % "0.5.7",
+      "dev.zio"                       %% "zio-nio"                       % "1.0.0-RC10",
       "com.softwaremill.sttp.client3" %% "core"                          % sttpVersion,
       "com.softwaremill.sttp.client3" %% "zio"                           % sttpVersion,
       "com.softwaremill.sttp.client3" %% "circe"                         % sttpVersion,
       "io.circe"                      %% "circe-core"                    % "0.13.0",
+      "io.circe"                      %% "circe-generic"                 % "0.13.0",
       "io.circe"                      %% "circe-parser"                  % "0.13.0",
       "io.circe"                      %% "circe-yaml"                    % "0.13.1",
-      "dev.zio"                       %% "zio-test"                      % zioVersion  % Test,
-      "dev.zio"                       %% "zio-test-sbt"                  % zioVersion  % Test,
-      "com.softwaremill.sttp.client3" %% "slf4j-backend"                 % sttpVersion % Optional,
-      "com.softwaremill.sttp.client3" %% "async-http-client-backend-zio" % sttpVersion % Optional,
-      "com.softwaremill.sttp.client3" %% "httpclient-backend-zio"        % sttpVersion % Optional
+      "org.bouncycastle"               % "bcpkix-jdk15on"                % "1.68",
+      "dev.zio"                       %% "zio-test"                      % zioVersion       % Test,
+      "dev.zio"                       %% "zio-test-sbt"                  % zioVersion       % Test,
+      "dev.zio"                       %% "zio-config-typesafe"           % zioConfigVersion % Test,
+      "com.softwaremill.sttp.client3" %% "slf4j-backend"                 % sttpVersion      % Optional,
+      "com.softwaremill.sttp.client3" %% "async-http-client-backend-zio" % sttpVersion      % Optional,
+      "com.softwaremill.sttp.client3" %% "httpclient-backend-zio"        % sttpVersion      % Optional
     ),
     testFrameworks += new TestFramework("zio.test.sbt.ZTestFramework"),
     mappings in (Compile, packageSrc) ++= {
@@ -192,7 +196,8 @@ lazy val examples = project
   )
   .aggregate(
     leaderExample,
-    opticsExample
+    opticsExample,
+    logsExample
   )
 
 lazy val leaderExample = Project("leader-example", file("examples/leader-example"))
@@ -217,6 +222,17 @@ val opticsExample = Project("optics-example", file("examples/optics-example"))
     publish / skip := true
   )
   .dependsOn(client, clientQuicklens, clientMonocle)
+
+val logsExample = Project("logs-example", file("examples/logs-example"))
+  .settings(commonSettings)
+  .settings(
+    publish / skip := true,
+    libraryDependencies ++= Seq(
+      "com.softwaremill.sttp.client3" %% "httpclient-backend-zio" % sttpVersion,
+      "com.softwaremill.sttp.client3" %% "slf4j-backend"          % sttpVersion
+    )
+  )
+  .dependsOn(client)
 
 lazy val docs = project
   .in(file("zio-k8s-docs"))
