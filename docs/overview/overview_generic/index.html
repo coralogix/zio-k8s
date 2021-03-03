@@ -83,8 +83,8 @@
 <pre><code class="hljs css language-scala"><span class="hljs-keyword">import</span> com.coralogix.zio.k8s.client.v1.pods.<span class="hljs-type">Pods</span>
 <span class="hljs-keyword">import</span> com.coralogix.zio.k8s.client.<span class="hljs-type">K8sFailure</span>
 
-<span class="hljs-keyword">val</span> pods: <span class="hljs-type">ZLayer</span>[<span class="hljs-type">Blocking</span>, <span class="hljs-type">Throwable</span>, <span class="hljs-type">Pods</span>] = (cluster ++ client) &gt;&gt;&gt; <span class="hljs-type">Pods</span>.live
-<span class="hljs-keyword">val</span> generic: <span class="hljs-type">ZLayer</span>[<span class="hljs-type">Blocking</span>, <span class="hljs-type">Throwable</span>, <span class="hljs-type">Pods</span>.<span class="hljs-type">Generic</span>] = pods.map(_.get.asGeneric)
+<span class="hljs-keyword">val</span> pods: <span class="hljs-type">ZLayer</span>[<span class="hljs-type">Blocking</span> <span class="hljs-keyword">with</span> <span class="hljs-type">System</span>, <span class="hljs-type">Throwable</span>, <span class="hljs-type">Pods</span>] = k8sDefault &gt;&gt;&gt; <span class="hljs-type">Pods</span>.live
+<span class="hljs-keyword">val</span> generic: <span class="hljs-type">ZLayer</span>[<span class="hljs-type">Blocking</span> <span class="hljs-keyword">with</span> <span class="hljs-type">System</span>, <span class="hljs-type">Throwable</span>, <span class="hljs-type">Pods</span>.<span class="hljs-type">Generic</span>] = pods.map(_.get.asGeneric)
 </code></pre>
 <p>This <code>generic</code> layer can be provided to generic functions that work with any kind of resource:</p>
 <pre><code class="hljs css language-scala"><span class="hljs-keyword">import</span> com.coralogix.zio.k8s.client._

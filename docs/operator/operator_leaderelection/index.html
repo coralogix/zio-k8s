@@ -110,8 +110,8 @@
       format = <span class="hljs-type">LogFormat</span>.<span class="hljs-type">ColoredLogFormat</span>()
     ) &gt;&gt;&gt; <span class="hljs-type">Logging</span>.withRootLoggerName(<span class="hljs-string">"leader-example"</span>)
 
-<span class="hljs-keyword">val</span> k8s: <span class="hljs-type">ZLayer</span>[<span class="hljs-type">Blocking</span>, <span class="hljs-type">Throwable</span>, <span class="hljs-type">Pods</span> <span class="hljs-keyword">with</span> <span class="hljs-type">ConfigMaps</span>] = 
-  (cluster ++ client) &gt;&gt;&gt; (<span class="hljs-type">Pods</span>.live ++ <span class="hljs-type">ConfigMaps</span>.live)
+<span class="hljs-keyword">val</span> k8s: <span class="hljs-type">ZLayer</span>[<span class="hljs-type">Blocking</span> <span class="hljs-keyword">with</span> <span class="hljs-type">System</span>, <span class="hljs-type">Throwable</span>, <span class="hljs-type">Pods</span> <span class="hljs-keyword">with</span> <span class="hljs-type">ConfigMaps</span>] = 
+  k8sDefault &gt;&gt;&gt; (<span class="hljs-type">Pods</span>.live ++ <span class="hljs-type">ConfigMaps</span>.live)
 
 <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">example</span></span>(): <span class="hljs-type">ZIO</span>[
     <span class="hljs-type">Logging</span> <span class="hljs-keyword">with</span> <span class="hljs-type">Blocking</span> <span class="hljs-keyword">with</span> <span class="hljs-type">System</span> <span class="hljs-keyword">with</span> <span class="hljs-type">Clock</span> <span class="hljs-keyword">with</span> <span class="hljs-type">Pods</span> <span class="hljs-keyword">with</span> <span class="hljs-type">ConfigMaps</span>,

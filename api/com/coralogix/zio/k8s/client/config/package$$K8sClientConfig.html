@@ -167,12 +167,56 @@
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="com.coralogix.zio.k8s.client">client</a></dd></dl></div>
     </li><li class="current-entities indented6">
                         <span class="separator"></span>
+                        <a class="trait" href="Descriptors.html" title=""></a>
+                        <a href="Descriptors.html" title="">Descriptors</a>
+                      </li><li class="current-entities indented6">
+                        <a class="object" href="package$$K8sAuthentication$.html" title=""></a>
+                        <a class="trait" href="package$$K8sAuthentication.html" title=""></a>
+                        <a href="package$$K8sAuthentication.html" title="">K8sAuthentication</a>
+                      </li><li class="current-entities indented6">
+                        <span class="separator"></span>
                         <a class="class" href="" title=""></a>
                         <a href="" title="">K8sClientConfig</a>
                       </li><li class="current-entities indented6">
-                        <span class="separator"></span>
+                        <a class="object" href="package$$K8sClusterConfig$.html" title=""></a>
                         <a class="class" href="package$$K8sClusterConfig.html" title=""></a>
                         <a href="package$$K8sClusterConfig.html" title="">K8sClusterConfig</a>
+                      </li><li class="current-entities indented6">
+                        <a class="object" href="package$$K8sServerCertificate$.html" title=""></a>
+                        <a class="trait" href="package$$K8sServerCertificate.html" title=""></a>
+                        <a href="package$$K8sServerCertificate.html" title="">K8sServerCertificate</a>
+                      </li><li class="current-entities indented6">
+                        <a class="object" href="package$$KeySource$.html" title=""></a>
+                        <a class="trait" href="package$$KeySource.html" title=""></a>
+                        <a href="package$$KeySource.html" title="">KeySource</a>
+                      </li><li class="current-entities indented6">
+                        <a class="object" href="Kubeconfig$.html" title=""></a>
+                        <a class="class" href="Kubeconfig.html" title=""></a>
+                        <a href="Kubeconfig.html" title="">Kubeconfig</a>
+                      </li><li class="current-entities indented6">
+                        <a class="object" href="KubeconfigCluster$.html" title=""></a>
+                        <a class="class" href="KubeconfigCluster.html" title=""></a>
+                        <a href="KubeconfigCluster.html" title="">KubeconfigCluster</a>
+                      </li><li class="current-entities indented6">
+                        <a class="object" href="KubeconfigClusterInfo$.html" title=""></a>
+                        <a class="class" href="KubeconfigClusterInfo.html" title=""></a>
+                        <a href="KubeconfigClusterInfo.html" title="">KubeconfigClusterInfo</a>
+                      </li><li class="current-entities indented6">
+                        <a class="object" href="KubeconfigContext$.html" title=""></a>
+                        <a class="class" href="KubeconfigContext.html" title=""></a>
+                        <a href="KubeconfigContext.html" title="">KubeconfigContext</a>
+                      </li><li class="current-entities indented6">
+                        <a class="object" href="KubeconfigContextInfo$.html" title=""></a>
+                        <a class="class" href="KubeconfigContextInfo.html" title=""></a>
+                        <a href="KubeconfigContextInfo.html" title="">KubeconfigContextInfo</a>
+                      </li><li class="current-entities indented6">
+                        <a class="object" href="KubeconfigUser$.html" title=""></a>
+                        <a class="class" href="KubeconfigUser.html" title=""></a>
+                        <a href="KubeconfigUser.html" title="">KubeconfigUser</a>
+                      </li><li class="current-entities indented6">
+                        <a class="object" href="KubeconfigUserInfo$.html" title=""></a>
+                        <a class="class" href="KubeconfigUserInfo.html" title=""></a>
+                        <a href="KubeconfigUserInfo.html" title="">KubeconfigUserInfo</a>
                       </li>
               </ul>
             </div>
@@ -196,7 +240,7 @@
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <span class="name">K8sClientConfig</span><span class="params">(<span name="insecure">insecure: <a href="https://www.scala-lang.org/api/2.12.12/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>, <span name="debug">debug: <a href="https://www.scala-lang.org/api/2.12.12/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>, <span name="cert">cert: <a href="https://javadoc.io/page/dev.zio/zio-nio-core_2.12/1.0.0-RC10/zio/nio/core/file/Path.html#zio.nio.core.file.Path" class="extype" name="zio.nio.core.file.Path">Path</a></span>)</span><span class="result"> extends <a href="https://www.scala-lang.org/api/2.12.12/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a> with <a href="https://www.scala-lang.org/api/2.12.12/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+        <span class="name">K8sClientConfig</span><span class="params">(<span name="debug">debug: <a href="https://www.scala-lang.org/api/2.12.12/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>, <span name="serverCertificate">serverCertificate: <a href="package$$K8sServerCertificate.html" class="extype" name="com.coralogix.zio.k8s.client.config.K8sServerCertificate">K8sServerCertificate</a></span>)</span><span class="result"> extends <a href="https://www.scala-lang.org/api/2.12.12/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a> with <a href="https://www.scala-lang.org/api/2.12.12/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
       </span>
       </h4>
 
@@ -252,9 +296,9 @@
         <div id="constructors" class="members">
               <h3>Instance Constructors</h3>
               <ol><li name="com.coralogix.zio.k8s.client.config.K8sClientConfig#&lt;init&gt;" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="&lt;init&gt;(insecure:Boolean,debug:Boolean,cert:zio.nio.core.file.Path):com.coralogix.zio.k8s.client.config.package.K8sClientConfig"></a><a id="&lt;init&gt;:K8sClientConfig"></a>
+      <a id="&lt;init&gt;(debug:Boolean,serverCertificate:com.coralogix.zio.k8s.client.config.package.K8sServerCertificate):com.coralogix.zio.k8s.client.config.package.K8sClientConfig"></a><a id="&lt;init&gt;:K8sClientConfig"></a>
       <span class="permalink">
-      <a href="../../../../../../com/coralogix/zio/k8s/client/config/package$$K8sClientConfig.html#&lt;init&gt;(insecure:Boolean,debug:Boolean,cert:zio.nio.core.file.Path):com.coralogix.zio.k8s.client.config.package.K8sClientConfig" title="Permalink">
+      <a href="../../../../../../com/coralogix/zio/k8s/client/config/package$$K8sClientConfig.html#&lt;init&gt;(debug:Boolean,serverCertificate:com.coralogix.zio.k8s.client.config.package.K8sServerCertificate):com.coralogix.zio.k8s.client.config.package.K8sClientConfig" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -263,7 +307,7 @@
         <span class="kind">new</span>
       </span>
       <span class="symbol">
-        <span class="name">K8sClientConfig</span><span class="params">(<span name="insecure">insecure: <a href="https://www.scala-lang.org/api/2.12.12/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>, <span name="debug">debug: <a href="https://www.scala-lang.org/api/2.12.12/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>, <span name="cert">cert: <a href="https://javadoc.io/page/dev.zio/zio-nio-core_2.12/1.0.0-RC10/zio/nio/core/file/Path.html#zio.nio.core.file.Path" class="extype" name="zio.nio.core.file.Path">Path</a></span>)</span>
+        <span class="name">K8sClientConfig</span><span class="params">(<span name="debug">debug: <a href="https://www.scala-lang.org/api/2.12.12/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>, <span name="serverCertificate">serverCertificate: <a href="package$$K8sServerCertificate.html" class="extype" name="com.coralogix.zio.k8s.client.config.K8sServerCertificate">K8sServerCertificate</a></span>)</span>
       </span>
       
       
@@ -341,22 +385,6 @@
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
-    </li><li name="com.coralogix.zio.k8s.client.config.K8sClientConfig#cert" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="cert:zio.nio.core.file.Path"></a><a id="cert:Path"></a>
-      <span class="permalink">
-      <a href="../../../../../../com/coralogix/zio/k8s/client/config/package$$K8sClientConfig.html#cert:zio.nio.core.file.Path" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">val</span>
-      </span>
-      <span class="symbol">
-        <span class="name">cert</span><span class="result">: <a href="https://javadoc.io/page/dev.zio/zio-nio-core_2.12/1.0.0-RC10/zio/nio/core/file/Path.html#zio.nio.core.file.Path" class="extype" name="zio.nio.core.file.Path">Path</a></span>
-      </span>
-      
-      
     </li><li name="scala.AnyRef#clone" visbl="prt" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="clone():Object"></a><a id="clone():AnyRef"></a>
       <span class="permalink">
@@ -436,22 +464,6 @@
                 <span class="name">@HotSpotIntrinsicCandidate</span><span class="args">()</span>
               
         </dd></dl></div>
-    </li><li name="com.coralogix.zio.k8s.client.config.K8sClientConfig#insecure" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="insecure:Boolean"></a>
-      <span class="permalink">
-      <a href="../../../../../../com/coralogix/zio/k8s/client/config/package$$K8sClientConfig.html#insecure:Boolean" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">val</span>
-      </span>
-      <span class="symbol">
-        <span class="name">insecure</span><span class="result">: <a href="https://www.scala-lang.org/api/2.12.12/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
-      </span>
-      
-      
     </li><li name="scala.Any#isInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isInstanceOf[T0]:Boolean"></a>
       <span class="permalink">
@@ -526,6 +538,22 @@
                 <span class="name">@HotSpotIntrinsicCandidate</span><span class="args">()</span>
               
         </dd></dl></div>
+    </li><li name="com.coralogix.zio.k8s.client.config.K8sClientConfig#serverCertificate" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="serverCertificate:com.coralogix.zio.k8s.client.config.package.K8sServerCertificate"></a><a id="serverCertificate:K8sServerCertificate"></a>
+      <span class="permalink">
+      <a href="../../../../../../com/coralogix/zio/k8s/client/config/package$$K8sClientConfig.html#serverCertificate:com.coralogix.zio.k8s.client.config.package.K8sServerCertificate" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">serverCertificate</span><span class="result">: <a href="package$$K8sServerCertificate.html" class="extype" name="com.coralogix.zio.k8s.client.config.K8sServerCertificate">K8sServerCertificate</a></span>
+      </span>
+      
+      
     </li><li name="scala.AnyRef#synchronized" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="synchronized[T0](x$1:=&gt;T0):T0"></a><a id="synchronized[T0](⇒T0):T0"></a>
       <span class="permalink">

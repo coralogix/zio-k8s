@@ -67,8 +67,8 @@ for example <em>pods</em> and <em>configmaps</em>:</p>
 <span class="hljs-keyword">import</span> com.coralogix.zio.k8s.client.v1.pods.<span class="hljs-type">Pods</span>
 <span class="hljs-keyword">import</span> com.coralogix.zio.k8s.client.<span class="hljs-type">K8sFailure</span>
 
-<span class="hljs-keyword">val</span> k8s: <span class="hljs-type">ZLayer</span>[<span class="hljs-type">Blocking</span>, <span class="hljs-type">Throwable</span>, <span class="hljs-type">Pods</span> <span class="hljs-keyword">with</span> <span class="hljs-type">ConfigMaps</span>] = 
-  (cluster ++ client) &gt;&gt;&gt; (<span class="hljs-type">Pods</span>.live ++ <span class="hljs-type">ConfigMaps</span>.live)
+<span class="hljs-keyword">val</span> k8s: <span class="hljs-type">ZLayer</span>[<span class="hljs-type">Blocking</span> <span class="hljs-keyword">with</span> <span class="hljs-type">System</span>, <span class="hljs-type">Throwable</span>, <span class="hljs-type">Pods</span> <span class="hljs-keyword">with</span> <span class="hljs-type">ConfigMaps</span>] = 
+  k8sDefault &gt;&gt;&gt; (<span class="hljs-type">Pods</span>.live ++ <span class="hljs-type">ConfigMaps</span>.live)
 </code></pre>
 <p>With this approach we gain a clear understanding of exactly what parts our application
 uses of the <em>Kubernetes API</em>, and for each function the <em>type signature</em> documents
@@ -93,7 +93,7 @@ too much boilerplate.</p>
 <p>In this case it is possible to create a <em>single, unfied Kubernetes API layer</em>:</p>
 <pre><code class="hljs css language-scala"><span class="hljs-keyword">import</span> com.coralogix.zio.k8s.client.kubernetes.<span class="hljs-type">Kubernetes</span>
 
-<span class="hljs-keyword">val</span> api = (cluster ++ client) &gt;&gt;&gt; <span class="hljs-type">Kubernetes</span>.live
+<span class="hljs-keyword">val</span> api = k8sDefault &gt;&gt;&gt; <span class="hljs-type">Kubernetes</span>.live
 </code></pre>
 <p>This is a huge interface providing <em>all operations</em> for <em>all Kubernetes resources</em>. The
 initialization and the type signatures becomes much simpler, but on the other hand
