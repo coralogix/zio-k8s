@@ -35,6 +35,15 @@ case class SubresourceId(
       q"List(..$pairs).flatten.toMap"
     }
 
+  def hasStreamingGet: Boolean = modelName == "String"
+
+  def streamingGetTransducer: Term =
+    modelName match {
+      case "String" =>
+        q"zio.stream.ZTransducer.utf8Decode >>> zio.stream.ZTransducer.splitLines"
+      case _        => q"???"
+    }
+
   private def valueToString(typ: Type, name: String): Term = {
     val nameTerm = Term.Name(name)
     typ match {

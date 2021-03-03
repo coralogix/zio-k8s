@@ -6,7 +6,7 @@ import zio.test._
 import zio.test.Assertion._
 
 object K8sUriSpec extends DefaultRunnableSpec {
-  private val cluster = K8sCluster(uri"https://localhost:32768", "-")
+  private val cluster = K8sCluster(uri"https://localhost:32768", None)
   private val resourceType = K8sResourceType("rt", "gr", "v8")
   private val resourceTypeWithEmptyGroup = K8sResourceType("rt", "", "v8")
   private val ns = K8sNamespace("def")

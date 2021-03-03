@@ -15,21 +15,7 @@ import sttp.model._
 import zio._
 import zio.blocking.Blocking
 import zio.nio.core.file.Path
-
-// Configuration
-val clientConfig = K8sClientConfig(
-    insecure = false, // set true for testing locally with minikube
-    debug = false,
-    cert = Path("/var/run/secrets/kubernetes.io/serviceaccount/ca.crt")
-)
-
-val clusterConfig = K8sClusterConfig(
-    host = uri"https://kubernetes.default.svc",
-    token = None,
-    tokenFile = Path("/var/run/secrets/kubernetes.io/serviceaccount/token")
-)
-val client = ZLayer.succeed(clientConfig) >>> k8sSttpClient
-val cluster = Blocking.any ++ ZLayer.succeed(clusterConfig) >>> k8sCluster
+import zio.system.System
 ```
 
 ```scala mdoc:silent
@@ -37,8 +23,8 @@ import com.coralogix.zio.k8s.client.v1.configmaps.ConfigMaps
 import com.coralogix.zio.k8s.client.v1.pods.Pods
 import com.coralogix.zio.k8s.client.K8sFailure
 
-val k8s: ZLayer[Blocking, Throwable, Pods with ConfigMaps] = 
-  (cluster ++ client) >>> (Pods.live ++ ConfigMaps.live)
+val k8s: ZLayer[Blocking with System, Throwable, Pods with ConfigMaps] = 
+  k8sDefault >>> (Pods.live ++ ConfigMaps.live)
 ```
 
 With this approach we gain a clear understanding of exactly what parts our application
@@ -74,7 +60,7 @@ In this case it is possible to create a _single, unfied Kubernetes API layer_:
 ```scala mdoc:silent
 import com.coralogix.zio.k8s.client.kubernetes.Kubernetes
 
-val api = (cluster ++ client) >>> Kubernetes.live
+val api = k8sDefault >>> Kubernetes.live
 ```
 
 This is a huge interface providing _all operations_ for _all Kubernetes resources_. The 

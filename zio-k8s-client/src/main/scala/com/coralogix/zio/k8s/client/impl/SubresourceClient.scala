@@ -2,11 +2,22 @@ package com.coralogix.zio.k8s.client.impl
 
 import _root_.io.circe._
 import com.coralogix.zio.k8s.client.model.{ K8sCluster, K8sNamespace, K8sResourceType }
-import com.coralogix.zio.k8s.client.{ K8sFailure, Subresource }
+import com.coralogix.zio.k8s.client.{ K8sFailure, RequestFailure, Subresource }
 import sttp.capabilities.WebSockets
 import sttp.capabilities.zio.ZioStreams
-import sttp.client3.SttpBackend
+import sttp.client3.{
+  asEither,
+  asStream,
+  asStreamAlwaysUnsafe,
+  asStreamUnsafe,
+  asString,
+  asStringAlways,
+  HttpError,
+  ResponseException,
+  SttpBackend
+}
 import sttp.client3.circe._
+import zio.stream.{ ZStream, ZTransducer }
 import zio.{ IO, Task }
 
 final class SubresourceClient[T: Encoder: Decoder](
@@ -29,6 +40,35 @@ final class SubresourceClient[T: Encoder: Decoder](
         )
         .response(asJson[T])
         .send(backend)
+    }
+
+  def streamingGet(
+    name: String,
+    namespace: Option[K8sNamespace],
+    transducer: ZTransducer[Any, K8sFailure, Byte, T],
+    customParameters: Map[String, String] = Map.empty
+  ): ZStream[Any, K8sFailure, T] =
+    ZStream.unwrap {
+      handleFailures {
+        k8sRequest
+          .get(
+            simple(Some(name), Some(subresourceName), namespace)
+              .addParams(customParameters)
+          )
+          .response(
+            asEither(
+              asStringAlways.mapWithMetadata { case (body, meta) =>
+                HttpError(body, meta.code).asInstanceOf[ResponseException[String, Error]]
+              },
+              asStreamAlwaysUnsafe(ZioStreams)
+            )
+          )
+          .send(backend)
+      }.map { stream =>
+        stream
+          .mapError(RequestFailure)
+          .transduce(transducer)
+      }
     }
 
   def replace(

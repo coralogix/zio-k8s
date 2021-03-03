@@ -37,7 +37,54 @@ Otherwise choose the `async-http-client` based backend:
 ## Configuration
 
 With all the dependencies added, we have to create an _sttp client_ and a _k8s cluster_ ZIO layers. 
-This two together specifies how to connect to the _Kubernetes API_. There are [zio-config](https://zio.github.io/zio-config/) _descriptors_ for the data structures necessary to configure this.
+This two together specifies how to connect to the _Kubernetes API_. There are several layer definitions and
+[zio-config](https://zio.github.io/zio-config/) _descriptors_ for the data structures necessary to configure this.
+
+### Default automatic configuration
+The simplest way to configure `zio-k8s` is to use the `k8sDefault` layer from the config package depending on 
+the chosen HTTP implementation. In case of `HttpClient` this looks like the following:
+
+```scala mdoc:silent
+import com.coralogix.zio.k8s.client.config._
+import com.coralogix.zio.k8s.client.config.httpclient._
+import zio._
+import zio.blocking.Blocking
+import zio.system.System
+
+import com.coralogix.zio.k8s.client.v1.configmaps.ConfigMaps
+import com.coralogix.zio.k8s.client.v1.pods.Pods
+
+
+k8sDefault >>> (Pods.live ++ ConfigMaps.live)
+```
+
+This uses the _default configuration chain_ that:
+
+- Checks the `KUBECONFIG` environment variable for a kubeconfig path, otherwise uses `~/.kube/config`
+- If this file exists, it loads it and uses the _current context_ (same that `kubectl` would)
+- If it does not exist, if tries to load the default _service account token_. This is available when the application runs from a pod of the cluster.
+
+Note that `k8sDefault` produces two modules in a single pass:
+- a `K8sCluster` module describing the Kubernetes cluster to connect to
+- an `SttpClient` module containing the actual HTTP client implementation
+
+The more custom functions in the `config` package are only producing a `K8sClusterConfig` layer which can be used as
+an input for both `K8sCluster` and `SttpClient`. Assuming we have a custom cluster configuration layer `config`:
+
+```scala mdoc:silent
+def customConfig: ZLayer[Any, Nothing, Has[K8sClusterConfig]] = ???
+
+def customK8s = (Blocking.any ++ System.any ++ customConfig) >>> (k8sCluster ++ k8sSttpClient)
+```
+
+#### Trailing dots
+In some cases the kubeconfig may contain cluster host names with a _trailing dot_. This is causing problems with the SSL engine
+and currently can only used with the following workaround:
+
+```scala mdoc:silent
+val workaroundConfig = kubeconfig(disableHostnameVerification = true)
+      .project(cfg => cfg.dropTrailingDot)
+```
 
 ### Providing configuration from code
 
@@ -51,23 +98,31 @@ import zio.blocking.Blocking
 import zio.nio.core.file.Path
 
 // Configuration
-val clientConfig = K8sClientConfig(
-    insecure = false, // set true for testing locally with minikube
-    debug = false,
-    cert = Path("/var/run/secrets/kubernetes.io/serviceaccount/ca.crt")
-)
-
-val clusterConfig = K8sClusterConfig(
-    host = uri"https://kubernetes.default.svc",
-    token = None,
-    tokenFile = Path("/var/run/secrets/kubernetes.io/serviceaccount/token")
-)
+val config = ZLayer.succeed(
+      K8sClusterConfig(
+        host = uri"https://kubernetes.default.svc",
+        authentication = K8sAuthentication.ServiceAccountToken(
+          KeySource.FromFile(
+            Path("/var/run/secrets/kubernetes.io/serviceaccount/token")
+          )
+        ),
+        K8sClientConfig(
+          debug = false,
+          K8sServerCertificate.Secure(
+            certificate = KeySource.FromFile(
+              Path("/var/run/secrets/kubernetes.io/serviceaccount/ca.crt")
+            ),
+            disableHostnameVerification = false
+          )
+        )
+      )
+    )
 ```
 
 ```scala mdoc:silent
 // K8s configuration and client layers
-val client = ZLayer.succeed(clientConfig) >>> k8sSttpClient
-val cluster = Blocking.any ++ ZLayer.succeed(clusterConfig) >>> k8sCluster
+val client = Blocking.any ++ System.any ++ config >>> k8sSttpClient
+val cluster = Blocking.any ++ System.any ++ config >>> k8sCluster
 ```
 
 ### Configuring with zio-config + Typesafe Config
@@ -79,30 +134,38 @@ import zio.blocking.Blocking
 import zio.config.magnolia.DeriveConfigDescriptor._
 import zio.config.magnolia.name
 import zio.config.typesafe._
+import zio.system.System
 
-case class Config(cluster: K8sClusterConfig, @name("k8s-client") client: K8sClientConfig)
+case class Config(k8s: K8sClusterConfig)
 
 // Loading config from HOCON
 val configDesc = descriptor[Config]
 val config = TypesafeConfig.fromDefaultLoader[Config](configDesc)
 
 // K8s configuration and client layers
-val client = config.project(_.client) >>> k8sSttpClient
-val cluster = (Blocking.any ++ config.project(_.cluster)) >>> k8sCluster
+val client = (Blocking.any ++ System.any ++ config.project(_.k8s)) >>> k8sSttpClient
+val cluster = (Blocking.any ++ System.any ++ config.project(_.k8s)) >>> k8sCluster
 ```
 
 and place the configuration in `application.conf`, for example:
 
 ```conf
-k8s-client {
-  insecure = false
-  debug = false
-  cert = "/var/run/secrets/kubernetes.io/serviceaccount/ca.crt" # not used if insecure
-}
-
-cluster {
-  host = "https://kubernetes.default.svc" # Default
-  token-file = "/var/run/secrets/kubernetes.io/serviceaccount/token"
+k8s {
+  host = "https://kubernetes.default.svc"
+  authentication {
+    serviceAccountToken {
+      path = "/var/run/secrets/kubernetes.io/serviceaccount/token"
+    }
+  }
+  client {
+    debug = false
+    secure {
+      certificate {
+        path = "/var/run/secrets/kubernetes.io/serviceaccount/ca.crt"
+      }
+      disableHostnameVerification = false
+    }
+  }
 }
 ```
 

@@ -247,7 +247,20 @@ trait ClientModuleGenerator {
                 val modelT: Type.Ref = getSubresourceModelType(modelPackageName, subresource)
 
                 subresource.actionVerbs.flatMap {
-                  case "get"  =>
+                  case "get" if subresource.hasStreamingGet =>
+                    val params =
+                      param"name: String" :: param"namespace: K8sNamespace" :: subresource.toMethodParameters
+                    val customParamsMap = subresource.toMapFromParameters
+
+                    List(
+                      q"""
+                        override def $getTerm(
+                          ..$params
+                        ): ZStream[Any, K8sFailure, $modelT] =
+                          $clientName.streamingGet(name, Some(namespace), ${subresource.streamingGetTransducer}, $customParamsMap)
+                        """
+                    )
+                  case "get"                                =>
                     val params =
                       param"name: String" :: param"namespace: K8sNamespace" :: subresource.toMethodParameters
                     val customParamsMap = subresource.toMapFromParameters
@@ -260,7 +273,7 @@ trait ClientModuleGenerator {
                           $clientName.get(name, Some(namespace), $customParamsMap)
                         """
                     )
-                  case "put"  =>
+                  case "put"                                =>
                     List(
                       q"""
                           override def $putTerm(
@@ -272,7 +285,7 @@ trait ClientModuleGenerator {
                             $clientName.replace(name, updatedValue, Some(namespace), dryRun)
                         """
                     )
-                  case "post" =>
+                  case "post"                               =>
                     List(
                       q"""
                           override def $postTerm(
@@ -284,7 +297,7 @@ trait ClientModuleGenerator {
                             $clientName.create(name, value, Some(namespace), dryRun)
                         """
                     )
-                  case _      => List.empty
+                  case _                                    => List.empty
                 }
               }
 
@@ -300,7 +313,19 @@ trait ClientModuleGenerator {
                 val modelT: Type.Ref = getSubresourceModelType(modelPackageName, subresource)
 
                 subresource.actionVerbs.flatMap {
-                  case "get"  =>
+                  case "get" if subresource.hasStreamingGet =>
+                    val paramDefs =
+                      param"name: String" :: param"namespace: K8sNamespace" :: subresource.toMethodParameters
+                    val params = q"name" :: q"namespace" :: subresource.toParameterAccess
+                    List(
+                      q"""
+                        def $getTerm(
+                          ..$paramDefs
+                        ): ZStream[$typeAliasT, K8sFailure, $modelT] =
+                          ZStream.accessStream(_.get.$getTerm(..$params))
+                        """
+                    )
+                  case "get"                                =>
                     val paramDefs =
                       param"name: String" :: param"namespace: K8sNamespace" :: subresource.toMethodParameters
                     val params = q"name" :: q"namespace" :: subresource.toParameterAccess
@@ -312,7 +337,7 @@ trait ClientModuleGenerator {
                           ZIO.accessM(_.get.$getTerm(..$params))
                         """
                     )
-                  case "put"  =>
+                  case "put"                                =>
                     List(
                       q"""
                           def $putTerm(
@@ -324,7 +349,7 @@ trait ClientModuleGenerator {
                             ZIO.accessM(_.get.$putTerm(name, updatedValue, namespace, dryRun))
                         """
                     )
-                  case "post" =>
+                  case "post"                               =>
                     List(
                       q"""
                           def $postTerm(
@@ -336,7 +361,7 @@ trait ClientModuleGenerator {
                             ZIO.accessM(_.get.$postTerm(name, value, namespace, dryRun))
                         """
                     )
-                  case _      => List.empty
+                  case _                                    => List.empty
                 }
               }
 
@@ -642,7 +667,19 @@ trait ClientModuleGenerator {
                 val modelT: Type.Ref = getSubresourceModelType(modelPackageName, subresource)
 
                 subresource.actionVerbs.flatMap {
-                  case "get"  =>
+                  case "get" if subresource.hasStreamingGet =>
+                    val params = param"name: String" :: subresource.toMethodParameters
+                    val customParamsMap = subresource.toMapFromParameters
+
+                    List(
+                      q"""
+                        override def $getTerm(
+                          ..$params
+                        ): ZStream[Any, K8sFailure, $modelT] =
+                          $clientName.streamingGet(name, None, ${subresource.streamingGetTransducer}, $customParamsMap)
+                        """
+                    )
+                  case "get"                                =>
                     val params = param"name: String" :: subresource.toMethodParameters
                     val customParamsMap = subresource.toMapFromParameters
 
@@ -654,7 +691,7 @@ trait ClientModuleGenerator {
                           $clientName.get(name, None, $customParamsMap)
                         """
                     )
-                  case "put"  =>
+                  case "put"                                =>
                     List(
                       q"""
                           override def $putTerm(
@@ -665,7 +702,7 @@ trait ClientModuleGenerator {
                             $clientName.replace(name, updatedValue, None, dryRun)
                         """
                     )
-                  case "post" =>
+                  case "post"                               =>
                     List(
                       q"""
                           override def $postTerm(
@@ -675,7 +712,7 @@ trait ClientModuleGenerator {
                             $clientName.create(value, None, dryRun)
                         """
                     )
-                  case _      => List.empty
+                  case _                                    => List.empty
                 }
               }
 
@@ -691,7 +728,18 @@ trait ClientModuleGenerator {
                 val modelT: Type.Ref = getSubresourceModelType(modelPackageName, subresource)
 
                 subresource.actionVerbs.flatMap {
-                  case "get"  =>
+                  case "get" if subresource.hasStreamingGet =>
+                    val paramDefs = param"name: String" :: subresource.toMethodParameters
+                    val params = q"name" :: subresource.toParameterAccess
+                    List(
+                      q"""
+                        def $getTerm(
+                          ..$paramDefs
+                        ): ZStream[$typeAliasT, K8sFailure, $modelT] =
+                          ZStream.accessStream(_.get.$getTerm(..$params))
+                        """
+                    )
+                  case "get"                                =>
                     val paramDefs = param"name: String" :: subresource.toMethodParameters
                     val params = q"name" :: subresource.toParameterAccess
                     List(
@@ -702,7 +750,7 @@ trait ClientModuleGenerator {
                           ZIO.accessM(_.get.$getTerm(..$params))
                         """
                     )
-                  case "put"  =>
+                  case "put"                                =>
                     List(
                       q"""
                           def $putTerm(
@@ -713,7 +761,7 @@ trait ClientModuleGenerator {
                             ZIO.accessM(_.get.$putTerm(name, updatedValue, dryRun))
                         """
                     )
-                  case "post" =>
+                  case "post"                               =>
                     List(
                       q"""
                           def $postTerm(
@@ -723,7 +771,7 @@ trait ClientModuleGenerator {
                             ZIO.accessM(_.get.$postTerm(value, dryRun))
                         """
                     )
-                  case _      => List.empty
+                  case _                                    => List.empty
                 }
               }
 

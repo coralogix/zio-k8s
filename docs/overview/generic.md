@@ -40,29 +40,15 @@ import sttp.model._
 import zio._
 import zio.blocking.Blocking
 import zio.nio.core.file.Path
-
-// Configuration
-val clientConfig = K8sClientConfig(
-    insecure = false, // set true for testing locally with minikube
-    debug = false,
-    cert = Path("/var/run/secrets/kubernetes.io/serviceaccount/ca.crt")
-)
-
-val clusterConfig = K8sClusterConfig(
-    host = uri"https://kubernetes.default.svc",
-    token = None,
-    tokenFile = Path("/var/run/secrets/kubernetes.io/serviceaccount/token")
-)
-val client = ZLayer.succeed(clientConfig) >>> k8sSttpClient
-val cluster = Blocking.any ++ ZLayer.succeed(clusterConfig) >>> k8sCluster
+import zio.system.System
 ```
 
 ```scala mdoc:silent
 import com.coralogix.zio.k8s.client.v1.pods.Pods
 import com.coralogix.zio.k8s.client.K8sFailure
 
-val pods: ZLayer[Blocking, Throwable, Pods] = (cluster ++ client) >>> Pods.live
-val generic: ZLayer[Blocking, Throwable, Pods.Generic] = pods.map(_.get.asGeneric)
+val pods: ZLayer[Blocking with System, Throwable, Pods] = k8sDefault >>> Pods.live
+val generic: ZLayer[Blocking with System, Throwable, Pods.Generic] = pods.map(_.get.asGeneric)
 ```
 
 This `generic` layer can be provided to generic functions that work with any kind of resource:
