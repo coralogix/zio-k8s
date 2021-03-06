@@ -13,12 +13,17 @@ import javax.net.ssl.{ TrustManager, TrustManagerFactory }
 
 private object TrustManagers {
 
-  private def getDefaultTrustStore: ZIO[System with Blocking, Throwable, KeyStore] =
+  private def getDefaultTrustStoreWithoutSecurityDir: Task[KeyStore] =
+    ZIO.effect {
+      val keyStore = KeyStore.getInstance("JKS")
+      keyStore.load(null)
+      keyStore
+    }
+
+  private def getDefaultTrustStoreWithSecurityDir(
+    secDir: Path
+  ): ZIO[Blocking with System, Throwable, KeyStore] =
     for {
-      maybeJavaHome         <- system.property("java.home")
-      javaHome              <-
-        ZIO.fromOption(maybeJavaHome).orElseFail(new RuntimeException("Could not find Java home"))
-      secDir                 = Path(javaHome) / "lib/security"
       propertyTrustStore    <- system.property("javax.net.ssl.trustStore")
       propertyTrustStoreFile = propertyTrustStore.map(new File(_))
       password              <- system.property("javax.net.ssl.trustStorePassword")
@@ -40,6 +45,16 @@ private object TrustManagers {
                       )
                     )
                   }
+    } yield keyStore
+
+  private def getDefaultTrustStore: ZIO[System with Blocking, Throwable, KeyStore] =
+    for {
+      maybeJavaHome <- system.property("java.home")
+      keyStore      <- maybeJavaHome match {
+                         case Some(javaHome) =>
+                           getDefaultTrustStoreWithSecurityDir(Path(javaHome) / "lib/security")
+                         case None           => getDefaultTrustStoreWithoutSecurityDir
+                       }
     } yield keyStore
 
   private def createTrustStore(
