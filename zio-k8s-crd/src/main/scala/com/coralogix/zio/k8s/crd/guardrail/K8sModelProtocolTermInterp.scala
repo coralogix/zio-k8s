@@ -43,6 +43,8 @@ class K8sModelProtocolTermInterp(implicit
   private val groupLit = Lit.String(k8sContext.group)
   private val versionLit = Lit.String(k8sContext.version)
 
+  private val reservedNames = Set("wait", "equals", "toString", "notify", "notifyAll", "finalize")
+
   override def MonadF: Monad[Target] = Target.targetInstances
 
   override def extractProperties(
@@ -66,7 +68,7 @@ class K8sModelProtocolTermInterp(implicit
   ): Target[ProtocolParameter[ScalaLanguage]] =
     circe.transformProperty(clsName, dtoPackage, supportPackage, concreteTypes)(
       name,
-      fieldName,
+      if (reservedNames.contains(fieldName)) fieldName + "_" else fieldName,
       prop,
       meta,
       requirement,
@@ -378,7 +380,8 @@ class K8sModelProtocolTermInterp(implicit
     val entityNameTerm = Term.Name(clsName)
 
     val k8sObject: Defn =
-      q"""implicit val k8sObject: K8sObject[$entityNameT] =
+      if (k8sContext.isMetadataOptional) {
+        q"""implicit val k8sObject: K8sObject[$entityNameT] =
                   new K8sObject[$entityNameT] {
                     def metadata(obj: $entityNameT): Optional[ObjectMeta] =
                       obj.metadata
@@ -386,6 +389,16 @@ class K8sModelProtocolTermInterp(implicit
                       obj.copy(metadata = obj.metadata.map(f))
                   }
             """
+      } else {
+        q"""implicit val k8sObject: K8sObject[$entityNameT] =
+                  new K8sObject[$entityNameT] {
+                    def metadata(obj: $entityNameT): Optional[ObjectMeta] =
+                      Optional.Present(obj.metadata)
+                    def mapMetadata(f: ObjectMeta => ObjectMeta)(obj: $entityNameT): $entityNameT =
+                      obj.copy(metadata = f(obj.metadata))
+                  }
+            """
+      }
 
     val ops: Defn =
       q"""implicit class Ops(protected val obj: $entityNameT)
