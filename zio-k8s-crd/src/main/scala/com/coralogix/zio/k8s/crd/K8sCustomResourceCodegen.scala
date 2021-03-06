@@ -68,15 +68,12 @@ object K8sCustomResourceCodegen extends Common with ClientModuleGenerator {
 
   private def adjustSchema(schema: JSONSchemaProps): JSONSchemaProps =
     schema.copy(properties = schema.properties.map { props =>
-      if (props.contains("metadata"))
-        props
-      else
-        props.updated(
-          "metadata",
-          JSONSchemaProps(
-            $ref = Some("ObjectMeta")
-          )
+      props.updated(
+        "metadata",
+        JSONSchemaProps(
+          $ref = Some("ObjectMeta")
         )
+      )
     })
 
   // TODO: configurable root package
@@ -93,6 +90,8 @@ object K8sCustomResourceCodegen extends Common with ClientModuleGenerator {
       case Some(originalSchema) =>
         val schema = adjustSchema(originalSchema)
         val hasStatus = version.subresources.map(_.status.isDefined).getOrElse(false)
+        val isMetadataOptional = !schema.required.map(_.contains("metadata")).getOrElse(false)
+
         val schemaFragment = schema.asJson.deepDropNullValues
         val basePackage =
           (Vector("com", "coralogix", "zio", "k8s", "client") ++ Conversions.groupNameToPackageName(
@@ -105,7 +104,8 @@ object K8sCustomResourceCodegen extends Common with ClientModuleGenerator {
                                  crd.spec.group,
                                  version.name,
                                  pluralName,
-                                 hasStatus
+                                 hasStatus,
+                                 isMetadataOptional
                                ),
                                basePackage.toList,
                                useContextForSubPackage = true,

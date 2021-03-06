@@ -5,5 +5,6 @@ case class K8sCodegenContext(
   group: String,
   version: String,
   plural: String,
-  hasStatus: Boolean
+  hasStatus: Boolean,
+  isMetadataOptional: Boolean
 )
