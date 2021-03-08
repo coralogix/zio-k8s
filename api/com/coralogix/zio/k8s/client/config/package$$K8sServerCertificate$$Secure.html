@@ -161,10 +161,15 @@
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="" href="index.html"><span class="name">config</span></a>
+        <a title="Contains data structures, ZIO layers and zio-config descriptors for configuring the zio-k8s client." href="index.html"><span class="name">config</span></a>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="com.coralogix.zio.k8s.client">client</a></dd></dl></div>
+      <p class="shortcomment cmt">Contains data structures, ZIO layers and zio-config descriptors for configuring the zio-k8s client.</p><div class="fullcomment"><div class="comment cmt"><p>Contains data structures, ZIO layers and zio-config descriptors for configuring the zio-k8s client.</p><p>Each zio-k8s client module depends on two ZIO modules: <span class="extype" name="K8sCluster">K8sCluster</span> and an <a href="https://javadoc.io/page/com.softwaremill.sttp.client3/core_2.12/3.1.7/sttp/client3/SttpBackend.html" class="extype" name="sttp.client3.SttpBackend">sttp.client3.SttpBackend</a>.
+To use the default configuration (use kubeconfig if available, otherwise fallback to service account token),
+use either <span class="extype" name="asynchttpclient.k8sDefault">asynchttpclient.k8sDefault</span> or <span class="extype" name="httpclient.k8sDefault">httpclient.k8sDefault</span> depending on your chosen sttp backend.</p><p>Manual configuration is possible by providing a <a href="package$$K8sClusterConfig.html" class="extype" name="com.coralogix.zio.k8s.client.config.K8sClusterConfig">K8sClusterConfig</a> value to both the <a href="index.html#k8sCluster:zio.ZLayer[zio.blocking.Blockingwithzio.Has[com.coralogix.zio.k8s.client.config.package.K8sClusterConfig],Throwable,zio.Has[com.coralogix.zio.k8s.client.model.K8sCluster]]" class="extmbr" name="com.coralogix.zio.k8s.client.config#k8sCluster">k8sCluster</a> layer
+and either <span class="extype" name="asynchttpclient.k8sSttpClient">asynchttpclient.k8sSttpClient</span> or <span class="extype" name="httpclient.k8sSttpClient">httpclient.k8sSttpClient</span>.</p><p>Instead of manually providing the configuration, zio-config descriptors are available to load them from any
+supported source.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="com.coralogix.zio.k8s.client">client</a></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.client.config.K8sServerCertificate" visbl="pub" class="indented7 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="K8sServerCertificate"></a><a id="K8sServerCertificate:K8sServerCertificate"></a>
       <span class="permalink">
@@ -183,12 +188,12 @@
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="com.coralogix.zio.k8s.client.config">config</a></dd></dl></div>
     </li><li class="current-entities indented7">
                         <span class="separator"></span>
-                        <a class="object" href="package$$K8sServerCertificate$$Insecure$.html" title=""></a>
-                        <a href="package$$K8sServerCertificate$$Insecure$.html" title="">Insecure</a>
+                        <a class="object" href="package$$K8sServerCertificate$$Insecure$.html" title="Insecure connection"></a>
+                        <a href="package$$K8sServerCertificate$$Insecure$.html" title="Insecure connection">Insecure</a>
                       </li><li class="current-entities indented7">
                         <span class="separator"></span>
-                        <a class="class" href="" title=""></a>
-                        <a href="" title="">Secure</a>
+                        <a class="class" href="" title="Secure TLS connection"></a>
+                        <a href="" title="Secure TLS connection">Secure</a>
                       </li>
               </ul>
             </div>
@@ -217,7 +222,7 @@
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Secure TLS connection</p></div><dl class="paramcmts block"><dt class="param">certificate</dt><dd class="cmt"><p>Server certification</p></dd><dt class="param">disableHostnameVerification</dt><dd class="cmt"><p>Disables hostname verification</p></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -267,7 +272,7 @@
         <div id="allMembers">
         <div id="constructors" class="members">
               <h3>Instance Constructors</h3>
-              <ol><li name="com.coralogix.zio.k8s.client.config.K8sServerCertificate.Secure#&lt;init&gt;" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+              <ol><li name="com.coralogix.zio.k8s.client.config.K8sServerCertificate.Secure#&lt;init&gt;" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="&lt;init&gt;(certificate:com.coralogix.zio.k8s.client.config.package.KeySource,disableHostnameVerification:Boolean):com.coralogix.zio.k8s.client.config.K8sServerCertificate.Secure"></a><a id="&lt;init&gt;:Secure"></a>
       <span class="permalink">
       <a href="../../../../../../com/coralogix/zio/k8s/client/config/package$$K8sServerCertificate$$Secure.html#&lt;init&gt;(certificate:com.coralogix.zio.k8s.client.config.package.KeySource,disableHostnameVerification:Boolean):com.coralogix.zio.k8s.client.config.K8sServerCertificate.Secure" title="Permalink">
@@ -282,7 +287,7 @@
         <span class="name">Secure</span><span class="params">(<span name="certificate">certificate: <a href="package$$KeySource.html" class="extype" name="com.coralogix.zio.k8s.client.config.KeySource">KeySource</a></span>, <span name="disableHostnameVerification">disableHostnameVerification: <a href="https://www.scala-lang.org/api/2.12.12/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>)</span>
       </span>
       
-      
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">certificate</dt><dd class="cmt"><p>Server certification</p></dd><dt class="param">disableHostnameVerification</dt><dd class="cmt"><p>Disables hostname verification</p></dd></dl></div>
     </li></ol>
             </div>
 

@@ -663,7 +663,7 @@
                 <span class="name">@HotSpotIntrinsicCandidate</span><span class="args">()</span>
               
         </dd></dl></div>
-    </li><li name="com.coralogix.zio.k8s.model.apps.v1.StatefulSetStatus#getCollisionCount" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="com.coralogix.zio.k8s.model.apps.v1.StatefulSetStatus#getCollisionCount" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getCollisionCount:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Int]"></a><a id="getCollisionCount:IO[K8sFailure,Int]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/apps/v1/StatefulSetStatus.html#getCollisionCount:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Int]" title="Permalink">
@@ -678,8 +678,9 @@
         <span class="name">getCollisionCount</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="https://www.scala-lang.org/api/2.12.12/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a>]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.model.apps.v1.StatefulSetStatus#getConditions" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">collisionCount is the count of hash collisions for the StatefulSet.</p><div class="fullcomment"><div class="comment cmt"><p>collisionCount is the count of hash collisions for the StatefulSet. The StatefulSet controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ControllerRevision.</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.apps.v1.StatefulSetStatus#getConditions" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getConditions:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Vector[com.coralogix.zio.k8s.model.apps.v1.StatefulSetCondition]]"></a><a id="getConditions:IO[K8sFailure,Vector[StatefulSetCondition]]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/apps/v1/StatefulSetStatus.html#getConditions:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Vector[com.coralogix.zio.k8s.model.apps.v1.StatefulSetCondition]]" title="Permalink">
@@ -694,8 +695,9 @@
         <span class="name">getConditions</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Vector">Vector</span>[<a href="StatefulSetCondition.html" class="extype" name="com.coralogix.zio.k8s.model.apps.v1.StatefulSetCondition">StatefulSetCondition</a>]]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.model.apps.v1.StatefulSetStatus#getCurrentReplicas" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Represents the latest available observations of a statefulset's current state.</p><div class="fullcomment"><div class="comment cmt"><p>Represents the latest available observations of a statefulset's current state.</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.apps.v1.StatefulSetStatus#getCurrentReplicas" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getCurrentReplicas:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Int]"></a><a id="getCurrentReplicas:IO[K8sFailure,Int]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/apps/v1/StatefulSetStatus.html#getCurrentReplicas:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Int]" title="Permalink">
@@ -710,8 +712,9 @@
         <span class="name">getCurrentReplicas</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="https://www.scala-lang.org/api/2.12.12/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a>]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.model.apps.v1.StatefulSetStatus#getCurrentRevision" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">currentReplicas is the number of Pods created by the StatefulSet controller from the StatefulSet version indicated by currentRevision.</p><div class="fullcomment"><div class="comment cmt"><p>currentReplicas is the number of Pods created by the StatefulSet controller from the StatefulSet version indicated by currentRevision.</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.apps.v1.StatefulSetStatus#getCurrentRevision" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getCurrentRevision:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]"></a><a id="getCurrentRevision:IO[K8sFailure,String]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/apps/v1/StatefulSetStatus.html#getCurrentRevision:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]" title="Permalink">
@@ -726,8 +729,9 @@
         <span class="name">getCurrentRevision</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.model.apps.v1.StatefulSetStatus#getObservedGeneration" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">currentRevision, if not empty, indicates the version of the StatefulSet used to generate Pods in the sequence [0,currentReplicas).</p><div class="fullcomment"><div class="comment cmt"><p>currentRevision, if not empty, indicates the version of the StatefulSet used to generate Pods in the sequence [0,currentReplicas).</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.apps.v1.StatefulSetStatus#getObservedGeneration" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getObservedGeneration:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Long]"></a><a id="getObservedGeneration:IO[K8sFailure,Long]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/apps/v1/StatefulSetStatus.html#getObservedGeneration:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Long]" title="Permalink">
@@ -742,8 +746,9 @@
         <span class="name">getObservedGeneration</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="https://www.scala-lang.org/api/2.12.12/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a>]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.model.apps.v1.StatefulSetStatus#getReadyReplicas" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">observedGeneration is the most recent generation observed for this StatefulSet.</p><div class="fullcomment"><div class="comment cmt"><p>observedGeneration is the most recent generation observed for this StatefulSet. It corresponds to the StatefulSet's generation, which is updated on mutation by the API Server.</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.apps.v1.StatefulSetStatus#getReadyReplicas" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getReadyReplicas:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Int]"></a><a id="getReadyReplicas:IO[K8sFailure,Int]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/apps/v1/StatefulSetStatus.html#getReadyReplicas:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Int]" title="Permalink">
@@ -758,8 +763,9 @@
         <span class="name">getReadyReplicas</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="https://www.scala-lang.org/api/2.12.12/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a>]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.model.apps.v1.StatefulSetStatus#getReplicas" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">readyReplicas is the number of Pods created by the StatefulSet controller that have a Ready Condition.</p><div class="fullcomment"><div class="comment cmt"><p>readyReplicas is the number of Pods created by the StatefulSet controller that have a Ready Condition.</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.apps.v1.StatefulSetStatus#getReplicas" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getReplicas:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Int]"></a><a id="getReplicas:IO[K8sFailure,Int]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/apps/v1/StatefulSetStatus.html#getReplicas:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Int]" title="Permalink">
@@ -774,8 +780,9 @@
         <span class="name">getReplicas</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="https://www.scala-lang.org/api/2.12.12/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a>]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.model.apps.v1.StatefulSetStatus#getUpdateRevision" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">replicas is the number of Pods created by the StatefulSet controller.</p><div class="fullcomment"><div class="comment cmt"><p>replicas is the number of Pods created by the StatefulSet controller.</p><p>This effect always succeeds, it is safe to use the field <a href="#replicas:Int" class="extmbr" name="com.coralogix.zio.k8s.model.apps.v1.StatefulSetStatus#replicas">replicas</a> directly.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.apps.v1.StatefulSetStatus#getUpdateRevision" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getUpdateRevision:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]"></a><a id="getUpdateRevision:IO[K8sFailure,String]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/apps/v1/StatefulSetStatus.html#getUpdateRevision:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]" title="Permalink">
@@ -790,8 +797,9 @@
         <span class="name">getUpdateRevision</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.model.apps.v1.StatefulSetStatus#getUpdatedReplicas" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">updateRevision, if not empty, indicates the version of the StatefulSet used to generate Pods in the sequence [replicas-updatedReplicas,replicas)</p><div class="fullcomment"><div class="comment cmt"><p>updateRevision, if not empty, indicates the version of the StatefulSet used to generate Pods in the sequence [replicas-updatedReplicas,replicas)</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.apps.v1.StatefulSetStatus#getUpdatedReplicas" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getUpdatedReplicas:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Int]"></a><a id="getUpdatedReplicas:IO[K8sFailure,Int]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/apps/v1/StatefulSetStatus.html#getUpdatedReplicas:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Int]" title="Permalink">
@@ -806,7 +814,8 @@
         <span class="name">getUpdatedReplicas</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="https://www.scala-lang.org/api/2.12.12/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a>]</span>
       </span>
       
-      
+      <p class="shortcomment cmt">updatedReplicas is the number of Pods created by the StatefulSet controller from the StatefulSet version indicated by updateRevision.</p><div class="fullcomment"><div class="comment cmt"><p>updatedReplicas is the number of Pods created by the StatefulSet controller from the StatefulSet version indicated by updateRevision.</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+</p></div></div>
     </li><li name="scala.Any#isInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isInstanceOf[T0]:Boolean"></a>
       <span class="permalink">

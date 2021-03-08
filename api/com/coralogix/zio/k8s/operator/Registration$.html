@@ -155,12 +155,12 @@
                         <a href="ClusterOperator.html" title="">ClusterOperator</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
-                        <a class="class" href="KubernetesFailure.html" title=""></a>
-                        <a href="KubernetesFailure.html" title="">KubernetesFailure</a>
+                        <a class="class" href="KubernetesFailure.html" title="Operator failed with a Kubernetes error"></a>
+                        <a href="KubernetesFailure.html" title="Operator failed with a Kubernetes error">KubernetesFailure</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
-                        <a class="object" href="Leader$.html" title=""></a>
-                        <a href="Leader$.html" title="">Leader</a>
+                        <a class="object" href="Leader$.html" title="Simple leader election implementation"></a>
+                        <a href="Leader$.html" title="Simple leader election implementation">Leader</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
                         <a class="class" href="NamespacedOperator.html" title=""></a>
@@ -171,20 +171,20 @@
                         <a href="Operator.html" title="Core implementation of the operator logic.">Operator</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
-                        <a class="class" href="OperatorError.html" title=""></a>
-                        <a href="OperatorError.html" title="">OperatorError</a>
+                        <a class="class" href="OperatorError.html" title="Operator failed with an application-specific error"></a>
+                        <a href="OperatorError.html" title="Operator failed with an application-specific error">OperatorError</a>
                       </li><li class="current-entities indented5">
                         <a class="object" href="OperatorFailure$.html" title=""></a>
-                        <a class="trait" href="OperatorFailure.html" title=""></a>
-                        <a href="OperatorFailure.html" title="">OperatorFailure</a>
+                        <a class="trait" href="OperatorFailure.html" title="Operator failure type"></a>
+                        <a href="OperatorFailure.html" title="Operator failure type">OperatorFailure</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
                         <a class="object" href="OperatorLogging$.html" title=""></a>
                         <a href="OperatorLogging$.html" title="">OperatorLogging</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
-                        <a class="object" href="" title=""></a>
-                        <a href="" title="">Registration</a>
+                        <a class="object" href="" title="Registers CRD objects"></a>
+                        <a href="" title="Registers CRD objects">Registration</a>
                       </li>
               </ul>
             </div>
@@ -213,7 +213,8 @@
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Registers CRD objects
+</p></div><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -508,7 +509,7 @@
                 <span class="name">@HotSpotIntrinsicCandidate</span><span class="args">()</span>
               
         </dd></dl></div>
-    </li><li name="com.coralogix.zio.k8s.operator.Registration#registerIfMissing" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="com.coralogix.zio.k8s.operator.Registration#registerIfMissing" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="registerIfMissing[T](customResourceDefinition:zio.ZIO[zio.blocking.Blocking,Throwable,com.coralogix.zio.k8s.model.pkg.apis.apiextensions.v1.CustomResourceDefinition])(implicitmetadata:com.coralogix.zio.k8s.client.model.ResourceMetadata[T]):zio.ZIO[zio.logging.Loggingwithzio.blocking.Blockingwithcom.coralogix.zio.k8s.client.apiextensions.v1.customresourcedefinitions.CustomResourceDefinitions,Throwable,Unit]"></a><a id="registerIfMissing[T](ZIO[Blocking,Throwable,CustomResourceDefinition])(ResourceMetadata[T]):ZIO[LoggingwithBlockingwithCustomResourceDefinitions,Throwable,Unit]"></a>
       <span class="permalink">
       <a href="../../../../../com/coralogix/zio/k8s/operator/Registration$.html#registerIfMissing[T](customResourceDefinition:zio.ZIO[zio.blocking.Blocking,Throwable,com.coralogix.zio.k8s.model.pkg.apis.apiextensions.v1.CustomResourceDefinition])(implicitmetadata:com.coralogix.zio.k8s.client.model.ResourceMetadata[T]):zio.ZIO[zio.logging.Loggingwithzio.blocking.Blockingwithcom.coralogix.zio.k8s.client.apiextensions.v1.customresourcedefinitions.CustomResourceDefinitions,Throwable,Unit]" title="Permalink">
@@ -523,7 +524,9 @@
         <span class="name">registerIfMissing</span><span class="tparams">[<span name="T">T</span>]</span><span class="params">(<span name="customResourceDefinition">customResourceDefinition: <a href="https://javadoc.io/page/dev.zio/zio_2.12/1.0.4-2/zio/ZIO.html#zio.ZIO" class="extype" name="zio.ZIO">ZIO</a>[<span class="extype" name="zio.blocking.Blocking">Blocking</span>, <span class="extype" name="scala.Throwable">Throwable</span>, <a href="../model/pkg/apis/apiextensions/v1/CustomResourceDefinition.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.apiextensions.v1.CustomResourceDefinition">CustomResourceDefinition</a>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="metadata">metadata: <a href="../client/model/ResourceMetadata.html" class="extype" name="com.coralogix.zio.k8s.client.model.ResourceMetadata">ResourceMetadata</a>[<span class="extype" name="com.coralogix.zio.k8s.operator.Registration.registerIfMissing.T">T</span>]</span>)</span><span class="result">: <a href="https://javadoc.io/page/dev.zio/zio_2.12/1.0.4-2/zio/ZIO.html#zio.ZIO" class="extype" name="zio.ZIO">ZIO</a>[<span class="extype" name="zio.logging.Logging">Logging</span> with <span class="extype" name="zio.blocking.Blocking">Blocking</span> with <a href="../client/apiextensions/v1/customresourcedefinitions/index.html#CustomResourceDefinitions=zio.Has[com.coralogix.zio.k8s.client.apiextensions.v1.customresourcedefinitions.package.CustomResourceDefinitions.Service]" class="extmbr" name="com.coralogix.zio.k8s.client.apiextensions.v1.customresourcedefinitions.CustomResourceDefinitions">CustomResourceDefinitions</a>, <span class="extype" name="scala.Throwable">Throwable</span>, <a href="https://www.scala-lang.org/api/2.12.12/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a>]</span>
       </span>
       
-      
+      <p class="shortcomment cmt">Register a Custom Resource Definition if it is not registered yet</p><div class="fullcomment"><div class="comment cmt"><p>Register a Custom Resource Definition if it is not registered yet</p><p>When using the zio-k8s-crd plugin, the effect to provide the custom resource definition
+is automatically generated.
+</p></div><dl class="paramcmts block"><dt class="tparam">T</dt><dd class="cmt"><p>Resource type</p></dd><dt class="param">customResourceDefinition</dt><dd class="cmt"><p>Effect returning the custom resource definition</p></dd><dt class="param">metadata</dt><dd class="cmt"><p>Resource metadata</p></dd></dl></div>
     </li><li name="scala.AnyRef#synchronized" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="synchronized[T0](x$1:=&gt;T0):T0"></a><a id="synchronized[T0](⇒T0):T0"></a>
       <span class="permalink">

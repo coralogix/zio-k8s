@@ -155,12 +155,12 @@
                         <a href="ClusterOperator.html" title="">ClusterOperator</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
-                        <a class="class" href="KubernetesFailure.html" title=""></a>
-                        <a href="KubernetesFailure.html" title="">KubernetesFailure</a>
+                        <a class="class" href="KubernetesFailure.html" title="Operator failed with a Kubernetes error"></a>
+                        <a href="KubernetesFailure.html" title="Operator failed with a Kubernetes error">KubernetesFailure</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
-                        <a class="object" href="Leader$.html" title=""></a>
-                        <a href="Leader$.html" title="">Leader</a>
+                        <a class="object" href="Leader$.html" title="Simple leader election implementation"></a>
+                        <a href="Leader$.html" title="Simple leader election implementation">Leader</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
                         <a class="class" href="NamespacedOperator.html" title=""></a>
@@ -171,20 +171,20 @@
                         <a href="Operator.html" title="Core implementation of the operator logic.">Operator</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
-                        <a class="class" href="OperatorError.html" title=""></a>
-                        <a href="OperatorError.html" title="">OperatorError</a>
+                        <a class="class" href="OperatorError.html" title="Operator failed with an application-specific error"></a>
+                        <a href="OperatorError.html" title="Operator failed with an application-specific error">OperatorError</a>
                       </li><li class="current-entities indented5">
                         <a class="object" href="OperatorFailure$.html" title=""></a>
-                        <a class="trait" href="OperatorFailure.html" title=""></a>
-                        <a href="OperatorFailure.html" title="">OperatorFailure</a>
+                        <a class="trait" href="OperatorFailure.html" title="Operator failure type"></a>
+                        <a href="OperatorFailure.html" title="Operator failure type">OperatorFailure</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
                         <a class="object" href="OperatorLogging$.html" title=""></a>
                         <a href="OperatorLogging$.html" title="">OperatorLogging</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
-                        <a class="object" href="Registration$.html" title=""></a>
-                        <a href="Registration$.html" title="">Registration</a>
+                        <a class="object" href="Registration$.html" title="Registers CRD objects"></a>
+                        <a href="Registration$.html" title="Registers CRD objects">Registration</a>
                       </li>
               </ul>
             </div>
@@ -283,7 +283,7 @@
       </span>
       
       <p class="shortcomment cmt">Event processor aspect</p>
-    </li><li name="com.coralogix.zio.k8s.operator.Operator.EventProcessor" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
+    </li><li name="com.coralogix.zio.k8s.operator.Operator.EventProcessor" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="EventProcessor[-R,+E,T]extendsAnyRef"></a><a id="EventProcessor[-R,+E,T]:EventProcessor[R,E,T]"></a>
       <span class="permalink">
       <a href="../../../../../com/coralogix/zio/k8s/operator/Operator$$EventProcessor.html" title="Permalink">
@@ -295,10 +295,10 @@
         <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <a title="" href="Operator$$EventProcessor.html"><span class="name">EventProcessor</span></a><span class="tparams">[<span name="R">-R</span>, <span name="E">+E</span>, <span name="T">T</span>]</span><span class="result"> extends <a href="https://www.scala-lang.org/api/2.12.12/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
+        <a title="Operator event processor" href="Operator$$EventProcessor.html"><span class="name">EventProcessor</span></a><span class="tparams">[<span name="R">-R</span>, <span name="E">+E</span>, <span name="T">T</span>]</span><span class="result"> extends <a href="https://www.scala-lang.org/api/2.12.12/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
       </span>
       
-      
+      <p class="shortcomment cmt">Operator event processor</p><div class="fullcomment"><div class="comment cmt"><p>Operator event processor</p><p>This is the type to be implemented when writing operators using the zio-k8s-operator library.</p></div><dl class="paramcmts block"><dt class="tparam">R</dt><dd class="cmt"><p>Operator environment</p></dd><dt class="tparam">E</dt><dd class="cmt"><p>Operator-specific error type</p></dd><dt class="tparam">T</dt><dd class="cmt"><p>Resource type</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.operator.Operator.OperatorContext" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="OperatorContextextendsProductwithSerializable"></a><a id="OperatorContext:OperatorContext"></a>
       <span class="permalink">
@@ -430,7 +430,7 @@ usable for implementing generic loggers/metrics etc.</p>
                 <span class="name">@HotSpotIntrinsicCandidate</span><span class="args">()</span>
               
         </dd></dl></div>
-    </li><li name="com.coralogix.zio.k8s.operator.Operator#cluster" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="com.coralogix.zio.k8s.operator.Operator#cluster" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="cluster[R,E,T](eventProcessor:com.coralogix.zio.k8s.operator.Operator.EventProcessor[R,E,T])(buffer:Int)(implicitevidence$4:izumi.reflect.Tag[R],implicitevidence$5:izumi.reflect.Tag[T],implicitevidence$6:com.coralogix.zio.k8s.client.model.ResourceMetadata[T]):zio.ZIO[zio.Has[com.coralogix.zio.k8s.client.ClusterResource[T]],Nothing,com.coralogix.zio.k8s.operator.Operator[R,E,T]]"></a><a id="cluster[R,E,T](EventProcessor[R,E,T])(Int)(Tag[R],Tag[T],ResourceMetadata[T]):ZIO[Has[ClusterResource[T]],Nothing,Operator[R,E,T]]"></a>
       <span class="permalink">
       <a href="../../../../../com/coralogix/zio/k8s/operator/Operator$.html#cluster[R,E,T](eventProcessor:com.coralogix.zio.k8s.operator.Operator.EventProcessor[R,E,T])(buffer:Int)(implicitevidence$4:izumi.reflect.Tag[R],implicitevidence$5:izumi.reflect.Tag[T],implicitevidence$6:com.coralogix.zio.k8s.client.model.ResourceMetadata[T]):zio.ZIO[zio.Has[com.coralogix.zio.k8s.client.ClusterResource[T]],Nothing,com.coralogix.zio.k8s.operator.Operator[R,E,T]]" title="Permalink">
@@ -445,7 +445,7 @@ usable for implementing generic loggers/metrics etc.</p>
         <span class="name">cluster</span><span class="tparams">[<span name="R">R</span>, <span name="E">E</span>, <span name="T">T</span>]</span><span class="params">(<span name="eventProcessor">eventProcessor: <a href="Operator$$EventProcessor.html" class="extype" name="com.coralogix.zio.k8s.operator.Operator.EventProcessor">EventProcessor</a>[<span class="extype" name="com.coralogix.zio.k8s.operator.Operator.cluster.R">R</span>, <span class="extype" name="com.coralogix.zio.k8s.operator.Operator.cluster.E">E</span>, <span class="extype" name="com.coralogix.zio.k8s.operator.Operator.cluster.T">T</span>]</span>)</span><span class="params">(<span name="buffer">buffer: <a href="https://www.scala-lang.org/api/2.12.12/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="https://javadoc.io/page/dev.zio/izumi-reflect_2.12/1.0.0-M13/izumi/reflect/Tag.html#izumi.reflect.Tag" class="extype" name="izumi.reflect.Tag">Tag</a>[<span class="extype" name="com.coralogix.zio.k8s.operator.Operator.cluster.R">R</span>]</span>, <span name="arg1">arg1: <a href="https://javadoc.io/page/dev.zio/izumi-reflect_2.12/1.0.0-M13/izumi/reflect/Tag.html#izumi.reflect.Tag" class="extype" name="izumi.reflect.Tag">Tag</a>[<span class="extype" name="com.coralogix.zio.k8s.operator.Operator.cluster.T">T</span>]</span>, <span name="arg2">arg2: <a href="../client/model/ResourceMetadata.html" class="extype" name="com.coralogix.zio.k8s.client.model.ResourceMetadata">ResourceMetadata</a>[<span class="extype" name="com.coralogix.zio.k8s.operator.Operator.cluster.T">T</span>]</span>)</span><span class="result">: <a href="https://javadoc.io/page/dev.zio/zio_2.12/1.0.4-2/zio/ZIO.html#zio.ZIO" class="extype" name="zio.ZIO">ZIO</a>[<a href="https://javadoc.io/page/dev.zio/zio_2.12/1.0.4-2/zio/Has.html#zio.Has" class="extype" name="zio.Has">Has</a>[<a href="../client/ClusterResource.html" class="extype" name="com.coralogix.zio.k8s.client.ClusterResource">ClusterResource</a>[<span class="extype" name="com.coralogix.zio.k8s.operator.Operator.cluster.T">T</span>]], <a href="https://www.scala-lang.org/api/2.12.12/scala/Nothing.html#scala.Nothing" class="extype" name="scala.Nothing">Nothing</a>, <a href="Operator.html" class="extype" name="com.coralogix.zio.k8s.operator.Operator">Operator</a>[<span class="extype" name="com.coralogix.zio.k8s.operator.Operator.cluster.R">R</span>, <span class="extype" name="com.coralogix.zio.k8s.operator.Operator.cluster.E">E</span>, <span class="extype" name="com.coralogix.zio.k8s.operator.Operator.cluster.T">T</span>]]</span>
       </span>
       
-      
+      <p class="shortcomment cmt">Creates an operator for a cluster resource</p><div class="fullcomment"><div class="comment cmt"><p>Creates an operator for a cluster resource</p></div><dl class="paramcmts block"><dt class="tparam">R</dt><dd class="cmt"><p>Operator environment</p></dd><dt class="tparam">E</dt><dd class="cmt"><p>Operator-specific error type</p></dd><dt class="tparam">T</dt><dd class="cmt"><p>Resource type</p></dd><dt class="param">eventProcessor</dt><dd class="cmt"><p>Event processor implementation</p></dd><dt class="param">buffer</dt><dd class="cmt"><p>Buffer size for the incoming events</p></dd><dt>returns</dt><dd class="cmt"><p>An operator that can be run with <span class="extype" name="Operator.start()">Operator.start()</span></p></dd></dl></div>
     </li><li name="scala.AnyRef#eq" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="eq(x$1:AnyRef):Boolean"></a><a id="eq(AnyRef):Boolean"></a>
       <span class="permalink">
@@ -536,7 +536,7 @@ usable for implementing generic loggers/metrics etc.</p>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
-    </li><li name="com.coralogix.zio.k8s.operator.Operator#namespaced" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="com.coralogix.zio.k8s.operator.Operator#namespaced" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="namespaced[R,E,T](eventProcessor:com.coralogix.zio.k8s.operator.Operator.EventProcessor[R,E,T])(namespace:Option[com.coralogix.zio.k8s.client.model.K8sNamespace],buffer:Int)(implicitevidence$1:izumi.reflect.Tag[R],implicitevidence$2:izumi.reflect.Tag[T],implicitevidence$3:com.coralogix.zio.k8s.client.model.ResourceMetadata[T]):zio.ZIO[zio.Has[com.coralogix.zio.k8s.client.NamespacedResource[T]],Nothing,com.coralogix.zio.k8s.operator.Operator[R,E,T]]"></a><a id="namespaced[R,E,T](EventProcessor[R,E,T])(Option[K8sNamespace],Int)(Tag[R],Tag[T],ResourceMetadata[T]):ZIO[Has[NamespacedResource[T]],Nothing,Operator[R,E,T]]"></a>
       <span class="permalink">
       <a href="../../../../../com/coralogix/zio/k8s/operator/Operator$.html#namespaced[R,E,T](eventProcessor:com.coralogix.zio.k8s.operator.Operator.EventProcessor[R,E,T])(namespace:Option[com.coralogix.zio.k8s.client.model.K8sNamespace],buffer:Int)(implicitevidence$1:izumi.reflect.Tag[R],implicitevidence$2:izumi.reflect.Tag[T],implicitevidence$3:com.coralogix.zio.k8s.client.model.ResourceMetadata[T]):zio.ZIO[zio.Has[com.coralogix.zio.k8s.client.NamespacedResource[T]],Nothing,com.coralogix.zio.k8s.operator.Operator[R,E,T]]" title="Permalink">
@@ -551,7 +551,7 @@ usable for implementing generic loggers/metrics etc.</p>
         <span class="name">namespaced</span><span class="tparams">[<span name="R">R</span>, <span name="E">E</span>, <span name="T">T</span>]</span><span class="params">(<span name="eventProcessor">eventProcessor: <a href="Operator$$EventProcessor.html" class="extype" name="com.coralogix.zio.k8s.operator.Operator.EventProcessor">EventProcessor</a>[<span class="extype" name="com.coralogix.zio.k8s.operator.Operator.namespaced.R">R</span>, <span class="extype" name="com.coralogix.zio.k8s.operator.Operator.namespaced.E">E</span>, <span class="extype" name="com.coralogix.zio.k8s.operator.Operator.namespaced.T">T</span>]</span>)</span><span class="params">(<span name="namespace">namespace: <a href="https://www.scala-lang.org/api/2.12.12/scala/Option.html#scala.Option" class="extype" name="scala.Option">Option</a>[<a href="../client/model/package$$K8sNamespace.html" class="extype" name="com.coralogix.zio.k8s.client.model.K8sNamespace">K8sNamespace</a>]</span>, <span name="buffer">buffer: <a href="https://www.scala-lang.org/api/2.12.12/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="https://javadoc.io/page/dev.zio/izumi-reflect_2.12/1.0.0-M13/izumi/reflect/Tag.html#izumi.reflect.Tag" class="extype" name="izumi.reflect.Tag">Tag</a>[<span class="extype" name="com.coralogix.zio.k8s.operator.Operator.namespaced.R">R</span>]</span>, <span name="arg1">arg1: <a href="https://javadoc.io/page/dev.zio/izumi-reflect_2.12/1.0.0-M13/izumi/reflect/Tag.html#izumi.reflect.Tag" class="extype" name="izumi.reflect.Tag">Tag</a>[<span class="extype" name="com.coralogix.zio.k8s.operator.Operator.namespaced.T">T</span>]</span>, <span name="arg2">arg2: <a href="../client/model/ResourceMetadata.html" class="extype" name="com.coralogix.zio.k8s.client.model.ResourceMetadata">ResourceMetadata</a>[<span class="extype" name="com.coralogix.zio.k8s.operator.Operator.namespaced.T">T</span>]</span>)</span><span class="result">: <a href="https://javadoc.io/page/dev.zio/zio_2.12/1.0.4-2/zio/ZIO.html#zio.ZIO" class="extype" name="zio.ZIO">ZIO</a>[<a href="https://javadoc.io/page/dev.zio/zio_2.12/1.0.4-2/zio/Has.html#zio.Has" class="extype" name="zio.Has">Has</a>[<a href="../client/NamespacedResource.html" class="extype" name="com.coralogix.zio.k8s.client.NamespacedResource">NamespacedResource</a>[<span class="extype" name="com.coralogix.zio.k8s.operator.Operator.namespaced.T">T</span>]], <a href="https://www.scala-lang.org/api/2.12.12/scala/Nothing.html#scala.Nothing" class="extype" name="scala.Nothing">Nothing</a>, <a href="Operator.html" class="extype" name="com.coralogix.zio.k8s.operator.Operator">Operator</a>[<span class="extype" name="com.coralogix.zio.k8s.operator.Operator.namespaced.R">R</span>, <span class="extype" name="com.coralogix.zio.k8s.operator.Operator.namespaced.E">E</span>, <span class="extype" name="com.coralogix.zio.k8s.operator.Operator.namespaced.T">T</span>]]</span>
       </span>
       
-      
+      <p class="shortcomment cmt">Creates an operator for a namespaced resource</p><div class="fullcomment"><div class="comment cmt"><p>Creates an operator for a namespaced resource</p></div><dl class="paramcmts block"><dt class="tparam">R</dt><dd class="cmt"><p>Operator environment</p></dd><dt class="tparam">E</dt><dd class="cmt"><p>Operator-specific error type</p></dd><dt class="tparam">T</dt><dd class="cmt"><p>Resource type</p></dd><dt class="param">eventProcessor</dt><dd class="cmt"><p>Event processor implementation</p></dd><dt class="param">namespace</dt><dd class="cmt"><p>Namespace to run in. If None, it will watch resources from all namespaces.</p></dd><dt class="param">buffer</dt><dd class="cmt"><p>Buffer size for the incoming events</p></dd><dt>returns</dt><dd class="cmt"><p>An operator that can be run with <span class="extype" name="Operator.start()">Operator.start()</span></p></dd></dl></div>
     </li><li name="scala.AnyRef#ne" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="ne(x$1:AnyRef):Boolean"></a><a id="ne(AnyRef):Boolean"></a>
       <span class="permalink">

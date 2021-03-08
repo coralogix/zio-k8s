@@ -535,7 +535,7 @@
                 <span class="name">@HotSpotIntrinsicCandidate</span><span class="args">()</span>
               
         </dd></dl></div>
-    </li><li name="com.coralogix.zio.k8s.model.authorization.v1beta1.SubjectRulesReviewStatus#getEvaluationError" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="com.coralogix.zio.k8s.model.authorization.v1beta1.SubjectRulesReviewStatus#getEvaluationError" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getEvaluationError:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]"></a><a id="getEvaluationError:IO[K8sFailure,String]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/authorization/v1beta1/SubjectRulesReviewStatus.html#getEvaluationError:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]" title="Permalink">
@@ -550,8 +550,9 @@
         <span class="name">getEvaluationError</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.model.authorization.v1beta1.SubjectRulesReviewStatus#getIncomplete" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">EvaluationError can appear in combination with Rules.</p><div class="fullcomment"><div class="comment cmt"><p>EvaluationError can appear in combination with Rules. It indicates an error occurred during rule evaluation, such as an authorizer that doesn't support rule evaluation, and that ResourceRules and/or NonResourceRules may be incomplete.</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.authorization.v1beta1.SubjectRulesReviewStatus#getIncomplete" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getIncomplete:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Boolean]"></a><a id="getIncomplete:IO[K8sFailure,Boolean]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/authorization/v1beta1/SubjectRulesReviewStatus.html#getIncomplete:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Boolean]" title="Permalink">
@@ -566,8 +567,9 @@
         <span class="name">getIncomplete</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="https://www.scala-lang.org/api/2.12.12/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a>]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.model.authorization.v1beta1.SubjectRulesReviewStatus#getNonResourceRules" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Incomplete is true when the rules returned by this call are incomplete.</p><div class="fullcomment"><div class="comment cmt"><p>Incomplete is true when the rules returned by this call are incomplete. This is most commonly encountered when an authorizer, such as an external authorizer, doesn't support rules evaluation.</p><p>This effect always succeeds, it is safe to use the field <a href="#incomplete:Boolean" class="extmbr" name="com.coralogix.zio.k8s.model.authorization.v1beta1.SubjectRulesReviewStatus#incomplete">incomplete</a> directly.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.authorization.v1beta1.SubjectRulesReviewStatus#getNonResourceRules" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getNonResourceRules:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Vector[com.coralogix.zio.k8s.model.authorization.v1beta1.NonResourceRule]]"></a><a id="getNonResourceRules:IO[K8sFailure,Vector[NonResourceRule]]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/authorization/v1beta1/SubjectRulesReviewStatus.html#getNonResourceRules:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Vector[com.coralogix.zio.k8s.model.authorization.v1beta1.NonResourceRule]]" title="Permalink">
@@ -582,8 +584,9 @@
         <span class="name">getNonResourceRules</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Vector">Vector</span>[<a href="NonResourceRule.html" class="extype" name="com.coralogix.zio.k8s.model.authorization.v1beta1.NonResourceRule">NonResourceRule</a>]]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.model.authorization.v1beta1.SubjectRulesReviewStatus#getResourceRules" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">NonResourceRules is the list of actions the subject is allowed to perform on non-resources.</p><div class="fullcomment"><div class="comment cmt"><p>NonResourceRules is the list of actions the subject is allowed to perform on non-resources. The list ordering isn't significant, may contain duplicates, and possibly be incomplete.</p><p>This effect always succeeds, it is safe to use the field <a href="#nonResourceRules:Vector[com.coralogix.zio.k8s.model.authorization.v1beta1.NonResourceRule]" class="extmbr" name="com.coralogix.zio.k8s.model.authorization.v1beta1.SubjectRulesReviewStatus#nonResourceRules">nonResourceRules</a> directly.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.authorization.v1beta1.SubjectRulesReviewStatus#getResourceRules" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getResourceRules:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Vector[com.coralogix.zio.k8s.model.authorization.v1beta1.ResourceRule]]"></a><a id="getResourceRules:IO[K8sFailure,Vector[ResourceRule]]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/authorization/v1beta1/SubjectRulesReviewStatus.html#getResourceRules:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Vector[com.coralogix.zio.k8s.model.authorization.v1beta1.ResourceRule]]" title="Permalink">
@@ -598,7 +601,8 @@
         <span class="name">getResourceRules</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Vector">Vector</span>[<a href="ResourceRule.html" class="extype" name="com.coralogix.zio.k8s.model.authorization.v1beta1.ResourceRule">ResourceRule</a>]]</span>
       </span>
       
-      
+      <p class="shortcomment cmt">ResourceRules is the list of actions the subject is allowed to perform on resources.</p><div class="fullcomment"><div class="comment cmt"><p>ResourceRules is the list of actions the subject is allowed to perform on resources. The list ordering isn't significant, may contain duplicates, and possibly be incomplete.</p><p>This effect always succeeds, it is safe to use the field <a href="#resourceRules:Vector[com.coralogix.zio.k8s.model.authorization.v1beta1.ResourceRule]" class="extmbr" name="com.coralogix.zio.k8s.model.authorization.v1beta1.SubjectRulesReviewStatus#resourceRules">resourceRules</a> directly.
+</p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.authorization.v1beta1.SubjectRulesReviewStatus#incomplete" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="incomplete:Boolean"></a>
       <span class="permalink">

@@ -161,34 +161,39 @@
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="" href="index.html"><span class="name">config</span></a>
+        <a title="Contains data structures, ZIO layers and zio-config descriptors for configuring the zio-k8s client." href="index.html"><span class="name">config</span></a>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="com.coralogix.zio.k8s.client">client</a></dd></dl></div>
+      <p class="shortcomment cmt">Contains data structures, ZIO layers and zio-config descriptors for configuring the zio-k8s client.</p><div class="fullcomment"><div class="comment cmt"><p>Contains data structures, ZIO layers and zio-config descriptors for configuring the zio-k8s client.</p><p>Each zio-k8s client module depends on two ZIO modules: <span class="extype" name="K8sCluster">K8sCluster</span> and an <a href="https://javadoc.io/page/com.softwaremill.sttp.client3/core_2.12/3.1.7/sttp/client3/SttpBackend.html" class="extype" name="sttp.client3.SttpBackend">sttp.client3.SttpBackend</a>.
+To use the default configuration (use kubeconfig if available, otherwise fallback to service account token),
+use either <span class="extype" name="asynchttpclient.k8sDefault">asynchttpclient.k8sDefault</span> or <span class="extype" name="httpclient.k8sDefault">httpclient.k8sDefault</span> depending on your chosen sttp backend.</p><p>Manual configuration is possible by providing a <a href="" class="extype" name="com.coralogix.zio.k8s.client.config.K8sClusterConfig">K8sClusterConfig</a> value to both the <a href="index.html#k8sCluster:zio.ZLayer[zio.blocking.Blockingwithzio.Has[com.coralogix.zio.k8s.client.config.package.K8sClusterConfig],Throwable,zio.Has[com.coralogix.zio.k8s.client.model.K8sCluster]]" class="extmbr" name="com.coralogix.zio.k8s.client.config#k8sCluster">k8sCluster</a> layer
+and either <span class="extype" name="asynchttpclient.k8sSttpClient">asynchttpclient.k8sSttpClient</span> or <span class="extype" name="httpclient.k8sSttpClient">httpclient.k8sSttpClient</span>.</p><p>Instead of manually providing the configuration, zio-config descriptors are available to load them from any
+supported source.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="com.coralogix.zio.k8s.client">client</a></dd></dl></div>
     </li><li class="current-entities indented6">
                         <span class="separator"></span>
-                        <a class="trait" href="Descriptors.html" title=""></a>
-                        <a href="Descriptors.html" title="">Descriptors</a>
+                        <a class="trait" href="Descriptors.html" title="Defines ZIO Config descriptors for all the configuration data types of zio-k8s"></a>
+                        <a href="Descriptors.html" title="Defines ZIO Config descriptors for all the configuration data types of zio-k8s">Descriptors</a>
                       </li><li class="current-entities indented6">
                         <a class="object" href="package$$K8sAuthentication$.html" title=""></a>
-                        <a class="trait" href="package$$K8sAuthentication.html" title=""></a>
-                        <a href="package$$K8sAuthentication.html" title="">K8sAuthentication</a>
+                        <a class="trait" href="package$$K8sAuthentication.html" title="Type of authentication to use with the Kubernetes cluster"></a>
+                        <a href="package$$K8sAuthentication.html" title="Type of authentication to use with the Kubernetes cluster">K8sAuthentication</a>
                       </li><li class="current-entities indented6">
                         <span class="separator"></span>
-                        <a class="class" href="package$$K8sClientConfig.html" title=""></a>
-                        <a href="package$$K8sClientConfig.html" title="">K8sClientConfig</a>
+                        <a class="class" href="package$$K8sClientConfig.html" title="Configuration for the HTTP connection towards the Kubernetes API"></a>
+                        <a href="package$$K8sClientConfig.html" title="Configuration for the HTTP connection towards the Kubernetes API">K8sClientConfig</a>
                       </li><li class="current-entities indented6">
                         <a class="object" href="package$$K8sClusterConfig$.html" title=""></a>
-                        <a class="class" href="" title=""></a>
-                        <a href="" title="">K8sClusterConfig</a>
+                        <a class="class" href="" title="Configures the zio-k8s client"></a>
+                        <a href="" title="Configures the zio-k8s client">K8sClusterConfig</a>
                       </li><li class="current-entities indented6">
                         <a class="object" href="package$$K8sServerCertificate$.html" title=""></a>
-                        <a class="trait" href="package$$K8sServerCertificate.html" title=""></a>
-                        <a href="package$$K8sServerCertificate.html" title="">K8sServerCertificate</a>
+                        <a class="trait" href="package$$K8sServerCertificate.html" title="Configured Kubernetes server certifications"></a>
+                        <a href="package$$K8sServerCertificate.html" title="Configured Kubernetes server certifications">K8sServerCertificate</a>
                       </li><li class="current-entities indented6">
                         <a class="object" href="package$$KeySource$.html" title=""></a>
-                        <a class="trait" href="package$$KeySource.html" title=""></a>
-                        <a href="package$$KeySource.html" title="">KeySource</a>
+                        <a class="trait" href="package$$KeySource.html" title="Abstraction for configuring keys"></a>
+                        <a href="package$$KeySource.html" title="Abstraction for configuring keys">KeySource</a>
                       </li><li class="current-entities indented6">
                         <a class="object" href="Kubeconfig$.html" title=""></a>
                         <a class="class" href="Kubeconfig.html" title=""></a>
@@ -247,7 +252,8 @@
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Configures the zio-k8s client</p><p>This is the top level configuration class.
+</p></div><dl class="paramcmts block"><dt class="param">host</dt><dd class="cmt"><p>URL of the Kubernetes API</p></dd><dt class="param">authentication</dt><dd class="cmt"><p>Authentication method to use</p></dd><dt class="param">client</dt><dd class="cmt"><p>HTTP client configuration</p></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -297,7 +303,7 @@
         <div id="allMembers">
         <div id="constructors" class="members">
               <h3>Instance Constructors</h3>
-              <ol><li name="com.coralogix.zio.k8s.client.config.K8sClusterConfig#&lt;init&gt;" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+              <ol><li name="com.coralogix.zio.k8s.client.config.K8sClusterConfig#&lt;init&gt;" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="&lt;init&gt;(host:sttp.model.Uri,authentication:com.coralogix.zio.k8s.client.config.package.K8sAuthentication,client:com.coralogix.zio.k8s.client.config.package.K8sClientConfig):com.coralogix.zio.k8s.client.config.package.K8sClusterConfig"></a><a id="&lt;init&gt;:K8sClusterConfig"></a>
       <span class="permalink">
       <a href="../../../../../../com/coralogix/zio/k8s/client/config/package$$K8sClusterConfig.html#&lt;init&gt;(host:sttp.model.Uri,authentication:com.coralogix.zio.k8s.client.config.package.K8sAuthentication,client:com.coralogix.zio.k8s.client.config.package.K8sClientConfig):com.coralogix.zio.k8s.client.config.package.K8sClusterConfig" title="Permalink">
@@ -312,7 +318,7 @@
         <span class="name">K8sClusterConfig</span><span class="params">(<span name="host">host: <a href="https://javadoc.io/page/com.softwaremill.sttp.model/core_2.12/1.3.3/sttp/model/Uri.html#sttp.model.Uri" class="extype" name="sttp.model.Uri">Uri</a></span>, <span name="authentication">authentication: <a href="package$$K8sAuthentication.html" class="extype" name="com.coralogix.zio.k8s.client.config.K8sAuthentication">K8sAuthentication</a></span>, <span name="client">client: <a href="package$$K8sClientConfig.html" class="extype" name="com.coralogix.zio.k8s.client.config.K8sClientConfig">K8sClientConfig</a></span>)</span>
       </span>
       
-      
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">host</dt><dd class="cmt"><p>URL of the Kubernetes API</p></dd><dt class="param">authentication</dt><dd class="cmt"><p>Authentication method to use</p></dd><dt class="param">client</dt><dd class="cmt"><p>HTTP client configuration</p></dd></dl></div>
     </li></ol>
             </div>
 
@@ -445,7 +451,7 @@
                 <span class="name">@HotSpotIntrinsicCandidate</span><span class="args">()</span>
               
         </dd></dl></div>
-    </li><li name="com.coralogix.zio.k8s.client.config.K8sClusterConfig#dropTrailingDot" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="com.coralogix.zio.k8s.client.config.K8sClusterConfig#dropTrailingDot" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="dropTrailingDot:com.coralogix.zio.k8s.client.config.package.K8sClusterConfig"></a><a id="dropTrailingDot:K8sClusterConfig"></a>
       <span class="permalink">
       <a href="../../../../../../com/coralogix/zio/k8s/client/config/package$$K8sClusterConfig.html#dropTrailingDot:com.coralogix.zio.k8s.client.config.package.K8sClusterConfig" title="Permalink">
@@ -460,7 +466,10 @@
         <span class="name">dropTrailingDot</span><span class="result">: <a href="" class="extype" name="com.coralogix.zio.k8s.client.config.K8sClusterConfig">K8sClusterConfig</a></span>
       </span>
       
-      
+      <p class="shortcomment cmt">Drops the trailing dot from the configured host name.</p><div class="fullcomment"><div class="comment cmt"><p>Drops the trailing dot from the configured host name.</p><p>This is a workaround for an issue when the kubeconfig file contains hostnames with trailing dots which
+is not supported by the hostname verification algorithm. Use this together with the
+<a href="package$$K8sServerCertificate$$Secure.html#disableHostnameVerification:Boolean" class="extmbr" name="com.coralogix.zio.k8s.client.config.K8sServerCertificate.Secure#disableHostnameVerification">K8sServerCertificate.Secure.disableHostnameVerification</a> option.
+</p></div></div>
     </li><li name="scala.AnyRef#eq" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="eq(x$1:AnyRef):Boolean"></a><a id="eq(AnyRef):Boolean"></a>
       <span class="permalink">

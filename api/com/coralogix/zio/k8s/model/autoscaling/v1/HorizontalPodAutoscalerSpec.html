@@ -471,7 +471,7 @@
                 <span class="name">@HotSpotIntrinsicCandidate</span><span class="args">()</span>
               
         </dd></dl></div>
-    </li><li name="com.coralogix.zio.k8s.model.autoscaling.v1.HorizontalPodAutoscalerSpec#getMaxReplicas" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="com.coralogix.zio.k8s.model.autoscaling.v1.HorizontalPodAutoscalerSpec#getMaxReplicas" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getMaxReplicas:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Int]"></a><a id="getMaxReplicas:IO[K8sFailure,Int]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/autoscaling/v1/HorizontalPodAutoscalerSpec.html#getMaxReplicas:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Int]" title="Permalink">
@@ -486,8 +486,9 @@
         <span class="name">getMaxReplicas</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="https://www.scala-lang.org/api/2.12.12/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a>]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.model.autoscaling.v1.HorizontalPodAutoscalerSpec#getMinReplicas" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">upper limit for the number of pods that can be set by the autoscaler; cannot be smaller than MinReplicas.</p><div class="fullcomment"><div class="comment cmt"><p>upper limit for the number of pods that can be set by the autoscaler; cannot be smaller than MinReplicas.</p><p>This effect always succeeds, it is safe to use the field <a href="#maxReplicas:Int" class="extmbr" name="com.coralogix.zio.k8s.model.autoscaling.v1.HorizontalPodAutoscalerSpec#maxReplicas">maxReplicas</a> directly.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.autoscaling.v1.HorizontalPodAutoscalerSpec#getMinReplicas" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getMinReplicas:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Int]"></a><a id="getMinReplicas:IO[K8sFailure,Int]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/autoscaling/v1/HorizontalPodAutoscalerSpec.html#getMinReplicas:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Int]" title="Permalink">
@@ -502,8 +503,9 @@
         <span class="name">getMinReplicas</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="https://www.scala-lang.org/api/2.12.12/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a>]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.model.autoscaling.v1.HorizontalPodAutoscalerSpec#getScaleTargetRef" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">minReplicas is the lower limit for the number of replicas to which the autoscaler can scale down.</p><div class="fullcomment"><div class="comment cmt"><p>minReplicas is the lower limit for the number of replicas to which the autoscaler can scale down.  It defaults to 1 pod.  minReplicas is allowed to be 0 if the alpha feature gate HPAScaleToZero is enabled and at least one Object or External metric is configured.  Scaling is active as long as at least one metric value is available.</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.autoscaling.v1.HorizontalPodAutoscalerSpec#getScaleTargetRef" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getScaleTargetRef:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.model.autoscaling.v1.CrossVersionObjectReference]"></a><a id="getScaleTargetRef:IO[K8sFailure,CrossVersionObjectReference]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/autoscaling/v1/HorizontalPodAutoscalerSpec.html#getScaleTargetRef:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.model.autoscaling.v1.CrossVersionObjectReference]" title="Permalink">
@@ -518,8 +520,9 @@
         <span class="name">getScaleTargetRef</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="CrossVersionObjectReference.html" class="extype" name="com.coralogix.zio.k8s.model.autoscaling.v1.CrossVersionObjectReference">CrossVersionObjectReference</a>]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.model.autoscaling.v1.HorizontalPodAutoscalerSpec#getTargetCPUUtilizationPercentage" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Gets scaleTargetRef.</p><div class="fullcomment"><div class="comment cmt"><p>Gets scaleTargetRef.</p><p>This effect always succeeds, it is safe to use the field <a href="#scaleTargetRef:com.coralogix.zio.k8s.model.autoscaling.v1.CrossVersionObjectReference" class="extmbr" name="com.coralogix.zio.k8s.model.autoscaling.v1.HorizontalPodAutoscalerSpec#scaleTargetRef">scaleTargetRef</a> directly.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.autoscaling.v1.HorizontalPodAutoscalerSpec#getTargetCPUUtilizationPercentage" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getTargetCPUUtilizationPercentage:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Int]"></a><a id="getTargetCPUUtilizationPercentage:IO[K8sFailure,Int]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/autoscaling/v1/HorizontalPodAutoscalerSpec.html#getTargetCPUUtilizationPercentage:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Int]" title="Permalink">
@@ -534,7 +537,8 @@
         <span class="name">getTargetCPUUtilizationPercentage</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="https://www.scala-lang.org/api/2.12.12/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a>]</span>
       </span>
       
-      
+      <p class="shortcomment cmt">target average CPU utilization (represented as a percentage of requested CPU) over all the pods; if not specified the default autoscaling policy will be used.</p><div class="fullcomment"><div class="comment cmt"><p>target average CPU utilization (represented as a percentage of requested CPU) over all the pods; if not specified the default autoscaling policy will be used.</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+</p></div></div>
     </li><li name="scala.Any#isInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isInstanceOf[T0]:Boolean"></a>
       <span class="permalink">

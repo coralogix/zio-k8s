@@ -1786,7 +1786,7 @@
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
-    </li><li name="com.coralogix.zio.k8s.model.core.v1.EndpointPort#getAppProtocol" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="com.coralogix.zio.k8s.model.core.v1.EndpointPort#getAppProtocol" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getAppProtocol:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]"></a><a id="getAppProtocol:IO[K8sFailure,String]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/EndpointPort.html#getAppProtocol:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]" title="Permalink">
@@ -1801,7 +1801,8 @@
         <span class="name">getAppProtocol</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      
+      <p class="shortcomment cmt">The application protocol for this port.</p><div class="fullcomment"><div class="comment cmt"><p>The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and http://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol. This is a beta field that is guarded by the ServiceAppProtocol feature gate and enabled by default.</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+</p></div></div>
     </li><li name="scala.AnyRef#getClass" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getClass():Class[_]"></a>
       <span class="permalink">
@@ -1823,7 +1824,7 @@
                 <span class="name">@HotSpotIntrinsicCandidate</span><span class="args">()</span>
               
         </dd></dl></div>
-    </li><li name="com.coralogix.zio.k8s.model.core.v1.EndpointPort#getName" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="com.coralogix.zio.k8s.model.core.v1.EndpointPort#getName" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getName:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]"></a><a id="getName:IO[K8sFailure,String]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/EndpointPort.html#getName:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]" title="Permalink">
@@ -1838,8 +1839,9 @@
         <span class="name">getName</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.model.core.v1.EndpointPort#getPort" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">The name of this port.</p><div class="fullcomment"><div class="comment cmt"><p>The name of this port.  This must match the 'name' field in the corresponding ServicePort. Must be a DNS_LABEL. Optional only if one port is defined.</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.core.v1.EndpointPort#getPort" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getPort:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Int]"></a><a id="getPort:IO[K8sFailure,Int]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/EndpointPort.html#getPort:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Int]" title="Permalink">
@@ -1854,8 +1856,9 @@
         <span class="name">getPort</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="https://www.scala-lang.org/api/2.12.12/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a>]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.model.core.v1.EndpointPort#getProtocol" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">The port number of the endpoint.</p><div class="fullcomment"><div class="comment cmt"><p>The port number of the endpoint.</p><p>This effect always succeeds, it is safe to use the field <a href="#port:Int" class="extmbr" name="com.coralogix.zio.k8s.model.core.v1.EndpointPort#port">port</a> directly.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.core.v1.EndpointPort#getProtocol" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getProtocol:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]"></a><a id="getProtocol:IO[K8sFailure,String]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/EndpointPort.html#getProtocol:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]" title="Permalink">
@@ -1870,7 +1873,8 @@
         <span class="name">getProtocol</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      
+      <p class="shortcomment cmt">The IP protocol for this port.</p><div class="fullcomment"><div class="comment cmt"><p>The IP protocol for this port. Must be UDP, TCP, or SCTP. Default is TCP.</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+</p></div></div>
     </li><li name="scala.Any#isInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isInstanceOf[T0]:Boolean"></a>
       <span class="permalink">

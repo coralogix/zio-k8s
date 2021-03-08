@@ -305,10 +305,15 @@
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="" href="../config/index.html"><span class="name">config</span></a>
+        <a title="Contains data structures, ZIO layers and zio-config descriptors for configuring the zio-k8s client." href="../config/index.html"><span class="name">config</span></a>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="com.coralogix.zio.k8s.client">client</a></dd></dl></div>
+      <p class="shortcomment cmt">Contains data structures, ZIO layers and zio-config descriptors for configuring the zio-k8s client.</p><div class="fullcomment"><div class="comment cmt"><p>Contains data structures, ZIO layers and zio-config descriptors for configuring the zio-k8s client.</p><p>Each zio-k8s client module depends on two ZIO modules: <span class="extype" name="K8sCluster">K8sCluster</span> and an <a href="https://javadoc.io/page/com.softwaremill.sttp.client3/core_2.12/3.1.7/sttp/client3/SttpBackend.html" class="extype" name="sttp.client3.SttpBackend">sttp.client3.SttpBackend</a>.
+To use the default configuration (use kubeconfig if available, otherwise fallback to service account token),
+use either <span class="extype" name="asynchttpclient.k8sDefault">asynchttpclient.k8sDefault</span> or <span class="extype" name="httpclient.k8sDefault">httpclient.k8sDefault</span> depending on your chosen sttp backend.</p><p>Manual configuration is possible by providing a <a href="../config/package$$K8sClusterConfig.html" class="extype" name="com.coralogix.zio.k8s.client.config.K8sClusterConfig">K8sClusterConfig</a> value to both the <a href="../config/index.html#k8sCluster:zio.ZLayer[zio.blocking.Blockingwithzio.Has[com.coralogix.zio.k8s.client.config.package.K8sClusterConfig],Throwable,zio.Has[com.coralogix.zio.k8s.client.model.K8sCluster]]" class="extmbr" name="com.coralogix.zio.k8s.client.config#k8sCluster">k8sCluster</a> layer
+and either <span class="extype" name="asynchttpclient.k8sSttpClient">asynchttpclient.k8sSttpClient</span> or <span class="extype" name="httpclient.k8sSttpClient">httpclient.k8sSttpClient</span>.</p><p>Instead of manually providing the configuration, zio-config descriptors are available to load them from any
+supported source.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="com.coralogix.zio.k8s.client">client</a></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.client.coordination" visbl="pub" class="indented6 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="coordination"></a><a id="coordination:coordination"></a>
       <span class="permalink">
@@ -407,8 +412,8 @@
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="com.coralogix.zio.k8s.client">client</a></dd></dl></div>
     </li><li class="current-entities indented6">
                         <span class="separator"></span>
-                        <a class="object" href="CircePrettyFailure$.html" title=""></a>
-                        <a href="CircePrettyFailure$.html" title="">CircePrettyFailure</a>
+                        <a class="object" href="CircePrettyFailure$.html" title="Pretty printer for Circe JSON decode failures"></a>
+                        <a href="CircePrettyFailure$.html" title="Pretty printer for Circe JSON decode failures">CircePrettyFailure</a>
                       </li><li name="com.coralogix.zio.k8s.client.kubernetes" visbl="pub" class="indented6 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="kubernetes"></a><a id="kubernetes:kubernetes"></a>
       <span class="permalink">
@@ -637,7 +642,7 @@
         <div class="values members">
               <h3>Value Members</h3>
               <ol>
-                <li name="com.coralogix.zio.k8s.client.internal.CircePrettyFailure" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+                <li name="com.coralogix.zio.k8s.client.internal.CircePrettyFailure" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="CircePrettyFailure"></a><a id="CircePrettyFailure:CircePrettyFailure"></a>
       <span class="permalink">
       <a href="../../../../../../com/coralogix/zio/k8s/client/internal/CircePrettyFailure$.html" title="Permalink">
@@ -649,10 +654,11 @@
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a title="" href="CircePrettyFailure$.html"><span class="name">CircePrettyFailure</span></a>
+        <a title="Pretty printer for Circe JSON decode failures" href="CircePrettyFailure$.html"><span class="name">CircePrettyFailure</span></a>
       </span>
       
-      
+      <p class="shortcomment cmt">Pretty printer for Circe JSON decode failures</p><div class="fullcomment"><div class="comment cmt"><p>Pretty printer for Circe JSON decode failures</p><p>Provides nicer error messages for <a href="../K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a> errors.
+</p></div></div>
     </li>
               </ol>
             </div>

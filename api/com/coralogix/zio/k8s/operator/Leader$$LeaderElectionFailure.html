@@ -161,30 +161,35 @@
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a title="" href="Leader$.html"><span class="name">Leader</span></a>
+        <a title="Simple leader election implementation" href="Leader$.html"><span class="name">Leader</span></a>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="com.coralogix.zio.k8s.operator">operator</a></dd></dl></div>
+      <p class="shortcomment cmt">Simple leader election implementation</p><div class="fullcomment"><div class="comment cmt"><p>Simple leader election implementation</p><p>The algorithm tries creating a ConfigMap with a given name and attaches the Pod it
+is running in as an owner of the config map.</p><p>If the ConfigMap already exists the leader election fails and retries with exponential backoff.
+If it succeeds then it runs the inner effect.</p><p>When the code terminates normally the acquired ConfigMap gets released. If the whole Pod gets
+killed without releasing the resource, the registered ownership will make Kubernetes apply
+cascading deletion so eventually a new Pod can register the ConfigMap again.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="com.coralogix.zio.k8s.operator">operator</a></dd></dl></div>
     </li><li class="current-entities indented6">
                         <span class="separator"></span>
-                        <a class="class" href="Leader$$ApplicationError.html" title=""></a>
-                        <a href="Leader$$ApplicationError.html" title="">ApplicationError</a>
+                        <a class="class" href="Leader$$ApplicationError.html" title="Inner effect failed"></a>
+                        <a href="Leader$$ApplicationError.html" title="Inner effect failed">ApplicationError</a>
                       </li><li class="current-entities indented6">
                         <span class="separator"></span>
-                        <a class="class" href="Leader$$KubernetesError.html" title=""></a>
-                        <a href="Leader$$KubernetesError.html" title="">KubernetesError</a>
+                        <a class="class" href="Leader$$KubernetesError.html" title="Failure while calling the Kubernetes API"></a>
+                        <a href="Leader$$KubernetesError.html" title="Failure while calling the Kubernetes API">KubernetesError</a>
                       </li><li class="current-entities indented6">
                         <span class="separator"></span>
-                        <a class="trait" href="" title=""></a>
-                        <a href="" title="">LeaderElectionFailure</a>
+                        <a class="trait" href="" title="Possible failures of the leader election algorithm"></a>
+                        <a href="" title="Possible failures of the leader election algorithm">LeaderElectionFailure</a>
                       </li><li class="current-entities indented6">
                         <span class="separator"></span>
-                        <a class="class" href="Leader$$PodNameMissing.html" title=""></a>
-                        <a href="Leader$$PodNameMissing.html" title="">PodNameMissing</a>
+                        <a class="class" href="Leader$$PodNameMissing.html" title="Could not determine the running Pod's name."></a>
+                        <a href="Leader$$PodNameMissing.html" title="Could not determine the running Pod's name.">PodNameMissing</a>
                       </li><li class="current-entities indented6">
                         <span class="separator"></span>
-                        <a class="class" href="Leader$$UnknownNamespace.html" title=""></a>
-                        <a href="Leader$$UnknownNamespace.html" title="">UnknownNamespace</a>
+                        <a class="class" href="Leader$$UnknownNamespace.html" title="Could not determine the namespace"></a>
+                        <a href="Leader$$UnknownNamespace.html" title="Could not determine the namespace">UnknownNamespace</a>
                       </li>
               </ul>
             </div>
@@ -213,7 +218,7 @@
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Possible failures of the leader election algorithm</p></div><dl class="paramcmts block"><dt class="tparam">E</dt><dd class="cmt"><p>Failure type of the inner effect</p></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>

@@ -1791,7 +1791,7 @@
                 <span class="name">@HotSpotIntrinsicCandidate</span><span class="args">()</span>
               
         </dd></dl></div>
-    </li><li name="com.coralogix.zio.k8s.model.core.v1.CephFSVolumeSource#getMonitors" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="com.coralogix.zio.k8s.model.core.v1.CephFSVolumeSource#getMonitors" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getMonitors:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Vector[String]]"></a><a id="getMonitors:IO[K8sFailure,Vector[String]]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/CephFSVolumeSource.html#getMonitors:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Vector[String]]" title="Permalink">
@@ -1806,8 +1806,9 @@
         <span class="name">getMonitors</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.model.core.v1.CephFSVolumeSource#getPath" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Required: Monitors is a collection of Ceph monitors More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it</p><div class="fullcomment"><div class="comment cmt"><p>Required: Monitors is a collection of Ceph monitors More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it</p><p>This effect always succeeds, it is safe to use the field <a href="#monitors:Vector[String]" class="extmbr" name="com.coralogix.zio.k8s.model.core.v1.CephFSVolumeSource#monitors">monitors</a> directly.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.core.v1.CephFSVolumeSource#getPath" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getPath:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]"></a><a id="getPath:IO[K8sFailure,String]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/CephFSVolumeSource.html#getPath:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]" title="Permalink">
@@ -1822,8 +1823,9 @@
         <span class="name">getPath</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.model.core.v1.CephFSVolumeSource#getReadOnly" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Optional: Used as the mounted root, rather than the full Ceph tree, default is /</p><div class="fullcomment"><div class="comment cmt"><p>Optional: Used as the mounted root, rather than the full Ceph tree, default is /</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.core.v1.CephFSVolumeSource#getReadOnly" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getReadOnly:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Boolean]"></a><a id="getReadOnly:IO[K8sFailure,Boolean]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/CephFSVolumeSource.html#getReadOnly:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Boolean]" title="Permalink">
@@ -1838,8 +1840,9 @@
         <span class="name">getReadOnly</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="https://www.scala-lang.org/api/2.12.12/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a>]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.model.core.v1.CephFSVolumeSource#getSecretFile" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Optional: Defaults to false (read/write).</p><div class="fullcomment"><div class="comment cmt"><p>Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts. More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.core.v1.CephFSVolumeSource#getSecretFile" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getSecretFile:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]"></a><a id="getSecretFile:IO[K8sFailure,String]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/CephFSVolumeSource.html#getSecretFile:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]" title="Permalink">
@@ -1854,8 +1857,9 @@
         <span class="name">getSecretFile</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.model.core.v1.CephFSVolumeSource#getSecretRef" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Optional: SecretFile is the path to key ring for User, default is /etc/ceph/user.secret More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it</p><div class="fullcomment"><div class="comment cmt"><p>Optional: SecretFile is the path to key ring for User, default is /etc/ceph/user.secret More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.core.v1.CephFSVolumeSource#getSecretRef" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getSecretRef:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.model.core.v1.LocalObjectReference]"></a><a id="getSecretRef:IO[K8sFailure,LocalObjectReference]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/CephFSVolumeSource.html#getSecretRef:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.model.core.v1.LocalObjectReference]" title="Permalink">
@@ -1870,8 +1874,9 @@
         <span class="name">getSecretRef</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="LocalObjectReference.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.LocalObjectReference">LocalObjectReference</a>]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.model.core.v1.CephFSVolumeSource#getUser" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Gets secretRef.</p><div class="fullcomment"><div class="comment cmt"><p>Gets secretRef.</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.core.v1.CephFSVolumeSource#getUser" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getUser:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]"></a><a id="getUser:IO[K8sFailure,String]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/CephFSVolumeSource.html#getUser:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]" title="Permalink">
@@ -1886,7 +1891,8 @@
         <span class="name">getUser</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      
+      <p class="shortcomment cmt">Optional: User is the rados user name, default is admin More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it</p><div class="fullcomment"><div class="comment cmt"><p>Optional: User is the rados user name, default is admin More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+</p></div></div>
     </li><li name="scala.Any#isInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isInstanceOf[T0]:Boolean"></a>
       <span class="permalink">

@@ -591,7 +591,7 @@
                 <span class="name">@HotSpotIntrinsicCandidate</span><span class="args">()</span>
               
         </dd></dl></div>
-    </li><li name="com.coralogix.zio.k8s.model.flowcontrol.v1alpha1.FlowSchemaSpec#getDistinguisherMethod" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="com.coralogix.zio.k8s.model.flowcontrol.v1alpha1.FlowSchemaSpec#getDistinguisherMethod" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getDistinguisherMethod:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.model.flowcontrol.v1alpha1.FlowDistinguisherMethod]"></a><a id="getDistinguisherMethod:IO[K8sFailure,FlowDistinguisherMethod]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/flowcontrol/v1alpha1/FlowSchemaSpec.html#getDistinguisherMethod:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.model.flowcontrol.v1alpha1.FlowDistinguisherMethod]" title="Permalink">
@@ -606,8 +606,9 @@
         <span class="name">getDistinguisherMethod</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="FlowDistinguisherMethod.html" class="extype" name="com.coralogix.zio.k8s.model.flowcontrol.v1alpha1.FlowDistinguisherMethod">FlowDistinguisherMethod</a>]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.model.flowcontrol.v1alpha1.FlowSchemaSpec#getMatchingPrecedence" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Gets distinguisherMethod.</p><div class="fullcomment"><div class="comment cmt"><p>Gets distinguisherMethod.</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.flowcontrol.v1alpha1.FlowSchemaSpec#getMatchingPrecedence" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getMatchingPrecedence:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Int]"></a><a id="getMatchingPrecedence:IO[K8sFailure,Int]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/flowcontrol/v1alpha1/FlowSchemaSpec.html#getMatchingPrecedence:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Int]" title="Permalink">
@@ -622,8 +623,9 @@
         <span class="name">getMatchingPrecedence</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="https://www.scala-lang.org/api/2.12.12/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a>]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.model.flowcontrol.v1alpha1.FlowSchemaSpec#getPriorityLevelConfiguration" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt"><code>matchingPrecedence</code> is used to choose among the FlowSchemas that match a given request.</p><div class="fullcomment"><div class="comment cmt"><p><code>matchingPrecedence</code> is used to choose among the FlowSchemas that match a given request. The chosen FlowSchema is among those with the numerically lowest (which we take to be logically highest) MatchingPrecedence.  Each MatchingPrecedence value must be ranged in [1,10000]. Note that if the precedence is not specified, it will be set to 1000 as default.</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.flowcontrol.v1alpha1.FlowSchemaSpec#getPriorityLevelConfiguration" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getPriorityLevelConfiguration:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.model.flowcontrol.v1alpha1.PriorityLevelConfigurationReference]"></a><a id="getPriorityLevelConfiguration:IO[K8sFailure,PriorityLevelConfigurationReference]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/flowcontrol/v1alpha1/FlowSchemaSpec.html#getPriorityLevelConfiguration:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.model.flowcontrol.v1alpha1.PriorityLevelConfigurationReference]" title="Permalink">
@@ -638,8 +640,9 @@
         <span class="name">getPriorityLevelConfiguration</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="PriorityLevelConfigurationReference.html" class="extype" name="com.coralogix.zio.k8s.model.flowcontrol.v1alpha1.PriorityLevelConfigurationReference">PriorityLevelConfigurationReference</a>]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.model.flowcontrol.v1alpha1.FlowSchemaSpec#getRules" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Gets priorityLevelConfiguration.</p><div class="fullcomment"><div class="comment cmt"><p>Gets priorityLevelConfiguration.</p><p>This effect always succeeds, it is safe to use the field <a href="#priorityLevelConfiguration:com.coralogix.zio.k8s.model.flowcontrol.v1alpha1.PriorityLevelConfigurationReference" class="extmbr" name="com.coralogix.zio.k8s.model.flowcontrol.v1alpha1.FlowSchemaSpec#priorityLevelConfiguration">priorityLevelConfiguration</a> directly.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.flowcontrol.v1alpha1.FlowSchemaSpec#getRules" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getRules:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Vector[com.coralogix.zio.k8s.model.flowcontrol.v1alpha1.PolicyRulesWithSubjects]]"></a><a id="getRules:IO[K8sFailure,Vector[PolicyRulesWithSubjects]]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/flowcontrol/v1alpha1/FlowSchemaSpec.html#getRules:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Vector[com.coralogix.zio.k8s.model.flowcontrol.v1alpha1.PolicyRulesWithSubjects]]" title="Permalink">
@@ -654,7 +657,8 @@
         <span class="name">getRules</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Vector">Vector</span>[<a href="PolicyRulesWithSubjects.html" class="extype" name="com.coralogix.zio.k8s.model.flowcontrol.v1alpha1.PolicyRulesWithSubjects">PolicyRulesWithSubjects</a>]]</span>
       </span>
       
-      
+      <p class="shortcomment cmt"><code>rules</code> describes which requests will match this flow schema.</p><div class="fullcomment"><div class="comment cmt"><p><code>rules</code> describes which requests will match this flow schema. This FlowSchema matches a request if and only if at least one member of rules matches the request. if it is an empty slice, there will be no requests matching the FlowSchema.</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+</p></div></div>
     </li><li name="scala.Any#isInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isInstanceOf[T0]:Boolean"></a>
       <span class="permalink">

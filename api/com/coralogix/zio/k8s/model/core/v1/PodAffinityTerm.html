@@ -1791,7 +1791,7 @@
                 <span class="name">@HotSpotIntrinsicCandidate</span><span class="args">()</span>
               
         </dd></dl></div>
-    </li><li name="com.coralogix.zio.k8s.model.core.v1.PodAffinityTerm#getLabelSelector" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="com.coralogix.zio.k8s.model.core.v1.PodAffinityTerm#getLabelSelector" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getLabelSelector:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.model.pkg.apis.meta.v1.LabelSelector]"></a><a id="getLabelSelector:IO[K8sFailure,LabelSelector]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/PodAffinityTerm.html#getLabelSelector:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.model.pkg.apis.meta.v1.LabelSelector]" title="Permalink">
@@ -1806,8 +1806,9 @@
         <span class="name">getLabelSelector</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="../../pkg/apis/meta/v1/LabelSelector.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.LabelSelector">LabelSelector</a>]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.model.core.v1.PodAffinityTerm#getNamespaces" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Gets labelSelector.</p><div class="fullcomment"><div class="comment cmt"><p>Gets labelSelector.</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.core.v1.PodAffinityTerm#getNamespaces" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getNamespaces:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Vector[String]]"></a><a id="getNamespaces:IO[K8sFailure,Vector[String]]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/PodAffinityTerm.html#getNamespaces:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Vector[String]]" title="Permalink">
@@ -1822,8 +1823,9 @@
         <span class="name">getNamespaces</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.model.core.v1.PodAffinityTerm#getTopologyKey" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">namespaces specifies which namespaces the labelSelector applies to (matches against); null or empty list means &quot;this pod's namespace&quot;</p><div class="fullcomment"><div class="comment cmt"><p>namespaces specifies which namespaces the labelSelector applies to (matches against); null or empty list means &quot;this pod's namespace&quot;</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.core.v1.PodAffinityTerm#getTopologyKey" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getTopologyKey:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]"></a><a id="getTopologyKey:IO[K8sFailure,String]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/PodAffinityTerm.html#getTopologyKey:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]" title="Permalink">
@@ -1838,7 +1840,8 @@
         <span class="name">getTopologyKey</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      
+      <p class="shortcomment cmt">This pod should be co-located (affinity) or not co-located (anti-affinity) with the pods matching the labelSelector in the specified namespaces, where co-located is defined as running on a node whose value of the label with key topologyKey matches that of any node on which any of the selected pods is running.</p><div class="fullcomment"><div class="comment cmt"><p>This pod should be co-located (affinity) or not co-located (anti-affinity) with the pods matching the labelSelector in the specified namespaces, where co-located is defined as running on a node whose value of the label with key topologyKey matches that of any node on which any of the selected pods is running. Empty topologyKey is not allowed.</p><p>This effect always succeeds, it is safe to use the field <a href="#topologyKey:String" class="extmbr" name="com.coralogix.zio.k8s.model.core.v1.PodAffinityTerm#topologyKey">topologyKey</a> directly.
+</p></div></div>
     </li><li name="scala.Any#isInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isInstanceOf[T0]:Boolean"></a>
       <span class="permalink">

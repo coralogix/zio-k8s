@@ -305,10 +305,15 @@
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="" href="config/index.html"><span class="name">config</span></a>
+        <a title="Contains data structures, ZIO layers and zio-config descriptors for configuring the zio-k8s client." href="config/index.html"><span class="name">config</span></a>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="com.coralogix.zio.k8s.client">client</a></dd></dl></div>
+      <p class="shortcomment cmt">Contains data structures, ZIO layers and zio-config descriptors for configuring the zio-k8s client.</p><div class="fullcomment"><div class="comment cmt"><p>Contains data structures, ZIO layers and zio-config descriptors for configuring the zio-k8s client.</p><p>Each zio-k8s client module depends on two ZIO modules: <span class="extype" name="K8sCluster">K8sCluster</span> and an <a href="https://javadoc.io/page/com.softwaremill.sttp.client3/core_2.12/3.1.7/sttp/client3/SttpBackend.html" class="extype" name="sttp.client3.SttpBackend">sttp.client3.SttpBackend</a>.
+To use the default configuration (use kubeconfig if available, otherwise fallback to service account token),
+use either <span class="extype" name="asynchttpclient.k8sDefault">asynchttpclient.k8sDefault</span> or <span class="extype" name="httpclient.k8sDefault">httpclient.k8sDefault</span> depending on your chosen sttp backend.</p><p>Manual configuration is possible by providing a <a href="config/package$$K8sClusterConfig.html" class="extype" name="com.coralogix.zio.k8s.client.config.K8sClusterConfig">K8sClusterConfig</a> value to both the <a href="config/index.html#k8sCluster:zio.ZLayer[zio.blocking.Blockingwithzio.Has[com.coralogix.zio.k8s.client.config.package.K8sClusterConfig],Throwable,zio.Has[com.coralogix.zio.k8s.client.model.K8sCluster]]" class="extmbr" name="com.coralogix.zio.k8s.client.config#k8sCluster">k8sCluster</a> layer
+and either <span class="extype" name="asynchttpclient.k8sSttpClient">asynchttpclient.k8sSttpClient</span> or <span class="extype" name="httpclient.k8sSttpClient">httpclient.k8sSttpClient</span>.</p><p>Instead of manually providing the configuration, zio-config descriptors are available to load them from any
+supported source.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="com.coralogix.zio.k8s.client">client</a></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.client.coordination" visbl="pub" class="indented6 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="coordination"></a><a id="coordination:coordination"></a>
       <span class="permalink">
@@ -567,84 +572,84 @@
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="com.coralogix.zio.k8s.client">client</a></dd></dl></div>
     </li><li class="current-entities indented5">
                         <span class="separator"></span>
-                        <a class="trait" href="ClusterResource.html" title=""></a>
-                        <a href="ClusterResource.html" title="">ClusterResource</a>
+                        <a class="trait" href="ClusterResource.html" title="Generic interface for working with Kubernetes cluster resources."></a>
+                        <a href="ClusterResource.html" title="Generic interface for working with Kubernetes cluster resources.">ClusterResource</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
-                        <a class="trait" href="ClusterResourceDeleteAll.html" title=""></a>
-                        <a href="ClusterResourceDeleteAll.html" title="">ClusterResourceDeleteAll</a>
+                        <a class="trait" href="ClusterResourceDeleteAll.html" title="Extra capability for ClusterResource interfaces providing deleteAll"></a>
+                        <a href="ClusterResourceDeleteAll.html" title="Extra capability for ClusterResource interfaces providing deleteAll">ClusterResourceDeleteAll</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
-                        <a class="trait" href="ClusterResourceStatus.html" title=""></a>
-                        <a href="ClusterResourceStatus.html" title="">ClusterResourceStatus</a>
+                        <a class="trait" href="ClusterResourceStatus.html" title="Extra capability for ClusterResource interfaces to manage status subresources"></a>
+                        <a href="ClusterResourceStatus.html" title="Extra capability for ClusterResource interfaces to manage status subresources">ClusterResourceStatus</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
-                        <a class="class" href="DecodedFailure.html" title=""></a>
-                        <a href="DecodedFailure.html" title="">DecodedFailure</a>
+                        <a class="class" href="DecodedFailure.html" title="Failed Kubernetes API request"></a>
+                        <a href="DecodedFailure.html" title="Failed Kubernetes API request">DecodedFailure</a>
                       </li><li class="current-entities indented5">
                         <a class="object" href="DeserializationFailure$.html" title=""></a>
-                        <a class="class" href="DeserializationFailure.html" title=""></a>
-                        <a href="DeserializationFailure.html" title="">DeserializationFailure</a>
+                        <a class="class" href="DeserializationFailure.html" title="Error indicating that Kubernetes API responded with success, but the response body could not be deserialized to the expected data type."></a>
+                        <a href="DeserializationFailure.html" title="Error indicating that Kubernetes API responded with success, but the response body could not be deserialized to the expected data type.">DeserializationFailure</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
-                        <a class="object" href="Gone$.html" title=""></a>
-                        <a href="Gone$.html" title="">Gone</a>
+                        <a class="object" href="Gone$.html" title="The server returned with HTTP 410 (Gone) which has a specific role in handling watch streams."></a>
+                        <a href="Gone$.html" title="The server returned with HTTP 410 (Gone) which has a specific role in handling watch streams.">Gone</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
-                        <a class="class" href="HttpFailure.html" title=""></a>
-                        <a href="HttpFailure.html" title="">HttpFailure</a>
+                        <a class="class" href="HttpFailure.html" title="Failed HTTP response"></a>
+                        <a href="HttpFailure.html" title="Failed HTTP response">HttpFailure</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
-                        <a class="class" href="InvalidEvent.html" title=""></a>
-                        <a href="InvalidEvent.html" title="">InvalidEvent</a>
+                        <a class="class" href="InvalidEvent.html" title="An unsupported event type was sent in a watch stream"></a>
+                        <a href="InvalidEvent.html" title="An unsupported event type was sent in a watch stream">InvalidEvent</a>
                       </li><li class="current-entities indented5">
                         <a class="object" href="K8sFailure$.html" title=""></a>
-                        <a class="trait" href="K8sFailure.html" title=""></a>
-                        <a href="K8sFailure.html" title="">K8sFailure</a>
+                        <a class="trait" href="K8sFailure.html" title="Error type of the Kubernetes client"></a>
+                        <a href="K8sFailure.html" title="Error type of the Kubernetes client">K8sFailure</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
-                        <a class="trait" href="NamespacedResource.html" title=""></a>
-                        <a href="NamespacedResource.html" title="">NamespacedResource</a>
+                        <a class="trait" href="NamespacedResource.html" title="Generic interface for working with namespaced Kubernetes resources."></a>
+                        <a href="NamespacedResource.html" title="Generic interface for working with namespaced Kubernetes resources.">NamespacedResource</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
-                        <a class="trait" href="NamespacedResourceDeleteAll.html" title=""></a>
-                        <a href="NamespacedResourceDeleteAll.html" title="">NamespacedResourceDeleteAll</a>
+                        <a class="trait" href="NamespacedResourceDeleteAll.html" title="Extra capability for NamespacedResource interfaces providing deleteAll"></a>
+                        <a href="NamespacedResourceDeleteAll.html" title="Extra capability for NamespacedResource interfaces providing deleteAll">NamespacedResourceDeleteAll</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
-                        <a class="trait" href="NamespacedResourceStatus.html" title=""></a>
-                        <a href="NamespacedResourceStatus.html" title="">NamespacedResourceStatus</a>
+                        <a class="trait" href="NamespacedResourceStatus.html" title="Extra capability for NamespacedResource interfaces to manage status subresources"></a>
+                        <a href="NamespacedResourceStatus.html" title="Extra capability for NamespacedResource interfaces to manage status subresources">NamespacedResourceStatus</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
-                        <a class="object" href="NotFound$.html" title=""></a>
-                        <a href="NotFound$.html" title="">NotFound</a>
+                        <a class="object" href="NotFound$.html" title="The sever returned with HTTP 404 (NotFound)."></a>
+                        <a href="NotFound$.html" title="The sever returned with HTTP 404 (NotFound).">NotFound</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
-                        <a class="class" href="RequestFailure.html" title=""></a>
-                        <a href="RequestFailure.html" title="">RequestFailure</a>
+                        <a class="class" href="RequestFailure.html" title="Failed to send the HTTP request to the Kubernetes API"></a>
+                        <a href="RequestFailure.html" title="Failed to send the HTTP request to the Kubernetes API">RequestFailure</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
-                        <a class="trait" href="Resource.html" title=""></a>
-                        <a href="Resource.html" title="">Resource</a>
+                        <a class="trait" href="Resource.html" title="Generic interface for working with Kubernetes resources"></a>
+                        <a href="Resource.html" title="Generic interface for working with Kubernetes resources">Resource</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
-                        <a class="trait" href="ResourceDeleteAll.html" title=""></a>
-                        <a href="ResourceDeleteAll.html" title="">ResourceDeleteAll</a>
+                        <a class="trait" href="ResourceDeleteAll.html" title="Extra capability for Resource interfaces providing deleteAll"></a>
+                        <a href="ResourceDeleteAll.html" title="Extra capability for Resource interfaces providing deleteAll">ResourceDeleteAll</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
-                        <a class="trait" href="ResourceStatus.html" title=""></a>
-                        <a href="ResourceStatus.html" title="">ResourceStatus</a>
+                        <a class="trait" href="ResourceStatus.html" title="Extra capability for Resource interfaces to manage status subresources"></a>
+                        <a href="ResourceStatus.html" title="Extra capability for Resource interfaces to manage status subresources">ResourceStatus</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
-                        <a class="trait" href="Subresource.html" title=""></a>
-                        <a href="Subresource.html" title="">Subresource</a>
+                        <a class="trait" href="Subresource.html" title="Generic interface for subresources."></a>
+                        <a href="Subresource.html" title="Generic interface for subresources.">Subresource</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
-                        <a class="class" href="" title=""></a>
-                        <a href="" title="">Unauthorized</a>
+                        <a class="class" href="" title="Request unauthorized"></a>
+                        <a href="" title="Request unauthorized">Unauthorized</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
-                        <a class="class" href="UndefinedField.html" title=""></a>
-                        <a href="UndefinedField.html" title="">UndefinedField</a>
+                        <a class="class" href="UndefinedField.html" title="Error produced by the generated getter methods on Kubernetes data structures."></a>
+                        <a href="UndefinedField.html" title="Error produced by the generated getter methods on Kubernetes data structures.">UndefinedField</a>
                       </li>
               </ul>
             </div>
@@ -673,7 +678,7 @@
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Request unauthorized</p><p>Indicates that the Kubernetes API returned a HTTP 401 response.</p></div><dl class="paramcmts block"><dt class="param">message</dt><dd class="cmt"><p>Message of the response</p></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -723,7 +728,7 @@
         <div id="allMembers">
         <div id="constructors" class="members">
               <h3>Instance Constructors</h3>
-              <ol><li name="com.coralogix.zio.k8s.client.Unauthorized#&lt;init&gt;" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+              <ol><li name="com.coralogix.zio.k8s.client.Unauthorized#&lt;init&gt;" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="&lt;init&gt;(message:String):com.coralogix.zio.k8s.client.Unauthorized"></a><a id="&lt;init&gt;:Unauthorized"></a>
       <span class="permalink">
       <a href="../../../../../com/coralogix/zio/k8s/client/Unauthorized.html#&lt;init&gt;(message:String):com.coralogix.zio.k8s.client.Unauthorized" title="Permalink">
@@ -738,7 +743,7 @@
         <span class="name">Unauthorized</span><span class="params">(<span name="message">message: <span class="extype" name="scala.Predef.String">String</span></span>)</span>
       </span>
       
-      
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">message</dt><dd class="cmt"><p>Message of the response</p></dd></dl></div>
     </li></ol>
             </div>
 

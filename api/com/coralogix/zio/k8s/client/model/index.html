@@ -305,10 +305,15 @@
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="" href="../config/index.html"><span class="name">config</span></a>
+        <a title="Contains data structures, ZIO layers and zio-config descriptors for configuring the zio-k8s client." href="../config/index.html"><span class="name">config</span></a>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="com.coralogix.zio.k8s.client">client</a></dd></dl></div>
+      <p class="shortcomment cmt">Contains data structures, ZIO layers and zio-config descriptors for configuring the zio-k8s client.</p><div class="fullcomment"><div class="comment cmt"><p>Contains data structures, ZIO layers and zio-config descriptors for configuring the zio-k8s client.</p><p>Each zio-k8s client module depends on two ZIO modules: <span class="extype" name="K8sCluster">K8sCluster</span> and an <a href="https://javadoc.io/page/com.softwaremill.sttp.client3/core_2.12/3.1.7/sttp/client3/SttpBackend.html" class="extype" name="sttp.client3.SttpBackend">sttp.client3.SttpBackend</a>.
+To use the default configuration (use kubeconfig if available, otherwise fallback to service account token),
+use either <span class="extype" name="asynchttpclient.k8sDefault">asynchttpclient.k8sDefault</span> or <span class="extype" name="httpclient.k8sDefault">httpclient.k8sDefault</span> depending on your chosen sttp backend.</p><p>Manual configuration is possible by providing a <a href="../config/package$$K8sClusterConfig.html" class="extype" name="com.coralogix.zio.k8s.client.config.K8sClusterConfig">K8sClusterConfig</a> value to both the <a href="../config/index.html#k8sCluster:zio.ZLayer[zio.blocking.Blockingwithzio.Has[com.coralogix.zio.k8s.client.config.package.K8sClusterConfig],Throwable,zio.Has[com.coralogix.zio.k8s.client.model.K8sCluster]]" class="extmbr" name="com.coralogix.zio.k8s.client.config#k8sCluster">k8sCluster</a> layer
+and either <span class="extype" name="asynchttpclient.k8sSttpClient">asynchttpclient.k8sSttpClient</span> or <span class="extype" name="httpclient.k8sSttpClient">httpclient.k8sSttpClient</span>.</p><p>Instead of manually providing the configuration, zio-config descriptors are available to load them from any
+supported source.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="com.coralogix.zio.k8s.client">client</a></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.client.coordination" visbl="pub" class="indented6 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="coordination"></a><a id="coordination:coordination"></a>
       <span class="permalink">
@@ -455,24 +460,24 @@
       
     </li><li class="current-entities indented6">
                         <span class="separator"></span>
-                        <a class="class" href="Added.html" title=""></a>
-                        <a href="Added.html" title="">Added</a>
+                        <a class="class" href="Added.html" title="Resource added"></a>
+                        <a href="Added.html" title="Resource added">Added</a>
                       </li><li class="current-entities indented6">
                         <span class="separator"></span>
-                        <a class="class" href="Deleted.html" title=""></a>
-                        <a href="Deleted.html" title="">Deleted</a>
+                        <a class="class" href="Deleted.html" title="Resource has been deleted"></a>
+                        <a href="Deleted.html" title="Resource has been deleted">Deleted</a>
                       </li><li class="current-entities indented6">
                         <span class="separator"></span>
                         <a class="trait" href="FieldSelector$$Syntax$Field.html" title=""></a>
                         <a href="FieldSelector$$Syntax$Field.html" title="">Field</a>
                       </li><li class="current-entities indented6">
                         <a class="object" href="FieldSelector$.html" title=""></a>
-                        <a class="trait" href="FieldSelector.html" title=""></a>
-                        <a href="FieldSelector.html" title="">FieldSelector</a>
+                        <a class="trait" href="FieldSelector.html" title="A composable field selector"></a>
+                        <a href="FieldSelector.html" title="A composable field selector">FieldSelector</a>
                       </li><li class="current-entities indented6">
                         <span class="separator"></span>
-                        <a class="class" href="package$$K8sCluster.html" title=""></a>
-                        <a href="package$$K8sCluster.html" title="">K8sCluster</a>
+                        <a class="class" href="package$$K8sCluster.html" title="Data type describing a configured Kuberntes cluster"></a>
+                        <a href="package$$K8sCluster.html" title="Data type describing a configured Kuberntes cluster">K8sCluster</a>
                       </li><li class="current-entities indented6">
                         <span class="separator"></span>
                         <a class="class" href="package$$K8sCreatorUri.html" title=""></a>
@@ -491,40 +496,40 @@
                         <a href="package$$K8sModifierUri.html" title="">K8sModifierUri</a>
                       </li><li class="current-entities indented6">
                         <a class="object" href="package$$K8sNamespace$.html" title=""></a>
-                        <a class="class" href="package$$K8sNamespace.html" title=""></a>
-                        <a href="package$$K8sNamespace.html" title="">K8sNamespace</a>
+                        <a class="class" href="package$$K8sNamespace.html" title="A Kubernetes namespace"></a>
+                        <a href="package$$K8sNamespace.html" title="A Kubernetes namespace">K8sNamespace</a>
                       </li><li class="current-entities indented6">
                         <a class="object" href="K8sObject$.html" title=""></a>
-                        <a class="trait" href="K8sObject.html" title=""></a>
-                        <a href="K8sObject.html" title="">K8sObject</a>
+                        <a class="trait" href="K8sObject.html" title="Common operations for every Kubernetes resource's object"></a>
+                        <a href="K8sObject.html" title="Common operations for every Kubernetes resource's object">K8sObject</a>
                       </li><li class="current-entities indented6">
                         <span class="separator"></span>
-                        <a class="trait" href="K8sObjectOps.html" title=""></a>
-                        <a href="K8sObjectOps.html" title="">K8sObjectOps</a>
+                        <a class="trait" href="K8sObjectOps.html" title="Extension methods for Kubernetes resources"></a>
+                        <a href="K8sObjectOps.html" title="Extension methods for Kubernetes resources">K8sObjectOps</a>
                       </li><li class="current-entities indented6">
                         <a class="object" href="K8sObjectStatus$.html" title=""></a>
-                        <a class="trait" href="K8sObjectStatus.html" title=""></a>
-                        <a href="K8sObjectStatus.html" title="">K8sObjectStatus</a>
+                        <a class="trait" href="K8sObjectStatus.html" title="Common operations for every Kubernetes resource type supporting status subresources."></a>
+                        <a href="K8sObjectStatus.html" title="Common operations for every Kubernetes resource type supporting status subresources.">K8sObjectStatus</a>
                       </li><li class="current-entities indented6">
                         <span class="separator"></span>
-                        <a class="trait" href="K8sObjectStatusOps.html" title=""></a>
-                        <a href="K8sObjectStatusOps.html" title="">K8sObjectStatusOps</a>
+                        <a class="trait" href="K8sObjectStatusOps.html" title="Extension methods for Kubernetes resources with status subresource support"></a>
+                        <a href="K8sObjectStatusOps.html" title="Extension methods for Kubernetes resources with status subresource support">K8sObjectStatusOps</a>
                       </li><li class="current-entities indented6">
                         <span class="separator"></span>
                         <a class="class" href="package$$K8sPaginatedUri.html" title=""></a>
                         <a href="package$$K8sPaginatedUri.html" title="">K8sPaginatedUri</a>
                       </li><li class="current-entities indented6">
                         <span class="separator"></span>
-                        <a class="class" href="package$$K8sResourceType.html" title=""></a>
-                        <a href="package$$K8sResourceType.html" title="">K8sResourceType</a>
+                        <a class="class" href="package$$K8sResourceType.html" title="Metadata identifying a Kubernetes resource"></a>
+                        <a href="package$$K8sResourceType.html" title="Metadata identifying a Kubernetes resource">K8sResourceType</a>
                       </li><li class="current-entities indented6">
                         <span class="separator"></span>
                         <a class="class" href="package$$K8sSimpleUri.html" title=""></a>
                         <a href="package$$K8sSimpleUri.html" title="">K8sSimpleUri</a>
                       </li><li class="current-entities indented6">
                         <span class="separator"></span>
-                        <a class="trait" href="package$$K8sUri.html" title=""></a>
-                        <a href="package$$K8sUri.html" title="">K8sUri</a>
+                        <a class="trait" href="package$$K8sUri.html" title="Kubernetes API URI"></a>
+                        <a href="package$$K8sUri.html" title="Kubernetes API URI">K8sUri</a>
                       </li><li class="current-entities indented6">
                         <span class="separator"></span>
                         <a class="class" href="package$$K8sWatchUri.html" title=""></a>
@@ -535,52 +540,52 @@
                         <a href="LabelSelector$$Syntax$Label.html" title="">Label</a>
                       </li><li class="current-entities indented6">
                         <a class="object" href="LabelSelector$.html" title=""></a>
-                        <a class="trait" href="LabelSelector.html" title=""></a>
-                        <a href="LabelSelector.html" title="">LabelSelector</a>
+                        <a class="trait" href="LabelSelector.html" title="Composable label selector"></a>
+                        <a href="LabelSelector.html" title="Composable label selector">LabelSelector</a>
                       </li><li class="current-entities indented6">
                         <a class="object" href="ListResourceVersion$.html" title=""></a>
-                        <a class="trait" href="ListResourceVersion.html" title=""></a>
-                        <a href="ListResourceVersion.html" title="">ListResourceVersion</a>
+                        <a class="trait" href="ListResourceVersion.html" title="Resource version options for listing resource"></a>
+                        <a href="ListResourceVersion.html" title="Resource version options for listing resource">ListResourceVersion</a>
                       </li><li class="current-entities indented6">
                         <span class="separator"></span>
-                        <a class="class" href="Modified.html" title=""></a>
-                        <a href="Modified.html" title="">Modified</a>
+                        <a class="class" href="Modified.html" title="Existing resource modified"></a>
+                        <a href="Modified.html" title="Existing resource modified">Modified</a>
                       </li><li class="current-entities indented6">
                         <a class="object" href="ObjectList$.html" title=""></a>
-                        <a class="class" href="ObjectList.html" title=""></a>
-                        <a href="ObjectList.html" title="">ObjectList</a>
+                        <a class="class" href="ObjectList.html" title="Response type of the getAll operation"></a>
+                        <a href="ObjectList.html" title="Response type of the getAll operation">ObjectList</a>
                       </li><li class="current-entities indented6">
                         <a class="object" href="Optional$.html" title=""></a>
-                        <a class="trait" href="Optional.html" title=""></a>
-                        <a href="Optional.html" title="">Optional</a>
+                        <a class="trait" href="Optional.html" title="Custom option type used in the generated Kubernetes data models."></a>
+                        <a href="Optional.html" title="Custom option type used in the generated Kubernetes data models.">Optional</a>
                       </li><li class="current-entities indented6">
                         <span class="separator"></span>
-                        <a class="class" href="ParsedBookmark.html" title=""></a>
-                        <a href="ParsedBookmark.html" title="">ParsedBookmark</a>
+                        <a class="class" href="ParsedBookmark.html" title="Bookmark event"></a>
+                        <a href="ParsedBookmark.html" title="Bookmark event">ParsedBookmark</a>
                       </li><li class="current-entities indented6">
                         <span class="separator"></span>
-                        <a class="class" href="ParsedTypedWatchEvent.html" title=""></a>
-                        <a href="ParsedTypedWatchEvent.html" title="">ParsedTypedWatchEvent</a>
+                        <a class="class" href="ParsedTypedWatchEvent.html" title="Parsed typed watch event"></a>
+                        <a href="ParsedTypedWatchEvent.html" title="Parsed typed watch event">ParsedTypedWatchEvent</a>
                       </li><li class="current-entities indented6">
                         <a class="object" href="ParsedWatchEvent$.html" title=""></a>
-                        <a class="trait" href="ParsedWatchEvent.html" title=""></a>
-                        <a href="ParsedWatchEvent.html" title="">ParsedWatchEvent</a>
+                        <a class="trait" href="ParsedWatchEvent.html" title="Watch event with parsed payload"></a>
+                        <a href="ParsedWatchEvent.html" title="Watch event with parsed payload">ParsedWatchEvent</a>
                       </li><li class="current-entities indented6">
                         <a class="object" href="PropagationPolicy$.html" title=""></a>
-                        <a class="trait" href="PropagationPolicy.html" title=""></a>
-                        <a href="PropagationPolicy.html" title="">PropagationPolicy</a>
+                        <a class="trait" href="PropagationPolicy.html" title="Propagation policy for resource deletion"></a>
+                        <a href="PropagationPolicy.html" title="Propagation policy for resource deletion">PropagationPolicy</a>
                       </li><li class="current-entities indented6">
                         <span class="separator"></span>
-                        <a class="object" href="Reseted$.html" title=""></a>
-                        <a href="Reseted$.html" title="">Reseted</a>
+                        <a class="object" href="Reseted$.html" title="Watch stream reseted"></a>
+                        <a href="Reseted$.html" title="Watch stream reseted">Reseted</a>
                       </li><li class="current-entities indented6">
                         <span class="separator"></span>
-                        <a class="trait" href="ResourceMetadata.html" title=""></a>
-                        <a href="ResourceMetadata.html" title="">ResourceMetadata</a>
+                        <a class="trait" href="ResourceMetadata.html" title="Resource metadata typeclass"></a>
+                        <a href="ResourceMetadata.html" title="Resource metadata typeclass">ResourceMetadata</a>
                       </li><li class="current-entities indented6">
                         <span class="separator"></span>
-                        <a class="trait" href="TypedWatchEvent.html" title=""></a>
-                        <a href="TypedWatchEvent.html" title="">TypedWatchEvent</a>
+                        <a class="trait" href="TypedWatchEvent.html" title="Watch events with decoded payload"></a>
+                        <a href="TypedWatchEvent.html" title="Watch events with decoded payload">TypedWatchEvent</a>
                       </li><li name="com.coralogix.zio.k8s.client.networking" visbl="pub" class="indented6 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="networking"></a><a id="networking:networking"></a>
       <span class="permalink">
@@ -789,7 +794,7 @@
 
         <div id="types" class="types members">
               <h3>Type Members</h3>
-              <ol><li name="com.coralogix.zio.k8s.client.model.Added" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+              <ol><li name="com.coralogix.zio.k8s.client.model.Added" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="Added[T]extendsTypedWatchEvent[T]withProductwithSerializable"></a><a id="Added[T]:Added[T]"></a>
       <span class="permalink">
       <a href="../../../../../../com/coralogix/zio/k8s/client/model/Added.html" title="Permalink">
@@ -801,11 +806,11 @@
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a title="" href="Added.html"><span class="name">Added</span></a><span class="tparams">[<span name="T">T</span>]</span><span class="params">(<span name="item">item: <span class="extype" name="com.coralogix.zio.k8s.client.model.Added.T">T</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="evidence$1">evidence$1: <a href="K8sObject.html" class="extype" name="com.coralogix.zio.k8s.client.model.K8sObject">K8sObject</a>[<span class="extype" name="com.coralogix.zio.k8s.client.model.Added.T">T</span>]</span>)</span><span class="result"> extends <a href="TypedWatchEvent.html" class="extype" name="com.coralogix.zio.k8s.client.model.TypedWatchEvent">TypedWatchEvent</a>[<span class="extype" name="com.coralogix.zio.k8s.client.model.Added.T">T</span>] with <a href="https://www.scala-lang.org/api/2.12.12/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a> with <a href="https://www.scala-lang.org/api/2.12.12/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+        <a title="Resource added" href="Added.html"><span class="name">Added</span></a><span class="tparams">[<span name="T">T</span>]</span><span class="params">(<span name="item">item: <span class="extype" name="com.coralogix.zio.k8s.client.model.Added.T">T</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="evidence$1">evidence$1: <a href="K8sObject.html" class="extype" name="com.coralogix.zio.k8s.client.model.K8sObject">K8sObject</a>[<span class="extype" name="com.coralogix.zio.k8s.client.model.Added.T">T</span>]</span>)</span><span class="result"> extends <a href="TypedWatchEvent.html" class="extype" name="com.coralogix.zio.k8s.client.model.TypedWatchEvent">TypedWatchEvent</a>[<span class="extype" name="com.coralogix.zio.k8s.client.model.Added.T">T</span>] with <a href="https://www.scala-lang.org/api/2.12.12/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a> with <a href="https://www.scala-lang.org/api/2.12.12/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.client.model.Deleted" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Resource added</p><div class="fullcomment"><div class="comment cmt"><p>Resource added</p></div><dl class="paramcmts block"><dt class="tparam">T</dt><dd class="cmt"><p>Watched resource type</p></dd><dt class="param">item</dt><dd class="cmt"><p>new object that has been added</p></dd></dl></div>
+    </li><li name="com.coralogix.zio.k8s.client.model.Deleted" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="Deleted[T]extendsTypedWatchEvent[T]withProductwithSerializable"></a><a id="Deleted[T]:Deleted[T]"></a>
       <span class="permalink">
       <a href="../../../../../../com/coralogix/zio/k8s/client/model/Deleted.html" title="Permalink">
@@ -817,11 +822,11 @@
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a title="" href="Deleted.html"><span class="name">Deleted</span></a><span class="tparams">[<span name="T">T</span>]</span><span class="params">(<span name="item">item: <span class="extype" name="com.coralogix.zio.k8s.client.model.Deleted.T">T</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="evidence$3">evidence$3: <a href="K8sObject.html" class="extype" name="com.coralogix.zio.k8s.client.model.K8sObject">K8sObject</a>[<span class="extype" name="com.coralogix.zio.k8s.client.model.Deleted.T">T</span>]</span>)</span><span class="result"> extends <a href="TypedWatchEvent.html" class="extype" name="com.coralogix.zio.k8s.client.model.TypedWatchEvent">TypedWatchEvent</a>[<span class="extype" name="com.coralogix.zio.k8s.client.model.Deleted.T">T</span>] with <a href="https://www.scala-lang.org/api/2.12.12/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a> with <a href="https://www.scala-lang.org/api/2.12.12/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+        <a title="Resource has been deleted" href="Deleted.html"><span class="name">Deleted</span></a><span class="tparams">[<span name="T">T</span>]</span><span class="params">(<span name="item">item: <span class="extype" name="com.coralogix.zio.k8s.client.model.Deleted.T">T</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="evidence$3">evidence$3: <a href="K8sObject.html" class="extype" name="com.coralogix.zio.k8s.client.model.K8sObject">K8sObject</a>[<span class="extype" name="com.coralogix.zio.k8s.client.model.Deleted.T">T</span>]</span>)</span><span class="result"> extends <a href="TypedWatchEvent.html" class="extype" name="com.coralogix.zio.k8s.client.model.TypedWatchEvent">TypedWatchEvent</a>[<span class="extype" name="com.coralogix.zio.k8s.client.model.Deleted.T">T</span>] with <a href="https://www.scala-lang.org/api/2.12.12/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a> with <a href="https://www.scala-lang.org/api/2.12.12/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.client.model.FieldSelector" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Resource has been deleted</p><div class="fullcomment"><div class="comment cmt"><p>Resource has been deleted</p></div><dl class="paramcmts block"><dt class="tparam">T</dt><dd class="cmt"><p>Watched resource type</p></dd><dt class="param">item</dt><dd class="cmt"><p>the deleted object</p></dd></dl></div>
+    </li><li name="com.coralogix.zio.k8s.client.model.FieldSelector" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="FieldSelectorextendsAnyRef"></a><a id="FieldSelector:FieldSelector"></a>
       <span class="permalink">
       <a href="../../../../../../com/coralogix/zio/k8s/client/model/FieldSelector.html" title="Permalink">
@@ -833,10 +838,17 @@
         <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <a title="" href="FieldSelector.html"><span class="name">FieldSelector</span></a><span class="result"> extends <a href="https://www.scala-lang.org/api/2.12.12/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
+        <a title="A composable field selector" href="FieldSelector.html"><span class="name">FieldSelector</span></a><span class="result"> extends <a href="https://www.scala-lang.org/api/2.12.12/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
       </span>
       
-      
+      <p class="shortcomment cmt">A composable field selector</p><div class="fullcomment"><div class="comment cmt"><p>A composable field selector</p><p>Every Kubernetes model's companion object contain a set of <a href="FieldSelector$$Syntax$Field.html" class="extype" name="com.coralogix.zio.k8s.client.model.FieldSelector.Syntax.Field">Field</a> definitions.
+To construct <a href="FieldSelector.html" class="extype" name="com.coralogix.zio.k8s.client.model.FieldSelector">FieldSelector</a> values for queries, use these <a href="FieldSelector$$Syntax$Field.html" class="extype" name="com.coralogix.zio.k8s.client.model.FieldSelector.Syntax.Field">Field</a> values and
+the operators defined on them.</p><p>Note that a very small subset of the fields is actually usable as field seletors,
+but there is no compile-time information about which one of them are. For this reason
+we provide a <a href="FieldSelector$$Syntax$Field.html" class="extype" name="com.coralogix.zio.k8s.client.model.FieldSelector.Syntax.Field">Field</a> for each available field and it is the developer's responsibility
+to only use supported fields in field selectors, or handle the errors returned by
+the Kubernetes server.
+</p></div></div>
     </li><li name="com.coralogix.zio.k8s.client.model.FieldSelector.Syntax.Field" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="FieldextendsAnyRef"></a><a id="Field:Field"></a>
       <span class="permalink">
@@ -853,7 +865,7 @@
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="FieldSelector$$Syntax.html" class="extype" name="com.coralogix.zio.k8s.client.model.FieldSelector.Syntax">Syntax</a></dd></dl></div>
-    </li><li name="com.coralogix.zio.k8s.client.model.K8sCluster" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="com.coralogix.zio.k8s.client.model.K8sCluster" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="K8sClusterextendsProductwithSerializable"></a><a id="K8sCluster:K8sCluster"></a>
       <span class="permalink">
       <a href="../../../../../../com/coralogix/zio/k8s/client/model/package$$K8sCluster.html" title="Permalink">
@@ -865,10 +877,10 @@
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a title="" href="package$$K8sCluster.html"><span class="name">K8sCluster</span></a><span class="params">(<span name="host">host: <a href="https://javadoc.io/page/com.softwaremill.sttp.model/core_2.12/1.3.3/sttp/model/Uri.html#sttp.model.Uri" class="extype" name="sttp.model.Uri">Uri</a></span>, <span name="applyToken">applyToken: <a href="https://www.scala-lang.org/api/2.12.12/scala/Option.html#scala.Option" class="extype" name="scala.Option">Option</a>[(<a href="https://javadoc.io/page/com.softwaremill.sttp.client3/core_2.12/3.1.7/sttp/client3/RequestT.html#sttp.client3.RequestT" class="extype" name="sttp.client3.RequestT">RequestT</a>[<a href="../../../../../../sttp/client3/index.html#Empty[X]=None.type" class="extmbr" name="sttp.client3.Empty">Empty</a>, <span class="extype" name="scala.Either">Either</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.Predef.String">String</span>], <a href="https://www.scala-lang.org/api/2.12.12/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a>]) ⇒ <a href="https://javadoc.io/page/com.softwaremill.sttp.client3/core_2.12/3.1.7/sttp/client3/RequestT.html#sttp.client3.RequestT" class="extype" name="sttp.client3.RequestT">RequestT</a>[<a href="../../../../../../sttp/client3/index.html#Empty[X]=None.type" class="extmbr" name="sttp.client3.Empty">Empty</a>, <span class="extype" name="scala.Either">Either</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.Predef.String">String</span>], <a href="https://www.scala-lang.org/api/2.12.12/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a>]]</span>)</span><span class="result"> extends <a href="https://www.scala-lang.org/api/2.12.12/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a> with <a href="https://www.scala-lang.org/api/2.12.12/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+        <a title="Data type describing a configured Kuberntes cluster" href="package$$K8sCluster.html"><span class="name">K8sCluster</span></a><span class="params">(<span name="host">host: <a href="https://javadoc.io/page/com.softwaremill.sttp.model/core_2.12/1.3.3/sttp/model/Uri.html#sttp.model.Uri" class="extype" name="sttp.model.Uri">Uri</a></span>, <span name="applyToken">applyToken: <a href="https://www.scala-lang.org/api/2.12.12/scala/Option.html#scala.Option" class="extype" name="scala.Option">Option</a>[(<a href="https://javadoc.io/page/com.softwaremill.sttp.client3/core_2.12/3.1.7/sttp/client3/RequestT.html#sttp.client3.RequestT" class="extype" name="sttp.client3.RequestT">RequestT</a>[<a href="../../../../../../sttp/client3/index.html#Empty[X]=None.type" class="extmbr" name="sttp.client3.Empty">Empty</a>, <span class="extype" name="scala.Either">Either</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.Predef.String">String</span>], <a href="https://www.scala-lang.org/api/2.12.12/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a>]) ⇒ <a href="https://javadoc.io/page/com.softwaremill.sttp.client3/core_2.12/3.1.7/sttp/client3/RequestT.html#sttp.client3.RequestT" class="extype" name="sttp.client3.RequestT">RequestT</a>[<a href="../../../../../../sttp/client3/index.html#Empty[X]=None.type" class="extmbr" name="sttp.client3.Empty">Empty</a>, <span class="extype" name="scala.Either">Either</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.Predef.String">String</span>], <a href="https://www.scala-lang.org/api/2.12.12/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a>]]</span>)</span><span class="result"> extends <a href="https://www.scala-lang.org/api/2.12.12/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a> with <a href="https://www.scala-lang.org/api/2.12.12/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
       </span>
       
-      
+      <p class="shortcomment cmt">Data type describing a configured Kuberntes cluster</p><div class="fullcomment"><div class="comment cmt"><p>Data type describing a configured Kuberntes cluster</p></div><dl class="paramcmts block"><dt class="param">host</dt><dd class="cmt"><p>Host to connect to</p></dd><dt class="param">applyToken</dt><dd class="cmt"><p>Function to apply an authentication token to the HTTP request</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.client.model.K8sCreatorUri" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="K8sCreatorUriextendspackage.K8sUriwithProductwithSerializable"></a><a id="K8sCreatorUri:K8sCreatorUri"></a>
       <span class="permalink">
@@ -945,11 +957,12 @@
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a title="" href="package$$K8sNamespace.html"><span class="name">K8sNamespace</span></a><span class="params">(<span name="value">value: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result"> extends <a href="https://www.scala-lang.org/api/2.12.12/scala/AnyVal.html#scala.AnyVal" class="extype" name="scala.AnyVal">AnyVal</a> with <a href="https://www.scala-lang.org/api/2.12.12/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a> with <a href="https://www.scala-lang.org/api/2.12.12/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+        <a title="A Kubernetes namespace" href="package$$K8sNamespace.html"><span class="name">K8sNamespace</span></a><span class="params">(<span name="value">value: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result"> extends <a href="https://www.scala-lang.org/api/2.12.12/scala/AnyVal.html#scala.AnyVal" class="extype" name="scala.AnyVal">AnyVal</a> with <a href="https://www.scala-lang.org/api/2.12.12/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a> with <a href="https://www.scala-lang.org/api/2.12.12/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.client.model.K8sObject" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">A Kubernetes namespace
+</p>
+    </li><li name="com.coralogix.zio.k8s.client.model.K8sObject" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="K8sObject[T]extendsAnyRef"></a><a id="K8sObject[T]:K8sObject[T]"></a>
       <span class="permalink">
       <a href="../../../../../../com/coralogix/zio/k8s/client/model/K8sObject.html" title="Permalink">
@@ -961,11 +974,11 @@
         <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <a title="" href="K8sObject.html"><span class="name">K8sObject</span></a><span class="tparams">[<span name="T">T</span>]</span><span class="result"> extends <a href="https://www.scala-lang.org/api/2.12.12/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
+        <a title="Common operations for every Kubernetes resource's object" href="K8sObject.html"><span class="name">K8sObject</span></a><span class="tparams">[<span name="T">T</span>]</span><span class="result"> extends <a href="https://www.scala-lang.org/api/2.12.12/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.client.model.K8sObjectOps" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Common operations for every Kubernetes resource's object</p><div class="fullcomment"><div class="comment cmt"><p>Common operations for every Kubernetes resource's object</p></div><dl class="paramcmts block"><dt class="tparam">T</dt><dd class="cmt"><p>Kubernetes resource type</p></dd></dl></div>
+    </li><li name="com.coralogix.zio.k8s.client.model.K8sObjectOps" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="K8sObjectOps[T]extendsAnyRef"></a><a id="K8sObjectOps[T]:K8sObjectOps[T]"></a>
       <span class="permalink">
       <a href="../../../../../../com/coralogix/zio/k8s/client/model/K8sObjectOps.html" title="Permalink">
@@ -977,11 +990,14 @@
         <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <a title="" href="K8sObjectOps.html"><span class="name">K8sObjectOps</span></a><span class="tparams">[<span name="T">T</span>]</span><span class="result"> extends <a href="https://www.scala-lang.org/api/2.12.12/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
+        <a title="Extension methods for Kubernetes resources" href="K8sObjectOps.html"><span class="name">K8sObjectOps</span></a><span class="tparams">[<span name="T">T</span>]</span><span class="result"> extends <a href="https://www.scala-lang.org/api/2.12.12/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.client.model.K8sObjectStatus" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Extension methods for Kubernetes resources</p><div class="fullcomment"><div class="comment cmt"><p>Extension methods for Kubernetes resources</p><p>This is a common implementation for all the implicit classes providing extension methods for
+the generated Kuberentes model types. The extension methods are just delegating the calls to
+the resource's <a href="K8sObject.html" class="extype" name="com.coralogix.zio.k8s.client.model.K8sObject">K8sObject</a> implementation.
+</p></div><dl class="paramcmts block"><dt class="tparam">T</dt><dd class="cmt"><p>Resource type to be extended</p></dd></dl></div>
+    </li><li name="com.coralogix.zio.k8s.client.model.K8sObjectStatus" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="K8sObjectStatus[ResourceT,StatusT]extendsAnyRef"></a><a id="K8sObjectStatus[ResourceT,StatusT]:K8sObjectStatus[ResourceT,StatusT]"></a>
       <span class="permalink">
       <a href="../../../../../../com/coralogix/zio/k8s/client/model/K8sObjectStatus.html" title="Permalink">
@@ -993,11 +1009,14 @@
         <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <a title="" href="K8sObjectStatus.html"><span class="name">K8sObjectStatus</span></a><span class="tparams">[<span name="ResourceT">ResourceT</span>, <span name="StatusT">StatusT</span>]</span><span class="result"> extends <a href="https://www.scala-lang.org/api/2.12.12/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
+        <a title="Common operations for every Kubernetes resource type supporting status subresources." href="K8sObjectStatus.html"><span class="name">K8sObjectStatus</span></a><span class="tparams">[<span name="ResourceT">ResourceT</span>, <span name="StatusT">StatusT</span>]</span><span class="result"> extends <a href="https://www.scala-lang.org/api/2.12.12/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.client.model.K8sObjectStatusOps" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Common operations for every Kubernetes resource type supporting
+status subresources.</p><div class="fullcomment"><div class="comment cmt"><p>Common operations for every Kubernetes resource type supporting
+status subresources.
+</p></div><dl class="paramcmts block"><dt class="tparam">ResourceT</dt><dd class="cmt"><p>Resource type</p></dd><dt class="tparam">StatusT</dt><dd class="cmt"><p>Subresource type</p></dd></dl></div>
+    </li><li name="com.coralogix.zio.k8s.client.model.K8sObjectStatusOps" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="K8sObjectStatusOps[ResourceT,StatusT]extendsAnyRef"></a><a id="K8sObjectStatusOps[ResourceT,StatusT]:K8sObjectStatusOps[ResourceT,StatusT]"></a>
       <span class="permalink">
       <a href="../../../../../../com/coralogix/zio/k8s/client/model/K8sObjectStatusOps.html" title="Permalink">
@@ -1009,10 +1028,13 @@
         <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <a title="" href="K8sObjectStatusOps.html"><span class="name">K8sObjectStatusOps</span></a><span class="tparams">[<span name="ResourceT">ResourceT</span>, <span name="StatusT">StatusT</span>]</span><span class="result"> extends <a href="https://www.scala-lang.org/api/2.12.12/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
+        <a title="Extension methods for Kubernetes resources with status subresource support" href="K8sObjectStatusOps.html"><span class="name">K8sObjectStatusOps</span></a><span class="tparams">[<span name="ResourceT">ResourceT</span>, <span name="StatusT">StatusT</span>]</span><span class="result"> extends <a href="https://www.scala-lang.org/api/2.12.12/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
       </span>
       
-      
+      <p class="shortcomment cmt">Extension methods for Kubernetes resources with status subresource support</p><div class="fullcomment"><div class="comment cmt"><p>Extension methods for Kubernetes resources with status subresource support</p><p>This is a common implementation for all the implicit classes providing extension methods for
+the generated Kuberentes model types. The extension methods are just delegating the calls to
+the resource's <a href="K8sObjectStatus.html" class="extype" name="com.coralogix.zio.k8s.client.model.K8sObjectStatus">K8sObjectStatus</a> implementation.
+</p></div><dl class="paramcmts block"><dt class="tparam">ResourceT</dt><dd class="cmt"><p>Resource type to be extended</p></dd><dt class="tparam">StatusT</dt><dd class="cmt"><p>Status subresource type</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.client.model.K8sPaginatedUri" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="K8sPaginatedUriextendspackage.K8sUriwithProductwithSerializable"></a><a id="K8sPaginatedUri:K8sPaginatedUri"></a>
       <span class="permalink">
@@ -1029,7 +1051,7 @@
       </span>
       
       
-    </li><li name="com.coralogix.zio.k8s.client.model.K8sResourceType" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="com.coralogix.zio.k8s.client.model.K8sResourceType" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="K8sResourceTypeextendsProductwithSerializable"></a><a id="K8sResourceType:K8sResourceType"></a>
       <span class="permalink">
       <a href="../../../../../../com/coralogix/zio/k8s/client/model/package$$K8sResourceType.html" title="Permalink">
@@ -1041,10 +1063,10 @@
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a title="" href="package$$K8sResourceType.html"><span class="name">K8sResourceType</span></a><span class="params">(<span name="resourceType">resourceType: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="group">group: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="version">version: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result"> extends <a href="https://www.scala-lang.org/api/2.12.12/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a> with <a href="https://www.scala-lang.org/api/2.12.12/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+        <a title="Metadata identifying a Kubernetes resource" href="package$$K8sResourceType.html"><span class="name">K8sResourceType</span></a><span class="params">(<span name="resourceType">resourceType: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="group">group: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="version">version: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result"> extends <a href="https://www.scala-lang.org/api/2.12.12/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a> with <a href="https://www.scala-lang.org/api/2.12.12/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
       </span>
       
-      
+      <p class="shortcomment cmt">Metadata identifying a Kubernetes resource</p><div class="fullcomment"><div class="comment cmt"><p>Metadata identifying a Kubernetes resource</p></div><dl class="paramcmts block"><dt class="param">resourceType</dt><dd class="cmt"><p>Resource type (kind)</p></dd><dt class="param">group</dt><dd class="cmt"><p>Group</p></dd><dt class="param">version</dt><dd class="cmt"><p>Version</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.client.model.K8sSimpleUri" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="K8sSimpleUriextendspackage.K8sUriwithProductwithSerializable"></a><a id="K8sSimpleUri:K8sSimpleUri"></a>
       <span class="permalink">
@@ -1073,10 +1095,11 @@
         <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <a title="" href="package$$K8sUri.html"><span class="name">K8sUri</span></a><span class="result"> extends <a href="https://www.scala-lang.org/api/2.12.12/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
+        <a title="Kubernetes API URI" href="package$$K8sUri.html"><span class="name">K8sUri</span></a><span class="result"> extends <a href="https://www.scala-lang.org/api/2.12.12/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
       </span>
       
-      
+      <p class="shortcomment cmt">Kubernetes API URI
+</p>
     </li><li name="com.coralogix.zio.k8s.client.model.K8sWatchUri" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="K8sWatchUriextendspackage.K8sUriwithProductwithSerializable"></a><a id="K8sWatchUri:K8sWatchUri"></a>
       <span class="permalink">
@@ -1093,7 +1116,7 @@
       </span>
       
       
-    </li><li name="com.coralogix.zio.k8s.client.model.LabelSelector" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
+    </li><li name="com.coralogix.zio.k8s.client.model.LabelSelector" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="LabelSelectorextendsAnyRef"></a><a id="LabelSelector:LabelSelector"></a>
       <span class="permalink">
       <a href="../../../../../../com/coralogix/zio/k8s/client/model/LabelSelector.html" title="Permalink">
@@ -1105,10 +1128,13 @@
         <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <a title="" href="LabelSelector.html"><span class="name">LabelSelector</span></a><span class="result"> extends <a href="https://www.scala-lang.org/api/2.12.12/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
+        <a title="Composable label selector" href="LabelSelector.html"><span class="name">LabelSelector</span></a><span class="result"> extends <a href="https://www.scala-lang.org/api/2.12.12/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
       </span>
       
-      
+      <p class="shortcomment cmt">Composable label selector</p><div class="fullcomment"><div class="comment cmt"><p>Composable label selector</p><p>Use the label constructor <a href="LabelSelector$$Syntax.html#label(label:String):Syntax.this.Label" class="extmbr" name="com.coralogix.zio.k8s.client.model.LabelSelector.Syntax#label">LabelSelector.Syntax.label</a> imported through the
+<a href="" class="extype" name="com.coralogix.zio.k8s.client.model">com.coralogix.zio.k8s.client.model</a> to define labels, and the operators
+defined on them to construct label selectors from them.
+</p></div></div>
     </li><li name="com.coralogix.zio.k8s.client.model.LabelSelector.Syntax.Label" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="LabelextendsAnyRef"></a><a id="Label:Label"></a>
       <span class="permalink">
@@ -1125,7 +1151,7 @@
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="LabelSelector$$Syntax.html" class="extype" name="com.coralogix.zio.k8s.client.model.LabelSelector.Syntax">Syntax</a></dd></dl></div>
-    </li><li name="com.coralogix.zio.k8s.client.model.ListResourceVersion" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
+    </li><li name="com.coralogix.zio.k8s.client.model.ListResourceVersion" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="ListResourceVersionextendsAnyRef"></a><a id="ListResourceVersion:ListResourceVersion"></a>
       <span class="permalink">
       <a href="../../../../../../com/coralogix/zio/k8s/client/model/ListResourceVersion.html" title="Permalink">
@@ -1137,11 +1163,12 @@
         <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <a title="" href="ListResourceVersion.html"><span class="name">ListResourceVersion</span></a><span class="result"> extends <a href="https://www.scala-lang.org/api/2.12.12/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
+        <a title="Resource version options for listing resource" href="ListResourceVersion.html"><span class="name">ListResourceVersion</span></a><span class="result"> extends <a href="https://www.scala-lang.org/api/2.12.12/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.client.model.Modified" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Resource version options for listing resource</p><div class="fullcomment"><div class="comment cmt"><p>Resource version options for listing resource</p><p>See https://kubernetes.io/docs/reference/using-api/api-concepts/#the-resourceversion-parameter
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.client.model.Modified" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="Modified[T]extendsTypedWatchEvent[T]withProductwithSerializable"></a><a id="Modified[T]:Modified[T]"></a>
       <span class="permalink">
       <a href="../../../../../../com/coralogix/zio/k8s/client/model/Modified.html" title="Permalink">
@@ -1153,11 +1180,11 @@
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a title="" href="Modified.html"><span class="name">Modified</span></a><span class="tparams">[<span name="T">T</span>]</span><span class="params">(<span name="item">item: <span class="extype" name="com.coralogix.zio.k8s.client.model.Modified.T">T</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="evidence$2">evidence$2: <a href="K8sObject.html" class="extype" name="com.coralogix.zio.k8s.client.model.K8sObject">K8sObject</a>[<span class="extype" name="com.coralogix.zio.k8s.client.model.Modified.T">T</span>]</span>)</span><span class="result"> extends <a href="TypedWatchEvent.html" class="extype" name="com.coralogix.zio.k8s.client.model.TypedWatchEvent">TypedWatchEvent</a>[<span class="extype" name="com.coralogix.zio.k8s.client.model.Modified.T">T</span>] with <a href="https://www.scala-lang.org/api/2.12.12/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a> with <a href="https://www.scala-lang.org/api/2.12.12/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+        <a title="Existing resource modified" href="Modified.html"><span class="name">Modified</span></a><span class="tparams">[<span name="T">T</span>]</span><span class="params">(<span name="item">item: <span class="extype" name="com.coralogix.zio.k8s.client.model.Modified.T">T</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="evidence$2">evidence$2: <a href="K8sObject.html" class="extype" name="com.coralogix.zio.k8s.client.model.K8sObject">K8sObject</a>[<span class="extype" name="com.coralogix.zio.k8s.client.model.Modified.T">T</span>]</span>)</span><span class="result"> extends <a href="TypedWatchEvent.html" class="extype" name="com.coralogix.zio.k8s.client.model.TypedWatchEvent">TypedWatchEvent</a>[<span class="extype" name="com.coralogix.zio.k8s.client.model.Modified.T">T</span>] with <a href="https://www.scala-lang.org/api/2.12.12/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a> with <a href="https://www.scala-lang.org/api/2.12.12/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.client.model.ObjectList" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Existing resource modified</p><div class="fullcomment"><div class="comment cmt"><p>Existing resource modified</p></div><dl class="paramcmts block"><dt class="tparam">T</dt><dd class="cmt"><p>Watched resource type</p></dd><dt class="param">item</dt><dd class="cmt"><p>the modified object</p></dd></dl></div>
+    </li><li name="com.coralogix.zio.k8s.client.model.ObjectList" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="ObjectList[+T]extendsProductwithSerializable"></a><a id="ObjectList[+T]:ObjectList[T]"></a>
       <span class="permalink">
       <a href="../../../../../../com/coralogix/zio/k8s/client/model/ObjectList.html" title="Permalink">
@@ -1169,11 +1196,11 @@
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a title="" href="ObjectList.html"><span class="name">ObjectList</span></a><span class="tparams">[<span name="T">+T</span>]</span><span class="params">(<span name="metadata">metadata: <a href="Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="../../model/pkg/apis/meta/v1/ListMeta.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.ListMeta">ListMeta</a>]</span>, <span name="items">items: <span class="extype" name="scala.List">List</span>[<span class="extype" name="com.coralogix.zio.k8s.client.model.ObjectList.T">T</span>]</span>)</span><span class="result"> extends <a href="https://www.scala-lang.org/api/2.12.12/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a> with <a href="https://www.scala-lang.org/api/2.12.12/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+        <a title="Response type of the getAll operation" href="ObjectList.html"><span class="name">ObjectList</span></a><span class="tparams">[<span name="T">+T</span>]</span><span class="params">(<span name="metadata">metadata: <a href="Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="../../model/pkg/apis/meta/v1/ListMeta.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.ListMeta">ListMeta</a>]</span>, <span name="items">items: <span class="extype" name="scala.List">List</span>[<span class="extype" name="com.coralogix.zio.k8s.client.model.ObjectList.T">T</span>]</span>)</span><span class="result"> extends <a href="https://www.scala-lang.org/api/2.12.12/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a> with <a href="https://www.scala-lang.org/api/2.12.12/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.client.model.Optional" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Response type of the getAll operation</p><div class="fullcomment"><div class="comment cmt"><p>Response type of the getAll operation</p></div><dl class="paramcmts block"><dt class="tparam">T</dt><dd class="cmt"><p>Resource type</p></dd><dt class="param">metadata</dt><dd class="cmt"><p>List metadata with continuation token</p></dd><dt class="param">items</dt><dd class="cmt"><p>Items</p></dd></dl></div>
+    </li><li name="com.coralogix.zio.k8s.client.model.Optional" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="Optional[+A]extendsAnyRef"></a><a id="Optional[+A]:Optional[A]"></a>
       <span class="permalink">
       <a href="../../../../../../com/coralogix/zio/k8s/client/model/Optional.html" title="Permalink">
@@ -1185,11 +1212,14 @@
         <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <a title="" href="Optional.html"><span class="name">Optional</span></a><span class="tparams">[<span name="A">+A</span>]</span><span class="result"> extends <a href="https://www.scala-lang.org/api/2.12.12/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
+        <a title="Custom option type used in the generated Kubernetes data models." href="Optional.html"><span class="name">Optional</span></a><span class="tparams">[<span name="A">+A</span>]</span><span class="result"> extends <a href="https://www.scala-lang.org/api/2.12.12/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.client.model.ParsedBookmark" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Custom option type used in the generated Kubernetes data models.</p><div class="fullcomment"><div class="comment cmt"><p>Custom option type used in the generated Kubernetes data models.</p><p>Instances of Optional are either <a href="Optional$$Present.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional.Present">Optional.Present</a> or <a href="Optional$$Absent$.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional.Absent">Optional.Absent</a>.</p><p>The only difference between this type and <span class="extype" name="Option">Option</span> is that there is an implicit
+conversion defined from A to Optional[A], and from Option[A] to Optional[A].</p><p>This allows boilerplate-free definition of Kubernetes resources where most of the
+fields are optional.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.client.model.ParsedBookmark" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="ParsedBookmarkextendsParsedWatchEvent[Nothing]withProductwithSerializable"></a><a id="ParsedBookmark:ParsedBookmark"></a>
       <span class="permalink">
       <a href="../../../../../../com/coralogix/zio/k8s/client/model/ParsedBookmark.html" title="Permalink">
@@ -1201,11 +1231,11 @@
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a title="" href="ParsedBookmark.html"><span class="name">ParsedBookmark</span></a><span class="params">(<span name="resourceVersion">resourceVersion: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result"> extends <a href="ParsedWatchEvent.html" class="extype" name="com.coralogix.zio.k8s.client.model.ParsedWatchEvent">ParsedWatchEvent</a>[<a href="https://www.scala-lang.org/api/2.12.12/scala/Nothing.html#scala.Nothing" class="extype" name="scala.Nothing">Nothing</a>] with <a href="https://www.scala-lang.org/api/2.12.12/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a> with <a href="https://www.scala-lang.org/api/2.12.12/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+        <a title="Bookmark event" href="ParsedBookmark.html"><span class="name">ParsedBookmark</span></a><span class="params">(<span name="resourceVersion">resourceVersion: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result"> extends <a href="ParsedWatchEvent.html" class="extype" name="com.coralogix.zio.k8s.client.model.ParsedWatchEvent">ParsedWatchEvent</a>[<a href="https://www.scala-lang.org/api/2.12.12/scala/Nothing.html#scala.Nothing" class="extype" name="scala.Nothing">Nothing</a>] with <a href="https://www.scala-lang.org/api/2.12.12/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a> with <a href="https://www.scala-lang.org/api/2.12.12/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.client.model.ParsedTypedWatchEvent" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Bookmark event</p><div class="fullcomment"><div class="comment cmt"><p>Bookmark event</p></div><dl class="paramcmts block"><dt class="param">resourceVersion</dt><dd class="cmt"><p>Resource version to bookmark</p></dd></dl></div>
+    </li><li name="com.coralogix.zio.k8s.client.model.ParsedTypedWatchEvent" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="ParsedTypedWatchEvent[T]extendsParsedWatchEvent[T]withProductwithSerializable"></a><a id="ParsedTypedWatchEvent[T]:ParsedTypedWatchEvent[T]"></a>
       <span class="permalink">
       <a href="../../../../../../com/coralogix/zio/k8s/client/model/ParsedTypedWatchEvent.html" title="Permalink">
@@ -1217,11 +1247,11 @@
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a title="" href="ParsedTypedWatchEvent.html"><span class="name">ParsedTypedWatchEvent</span></a><span class="tparams">[<span name="T">T</span>]</span><span class="params">(<span name="event">event: <a href="TypedWatchEvent.html" class="extype" name="com.coralogix.zio.k8s.client.model.TypedWatchEvent">TypedWatchEvent</a>[<span class="extype" name="com.coralogix.zio.k8s.client.model.ParsedTypedWatchEvent.T">T</span>]</span>)</span><span class="result"> extends <a href="ParsedWatchEvent.html" class="extype" name="com.coralogix.zio.k8s.client.model.ParsedWatchEvent">ParsedWatchEvent</a>[<span class="extype" name="com.coralogix.zio.k8s.client.model.ParsedTypedWatchEvent.T">T</span>] with <a href="https://www.scala-lang.org/api/2.12.12/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a> with <a href="https://www.scala-lang.org/api/2.12.12/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+        <a title="Parsed typed watch event" href="ParsedTypedWatchEvent.html"><span class="name">ParsedTypedWatchEvent</span></a><span class="tparams">[<span name="T">T</span>]</span><span class="params">(<span name="event">event: <a href="TypedWatchEvent.html" class="extype" name="com.coralogix.zio.k8s.client.model.TypedWatchEvent">TypedWatchEvent</a>[<span class="extype" name="com.coralogix.zio.k8s.client.model.ParsedTypedWatchEvent.T">T</span>]</span>)</span><span class="result"> extends <a href="ParsedWatchEvent.html" class="extype" name="com.coralogix.zio.k8s.client.model.ParsedWatchEvent">ParsedWatchEvent</a>[<span class="extype" name="com.coralogix.zio.k8s.client.model.ParsedTypedWatchEvent.T">T</span>] with <a href="https://www.scala-lang.org/api/2.12.12/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a> with <a href="https://www.scala-lang.org/api/2.12.12/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.client.model.ParsedWatchEvent" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Parsed typed watch event</p><div class="fullcomment"><div class="comment cmt"><p>Parsed typed watch event</p></div><dl class="paramcmts block"><dt class="tparam">T</dt><dd class="cmt"><p>Payload type</p></dd><dt class="param">event</dt><dd class="cmt"><p>Payload</p></dd></dl></div>
+    </li><li name="com.coralogix.zio.k8s.client.model.ParsedWatchEvent" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="ParsedWatchEvent[+T]extendsAnyRef"></a><a id="ParsedWatchEvent[+T]:ParsedWatchEvent[T]"></a>
       <span class="permalink">
       <a href="../../../../../../com/coralogix/zio/k8s/client/model/ParsedWatchEvent.html" title="Permalink">
@@ -1233,11 +1263,14 @@
         <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <a title="" href="ParsedWatchEvent.html"><span class="name">ParsedWatchEvent</span></a><span class="tparams">[<span name="T">+T</span>]</span><span class="result"> extends <a href="https://www.scala-lang.org/api/2.12.12/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
+        <a title="Watch event with parsed payload" href="ParsedWatchEvent.html"><span class="name">ParsedWatchEvent</span></a><span class="tparams">[<span name="T">+T</span>]</span><span class="result"> extends <a href="https://www.scala-lang.org/api/2.12.12/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.client.model.PropagationPolicy" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Watch event with parsed payload</p><div class="fullcomment"><div class="comment cmt"><p>Watch event with parsed payload</p><p>This type is used internally by the watch stream. End users should
+use the <a href="TypedWatchEvent.html" class="extype" name="com.coralogix.zio.k8s.client.model.TypedWatchEvent">TypedWatchEvent</a> type instead, which does not contain
+the bookmark event which is transparently handled by the client.
+</p></div><dl class="paramcmts block"><dt class="tparam">T</dt><dd class="cmt"><p>Payload type</p></dd></dl></div>
+    </li><li name="com.coralogix.zio.k8s.client.model.PropagationPolicy" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="PropagationPolicyextendsAnyRef"></a><a id="PropagationPolicy:PropagationPolicy"></a>
       <span class="permalink">
       <a href="../../../../../../com/coralogix/zio/k8s/client/model/PropagationPolicy.html" title="Permalink">
@@ -1249,11 +1282,12 @@
         <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <a title="" href="PropagationPolicy.html"><span class="name">PropagationPolicy</span></a><span class="result"> extends <a href="https://www.scala-lang.org/api/2.12.12/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
+        <a title="Propagation policy for resource deletion" href="PropagationPolicy.html"><span class="name">PropagationPolicy</span></a><span class="result"> extends <a href="https://www.scala-lang.org/api/2.12.12/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.client.model.ResourceMetadata" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Propagation policy for resource deletion</p><div class="fullcomment"><div class="comment cmt"><p>Propagation policy for resource deletion</p><p>See https://kubernetes.io/docs/concepts/workloads/controllers/garbage-collection/
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.client.model.ResourceMetadata" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="ResourceMetadata[T]extendsAnyRef"></a><a id="ResourceMetadata[T]:ResourceMetadata[T]"></a>
       <span class="permalink">
       <a href="../../../../../../com/coralogix/zio/k8s/client/model/ResourceMetadata.html" title="Permalink">
@@ -1265,11 +1299,11 @@
         <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <a title="" href="ResourceMetadata.html"><span class="name">ResourceMetadata</span></a><span class="tparams">[<span name="T">T</span>]</span><span class="result"> extends <a href="https://www.scala-lang.org/api/2.12.12/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
+        <a title="Resource metadata typeclass" href="ResourceMetadata.html"><span class="name">ResourceMetadata</span></a><span class="tparams">[<span name="T">T</span>]</span><span class="result"> extends <a href="https://www.scala-lang.org/api/2.12.12/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.client.model.TypedWatchEvent" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Resource metadata typeclass</p><div class="fullcomment"><div class="comment cmt"><p>Resource metadata typeclass</p></div><dl class="paramcmts block"><dt class="tparam">T</dt><dd class="cmt"><p>Resource type</p></dd></dl></div>
+    </li><li name="com.coralogix.zio.k8s.client.model.TypedWatchEvent" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="TypedWatchEvent[+T]extendsAnyRef"></a><a id="TypedWatchEvent[+T]:TypedWatchEvent[T]"></a>
       <span class="permalink">
       <a href="../../../../../../com/coralogix/zio/k8s/client/model/TypedWatchEvent.html" title="Permalink">
@@ -1281,10 +1315,10 @@
         <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <a title="" href="TypedWatchEvent.html"><span class="name">TypedWatchEvent</span></a><span class="tparams">[<span name="T">+T</span>]</span><span class="result"> extends <a href="https://www.scala-lang.org/api/2.12.12/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
+        <a title="Watch events with decoded payload" href="TypedWatchEvent.html"><span class="name">TypedWatchEvent</span></a><span class="tparams">[<span name="T">+T</span>]</span><span class="result"> extends <a href="https://www.scala-lang.org/api/2.12.12/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
       </span>
       
-      
+      <p class="shortcomment cmt">Watch events with decoded payload</p><div class="fullcomment"><div class="comment cmt"><p>Watch events with decoded payload</p></div><dl class="paramcmts block"><dt class="tparam">T</dt><dd class="cmt"><p>Watched resource type</p></dd></dl></div>
     </li></ol>
             </div>
 
@@ -1308,7 +1342,9 @@
         <span class="name">field</span><span class="params">(<span name="raw">raw: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result">: <a href="#FieldextendsAnyRef" class="extmbr" name="com.coralogix.zio.k8s.client.model.FieldSelector.Syntax.Field">Field</a></span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="FieldSelector$$Syntax.html" class="extype" name="com.coralogix.zio.k8s.client.model.FieldSelector.Syntax">Syntax</a></dd></dl></div>
+      <p class="shortcomment cmt">Field constructor, used by the generated companion objects
+</p><div class="fullcomment"><div class="comment cmt"><p>Field constructor, used by the generated companion objects
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="FieldSelector$$Syntax.html" class="extype" name="com.coralogix.zio.k8s.client.model.FieldSelector.Syntax">Syntax</a></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.client.model.FieldSelector.Syntax#field" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="field(path:zio.Chunk[String]):Syntax.this.Field"></a><a id="field(Chunk[String]):Field"></a>
       <span class="permalink">
@@ -1324,7 +1360,9 @@
         <span class="name">field</span><span class="params">(<span name="path">path: <a href="https://javadoc.io/page/dev.zio/zio_2.12/1.0.4-2/zio/Chunk.html#zio.Chunk" class="extype" name="zio.Chunk">Chunk</a>[<span class="extype" name="scala.Predef.String">String</span>]</span>)</span><span class="result">: <a href="#FieldextendsAnyRef" class="extmbr" name="com.coralogix.zio.k8s.client.model.FieldSelector.Syntax.Field">Field</a></span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="FieldSelector$$Syntax.html" class="extype" name="com.coralogix.zio.k8s.client.model.FieldSelector.Syntax">Syntax</a></dd></dl></div>
+      <p class="shortcomment cmt">Field constructor, used by the generated companion objects
+</p><div class="fullcomment"><div class="comment cmt"><p>Field constructor, used by the generated companion objects
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="FieldSelector$$Syntax.html" class="extype" name="com.coralogix.zio.k8s.client.model.FieldSelector.Syntax">Syntax</a></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.client.model.LabelSelector.Syntax#label" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="label(label:String):Syntax.this.Label"></a><a id="label(String):Label"></a>
       <span class="permalink">
@@ -1340,7 +1378,9 @@
         <span class="name">label</span><span class="params">(<span name="label">label: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result">: <a href="#LabelextendsAnyRef" class="extmbr" name="com.coralogix.zio.k8s.client.model.LabelSelector.Syntax.Label">Label</a></span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="LabelSelector$$Syntax.html" class="extype" name="com.coralogix.zio.k8s.client.model.LabelSelector.Syntax">Syntax</a></dd></dl></div>
+      <p class="shortcomment cmt">Defines a label
+</p><div class="fullcomment"><div class="comment cmt"><p>Defines a label
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="LabelSelector$$Syntax.html" class="extype" name="com.coralogix.zio.k8s.client.model.LabelSelector.Syntax">Syntax</a></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.client.model.FieldSelector" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="FieldSelector"></a><a id="FieldSelector:FieldSelector"></a>
       <span class="permalink">
@@ -1513,10 +1553,11 @@
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a title="" href="Reseted$.html"><span class="name">Reseted</span></a><span class="result"> extends <a href="TypedWatchEvent.html" class="extype" name="com.coralogix.zio.k8s.client.model.TypedWatchEvent">TypedWatchEvent</a>[<a href="https://www.scala-lang.org/api/2.12.12/scala/Nothing.html#scala.Nothing" class="extype" name="scala.Nothing">Nothing</a>] with <a href="https://www.scala-lang.org/api/2.12.12/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a> with <a href="https://www.scala-lang.org/api/2.12.12/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+        <a title="Watch stream reseted" href="Reseted$.html"><span class="name">Reseted</span></a><span class="result"> extends <a href="TypedWatchEvent.html" class="extype" name="com.coralogix.zio.k8s.client.model.TypedWatchEvent">TypedWatchEvent</a>[<a href="https://www.scala-lang.org/api/2.12.12/scala/Nothing.html#scala.Nothing" class="extype" name="scala.Nothing">Nothing</a>] with <a href="https://www.scala-lang.org/api/2.12.12/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a> with <a href="https://www.scala-lang.org/api/2.12.12/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
       </span>
       
-      
+      <p class="shortcomment cmt">Watch stream reseted
+</p>
     </li>
               </ol>
             </div>

@@ -577,7 +577,7 @@
                 <span class="name">@HotSpotIntrinsicCandidate</span><span class="args">()</span>
               
         </dd></dl></div>
-    </li><li name="com.coralogix.zio.k8s.model.flowcontrol.v1alpha1.NonResourcePolicyRule#getNonResourceURLs" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="com.coralogix.zio.k8s.model.flowcontrol.v1alpha1.NonResourcePolicyRule#getNonResourceURLs" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getNonResourceURLs:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Vector[String]]"></a><a id="getNonResourceURLs:IO[K8sFailure,Vector[String]]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/flowcontrol/v1alpha1/NonResourcePolicyRule.html#getNonResourceURLs:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Vector[String]]" title="Permalink">
@@ -592,8 +592,10 @@
         <span class="name">getNonResourceURLs</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.model.flowcontrol.v1alpha1.NonResourcePolicyRule#getVerbs" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt"><code>nonResourceURLs</code> is a set of url prefixes that a user should have access to and may not be empty.</p><div class="fullcomment"><div class="comment cmt"><p><code>nonResourceURLs</code> is a set of url prefixes that a user should have access to and may not be empty. For example:</p><ul><li>&quot;/healthz&quot; is legal</li><li>&quot;/hea*&quot; is illegal</li><li>&quot;/hea&quot; is legal but matches nothing</li><li>&quot;/hea&#47;*&quot; also matches nothing</li><li>&quot;/healthz&#47;*&quot; matches all per-component health checks.
+&quot;*&quot; matches all non-resource urls. if it is present, it must be the only entry. Required.</li></ul><p>This effect always succeeds, it is safe to use the field <a href="#nonResourceURLs:Vector[String]" class="extmbr" name="com.coralogix.zio.k8s.model.flowcontrol.v1alpha1.NonResourcePolicyRule#nonResourceURLs">nonResourceURLs</a> directly.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.flowcontrol.v1alpha1.NonResourcePolicyRule#getVerbs" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getVerbs:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Vector[String]]"></a><a id="getVerbs:IO[K8sFailure,Vector[String]]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/flowcontrol/v1alpha1/NonResourcePolicyRule.html#getVerbs:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Vector[String]]" title="Permalink">
@@ -608,7 +610,8 @@
         <span class="name">getVerbs</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]]</span>
       </span>
       
-      
+      <p class="shortcomment cmt"><code>verbs</code> is a list of matching verbs and may not be empty.</p><div class="fullcomment"><div class="comment cmt"><p><code>verbs</code> is a list of matching verbs and may not be empty. &quot;*&quot; matches all verbs. If it is present, it must be the only entry. Required.</p><p>This effect always succeeds, it is safe to use the field <a href="#verbs:Vector[String]" class="extmbr" name="com.coralogix.zio.k8s.model.flowcontrol.v1alpha1.NonResourcePolicyRule#verbs">verbs</a> directly.
+</p></div></div>
     </li><li name="scala.Any#isInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isInstanceOf[T0]:Boolean"></a>
       <span class="permalink">

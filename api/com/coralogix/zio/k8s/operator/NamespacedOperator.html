@@ -155,12 +155,12 @@
                         <a href="ClusterOperator.html" title="">ClusterOperator</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
-                        <a class="class" href="KubernetesFailure.html" title=""></a>
-                        <a href="KubernetesFailure.html" title="">KubernetesFailure</a>
+                        <a class="class" href="KubernetesFailure.html" title="Operator failed with a Kubernetes error"></a>
+                        <a href="KubernetesFailure.html" title="Operator failed with a Kubernetes error">KubernetesFailure</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
-                        <a class="object" href="Leader$.html" title=""></a>
-                        <a href="Leader$.html" title="">Leader</a>
+                        <a class="object" href="Leader$.html" title="Simple leader election implementation"></a>
+                        <a href="Leader$.html" title="Simple leader election implementation">Leader</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
                         <a class="class" href="" title=""></a>
@@ -171,20 +171,20 @@
                         <a href="Operator.html" title="Core implementation of the operator logic.">Operator</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
-                        <a class="class" href="OperatorError.html" title=""></a>
-                        <a href="OperatorError.html" title="">OperatorError</a>
+                        <a class="class" href="OperatorError.html" title="Operator failed with an application-specific error"></a>
+                        <a href="OperatorError.html" title="Operator failed with an application-specific error">OperatorError</a>
                       </li><li class="current-entities indented5">
                         <a class="object" href="OperatorFailure$.html" title=""></a>
-                        <a class="trait" href="OperatorFailure.html" title=""></a>
-                        <a href="OperatorFailure.html" title="">OperatorFailure</a>
+                        <a class="trait" href="OperatorFailure.html" title="Operator failure type"></a>
+                        <a href="OperatorFailure.html" title="Operator failure type">OperatorFailure</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
                         <a class="object" href="OperatorLogging$.html" title=""></a>
                         <a href="OperatorLogging$.html" title="">OperatorLogging</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
-                        <a class="object" href="Registration$.html" title=""></a>
-                        <a href="Registration$.html" title="">Registration</a>
+                        <a class="object" href="Registration$.html" title="Registers CRD objects"></a>
+                        <a href="Registration$.html" title="Registers CRD objects">Registration</a>
                       </li>
               </ul>
             </div>
@@ -516,7 +516,9 @@
         <span class="name">mapEventProcessor</span><span class="tparams">[<span name="R1">R1</span>, <span name="E1">E1</span>]</span><span class="params">(<span name="f">f: (<a href="https://javadoc.io/page/dev.zio/zio_2.12/1.0.4-2/zio/ZIO.html#zio.ZIO" class="extype" name="zio.ZIO">ZIO</a>[<span class="extype" name="com.coralogix.zio.k8s.operator.NamespacedOperator.R">R</span>, <a href="OperatorFailure.html" class="extype" name="com.coralogix.zio.k8s.operator.OperatorFailure">OperatorFailure</a>[<span class="extype" name="com.coralogix.zio.k8s.operator.NamespacedOperator.E">E</span>], <a href="https://www.scala-lang.org/api/2.12.12/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a>]) ⇒ <a href="https://javadoc.io/page/dev.zio/zio_2.12/1.0.4-2/zio/ZIO.html#zio.ZIO" class="extype" name="zio.ZIO">ZIO</a>[<span class="extype" name="com.coralogix.zio.k8s.operator.NamespacedOperator.mapEventProcessor.R1">R1</span>, <a href="OperatorFailure.html" class="extype" name="com.coralogix.zio.k8s.operator.OperatorFailure">OperatorFailure</a>[<span class="extype" name="com.coralogix.zio.k8s.operator.NamespacedOperator.mapEventProcessor.E1">E1</span>], <a href="https://www.scala-lang.org/api/2.12.12/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a>]</span>)</span><span class="result">: <a href="Operator.html" class="extype" name="com.coralogix.zio.k8s.operator.Operator">Operator</a>[<span class="extype" name="com.coralogix.zio.k8s.operator.NamespacedOperator.mapEventProcessor.R1">R1</span>, <span class="extype" name="com.coralogix.zio.k8s.operator.NamespacedOperator.mapEventProcessor.E1">E1</span>, <span class="extype" name="com.coralogix.zio.k8s.operator.NamespacedOperator.T">T</span>]</span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="com.coralogix.zio.k8s.operator.NamespacedOperator">NamespacedOperator</a> → <a href="Operator.html" class="extype" name="com.coralogix.zio.k8s.operator.Operator">Operator</a></dd></dl></div>
+      <p class="shortcomment cmt">Modify the operator's event processor with the given function
+</p><div class="fullcomment"><div class="comment cmt"><p>Modify the operator's event processor with the given function
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="com.coralogix.zio.k8s.operator.NamespacedOperator">NamespacedOperator</a> → <a href="Operator.html" class="extype" name="com.coralogix.zio.k8s.operator.Operator">Operator</a></dd></dl></div>
     </li><li name="scala.AnyRef#ne" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="ne(x$1:AnyRef):Boolean"></a><a id="ne(AnyRef):Boolean"></a>
       <span class="permalink">
@@ -606,7 +608,9 @@
         <span class="name">provide</span><span class="params">(<span name="r">r: <span class="extype" name="com.coralogix.zio.k8s.operator.NamespacedOperator.R">R</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="ev">ev: <a href="https://javadoc.io/page/dev.zio/zio_2.12/1.0.4-2/zio/NeedsEnv.html#zio.NeedsEnv" class="extype" name="zio.NeedsEnv">NeedsEnv</a>[<span class="extype" name="com.coralogix.zio.k8s.operator.NamespacedOperator.R">R</span>]</span>)</span><span class="result">: <a href="Operator.html" class="extype" name="com.coralogix.zio.k8s.operator.Operator">Operator</a>[<a href="https://www.scala-lang.org/api/2.12.12/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a>, <span class="extype" name="com.coralogix.zio.k8s.operator.NamespacedOperator.E">E</span>, <span class="extype" name="com.coralogix.zio.k8s.operator.NamespacedOperator.T">T</span>]</span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="Operator.html" class="extype" name="com.coralogix.zio.k8s.operator.Operator">Operator</a></dd></dl></div>
+      <p class="shortcomment cmt">Provide the required environment for the operator
+</p><div class="fullcomment"><div class="comment cmt"><p>Provide the required environment for the operator
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="Operator.html" class="extype" name="com.coralogix.zio.k8s.operator.Operator">Operator</a></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.operator.Operator#provideCustomLayer" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="provideCustomLayer[E1&gt;:E,R1&lt;:zio.Has[_]](layer:zio.ZLayer[zio.ZEnv,com.coralogix.zio.k8s.operator.OperatorFailure[E1],R1])(implicitev:zio.ZEnvwithR1&lt;:&lt;R,implicittagged:izumi.reflect.Tag[R1]):com.coralogix.zio.k8s.operator.Operator[zio.ZEnv,E1,T]"></a><a id="provideCustomLayer[E1&gt;:E,R1&lt;:Has[_]](ZLayer[zio.ZEnv,OperatorFailure[E1],R1])(&lt;:&lt;[zio.ZEnvwithR1,R],Tag[R1]):Operator[zio.ZEnv,E1,T]"></a>
       <span class="permalink">
@@ -622,7 +626,9 @@
         <span class="name">provideCustomLayer</span><span class="tparams">[<span name="E1">E1 &gt;: <span class="extype" name="com.coralogix.zio.k8s.operator.NamespacedOperator.E">E</span></span>, <span name="R1">R1 &lt;: <a href="https://javadoc.io/page/dev.zio/zio_2.12/1.0.4-2/zio/Has.html#zio.Has" class="extype" name="zio.Has">Has</a>[_]</span>]</span><span class="params">(<span name="layer">layer: <a href="https://javadoc.io/page/dev.zio/zio_2.12/1.0.4-2/zio/ZLayer.html#zio.ZLayer" class="extype" name="zio.ZLayer">ZLayer</a>[<a href="../../../../../zio/index.html#ZEnv=zio.clock.Clockwithzio.console.Consolewithzio.system.Systemwithzio.random.Randomwithzio.blocking.Blocking" class="extmbr" name="zio.ZEnv">zio.ZEnv</a>, <a href="OperatorFailure.html" class="extype" name="com.coralogix.zio.k8s.operator.OperatorFailure">OperatorFailure</a>[<span class="extype" name="com.coralogix.zio.k8s.operator.Operator.provideCustomLayer.E1">E1</span>], <span class="extype" name="com.coralogix.zio.k8s.operator.Operator.provideCustomLayer.R1">R1</span>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="ev">ev: <span class="extype" name="scala.Predef.&lt;:&lt;">&lt;:&lt;</span>[<a href="../../../../../zio/index.html#ZEnv=zio.clock.Clockwithzio.console.Consolewithzio.system.Systemwithzio.random.Randomwithzio.blocking.Blocking" class="extmbr" name="zio.ZEnv">zio.ZEnv</a> with <span class="extype" name="com.coralogix.zio.k8s.operator.Operator.provideCustomLayer.R1">R1</span>, <span class="extype" name="com.coralogix.zio.k8s.operator.NamespacedOperator.R">R</span>]</span>, <span name="tagged">tagged: <a href="https://javadoc.io/page/dev.zio/izumi-reflect_2.12/1.0.0-M13/izumi/reflect/Tag.html#izumi.reflect.Tag" class="extype" name="izumi.reflect.Tag">Tag</a>[<span class="extype" name="com.coralogix.zio.k8s.operator.Operator.provideCustomLayer.R1">R1</span>]</span>)</span><span class="result">: <a href="Operator.html" class="extype" name="com.coralogix.zio.k8s.operator.Operator">Operator</a>[<a href="../../../../../zio/index.html#ZEnv=zio.clock.Clockwithzio.console.Consolewithzio.system.Systemwithzio.random.Randomwithzio.blocking.Blocking" class="extmbr" name="zio.ZEnv">zio.ZEnv</a>, <span class="extype" name="com.coralogix.zio.k8s.operator.Operator.provideCustomLayer.E1">E1</span>, <span class="extype" name="com.coralogix.zio.k8s.operator.NamespacedOperator.T">T</span>]</span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="Operator.html" class="extype" name="com.coralogix.zio.k8s.operator.Operator">Operator</a></dd></dl></div>
+      <p class="shortcomment cmt">Provide the required environment for the operator with a layer on top of the standard ones
+</p><div class="fullcomment"><div class="comment cmt"><p>Provide the required environment for the operator with a layer on top of the standard ones
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="Operator.html" class="extype" name="com.coralogix.zio.k8s.operator.Operator">Operator</a></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.operator.Operator#provideLayer" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="provideLayer[E1&gt;:E,R0,R1](layer:zio.ZLayer[R0,com.coralogix.zio.k8s.operator.OperatorFailure[E1],R1])(implicitev1:R1&lt;:&lt;R,implicitev2:zio.NeedsEnv[R]):com.coralogix.zio.k8s.operator.Operator[R0,E1,T]"></a><a id="provideLayer[E1&gt;:E,R0,R1](ZLayer[R0,OperatorFailure[E1],R1])(&lt;:&lt;[R1,R],NeedsEnv[R]):Operator[R0,E1,T]"></a>
       <span class="permalink">
@@ -638,7 +644,9 @@
         <span class="name">provideLayer</span><span class="tparams">[<span name="E1">E1 &gt;: <span class="extype" name="com.coralogix.zio.k8s.operator.NamespacedOperator.E">E</span></span>, <span name="R0">R0</span>, <span name="R1">R1</span>]</span><span class="params">(<span name="layer">layer: <a href="https://javadoc.io/page/dev.zio/zio_2.12/1.0.4-2/zio/ZLayer.html#zio.ZLayer" class="extype" name="zio.ZLayer">ZLayer</a>[<span class="extype" name="com.coralogix.zio.k8s.operator.Operator.provideLayer.R0">R0</span>, <a href="OperatorFailure.html" class="extype" name="com.coralogix.zio.k8s.operator.OperatorFailure">OperatorFailure</a>[<span class="extype" name="com.coralogix.zio.k8s.operator.Operator.provideLayer.E1">E1</span>], <span class="extype" name="com.coralogix.zio.k8s.operator.Operator.provideLayer.R1">R1</span>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="ev1">ev1: <span class="extype" name="scala.Predef.&lt;:&lt;">&lt;:&lt;</span>[<span class="extype" name="com.coralogix.zio.k8s.operator.Operator.provideLayer.R1">R1</span>, <span class="extype" name="com.coralogix.zio.k8s.operator.NamespacedOperator.R">R</span>]</span>, <span name="ev2">ev2: <a href="https://javadoc.io/page/dev.zio/zio_2.12/1.0.4-2/zio/NeedsEnv.html#zio.NeedsEnv" class="extype" name="zio.NeedsEnv">NeedsEnv</a>[<span class="extype" name="com.coralogix.zio.k8s.operator.NamespacedOperator.R">R</span>]</span>)</span><span class="result">: <a href="Operator.html" class="extype" name="com.coralogix.zio.k8s.operator.Operator">Operator</a>[<span class="extype" name="com.coralogix.zio.k8s.operator.Operator.provideLayer.R0">R0</span>, <span class="extype" name="com.coralogix.zio.k8s.operator.Operator.provideLayer.E1">E1</span>, <span class="extype" name="com.coralogix.zio.k8s.operator.NamespacedOperator.T">T</span>]</span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="Operator.html" class="extype" name="com.coralogix.zio.k8s.operator.Operator">Operator</a></dd></dl></div>
+      <p class="shortcomment cmt">Provide the required environment for the operator with a layer
+</p><div class="fullcomment"><div class="comment cmt"><p>Provide the required environment for the operator with a layer
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="Operator.html" class="extype" name="com.coralogix.zio.k8s.operator.Operator">Operator</a></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.operator.Operator#provideSome" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="provideSome[R0](f:R0=&gt;R)(implicitev:zio.NeedsEnv[R]):com.coralogix.zio.k8s.operator.Operator[R0,E,T]"></a><a id="provideSome[R0]((R0)⇒R)(NeedsEnv[R]):Operator[R0,E,T]"></a>
       <span class="permalink">
@@ -654,7 +662,9 @@
         <span class="name">provideSome</span><span class="tparams">[<span name="R0">R0</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="com.coralogix.zio.k8s.operator.Operator.provideSome.R0">R0</span>) ⇒ <span class="extype" name="com.coralogix.zio.k8s.operator.NamespacedOperator.R">R</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="ev">ev: <a href="https://javadoc.io/page/dev.zio/zio_2.12/1.0.4-2/zio/NeedsEnv.html#zio.NeedsEnv" class="extype" name="zio.NeedsEnv">NeedsEnv</a>[<span class="extype" name="com.coralogix.zio.k8s.operator.NamespacedOperator.R">R</span>]</span>)</span><span class="result">: <a href="Operator.html" class="extype" name="com.coralogix.zio.k8s.operator.Operator">Operator</a>[<span class="extype" name="com.coralogix.zio.k8s.operator.Operator.provideSome.R0">R0</span>, <span class="extype" name="com.coralogix.zio.k8s.operator.NamespacedOperator.E">E</span>, <span class="extype" name="com.coralogix.zio.k8s.operator.NamespacedOperator.T">T</span>]</span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="Operator.html" class="extype" name="com.coralogix.zio.k8s.operator.Operator">Operator</a></dd></dl></div>
+      <p class="shortcomment cmt">Provide a part of the required environment for the operator
+</p><div class="fullcomment"><div class="comment cmt"><p>Provide a part of the required environment for the operator
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="Operator.html" class="extype" name="com.coralogix.zio.k8s.operator.Operator">Operator</a></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.operator.Operator#provideSomeLayer" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="provideSomeLayer[R0&lt;:zio.Has[_]]:com.coralogix.zio.k8s.operator.Operator.ProvideSomeLayer[R0,R,E,T]"></a><a id="provideSomeLayer[R0&lt;:Has[_]]:ProvideSomeLayer[R0,R,E,T]"></a>
       <span class="permalink">
@@ -670,7 +680,9 @@
         <span class="name">provideSomeLayer</span><span class="tparams">[<span name="R0">R0 &lt;: <a href="https://javadoc.io/page/dev.zio/zio_2.12/1.0.4-2/zio/Has.html#zio.Has" class="extype" name="zio.Has">Has</a>[_]</span>]</span><span class="result">: <a href="Operator$$ProvideSomeLayer.html" class="extype" name="com.coralogix.zio.k8s.operator.Operator.ProvideSomeLayer">ProvideSomeLayer</a>[<span class="extype" name="com.coralogix.zio.k8s.operator.Operator.provideSomeLayer.R0">R0</span>, <span class="extype" name="com.coralogix.zio.k8s.operator.NamespacedOperator.R">R</span>, <span class="extype" name="com.coralogix.zio.k8s.operator.NamespacedOperator.E">E</span>, <span class="extype" name="com.coralogix.zio.k8s.operator.NamespacedOperator.T">T</span>]</span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="Operator.html" class="extype" name="com.coralogix.zio.k8s.operator.Operator">Operator</a></dd></dl></div>
+      <p class="shortcomment cmt">Provide parts of the required environment for the operator with a layer
+</p><div class="fullcomment"><div class="comment cmt"><p>Provide parts of the required environment for the operator with a layer
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="Operator.html" class="extype" name="com.coralogix.zio.k8s.operator.Operator">Operator</a></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.operator.Operator#start" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="start():zio.URIO[Rwithzio.clock.Clockwithzio.logging.Logging,zio.Fiber.Runtime[Nothing,Unit]]"></a><a id="start():URIO[RwithClockwithLogging,Runtime[Nothing,Unit]]"></a>
       <span class="permalink">

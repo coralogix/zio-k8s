@@ -479,7 +479,7 @@
                 <span class="name">@HotSpotIntrinsicCandidate</span><span class="args">()</span>
               
         </dd></dl></div>
-    </li><li name="com.coralogix.zio.k8s.model.batch.v1beta1.CronJobSpec#getConcurrencyPolicy" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="com.coralogix.zio.k8s.model.batch.v1beta1.CronJobSpec#getConcurrencyPolicy" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getConcurrencyPolicy:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]"></a><a id="getConcurrencyPolicy:IO[K8sFailure,String]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/batch/v1beta1/CronJobSpec.html#getConcurrencyPolicy:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]" title="Permalink">
@@ -494,8 +494,9 @@
         <span class="name">getConcurrencyPolicy</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.model.batch.v1beta1.CronJobSpec#getFailedJobsHistoryLimit" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Specifies how to treat concurrent executions of a Job.</p><div class="fullcomment"><div class="comment cmt"><p>Specifies how to treat concurrent executions of a Job. Valid values are: - &quot;Allow&quot; (default): allows CronJobs to run concurrently; - &quot;Forbid&quot;: forbids concurrent runs, skipping next run if previous run hasn't finished yet; - &quot;Replace&quot;: cancels currently running job and replaces it with a new one</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.batch.v1beta1.CronJobSpec#getFailedJobsHistoryLimit" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getFailedJobsHistoryLimit:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Int]"></a><a id="getFailedJobsHistoryLimit:IO[K8sFailure,Int]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/batch/v1beta1/CronJobSpec.html#getFailedJobsHistoryLimit:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Int]" title="Permalink">
@@ -510,8 +511,9 @@
         <span class="name">getFailedJobsHistoryLimit</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="https://www.scala-lang.org/api/2.12.12/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a>]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.model.batch.v1beta1.CronJobSpec#getJobTemplate" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">The number of failed finished jobs to retain.</p><div class="fullcomment"><div class="comment cmt"><p>The number of failed finished jobs to retain. This is a pointer to distinguish between explicit zero and not specified. Defaults to 1.</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.batch.v1beta1.CronJobSpec#getJobTemplate" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getJobTemplate:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.model.batch.v1beta1.JobTemplateSpec]"></a><a id="getJobTemplate:IO[K8sFailure,JobTemplateSpec]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/batch/v1beta1/CronJobSpec.html#getJobTemplate:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.model.batch.v1beta1.JobTemplateSpec]" title="Permalink">
@@ -526,8 +528,9 @@
         <span class="name">getJobTemplate</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="JobTemplateSpec.html" class="extype" name="com.coralogix.zio.k8s.model.batch.v1beta1.JobTemplateSpec">JobTemplateSpec</a>]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.model.batch.v1beta1.CronJobSpec#getSchedule" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Gets jobTemplate.</p><div class="fullcomment"><div class="comment cmt"><p>Gets jobTemplate.</p><p>This effect always succeeds, it is safe to use the field <a href="#jobTemplate:com.coralogix.zio.k8s.model.batch.v1beta1.JobTemplateSpec" class="extmbr" name="com.coralogix.zio.k8s.model.batch.v1beta1.CronJobSpec#jobTemplate">jobTemplate</a> directly.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.batch.v1beta1.CronJobSpec#getSchedule" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getSchedule:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]"></a><a id="getSchedule:IO[K8sFailure,String]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/batch/v1beta1/CronJobSpec.html#getSchedule:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]" title="Permalink">
@@ -542,8 +545,9 @@
         <span class="name">getSchedule</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.model.batch.v1beta1.CronJobSpec#getStartingDeadlineSeconds" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">The schedule in Cron format, see https://en.wikipedia.org/wiki/Cron.</p><div class="fullcomment"><div class="comment cmt"><p>The schedule in Cron format, see https://en.wikipedia.org/wiki/Cron.</p><p>This effect always succeeds, it is safe to use the field <a href="#schedule:String" class="extmbr" name="com.coralogix.zio.k8s.model.batch.v1beta1.CronJobSpec#schedule">schedule</a> directly.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.batch.v1beta1.CronJobSpec#getStartingDeadlineSeconds" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getStartingDeadlineSeconds:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Long]"></a><a id="getStartingDeadlineSeconds:IO[K8sFailure,Long]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/batch/v1beta1/CronJobSpec.html#getStartingDeadlineSeconds:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Long]" title="Permalink">
@@ -558,8 +562,9 @@
         <span class="name">getStartingDeadlineSeconds</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="https://www.scala-lang.org/api/2.12.12/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a>]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.model.batch.v1beta1.CronJobSpec#getSuccessfulJobsHistoryLimit" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Optional deadline in seconds for starting the job if it misses scheduled time for any reason.</p><div class="fullcomment"><div class="comment cmt"><p>Optional deadline in seconds for starting the job if it misses scheduled time for any reason.  Missed jobs executions will be counted as failed ones.</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.batch.v1beta1.CronJobSpec#getSuccessfulJobsHistoryLimit" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getSuccessfulJobsHistoryLimit:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Int]"></a><a id="getSuccessfulJobsHistoryLimit:IO[K8sFailure,Int]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/batch/v1beta1/CronJobSpec.html#getSuccessfulJobsHistoryLimit:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Int]" title="Permalink">
@@ -574,8 +579,9 @@
         <span class="name">getSuccessfulJobsHistoryLimit</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="https://www.scala-lang.org/api/2.12.12/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a>]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.model.batch.v1beta1.CronJobSpec#getSuspend" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">The number of successful finished jobs to retain.</p><div class="fullcomment"><div class="comment cmt"><p>The number of successful finished jobs to retain. This is a pointer to distinguish between explicit zero and not specified. Defaults to 3.</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.batch.v1beta1.CronJobSpec#getSuspend" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getSuspend:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Boolean]"></a><a id="getSuspend:IO[K8sFailure,Boolean]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/batch/v1beta1/CronJobSpec.html#getSuspend:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Boolean]" title="Permalink">
@@ -590,7 +596,8 @@
         <span class="name">getSuspend</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="https://www.scala-lang.org/api/2.12.12/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a>]</span>
       </span>
       
-      
+      <p class="shortcomment cmt">This flag tells the controller to suspend subsequent executions, it does not apply to already started executions.</p><div class="fullcomment"><div class="comment cmt"><p>This flag tells the controller to suspend subsequent executions, it does not apply to already started executions.  Defaults to false.</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+</p></div></div>
     </li><li name="scala.Any#isInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isInstanceOf[T0]:Boolean"></a>
       <span class="permalink">

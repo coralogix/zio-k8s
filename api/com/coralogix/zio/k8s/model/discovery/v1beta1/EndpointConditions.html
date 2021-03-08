@@ -447,7 +447,7 @@
                 <span class="name">@HotSpotIntrinsicCandidate</span><span class="args">()</span>
               
         </dd></dl></div>
-    </li><li name="com.coralogix.zio.k8s.model.discovery.v1beta1.EndpointConditions#getReady" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="com.coralogix.zio.k8s.model.discovery.v1beta1.EndpointConditions#getReady" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getReady:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Boolean]"></a><a id="getReady:IO[K8sFailure,Boolean]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/discovery/v1beta1/EndpointConditions.html#getReady:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Boolean]" title="Permalink">
@@ -462,8 +462,9 @@
         <span class="name">getReady</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="https://www.scala-lang.org/api/2.12.12/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a>]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.model.discovery.v1beta1.EndpointConditions#getServing" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">ready indicates that this endpoint is prepared to receive traffic, according to whatever system is managing the endpoint.</p><div class="fullcomment"><div class="comment cmt"><p>ready indicates that this endpoint is prepared to receive traffic, according to whatever system is managing the endpoint. A nil value indicates an unknown state. In most cases consumers should interpret this unknown state as ready. For compatibility reasons, ready should never be &quot;true&quot; for terminating endpoints.</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.discovery.v1beta1.EndpointConditions#getServing" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getServing:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Boolean]"></a><a id="getServing:IO[K8sFailure,Boolean]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/discovery/v1beta1/EndpointConditions.html#getServing:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Boolean]" title="Permalink">
@@ -478,8 +479,9 @@
         <span class="name">getServing</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="https://www.scala-lang.org/api/2.12.12/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a>]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.model.discovery.v1beta1.EndpointConditions#getTerminating" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">serving is identical to ready except that it is set regardless of the terminating state of endpoints.</p><div class="fullcomment"><div class="comment cmt"><p>serving is identical to ready except that it is set regardless of the terminating state of endpoints. This condition should be set to true for a ready endpoint that is terminating. If nil, consumers should defer to the ready condition. This field can be enabled with the EndpointSliceTerminatingCondition feature gate.</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.discovery.v1beta1.EndpointConditions#getTerminating" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getTerminating:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Boolean]"></a><a id="getTerminating:IO[K8sFailure,Boolean]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/discovery/v1beta1/EndpointConditions.html#getTerminating:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Boolean]" title="Permalink">
@@ -494,7 +496,8 @@
         <span class="name">getTerminating</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="https://www.scala-lang.org/api/2.12.12/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a>]</span>
       </span>
       
-      
+      <p class="shortcomment cmt">terminating indicates that this endpoint is terminating.</p><div class="fullcomment"><div class="comment cmt"><p>terminating indicates that this endpoint is terminating. A nil value indicates an unknown state. Consumers should interpret this unknown state to mean that the endpoint is not terminating. This field can be enabled with the EndpointSliceTerminatingCondition feature gate.</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+</p></div></div>
     </li><li name="scala.Any#isInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isInstanceOf[T0]:Boolean"></a>
       <span class="permalink">

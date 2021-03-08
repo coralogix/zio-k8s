@@ -599,7 +599,7 @@
                 <span class="name">@HotSpotIntrinsicCandidate</span><span class="args">()</span>
               
         </dd></dl></div>
-    </li><li name="com.coralogix.zio.k8s.model.apps.v1.DeploymentSpec#getMinReadySeconds" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="com.coralogix.zio.k8s.model.apps.v1.DeploymentSpec#getMinReadySeconds" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getMinReadySeconds:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Int]"></a><a id="getMinReadySeconds:IO[K8sFailure,Int]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/apps/v1/DeploymentSpec.html#getMinReadySeconds:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Int]" title="Permalink">
@@ -614,8 +614,9 @@
         <span class="name">getMinReadySeconds</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="https://www.scala-lang.org/api/2.12.12/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a>]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.model.apps.v1.DeploymentSpec#getPaused" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Minimum number of seconds for which a newly created pod should be ready without any of its container crashing, for it to be considered available.</p><div class="fullcomment"><div class="comment cmt"><p>Minimum number of seconds for which a newly created pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.apps.v1.DeploymentSpec#getPaused" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getPaused:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Boolean]"></a><a id="getPaused:IO[K8sFailure,Boolean]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/apps/v1/DeploymentSpec.html#getPaused:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Boolean]" title="Permalink">
@@ -630,8 +631,9 @@
         <span class="name">getPaused</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="https://www.scala-lang.org/api/2.12.12/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a>]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.model.apps.v1.DeploymentSpec#getProgressDeadlineSeconds" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Indicates that the deployment is paused.</p><div class="fullcomment"><div class="comment cmt"><p>Indicates that the deployment is paused.</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.apps.v1.DeploymentSpec#getProgressDeadlineSeconds" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getProgressDeadlineSeconds:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Int]"></a><a id="getProgressDeadlineSeconds:IO[K8sFailure,Int]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/apps/v1/DeploymentSpec.html#getProgressDeadlineSeconds:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Int]" title="Permalink">
@@ -646,8 +648,9 @@
         <span class="name">getProgressDeadlineSeconds</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="https://www.scala-lang.org/api/2.12.12/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a>]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.model.apps.v1.DeploymentSpec#getReplicas" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">The maximum time in seconds for a deployment to make progress before it is considered to be failed.</p><div class="fullcomment"><div class="comment cmt"><p>The maximum time in seconds for a deployment to make progress before it is considered to be failed. The deployment controller will continue to process failed deployments and a condition with a ProgressDeadlineExceeded reason will be surfaced in the deployment status. Note that progress will not be estimated during the time a deployment is paused. Defaults to 600s.</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.apps.v1.DeploymentSpec#getReplicas" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getReplicas:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Int]"></a><a id="getReplicas:IO[K8sFailure,Int]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/apps/v1/DeploymentSpec.html#getReplicas:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Int]" title="Permalink">
@@ -662,8 +665,9 @@
         <span class="name">getReplicas</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="https://www.scala-lang.org/api/2.12.12/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a>]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.model.apps.v1.DeploymentSpec#getRevisionHistoryLimit" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Number of desired pods.</p><div class="fullcomment"><div class="comment cmt"><p>Number of desired pods. This is a pointer to distinguish between explicit zero and not specified. Defaults to 1.</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.apps.v1.DeploymentSpec#getRevisionHistoryLimit" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getRevisionHistoryLimit:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Int]"></a><a id="getRevisionHistoryLimit:IO[K8sFailure,Int]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/apps/v1/DeploymentSpec.html#getRevisionHistoryLimit:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Int]" title="Permalink">
@@ -678,8 +682,9 @@
         <span class="name">getRevisionHistoryLimit</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="https://www.scala-lang.org/api/2.12.12/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a>]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.model.apps.v1.DeploymentSpec#getSelector" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">The number of old ReplicaSets to retain to allow rollback.</p><div class="fullcomment"><div class="comment cmt"><p>The number of old ReplicaSets to retain to allow rollback. This is a pointer to distinguish between explicit zero and not specified. Defaults to 10.</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.apps.v1.DeploymentSpec#getSelector" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getSelector:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.model.pkg.apis.meta.v1.LabelSelector]"></a><a id="getSelector:IO[K8sFailure,LabelSelector]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/apps/v1/DeploymentSpec.html#getSelector:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.model.pkg.apis.meta.v1.LabelSelector]" title="Permalink">
@@ -694,8 +699,9 @@
         <span class="name">getSelector</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="../../pkg/apis/meta/v1/LabelSelector.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.LabelSelector">LabelSelector</a>]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.model.apps.v1.DeploymentSpec#getStrategy" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Gets selector.</p><div class="fullcomment"><div class="comment cmt"><p>Gets selector.</p><p>This effect always succeeds, it is safe to use the field <a href="#selector:com.coralogix.zio.k8s.model.pkg.apis.meta.v1.LabelSelector" class="extmbr" name="com.coralogix.zio.k8s.model.apps.v1.DeploymentSpec#selector">selector</a> directly.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.apps.v1.DeploymentSpec#getStrategy" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getStrategy:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.model.apps.v1.DeploymentStrategy]"></a><a id="getStrategy:IO[K8sFailure,DeploymentStrategy]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/apps/v1/DeploymentSpec.html#getStrategy:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.model.apps.v1.DeploymentStrategy]" title="Permalink">
@@ -710,8 +716,9 @@
         <span class="name">getStrategy</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="DeploymentStrategy.html" class="extype" name="com.coralogix.zio.k8s.model.apps.v1.DeploymentStrategy">DeploymentStrategy</a>]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.model.apps.v1.DeploymentSpec#getTemplate" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Gets strategy.</p><div class="fullcomment"><div class="comment cmt"><p>Gets strategy.</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.apps.v1.DeploymentSpec#getTemplate" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getTemplate:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.model.core.v1.PodTemplateSpec]"></a><a id="getTemplate:IO[K8sFailure,PodTemplateSpec]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/apps/v1/DeploymentSpec.html#getTemplate:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.model.core.v1.PodTemplateSpec]" title="Permalink">
@@ -726,7 +733,8 @@
         <span class="name">getTemplate</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="../../core/v1/PodTemplateSpec.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.PodTemplateSpec">PodTemplateSpec</a>]</span>
       </span>
       
-      
+      <p class="shortcomment cmt">Gets template.</p><div class="fullcomment"><div class="comment cmt"><p>Gets template.</p><p>This effect always succeeds, it is safe to use the field <a href="#template:com.coralogix.zio.k8s.model.core.v1.PodTemplateSpec" class="extmbr" name="com.coralogix.zio.k8s.model.apps.v1.DeploymentSpec#template">template</a> directly.
+</p></div></div>
     </li><li name="scala.Any#isInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isInstanceOf[T0]:Boolean"></a>
       <span class="permalink">

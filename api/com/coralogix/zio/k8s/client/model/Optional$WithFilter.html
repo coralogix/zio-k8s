@@ -177,10 +177,13 @@
         <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <a title="" href="Optional.html"><span class="name">Optional</span></a><span class="tparams">[<span name="A">+A</span>]</span><span class="result"> extends <a href="https://www.scala-lang.org/api/2.12.12/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
+        <a title="Custom option type used in the generated Kubernetes data models." href="Optional.html"><span class="name">Optional</span></a><span class="tparams">[<span name="A">+A</span>]</span><span class="result"> extends <a href="https://www.scala-lang.org/api/2.12.12/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="com.coralogix.zio.k8s.client.model">model</a></dd></dl></div>
+      <p class="shortcomment cmt">Custom option type used in the generated Kubernetes data models.</p><div class="fullcomment"><div class="comment cmt"><p>Custom option type used in the generated Kubernetes data models.</p><p>Instances of Optional are either <a href="Optional$$Present.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional.Present">Optional.Present</a> or <a href="Optional$$Absent$.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional.Absent">Optional.Absent</a>.</p><p>The only difference between this type and <span class="extype" name="Option">Option</span> is that there is an implicit
+conversion defined from A to Optional[A], and from Option[A] to Optional[A].</p><p>This allows boilerplate-free definition of Kubernetes resources where most of the
+fields are optional.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="com.coralogix.zio.k8s.client.model">model</a></dd></dl></div>
     </li><li class="current-entities indented7">
                         <span class="separator"></span>
                         <a class="class" href="" title=""></a>

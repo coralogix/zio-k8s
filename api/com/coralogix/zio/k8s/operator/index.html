@@ -177,10 +177,12 @@
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="" href="../monocle/index.html"><span class="name">monocle</span></a>
+        <a title="Provides support for Monocle for the Kubernetes data models" href="../monocle/index.html"><span class="name">monocle</span></a>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="com.coralogix.zio.k8s">k8s</a></dd></dl></div>
+      <p class="shortcomment cmt">Provides support for Monocle for the Kubernetes data models</p><div class="fullcomment"><div class="comment cmt"><p>Provides support for Monocle for the Kubernetes data models</p><p>This package contains objects for all Kubernetes resource data models with
+<span class="extype" name="Lens">Lens</span> and <span class="extype" name="Optional">Optional</span> optics for all their fields.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="com.coralogix.zio.k8s">k8s</a></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.operator" visbl="pub" class="indented5 current" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="operator"></a><a id="operator:operator"></a>
       <span class="permalink">
@@ -203,12 +205,12 @@
                         <a href="ClusterOperator.html" title="">ClusterOperator</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
-                        <a class="class" href="KubernetesFailure.html" title=""></a>
-                        <a href="KubernetesFailure.html" title="">KubernetesFailure</a>
+                        <a class="class" href="KubernetesFailure.html" title="Operator failed with a Kubernetes error"></a>
+                        <a href="KubernetesFailure.html" title="Operator failed with a Kubernetes error">KubernetesFailure</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
-                        <a class="object" href="Leader$.html" title=""></a>
-                        <a href="Leader$.html" title="">Leader</a>
+                        <a class="object" href="Leader$.html" title="Simple leader election implementation"></a>
+                        <a href="Leader$.html" title="Simple leader election implementation">Leader</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
                         <a class="class" href="NamespacedOperator.html" title=""></a>
@@ -219,20 +221,20 @@
                         <a href="Operator.html" title="Core implementation of the operator logic.">Operator</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
-                        <a class="class" href="OperatorError.html" title=""></a>
-                        <a href="OperatorError.html" title="">OperatorError</a>
+                        <a class="class" href="OperatorError.html" title="Operator failed with an application-specific error"></a>
+                        <a href="OperatorError.html" title="Operator failed with an application-specific error">OperatorError</a>
                       </li><li class="current-entities indented5">
                         <a class="object" href="OperatorFailure$.html" title=""></a>
-                        <a class="trait" href="OperatorFailure.html" title=""></a>
-                        <a href="OperatorFailure.html" title="">OperatorFailure</a>
+                        <a class="trait" href="OperatorFailure.html" title="Operator failure type"></a>
+                        <a href="OperatorFailure.html" title="Operator failure type">OperatorFailure</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
                         <a class="object" href="OperatorLogging$.html" title=""></a>
                         <a href="OperatorLogging$.html" title="">OperatorLogging</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
-                        <a class="object" href="Registration$.html" title=""></a>
-                        <a href="Registration$.html" title="">Registration</a>
+                        <a class="object" href="Registration$.html" title="Registers CRD objects"></a>
+                        <a href="Registration$.html" title="Registers CRD objects">Registration</a>
                       </li>
               </ul>
             </div>
@@ -324,10 +326,11 @@
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a title="" href="KubernetesFailure.html"><span class="name">KubernetesFailure</span></a><span class="params">(<span name="failure">failure: <a href="../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a></span>)</span><span class="result"> extends <a href="OperatorFailure.html" class="extype" name="com.coralogix.zio.k8s.operator.OperatorFailure">OperatorFailure</a>[<a href="https://www.scala-lang.org/api/2.12.12/scala/Nothing.html#scala.Nothing" class="extype" name="scala.Nothing">Nothing</a>] with <a href="https://www.scala-lang.org/api/2.12.12/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a> with <a href="https://www.scala-lang.org/api/2.12.12/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+        <a title="Operator failed with a Kubernetes error" href="KubernetesFailure.html"><span class="name">KubernetesFailure</span></a><span class="params">(<span name="failure">failure: <a href="../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a></span>)</span><span class="result"> extends <a href="OperatorFailure.html" class="extype" name="com.coralogix.zio.k8s.operator.OperatorFailure">OperatorFailure</a>[<a href="https://www.scala-lang.org/api/2.12.12/scala/Nothing.html#scala.Nothing" class="extype" name="scala.Nothing">Nothing</a>] with <a href="https://www.scala-lang.org/api/2.12.12/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a> with <a href="https://www.scala-lang.org/api/2.12.12/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
       </span>
       
-      
+      <p class="shortcomment cmt">Operator failed with a Kubernetes error
+</p>
     </li><li name="com.coralogix.zio.k8s.operator.NamespacedOperator" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="NamespacedOperator[R,E,T]extendsOperator[R,E,T]"></a><a id="NamespacedOperator[R,E,T]:NamespacedOperator[R,E,T]"></a>
       <span class="permalink">
@@ -360,9 +363,9 @@
       </span>
       
       <p class="shortcomment cmt">Core implementation of the operator logic.</p><div class="fullcomment"><div class="comment cmt"><p>Core implementation of the operator logic.
-Watches a stream and calls an event processor.</p><p>An instance of this is tied to one particular resource type in one namespace.
+Watches a stream and calls an event processor.</p><p>An instance of this is tied to one particular resource type in one namespace.</p><p>Create an instance using either <span class="extype" name="Operator.namespaced()">Operator.namespaced()</span> or <span class="extype" name="Operator.cluster()">Operator.cluster()</span>
 </p></div></div>
-    </li><li name="com.coralogix.zio.k8s.operator.OperatorError" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="com.coralogix.zio.k8s.operator.OperatorError" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="OperatorError[E]extendsOperatorFailure[E]withProductwithSerializable"></a><a id="OperatorError[E]:OperatorError[E]"></a>
       <span class="permalink">
       <a href="../../../../../com/coralogix/zio/k8s/operator/OperatorError.html" title="Permalink">
@@ -374,11 +377,11 @@ Watches a stream and calls an event processor.</p><p>An instance of this is tied
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a title="" href="OperatorError.html"><span class="name">OperatorError</span></a><span class="tparams">[<span name="E">E</span>]</span><span class="params">(<span name="error">error: <span class="extype" name="com.coralogix.zio.k8s.operator.OperatorError.E">E</span></span>)</span><span class="result"> extends <a href="OperatorFailure.html" class="extype" name="com.coralogix.zio.k8s.operator.OperatorFailure">OperatorFailure</a>[<span class="extype" name="com.coralogix.zio.k8s.operator.OperatorError.E">E</span>] with <a href="https://www.scala-lang.org/api/2.12.12/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a> with <a href="https://www.scala-lang.org/api/2.12.12/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+        <a title="Operator failed with an application-specific error" href="OperatorError.html"><span class="name">OperatorError</span></a><span class="tparams">[<span name="E">E</span>]</span><span class="params">(<span name="error">error: <span class="extype" name="com.coralogix.zio.k8s.operator.OperatorError.E">E</span></span>)</span><span class="result"> extends <a href="OperatorFailure.html" class="extype" name="com.coralogix.zio.k8s.operator.OperatorFailure">OperatorFailure</a>[<span class="extype" name="com.coralogix.zio.k8s.operator.OperatorError.E">E</span>] with <a href="https://www.scala-lang.org/api/2.12.12/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a> with <a href="https://www.scala-lang.org/api/2.12.12/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.operator.OperatorFailure" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Operator failed with an application-specific error</p><div class="fullcomment"><div class="comment cmt"><p>Operator failed with an application-specific error</p></div><dl class="paramcmts block"><dt class="tparam">E</dt><dd class="cmt"><p>Operator-specific error type</p></dd></dl></div>
+    </li><li name="com.coralogix.zio.k8s.operator.OperatorFailure" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="OperatorFailure[+E]extendsAnyRef"></a><a id="OperatorFailure[+E]:OperatorFailure[E]"></a>
       <span class="permalink">
       <a href="../../../../../com/coralogix/zio/k8s/operator/OperatorFailure.html" title="Permalink">
@@ -390,10 +393,10 @@ Watches a stream and calls an event processor.</p><p>An instance of this is tied
         <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <a title="" href="OperatorFailure.html"><span class="name">OperatorFailure</span></a><span class="tparams">[<span name="E">+E</span>]</span><span class="result"> extends <a href="https://www.scala-lang.org/api/2.12.12/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
+        <a title="Operator failure type" href="OperatorFailure.html"><span class="name">OperatorFailure</span></a><span class="tparams">[<span name="E">+E</span>]</span><span class="result"> extends <a href="https://www.scala-lang.org/api/2.12.12/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
       </span>
       
-      
+      <p class="shortcomment cmt">Operator failure type</p><div class="fullcomment"><div class="comment cmt"><p>Operator failure type</p></div><dl class="paramcmts block"><dt class="tparam">E</dt><dd class="cmt"><p>Operator-specific error type</p></dd></dl></div>
     </li></ol>
             </div>
 
@@ -402,7 +405,7 @@ Watches a stream and calls an event processor.</p><p>An instance of this is tied
         <div class="values members">
               <h3>Value Members</h3>
               <ol>
-                <li name="com.coralogix.zio.k8s.operator.Leader" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+                <li name="com.coralogix.zio.k8s.operator.Leader" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="Leader"></a><a id="Leader:Leader"></a>
       <span class="permalink">
       <a href="../../../../../com/coralogix/zio/k8s/operator/Leader$.html" title="Permalink">
@@ -414,10 +417,15 @@ Watches a stream and calls an event processor.</p><p>An instance of this is tied
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a title="" href="Leader$.html"><span class="name">Leader</span></a>
+        <a title="Simple leader election implementation" href="Leader$.html"><span class="name">Leader</span></a>
       </span>
       
-      
+      <p class="shortcomment cmt">Simple leader election implementation</p><div class="fullcomment"><div class="comment cmt"><p>Simple leader election implementation</p><p>The algorithm tries creating a ConfigMap with a given name and attaches the Pod it
+is running in as an owner of the config map.</p><p>If the ConfigMap already exists the leader election fails and retries with exponential backoff.
+If it succeeds then it runs the inner effect.</p><p>When the code terminates normally the acquired ConfigMap gets released. If the whole Pod gets
+killed without releasing the resource, the registered ownership will make Kubernetes apply
+cascading deletion so eventually a new Pod can register the ConfigMap again.
+</p></div></div>
     </li><li name="com.coralogix.zio.k8s.operator.Operator" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="Operator"></a><a id="Operator:Operator"></a>
       <span class="permalink">
@@ -478,10 +486,11 @@ Watches a stream and calls an event processor.</p><p>An instance of this is tied
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a title="" href="Registration$.html"><span class="name">Registration</span></a>
+        <a title="Registers CRD objects" href="Registration$.html"><span class="name">Registration</span></a>
       </span>
       
-      
+      <p class="shortcomment cmt">Registers CRD objects
+</p>
     </li>
               </ol>
             </div>

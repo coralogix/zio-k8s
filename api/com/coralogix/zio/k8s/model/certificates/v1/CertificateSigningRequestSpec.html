@@ -515,7 +515,7 @@ Valid values are:
                 <span class="name">@HotSpotIntrinsicCandidate</span><span class="args">()</span>
               
         </dd></dl></div>
-    </li><li name="com.coralogix.zio.k8s.model.certificates.v1.CertificateSigningRequestSpec#getExtra" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="com.coralogix.zio.k8s.model.certificates.v1.CertificateSigningRequestSpec#getExtra" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getExtra:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Map[String,Vector[String]]]"></a><a id="getExtra:IO[K8sFailure,Map[String,Vector[String]]]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/certificates/v1/CertificateSigningRequestSpec.html#getExtra:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Map[String,Vector[String]]]" title="Permalink">
@@ -530,8 +530,9 @@ Valid values are:
         <span class="name">getExtra</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]]]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.model.certificates.v1.CertificateSigningRequestSpec#getGroups" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">extra contains extra attributes of the user that created the CertificateSigningRequest.</p><div class="fullcomment"><div class="comment cmt"><p>extra contains extra attributes of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.certificates.v1.CertificateSigningRequestSpec#getGroups" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getGroups:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Vector[String]]"></a><a id="getGroups:IO[K8sFailure,Vector[String]]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/certificates/v1/CertificateSigningRequestSpec.html#getGroups:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Vector[String]]" title="Permalink">
@@ -546,8 +547,9 @@ Valid values are:
         <span class="name">getGroups</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.model.certificates.v1.CertificateSigningRequestSpec#getRequest" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">groups contains group membership of the user that created the CertificateSigningRequest.</p><div class="fullcomment"><div class="comment cmt"><p>groups contains group membership of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.certificates.v1.CertificateSigningRequestSpec#getRequest" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getRequest:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,zio.Chunk[Byte]]"></a><a id="getRequest:IO[K8sFailure,Chunk[Byte]]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/certificates/v1/CertificateSigningRequestSpec.html#getRequest:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,zio.Chunk[Byte]]" title="Permalink">
@@ -562,8 +564,9 @@ Valid values are:
         <span class="name">getRequest</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="https://javadoc.io/page/dev.zio/zio_2.12/1.0.4-2/zio/Chunk.html#zio.Chunk" class="extype" name="zio.Chunk">Chunk</a>[<a href="https://www.scala-lang.org/api/2.12.12/scala/Byte.html#scala.Byte" class="extype" name="scala.Byte">Byte</a>]]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.model.certificates.v1.CertificateSigningRequestSpec#getSignerName" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">request contains an x509 certificate signing request encoded in a &quot;CERTIFICATE REQUEST&quot; PEM block.</p><div class="fullcomment"><div class="comment cmt"><p>request contains an x509 certificate signing request encoded in a &quot;CERTIFICATE REQUEST&quot; PEM block. When serialized as JSON or YAML, the data is additionally base64-encoded.</p><p>This effect always succeeds, it is safe to use the field <a href="#request:zio.Chunk[Byte]" class="extmbr" name="com.coralogix.zio.k8s.model.certificates.v1.CertificateSigningRequestSpec#request">request</a> directly.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.certificates.v1.CertificateSigningRequestSpec#getSignerName" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getSignerName:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]"></a><a id="getSignerName:IO[K8sFailure,String]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/certificates/v1/CertificateSigningRequestSpec.html#getSignerName:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]" title="Permalink">
@@ -578,8 +581,21 @@ Valid values are:
         <span class="name">getSignerName</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.model.certificates.v1.CertificateSigningRequestSpec#getUid" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">signerName indicates the requested signer, and is a qualified name.</p><div class="fullcomment"><div class="comment cmt"><p>signerName indicates the requested signer, and is a qualified name.</p><p>List/watch requests for CertificateSigningRequests can filter on this field using a &quot;spec.signerName=NAME&quot; fieldSelector.</p><p>Well-known Kubernetes signers are:
+1. &quot;kubernetes.io/kube-apiserver-client&quot;: issues client certificates that can be used to authenticate to kube-apiserver.
+ Requests for this signer are never auto-approved by kube-controller-manager, can be issued by the &quot;csrsigning&quot; controller in kube-controller-manager.
+2. &quot;kubernetes.io/kube-apiserver-client-kubelet&quot;: issues client certificates that kubelets use to authenticate to kube-apiserver.
+ Requests for this signer can be auto-approved by the &quot;csrapproving&quot; controller in kube-controller-manager, and can be issued by the &quot;csrsigning&quot; controller in kube-controller-manager.
+3. &quot;kubernetes.io/kubelet-serving&quot; issues serving certificates that kubelets use to serve TLS endpoints, which kube-apiserver can connect to securely.
+ Requests for this signer are never auto-approved by kube-controller-manager, and can be issued by the &quot;csrsigning&quot; controller in kube-controller-manager.</p><p>More details are available at https://k8s.io/docs/reference/access-authn-authz/certificate-signing-requests/#kubernetes-signers</p><p>Custom signerNames can also be specified. The signer defines:
+1. Trust distribution: how trust (CA bundles) are distributed.
+2. Permitted subjects: and behavior when a disallowed subject is requested.
+3. Required, permitted, or forbidden x509 extensions in the request (including whether subjectAltNames are allowed, which types, restrictions on allowed values) and behavior when a disallowed extension is requested.
+4. Required, permitted, or forbidden key usages / extended key usages.
+5. Expiration/certificate lifetime: whether it is fixed by the signer, configurable by the admin.
+6. Whether or not requests for CA certificates are allowed.</p><p>This effect always succeeds, it is safe to use the field <a href="#signerName:String" class="extmbr" name="com.coralogix.zio.k8s.model.certificates.v1.CertificateSigningRequestSpec#signerName">signerName</a> directly.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.certificates.v1.CertificateSigningRequestSpec#getUid" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getUid:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]"></a><a id="getUid:IO[K8sFailure,String]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/certificates/v1/CertificateSigningRequestSpec.html#getUid:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]" title="Permalink">
@@ -594,8 +610,9 @@ Valid values are:
         <span class="name">getUid</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.model.certificates.v1.CertificateSigningRequestSpec#getUsages" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">uid contains the uid of the user that created the CertificateSigningRequest.</p><div class="fullcomment"><div class="comment cmt"><p>uid contains the uid of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.certificates.v1.CertificateSigningRequestSpec#getUsages" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getUsages:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Vector[String]]"></a><a id="getUsages:IO[K8sFailure,Vector[String]]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/certificates/v1/CertificateSigningRequestSpec.html#getUsages:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Vector[String]]" title="Permalink">
@@ -610,8 +627,16 @@ Valid values are:
         <span class="name">getUsages</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.model.certificates.v1.CertificateSigningRequestSpec#getUsername" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">usages specifies a set of key usages requested in the issued certificate.</p><div class="fullcomment"><div class="comment cmt"><p>usages specifies a set of key usages requested in the issued certificate.</p><p>Requests for TLS client certificates typically request: &quot;digital signature&quot;, &quot;key encipherment&quot;, &quot;client auth&quot;.</p><p>Requests for TLS serving certificates typically request: &quot;key encipherment&quot;, &quot;digital signature&quot;, &quot;server auth&quot;.</p><p>Valid values are:
+&quot;signing&quot;, &quot;digital signature&quot;, &quot;content commitment&quot;,
+&quot;key encipherment&quot;, &quot;key agreement&quot;, &quot;data encipherment&quot;,
+&quot;cert sign&quot;, &quot;crl sign&quot;, &quot;encipher only&quot;, &quot;decipher only&quot;, &quot;any&quot;,
+&quot;server auth&quot;, &quot;client auth&quot;,
+&quot;code signing&quot;, &quot;email protection&quot;, &quot;s/mime&quot;,
+&quot;ipsec end system&quot;, &quot;ipsec tunnel&quot;, &quot;ipsec user&quot;,
+&quot;timestamping&quot;, &quot;ocsp signing&quot;, &quot;microsoft sgc&quot;, &quot;netscape sgc&quot;</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.certificates.v1.CertificateSigningRequestSpec#getUsername" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getUsername:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]"></a><a id="getUsername:IO[K8sFailure,String]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/certificates/v1/CertificateSigningRequestSpec.html#getUsername:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]" title="Permalink">
@@ -626,7 +651,8 @@ Valid values are:
         <span class="name">getUsername</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      
+      <p class="shortcomment cmt">username contains the name of the user that created the CertificateSigningRequest.</p><div class="fullcomment"><div class="comment cmt"><p>username contains the name of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+</p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.certificates.v1.CertificateSigningRequestSpec#groups" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="groups:com.coralogix.zio.k8s.client.model.Optional[Vector[String]]"></a><a id="groups:Optional[Vector[String]]"></a>
       <span class="permalink">

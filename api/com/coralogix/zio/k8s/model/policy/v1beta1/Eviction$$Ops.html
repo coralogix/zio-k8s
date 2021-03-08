@@ -384,7 +384,7 @@
         <span class="name">attachOwner</span><span class="params">(<span name="ownerName">ownerName: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="ownerUid">ownerUid: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="ownerType">ownerType: <a href="../../../client/model/package$$K8sResourceType.html" class="extype" name="com.coralogix.zio.k8s.client.model.K8sResourceType">K8sResourceType</a></span>)</span><span class="result">: <a href="Eviction.html" class="extype" name="com.coralogix.zio.k8s.model.policy.v1beta1.Eviction">Eviction</a></span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../../client/model/K8sObjectOps.html" class="extype" name="com.coralogix.zio.k8s.client.model.K8sObjectOps">K8sObjectOps</a></dd></dl></div>
+      <p class="shortcomment cmt">Attach another resource as the owner of this one</p><div class="fullcomment"><div class="comment cmt"><p>Attach another resource as the owner of this one</p></div><dl class="paramcmts block"><dt class="param">ownerName</dt><dd class="cmt"><p>Owner's name</p></dd><dt class="param">ownerUid</dt><dd class="cmt"><p>Owner's UID</p></dd><dt class="param">ownerType</dt><dd class="cmt"><p>Owner's resource type metadata</p></dd><dt>returns</dt><dd class="cmt"><p>Object with the attached owner described in its metadata</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../../client/model/K8sObjectOps.html" class="extype" name="com.coralogix.zio.k8s.client.model.K8sObjectOps">K8sObjectOps</a></dd></dl></div>
     </li><li name="scala.AnyRef#clone" visbl="prt" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="clone():Object"></a><a id="clone():AnyRef"></a>
       <span class="permalink">
@@ -458,7 +458,9 @@
         <span class="name">generation</span><span class="result">: <a href="https://www.scala-lang.org/api/2.12.12/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a></span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../../client/model/K8sObjectOps.html" class="extype" name="com.coralogix.zio.k8s.client.model.K8sObjectOps">K8sObjectOps</a></dd></dl></div>
+      <p class="shortcomment cmt">Gets the geneation of the object or 0 if it is new
+</p><div class="fullcomment"><div class="comment cmt"><p>Gets the geneation of the object or 0 if it is new
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../../client/model/K8sObjectOps.html" class="extype" name="com.coralogix.zio.k8s.client.model.K8sObjectOps">K8sObjectOps</a></dd></dl></div>
     </li><li name="scala.AnyRef#getClass" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getClass():Class[_]"></a>
       <span class="permalink">
@@ -495,7 +497,9 @@
         <span class="name">getMetadata</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="../../pkg/apis/meta/v1/ObjectMeta.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.ObjectMeta">ObjectMeta</a>]</span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../../client/model/K8sObjectOps.html" class="extype" name="com.coralogix.zio.k8s.client.model.K8sObjectOps">K8sObjectOps</a></dd></dl></div>
+      <p class="shortcomment cmt">Gets the metadata of the object and fail with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a> if it is not present
+</p><div class="fullcomment"><div class="comment cmt"><p>Gets the metadata of the object and fail with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a> if it is not present
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../../client/model/K8sObjectOps.html" class="extype" name="com.coralogix.zio.k8s.client.model.K8sObjectOps">K8sObjectOps</a></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.client.model.K8sObjectOps#getName" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getName:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]"></a><a id="getName:IO[K8sFailure,String]"></a>
       <span class="permalink">
@@ -511,7 +515,9 @@
         <span class="name">getName</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../../client/model/K8sObjectOps.html" class="extype" name="com.coralogix.zio.k8s.client.model.K8sObjectOps">K8sObjectOps</a></dd></dl></div>
+      <p class="shortcomment cmt">Gets the name of the object and fail with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a> if it is not present
+</p><div class="fullcomment"><div class="comment cmt"><p>Gets the name of the object and fail with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a> if it is not present
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../../client/model/K8sObjectOps.html" class="extype" name="com.coralogix.zio.k8s.client.model.K8sObjectOps">K8sObjectOps</a></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.client.model.K8sObjectOps#getUid" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getUid:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]"></a><a id="getUid:IO[K8sFailure,String]"></a>
       <span class="permalink">
@@ -527,7 +533,9 @@
         <span class="name">getUid</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../../client/model/K8sObjectOps.html" class="extype" name="com.coralogix.zio.k8s.client.model.K8sObjectOps">K8sObjectOps</a></dd></dl></div>
+      <p class="shortcomment cmt">Gets the UID of the object and fail with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a> if it is not present
+</p><div class="fullcomment"><div class="comment cmt"><p>Gets the UID of the object and fail with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a> if it is not present
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../../client/model/K8sObjectOps.html" class="extype" name="com.coralogix.zio.k8s.client.model.K8sObjectOps">K8sObjectOps</a></dd></dl></div>
     </li><li name="scala.AnyRef#hashCode" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="hashCode():Int"></a>
       <span class="permalink">
@@ -596,7 +604,7 @@
         <span class="name">isOwnedBy</span><span class="tparams">[<span name="OwnerT">OwnerT</span>]</span><span class="params">(<span name="owner">owner: <span class="extype" name="com.coralogix.zio.k8s.client.model.K8sObjectOps.isOwnedBy.OwnerT">OwnerT</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="../../../client/model/K8sObject.html" class="extype" name="com.coralogix.zio.k8s.client.model.K8sObject">K8sObject</a>[<span class="extype" name="com.coralogix.zio.k8s.client.model.K8sObjectOps.isOwnedBy.OwnerT">OwnerT</span>]</span>, <span name="arg1">arg1: <a href="../../../client/model/ResourceMetadata.html" class="extype" name="com.coralogix.zio.k8s.client.model.ResourceMetadata">ResourceMetadata</a>[<span class="extype" name="com.coralogix.zio.k8s.client.model.K8sObjectOps.isOwnedBy.OwnerT">OwnerT</span>]</span>)</span><span class="result">: <a href="https://www.scala-lang.org/api/2.12.12/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../../client/model/K8sObjectOps.html" class="extype" name="com.coralogix.zio.k8s.client.model.K8sObjectOps">K8sObjectOps</a></dd></dl></div>
+      <p class="shortcomment cmt">Verifies ownership between the resources</p><div class="fullcomment"><div class="comment cmt"><p>Verifies ownership between the resources</p></div><dl class="paramcmts block"><dt class="tparam">OwnerT</dt><dd class="cmt"><p>Type of the owner resource</p></dd><dt class="param">owner</dt><dd class="cmt"><p>Possible owner of this resource</p></dd><dt>returns</dt><dd class="cmt"><p>True if owner owns this resource</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../../client/model/K8sObjectOps.html" class="extype" name="com.coralogix.zio.k8s.client.model.K8sObjectOps">K8sObjectOps</a></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.client.model.K8sObjectOps#mapMetadata" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="mapMetadata(f:com.coralogix.zio.k8s.model.pkg.apis.meta.v1.ObjectMeta=&gt;com.coralogix.zio.k8s.model.pkg.apis.meta.v1.ObjectMeta):T"></a><a id="mapMetadata((ObjectMeta)⇒ObjectMeta):Eviction"></a>
       <span class="permalink">
@@ -612,7 +620,7 @@
         <span class="name">mapMetadata</span><span class="params">(<span name="f">f: (<a href="../../pkg/apis/meta/v1/ObjectMeta.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.ObjectMeta">ObjectMeta</a>) ⇒ <a href="../../pkg/apis/meta/v1/ObjectMeta.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.ObjectMeta">ObjectMeta</a></span>)</span><span class="result">: <a href="Eviction.html" class="extype" name="com.coralogix.zio.k8s.model.policy.v1beta1.Eviction">Eviction</a></span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../../client/model/K8sObjectOps.html" class="extype" name="com.coralogix.zio.k8s.client.model.K8sObjectOps">K8sObjectOps</a></dd></dl></div>
+      <p class="shortcomment cmt">Creates a new object with its metadata modified by the given function f</p><div class="fullcomment"><div class="comment cmt"><p>Creates a new object with its metadata modified by the given function f</p></div><dl class="paramcmts block"><dt class="param">f</dt><dd class="cmt"><p>Function to modify the object's metadata with</p></dd><dt>returns</dt><dd class="cmt"><p>Object with modified metadata</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../../client/model/K8sObjectOps.html" class="extype" name="com.coralogix.zio.k8s.client.model.K8sObjectOps">K8sObjectOps</a></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.client.model.K8sObjectOps#metadata" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="metadata:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.pkg.apis.meta.v1.ObjectMeta]"></a><a id="metadata:Optional[ObjectMeta]"></a>
       <span class="permalink">
@@ -628,7 +636,9 @@
         <span class="name">metadata</span><span class="result">: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="../../pkg/apis/meta/v1/ObjectMeta.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.ObjectMeta">ObjectMeta</a>]</span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../../client/model/K8sObjectOps.html" class="extype" name="com.coralogix.zio.k8s.client.model.K8sObjectOps">K8sObjectOps</a></dd></dl></div>
+      <p class="shortcomment cmt">Gets the metadata of the object
+</p><div class="fullcomment"><div class="comment cmt"><p>Gets the metadata of the object
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../../client/model/K8sObjectOps.html" class="extype" name="com.coralogix.zio.k8s.client.model.K8sObjectOps">K8sObjectOps</a></dd></dl></div>
     </li><li name="scala.AnyRef#ne" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="ne(x$1:AnyRef):Boolean"></a><a id="ne(AnyRef):Boolean"></a>
       <span class="permalink">
@@ -750,7 +760,9 @@
         <span class="name">tryAttachOwner</span><span class="tparams">[<span name="OwnerT">OwnerT</span>]</span><span class="params">(<span name="owner">owner: <span class="extype" name="com.coralogix.zio.k8s.client.model.K8sObjectOps.tryAttachOwner.OwnerT">OwnerT</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="../../../client/model/K8sObject.html" class="extype" name="com.coralogix.zio.k8s.client.model.K8sObject">K8sObject</a>[<span class="extype" name="com.coralogix.zio.k8s.client.model.K8sObjectOps.tryAttachOwner.OwnerT">OwnerT</span>]</span>, <span name="arg1">arg1: <a href="../../../client/model/ResourceMetadata.html" class="extype" name="com.coralogix.zio.k8s.client.model.ResourceMetadata">ResourceMetadata</a>[<span class="extype" name="com.coralogix.zio.k8s.client.model.K8sObjectOps.tryAttachOwner.OwnerT">OwnerT</span>]</span>)</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="Eviction.html" class="extype" name="com.coralogix.zio.k8s.model.policy.v1beta1.Eviction">Eviction</a>]</span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../../client/model/K8sObjectOps.html" class="extype" name="com.coralogix.zio.k8s.client.model.K8sObjectOps">K8sObjectOps</a></dd></dl></div>
+      <p class="shortcomment cmt">Tries to attach another resource as the owner of this one.</p><div class="fullcomment"><div class="comment cmt"><p>Tries to attach another resource as the owner of this one. Can fail with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>
+if the owner does not have all the required metadata.
+</p></div><dl class="paramcmts block"><dt class="tparam">OwnerT</dt><dd class="cmt"><p>Type of the owner</p></dd><dt class="param">owner</dt><dd class="cmt"><p>Owner resource</p></dd><dt>returns</dt><dd class="cmt"><p>Object with the attached owner described in its metadata</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../../client/model/K8sObjectOps.html" class="extype" name="com.coralogix.zio.k8s.client.model.K8sObjectOps">K8sObjectOps</a></dd></dl></div>
     </li><li name="scala.AnyRef#wait" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="wait(x$1:Long,x$2:Int):Unit"></a><a id="wait(Long,Int):Unit"></a>
       <span class="permalink">

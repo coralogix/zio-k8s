@@ -599,7 +599,7 @@
                 <span class="name">@HotSpotIntrinsicCandidate</span><span class="args">()</span>
               
         </dd></dl></div>
-    </li><li name="com.coralogix.zio.k8s.model.apps.v1.StatefulSetSpec#getPodManagementPolicy" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="com.coralogix.zio.k8s.model.apps.v1.StatefulSetSpec#getPodManagementPolicy" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getPodManagementPolicy:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]"></a><a id="getPodManagementPolicy:IO[K8sFailure,String]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/apps/v1/StatefulSetSpec.html#getPodManagementPolicy:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]" title="Permalink">
@@ -614,8 +614,9 @@
         <span class="name">getPodManagementPolicy</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.model.apps.v1.StatefulSetSpec#getReplicas" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">podManagementPolicy controls how pods are created during initial scale up, when replacing pods on nodes, or when scaling down.</p><div class="fullcomment"><div class="comment cmt"><p>podManagementPolicy controls how pods are created during initial scale up, when replacing pods on nodes, or when scaling down. The default policy is <code>OrderedReady</code>, where pods are created in increasing order (pod-0, then pod-1, etc) and the controller will wait until each pod is ready before continuing. When scaling down, the pods are removed in the opposite order. The alternative policy is <code>Parallel</code> which will create pods in parallel to match the desired scale without waiting, and on scale down will delete all pods at once.</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.apps.v1.StatefulSetSpec#getReplicas" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getReplicas:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Int]"></a><a id="getReplicas:IO[K8sFailure,Int]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/apps/v1/StatefulSetSpec.html#getReplicas:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Int]" title="Permalink">
@@ -630,8 +631,9 @@
         <span class="name">getReplicas</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="https://www.scala-lang.org/api/2.12.12/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a>]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.model.apps.v1.StatefulSetSpec#getRevisionHistoryLimit" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">replicas is the desired number of replicas of the given Template.</p><div class="fullcomment"><div class="comment cmt"><p>replicas is the desired number of replicas of the given Template. These are replicas in the sense that they are instantiations of the same Template, but individual replicas also have a consistent identity. If unspecified, defaults to 1.</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.apps.v1.StatefulSetSpec#getRevisionHistoryLimit" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getRevisionHistoryLimit:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Int]"></a><a id="getRevisionHistoryLimit:IO[K8sFailure,Int]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/apps/v1/StatefulSetSpec.html#getRevisionHistoryLimit:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Int]" title="Permalink">
@@ -646,8 +648,9 @@
         <span class="name">getRevisionHistoryLimit</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="https://www.scala-lang.org/api/2.12.12/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a>]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.model.apps.v1.StatefulSetSpec#getSelector" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">revisionHistoryLimit is the maximum number of revisions that will be maintained in the StatefulSet's revision history.</p><div class="fullcomment"><div class="comment cmt"><p>revisionHistoryLimit is the maximum number of revisions that will be maintained in the StatefulSet's revision history. The revision history consists of all revisions not represented by a currently applied StatefulSetSpec version. The default value is 10.</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.apps.v1.StatefulSetSpec#getSelector" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getSelector:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.model.pkg.apis.meta.v1.LabelSelector]"></a><a id="getSelector:IO[K8sFailure,LabelSelector]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/apps/v1/StatefulSetSpec.html#getSelector:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.model.pkg.apis.meta.v1.LabelSelector]" title="Permalink">
@@ -662,8 +665,9 @@
         <span class="name">getSelector</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="../../pkg/apis/meta/v1/LabelSelector.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.LabelSelector">LabelSelector</a>]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.model.apps.v1.StatefulSetSpec#getServiceName" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Gets selector.</p><div class="fullcomment"><div class="comment cmt"><p>Gets selector.</p><p>This effect always succeeds, it is safe to use the field <a href="#selector:com.coralogix.zio.k8s.model.pkg.apis.meta.v1.LabelSelector" class="extmbr" name="com.coralogix.zio.k8s.model.apps.v1.StatefulSetSpec#selector">selector</a> directly.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.apps.v1.StatefulSetSpec#getServiceName" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getServiceName:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]"></a><a id="getServiceName:IO[K8sFailure,String]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/apps/v1/StatefulSetSpec.html#getServiceName:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]" title="Permalink">
@@ -678,8 +682,9 @@
         <span class="name">getServiceName</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.model.apps.v1.StatefulSetSpec#getTemplate" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">serviceName is the name of the service that governs this StatefulSet.</p><div class="fullcomment"><div class="comment cmt"><p>serviceName is the name of the service that governs this StatefulSet. This service must exist before the StatefulSet, and is responsible for the network identity of the set. Pods get DNS/hostnames that follow the pattern: pod-specific-string.serviceName.default.svc.cluster.local where &quot;pod-specific-string&quot; is managed by the StatefulSet controller.</p><p>This effect always succeeds, it is safe to use the field <a href="#serviceName:String" class="extmbr" name="com.coralogix.zio.k8s.model.apps.v1.StatefulSetSpec#serviceName">serviceName</a> directly.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.apps.v1.StatefulSetSpec#getTemplate" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getTemplate:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.model.core.v1.PodTemplateSpec]"></a><a id="getTemplate:IO[K8sFailure,PodTemplateSpec]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/apps/v1/StatefulSetSpec.html#getTemplate:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.model.core.v1.PodTemplateSpec]" title="Permalink">
@@ -694,8 +699,9 @@
         <span class="name">getTemplate</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="../../core/v1/PodTemplateSpec.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.PodTemplateSpec">PodTemplateSpec</a>]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.model.apps.v1.StatefulSetSpec#getUpdateStrategy" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Gets template.</p><div class="fullcomment"><div class="comment cmt"><p>Gets template.</p><p>This effect always succeeds, it is safe to use the field <a href="#template:com.coralogix.zio.k8s.model.core.v1.PodTemplateSpec" class="extmbr" name="com.coralogix.zio.k8s.model.apps.v1.StatefulSetSpec#template">template</a> directly.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.apps.v1.StatefulSetSpec#getUpdateStrategy" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getUpdateStrategy:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.model.apps.v1.StatefulSetUpdateStrategy]"></a><a id="getUpdateStrategy:IO[K8sFailure,StatefulSetUpdateStrategy]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/apps/v1/StatefulSetSpec.html#getUpdateStrategy:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.model.apps.v1.StatefulSetUpdateStrategy]" title="Permalink">
@@ -710,8 +716,9 @@
         <span class="name">getUpdateStrategy</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="StatefulSetUpdateStrategy.html" class="extype" name="com.coralogix.zio.k8s.model.apps.v1.StatefulSetUpdateStrategy">StatefulSetUpdateStrategy</a>]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.model.apps.v1.StatefulSetSpec#getVolumeClaimTemplates" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Gets updateStrategy.</p><div class="fullcomment"><div class="comment cmt"><p>Gets updateStrategy.</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.apps.v1.StatefulSetSpec#getVolumeClaimTemplates" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getVolumeClaimTemplates:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Vector[com.coralogix.zio.k8s.model.core.v1.PersistentVolumeClaim]]"></a><a id="getVolumeClaimTemplates:IO[K8sFailure,Vector[PersistentVolumeClaim]]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/apps/v1/StatefulSetSpec.html#getVolumeClaimTemplates:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Vector[com.coralogix.zio.k8s.model.core.v1.PersistentVolumeClaim]]" title="Permalink">
@@ -726,7 +733,8 @@
         <span class="name">getVolumeClaimTemplates</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Vector">Vector</span>[<a href="../../core/v1/PersistentVolumeClaim.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.PersistentVolumeClaim">PersistentVolumeClaim</a>]]</span>
       </span>
       
-      
+      <p class="shortcomment cmt">volumeClaimTemplates is a list of claims that pods are allowed to reference.</p><div class="fullcomment"><div class="comment cmt"><p>volumeClaimTemplates is a list of claims that pods are allowed to reference. The StatefulSet controller is responsible for mapping network identities to claims in a way that maintains the identity of a pod. Every claim in this list must have at least one matching (by name) volumeMount in one container in the template. A claim in this list takes precedence over any volumes in the template, with the same name.</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+</p></div></div>
     </li><li name="scala.Any#isInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isInstanceOf[T0]:Boolean"></a>
       <span class="permalink">

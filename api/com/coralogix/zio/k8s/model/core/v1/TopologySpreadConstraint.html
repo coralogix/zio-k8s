@@ -1797,7 +1797,7 @@ A constraint is considered &quot;Unsatisfiable&quot; for an incoming pod if and 
                 <span class="name">@HotSpotIntrinsicCandidate</span><span class="args">()</span>
               
         </dd></dl></div>
-    </li><li name="com.coralogix.zio.k8s.model.core.v1.TopologySpreadConstraint#getLabelSelector" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="com.coralogix.zio.k8s.model.core.v1.TopologySpreadConstraint#getLabelSelector" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getLabelSelector:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.model.pkg.apis.meta.v1.LabelSelector]"></a><a id="getLabelSelector:IO[K8sFailure,LabelSelector]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/TopologySpreadConstraint.html#getLabelSelector:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.model.pkg.apis.meta.v1.LabelSelector]" title="Permalink">
@@ -1812,8 +1812,9 @@ A constraint is considered &quot;Unsatisfiable&quot; for an incoming pod if and 
         <span class="name">getLabelSelector</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="../../pkg/apis/meta/v1/LabelSelector.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.LabelSelector">LabelSelector</a>]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.model.core.v1.TopologySpreadConstraint#getMaxSkew" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Gets labelSelector.</p><div class="fullcomment"><div class="comment cmt"><p>Gets labelSelector.</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.core.v1.TopologySpreadConstraint#getMaxSkew" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getMaxSkew:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Int]"></a><a id="getMaxSkew:IO[K8sFailure,Int]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/TopologySpreadConstraint.html#getMaxSkew:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Int]" title="Permalink">
@@ -1828,8 +1829,9 @@ A constraint is considered &quot;Unsatisfiable&quot; for an incoming pod if and 
         <span class="name">getMaxSkew</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="https://www.scala-lang.org/api/2.12.12/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a>]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.model.core.v1.TopologySpreadConstraint#getTopologyKey" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">MaxSkew describes the degree to which pods may be unevenly distributed.</p><div class="fullcomment"><div class="comment cmt"><p>MaxSkew describes the degree to which pods may be unevenly distributed. When <code>whenUnsatisfiable=DoNotSchedule</code>, it is the maximum permitted difference between the number of matching pods in the target topology and the global minimum. For example, in a 3-zone cluster, MaxSkew is set to 1, and pods with the same labelSelector spread as 1/1/0: | zone1 | zone2 | zone3 | |   P   |   P   |       | - if MaxSkew is 1, incoming pod can only be scheduled to zone3 to become 1/1/1; scheduling it onto zone1(zone2) would make the ActualSkew(2-0) on zone1(zone2) violate MaxSkew(1). - if MaxSkew is 2, incoming pod can be scheduled onto any zone. When <code>whenUnsatisfiable=ScheduleAnyway</code>, it is used to give higher precedence to topologies that satisfy it. It's a required field. Default value is 1 and 0 is not allowed.</p><p>This effect always succeeds, it is safe to use the field <a href="#maxSkew:Int" class="extmbr" name="com.coralogix.zio.k8s.model.core.v1.TopologySpreadConstraint#maxSkew">maxSkew</a> directly.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.core.v1.TopologySpreadConstraint#getTopologyKey" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getTopologyKey:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]"></a><a id="getTopologyKey:IO[K8sFailure,String]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/TopologySpreadConstraint.html#getTopologyKey:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]" title="Permalink">
@@ -1844,8 +1846,9 @@ A constraint is considered &quot;Unsatisfiable&quot; for an incoming pod if and 
         <span class="name">getTopologyKey</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.model.core.v1.TopologySpreadConstraint#getWhenUnsatisfiable" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">TopologyKey is the key of node labels.</p><div class="fullcomment"><div class="comment cmt"><p>TopologyKey is the key of node labels. Nodes that have a label with this key and identical values are considered to be in the same topology. We consider each &lt;key, value&gt; as a &quot;bucket&quot;, and try to put balanced number of pods into each bucket. It's a required field.</p><p>This effect always succeeds, it is safe to use the field <a href="#topologyKey:String" class="extmbr" name="com.coralogix.zio.k8s.model.core.v1.TopologySpreadConstraint#topologyKey">topologyKey</a> directly.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.core.v1.TopologySpreadConstraint#getWhenUnsatisfiable" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getWhenUnsatisfiable:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]"></a><a id="getWhenUnsatisfiable:IO[K8sFailure,String]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/TopologySpreadConstraint.html#getWhenUnsatisfiable:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]" title="Permalink">
@@ -1860,7 +1863,11 @@ A constraint is considered &quot;Unsatisfiable&quot; for an incoming pod if and 
         <span class="name">getWhenUnsatisfiable</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      
+      <p class="shortcomment cmt">WhenUnsatisfiable indicates how to deal with a pod if it doesn't satisfy the spread constraint.</p><div class="fullcomment"><div class="comment cmt"><p>WhenUnsatisfiable indicates how to deal with a pod if it doesn't satisfy the spread constraint. - DoNotSchedule (default) tells the scheduler not to schedule it. - ScheduleAnyway tells the scheduler to schedule the pod in any location,
+ but giving higher precedence to topologies that would help reduce the
+ skew.
+A constraint is considered &quot;Unsatisfiable&quot; for an incoming pod if and only if every possible node assigment for that pod would violate &quot;MaxSkew&quot; on some topology. For example, in a 3-zone cluster, MaxSkew is set to 1, and pods with the same labelSelector spread as 3/1/1: | zone1 | zone2 | zone3 | | P P P |   P   |   P   | If WhenUnsatisfiable is set to DoNotSchedule, incoming pod can only be scheduled to zone2(zone3) to become 3/2/1(3/1/2) as ActualSkew(2-1) on zone2(zone3) satisfies MaxSkew(1). In other words, the cluster can still be imbalanced, but scheduler won't make it *more* imbalanced. It's a required field.</p><p>This effect always succeeds, it is safe to use the field <a href="#whenUnsatisfiable:String" class="extmbr" name="com.coralogix.zio.k8s.model.core.v1.TopologySpreadConstraint#whenUnsatisfiable">whenUnsatisfiable</a> directly.
+</p></div></div>
     </li><li name="scala.Any#isInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isInstanceOf[T0]:Boolean"></a>
       <span class="permalink">

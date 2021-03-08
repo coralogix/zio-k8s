@@ -663,7 +663,7 @@
                 <span class="name">@HotSpotIntrinsicCandidate</span><span class="args">()</span>
               
         </dd></dl></div>
-    </li><li name="com.coralogix.zio.k8s.model.apps.v1.DaemonSetStatus#getCollisionCount" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="com.coralogix.zio.k8s.model.apps.v1.DaemonSetStatus#getCollisionCount" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getCollisionCount:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Int]"></a><a id="getCollisionCount:IO[K8sFailure,Int]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/apps/v1/DaemonSetStatus.html#getCollisionCount:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Int]" title="Permalink">
@@ -678,8 +678,9 @@
         <span class="name">getCollisionCount</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="https://www.scala-lang.org/api/2.12.12/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a>]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.model.apps.v1.DaemonSetStatus#getConditions" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Count of hash collisions for the DaemonSet.</p><div class="fullcomment"><div class="comment cmt"><p>Count of hash collisions for the DaemonSet. The DaemonSet controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ControllerRevision.</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.apps.v1.DaemonSetStatus#getConditions" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getConditions:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Vector[com.coralogix.zio.k8s.model.apps.v1.DaemonSetCondition]]"></a><a id="getConditions:IO[K8sFailure,Vector[DaemonSetCondition]]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/apps/v1/DaemonSetStatus.html#getConditions:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Vector[com.coralogix.zio.k8s.model.apps.v1.DaemonSetCondition]]" title="Permalink">
@@ -694,8 +695,9 @@
         <span class="name">getConditions</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Vector">Vector</span>[<a href="DaemonSetCondition.html" class="extype" name="com.coralogix.zio.k8s.model.apps.v1.DaemonSetCondition">DaemonSetCondition</a>]]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.model.apps.v1.DaemonSetStatus#getCurrentNumberScheduled" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Represents the latest available observations of a DaemonSet's current state.</p><div class="fullcomment"><div class="comment cmt"><p>Represents the latest available observations of a DaemonSet's current state.</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.apps.v1.DaemonSetStatus#getCurrentNumberScheduled" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getCurrentNumberScheduled:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Int]"></a><a id="getCurrentNumberScheduled:IO[K8sFailure,Int]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/apps/v1/DaemonSetStatus.html#getCurrentNumberScheduled:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Int]" title="Permalink">
@@ -710,8 +712,9 @@
         <span class="name">getCurrentNumberScheduled</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="https://www.scala-lang.org/api/2.12.12/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a>]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.model.apps.v1.DaemonSetStatus#getDesiredNumberScheduled" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">The number of nodes that are running at least 1 daemon pod and are supposed to run the daemon pod.</p><div class="fullcomment"><div class="comment cmt"><p>The number of nodes that are running at least 1 daemon pod and are supposed to run the daemon pod. More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/</p><p>This effect always succeeds, it is safe to use the field <a href="#currentNumberScheduled:Int" class="extmbr" name="com.coralogix.zio.k8s.model.apps.v1.DaemonSetStatus#currentNumberScheduled">currentNumberScheduled</a> directly.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.apps.v1.DaemonSetStatus#getDesiredNumberScheduled" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getDesiredNumberScheduled:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Int]"></a><a id="getDesiredNumberScheduled:IO[K8sFailure,Int]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/apps/v1/DaemonSetStatus.html#getDesiredNumberScheduled:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Int]" title="Permalink">
@@ -726,8 +729,9 @@
         <span class="name">getDesiredNumberScheduled</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="https://www.scala-lang.org/api/2.12.12/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a>]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.model.apps.v1.DaemonSetStatus#getNumberAvailable" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">The total number of nodes that should be running the daemon pod (including nodes correctly running the daemon pod).</p><div class="fullcomment"><div class="comment cmt"><p>The total number of nodes that should be running the daemon pod (including nodes correctly running the daemon pod). More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/</p><p>This effect always succeeds, it is safe to use the field <a href="#desiredNumberScheduled:Int" class="extmbr" name="com.coralogix.zio.k8s.model.apps.v1.DaemonSetStatus#desiredNumberScheduled">desiredNumberScheduled</a> directly.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.apps.v1.DaemonSetStatus#getNumberAvailable" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getNumberAvailable:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Int]"></a><a id="getNumberAvailable:IO[K8sFailure,Int]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/apps/v1/DaemonSetStatus.html#getNumberAvailable:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Int]" title="Permalink">
@@ -742,8 +746,9 @@
         <span class="name">getNumberAvailable</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="https://www.scala-lang.org/api/2.12.12/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a>]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.model.apps.v1.DaemonSetStatus#getNumberMisscheduled" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">The number of nodes that should be running the daemon pod and have one or more of the daemon pod running and available (ready for at least spec.minReadySeconds)</p><div class="fullcomment"><div class="comment cmt"><p>The number of nodes that should be running the daemon pod and have one or more of the daemon pod running and available (ready for at least spec.minReadySeconds)</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.apps.v1.DaemonSetStatus#getNumberMisscheduled" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getNumberMisscheduled:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Int]"></a><a id="getNumberMisscheduled:IO[K8sFailure,Int]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/apps/v1/DaemonSetStatus.html#getNumberMisscheduled:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Int]" title="Permalink">
@@ -758,8 +763,9 @@
         <span class="name">getNumberMisscheduled</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="https://www.scala-lang.org/api/2.12.12/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a>]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.model.apps.v1.DaemonSetStatus#getNumberReady" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">The number of nodes that are running the daemon pod, but are not supposed to run the daemon pod.</p><div class="fullcomment"><div class="comment cmt"><p>The number of nodes that are running the daemon pod, but are not supposed to run the daemon pod. More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/</p><p>This effect always succeeds, it is safe to use the field <a href="#numberMisscheduled:Int" class="extmbr" name="com.coralogix.zio.k8s.model.apps.v1.DaemonSetStatus#numberMisscheduled">numberMisscheduled</a> directly.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.apps.v1.DaemonSetStatus#getNumberReady" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getNumberReady:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Int]"></a><a id="getNumberReady:IO[K8sFailure,Int]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/apps/v1/DaemonSetStatus.html#getNumberReady:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Int]" title="Permalink">
@@ -774,8 +780,9 @@
         <span class="name">getNumberReady</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="https://www.scala-lang.org/api/2.12.12/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a>]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.model.apps.v1.DaemonSetStatus#getNumberUnavailable" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">The number of nodes that should be running the daemon pod and have one or more of the daemon pod running and ready.</p><div class="fullcomment"><div class="comment cmt"><p>The number of nodes that should be running the daemon pod and have one or more of the daemon pod running and ready.</p><p>This effect always succeeds, it is safe to use the field <a href="#numberReady:Int" class="extmbr" name="com.coralogix.zio.k8s.model.apps.v1.DaemonSetStatus#numberReady">numberReady</a> directly.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.apps.v1.DaemonSetStatus#getNumberUnavailable" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getNumberUnavailable:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Int]"></a><a id="getNumberUnavailable:IO[K8sFailure,Int]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/apps/v1/DaemonSetStatus.html#getNumberUnavailable:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Int]" title="Permalink">
@@ -790,8 +797,9 @@
         <span class="name">getNumberUnavailable</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="https://www.scala-lang.org/api/2.12.12/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a>]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.model.apps.v1.DaemonSetStatus#getObservedGeneration" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">The number of nodes that should be running the daemon pod and have none of the daemon pod running and available (ready for at least spec.minReadySeconds)</p><div class="fullcomment"><div class="comment cmt"><p>The number of nodes that should be running the daemon pod and have none of the daemon pod running and available (ready for at least spec.minReadySeconds)</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.apps.v1.DaemonSetStatus#getObservedGeneration" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getObservedGeneration:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Long]"></a><a id="getObservedGeneration:IO[K8sFailure,Long]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/apps/v1/DaemonSetStatus.html#getObservedGeneration:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Long]" title="Permalink">
@@ -806,8 +814,9 @@
         <span class="name">getObservedGeneration</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="https://www.scala-lang.org/api/2.12.12/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a>]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.model.apps.v1.DaemonSetStatus#getUpdatedNumberScheduled" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">The most recent generation observed by the daemon set controller.</p><div class="fullcomment"><div class="comment cmt"><p>The most recent generation observed by the daemon set controller.</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.apps.v1.DaemonSetStatus#getUpdatedNumberScheduled" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getUpdatedNumberScheduled:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Int]"></a><a id="getUpdatedNumberScheduled:IO[K8sFailure,Int]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/apps/v1/DaemonSetStatus.html#getUpdatedNumberScheduled:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Int]" title="Permalink">
@@ -822,7 +831,8 @@
         <span class="name">getUpdatedNumberScheduled</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="https://www.scala-lang.org/api/2.12.12/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a>]</span>
       </span>
       
-      
+      <p class="shortcomment cmt">The total number of nodes that are running updated daemon pod</p><div class="fullcomment"><div class="comment cmt"><p>The total number of nodes that are running updated daemon pod</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+</p></div></div>
     </li><li name="scala.Any#isInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isInstanceOf[T0]:Boolean"></a>
       <span class="permalink">

@@ -615,7 +615,7 @@
                 <span class="name">@HotSpotIntrinsicCandidate</span><span class="args">()</span>
               
         </dd></dl></div>
-    </li><li name="com.coralogix.zio.k8s.model.autoscaling.v2beta1.HorizontalPodAutoscalerStatus#getConditions" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="com.coralogix.zio.k8s.model.autoscaling.v2beta1.HorizontalPodAutoscalerStatus#getConditions" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getConditions:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Vector[com.coralogix.zio.k8s.model.autoscaling.v2beta1.HorizontalPodAutoscalerCondition]]"></a><a id="getConditions:IO[K8sFailure,Vector[HorizontalPodAutoscalerCondition]]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/autoscaling/v2beta1/HorizontalPodAutoscalerStatus.html#getConditions:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Vector[com.coralogix.zio.k8s.model.autoscaling.v2beta1.HorizontalPodAutoscalerCondition]]" title="Permalink">
@@ -630,8 +630,9 @@
         <span class="name">getConditions</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Vector">Vector</span>[<a href="HorizontalPodAutoscalerCondition.html" class="extype" name="com.coralogix.zio.k8s.model.autoscaling.v2beta1.HorizontalPodAutoscalerCondition">HorizontalPodAutoscalerCondition</a>]]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.model.autoscaling.v2beta1.HorizontalPodAutoscalerStatus#getCurrentMetrics" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">conditions is the set of conditions required for this autoscaler to scale its target, and indicates whether or not those conditions are met.</p><div class="fullcomment"><div class="comment cmt"><p>conditions is the set of conditions required for this autoscaler to scale its target, and indicates whether or not those conditions are met.</p><p>This effect always succeeds, it is safe to use the field <a href="#conditions:Vector[com.coralogix.zio.k8s.model.autoscaling.v2beta1.HorizontalPodAutoscalerCondition]" class="extmbr" name="com.coralogix.zio.k8s.model.autoscaling.v2beta1.HorizontalPodAutoscalerStatus#conditions">conditions</a> directly.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.autoscaling.v2beta1.HorizontalPodAutoscalerStatus#getCurrentMetrics" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getCurrentMetrics:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Vector[com.coralogix.zio.k8s.model.autoscaling.v2beta1.MetricStatus]]"></a><a id="getCurrentMetrics:IO[K8sFailure,Vector[MetricStatus]]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/autoscaling/v2beta1/HorizontalPodAutoscalerStatus.html#getCurrentMetrics:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Vector[com.coralogix.zio.k8s.model.autoscaling.v2beta1.MetricStatus]]" title="Permalink">
@@ -646,8 +647,9 @@
         <span class="name">getCurrentMetrics</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Vector">Vector</span>[<a href="MetricStatus.html" class="extype" name="com.coralogix.zio.k8s.model.autoscaling.v2beta1.MetricStatus">MetricStatus</a>]]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.model.autoscaling.v2beta1.HorizontalPodAutoscalerStatus#getCurrentReplicas" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">currentMetrics is the last read state of the metrics used by this autoscaler.</p><div class="fullcomment"><div class="comment cmt"><p>currentMetrics is the last read state of the metrics used by this autoscaler.</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.autoscaling.v2beta1.HorizontalPodAutoscalerStatus#getCurrentReplicas" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getCurrentReplicas:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Int]"></a><a id="getCurrentReplicas:IO[K8sFailure,Int]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/autoscaling/v2beta1/HorizontalPodAutoscalerStatus.html#getCurrentReplicas:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Int]" title="Permalink">
@@ -662,8 +664,9 @@
         <span class="name">getCurrentReplicas</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="https://www.scala-lang.org/api/2.12.12/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a>]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.model.autoscaling.v2beta1.HorizontalPodAutoscalerStatus#getDesiredReplicas" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">currentReplicas is current number of replicas of pods managed by this autoscaler, as last seen by the autoscaler.</p><div class="fullcomment"><div class="comment cmt"><p>currentReplicas is current number of replicas of pods managed by this autoscaler, as last seen by the autoscaler.</p><p>This effect always succeeds, it is safe to use the field <a href="#currentReplicas:Int" class="extmbr" name="com.coralogix.zio.k8s.model.autoscaling.v2beta1.HorizontalPodAutoscalerStatus#currentReplicas">currentReplicas</a> directly.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.autoscaling.v2beta1.HorizontalPodAutoscalerStatus#getDesiredReplicas" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getDesiredReplicas:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Int]"></a><a id="getDesiredReplicas:IO[K8sFailure,Int]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/autoscaling/v2beta1/HorizontalPodAutoscalerStatus.html#getDesiredReplicas:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Int]" title="Permalink">
@@ -678,8 +681,9 @@
         <span class="name">getDesiredReplicas</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="https://www.scala-lang.org/api/2.12.12/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a>]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.model.autoscaling.v2beta1.HorizontalPodAutoscalerStatus#getLastScaleTime" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">desiredReplicas is the desired number of replicas of pods managed by this autoscaler, as last calculated by the autoscaler.</p><div class="fullcomment"><div class="comment cmt"><p>desiredReplicas is the desired number of replicas of pods managed by this autoscaler, as last calculated by the autoscaler.</p><p>This effect always succeeds, it is safe to use the field <a href="#desiredReplicas:Int" class="extmbr" name="com.coralogix.zio.k8s.model.autoscaling.v2beta1.HorizontalPodAutoscalerStatus#desiredReplicas">desiredReplicas</a> directly.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.autoscaling.v2beta1.HorizontalPodAutoscalerStatus#getLastScaleTime" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getLastScaleTime:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Time]"></a><a id="getLastScaleTime:IO[K8sFailure,Time]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/autoscaling/v2beta1/HorizontalPodAutoscalerStatus.html#getLastScaleTime:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Time]" title="Permalink">
@@ -694,8 +698,9 @@
         <span class="name">getLastScaleTime</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="../../pkg/apis/meta/v1/Time.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Time">Time</a>]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.model.autoscaling.v2beta1.HorizontalPodAutoscalerStatus#getObservedGeneration" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Gets lastScaleTime.</p><div class="fullcomment"><div class="comment cmt"><p>Gets lastScaleTime.</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.autoscaling.v2beta1.HorizontalPodAutoscalerStatus#getObservedGeneration" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getObservedGeneration:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Long]"></a><a id="getObservedGeneration:IO[K8sFailure,Long]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/autoscaling/v2beta1/HorizontalPodAutoscalerStatus.html#getObservedGeneration:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Long]" title="Permalink">
@@ -710,7 +715,8 @@
         <span class="name">getObservedGeneration</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="https://www.scala-lang.org/api/2.12.12/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a>]</span>
       </span>
       
-      
+      <p class="shortcomment cmt">observedGeneration is the most recent generation observed by this autoscaler.</p><div class="fullcomment"><div class="comment cmt"><p>observedGeneration is the most recent generation observed by this autoscaler.</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+</p></div></div>
     </li><li name="scala.Any#isInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isInstanceOf[T0]:Boolean"></a>
       <span class="permalink">

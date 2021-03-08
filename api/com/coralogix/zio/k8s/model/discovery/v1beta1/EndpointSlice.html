@@ -458,7 +458,7 @@
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
-    </li><li name="com.coralogix.zio.k8s.model.discovery.v1beta1.EndpointSlice#getAddressType" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="com.coralogix.zio.k8s.model.discovery.v1beta1.EndpointSlice#getAddressType" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getAddressType:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]"></a><a id="getAddressType:IO[K8sFailure,String]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/discovery/v1beta1/EndpointSlice.html#getAddressType:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]" title="Permalink">
@@ -473,7 +473,8 @@
         <span class="name">getAddressType</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      
+      <p class="shortcomment cmt">addressType specifies the type of address carried by this EndpointSlice.</p><div class="fullcomment"><div class="comment cmt"><p>addressType specifies the type of address carried by this EndpointSlice. All addresses in this slice must be the same type. This field is immutable after creation. The following address types are currently supported: * IPv4: Represents an IPv4 Address. * IPv6: Represents an IPv6 Address. * FQDN: Represents a Fully Qualified Domain Name.</p><p>This effect always succeeds, it is safe to use the field <a href="#addressType:String" class="extmbr" name="com.coralogix.zio.k8s.model.discovery.v1beta1.EndpointSlice#addressType">addressType</a> directly.
+</p></div></div>
     </li><li name="scala.AnyRef#getClass" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getClass():Class[_]"></a>
       <span class="permalink">
@@ -495,7 +496,7 @@
                 <span class="name">@HotSpotIntrinsicCandidate</span><span class="args">()</span>
               
         </dd></dl></div>
-    </li><li name="com.coralogix.zio.k8s.model.discovery.v1beta1.EndpointSlice#getEndpoints" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="com.coralogix.zio.k8s.model.discovery.v1beta1.EndpointSlice#getEndpoints" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getEndpoints:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Vector[com.coralogix.zio.k8s.model.discovery.v1beta1.Endpoint]]"></a><a id="getEndpoints:IO[K8sFailure,Vector[Endpoint]]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/discovery/v1beta1/EndpointSlice.html#getEndpoints:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Vector[com.coralogix.zio.k8s.model.discovery.v1beta1.Endpoint]]" title="Permalink">
@@ -510,8 +511,9 @@
         <span class="name">getEndpoints</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Vector">Vector</span>[<a href="Endpoint.html" class="extype" name="com.coralogix.zio.k8s.model.discovery.v1beta1.Endpoint">Endpoint</a>]]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.model.discovery.v1beta1.EndpointSlice#getMetadata" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">endpoints is a list of unique endpoints in this slice.</p><div class="fullcomment"><div class="comment cmt"><p>endpoints is a list of unique endpoints in this slice. Each slice may include a maximum of 1000 endpoints.</p><p>This effect always succeeds, it is safe to use the field <a href="#endpoints:Vector[com.coralogix.zio.k8s.model.discovery.v1beta1.Endpoint]" class="extmbr" name="com.coralogix.zio.k8s.model.discovery.v1beta1.EndpointSlice#endpoints">endpoints</a> directly.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.discovery.v1beta1.EndpointSlice#getMetadata" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getMetadata:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.model.pkg.apis.meta.v1.ObjectMeta]"></a><a id="getMetadata:IO[K8sFailure,ObjectMeta]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/discovery/v1beta1/EndpointSlice.html#getMetadata:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.model.pkg.apis.meta.v1.ObjectMeta]" title="Permalink">
@@ -526,8 +528,9 @@
         <span class="name">getMetadata</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="../../pkg/apis/meta/v1/ObjectMeta.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.ObjectMeta">ObjectMeta</a>]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.model.discovery.v1beta1.EndpointSlice#getPorts" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Gets metadata.</p><div class="fullcomment"><div class="comment cmt"><p>Gets metadata.</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.discovery.v1beta1.EndpointSlice#getPorts" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getPorts:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Vector[com.coralogix.zio.k8s.model.discovery.v1beta1.EndpointPort]]"></a><a id="getPorts:IO[K8sFailure,Vector[EndpointPort]]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/discovery/v1beta1/EndpointSlice.html#getPorts:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Vector[com.coralogix.zio.k8s.model.discovery.v1beta1.EndpointPort]]" title="Permalink">
@@ -542,7 +545,8 @@
         <span class="name">getPorts</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Vector">Vector</span>[<a href="EndpointPort.html" class="extype" name="com.coralogix.zio.k8s.model.discovery.v1beta1.EndpointPort">EndpointPort</a>]]</span>
       </span>
       
-      
+      <p class="shortcomment cmt">ports specifies the list of network ports exposed by each endpoint in this slice.</p><div class="fullcomment"><div class="comment cmt"><p>ports specifies the list of network ports exposed by each endpoint in this slice. Each port must have a unique name. When ports is empty, it indicates that there are no defined ports. When a port is defined with a nil port value, it indicates &quot;all ports&quot;. Each slice may include a maximum of 100 ports.</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+</p></div></div>
     </li><li name="scala.Any#isInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isInstanceOf[T0]:Boolean"></a>
       <span class="permalink">

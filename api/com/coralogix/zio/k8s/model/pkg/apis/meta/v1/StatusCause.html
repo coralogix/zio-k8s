@@ -637,7 +637,7 @@ Examples:
                 <span class="name">@HotSpotIntrinsicCandidate</span><span class="args">()</span>
               
         </dd></dl></div>
-    </li><li name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.StatusCause#getField" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.StatusCause#getField" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getField:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]"></a><a id="getField:IO[K8sFailure,String]"></a>
       <span class="permalink">
       <a href="../../../../../../../../../com/coralogix/zio/k8s/model/pkg/apis/meta/v1/StatusCause.html#getField:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]" title="Permalink">
@@ -652,8 +652,11 @@ Examples:
         <span class="name">getField</span><span class="result">: <a href="../../../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.StatusCause#getMessage" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">The field of the resource that has caused this error, as named by its JSON serialization.</p><div class="fullcomment"><div class="comment cmt"><p>The field of the resource that has caused this error, as named by its JSON serialization. May include dot and postfix notation for nested attributes. Arrays are zero-indexed.  Fields may appear more than once in an array of causes due to fields having multiple errors. Optional.</p><p>Examples:
+ &quot;name&quot; - the field &quot;name&quot; on the current resource
+ &quot;items[0].name&quot; - the field &quot;name&quot; on the first array entry in &quot;items&quot;</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.StatusCause#getMessage" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getMessage:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]"></a><a id="getMessage:IO[K8sFailure,String]"></a>
       <span class="permalink">
       <a href="../../../../../../../../../com/coralogix/zio/k8s/model/pkg/apis/meta/v1/StatusCause.html#getMessage:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]" title="Permalink">
@@ -668,8 +671,9 @@ Examples:
         <span class="name">getMessage</span><span class="result">: <a href="../../../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.StatusCause#getReason" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">A human-readable description of the cause of the error.</p><div class="fullcomment"><div class="comment cmt"><p>A human-readable description of the cause of the error.  This field may be presented as-is to a reader.</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.StatusCause#getReason" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getReason:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]"></a><a id="getReason:IO[K8sFailure,String]"></a>
       <span class="permalink">
       <a href="../../../../../../../../../com/coralogix/zio/k8s/model/pkg/apis/meta/v1/StatusCause.html#getReason:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]" title="Permalink">
@@ -684,7 +688,8 @@ Examples:
         <span class="name">getReason</span><span class="result">: <a href="../../../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      
+      <p class="shortcomment cmt">A machine-readable description of the cause of the error.</p><div class="fullcomment"><div class="comment cmt"><p>A machine-readable description of the cause of the error. If this value is empty there is no information available.</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+</p></div></div>
     </li><li name="scala.Any#isInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isInstanceOf[T0]:Boolean"></a>
       <span class="permalink">

@@ -305,10 +305,15 @@
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="" href="config/index.html"><span class="name">config</span></a>
+        <a title="Contains data structures, ZIO layers and zio-config descriptors for configuring the zio-k8s client." href="config/index.html"><span class="name">config</span></a>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="com.coralogix.zio.k8s.client">client</a></dd></dl></div>
+      <p class="shortcomment cmt">Contains data structures, ZIO layers and zio-config descriptors for configuring the zio-k8s client.</p><div class="fullcomment"><div class="comment cmt"><p>Contains data structures, ZIO layers and zio-config descriptors for configuring the zio-k8s client.</p><p>Each zio-k8s client module depends on two ZIO modules: <span class="extype" name="K8sCluster">K8sCluster</span> and an <a href="https://javadoc.io/page/com.softwaremill.sttp.client3/core_2.12/3.1.7/sttp/client3/SttpBackend.html" class="extype" name="sttp.client3.SttpBackend">sttp.client3.SttpBackend</a>.
+To use the default configuration (use kubeconfig if available, otherwise fallback to service account token),
+use either <span class="extype" name="asynchttpclient.k8sDefault">asynchttpclient.k8sDefault</span> or <span class="extype" name="httpclient.k8sDefault">httpclient.k8sDefault</span> depending on your chosen sttp backend.</p><p>Manual configuration is possible by providing a <a href="config/package$$K8sClusterConfig.html" class="extype" name="com.coralogix.zio.k8s.client.config.K8sClusterConfig">K8sClusterConfig</a> value to both the <a href="config/index.html#k8sCluster:zio.ZLayer[zio.blocking.Blockingwithzio.Has[com.coralogix.zio.k8s.client.config.package.K8sClusterConfig],Throwable,zio.Has[com.coralogix.zio.k8s.client.model.K8sCluster]]" class="extmbr" name="com.coralogix.zio.k8s.client.config#k8sCluster">k8sCluster</a> layer
+and either <span class="extype" name="asynchttpclient.k8sSttpClient">asynchttpclient.k8sSttpClient</span> or <span class="extype" name="httpclient.k8sSttpClient">httpclient.k8sSttpClient</span>.</p><p>Instead of manually providing the configuration, zio-config descriptors are available to load them from any
+supported source.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="com.coralogix.zio.k8s.client">client</a></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.client.coordination" visbl="pub" class="indented6 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="coordination"></a><a id="coordination:coordination"></a>
       <span class="permalink">
@@ -567,84 +572,84 @@
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="com.coralogix.zio.k8s.client">client</a></dd></dl></div>
     </li><li class="current-entities indented5">
                         <span class="separator"></span>
-                        <a class="trait" href="ClusterResource.html" title=""></a>
-                        <a href="ClusterResource.html" title="">ClusterResource</a>
+                        <a class="trait" href="ClusterResource.html" title="Generic interface for working with Kubernetes cluster resources."></a>
+                        <a href="ClusterResource.html" title="Generic interface for working with Kubernetes cluster resources.">ClusterResource</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
-                        <a class="trait" href="ClusterResourceDeleteAll.html" title=""></a>
-                        <a href="ClusterResourceDeleteAll.html" title="">ClusterResourceDeleteAll</a>
+                        <a class="trait" href="ClusterResourceDeleteAll.html" title="Extra capability for ClusterResource interfaces providing deleteAll"></a>
+                        <a href="ClusterResourceDeleteAll.html" title="Extra capability for ClusterResource interfaces providing deleteAll">ClusterResourceDeleteAll</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
-                        <a class="trait" href="ClusterResourceStatus.html" title=""></a>
-                        <a href="ClusterResourceStatus.html" title="">ClusterResourceStatus</a>
+                        <a class="trait" href="ClusterResourceStatus.html" title="Extra capability for ClusterResource interfaces to manage status subresources"></a>
+                        <a href="ClusterResourceStatus.html" title="Extra capability for ClusterResource interfaces to manage status subresources">ClusterResourceStatus</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
-                        <a class="class" href="DecodedFailure.html" title=""></a>
-                        <a href="DecodedFailure.html" title="">DecodedFailure</a>
+                        <a class="class" href="DecodedFailure.html" title="Failed Kubernetes API request"></a>
+                        <a href="DecodedFailure.html" title="Failed Kubernetes API request">DecodedFailure</a>
                       </li><li class="current-entities indented5">
                         <a class="object" href="DeserializationFailure$.html" title=""></a>
-                        <a class="class" href="DeserializationFailure.html" title=""></a>
-                        <a href="DeserializationFailure.html" title="">DeserializationFailure</a>
+                        <a class="class" href="DeserializationFailure.html" title="Error indicating that Kubernetes API responded with success, but the response body could not be deserialized to the expected data type."></a>
+                        <a href="DeserializationFailure.html" title="Error indicating that Kubernetes API responded with success, but the response body could not be deserialized to the expected data type.">DeserializationFailure</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
-                        <a class="object" href="Gone$.html" title=""></a>
-                        <a href="Gone$.html" title="">Gone</a>
+                        <a class="object" href="Gone$.html" title="The server returned with HTTP 410 (Gone) which has a specific role in handling watch streams."></a>
+                        <a href="Gone$.html" title="The server returned with HTTP 410 (Gone) which has a specific role in handling watch streams.">Gone</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
-                        <a class="class" href="HttpFailure.html" title=""></a>
-                        <a href="HttpFailure.html" title="">HttpFailure</a>
+                        <a class="class" href="HttpFailure.html" title="Failed HTTP response"></a>
+                        <a href="HttpFailure.html" title="Failed HTTP response">HttpFailure</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
-                        <a class="class" href="InvalidEvent.html" title=""></a>
-                        <a href="InvalidEvent.html" title="">InvalidEvent</a>
+                        <a class="class" href="InvalidEvent.html" title="An unsupported event type was sent in a watch stream"></a>
+                        <a href="InvalidEvent.html" title="An unsupported event type was sent in a watch stream">InvalidEvent</a>
                       </li><li class="current-entities indented5">
                         <a class="object" href="K8sFailure$.html" title=""></a>
-                        <a class="trait" href="K8sFailure.html" title=""></a>
-                        <a href="K8sFailure.html" title="">K8sFailure</a>
+                        <a class="trait" href="K8sFailure.html" title="Error type of the Kubernetes client"></a>
+                        <a href="K8sFailure.html" title="Error type of the Kubernetes client">K8sFailure</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
-                        <a class="trait" href="" title=""></a>
-                        <a href="" title="">NamespacedResource</a>
+                        <a class="trait" href="" title="Generic interface for working with namespaced Kubernetes resources."></a>
+                        <a href="" title="Generic interface for working with namespaced Kubernetes resources.">NamespacedResource</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
-                        <a class="trait" href="NamespacedResourceDeleteAll.html" title=""></a>
-                        <a href="NamespacedResourceDeleteAll.html" title="">NamespacedResourceDeleteAll</a>
+                        <a class="trait" href="NamespacedResourceDeleteAll.html" title="Extra capability for NamespacedResource interfaces providing deleteAll"></a>
+                        <a href="NamespacedResourceDeleteAll.html" title="Extra capability for NamespacedResource interfaces providing deleteAll">NamespacedResourceDeleteAll</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
-                        <a class="trait" href="NamespacedResourceStatus.html" title=""></a>
-                        <a href="NamespacedResourceStatus.html" title="">NamespacedResourceStatus</a>
+                        <a class="trait" href="NamespacedResourceStatus.html" title="Extra capability for NamespacedResource interfaces to manage status subresources"></a>
+                        <a href="NamespacedResourceStatus.html" title="Extra capability for NamespacedResource interfaces to manage status subresources">NamespacedResourceStatus</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
-                        <a class="object" href="NotFound$.html" title=""></a>
-                        <a href="NotFound$.html" title="">NotFound</a>
+                        <a class="object" href="NotFound$.html" title="The sever returned with HTTP 404 (NotFound)."></a>
+                        <a href="NotFound$.html" title="The sever returned with HTTP 404 (NotFound).">NotFound</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
-                        <a class="class" href="RequestFailure.html" title=""></a>
-                        <a href="RequestFailure.html" title="">RequestFailure</a>
+                        <a class="class" href="RequestFailure.html" title="Failed to send the HTTP request to the Kubernetes API"></a>
+                        <a href="RequestFailure.html" title="Failed to send the HTTP request to the Kubernetes API">RequestFailure</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
-                        <a class="trait" href="Resource.html" title=""></a>
-                        <a href="Resource.html" title="">Resource</a>
+                        <a class="trait" href="Resource.html" title="Generic interface for working with Kubernetes resources"></a>
+                        <a href="Resource.html" title="Generic interface for working with Kubernetes resources">Resource</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
-                        <a class="trait" href="ResourceDeleteAll.html" title=""></a>
-                        <a href="ResourceDeleteAll.html" title="">ResourceDeleteAll</a>
+                        <a class="trait" href="ResourceDeleteAll.html" title="Extra capability for Resource interfaces providing deleteAll"></a>
+                        <a href="ResourceDeleteAll.html" title="Extra capability for Resource interfaces providing deleteAll">ResourceDeleteAll</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
-                        <a class="trait" href="ResourceStatus.html" title=""></a>
-                        <a href="ResourceStatus.html" title="">ResourceStatus</a>
+                        <a class="trait" href="ResourceStatus.html" title="Extra capability for Resource interfaces to manage status subresources"></a>
+                        <a href="ResourceStatus.html" title="Extra capability for Resource interfaces to manage status subresources">ResourceStatus</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
-                        <a class="trait" href="Subresource.html" title=""></a>
-                        <a href="Subresource.html" title="">Subresource</a>
+                        <a class="trait" href="Subresource.html" title="Generic interface for subresources."></a>
+                        <a href="Subresource.html" title="Generic interface for subresources.">Subresource</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
-                        <a class="class" href="Unauthorized.html" title=""></a>
-                        <a href="Unauthorized.html" title="">Unauthorized</a>
+                        <a class="class" href="Unauthorized.html" title="Request unauthorized"></a>
+                        <a href="Unauthorized.html" title="Request unauthorized">Unauthorized</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
-                        <a class="class" href="UndefinedField.html" title=""></a>
-                        <a href="UndefinedField.html" title="">UndefinedField</a>
+                        <a class="class" href="UndefinedField.html" title="Error produced by the generated getter methods on Kubernetes data structures."></a>
+                        <a href="UndefinedField.html" title="Error produced by the generated getter methods on Kubernetes data structures.">UndefinedField</a>
                       </li>
               </ul>
             </div>
@@ -673,7 +678,8 @@
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Generic interface for working with namespaced Kubernetes resources.</p><p>More type safe than <a href="Resource.html" class="extype" name="com.coralogix.zio.k8s.client.Resource">Resource</a> as it requires passing a namespace where necessary.
+</p></div><dl class="paramcmts block"><dt class="tparam">T</dt><dd class="cmt"><p>Resource type</p></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -747,8 +753,9 @@
         <span class="name">asGenericResource</span><span class="result">: <a href="Resource.html" class="extype" name="com.coralogix.zio.k8s.client.Resource">Resource</a>[<span class="extype" name="com.coralogix.zio.k8s.client.NamespacedResource.T">T</span>]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.client.NamespacedResource#create" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">A more generic interface for the same resource
+</p>
+    </li><li name="com.coralogix.zio.k8s.client.NamespacedResource#create" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="create(newResource:T,namespace:com.coralogix.zio.k8s.client.model.K8sNamespace,dryRun:Boolean):zio.IO[com.coralogix.zio.k8s.client.K8sFailure,T]"></a><a id="create(T,K8sNamespace,Boolean):IO[K8sFailure,T]"></a>
       <span class="permalink">
       <a href="../../../../../com/coralogix/zio/k8s/client/NamespacedResource.html#create(newResource:T,namespace:com.coralogix.zio.k8s.client.model.K8sNamespace,dryRun:Boolean):zio.IO[com.coralogix.zio.k8s.client.K8sFailure,T]" title="Permalink">
@@ -763,8 +770,8 @@
         <span class="name">create</span><span class="params">(<span name="newResource">newResource: <span class="extype" name="com.coralogix.zio.k8s.client.NamespacedResource.T">T</span></span>, <span name="namespace">namespace: <a href="model/package$$K8sNamespace.html" class="extype" name="com.coralogix.zio.k8s.client.model.K8sNamespace">K8sNamespace</a></span>, <span name="dryRun">dryRun: <a href="https://www.scala-lang.org/api/2.12.12/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a> = <span class="symbol">false</span></span>)</span><span class="result">: <a href="../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="com.coralogix.zio.k8s.client.NamespacedResource.T">T</span>]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.client.NamespacedResource#delete" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Creates a new resource</p><div class="fullcomment"><div class="comment cmt"><p>Creates a new resource</p></div><dl class="paramcmts block"><dt class="param">newResource</dt><dd class="cmt"><p>The new resource to define in the cluster.</p></dd><dt class="param">namespace</dt><dd class="cmt"><p>Namespace of the resource.</p></dd><dt class="param">dryRun</dt><dd class="cmt"><p>If true, the request is sent to the server but it will not create the resource.</p></dd><dt>returns</dt><dd class="cmt"><p>Returns the created resource as it was returned from Kubernetes</p></dd></dl></div>
+    </li><li name="com.coralogix.zio.k8s.client.NamespacedResource#delete" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="delete(name:String,deleteOptions:com.coralogix.zio.k8s.model.pkg.apis.meta.v1.DeleteOptions,namespace:com.coralogix.zio.k8s.client.model.K8sNamespace,dryRun:Boolean,gracePeriod:Option[zio.duration.Duration],propagationPolicy:Option[com.coralogix.zio.k8s.client.model.PropagationPolicy]):zio.IO[com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Status]"></a><a id="delete(String,DeleteOptions,K8sNamespace,Boolean,Option[Duration],Option[PropagationPolicy]):IO[K8sFailure,Status]"></a>
       <span class="permalink">
       <a href="../../../../../com/coralogix/zio/k8s/client/NamespacedResource.html#delete(name:String,deleteOptions:com.coralogix.zio.k8s.model.pkg.apis.meta.v1.DeleteOptions,namespace:com.coralogix.zio.k8s.client.model.K8sNamespace,dryRun:Boolean,gracePeriod:Option[zio.duration.Duration],propagationPolicy:Option[com.coralogix.zio.k8s.client.model.PropagationPolicy]):zio.IO[com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Status]" title="Permalink">
@@ -779,8 +786,8 @@
         <span class="name">delete</span><span class="params">(<span name="name">name: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="deleteOptions">deleteOptions: <a href="../model/pkg/apis/meta/v1/DeleteOptions.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.DeleteOptions">DeleteOptions</a></span>, <span name="namespace">namespace: <a href="model/package$$K8sNamespace.html" class="extype" name="com.coralogix.zio.k8s.client.model.K8sNamespace">K8sNamespace</a></span>, <span name="dryRun">dryRun: <a href="https://www.scala-lang.org/api/2.12.12/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a> = <span class="symbol">false</span></span>, <span name="gracePeriod">gracePeriod: <a href="https://www.scala-lang.org/api/2.12.12/scala/Option.html#scala.Option" class="extype" name="scala.Option">Option</a>[<span class="extype" name="zio.duration.Duration">Duration</span>] = <span class="symbol">None</span></span>, <span name="propagationPolicy">propagationPolicy: <a href="https://www.scala-lang.org/api/2.12.12/scala/Option.html#scala.Option" class="extype" name="scala.Option">Option</a>[<a href="model/PropagationPolicy.html" class="extype" name="com.coralogix.zio.k8s.client.model.PropagationPolicy">PropagationPolicy</a>] = <span class="symbol">None</span></span>)</span><span class="result">: <a href="../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="../model/pkg/apis/meta/v1/Status.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Status">Status</a>]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.client.NamespacedResource#get" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Deletes an existing resource selected by its name</p><div class="fullcomment"><div class="comment cmt"><p>Deletes an existing resource selected by its name</p></div><dl class="paramcmts block"><dt class="param">name</dt><dd class="cmt"><p>Name of the resource</p></dd><dt class="param">deleteOptions</dt><dd class="cmt"><p>Delete options</p></dd><dt class="param">namespace</dt><dd class="cmt"><p>Namespace of the resource</p></dd><dt class="param">dryRun</dt><dd class="cmt"><p>If true, the request is sent to the server but it will not create the resource.</p></dd><dt class="param">gracePeriod</dt><dd class="cmt"><p>The duration in seconds before the object should be deleted. Value must be non-negative integer. The value zero indicates delete immediately. If this value is nil, the default grace period for the specified type will be used. Defaults to a per object value if not specified. zero means delete immediately.</p></dd><dt class="param">propagationPolicy</dt><dd class="cmt"><p>Whether and how garbage collection will be performed. Either this field or OrphanDependents may be set, but not both. The default policy is decided by the existing finalizer set in the metadata.finalizers and the resource-specific default policy. Acceptable values are: 'Orphan' - orphan the dependents; 'Background' - allow the garbage collector to delete the dependents in the background; 'Foreground' - a cascading policy that deletes all dependents in the foreground.</p></dd><dt>returns</dt><dd class="cmt"><p>Response from the Kubernetes API</p></dd></dl></div>
+    </li><li name="com.coralogix.zio.k8s.client.NamespacedResource#get" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="get(name:String,namespace:com.coralogix.zio.k8s.client.model.K8sNamespace):zio.IO[com.coralogix.zio.k8s.client.K8sFailure,T]"></a><a id="get(String,K8sNamespace):IO[K8sFailure,T]"></a>
       <span class="permalink">
       <a href="../../../../../com/coralogix/zio/k8s/client/NamespacedResource.html#get(name:String,namespace:com.coralogix.zio.k8s.client.model.K8sNamespace):zio.IO[com.coralogix.zio.k8s.client.K8sFailure,T]" title="Permalink">
@@ -795,8 +802,8 @@
         <span class="name">get</span><span class="params">(<span name="name">name: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="namespace">namespace: <a href="model/package$$K8sNamespace.html" class="extype" name="com.coralogix.zio.k8s.client.model.K8sNamespace">K8sNamespace</a></span>)</span><span class="result">: <a href="../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="com.coralogix.zio.k8s.client.NamespacedResource.T">T</span>]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.client.NamespacedResource#getAll" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Get a resource by its name</p><div class="fullcomment"><div class="comment cmt"><p>Get a resource by its name</p></div><dl class="paramcmts block"><dt class="param">name</dt><dd class="cmt"><p>Name of the resource</p></dd><dt class="param">namespace</dt><dd class="cmt"><p>Namespace of the resource</p></dd><dt>returns</dt><dd class="cmt"><p>Returns the current version of the resource</p></dd></dl></div>
+    </li><li name="com.coralogix.zio.k8s.client.NamespacedResource#getAll" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="getAll(namespace:Option[com.coralogix.zio.k8s.client.model.K8sNamespace],chunkSize:Int,fieldSelector:Option[com.coralogix.zio.k8s.client.model.FieldSelector],labelSelector:Option[com.coralogix.zio.k8s.client.model.LabelSelector],resourceVersion:com.coralogix.zio.k8s.client.model.ListResourceVersion):zio.stream.Stream[com.coralogix.zio.k8s.client.K8sFailure,T]"></a><a id="getAll(Option[K8sNamespace],Int,Option[FieldSelector],Option[LabelSelector],ListResourceVersion):Stream[K8sFailure,T]"></a>
       <span class="permalink">
       <a href="../../../../../com/coralogix/zio/k8s/client/NamespacedResource.html#getAll(namespace:Option[com.coralogix.zio.k8s.client.model.K8sNamespace],chunkSize:Int,fieldSelector:Option[com.coralogix.zio.k8s.client.model.FieldSelector],labelSelector:Option[com.coralogix.zio.k8s.client.model.LabelSelector],resourceVersion:com.coralogix.zio.k8s.client.model.ListResourceVersion):zio.stream.Stream[com.coralogix.zio.k8s.client.K8sFailure,T]" title="Permalink">
@@ -811,8 +818,8 @@
         <span class="name">getAll</span><span class="params">(<span name="namespace">namespace: <a href="https://www.scala-lang.org/api/2.12.12/scala/Option.html#scala.Option" class="extype" name="scala.Option">Option</a>[<a href="model/package$$K8sNamespace.html" class="extype" name="com.coralogix.zio.k8s.client.model.K8sNamespace">K8sNamespace</a>]</span>, <span name="chunkSize">chunkSize: <a href="https://www.scala-lang.org/api/2.12.12/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a> = <span class="symbol">10</span></span>, <span name="fieldSelector">fieldSelector: <a href="https://www.scala-lang.org/api/2.12.12/scala/Option.html#scala.Option" class="extype" name="scala.Option">Option</a>[<a href="model/FieldSelector.html" class="extype" name="com.coralogix.zio.k8s.client.model.FieldSelector">FieldSelector</a>] = <span class="symbol">None</span></span>, <span name="labelSelector">labelSelector: <a href="https://www.scala-lang.org/api/2.12.12/scala/Option.html#scala.Option" class="extype" name="scala.Option">Option</a>[<a href="model/LabelSelector.html" class="extype" name="com.coralogix.zio.k8s.client.model.LabelSelector">LabelSelector</a>] = <span class="symbol">None</span></span>, <span name="resourceVersion">resourceVersion: <a href="model/ListResourceVersion.html" class="extype" name="com.coralogix.zio.k8s.client.model.ListResourceVersion">ListResourceVersion</a> = <span class="symbol"><span class="name"><a href="../../../../index.html">ListResourceVersion.MostRecent</a></span></span></span>)</span><span class="result">: <span class="extype" name="zio.stream.Stream">Stream</span>[<a href="K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="com.coralogix.zio.k8s.client.NamespacedResource.T">T</span>]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.client.NamespacedResource#replace" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">A paginated query of all resources with filtering possibilities</p><div class="fullcomment"><div class="comment cmt"><p>A paginated query of all resources with filtering possibilities</p></div><dl class="paramcmts block"><dt class="param">namespace</dt><dd class="cmt"><p>Constraint the query to a given namespace. If None, results returned from all namespaces.</p></dd><dt class="param">chunkSize</dt><dd class="cmt"><p>Number of items to return per HTTP request</p></dd><dt class="param">fieldSelector</dt><dd class="cmt"><p>Constrain the returned items by field selectors. Not all fields are supported by the server.</p></dd><dt class="param">labelSelector</dt><dd class="cmt"><p>Constrain the returned items by label selectors.</p></dd><dt class="param">resourceVersion</dt><dd class="cmt"><p>Control the returned resources' version.</p></dd><dt>returns</dt><dd class="cmt"><p>A stream of resources</p></dd></dl></div>
+    </li><li name="com.coralogix.zio.k8s.client.NamespacedResource#replace" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="replace(name:String,updatedResource:T,namespace:com.coralogix.zio.k8s.client.model.K8sNamespace,dryRun:Boolean):zio.IO[com.coralogix.zio.k8s.client.K8sFailure,T]"></a><a id="replace(String,T,K8sNamespace,Boolean):IO[K8sFailure,T]"></a>
       <span class="permalink">
       <a href="../../../../../com/coralogix/zio/k8s/client/NamespacedResource.html#replace(name:String,updatedResource:T,namespace:com.coralogix.zio.k8s.client.model.K8sNamespace,dryRun:Boolean):zio.IO[com.coralogix.zio.k8s.client.K8sFailure,T]" title="Permalink">
@@ -827,8 +834,8 @@
         <span class="name">replace</span><span class="params">(<span name="name">name: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="updatedResource">updatedResource: <span class="extype" name="com.coralogix.zio.k8s.client.NamespacedResource.T">T</span></span>, <span name="namespace">namespace: <a href="model/package$$K8sNamespace.html" class="extype" name="com.coralogix.zio.k8s.client.model.K8sNamespace">K8sNamespace</a></span>, <span name="dryRun">dryRun: <a href="https://www.scala-lang.org/api/2.12.12/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a> = <span class="symbol">false</span></span>)</span><span class="result">: <a href="../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="com.coralogix.zio.k8s.client.NamespacedResource.T">T</span>]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.client.NamespacedResource#watch" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Replaces an existing resource selected by its name</p><div class="fullcomment"><div class="comment cmt"><p>Replaces an existing resource selected by its name</p></div><dl class="paramcmts block"><dt class="param">name</dt><dd class="cmt"><p>Name of the resource</p></dd><dt class="param">updatedResource</dt><dd class="cmt"><p>The new value of the resource</p></dd><dt class="param">namespace</dt><dd class="cmt"><p>Namespace of the resource</p></dd><dt class="param">dryRun</dt><dd class="cmt"><p>If true, the request is sent to the server but it will not create the resource.</p></dd><dt>returns</dt><dd class="cmt"><p>Returns the updated resource as it was returned from Kubernetes</p></dd></dl></div>
+    </li><li name="com.coralogix.zio.k8s.client.NamespacedResource#watch" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="watch(namespace:Option[com.coralogix.zio.k8s.client.model.K8sNamespace],resourceVersion:Option[String],fieldSelector:Option[com.coralogix.zio.k8s.client.model.FieldSelector],labelSelector:Option[com.coralogix.zio.k8s.client.model.LabelSelector]):zio.stream.Stream[com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.client.model.TypedWatchEvent[T]]"></a><a id="watch(Option[K8sNamespace],Option[String],Option[FieldSelector],Option[LabelSelector]):Stream[K8sFailure,TypedWatchEvent[T]]"></a>
       <span class="permalink">
       <a href="../../../../../com/coralogix/zio/k8s/client/NamespacedResource.html#watch(namespace:Option[com.coralogix.zio.k8s.client.model.K8sNamespace],resourceVersion:Option[String],fieldSelector:Option[com.coralogix.zio.k8s.client.model.FieldSelector],labelSelector:Option[com.coralogix.zio.k8s.client.model.LabelSelector]):zio.stream.Stream[com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.client.model.TypedWatchEvent[T]]" title="Permalink">
@@ -843,8 +850,10 @@
         <span class="name">watch</span><span class="params">(<span name="namespace">namespace: <a href="https://www.scala-lang.org/api/2.12.12/scala/Option.html#scala.Option" class="extype" name="scala.Option">Option</a>[<a href="model/package$$K8sNamespace.html" class="extype" name="com.coralogix.zio.k8s.client.model.K8sNamespace">K8sNamespace</a>]</span>, <span name="resourceVersion">resourceVersion: <a href="https://www.scala-lang.org/api/2.12.12/scala/Option.html#scala.Option" class="extype" name="scala.Option">Option</a>[<span class="extype" name="scala.Predef.String">String</span>]</span>, <span name="fieldSelector">fieldSelector: <a href="https://www.scala-lang.org/api/2.12.12/scala/Option.html#scala.Option" class="extype" name="scala.Option">Option</a>[<a href="model/FieldSelector.html" class="extype" name="com.coralogix.zio.k8s.client.model.FieldSelector">FieldSelector</a>] = <span class="symbol">None</span></span>, <span name="labelSelector">labelSelector: <a href="https://www.scala-lang.org/api/2.12.12/scala/Option.html#scala.Option" class="extype" name="scala.Option">Option</a>[<a href="model/LabelSelector.html" class="extype" name="com.coralogix.zio.k8s.client.model.LabelSelector">LabelSelector</a>] = <span class="symbol">None</span></span>)</span><span class="result">: <span class="extype" name="zio.stream.Stream">Stream</span>[<a href="K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="model/TypedWatchEvent.html" class="extype" name="com.coralogix.zio.k8s.client.model.TypedWatchEvent">TypedWatchEvent</a>[<span class="extype" name="com.coralogix.zio.k8s.client.NamespacedResource.T">T</span>]]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.client.NamespacedResource#watchForever" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Watch stream of resource change events of type <span class="extype" name="TypedWatchEvent">TypedWatchEvent</span></p><div class="fullcomment"><div class="comment cmt"><p>Watch stream of resource change events of type <span class="extype" name="TypedWatchEvent">TypedWatchEvent</span></p><p>This function requires the user to control the starting resourceVersion and to
+restart the watch stream when the server closes the connection.</p><p>For a more convenient variant check <span class="extype" name="watchForever()">watchForever()</span>.
+</p></div><dl class="paramcmts block"><dt class="param">namespace</dt><dd class="cmt"><p>Constraint the watched resources by their namespace. If None, all namespaces will be watched.</p></dd><dt class="param">resourceVersion</dt><dd class="cmt"><p>Last known resource version</p></dd><dt class="param">fieldSelector</dt><dd class="cmt"><p>Constrain the returned items by field selectors. Not all fields are supported by the server.</p></dd><dt class="param">labelSelector</dt><dd class="cmt"><p>Constrain the returned items by label selectors.</p></dd><dt>returns</dt><dd class="cmt"><p>A stream of watch events</p></dd></dl></div>
+    </li><li name="com.coralogix.zio.k8s.client.NamespacedResource#watchForever" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="watchForever(namespace:Option[com.coralogix.zio.k8s.client.model.K8sNamespace],fieldSelector:Option[com.coralogix.zio.k8s.client.model.FieldSelector],labelSelector:Option[com.coralogix.zio.k8s.client.model.LabelSelector]):zio.stream.ZStream[zio.clock.Clock,com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.client.model.TypedWatchEvent[T]]"></a><a id="watchForever(Option[K8sNamespace],Option[FieldSelector],Option[LabelSelector]):ZStream[Clock,K8sFailure,TypedWatchEvent[T]]"></a>
       <span class="permalink">
       <a href="../../../../../com/coralogix/zio/k8s/client/NamespacedResource.html#watchForever(namespace:Option[com.coralogix.zio.k8s.client.model.K8sNamespace],fieldSelector:Option[com.coralogix.zio.k8s.client.model.FieldSelector],labelSelector:Option[com.coralogix.zio.k8s.client.model.LabelSelector]):zio.stream.ZStream[zio.clock.Clock,com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.client.model.TypedWatchEvent[T]]" title="Permalink">
@@ -859,7 +868,8 @@
         <span class="name">watchForever</span><span class="params">(<span name="namespace">namespace: <a href="https://www.scala-lang.org/api/2.12.12/scala/Option.html#scala.Option" class="extype" name="scala.Option">Option</a>[<a href="model/package$$K8sNamespace.html" class="extype" name="com.coralogix.zio.k8s.client.model.K8sNamespace">K8sNamespace</a>]</span>, <span name="fieldSelector">fieldSelector: <a href="https://www.scala-lang.org/api/2.12.12/scala/Option.html#scala.Option" class="extype" name="scala.Option">Option</a>[<a href="model/FieldSelector.html" class="extype" name="com.coralogix.zio.k8s.client.model.FieldSelector">FieldSelector</a>] = <span class="symbol">None</span></span>, <span name="labelSelector">labelSelector: <a href="https://www.scala-lang.org/api/2.12.12/scala/Option.html#scala.Option" class="extype" name="scala.Option">Option</a>[<a href="model/LabelSelector.html" class="extype" name="com.coralogix.zio.k8s.client.model.LabelSelector">LabelSelector</a>] = <span class="symbol">None</span></span>)</span><span class="result">: <a href="https://javadoc.io/page/dev.zio/zio-streams_2.12/1.0.4-2/zio/stream/ZStream.html#zio.stream.ZStream" class="extype" name="zio.stream.ZStream">ZStream</a>[<span class="extype" name="zio.clock.Clock">Clock</span>, <a href="K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="model/TypedWatchEvent.html" class="extype" name="com.coralogix.zio.k8s.client.model.TypedWatchEvent">TypedWatchEvent</a>[<span class="extype" name="com.coralogix.zio.k8s.client.NamespacedResource.T">T</span>]]</span>
       </span>
       
-      
+      <p class="shortcomment cmt">Infinite watch stream of resource change events of type <span class="extype" name="TypedWatchEvent">TypedWatchEvent</span></p><div class="fullcomment"><div class="comment cmt"><p>Infinite watch stream of resource change events of type <span class="extype" name="TypedWatchEvent">TypedWatchEvent</span></p><p>The underlying implementation takes advantage of Kubernetes watch bookmarks.
+</p></div><dl class="paramcmts block"><dt class="param">namespace</dt><dd class="cmt"><p>Constraint the watched resources by their namespace. If None, all namespaces will be watched.</p></dd><dt class="param">fieldSelector</dt><dd class="cmt"><p>Constrain the returned items by field selectors. Not all fields are supported by the server.</p></dd><dt class="param">labelSelector</dt><dd class="cmt"><p>Constrain the returned items by label selectors.</p></dd><dt>returns</dt><dd class="cmt"><p>A stream of watch events</p></dd></dl></div>
     </li></ol>
             </div>
 

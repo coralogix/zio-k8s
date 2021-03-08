@@ -305,10 +305,15 @@
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="" href="../config/index.html"><span class="name">config</span></a>
+        <a title="Contains data structures, ZIO layers and zio-config descriptors for configuring the zio-k8s client." href="../config/index.html"><span class="name">config</span></a>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="com.coralogix.zio.k8s.client">client</a></dd></dl></div>
+      <p class="shortcomment cmt">Contains data structures, ZIO layers and zio-config descriptors for configuring the zio-k8s client.</p><div class="fullcomment"><div class="comment cmt"><p>Contains data structures, ZIO layers and zio-config descriptors for configuring the zio-k8s client.</p><p>Each zio-k8s client module depends on two ZIO modules: <span class="extype" name="K8sCluster">K8sCluster</span> and an <a href="https://javadoc.io/page/com.softwaremill.sttp.client3/core_2.12/3.1.7/sttp/client3/SttpBackend.html" class="extype" name="sttp.client3.SttpBackend">sttp.client3.SttpBackend</a>.
+To use the default configuration (use kubeconfig if available, otherwise fallback to service account token),
+use either <span class="extype" name="asynchttpclient.k8sDefault">asynchttpclient.k8sDefault</span> or <span class="extype" name="httpclient.k8sDefault">httpclient.k8sDefault</span> depending on your chosen sttp backend.</p><p>Manual configuration is possible by providing a <a href="../config/package$$K8sClusterConfig.html" class="extype" name="com.coralogix.zio.k8s.client.config.K8sClusterConfig">K8sClusterConfig</a> value to both the <a href="../config/index.html#k8sCluster:zio.ZLayer[zio.blocking.Blockingwithzio.Has[com.coralogix.zio.k8s.client.config.package.K8sClusterConfig],Throwable,zio.Has[com.coralogix.zio.k8s.client.model.K8sCluster]]" class="extmbr" name="com.coralogix.zio.k8s.client.config#k8sCluster">k8sCluster</a> layer
+and either <span class="extype" name="asynchttpclient.k8sSttpClient">asynchttpclient.k8sSttpClient</span> or <span class="extype" name="httpclient.k8sSttpClient">httpclient.k8sSttpClient</span>.</p><p>Instead of manually providing the configuration, zio-config descriptors are available to load them from any
+supported source.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="com.coralogix.zio.k8s.client">client</a></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.client.coordination" visbl="pub" class="indented6 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="coordination"></a><a id="coordination:coordination"></a>
       <span class="permalink">
@@ -391,20 +396,20 @@
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="com.coralogix.zio.k8s.client">client</a></dd></dl></div>
     </li><li class="current-entities indented6">
                         <a class="object" href="ResourceClient$.html" title=""></a>
-                        <a class="class" href="ResourceClient.html" title=""></a>
-                        <a href="ResourceClient.html" title="">ResourceClient</a>
+                        <a class="class" href="ResourceClient.html" title="Generic implementation of Resource and ResourceDeleteAll"></a>
+                        <a href="ResourceClient.html" title="Generic implementation of Resource and ResourceDeleteAll">ResourceClient</a>
                       </li><li class="current-entities indented6">
                         <span class="separator"></span>
                         <a class="trait" href="ResourceClientBase.html" title=""></a>
                         <a href="ResourceClientBase.html" title="">ResourceClientBase</a>
                       </li><li class="current-entities indented6">
                         <span class="separator"></span>
-                        <a class="class" href="ResourceStatusClient.html" title=""></a>
-                        <a href="ResourceStatusClient.html" title="">ResourceStatusClient</a>
+                        <a class="class" href="ResourceStatusClient.html" title="Generic implementation for ResourceStatus"></a>
+                        <a href="ResourceStatusClient.html" title="Generic implementation for ResourceStatus">ResourceStatusClient</a>
                       </li><li class="current-entities indented6">
                         <span class="separator"></span>
-                        <a class="class" href="SubresourceClient.html" title=""></a>
-                        <a href="SubresourceClient.html" title="">SubresourceClient</a>
+                        <a class="class" href="SubresourceClient.html" title="Generic implementation for Subresource"></a>
+                        <a href="SubresourceClient.html" title="Generic implementation for Subresource">SubresourceClient</a>
                       </li><li name="com.coralogix.zio.k8s.client.internal" visbl="pub" class="indented6 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="internal"></a><a id="internal:internal"></a>
       <span class="permalink">
@@ -644,7 +649,7 @@
 
         <div id="types" class="types members">
               <h3>Type Members</h3>
-              <ol><li name="com.coralogix.zio.k8s.client.impl.ResourceClient" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+              <ol><li name="com.coralogix.zio.k8s.client.impl.ResourceClient" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="ResourceClient[T]extendsResource[T]withResourceDeleteAll[T]withResourceClientBase"></a><a id="ResourceClient[T]:ResourceClient[T]"></a>
       <span class="permalink">
       <a href="../../../../../../com/coralogix/zio/k8s/client/impl/ResourceClient.html" title="Permalink">
@@ -656,10 +661,11 @@
         <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <a title="" href="ResourceClient.html"><span class="name">ResourceClient</span></a><span class="tparams">[<span name="T">T</span>]</span><span class="result"> extends <a href="../Resource.html" class="extype" name="com.coralogix.zio.k8s.client.Resource">Resource</a>[<span class="extype" name="com.coralogix.zio.k8s.client.impl.ResourceClient.T">T</span>] with <a href="../ResourceDeleteAll.html" class="extype" name="com.coralogix.zio.k8s.client.ResourceDeleteAll">ResourceDeleteAll</a>[<span class="extype" name="com.coralogix.zio.k8s.client.impl.ResourceClient.T">T</span>] with <a href="ResourceClientBase.html" class="extype" name="com.coralogix.zio.k8s.client.impl.ResourceClientBase">ResourceClientBase</a></span>
+        <a title="Generic implementation of Resource and ResourceDeleteAll" href="ResourceClient.html"><span class="name">ResourceClient</span></a><span class="tparams">[<span name="T">T</span>]</span><span class="result"> extends <a href="../Resource.html" class="extype" name="com.coralogix.zio.k8s.client.Resource">Resource</a>[<span class="extype" name="com.coralogix.zio.k8s.client.impl.ResourceClient.T">T</span>] with <a href="../ResourceDeleteAll.html" class="extype" name="com.coralogix.zio.k8s.client.ResourceDeleteAll">ResourceDeleteAll</a>[<span class="extype" name="com.coralogix.zio.k8s.client.impl.ResourceClient.T">T</span>] with <a href="ResourceClientBase.html" class="extype" name="com.coralogix.zio.k8s.client.impl.ResourceClientBase">ResourceClientBase</a></span>
       </span>
       
-      
+      <p class="shortcomment cmt">Generic implementation of <a href="../Resource.html" class="extype" name="com.coralogix.zio.k8s.client.Resource">Resource</a> and <a href="../ResourceDeleteAll.html" class="extype" name="com.coralogix.zio.k8s.client.ResourceDeleteAll">ResourceDeleteAll</a></p><div class="fullcomment"><div class="comment cmt"><p>Generic implementation of <a href="../Resource.html" class="extype" name="com.coralogix.zio.k8s.client.Resource">Resource</a> and <a href="../ResourceDeleteAll.html" class="extype" name="com.coralogix.zio.k8s.client.ResourceDeleteAll">ResourceDeleteAll</a></p><p>See https://kubernetes.io/docs/reference/using-api/api-concepts/
+</p></div><dl class="paramcmts block"><dt class="tparam">T</dt><dd class="cmt"><p>Resource type, must have JSON encoder and decoder and an implemententation of <span class="extype" name="K8sObject">K8sObject</span></p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.client.impl.ResourceClientBase" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
       <a id="ResourceClientBaseextendsAnyRef"></a><a id="ResourceClientBase:ResourceClientBase"></a>
       <span class="permalink">
@@ -676,7 +682,7 @@
       </span>
       
       
-    </li><li name="com.coralogix.zio.k8s.client.impl.ResourceStatusClient" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="com.coralogix.zio.k8s.client.impl.ResourceStatusClient" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="ResourceStatusClient[StatusT,T]extendsResourceStatus[StatusT,T]withResourceClientBase"></a><a id="ResourceStatusClient[StatusT,T]:ResourceStatusClient[StatusT,T]"></a>
       <span class="permalink">
       <a href="../../../../../../com/coralogix/zio/k8s/client/impl/ResourceStatusClient.html" title="Permalink">
@@ -688,11 +694,11 @@
         <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <a title="" href="ResourceStatusClient.html"><span class="name">ResourceStatusClient</span></a><span class="tparams">[<span name="StatusT">StatusT</span>, <span name="T">T</span>]</span><span class="result"> extends <a href="../ResourceStatus.html" class="extype" name="com.coralogix.zio.k8s.client.ResourceStatus">ResourceStatus</a>[<span class="extype" name="com.coralogix.zio.k8s.client.impl.ResourceStatusClient.StatusT">StatusT</span>, <span class="extype" name="com.coralogix.zio.k8s.client.impl.ResourceStatusClient.T">T</span>] with <a href="ResourceClientBase.html" class="extype" name="com.coralogix.zio.k8s.client.impl.ResourceClientBase">ResourceClientBase</a></span>
+        <a title="Generic implementation for ResourceStatus" href="ResourceStatusClient.html"><span class="name">ResourceStatusClient</span></a><span class="tparams">[<span name="StatusT">StatusT</span>, <span name="T">T</span>]</span><span class="result"> extends <a href="../ResourceStatus.html" class="extype" name="com.coralogix.zio.k8s.client.ResourceStatus">ResourceStatus</a>[<span class="extype" name="com.coralogix.zio.k8s.client.impl.ResourceStatusClient.StatusT">StatusT</span>, <span class="extype" name="com.coralogix.zio.k8s.client.impl.ResourceStatusClient.T">T</span>] with <a href="ResourceClientBase.html" class="extype" name="com.coralogix.zio.k8s.client.impl.ResourceClientBase">ResourceClientBase</a></span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.client.impl.SubresourceClient" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Generic implementation for <a href="../ResourceStatus.html" class="extype" name="com.coralogix.zio.k8s.client.ResourceStatus">ResourceStatus</a></p><div class="fullcomment"><div class="comment cmt"><p>Generic implementation for <a href="../ResourceStatus.html" class="extype" name="com.coralogix.zio.k8s.client.ResourceStatus">ResourceStatus</a></p></div><dl class="paramcmts block"><dt class="tparam">StatusT</dt><dd class="cmt"><p>Status subresource type</p></dd><dt class="tparam">T</dt><dd class="cmt"><p>Resource type</p></dd></dl></div>
+    </li><li name="com.coralogix.zio.k8s.client.impl.SubresourceClient" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="SubresourceClient[T]extendsSubresource[T]withResourceClientBase"></a><a id="SubresourceClient[T]:SubresourceClient[T]"></a>
       <span class="permalink">
       <a href="../../../../../../com/coralogix/zio/k8s/client/impl/SubresourceClient.html" title="Permalink">
@@ -704,10 +710,10 @@
         <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <a title="" href="SubresourceClient.html"><span class="name">SubresourceClient</span></a><span class="tparams">[<span name="T">T</span>]</span><span class="result"> extends <a href="../Subresource.html" class="extype" name="com.coralogix.zio.k8s.client.Subresource">Subresource</a>[<span class="extype" name="com.coralogix.zio.k8s.client.impl.SubresourceClient.T">T</span>] with <a href="ResourceClientBase.html" class="extype" name="com.coralogix.zio.k8s.client.impl.ResourceClientBase">ResourceClientBase</a></span>
+        <a title="Generic implementation for Subresource" href="SubresourceClient.html"><span class="name">SubresourceClient</span></a><span class="tparams">[<span name="T">T</span>]</span><span class="result"> extends <a href="../Subresource.html" class="extype" name="com.coralogix.zio.k8s.client.Subresource">Subresource</a>[<span class="extype" name="com.coralogix.zio.k8s.client.impl.SubresourceClient.T">T</span>] with <a href="ResourceClientBase.html" class="extype" name="com.coralogix.zio.k8s.client.impl.ResourceClientBase">ResourceClientBase</a></span>
       </span>
       
-      
+      <p class="shortcomment cmt">Generic implementation for <a href="../Subresource.html" class="extype" name="com.coralogix.zio.k8s.client.Subresource">Subresource</a></p><div class="fullcomment"><div class="comment cmt"><p>Generic implementation for <a href="../Subresource.html" class="extype" name="com.coralogix.zio.k8s.client.Subresource">Subresource</a></p></div><dl class="paramcmts block"><dt class="tparam">T</dt><dd class="cmt"><p>Subresource type</p></dd></dl></div>
     </li></ol>
             </div>
 

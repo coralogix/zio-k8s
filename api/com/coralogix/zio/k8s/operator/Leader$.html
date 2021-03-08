@@ -155,12 +155,12 @@
                         <a href="ClusterOperator.html" title="">ClusterOperator</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
-                        <a class="class" href="KubernetesFailure.html" title=""></a>
-                        <a href="KubernetesFailure.html" title="">KubernetesFailure</a>
+                        <a class="class" href="KubernetesFailure.html" title="Operator failed with a Kubernetes error"></a>
+                        <a href="KubernetesFailure.html" title="Operator failed with a Kubernetes error">KubernetesFailure</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
-                        <a class="object" href="" title=""></a>
-                        <a href="" title="">Leader</a>
+                        <a class="object" href="" title="Simple leader election implementation"></a>
+                        <a href="" title="Simple leader election implementation">Leader</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
                         <a class="class" href="NamespacedOperator.html" title=""></a>
@@ -171,20 +171,20 @@
                         <a href="Operator.html" title="Core implementation of the operator logic.">Operator</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
-                        <a class="class" href="OperatorError.html" title=""></a>
-                        <a href="OperatorError.html" title="">OperatorError</a>
+                        <a class="class" href="OperatorError.html" title="Operator failed with an application-specific error"></a>
+                        <a href="OperatorError.html" title="Operator failed with an application-specific error">OperatorError</a>
                       </li><li class="current-entities indented5">
                         <a class="object" href="OperatorFailure$.html" title=""></a>
-                        <a class="trait" href="OperatorFailure.html" title=""></a>
-                        <a href="OperatorFailure.html" title="">OperatorFailure</a>
+                        <a class="trait" href="OperatorFailure.html" title="Operator failure type"></a>
+                        <a href="OperatorFailure.html" title="Operator failure type">OperatorFailure</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
                         <a class="object" href="OperatorLogging$.html" title=""></a>
                         <a href="OperatorLogging$.html" title="">OperatorLogging</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
-                        <a class="object" href="Registration$.html" title=""></a>
-                        <a href="Registration$.html" title="">Registration</a>
+                        <a class="object" href="Registration$.html" title="Registers CRD objects"></a>
+                        <a href="Registration$.html" title="Registers CRD objects">Registration</a>
                       </li>
               </ul>
             </div>
@@ -213,7 +213,12 @@
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Simple leader election implementation</p><p>The algorithm tries creating a ConfigMap with a given name and attaches the Pod it
+is running in as an owner of the config map.</p><p>If the ConfigMap already exists the leader election fails and retries with exponential backoff.
+If it succeeds then it runs the inner effect.</p><p>When the code terminates normally the acquired ConfigMap gets released. If the whole Pod gets
+killed without releasing the resource, the registered ownership will make Kubernetes apply
+cascading deletion so eventually a new Pod can register the ConfigMap again.
+</p></div><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -277,10 +282,11 @@
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a title="" href="Leader$$ApplicationError.html"><span class="name">ApplicationError</span></a><span class="tparams">[<span name="E">E</span>]</span><span class="params">(<span name="error">error: <span class="extype" name="com.coralogix.zio.k8s.operator.Leader.ApplicationError.E">E</span></span>)</span><span class="result"> extends <a href="Leader$$LeaderElectionFailure.html" class="extype" name="com.coralogix.zio.k8s.operator.Leader.LeaderElectionFailure">LeaderElectionFailure</a>[<span class="extype" name="com.coralogix.zio.k8s.operator.Leader.ApplicationError.E">E</span>] with <a href="https://www.scala-lang.org/api/2.12.12/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a> with <a href="https://www.scala-lang.org/api/2.12.12/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+        <a title="Inner effect failed" href="Leader$$ApplicationError.html"><span class="name">ApplicationError</span></a><span class="tparams">[<span name="E">E</span>]</span><span class="params">(<span name="error">error: <span class="extype" name="com.coralogix.zio.k8s.operator.Leader.ApplicationError.E">E</span></span>)</span><span class="result"> extends <a href="Leader$$LeaderElectionFailure.html" class="extype" name="com.coralogix.zio.k8s.operator.Leader.LeaderElectionFailure">LeaderElectionFailure</a>[<span class="extype" name="com.coralogix.zio.k8s.operator.Leader.ApplicationError.E">E</span>] with <a href="https://www.scala-lang.org/api/2.12.12/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a> with <a href="https://www.scala-lang.org/api/2.12.12/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
       </span>
       
-      
+      <p class="shortcomment cmt">Inner effect failed
+</p>
     </li><li name="com.coralogix.zio.k8s.operator.Leader.KubernetesError" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="KubernetesErrorextendsLeader.LeaderElectionFailure[Nothing]withProductwithSerializable"></a><a id="KubernetesError:KubernetesError"></a>
       <span class="permalink">
@@ -293,11 +299,12 @@
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a title="" href="Leader$$KubernetesError.html"><span class="name">KubernetesError</span></a><span class="params">(<span name="error">error: <a href="../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a></span>)</span><span class="result"> extends <a href="Leader$$LeaderElectionFailure.html" class="extype" name="com.coralogix.zio.k8s.operator.Leader.LeaderElectionFailure">LeaderElectionFailure</a>[<a href="https://www.scala-lang.org/api/2.12.12/scala/Nothing.html#scala.Nothing" class="extype" name="scala.Nothing">Nothing</a>] with <a href="https://www.scala-lang.org/api/2.12.12/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a> with <a href="https://www.scala-lang.org/api/2.12.12/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+        <a title="Failure while calling the Kubernetes API" href="Leader$$KubernetesError.html"><span class="name">KubernetesError</span></a><span class="params">(<span name="error">error: <a href="../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a></span>)</span><span class="result"> extends <a href="Leader$$LeaderElectionFailure.html" class="extype" name="com.coralogix.zio.k8s.operator.Leader.LeaderElectionFailure">LeaderElectionFailure</a>[<a href="https://www.scala-lang.org/api/2.12.12/scala/Nothing.html#scala.Nothing" class="extype" name="scala.Nothing">Nothing</a>] with <a href="https://www.scala-lang.org/api/2.12.12/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a> with <a href="https://www.scala-lang.org/api/2.12.12/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.operator.Leader.LeaderElectionFailure" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Failure while calling the Kubernetes API
+</p>
+    </li><li name="com.coralogix.zio.k8s.operator.Leader.LeaderElectionFailure" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="LeaderElectionFailure[+E]extendsAnyRef"></a><a id="LeaderElectionFailure[+E]:LeaderElectionFailure[E]"></a>
       <span class="permalink">
       <a href="../../../../../com/coralogix/zio/k8s/operator/Leader$$LeaderElectionFailure.html" title="Permalink">
@@ -309,11 +316,11 @@
         <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <a title="" href="Leader$$LeaderElectionFailure.html"><span class="name">LeaderElectionFailure</span></a><span class="tparams">[<span name="E">+E</span>]</span><span class="result"> extends <a href="https://www.scala-lang.org/api/2.12.12/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
+        <a title="Possible failures of the leader election algorithm" href="Leader$$LeaderElectionFailure.html"><span class="name">LeaderElectionFailure</span></a><span class="tparams">[<span name="E">+E</span>]</span><span class="result"> extends <a href="https://www.scala-lang.org/api/2.12.12/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.operator.Leader.PodNameMissing" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Possible failures of the leader election algorithm</p><div class="fullcomment"><div class="comment cmt"><p>Possible failures of the leader election algorithm</p></div><dl class="paramcmts block"><dt class="tparam">E</dt><dd class="cmt"><p>Failure type of the inner effect</p></dd></dl></div>
+    </li><li name="com.coralogix.zio.k8s.operator.Leader.PodNameMissing" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="PodNameMissingextendsLeader.LeaderElectionFailure[Nothing]withProductwithSerializable"></a><a id="PodNameMissing:PodNameMissing"></a>
       <span class="permalink">
       <a href="../../../../../com/coralogix/zio/k8s/operator/Leader$$PodNameMissing.html" title="Permalink">
@@ -325,11 +332,12 @@
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a title="" href="Leader$$PodNameMissing.html"><span class="name">PodNameMissing</span></a><span class="params">(<span name="reason">reason: <a href="https://www.scala-lang.org/api/2.12.12/scala/Option.html#scala.Option" class="extype" name="scala.Option">Option</a>[<a href="https://docs.oracle.com/en/java/javase/11/docs/api/java/lang/SecurityException.html#java.lang.SecurityException" class="extype" name="java.lang.SecurityException">SecurityException</a>]</span>)</span><span class="result"> extends <a href="Leader$$LeaderElectionFailure.html" class="extype" name="com.coralogix.zio.k8s.operator.Leader.LeaderElectionFailure">LeaderElectionFailure</a>[<a href="https://www.scala-lang.org/api/2.12.12/scala/Nothing.html#scala.Nothing" class="extype" name="scala.Nothing">Nothing</a>] with <a href="https://www.scala-lang.org/api/2.12.12/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a> with <a href="https://www.scala-lang.org/api/2.12.12/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+        <a title="Could not determine the running Pod's name." href="Leader$$PodNameMissing.html"><span class="name">PodNameMissing</span></a><span class="params">(<span name="reason">reason: <a href="https://www.scala-lang.org/api/2.12.12/scala/Option.html#scala.Option" class="extype" name="scala.Option">Option</a>[<a href="https://docs.oracle.com/en/java/javase/11/docs/api/java/lang/SecurityException.html#java.lang.SecurityException" class="extype" name="java.lang.SecurityException">SecurityException</a>]</span>)</span><span class="result"> extends <a href="Leader$$LeaderElectionFailure.html" class="extype" name="com.coralogix.zio.k8s.operator.Leader.LeaderElectionFailure">LeaderElectionFailure</a>[<a href="https://www.scala-lang.org/api/2.12.12/scala/Nothing.html#scala.Nothing" class="extype" name="scala.Nothing">Nothing</a>] with <a href="https://www.scala-lang.org/api/2.12.12/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a> with <a href="https://www.scala-lang.org/api/2.12.12/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.operator.Leader.UnknownNamespace" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Could not determine the running Pod's name.</p><div class="fullcomment"><div class="comment cmt"><p>Could not determine the running Pod's name. It has to be provided in the POD_NAME environment variable.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.operator.Leader.UnknownNamespace" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="UnknownNamespaceextendsLeader.LeaderElectionFailure[Nothing]withProductwithSerializable"></a><a id="UnknownNamespace:UnknownNamespace"></a>
       <span class="permalink">
       <a href="../../../../../com/coralogix/zio/k8s/operator/Leader$$UnknownNamespace.html" title="Permalink">
@@ -341,10 +349,12 @@
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a title="" href="Leader$$UnknownNamespace.html"><span class="name">UnknownNamespace</span></a><span class="params">(<span name="reason">reason: <a href="https://www.scala-lang.org/api/2.12.12/scala/Option.html#scala.Option" class="extype" name="scala.Option">Option</a>[<a href="https://docs.oracle.com/en/java/javase/11/docs/api/java/io/IOException.html#java.io.IOException" class="extype" name="java.io.IOException">IOException</a>]</span>)</span><span class="result"> extends <a href="Leader$$LeaderElectionFailure.html" class="extype" name="com.coralogix.zio.k8s.operator.Leader.LeaderElectionFailure">LeaderElectionFailure</a>[<a href="https://www.scala-lang.org/api/2.12.12/scala/Nothing.html#scala.Nothing" class="extype" name="scala.Nothing">Nothing</a>] with <a href="https://www.scala-lang.org/api/2.12.12/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a> with <a href="https://www.scala-lang.org/api/2.12.12/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+        <a title="Could not determine the namespace" href="Leader$$UnknownNamespace.html"><span class="name">UnknownNamespace</span></a><span class="params">(<span name="reason">reason: <a href="https://www.scala-lang.org/api/2.12.12/scala/Option.html#scala.Option" class="extype" name="scala.Option">Option</a>[<a href="https://docs.oracle.com/en/java/javase/11/docs/api/java/io/IOException.html#java.io.IOException" class="extype" name="java.io.IOException">IOException</a>]</span>)</span><span class="result"> extends <a href="Leader$$LeaderElectionFailure.html" class="extype" name="com.coralogix.zio.k8s.operator.Leader.LeaderElectionFailure">LeaderElectionFailure</a>[<a href="https://www.scala-lang.org/api/2.12.12/scala/Nothing.html#scala.Nothing" class="extype" name="scala.Nothing">Nothing</a>] with <a href="https://www.scala-lang.org/api/2.12.12/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a> with <a href="https://www.scala-lang.org/api/2.12.12/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
       </span>
       
-      
+      <p class="shortcomment cmt">Could not determine the namespace</p><div class="fullcomment"><div class="comment cmt"><p>Could not determine the namespace</p><p>If it is not provided by the caller, the implementation tries to read it from
+/var/run/secrets/kubernetes.io/serviceaccount/namespace.
+</p></div></div>
     </li></ol>
             </div>
 
@@ -458,7 +468,8 @@
         <span class="name">defaultRetryPolicy</span><span class="result">: <a href="https://javadoc.io/page/dev.zio/zio_2.12/1.0.4-2/zio/Schedule.html#zio.Schedule" class="extype" name="zio.Schedule">Schedule</a>[<a href="https://www.scala-lang.org/api/2.12.12/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a>, <a href="https://www.scala-lang.org/api/2.12.12/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a>, <a href="https://www.scala-lang.org/api/2.12.12/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a>]</span>
       </span>
       
-      
+      <p class="shortcomment cmt">Default retry policy for acquiring the lock
+</p>
     </li><li name="scala.AnyRef#eq" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="eq(x$1:AnyRef):Boolean"></a><a id="eq(AnyRef):Boolean"></a>
       <span class="permalink">
@@ -549,7 +560,7 @@
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
-    </li><li name="com.coralogix.zio.k8s.operator.Leader#leaderForLife" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="com.coralogix.zio.k8s.operator.Leader#leaderForLife" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="leaderForLife[R,E,A](lockName:String,namespace:Option[com.coralogix.zio.k8s.client.model.K8sNamespace],retryPolicy:zio.Schedule[Any,com.coralogix.zio.k8s.client.K8sFailure,Unit])(f:zio.ZIO[R,E,A]):zio.ZIO[Rwithzio.blocking.Blockingwithzio.system.Systemwithzio.clock.Clockwithcom.coralogix.zio.k8s.client.v1.pods.Podswithcom.coralogix.zio.k8s.client.v1.configmaps.ConfigMapswithzio.logging.Logging,E,Option[A]]"></a><a id="leaderForLife[R,E,A](String,Option[K8sNamespace],Schedule[Any,K8sFailure,Unit])(ZIO[R,E,A]):ZIO[RwithBlockingwithSystemwithClockwithPodswithConfigMapswithLogging,E,Option[A]]"></a>
       <span class="permalink">
       <a href="../../../../../com/coralogix/zio/k8s/operator/Leader$.html#leaderForLife[R,E,A](lockName:String,namespace:Option[com.coralogix.zio.k8s.client.model.K8sNamespace],retryPolicy:zio.Schedule[Any,com.coralogix.zio.k8s.client.K8sFailure,Unit])(f:zio.ZIO[R,E,A]):zio.ZIO[Rwithzio.blocking.Blockingwithzio.system.Systemwithzio.clock.Clockwithcom.coralogix.zio.k8s.client.v1.pods.Podswithcom.coralogix.zio.k8s.client.v1.configmaps.ConfigMapswithzio.logging.Logging,E,Option[A]]" title="Permalink">
@@ -564,8 +575,11 @@
         <span class="name">leaderForLife</span><span class="tparams">[<span name="R">R</span>, <span name="E">E</span>, <span name="A">A</span>]</span><span class="params">(<span name="lockName">lockName: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="namespace">namespace: <a href="https://www.scala-lang.org/api/2.12.12/scala/Option.html#scala.Option" class="extype" name="scala.Option">Option</a>[<a href="../client/model/package$$K8sNamespace.html" class="extype" name="com.coralogix.zio.k8s.client.model.K8sNamespace">K8sNamespace</a>] = <span class="symbol">None</span></span>, <span name="retryPolicy">retryPolicy: <a href="https://javadoc.io/page/dev.zio/zio_2.12/1.0.4-2/zio/Schedule.html#zio.Schedule" class="extype" name="zio.Schedule">Schedule</a>[<a href="https://www.scala-lang.org/api/2.12.12/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a>, <a href="../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="https://www.scala-lang.org/api/2.12.12/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a>] = <span class="symbol"><span class="name"><a href="#defaultRetryPolicy:zio.Schedule[Any,Any,Unit]">defaultRetryPolicy</a></span></span></span>)</span><span class="params">(<span name="f">f: <a href="https://javadoc.io/page/dev.zio/zio_2.12/1.0.4-2/zio/ZIO.html#zio.ZIO" class="extype" name="zio.ZIO">ZIO</a>[<span class="extype" name="com.coralogix.zio.k8s.operator.Leader.leaderForLife.R">R</span>, <span class="extype" name="com.coralogix.zio.k8s.operator.Leader.leaderForLife.E">E</span>, <span class="extype" name="com.coralogix.zio.k8s.operator.Leader.leaderForLife.A">A</span>]</span>)</span><span class="result">: <a href="https://javadoc.io/page/dev.zio/zio_2.12/1.0.4-2/zio/ZIO.html#zio.ZIO" class="extype" name="zio.ZIO">ZIO</a>[<span class="extype" name="com.coralogix.zio.k8s.operator.Leader.leaderForLife.R">R</span> with <span class="extype" name="zio.blocking.Blocking">Blocking</span> with <span class="extype" name="zio.system.System">System</span> with <span class="extype" name="zio.clock.Clock">Clock</span> with <a href="../client/v1/pods/index.html#Pods=zio.Has[com.coralogix.zio.k8s.client.v1.pods.package.Pods.Service]" class="extmbr" name="com.coralogix.zio.k8s.client.v1.pods.Pods">Pods</a> with <a href="../client/v1/configmaps/index.html#ConfigMaps=zio.Has[com.coralogix.zio.k8s.client.v1.configmaps.package.ConfigMaps.Service]" class="extmbr" name="com.coralogix.zio.k8s.client.v1.configmaps.ConfigMaps">ConfigMaps</a> with <span class="extype" name="zio.logging.Logging">Logging</span>, <span class="extype" name="com.coralogix.zio.k8s.operator.Leader.leaderForLife.E">E</span>, <a href="https://www.scala-lang.org/api/2.12.12/scala/Option.html#scala.Option" class="extype" name="scala.Option">Option</a>[<span class="extype" name="com.coralogix.zio.k8s.operator.Leader.leaderForLife.A">A</span>]]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.operator.Leader#lease" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Runs the given effect by applying the leader election algorithm, with the guarantee that
+the inner effect will only run at once in the Kubernetes cluster.</p><div class="fullcomment"><div class="comment cmt"><p>Runs the given effect by applying the leader election algorithm, with the guarantee that
+the inner effect will only run at once in the Kubernetes cluster.</p><p>If you want to manage the lock as a ZManaged use <span class="extype" name="lease()">lease()</span>
+</p></div><dl class="paramcmts block"><dt class="param">lockName</dt><dd class="cmt"><p>Name of the lock</p></dd><dt class="param">namespace</dt><dd class="cmt"><p>Namespace to look for the running Pod in</p></dd><dt class="param">retryPolicy</dt><dd class="cmt"><p>Retry policy if the lock is already taken</p></dd><dt class="param">f</dt><dd class="cmt"><p>Inner effect to protect</p></dd></dl></div>
+    </li><li name="com.coralogix.zio.k8s.operator.Leader#lease" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="lease(lockName:String,namespace:Option[com.coralogix.zio.k8s.client.model.K8sNamespace],retryPolicy:zio.Schedule[Any,com.coralogix.zio.k8s.client.K8sFailure,Unit]):zio.ZManaged[zio.blocking.Blockingwithzio.system.Systemwithzio.clock.Clockwithcom.coralogix.zio.k8s.client.v1.pods.Podswithcom.coralogix.zio.k8s.client.v1.configmaps.ConfigMapswithzio.logging.Logging,com.coralogix.zio.k8s.operator.Leader.LeaderElectionFailure[Nothing],Unit]"></a><a id="lease(String,Option[K8sNamespace],Schedule[Any,K8sFailure,Unit]):ZManaged[BlockingwithSystemwithClockwithPodswithConfigMapswithLogging,LeaderElectionFailure[Nothing],Unit]"></a>
       <span class="permalink">
       <a href="../../../../../com/coralogix/zio/k8s/operator/Leader$.html#lease(lockName:String,namespace:Option[com.coralogix.zio.k8s.client.model.K8sNamespace],retryPolicy:zio.Schedule[Any,com.coralogix.zio.k8s.client.K8sFailure,Unit]):zio.ZManaged[zio.blocking.Blockingwithzio.system.Systemwithzio.clock.Clockwithcom.coralogix.zio.k8s.client.v1.pods.Podswithcom.coralogix.zio.k8s.client.v1.configmaps.ConfigMapswithzio.logging.Logging,com.coralogix.zio.k8s.operator.Leader.LeaderElectionFailure[Nothing],Unit]" title="Permalink">
@@ -580,7 +594,7 @@
         <span class="name">lease</span><span class="params">(<span name="lockName">lockName: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="namespace">namespace: <a href="https://www.scala-lang.org/api/2.12.12/scala/Option.html#scala.Option" class="extype" name="scala.Option">Option</a>[<a href="../client/model/package$$K8sNamespace.html" class="extype" name="com.coralogix.zio.k8s.client.model.K8sNamespace">K8sNamespace</a>] = <span class="symbol">None</span></span>, <span name="retryPolicy">retryPolicy: <a href="https://javadoc.io/page/dev.zio/zio_2.12/1.0.4-2/zio/Schedule.html#zio.Schedule" class="extype" name="zio.Schedule">Schedule</a>[<a href="https://www.scala-lang.org/api/2.12.12/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a>, <a href="../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="https://www.scala-lang.org/api/2.12.12/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a>] = <span class="symbol"><span class="name"><a href="#defaultRetryPolicy:zio.Schedule[Any,Any,Unit]">defaultRetryPolicy</a></span></span></span>)</span><span class="result">: <a href="https://javadoc.io/page/dev.zio/zio_2.12/1.0.4-2/zio/ZManaged.html#zio.ZManaged" class="extype" name="zio.ZManaged">ZManaged</a>[<span class="extype" name="zio.blocking.Blocking">Blocking</span> with <span class="extype" name="zio.system.System">System</span> with <span class="extype" name="zio.clock.Clock">Clock</span> with <a href="../client/v1/pods/index.html#Pods=zio.Has[com.coralogix.zio.k8s.client.v1.pods.package.Pods.Service]" class="extmbr" name="com.coralogix.zio.k8s.client.v1.pods.Pods">Pods</a> with <a href="../client/v1/configmaps/index.html#ConfigMaps=zio.Has[com.coralogix.zio.k8s.client.v1.configmaps.package.ConfigMaps.Service]" class="extmbr" name="com.coralogix.zio.k8s.client.v1.configmaps.ConfigMaps">ConfigMaps</a> with <span class="extype" name="zio.logging.Logging">Logging</span>, <a href="Leader$$LeaderElectionFailure.html" class="extype" name="com.coralogix.zio.k8s.operator.Leader.LeaderElectionFailure">LeaderElectionFailure</a>[<a href="https://www.scala-lang.org/api/2.12.12/scala/Nothing.html#scala.Nothing" class="extype" name="scala.Nothing">Nothing</a>], <a href="https://www.scala-lang.org/api/2.12.12/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a>]</span>
       </span>
       
-      
+      <p class="shortcomment cmt">Creates a managed lock implementing the leader election algorithm</p><div class="fullcomment"><div class="comment cmt"><p>Creates a managed lock implementing the leader election algorithm</p></div><dl class="paramcmts block"><dt class="param">lockName</dt><dd class="cmt"><p>Name of the lock</p></dd><dt class="param">namespace</dt><dd class="cmt"><p>Namespace to look for the running Pod in</p></dd><dt class="param">retryPolicy</dt><dd class="cmt"><p>Retry policy if the lock is already taken</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.operator.Leader#logLeaderElectionFailure" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="logLeaderElectionFailure[E](failure:com.coralogix.zio.k8s.operator.Leader.LeaderElectionFailure[E]):zio.ZIO[zio.logging.Logging,E,Unit]"></a><a id="logLeaderElectionFailure[E](LeaderElectionFailure[E]):ZIO[Logging,E,Unit]"></a>
       <span class="permalink">

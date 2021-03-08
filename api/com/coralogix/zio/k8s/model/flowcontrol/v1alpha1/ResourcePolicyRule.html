@@ -586,7 +586,7 @@
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
-    </li><li name="com.coralogix.zio.k8s.model.flowcontrol.v1alpha1.ResourcePolicyRule#getApiGroups" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="com.coralogix.zio.k8s.model.flowcontrol.v1alpha1.ResourcePolicyRule#getApiGroups" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getApiGroups:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Vector[String]]"></a><a id="getApiGroups:IO[K8sFailure,Vector[String]]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/flowcontrol/v1alpha1/ResourcePolicyRule.html#getApiGroups:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Vector[String]]" title="Permalink">
@@ -601,7 +601,8 @@
         <span class="name">getApiGroups</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]]</span>
       </span>
       
-      
+      <p class="shortcomment cmt"><code>apiGroups</code> is a list of matching API groups and may not be empty.</p><div class="fullcomment"><div class="comment cmt"><p><code>apiGroups</code> is a list of matching API groups and may not be empty. &quot;*&quot; matches all API groups and, if present, must be the only entry. Required.</p><p>This effect always succeeds, it is safe to use the field <a href="#apiGroups:Vector[String]" class="extmbr" name="com.coralogix.zio.k8s.model.flowcontrol.v1alpha1.ResourcePolicyRule#apiGroups">apiGroups</a> directly.
+</p></div></div>
     </li><li name="scala.AnyRef#getClass" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getClass():Class[_]"></a>
       <span class="permalink">
@@ -623,7 +624,7 @@
                 <span class="name">@HotSpotIntrinsicCandidate</span><span class="args">()</span>
               
         </dd></dl></div>
-    </li><li name="com.coralogix.zio.k8s.model.flowcontrol.v1alpha1.ResourcePolicyRule#getClusterScope" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="com.coralogix.zio.k8s.model.flowcontrol.v1alpha1.ResourcePolicyRule#getClusterScope" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getClusterScope:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Boolean]"></a><a id="getClusterScope:IO[K8sFailure,Boolean]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/flowcontrol/v1alpha1/ResourcePolicyRule.html#getClusterScope:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Boolean]" title="Permalink">
@@ -638,8 +639,9 @@
         <span class="name">getClusterScope</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="https://www.scala-lang.org/api/2.12.12/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a>]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.model.flowcontrol.v1alpha1.ResourcePolicyRule#getNamespaces" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt"><code>clusterScope</code> indicates whether to match requests that do not specify a namespace (which happens either because the resource is not namespaced or the request targets all namespaces).</p><div class="fullcomment"><div class="comment cmt"><p><code>clusterScope</code> indicates whether to match requests that do not specify a namespace (which happens either because the resource is not namespaced or the request targets all namespaces). If this field is omitted or false then the <code>namespaces</code> field must contain a non-empty list.</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.flowcontrol.v1alpha1.ResourcePolicyRule#getNamespaces" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getNamespaces:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Vector[String]]"></a><a id="getNamespaces:IO[K8sFailure,Vector[String]]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/flowcontrol/v1alpha1/ResourcePolicyRule.html#getNamespaces:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Vector[String]]" title="Permalink">
@@ -654,8 +656,9 @@
         <span class="name">getNamespaces</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.model.flowcontrol.v1alpha1.ResourcePolicyRule#getResources" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt"><code>namespaces</code> is a list of target namespaces that restricts matches.</p><div class="fullcomment"><div class="comment cmt"><p><code>namespaces</code> is a list of target namespaces that restricts matches.  A request that specifies a target namespace matches only if either (a) this list contains that target namespace or (b) this list contains &quot;*&quot;.  Note that &quot;*&quot; matches any specified namespace but does not match a request that _does not specify_ a namespace (see the <code>clusterScope</code> field for that). This list may be empty, but only if <code>clusterScope</code> is true.</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.flowcontrol.v1alpha1.ResourcePolicyRule#getResources" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getResources:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Vector[String]]"></a><a id="getResources:IO[K8sFailure,Vector[String]]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/flowcontrol/v1alpha1/ResourcePolicyRule.html#getResources:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Vector[String]]" title="Permalink">
@@ -670,8 +673,9 @@
         <span class="name">getResources</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.model.flowcontrol.v1alpha1.ResourcePolicyRule#getVerbs" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt"><code>resources</code> is a list of matching resources (i.e., lowercase and plural) with, if desired, subresource.</p><div class="fullcomment"><div class="comment cmt"><p><code>resources</code> is a list of matching resources (i.e., lowercase and plural) with, if desired, subresource.  For example, [ &quot;services&quot;, &quot;nodes/status&quot; ].  This list may not be empty. &quot;*&quot; matches all resources and, if present, must be the only entry. Required.</p><p>This effect always succeeds, it is safe to use the field <a href="#resources:Vector[String]" class="extmbr" name="com.coralogix.zio.k8s.model.flowcontrol.v1alpha1.ResourcePolicyRule#resources">resources</a> directly.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.flowcontrol.v1alpha1.ResourcePolicyRule#getVerbs" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getVerbs:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Vector[String]]"></a><a id="getVerbs:IO[K8sFailure,Vector[String]]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/flowcontrol/v1alpha1/ResourcePolicyRule.html#getVerbs:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Vector[String]]" title="Permalink">
@@ -686,7 +690,8 @@
         <span class="name">getVerbs</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]]</span>
       </span>
       
-      
+      <p class="shortcomment cmt"><code>verbs</code> is a list of matching verbs and may not be empty.</p><div class="fullcomment"><div class="comment cmt"><p><code>verbs</code> is a list of matching verbs and may not be empty. &quot;*&quot; matches all verbs and, if present, must be the only entry. Required.</p><p>This effect always succeeds, it is safe to use the field <a href="#verbs:Vector[String]" class="extmbr" name="com.coralogix.zio.k8s.model.flowcontrol.v1alpha1.ResourcePolicyRule#verbs">verbs</a> directly.
+</p></div></div>
     </li><li name="scala.Any#isInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isInstanceOf[T0]:Boolean"></a>
       <span class="permalink">

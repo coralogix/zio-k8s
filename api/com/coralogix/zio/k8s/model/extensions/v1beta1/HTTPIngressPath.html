@@ -494,7 +494,7 @@ Implementations are required to support all path types. Defaults to Implementati
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
-    </li><li name="com.coralogix.zio.k8s.model.extensions.v1beta1.HTTPIngressPath#getBackend" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="com.coralogix.zio.k8s.model.extensions.v1beta1.HTTPIngressPath#getBackend" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getBackend:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.model.extensions.v1beta1.IngressBackend]"></a><a id="getBackend:IO[K8sFailure,IngressBackend]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/extensions/v1beta1/HTTPIngressPath.html#getBackend:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.model.extensions.v1beta1.IngressBackend]" title="Permalink">
@@ -509,7 +509,8 @@ Implementations are required to support all path types. Defaults to Implementati
         <span class="name">getBackend</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="IngressBackend.html" class="extype" name="com.coralogix.zio.k8s.model.extensions.v1beta1.IngressBackend">IngressBackend</a>]</span>
       </span>
       
-      
+      <p class="shortcomment cmt">Gets backend.</p><div class="fullcomment"><div class="comment cmt"><p>Gets backend.</p><p>This effect always succeeds, it is safe to use the field <a href="#backend:com.coralogix.zio.k8s.model.extensions.v1beta1.IngressBackend" class="extmbr" name="com.coralogix.zio.k8s.model.extensions.v1beta1.HTTPIngressPath#backend">backend</a> directly.
+</p></div></div>
     </li><li name="scala.AnyRef#getClass" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getClass():Class[_]"></a>
       <span class="permalink">
@@ -531,7 +532,7 @@ Implementations are required to support all path types. Defaults to Implementati
                 <span class="name">@HotSpotIntrinsicCandidate</span><span class="args">()</span>
               
         </dd></dl></div>
-    </li><li name="com.coralogix.zio.k8s.model.extensions.v1beta1.HTTPIngressPath#getPath" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="com.coralogix.zio.k8s.model.extensions.v1beta1.HTTPIngressPath#getPath" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getPath:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]"></a><a id="getPath:IO[K8sFailure,String]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/extensions/v1beta1/HTTPIngressPath.html#getPath:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]" title="Permalink">
@@ -546,8 +547,9 @@ Implementations are required to support all path types. Defaults to Implementati
         <span class="name">getPath</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.model.extensions.v1beta1.HTTPIngressPath#getPathType" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Path is matched against the path of an incoming request.</p><div class="fullcomment"><div class="comment cmt"><p>Path is matched against the path of an incoming request. Currently it can contain characters disallowed from the conventional &quot;path&quot; part of a URL as defined by RFC 3986. Paths must begin with a '/'. When unspecified, all paths from incoming requests are matched.</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.extensions.v1beta1.HTTPIngressPath#getPathType" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getPathType:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]"></a><a id="getPathType:IO[K8sFailure,String]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/extensions/v1beta1/HTTPIngressPath.html#getPathType:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]" title="Permalink">
@@ -562,7 +564,18 @@ Implementations are required to support all path types. Defaults to Implementati
         <span class="name">getPathType</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      
+      <p class="shortcomment cmt">PathType determines the interpretation of the Path matching.</p><div class="fullcomment"><div class="comment cmt"><p>PathType determines the interpretation of the Path matching. PathType can be one of the following values: * Exact: Matches the URL path exactly. * Prefix: Matches based on a URL path prefix split by '/'. Matching is
+ done on a path element by element basis. A path element refers is the
+ list of labels in the path split by the '/' separator. A request is a
+ match for path p if every p is an element-wise prefix of p of the
+ request path. Note that if the last element of the path is a substring
+ of the last element in request path, it is not a match (e.g. /foo/bar
+ matches /foo/bar/baz, but does not match /foo/barbaz).
+ImplementationSpecific: Interpretation of the Path matching is up to
+ the IngressClass. Implementations can treat this as a separate PathType
+ or treat it identically to Prefix or Exact path types.
+Implementations are required to support all path types. Defaults to ImplementationSpecific.</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+</p></div></div>
     </li><li name="scala.Any#isInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isInstanceOf[T0]:Boolean"></a>
       <span class="permalink">

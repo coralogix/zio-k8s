@@ -631,7 +631,7 @@
                 <span class="name">@HotSpotIntrinsicCandidate</span><span class="args">()</span>
               
         </dd></dl></div>
-    </li><li name="com.coralogix.zio.k8s.model.policy.v1beta1.PodDisruptionBudgetStatus#getCurrentHealthy" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="com.coralogix.zio.k8s.model.policy.v1beta1.PodDisruptionBudgetStatus#getCurrentHealthy" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getCurrentHealthy:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Int]"></a><a id="getCurrentHealthy:IO[K8sFailure,Int]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/policy/v1beta1/PodDisruptionBudgetStatus.html#getCurrentHealthy:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Int]" title="Permalink">
@@ -646,8 +646,9 @@
         <span class="name">getCurrentHealthy</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="https://www.scala-lang.org/api/2.12.12/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a>]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.model.policy.v1beta1.PodDisruptionBudgetStatus#getDesiredHealthy" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">current number of healthy pods</p><div class="fullcomment"><div class="comment cmt"><p>current number of healthy pods</p><p>This effect always succeeds, it is safe to use the field <a href="#currentHealthy:Int" class="extmbr" name="com.coralogix.zio.k8s.model.policy.v1beta1.PodDisruptionBudgetStatus#currentHealthy">currentHealthy</a> directly.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.policy.v1beta1.PodDisruptionBudgetStatus#getDesiredHealthy" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getDesiredHealthy:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Int]"></a><a id="getDesiredHealthy:IO[K8sFailure,Int]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/policy/v1beta1/PodDisruptionBudgetStatus.html#getDesiredHealthy:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Int]" title="Permalink">
@@ -662,8 +663,9 @@
         <span class="name">getDesiredHealthy</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="https://www.scala-lang.org/api/2.12.12/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a>]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.model.policy.v1beta1.PodDisruptionBudgetStatus#getDisruptedPods" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">minimum desired number of healthy pods</p><div class="fullcomment"><div class="comment cmt"><p>minimum desired number of healthy pods</p><p>This effect always succeeds, it is safe to use the field <a href="#desiredHealthy:Int" class="extmbr" name="com.coralogix.zio.k8s.model.policy.v1beta1.PodDisruptionBudgetStatus#desiredHealthy">desiredHealthy</a> directly.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.policy.v1beta1.PodDisruptionBudgetStatus#getDisruptedPods" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getDisruptedPods:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Map[String,com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Time]]"></a><a id="getDisruptedPods:IO[K8sFailure,Map[String,Time]]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/policy/v1beta1/PodDisruptionBudgetStatus.html#getDisruptedPods:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Map[String,com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Time]]" title="Permalink">
@@ -678,8 +680,9 @@
         <span class="name">getDisruptedPods</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <a href="../../pkg/apis/meta/v1/Time.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Time">Time</a>]]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.model.policy.v1beta1.PodDisruptionBudgetStatus#getDisruptionsAllowed" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">DisruptedPods contains information about pods whose eviction was processed by the API server eviction subresource handler but has not yet been observed by the PodDisruptionBudget controller.</p><div class="fullcomment"><div class="comment cmt"><p>DisruptedPods contains information about pods whose eviction was processed by the API server eviction subresource handler but has not yet been observed by the PodDisruptionBudget controller. A pod will be in this map from the time when the API server processed the eviction request to the time when the pod is seen by PDB controller as having been marked for deletion (or after a timeout). The key in the map is the name of the pod and the value is the time when the API server processed the eviction request. If the deletion didn't occur and a pod is still there it will be removed from the list automatically by PodDisruptionBudget controller after some time. If everything goes smooth this map should be empty for the most of the time. Large number of entries in the map may indicate problems with pod deletions.</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.policy.v1beta1.PodDisruptionBudgetStatus#getDisruptionsAllowed" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getDisruptionsAllowed:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Int]"></a><a id="getDisruptionsAllowed:IO[K8sFailure,Int]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/policy/v1beta1/PodDisruptionBudgetStatus.html#getDisruptionsAllowed:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Int]" title="Permalink">
@@ -694,8 +697,9 @@
         <span class="name">getDisruptionsAllowed</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="https://www.scala-lang.org/api/2.12.12/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a>]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.model.policy.v1beta1.PodDisruptionBudgetStatus#getExpectedPods" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Number of pod disruptions that are currently allowed.</p><div class="fullcomment"><div class="comment cmt"><p>Number of pod disruptions that are currently allowed.</p><p>This effect always succeeds, it is safe to use the field <a href="#disruptionsAllowed:Int" class="extmbr" name="com.coralogix.zio.k8s.model.policy.v1beta1.PodDisruptionBudgetStatus#disruptionsAllowed">disruptionsAllowed</a> directly.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.policy.v1beta1.PodDisruptionBudgetStatus#getExpectedPods" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getExpectedPods:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Int]"></a><a id="getExpectedPods:IO[K8sFailure,Int]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/policy/v1beta1/PodDisruptionBudgetStatus.html#getExpectedPods:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Int]" title="Permalink">
@@ -710,8 +714,9 @@
         <span class="name">getExpectedPods</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="https://www.scala-lang.org/api/2.12.12/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a>]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.model.policy.v1beta1.PodDisruptionBudgetStatus#getObservedGeneration" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">total number of pods counted by this disruption budget</p><div class="fullcomment"><div class="comment cmt"><p>total number of pods counted by this disruption budget</p><p>This effect always succeeds, it is safe to use the field <a href="#expectedPods:Int" class="extmbr" name="com.coralogix.zio.k8s.model.policy.v1beta1.PodDisruptionBudgetStatus#expectedPods">expectedPods</a> directly.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.policy.v1beta1.PodDisruptionBudgetStatus#getObservedGeneration" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getObservedGeneration:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Long]"></a><a id="getObservedGeneration:IO[K8sFailure,Long]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/policy/v1beta1/PodDisruptionBudgetStatus.html#getObservedGeneration:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Long]" title="Permalink">
@@ -726,7 +731,8 @@
         <span class="name">getObservedGeneration</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="https://www.scala-lang.org/api/2.12.12/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a>]</span>
       </span>
       
-      
+      <p class="shortcomment cmt">Most recent generation observed when updating this PDB status.</p><div class="fullcomment"><div class="comment cmt"><p>Most recent generation observed when updating this PDB status. DisruptionsAllowed and other status information is valid only if observedGeneration equals to PDB's object generation.</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+</p></div></div>
     </li><li name="scala.Any#isInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isInstanceOf[T0]:Boolean"></a>
       <span class="permalink">

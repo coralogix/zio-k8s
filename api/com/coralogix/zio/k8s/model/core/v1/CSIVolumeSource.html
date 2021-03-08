@@ -1823,7 +1823,7 @@
                 <span class="name">@HotSpotIntrinsicCandidate</span><span class="args">()</span>
               
         </dd></dl></div>
-    </li><li name="com.coralogix.zio.k8s.model.core.v1.CSIVolumeSource#getDriver" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="com.coralogix.zio.k8s.model.core.v1.CSIVolumeSource#getDriver" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getDriver:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]"></a><a id="getDriver:IO[K8sFailure,String]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/CSIVolumeSource.html#getDriver:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]" title="Permalink">
@@ -1838,8 +1838,9 @@
         <span class="name">getDriver</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.model.core.v1.CSIVolumeSource#getFsType" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Driver is the name of the CSI driver that handles this volume.</p><div class="fullcomment"><div class="comment cmt"><p>Driver is the name of the CSI driver that handles this volume. Consult with your admin for the correct name as registered in the cluster.</p><p>This effect always succeeds, it is safe to use the field <a href="#driver:String" class="extmbr" name="com.coralogix.zio.k8s.model.core.v1.CSIVolumeSource#driver">driver</a> directly.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.core.v1.CSIVolumeSource#getFsType" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getFsType:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]"></a><a id="getFsType:IO[K8sFailure,String]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/CSIVolumeSource.html#getFsType:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]" title="Permalink">
@@ -1854,8 +1855,9 @@
         <span class="name">getFsType</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.model.core.v1.CSIVolumeSource#getNodePublishSecretRef" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Filesystem type to mount.</p><div class="fullcomment"><div class="comment cmt"><p>Filesystem type to mount. Ex. &quot;ext4&quot;, &quot;xfs&quot;, &quot;ntfs&quot;. If not provided, the empty value is passed to the associated CSI driver which will determine the default filesystem to apply.</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.core.v1.CSIVolumeSource#getNodePublishSecretRef" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getNodePublishSecretRef:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.model.core.v1.LocalObjectReference]"></a><a id="getNodePublishSecretRef:IO[K8sFailure,LocalObjectReference]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/CSIVolumeSource.html#getNodePublishSecretRef:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.model.core.v1.LocalObjectReference]" title="Permalink">
@@ -1870,8 +1872,9 @@
         <span class="name">getNodePublishSecretRef</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="LocalObjectReference.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.LocalObjectReference">LocalObjectReference</a>]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.model.core.v1.CSIVolumeSource#getReadOnly" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Gets nodePublishSecretRef.</p><div class="fullcomment"><div class="comment cmt"><p>Gets nodePublishSecretRef.</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.core.v1.CSIVolumeSource#getReadOnly" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getReadOnly:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Boolean]"></a><a id="getReadOnly:IO[K8sFailure,Boolean]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/CSIVolumeSource.html#getReadOnly:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Boolean]" title="Permalink">
@@ -1886,8 +1889,9 @@
         <span class="name">getReadOnly</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="https://www.scala-lang.org/api/2.12.12/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a>]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.model.core.v1.CSIVolumeSource#getVolumeAttributes" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Specifies a read-only configuration for the volume.</p><div class="fullcomment"><div class="comment cmt"><p>Specifies a read-only configuration for the volume. Defaults to false (read/write).</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.core.v1.CSIVolumeSource#getVolumeAttributes" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getVolumeAttributes:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Map[String,String]]"></a><a id="getVolumeAttributes:IO[K8sFailure,Map[String,String]]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/CSIVolumeSource.html#getVolumeAttributes:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Map[String,String]]" title="Permalink">
@@ -1902,7 +1906,8 @@
         <span class="name">getVolumeAttributes</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.Predef.String">String</span>]]</span>
       </span>
       
-      
+      <p class="shortcomment cmt">VolumeAttributes stores driver-specific properties that are passed to the CSI driver.</p><div class="fullcomment"><div class="comment cmt"><p>VolumeAttributes stores driver-specific properties that are passed to the CSI driver. Consult your driver's documentation for supported values.</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+</p></div></div>
     </li><li name="scala.Any#isInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isInstanceOf[T0]:Boolean"></a>
       <span class="permalink">

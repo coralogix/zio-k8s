@@ -161,10 +161,15 @@
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="" href="index.html"><span class="name">config</span></a>
+        <a title="Contains data structures, ZIO layers and zio-config descriptors for configuring the zio-k8s client." href="index.html"><span class="name">config</span></a>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="com.coralogix.zio.k8s.client">client</a></dd></dl></div>
+      <p class="shortcomment cmt">Contains data structures, ZIO layers and zio-config descriptors for configuring the zio-k8s client.</p><div class="fullcomment"><div class="comment cmt"><p>Contains data structures, ZIO layers and zio-config descriptors for configuring the zio-k8s client.</p><p>Each zio-k8s client module depends on two ZIO modules: <span class="extype" name="K8sCluster">K8sCluster</span> and an <a href="https://javadoc.io/page/com.softwaremill.sttp.client3/core_2.12/3.1.7/sttp/client3/SttpBackend.html" class="extype" name="sttp.client3.SttpBackend">sttp.client3.SttpBackend</a>.
+To use the default configuration (use kubeconfig if available, otherwise fallback to service account token),
+use either <span class="extype" name="asynchttpclient.k8sDefault">asynchttpclient.k8sDefault</span> or <span class="extype" name="httpclient.k8sDefault">httpclient.k8sDefault</span> depending on your chosen sttp backend.</p><p>Manual configuration is possible by providing a <a href="package$$K8sClusterConfig.html" class="extype" name="com.coralogix.zio.k8s.client.config.K8sClusterConfig">K8sClusterConfig</a> value to both the <a href="index.html#k8sCluster:zio.ZLayer[zio.blocking.Blockingwithzio.Has[com.coralogix.zio.k8s.client.config.package.K8sClusterConfig],Throwable,zio.Has[com.coralogix.zio.k8s.client.model.K8sCluster]]" class="extmbr" name="com.coralogix.zio.k8s.client.config#k8sCluster">k8sCluster</a> layer
+and either <span class="extype" name="asynchttpclient.k8sSttpClient">asynchttpclient.k8sSttpClient</span> or <span class="extype" name="httpclient.k8sSttpClient">httpclient.k8sSttpClient</span>.</p><p>Instead of manually providing the configuration, zio-config descriptors are available to load them from any
+supported source.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="com.coralogix.zio.k8s.client">client</a></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.client.config.KeySource" visbl="pub" class="indented7 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="KeySource"></a><a id="KeySource:KeySource"></a>
       <span class="permalink">
@@ -183,16 +188,16 @@
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="com.coralogix.zio.k8s.client.config">config</a></dd></dl></div>
     </li><li class="current-entities indented7">
                         <span class="separator"></span>
-                        <a class="class" href="" title=""></a>
-                        <a href="" title="">FromBase64</a>
+                        <a class="class" href="" title="Key loaded from a Base64 string"></a>
+                        <a href="" title="Key loaded from a Base64 string">FromBase64</a>
                       </li><li class="current-entities indented7">
                         <span class="separator"></span>
-                        <a class="class" href="package$$KeySource$$FromFile.html" title=""></a>
-                        <a href="package$$KeySource$$FromFile.html" title="">FromFile</a>
+                        <a class="class" href="package$$KeySource$$FromFile.html" title="Key loaded from an external file"></a>
+                        <a href="package$$KeySource$$FromFile.html" title="Key loaded from an external file">FromFile</a>
                       </li><li class="current-entities indented7">
                         <span class="separator"></span>
-                        <a class="class" href="package$$KeySource$$FromString.html" title=""></a>
-                        <a href="package$$KeySource$$FromString.html" title="">FromString</a>
+                        <a class="class" href="package$$KeySource$$FromString.html" title="Key loaded from a raw string"></a>
+                        <a href="package$$KeySource$$FromString.html" title="Key loaded from a raw string">FromString</a>
                       </li>
               </ul>
             </div>
@@ -221,7 +226,7 @@
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Key loaded from a Base64 string</p></div><dl class="paramcmts block"><dt class="param">base64</dt><dd class="cmt"><p>base64 encoded key value</p></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -271,7 +276,7 @@
         <div id="allMembers">
         <div id="constructors" class="members">
               <h3>Instance Constructors</h3>
-              <ol><li name="com.coralogix.zio.k8s.client.config.KeySource.FromBase64#&lt;init&gt;" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+              <ol><li name="com.coralogix.zio.k8s.client.config.KeySource.FromBase64#&lt;init&gt;" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="&lt;init&gt;(base64:String):com.coralogix.zio.k8s.client.config.KeySource.FromBase64"></a><a id="&lt;init&gt;:FromBase64"></a>
       <span class="permalink">
       <a href="../../../../../../com/coralogix/zio/k8s/client/config/package$$KeySource$$FromBase64.html#&lt;init&gt;(base64:String):com.coralogix.zio.k8s.client.config.KeySource.FromBase64" title="Permalink">
@@ -286,7 +291,7 @@
         <span class="name">FromBase64</span><span class="params">(<span name="base64">base64: <span class="extype" name="scala.Predef.String">String</span></span>)</span>
       </span>
       
-      
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">base64</dt><dd class="cmt"><p>base64 encoded key value</p></dd></dl></div>
     </li></ol>
             </div>
 

@@ -1791,7 +1791,7 @@
                 <span class="name">@HotSpotIntrinsicCandidate</span><span class="args">()</span>
               
         </dd></dl></div>
-    </li><li name="com.coralogix.zio.k8s.model.core.v1.LoadBalancerIngress#getHostname" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="com.coralogix.zio.k8s.model.core.v1.LoadBalancerIngress#getHostname" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getHostname:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]"></a><a id="getHostname:IO[K8sFailure,String]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/LoadBalancerIngress.html#getHostname:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]" title="Permalink">
@@ -1806,8 +1806,9 @@
         <span class="name">getHostname</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.model.core.v1.LoadBalancerIngress#getIp" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Hostname is set for load-balancer ingress points that are DNS based (typically AWS load-balancers)</p><div class="fullcomment"><div class="comment cmt"><p>Hostname is set for load-balancer ingress points that are DNS based (typically AWS load-balancers)</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.core.v1.LoadBalancerIngress#getIp" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getIp:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]"></a><a id="getIp:IO[K8sFailure,String]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/LoadBalancerIngress.html#getIp:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]" title="Permalink">
@@ -1822,8 +1823,9 @@
         <span class="name">getIp</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.model.core.v1.LoadBalancerIngress#getPorts" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">IP is set for load-balancer ingress points that are IP based (typically GCE or OpenStack load-balancers)</p><div class="fullcomment"><div class="comment cmt"><p>IP is set for load-balancer ingress points that are IP based (typically GCE or OpenStack load-balancers)</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.core.v1.LoadBalancerIngress#getPorts" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getPorts:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Vector[com.coralogix.zio.k8s.model.core.v1.PortStatus]]"></a><a id="getPorts:IO[K8sFailure,Vector[PortStatus]]"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/LoadBalancerIngress.html#getPorts:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Vector[com.coralogix.zio.k8s.model.core.v1.PortStatus]]" title="Permalink">
@@ -1838,7 +1840,8 @@
         <span class="name">getPorts</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Vector">Vector</span>[<a href="PortStatus.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.PortStatus">PortStatus</a>]]</span>
       </span>
       
-      
+      <p class="shortcomment cmt">Ports is a list of records of service ports If used, every port defined in the service should have an entry in it</p><div class="fullcomment"><div class="comment cmt"><p>Ports is a list of records of service ports If used, every port defined in the service should have an entry in it</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+</p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.core.v1.LoadBalancerIngress#hostname" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="hostname:com.coralogix.zio.k8s.client.model.Optional[String]"></a><a id="hostname:Optional[String]"></a>
       <span class="permalink">

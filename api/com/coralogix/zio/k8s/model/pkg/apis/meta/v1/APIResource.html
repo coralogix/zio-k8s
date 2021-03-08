@@ -610,7 +610,7 @@
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
-    </li><li name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.APIResource#getCategories" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.APIResource#getCategories" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getCategories:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Vector[String]]"></a><a id="getCategories:IO[K8sFailure,Vector[String]]"></a>
       <span class="permalink">
       <a href="../../../../../../../../../com/coralogix/zio/k8s/model/pkg/apis/meta/v1/APIResource.html#getCategories:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Vector[String]]" title="Permalink">
@@ -625,7 +625,8 @@
         <span class="name">getCategories</span><span class="result">: <a href="../../../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]]</span>
       </span>
       
-      
+      <p class="shortcomment cmt">categories is a list of the grouped resources this resource belongs to (e.g.</p><div class="fullcomment"><div class="comment cmt"><p>categories is a list of the grouped resources this resource belongs to (e.g. 'all')</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+</p></div></div>
     </li><li name="scala.AnyRef#getClass" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getClass():Class[_]"></a>
       <span class="permalink">
@@ -647,7 +648,7 @@
                 <span class="name">@HotSpotIntrinsicCandidate</span><span class="args">()</span>
               
         </dd></dl></div>
-    </li><li name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.APIResource#getGroup" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.APIResource#getGroup" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getGroup:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]"></a><a id="getGroup:IO[K8sFailure,String]"></a>
       <span class="permalink">
       <a href="../../../../../../../../../com/coralogix/zio/k8s/model/pkg/apis/meta/v1/APIResource.html#getGroup:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]" title="Permalink">
@@ -662,8 +663,9 @@
         <span class="name">getGroup</span><span class="result">: <a href="../../../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.APIResource#getKind" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">group is the preferred group of the resource.</p><div class="fullcomment"><div class="comment cmt"><p>group is the preferred group of the resource.  Empty implies the group of the containing resource list. For subresources, this may have a different value, for example: Scale&quot;.</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.APIResource#getKind" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getKind:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]"></a><a id="getKind:IO[K8sFailure,String]"></a>
       <span class="permalink">
       <a href="../../../../../../../../../com/coralogix/zio/k8s/model/pkg/apis/meta/v1/APIResource.html#getKind:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]" title="Permalink">
@@ -678,8 +680,9 @@
         <span class="name">getKind</span><span class="result">: <a href="../../../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.APIResource#getName" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">kind is the kind for the resource (e.g.</p><div class="fullcomment"><div class="comment cmt"><p>kind is the kind for the resource (e.g. 'Foo' is the kind for a resource 'foo')</p><p>This effect always succeeds, it is safe to use the field <a href="#kind:String" class="extmbr" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.APIResource#kind">kind</a> directly.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.APIResource#getName" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getName:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]"></a><a id="getName:IO[K8sFailure,String]"></a>
       <span class="permalink">
       <a href="../../../../../../../../../com/coralogix/zio/k8s/model/pkg/apis/meta/v1/APIResource.html#getName:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]" title="Permalink">
@@ -694,8 +697,9 @@
         <span class="name">getName</span><span class="result">: <a href="../../../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.APIResource#getNamespaced" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">name is the plural name of the resource.</p><div class="fullcomment"><div class="comment cmt"><p>name is the plural name of the resource.</p><p>This effect always succeeds, it is safe to use the field <a href="#name:String" class="extmbr" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.APIResource#name">name</a> directly.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.APIResource#getNamespaced" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getNamespaced:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Boolean]"></a><a id="getNamespaced:IO[K8sFailure,Boolean]"></a>
       <span class="permalink">
       <a href="../../../../../../../../../com/coralogix/zio/k8s/model/pkg/apis/meta/v1/APIResource.html#getNamespaced:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Boolean]" title="Permalink">
@@ -710,8 +714,9 @@
         <span class="name">getNamespaced</span><span class="result">: <a href="../../../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="https://www.scala-lang.org/api/2.12.12/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a>]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.APIResource#getShortNames" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">namespaced indicates if a resource is namespaced or not.</p><div class="fullcomment"><div class="comment cmt"><p>namespaced indicates if a resource is namespaced or not.</p><p>This effect always succeeds, it is safe to use the field <a href="#namespaced:Boolean" class="extmbr" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.APIResource#namespaced">namespaced</a> directly.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.APIResource#getShortNames" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getShortNames:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Vector[String]]"></a><a id="getShortNames:IO[K8sFailure,Vector[String]]"></a>
       <span class="permalink">
       <a href="../../../../../../../../../com/coralogix/zio/k8s/model/pkg/apis/meta/v1/APIResource.html#getShortNames:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Vector[String]]" title="Permalink">
@@ -726,8 +731,9 @@
         <span class="name">getShortNames</span><span class="result">: <a href="../../../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.APIResource#getSingularName" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">shortNames is a list of suggested short names of the resource.</p><div class="fullcomment"><div class="comment cmt"><p>shortNames is a list of suggested short names of the resource.</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.APIResource#getSingularName" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getSingularName:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]"></a><a id="getSingularName:IO[K8sFailure,String]"></a>
       <span class="permalink">
       <a href="../../../../../../../../../com/coralogix/zio/k8s/model/pkg/apis/meta/v1/APIResource.html#getSingularName:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]" title="Permalink">
@@ -742,8 +748,9 @@
         <span class="name">getSingularName</span><span class="result">: <a href="../../../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.APIResource#getStorageVersionHash" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">singularName is the singular name of the resource.</p><div class="fullcomment"><div class="comment cmt"><p>singularName is the singular name of the resource.  This allows clients to handle plural and singular opaquely. The singularName is more correct for reporting status on a single item and both singular and plural are allowed from the kubectl CLI interface.</p><p>This effect always succeeds, it is safe to use the field <a href="#singularName:String" class="extmbr" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.APIResource#singularName">singularName</a> directly.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.APIResource#getStorageVersionHash" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getStorageVersionHash:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]"></a><a id="getStorageVersionHash:IO[K8sFailure,String]"></a>
       <span class="permalink">
       <a href="../../../../../../../../../com/coralogix/zio/k8s/model/pkg/apis/meta/v1/APIResource.html#getStorageVersionHash:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]" title="Permalink">
@@ -758,8 +765,9 @@
         <span class="name">getStorageVersionHash</span><span class="result">: <a href="../../../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.APIResource#getVerbs" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">The hash value of the storage version, the version this resource is converted to when written to the data store.</p><div class="fullcomment"><div class="comment cmt"><p>The hash value of the storage version, the version this resource is converted to when written to the data store. Value must be treated as opaque by clients. Only equality comparison on the value is valid. This is an alpha feature and may change or be removed in the future. The field is populated by the apiserver only if the StorageVersionHash feature gate is enabled. This field will remain optional even if it graduates.</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.APIResource#getVerbs" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getVerbs:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Vector[String]]"></a><a id="getVerbs:IO[K8sFailure,Vector[String]]"></a>
       <span class="permalink">
       <a href="../../../../../../../../../com/coralogix/zio/k8s/model/pkg/apis/meta/v1/APIResource.html#getVerbs:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Vector[String]]" title="Permalink">
@@ -774,8 +782,9 @@
         <span class="name">getVerbs</span><span class="result">: <a href="../../../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.APIResource#getVersion" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">verbs is a list of supported kube verbs (this includes get, list, watch, create, update, patch, delete, deletecollection, and proxy)</p><div class="fullcomment"><div class="comment cmt"><p>verbs is a list of supported kube verbs (this includes get, list, watch, create, update, patch, delete, deletecollection, and proxy)</p><p>This effect always succeeds, it is safe to use the field <a href="#verbs:Vector[String]" class="extmbr" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.APIResource#verbs">verbs</a> directly.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.APIResource#getVersion" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getVersion:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]"></a><a id="getVersion:IO[K8sFailure,String]"></a>
       <span class="permalink">
       <a href="../../../../../../../../../com/coralogix/zio/k8s/model/pkg/apis/meta/v1/APIResource.html#getVersion:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]" title="Permalink">
@@ -790,7 +799,8 @@
         <span class="name">getVersion</span><span class="result">: <a href="../../../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      
+      <p class="shortcomment cmt">version is the preferred version of the resource.</p><div class="fullcomment"><div class="comment cmt"><p>version is the preferred version of the resource.  Empty implies the version of the containing resource list For subresources, this may have a different value, for example: v1 (while inside a v1beta1 version of the core resource's group)&quot;.</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+</p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.APIResource#group" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="group:com.coralogix.zio.k8s.client.model.Optional[String]"></a><a id="group:Optional[String]"></a>
       <span class="permalink">

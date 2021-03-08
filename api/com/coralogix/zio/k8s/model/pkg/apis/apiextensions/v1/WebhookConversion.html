@@ -647,7 +647,7 @@
                 <span class="name">@HotSpotIntrinsicCandidate</span><span class="args">()</span>
               
         </dd></dl></div>
-    </li><li name="com.coralogix.zio.k8s.model.pkg.apis.apiextensions.v1.WebhookConversion#getClientConfig" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="com.coralogix.zio.k8s.model.pkg.apis.apiextensions.v1.WebhookConversion#getClientConfig" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getClientConfig:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.model.pkg.apis.apiextensions.v1.WebhookClientConfig]"></a><a id="getClientConfig:IO[K8sFailure,WebhookClientConfig]"></a>
       <span class="permalink">
       <a href="../../../../../../../../../com/coralogix/zio/k8s/model/pkg/apis/apiextensions/v1/WebhookConversion.html#getClientConfig:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.model.pkg.apis.apiextensions.v1.WebhookClientConfig]" title="Permalink">
@@ -662,8 +662,9 @@
         <span class="name">getClientConfig</span><span class="result">: <a href="../../../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="WebhookClientConfig.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.apiextensions.v1.WebhookClientConfig">WebhookClientConfig</a>]</span>
       </span>
       
-      
-    </li><li name="com.coralogix.zio.k8s.model.pkg.apis.apiextensions.v1.WebhookConversion#getConversionReviewVersions" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <p class="shortcomment cmt">Gets clientConfig.</p><div class="fullcomment"><div class="comment cmt"><p>Gets clientConfig.</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.pkg.apis.apiextensions.v1.WebhookConversion#getConversionReviewVersions" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getConversionReviewVersions:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Vector[String]]"></a><a id="getConversionReviewVersions:IO[K8sFailure,Vector[String]]"></a>
       <span class="permalink">
       <a href="../../../../../../../../../com/coralogix/zio/k8s/model/pkg/apis/apiextensions/v1/WebhookConversion.html#getConversionReviewVersions:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Vector[String]]" title="Permalink">
@@ -678,7 +679,8 @@
         <span class="name">getConversionReviewVersions</span><span class="result">: <a href="../../../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]]</span>
       </span>
       
-      
+      <p class="shortcomment cmt">conversionReviewVersions is an ordered list of preferred <code>ConversionReview</code> versions the Webhook expects.</p><div class="fullcomment"><div class="comment cmt"><p>conversionReviewVersions is an ordered list of preferred <code>ConversionReview</code> versions the Webhook expects. The API server will use the first version in the list which it supports. If none of the versions specified in this list are supported by API server, conversion will fail for the custom resource. If a persisted Webhook configuration specifies allowed versions and does not include any versions known to the API Server, calls to the webhook will fail.</p><p>This effect always succeeds, it is safe to use the field <a href="#conversionReviewVersions:Vector[String]" class="extmbr" name="com.coralogix.zio.k8s.model.pkg.apis.apiextensions.v1.WebhookConversion#conversionReviewVersions">conversionReviewVersions</a> directly.
+</p></div></div>
     </li><li name="scala.Any#isInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isInstanceOf[T0]:Boolean"></a>
       <span class="permalink">
