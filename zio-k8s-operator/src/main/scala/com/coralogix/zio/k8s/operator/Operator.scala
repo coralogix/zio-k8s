@@ -20,6 +20,8 @@ import zio.stream.ZStream
   * Watches a stream and calls an event processor.
   *
   * An instance of this is tied to one particular resource type in one namespace.
+  *
+  * Create an instance using either [[Operator.namespaced()]] or [[Operator.cluster()]]
   */
 trait Operator[R, E, T] { self =>
   protected def watchStream(): ZStream[Clock, K8sFailure, TypedWatchEvent[T]]
@@ -62,26 +64,38 @@ trait Operator[R, E, T] { self =>
       )
       .fork
 
+  /** Modify the operator's event processor with the given function
+    */
   def mapEventProcessor[R1, E1](
     f: ZIO[R, OperatorFailure[E], Unit] => ZIO[R1, OperatorFailure[E1], Unit]
   ): Operator[R1, E1, T]
 
+  /** Provide the required environment for the operator
+    */
   final def provide(r: R)(implicit ev: NeedsEnv[R]): Operator[Any, E, T] =
     provideSome(_ => r)
 
+  /** Provide a part of the required environment for the operator
+    */
   final def provideSome[R0](f: R0 => R)(implicit ev: NeedsEnv[R]): Operator[R0, E, T] =
     mapEventProcessor(_.provideSome[R0](f))
 
+  /** Provide the required environment for the operator with a layer
+    */
   final def provideLayer[E1 >: E, R0, R1](
     layer: ZLayer[R0, OperatorFailure[E1], R1]
   )(implicit ev1: R1 <:< R, ev2: NeedsEnv[R]): Operator[R0, E1, T] =
     mapEventProcessor(_.provideLayer(layer))
 
+  /** Provide the required environment for the operator with a layer on top of the standard ones
+    */
   final def provideCustomLayer[E1 >: E, R1 <: Has[_]](
     layer: ZLayer[ZEnv, OperatorFailure[E1], R1]
   )(implicit ev: ZEnv with R1 <:< R, tagged: Tag[R1]): Operator[ZEnv, E1, T] =
     mapEventProcessor(_.provideCustomLayer(layer))
 
+  /** Provide parts of the required environment for the operator with a layer
+    */
   final def provideSomeLayer[R0 <: Has[_]]: Operator.ProvideSomeLayer[R0, R, E, T] =
     new Operator.ProvideSomeLayer[R0, R, E, T](self)
 }
@@ -147,13 +161,36 @@ object Operator {
       }
   }
 
+  /** Operator event processor
+    *
+    * This is the type to be implemented when writing operators using the zio-k8s-operator library.
+    * @tparam R Operator environment
+    * @tparam E Operator-specific error type
+    * @tparam T Resource type
+    */
   trait EventProcessor[-R, +E, T] { self =>
+
+    /** Process an incoming event
+      * @param context Information about the operator
+      * @param event Event to be processed
+      */
     def apply(context: OperatorContext, event: TypedWatchEvent[T]): ZIO[R, OperatorFailure[E], Unit]
 
+    /** Applies an aspect to the event processor
+      */
     def @@[R1 <: R, E1 >: E](aspect: Aspect[R1, E1, T]): EventProcessor[R1, E1, T] =
       aspect[R1, E1](self)
   }
 
+  /** Creates an operator for a namespaced resource
+    * @param eventProcessor Event processor implementation
+    * @param namespace Namespace to run in. If None, it will watch resources from all namespaces.
+    * @param buffer Buffer size for the incoming events
+    * @tparam R Operator environment
+    * @tparam E Operator-specific error type
+    * @tparam T Resource type
+    * @return An operator that can be run with [[Operator.start()]]
+    */
   def namespaced[R: Tag, E, T: Tag: ResourceMetadata](
     eventProcessor: EventProcessor[R, E, T]
   )(
@@ -165,6 +202,14 @@ object Operator {
       new NamespacedOperator[R, E, T](client, namespace, eventProcessor, ctx, buffer)
     }
 
+  /** Creates an operator for a cluster resource
+    * @param eventProcessor Event processor implementation
+    * @param buffer Buffer size for the incoming events
+    * @tparam R Operator environment
+    * @tparam E Operator-specific error type
+    * @tparam T Resource type
+    * @return An operator that can be run with [[Operator.start()]]
+    */
   def cluster[R: Tag, E, T: Tag: ResourceMetadata](
     eventProcessor: EventProcessor[R, E, T]
   )(buffer: Int): ZIO[Has[ClusterResource[T]], Nothing, Operator[R, E, T]] =
@@ -179,9 +224,13 @@ object Operator {
       f: EventProcessor[R1, E1, T]
     ): EventProcessor[R1, E1, T]
 
+    /** Alias for [[andThen()]]
+      */
     final def >>>[R1 <: R, E1 >: E](that: Aspect[R1, E1, T]): Aspect[R1, E1, T] =
       andThen(that)
 
+    /** Apply this aspect first and then the other one
+      */
     final def andThen[R1 <: R, E1 >: E](that: Aspect[R1, E1, T]): Aspect[R1, E1, T] =
       new Aspect[R1, E1, T] {
         override def apply[R2 <: R1, E2 >: E1](

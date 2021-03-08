@@ -10,6 +10,10 @@ import zio.{ Has, ZIO, ZLayer, ZManaged }
 import java.net.http.HttpClient
 
 package object httpclient {
+
+  /** An [[SttpClient]] layer configured with the proper SSL context based
+    * on the provided [[K8sClusterConfig]] using the httpclient-backend-zio backend.
+    */
   val k8sSttpClient
     : ZLayer[Has[K8sClusterConfig] with System with Blocking, Throwable, SttpClient] =
     ZLayer.fromServiceManaged { config: K8sClusterConfig =>

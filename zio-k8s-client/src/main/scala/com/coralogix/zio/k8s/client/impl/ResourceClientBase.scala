@@ -1,17 +1,7 @@
 package com.coralogix.zio.k8s.client.impl
 
-import com.coralogix.zio.k8s.client.config.K8sAuthentication
 import com.coralogix.zio.k8s.client.model._
-import com.coralogix.zio.k8s.client.{
-  DecodedFailure,
-  DeserializationFailure,
-  Gone,
-  HttpFailure,
-  K8sFailure,
-  NotFound,
-  RequestFailure,
-  Unauthorized
-}
+import com.coralogix.zio.k8s.client._
 import com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Status
 import io.circe.Error
 import io.circe.parser.decode

@@ -427,10 +427,10 @@ trait ModelGenerator {
           val list = properties
             .filterKeys(filterKeysOf(d))
             .map { case (name, propSchema) =>
-              val desc = Option(propSchema.getDescription)
-                .getOrElse("")
-                .replace("/*", "&#47;*")
-                .replace("*/", "*&#47;")
+              val desc = escapeDocString(
+                Option(propSchema.getDescription)
+                  .getOrElse("")
+              )
               s"  * @param $name $desc"
             }
             .mkString("\n")
@@ -441,9 +441,46 @@ trait ModelGenerator {
     val classDesc =
       s"/**\n  * ${Option(d.schema.getDescription).getOrElse("")}\n$paramDescs */"
 
-    tree.toString
-      .replace("case class", classDesc + "\ncase class")
+    val getterDocs =
+      (Option(d.schema.getType).getOrElse("object")) match {
+        case "object" =>
+          val objectSchema = d.schema.asInstanceOf[ObjectSchema]
+          val properties =
+            Option(objectSchema.getProperties).map(_.asScala).getOrElse(Map.empty)
+          val requiredProperties =
+            Option(objectSchema.getRequired)
+              .map(_.asScala.toSet)
+              .getOrElse(Set.empty)
+
+          properties
+            .filterKeys(filterKeysOf(d))
+            .toList
+            .map { case (name, propSchema) =>
+              val from = s"def get${name.capitalize}:"
+              val isRequired = requiredProperties.contains(name)
+              val desc =
+                escapeDocString(Option(propSchema.getDescription).getOrElse(s"Gets $name."))
+              val replacement =
+                if (isRequired)
+                  s"/** $desc\n *\n * This effect always succeeds, it is safe to use the field [[$name]] directly.\n */\n$from"
+                else
+                  s"/** $desc\n *\n * If the field is not present, fails with [[UndefinedField]].\n */\n$from"
+
+              from -> replacement
+            }
+            .toMap
+        case _        => Map.empty
+      }
+
+    getterDocs.foldLeft(
+      tree.toString
+        .replace("case class", classDesc + "\ncase class")
+    ) { case (code, (from, to)) => code.replace(from, to) }
   }
+
+  private def escapeDocString(s: String): String =
+    s.replace("/*", "&#47;*")
+      .replace("*/", "*&#47;")
 
   protected def toType(name: String, propSchema: Schema[_]): Type =
     (Option(propSchema.getType), Option(propSchema.get$ref())) match {

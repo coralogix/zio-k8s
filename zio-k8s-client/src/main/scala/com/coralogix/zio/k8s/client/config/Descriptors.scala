@@ -5,6 +5,8 @@ import zio.config.ConfigDescriptor._
 import zio.config._
 import zio.nio.core.file.Path
 
+/** Defines ZIO Config descriptors for all the configuration data types of zio-k8s
+  */
 trait Descriptors {
   private val uri: ConfigDescriptor[Uri] =
     string.transformOrFail(
@@ -119,6 +121,8 @@ trait Descriptors {
   private val clientConfig: ConfigDescriptor[K8sClientConfig] =
     (boolean("debug") |@| serverCertificate)(K8sClientConfig.apply, K8sClientConfig.unapply)
 
+  /** ZIO Config descriptor for [[K8sClusterConfig]]
+    */
   val clusterConfigDescriptor: ConfigDescriptor[K8sClusterConfig] =
     (nested("host")(uri) |@| nested("authentication")(k8sAuthentication) |@| nested("client")(
       clientConfig

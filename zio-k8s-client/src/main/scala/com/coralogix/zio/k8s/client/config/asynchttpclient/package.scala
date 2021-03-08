@@ -11,6 +11,10 @@ import zio.system.System
 import zio.{ Has, ZLayer, ZManaged }
 
 package object asynchttpclient {
+
+  /** An [[SttpClient]] layer configured with the proper SSL context based
+    * on the provided [[K8sClusterConfig]] using the async-http-client-backend-zio backend.
+    */
   val k8sSttpClient
     : ZLayer[Has[K8sClusterConfig] with System with Blocking, Throwable, SttpClient] =
     ZLayer.fromServiceManaged { config: K8sClusterConfig =>
