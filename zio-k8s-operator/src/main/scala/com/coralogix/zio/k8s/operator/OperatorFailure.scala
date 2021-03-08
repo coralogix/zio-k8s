@@ -4,8 +4,18 @@ import com.coralogix.zio.k8s.client.internal.CircePrettyFailure
 import com.coralogix.zio.k8s.client._
 import com.coralogix.zio.k8s.operator.OperatorLogging.ConvertableToThrowable
 
+/** Operator failure type
+  * @tparam E Operator-specific error type
+  */
 sealed trait OperatorFailure[+E]
+
+/** Operator failed with a Kubernetes error
+  */
 case class KubernetesFailure(failure: K8sFailure) extends OperatorFailure[Nothing]
+
+/** Operator failed with an application-specific error
+  * @tparam E Operator-specific error type
+  */
 case class OperatorError[E](error: E) extends OperatorFailure[E]
 
 object OperatorFailure {

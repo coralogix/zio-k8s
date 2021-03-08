@@ -10,7 +10,19 @@ import com.coralogix.zio.k8s.client.apiextensions.v1.customresourcedefinitions.C
 import com.coralogix.zio.k8s.model.pkg.apis.apiextensions.v1.CustomResourceDefinition
 import zio.logging.{ log, Logging }
 
+/** Registers CRD objects
+  */
 object Registration {
+
+  /** Register a Custom Resource Definition if it is not registered yet
+    *
+    * When using the zio-k8s-crd plugin, the effect to provide the custom resource definition
+    * is automatically generated.
+    *
+    * @param customResourceDefinition Effect returning the custom resource definition
+    * @param metadata Resource metadata
+    * @tparam T Resource type
+    */
   def registerIfMissing[T](
     customResourceDefinition: ZIO[Blocking, Throwable, CustomResourceDefinition]
   )(implicit

@@ -6,6 +6,10 @@ import zio.duration._
 
 package object model extends LabelSelector.Syntax with FieldSelector.Syntax {
 
+  /** Data type describing a configured Kuberntes cluster
+    * @param host Host to connect to
+    * @param applyToken Function to apply an authentication token to the HTTP request
+    */
   case class K8sCluster(
     host: Uri,
     applyToken: Option[
@@ -13,14 +17,23 @@ package object model extends LabelSelector.Syntax with FieldSelector.Syntax {
     ]
   )
 
+  /** Metadata identifying a Kubernetes resource
+    * @param resourceType Resource type (kind)
+    * @param group Group
+    * @param version Version
+    */
   case class K8sResourceType(resourceType: String, group: String, version: String)
 
+  /** A Kubernetes namespace
+    */
   case class K8sNamespace(value: String) extends AnyVal
 
   object K8sNamespace {
     val default: K8sNamespace = K8sNamespace("default")
   }
 
+  /** Kubernetes API URI
+    */
   sealed trait K8sUri {
     def toUri(cluster: K8sCluster): Uri
   }

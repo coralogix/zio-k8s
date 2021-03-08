@@ -6,9 +6,25 @@ import com.coralogix.zio.k8s.model.pkg.apis.meta.v1.WatchEvent
 import io.circe.{ Decoder, Json }
 import zio.IO
 
+/** Watch event with parsed payload
+  *
+  * This type is used internally by the watch stream. End users should
+  * use the [[TypedWatchEvent]] type instead, which does not contain
+  * the bookmark event which is transparently handled by the client.
+  *
+  * @tparam T Payload type
+  */
 sealed trait ParsedWatchEvent[+T]
 
+/** Parsed typed watch event
+  * @param event Payload
+  * @tparam T Payload type
+  */
 final case class ParsedTypedWatchEvent[T](event: TypedWatchEvent[T]) extends ParsedWatchEvent[T]
+
+/** Bookmark event
+  * @param resourceVersion Resource version to bookmark
+  */
 final case class ParsedBookmark(resourceVersion: String) extends ParsedWatchEvent[Nothing]
 
 object ParsedWatchEvent {
@@ -16,6 +32,11 @@ object ParsedWatchEvent {
     IO.fromEither(implicitly[Decoder[T]].decodeAccumulating(json.hcursor).toEither)
       .mapError(DeserializationFailure.apply)
 
+  /** Converts an unparsed Kubernetes [[WatchEvent]] to [[ParsedWatchEvent]]
+    * @param event Unparsed event
+    * @tparam T Payload type
+    * @return Parsed event
+    */
   def from[T: K8sObject: Decoder](event: WatchEvent): IO[K8sFailure, ParsedWatchEvent[T]] =
     event.`type` match {
       case "ADDED"    =>

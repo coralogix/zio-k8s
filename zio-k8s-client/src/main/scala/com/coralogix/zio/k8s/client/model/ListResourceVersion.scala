@@ -1,7 +1,9 @@
 package com.coralogix.zio.k8s.client.model
 
-// See https://kubernetes.io/docs/reference/using-api/api-concepts/#the-resourceversion-parameter
-
+/** Resource version options for listing resource
+  *
+  * See https://kubernetes.io/docs/reference/using-api/api-concepts/#the-resourceversion-parameter
+  */
 sealed trait ListResourceVersion {
   def resourceVersion: Option[String]
   def resourceVersionMatch: Option[String]

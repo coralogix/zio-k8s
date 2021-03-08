@@ -21,10 +21,35 @@ import zio.system._
 
 import java.io.IOException
 
+/** Simple leader election implementation
+  *
+  * The algorithm tries creating a ConfigMap with a given name and attaches the Pod it
+  * is running in as an owner of the config map.
+  *
+  * If the ConfigMap already exists the leader election fails and retries with exponential backoff.
+  * If it succeeds then it runs the inner effect.
+  *
+  * When the code terminates normally the acquired ConfigMap gets released. If the whole Pod gets
+  * killed without releasing the resource, the registered ownership will make Kubernetes apply
+  * cascading deletion so eventually a new Pod can register the ConfigMap again.
+  */
 object Leader {
+
+  /** Default retry policy for acquiring the lock
+    */
   val defaultRetryPolicy: Schedule[Any, Any, Unit] =
     (Schedule.exponential(base = 1.second, factor = 2.0) || Schedule.spaced(30.seconds)).unit
 
+  /** Runs the given effect by applying the leader election algorithm, with the guarantee that
+    * the inner effect will only run at once in the Kubernetes cluster.
+    *
+    * If you want to manage the lock as a ZManaged use [[lease()]]
+    *
+    * @param lockName Name of the lock
+    * @param namespace Namespace to look for the running Pod in
+    * @param retryPolicy Retry policy if the lock is already taken
+    * @param f Inner effect to protect
+    */
   def leaderForLife[R, E, A](
     lockName: String,
     namespace: Option[K8sNamespace] = None,
@@ -38,6 +63,11 @@ object Leader {
       .use(_ => f.bimap(ApplicationError.apply, Some.apply))
       .catchAll((failure: LeaderElectionFailure[E]) => logLeaderElectionFailure(failure).as(None))
 
+  /** Creates a managed lock implementing the leader election algorithm
+    * @param lockName Name of the lock
+    * @param namespace Namespace to look for the running Pod in
+    * @param retryPolicy Retry policy if the lock is already taken
+    */
   def lease(
     lockName: String,
     namespace: Option[K8sNamespace] = None,
@@ -202,11 +232,29 @@ object Leader {
           )(_ => deleteLock(lockName, namespace))
     } yield lock
 
+  /** Possible failures of the leader election algorithm
+    * @tparam E Failure type of the inner effect
+    */
   sealed trait LeaderElectionFailure[+E]
+
+  /** Could not determine the namespace
+    *
+    * If it is not provided by the caller, the implementation tries to read it from
+    * /var/run/secrets/kubernetes.io/serviceaccount/namespace.
+    */
   final case class UnknownNamespace(reason: Option[IOException])
       extends LeaderElectionFailure[Nothing]
+
+  /** Could not determine the running Pod's name. It has to be provided in the POD_NAME environment variable.
+    */
   final case class PodNameMissing(reason: Option[SecurityException])
       extends LeaderElectionFailure[Nothing]
+
+  /** Failure while calling the Kubernetes API
+    */
   final case class KubernetesError(error: K8sFailure) extends LeaderElectionFailure[Nothing]
+
+  /** Inner effect failed
+    */
   final case class ApplicationError[E](error: E) extends LeaderElectionFailure[E]
 }

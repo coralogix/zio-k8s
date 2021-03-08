@@ -10,6 +10,7 @@ the [ZIO](https://github.com/zio/zio) library.
 **Additional resources**:
 - [Coralogix Operator](https://github.com/coralogix/cx-operator/) an operator implemented with `zio-k8s`
 - [Blog post: The Coralogix Operator: A Tale of ZIO and Kubernetes](https://coralogix.com/log-analytics-blog/the-coralogix-operator-a-tale-of-zio-and-kubernetes/)
+- [Blog post: Writing kubectl plugins with ZIO K8s](https://ziverge.com/blog/zio-k8s-kubectl-plugin/)
 
 **Built on**:
 - [ZIO](https://github.com/zio/zio)

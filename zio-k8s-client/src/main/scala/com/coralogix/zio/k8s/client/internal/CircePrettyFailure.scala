@@ -2,8 +2,10 @@ package com.coralogix.zio.k8s.client.internal
 
 import io.circe._
 
-import scala.annotation.tailrec
-
+/** Pretty printer for Circe JSON decode failures
+  *
+  * Provides nicer error messages for [[K8sFailure]] errors.
+  */
 object CircePrettyFailure {
 
   private def prettyPrintDecodeFailure(message: String, history: List[CursorOp]): String = {
@@ -101,6 +103,10 @@ object CircePrettyFailure {
       "java.lang.Character"
     )
 
+  /** Pretty print a Circe failure into a human readable string
+    * @param error Circe decoding failure
+    * @return Human readable string
+    */
   def prettyPrint(error: Error): String =
     error match {
       case DecodingFailure(message, history) => prettyPrintDecodeFailure(message, history)

@@ -20,6 +20,13 @@ import sttp.client3.circe._
 import zio.stream.{ ZStream, ZTransducer }
 import zio.{ IO, Task }
 
+/** Generic implementation for [[Subresource]]
+  * @param resourceType Kubernetes resource metadata
+  * @param cluster Configured Kubernetes cluster
+  * @param backend Configured HTTP client
+  * @param subresourceName Name of the subresource
+  * @tparam T Subresource type
+  */
 final class SubresourceClient[T: Encoder: Decoder](
   override protected val resourceType: K8sResourceType,
   override protected val cluster: K8sCluster,

@@ -4,11 +4,24 @@ import io.circe.{ Decoder, Encoder }
 
 import scala.language.implicitConversions
 
+/** Custom option type used in the generated Kubernetes data models.
+  *
+  * Instances of Optional are either [[Optional.Present]] or [[Optional.Absent]].
+  *
+  * The only difference between this type and [[Option]] is that there is an implicit
+  * conversion defined from A to Optional[A], and from Option[A] to Optional[A].
+  *
+  * This allows boilerplate-free definition of Kubernetes resources where most of the
+  * fields are optional.
+  */
 sealed trait Optional[+A] { self =>
   val isEmpty: Boolean
   val isDefined: Boolean
   val nonEmpty: Boolean
 
+  /** Converts this optional value to standard [[Option]]
+    * @return
+    */
   final def toOption: Option[A] = self match {
     case Optional.Present(get) => Some(get)
     case Optional.Absent       => None
@@ -127,11 +140,19 @@ sealed trait Optional[+A] { self =>
 }
 
 object Optional {
+
+  /** Optional value that is present
+    * @param get the value
+    * @tparam A type of the value
+    */
   final case class Present[+A](get: A) extends Optional[A] {
     override val isEmpty: Boolean = false
     override val isDefined: Boolean = true
     override val nonEmpty: Boolean = true
   }
+
+  /** Optional value that is absent
+    */
   case object Absent extends Optional[Nothing] {
     override val isEmpty: Boolean = true
     override val isDefined: Boolean = false
