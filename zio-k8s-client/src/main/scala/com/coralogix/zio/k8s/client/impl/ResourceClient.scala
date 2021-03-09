@@ -21,7 +21,7 @@ import zio.stream._
   * @param resourceType Kubernetes resource metadata
   * @param cluster Configured Kubernetes cluster
   * @param backend Configured HTTP client
-  * @tparam T Resource type, must have JSON encoder and decoder and an implemententation of [[K8sObject]]
+  * @tparam T Resource type, must have JSON encoder and decoder and an implemententation of [[com.coralogix.zio.k8s.client.model.K8sObject]]
   */
 final class ResourceClient[
   T: K8sObject: Encoder: Decoder
@@ -261,12 +261,12 @@ object ResourceClient {
         _.get.getAll(namespace, chunkSize, fieldSelector, labelSelector, resourceVersion)
       )
 
-    /** Watch stream of resource change events of type [[TypedWatchEvent]]
+    /** Watch stream of resource change events of type [[com.coralogix.zio.k8s.client.model.TypedWatchEvent]]
       *
       * This function requires the user to control the starting resourceVersion and to
       * restart the watch stream when the server closes the connection.
       *
-      * For a more convenient variant check [[watchForever()]].
+      * For a more convenient variant check [[watchForever]].
       *
       * @param namespace Constraint the watched resources by their namespace. If None, all namespaces will be watched.
       * @param resourceVersion Last known resource version
@@ -282,7 +282,7 @@ object ResourceClient {
     ): ZStream[Has[NamespacedResource[T]], K8sFailure, TypedWatchEvent[T]] =
       ZStream.accessStream(_.get.watch(namespace, resourceVersion, fieldSelector, labelSelector))
 
-    /** Infinite watch stream of resource change events of type [[TypedWatchEvent]]
+    /** Infinite watch stream of resource change events of type [[com.coralogix.zio.k8s.client.model.TypedWatchEvent]]
       *
       * The underlying implementation takes advantage of Kubernetes watch bookmarks.
       *
@@ -341,7 +341,7 @@ object ResourceClient {
 
     /** Replaces the status of a resource that was previously get from server.
       *
-      * Use either [[getStatus()]] or [[NamespacedResource.get()]] to retrieve a value of the resource by name, and then
+      * Use either [[getStatus]] or [[NamespacedResource.get]] to retrieve a value of the resource by name, and then
       * call this method to update its status.
       *
       * @param of The resource object to manipulate
@@ -442,12 +442,12 @@ object ResourceClient {
     ): ZStream[Has[ClusterResource[T]], K8sFailure, T] =
       ZStream.accessStream(_.get.getAll(chunkSize, fieldSelector, labelSelector, resourceVersion))
 
-    /** Watch stream of resource change events of type [[TypedWatchEvent]]
+    /** Watch stream of resource change events of type [[com.coralogix.zio.k8s.client.model.TypedWatchEvent]]
       *
       * This function requires the user to control the starting resourceVersion and to
       * restart the watch stream when the server closes the connection.
       *
-      * For a more convenient variant check [[watchForever()]].
+      * For a more convenient variant check [[watchForever]].
       *
       * @param resourceVersion Last known resource version
       * @param fieldSelector Constrain the returned items by field selectors. Not all fields are supported by the server.
@@ -461,7 +461,7 @@ object ResourceClient {
     ): ZStream[Has[ClusterResource[T]], K8sFailure, TypedWatchEvent[T]] =
       ZStream.accessStream(_.get.watch(resourceVersion, fieldSelector, labelSelector))
 
-    /** Infinite watch stream of resource change events of type [[TypedWatchEvent]]
+    /** Infinite watch stream of resource change events of type [[com.coralogix.zio.k8s.client.model.TypedWatchEvent]]
       *
       * The underlying implementation takes advantage of Kubernetes watch bookmarks.
       *
@@ -510,7 +510,7 @@ object ResourceClient {
 
     /** Replaces the status of a resource that was previously get from server.
       *
-      * Use either [[getStatus()]] or [[ClusterResource.get()]] to retrieve a value of the resource by name, and then
+      * Use either [[getStatus]] or [[ClusterResource.get]] to retrieve a value of the resource by name, and then
       * call this method to update its status.
       *
       * @param of The resource object to manipulate

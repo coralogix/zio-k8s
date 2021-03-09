@@ -16,12 +16,12 @@ import java.util.Base64
 
 /** Contains data structures, ZIO layers and zio-config descriptors for configuring the zio-k8s client.
   *
-  * Each zio-k8s client module depends on two ZIO modules: [[K8sCluster]] and an [[sttp.client3.SttpBackend]].
+  * Each zio-k8s client module depends on two ZIO modules: [[com.coralogix.zio.k8s.client.model.K8sCluster]] and an [[sttp.client3.SttpBackend]].
   * To use the default configuration (use kubeconfig if available, otherwise fallback to service account token),
-  * use either [[asynchttpclient.k8sDefault]] or [[httpclient.k8sDefault]] depending on your chosen sttp backend.
+  * use either `asynchttpclient.k8sDefault` or `httpclient.k8sDefault` depending on your chosen sttp backend.
   *
   * Manual configuration is possible by providing a [[K8sClusterConfig]] value to both the [[k8sCluster]] layer
-  * and either [[asynchttpclient.k8sSttpClient]] or [[httpclient.k8sSttpClient]].
+  * and either `asynchttpclient.k8sSttpClient` or `httpclient.k8sSttpClient`.
   *
   * Instead of manually providing the configuration, zio-config descriptors are available to load them from any
   * supported source.
@@ -164,7 +164,7 @@ package object config extends Descriptors {
       Descriptor(clusterConfigDescriptor)
   }
 
-  /** Layer producing a [[K8sCluster]] from a provided K8sClusterConfig
+  /** Layer producing a [[com.coralogix.zio.k8s.client.model.K8sCluster]] from a provided K8sClusterConfig
     *
     * This can be used to either set up from a configuration source with zio-config or
     * provide the hostname and token programmatically for the Kubernetes client.
@@ -187,7 +187,7 @@ package object config extends Descriptors {
   /**  Layer producing a [[K8sClusterConfig]] that first tries to load a kubeconfig and
     * if it cannot find one fallbacks to using the default service account token.
     *
-    * For more customization see [[kubeconfig()]] and [[serviceAccount()]] or provide
+    * For more customization see [[kubeconfig]] and [[serviceAccount]] or provide
     * a [[K8sClusterConfig]] manually.
     */
   val defaultConfigChain: ZLayer[System with Blocking, Throwable, Has[K8sClusterConfig]] =
@@ -260,7 +260,7 @@ package object config extends Descriptors {
       config <- fromKubeconfigFile(path, context, debug, disableHostnameVerification)
     } yield config).toLayer
 
-  /** Layer setting up a [[K8sCluster]] by loading a specific kubeconfig file
+  /** Layer setting up a [[com.coralogix.zio.k8s.client.model.K8sCluster]] by loading a specific kubeconfig file
     * @param configPath Path to the kubeconfig file to load
     * @param context Override the current context in the configuration file and use another one
     * @param debug Enable debug request/response logging

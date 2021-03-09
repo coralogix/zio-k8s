@@ -40,12 +40,12 @@ trait Resource[T] {
     resourceVersion: ListResourceVersion = ListResourceVersion.MostRecent
   ): Stream[K8sFailure, T]
 
-  /** Watch stream of resource change events of type [[TypedWatchEvent]]
+  /** Watch stream of resource change events of type [[com.coralogix.zio.k8s.client.model.TypedWatchEvent]]
     *
     * This function requires the user to control the starting resourceVersion and to
     * restart the watch stream when the server closes the connection.
     *
-    * For a more convenient variant check [[watchForever()]].
+    * For a more convenient variant check [[watchForever]].
     *
     * @param namespace Constraint the watched resources by their namespace. If None, all namespaces will be watched.
     * @param resourceVersion Last known resource version
@@ -60,7 +60,7 @@ trait Resource[T] {
     labelSelector: Option[LabelSelector] = None
   ): Stream[K8sFailure, TypedWatchEvent[T]]
 
-  /** Infinite watch stream of resource change events of type [[TypedWatchEvent]]
+  /** Infinite watch stream of resource change events of type [[com.coralogix.zio.k8s.client.model.TypedWatchEvent]]
     *
     * The underlying implementation takes advantage of Kubernetes watch bookmarks.
     *
@@ -157,12 +157,12 @@ trait NamespacedResource[T] {
     resourceVersion: ListResourceVersion = ListResourceVersion.MostRecent
   ): Stream[K8sFailure, T]
 
-  /** Watch stream of resource change events of type [[TypedWatchEvent]]
+  /** Watch stream of resource change events of type [[com.coralogix.zio.k8s.client.model.TypedWatchEvent]]
     *
     * This function requires the user to control the starting resourceVersion and to
     * restart the watch stream when the server closes the connection.
     *
-    * For a more convenient variant check [[watchForever()]].
+    * For a more convenient variant check [[watchForever]].
     *
     * @param namespace Constraint the watched resources by their namespace. If None, all namespaces will be watched.
     * @param resourceVersion Last known resource version
@@ -177,7 +177,7 @@ trait NamespacedResource[T] {
     labelSelector: Option[LabelSelector] = None
   ): Stream[K8sFailure, TypedWatchEvent[T]]
 
-  /** Infinite watch stream of resource change events of type [[TypedWatchEvent]]
+  /** Infinite watch stream of resource change events of type [[com.coralogix.zio.k8s.client.model.TypedWatchEvent]]
     *
     * The underlying implementation takes advantage of Kubernetes watch bookmarks.
     *
@@ -266,12 +266,12 @@ trait ClusterResource[T] {
     resourceVersion: ListResourceVersion = ListResourceVersion.MostRecent
   ): Stream[K8sFailure, T]
 
-  /** Watch stream of resource change events of type [[TypedWatchEvent]]
+  /** Watch stream of resource change events of type [[com.coralogix.zio.k8s.client.model.TypedWatchEvent]]
     *
     * This function requires the user to control the starting resourceVersion and to
     * restart the watch stream when the server closes the connection.
     *
-    * For a more convenient variant check [[watchForever()]].
+    * For a more convenient variant check [[watchForever]].
     *
     * @param resourceVersion Last known resource version
     * @param fieldSelector Constrain the returned items by field selectors. Not all fields are supported by the server.
@@ -284,7 +284,7 @@ trait ClusterResource[T] {
     labelSelector: Option[LabelSelector] = None
   ): Stream[K8sFailure, TypedWatchEvent[T]]
 
-  /** Infinite watch stream of resource change events of type [[TypedWatchEvent]]
+  /** Infinite watch stream of resource change events of type [[com.coralogix.zio.k8s.client.model.TypedWatchEvent]]
     *
     * The underlying implementation takes advantage of Kubernetes watch bookmarks.
     *

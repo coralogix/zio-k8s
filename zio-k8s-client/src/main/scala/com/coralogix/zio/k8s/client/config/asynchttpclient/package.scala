@@ -10,6 +10,9 @@ import zio.blocking.Blocking
 import zio.system.System
 import zio.{ Has, ZLayer, ZManaged }
 
+/**
+  * HTTP client implementation based on the async-http-client-zio backend
+  */
 package object asynchttpclient {
 
   /** An [[SttpClient]] layer configured with the proper SSL context based

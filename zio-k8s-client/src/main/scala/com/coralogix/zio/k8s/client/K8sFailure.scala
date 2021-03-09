@@ -20,7 +20,7 @@ final case class Unauthorized(message: String) extends K8sFailure
 /** Failed HTTP response
   *
   * Indicates that the response from the Kubernetes API has a non-successful
-  * status code and it's body did not contain a [[Status]] value.
+  * status code and it's body did not contain a [[com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Status]] value.
   *
   * In case the error is a standard Kubernetes error message, the error type
   * will be [[DecodedFailure]].
@@ -38,7 +38,7 @@ final case class HttpFailure(message: String, code: StatusCode) extends K8sFailu
   * Note that some specific failure types are encoded by their own failure type.
   * See [[Unauthorized]], [[Gone]] and [[NotFound]].
   *
-  * @param status The Kubernetes [[Status]] value returned in the failure response
+  * @param status The Kubernetes [[com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Status]] value returned in the failure response
   * @param code Response status code
   */
 final case class DecodedFailure(status: Status, code: StatusCode) extends K8sFailure
