@@ -494,7 +494,7 @@
         <span class="name">getConcurrencyPolicy</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">Specifies how to treat concurrent executions of a Job.</p><div class="fullcomment"><div class="comment cmt"><p>Specifies how to treat concurrent executions of a Job. Valid values are: - &quot;Allow&quot; (default): allows CronJobs to run concurrently; - &quot;Forbid&quot;: forbids concurrent runs, skipping next run if previous run hasn't finished yet; - &quot;Replace&quot;: cancels currently running job and replaces it with a new one</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+      <p class="shortcomment cmt">Specifies how to treat concurrent executions of a Job.</p><div class="fullcomment"><div class="comment cmt"><p>Specifies how to treat concurrent executions of a Job. Valid values are: - &quot;Allow&quot; (default): allows CronJobs to run concurrently; - &quot;Forbid&quot;: forbids concurrent runs, skipping next run if previous run hasn't finished yet; - &quot;Replace&quot;: cancels currently running job and replaces it with a new one</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.batch.v2alpha1.CronJobSpec#getFailedJobsHistoryLimit" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getFailedJobsHistoryLimit:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Int]"></a><a id="getFailedJobsHistoryLimit:IO[K8sFailure,Int]"></a>
@@ -511,7 +511,7 @@
         <span class="name">getFailedJobsHistoryLimit</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="https://www.scala-lang.org/api/2.12.12/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a>]</span>
       </span>
       
-      <p class="shortcomment cmt">The number of failed finished jobs to retain.</p><div class="fullcomment"><div class="comment cmt"><p>The number of failed finished jobs to retain. This is a pointer to distinguish between explicit zero and not specified.</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+      <p class="shortcomment cmt">The number of failed finished jobs to retain.</p><div class="fullcomment"><div class="comment cmt"><p>The number of failed finished jobs to retain. This is a pointer to distinguish between explicit zero and not specified.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.batch.v2alpha1.CronJobSpec#getJobTemplate" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getJobTemplate:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.model.batch.v2alpha1.JobTemplateSpec]"></a><a id="getJobTemplate:IO[K8sFailure,JobTemplateSpec]"></a>
@@ -562,7 +562,7 @@
         <span class="name">getStartingDeadlineSeconds</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="https://www.scala-lang.org/api/2.12.12/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a>]</span>
       </span>
       
-      <p class="shortcomment cmt">Optional deadline in seconds for starting the job if it misses scheduled time for any reason.</p><div class="fullcomment"><div class="comment cmt"><p>Optional deadline in seconds for starting the job if it misses scheduled time for any reason.  Missed jobs executions will be counted as failed ones.</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+      <p class="shortcomment cmt">Optional deadline in seconds for starting the job if it misses scheduled time for any reason.</p><div class="fullcomment"><div class="comment cmt"><p>Optional deadline in seconds for starting the job if it misses scheduled time for any reason.  Missed jobs executions will be counted as failed ones.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.batch.v2alpha1.CronJobSpec#getSuccessfulJobsHistoryLimit" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getSuccessfulJobsHistoryLimit:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Int]"></a><a id="getSuccessfulJobsHistoryLimit:IO[K8sFailure,Int]"></a>
@@ -579,7 +579,7 @@
         <span class="name">getSuccessfulJobsHistoryLimit</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="https://www.scala-lang.org/api/2.12.12/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a>]</span>
       </span>
       
-      <p class="shortcomment cmt">The number of successful finished jobs to retain.</p><div class="fullcomment"><div class="comment cmt"><p>The number of successful finished jobs to retain. This is a pointer to distinguish between explicit zero and not specified.</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+      <p class="shortcomment cmt">The number of successful finished jobs to retain.</p><div class="fullcomment"><div class="comment cmt"><p>The number of successful finished jobs to retain. This is a pointer to distinguish between explicit zero and not specified.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.batch.v2alpha1.CronJobSpec#getSuspend" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getSuspend:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Boolean]"></a><a id="getSuspend:IO[K8sFailure,Boolean]"></a>
@@ -596,7 +596,7 @@
         <span class="name">getSuspend</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="https://www.scala-lang.org/api/2.12.12/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a>]</span>
       </span>
       
-      <p class="shortcomment cmt">This flag tells the controller to suspend subsequent executions, it does not apply to already started executions.</p><div class="fullcomment"><div class="comment cmt"><p>This flag tells the controller to suspend subsequent executions, it does not apply to already started executions.  Defaults to false.</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+      <p class="shortcomment cmt">This flag tells the controller to suspend subsequent executions, it does not apply to already started executions.</p><div class="fullcomment"><div class="comment cmt"><p>This flag tells the controller to suspend subsequent executions, it does not apply to already started executions.  Defaults to false.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="scala.Any#isInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isInstanceOf[T0]:Boolean"></a>

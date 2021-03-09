@@ -525,7 +525,7 @@ This field is deprecated and will be removed in future api versions.</p></dd></d
         <span class="name">getConditions</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="EndpointConditions.html" class="extype" name="com.coralogix.zio.k8s.model.discovery.v1beta1.EndpointConditions">EndpointConditions</a>]</span>
       </span>
       
-      <p class="shortcomment cmt">Gets conditions.</p><div class="fullcomment"><div class="comment cmt"><p>Gets conditions.</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+      <p class="shortcomment cmt">Gets conditions.</p><div class="fullcomment"><div class="comment cmt"><p>Gets conditions.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.discovery.v1beta1.Endpoint#getHostname" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getHostname:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]"></a><a id="getHostname:IO[K8sFailure,String]"></a>
@@ -542,7 +542,7 @@ This field is deprecated and will be removed in future api versions.</p></dd></d
         <span class="name">getHostname</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">hostname of this endpoint.</p><div class="fullcomment"><div class="comment cmt"><p>hostname of this endpoint. This field may be used by consumers of endpoints to distinguish endpoints from each other (e.g. in DNS names). Multiple endpoints which use the same hostname should be considered fungible (e.g. multiple A values in DNS). Must be lowercase and pass DNS Label (RFC 1123) validation.</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+      <p class="shortcomment cmt">hostname of this endpoint.</p><div class="fullcomment"><div class="comment cmt"><p>hostname of this endpoint. This field may be used by consumers of endpoints to distinguish endpoints from each other (e.g. in DNS names). Multiple endpoints which use the same hostname should be considered fungible (e.g. multiple A values in DNS). Must be lowercase and pass DNS Label (RFC 1123) validation.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.discovery.v1beta1.Endpoint#getNodeName" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getNodeName:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]"></a><a id="getNodeName:IO[K8sFailure,String]"></a>
@@ -559,7 +559,7 @@ This field is deprecated and will be removed in future api versions.</p></dd></d
         <span class="name">getNodeName</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">nodeName represents the name of the Node hosting this endpoint.</p><div class="fullcomment"><div class="comment cmt"><p>nodeName represents the name of the Node hosting this endpoint. This can be used to determine endpoints local to a Node. This field can be enabled with the EndpointSliceNodeName feature gate.</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+      <p class="shortcomment cmt">nodeName represents the name of the Node hosting this endpoint.</p><div class="fullcomment"><div class="comment cmt"><p>nodeName represents the name of the Node hosting this endpoint. This can be used to determine endpoints local to a Node. This field can be enabled with the EndpointSliceNodeName feature gate.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.discovery.v1beta1.Endpoint#getTargetRef" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getTargetRef:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.model.core.v1.ObjectReference]"></a><a id="getTargetRef:IO[K8sFailure,ObjectReference]"></a>
@@ -576,7 +576,7 @@ This field is deprecated and will be removed in future api versions.</p></dd></d
         <span class="name">getTargetRef</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="../../core/v1/ObjectReference.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.ObjectReference">ObjectReference</a>]</span>
       </span>
       
-      <p class="shortcomment cmt">Gets targetRef.</p><div class="fullcomment"><div class="comment cmt"><p>Gets targetRef.</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+      <p class="shortcomment cmt">Gets targetRef.</p><div class="fullcomment"><div class="comment cmt"><p>Gets targetRef.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.discovery.v1beta1.Endpoint#getTopology" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getTopology:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Map[String,String]]"></a><a id="getTopology:IO[K8sFailure,Map[String,String]]"></a>
@@ -600,7 +600,7 @@ topology.kubernetes.io/zone: the value indicates the zone where the
  endpoint is located. This should match the corresponding node label.
 topology.kubernetes.io/region: the value indicates the region where the
  endpoint is located. This should match the corresponding node label.
-This field is deprecated and will be removed in future api versions.</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+This field is deprecated and will be removed in future api versions.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.discovery.v1beta1.Endpoint#hostname" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="hostname:com.coralogix.zio.k8s.client.model.Optional[String]"></a><a id="hostname:Optional[String]"></a>

@@ -1817,7 +1817,7 @@
         <span class="name">getAllowPrivilegeEscalation</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="https://www.scala-lang.org/api/2.12.12/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a>]</span>
       </span>
       
-      <p class="shortcomment cmt">AllowPrivilegeEscalation controls whether a process can gain more privileges than its parent process.</p><div class="fullcomment"><div class="comment cmt"><p>AllowPrivilegeEscalation controls whether a process can gain more privileges than its parent process. This bool directly controls if the no_new_privs flag will be set on the container process. AllowPrivilegeEscalation is true always when the container is: 1) run as Privileged 2) has CAP_SYS_ADMIN</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+      <p class="shortcomment cmt">AllowPrivilegeEscalation controls whether a process can gain more privileges than its parent process.</p><div class="fullcomment"><div class="comment cmt"><p>AllowPrivilegeEscalation controls whether a process can gain more privileges than its parent process. This bool directly controls if the no_new_privs flag will be set on the container process. AllowPrivilegeEscalation is true always when the container is: 1) run as Privileged 2) has CAP_SYS_ADMIN</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.core.v1.SecurityContext#getCapabilities" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getCapabilities:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.model.core.v1.Capabilities]"></a><a id="getCapabilities:IO[K8sFailure,Capabilities]"></a>
@@ -1834,7 +1834,7 @@
         <span class="name">getCapabilities</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="Capabilities.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.Capabilities">Capabilities</a>]</span>
       </span>
       
-      <p class="shortcomment cmt">Gets capabilities.</p><div class="fullcomment"><div class="comment cmt"><p>Gets capabilities.</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+      <p class="shortcomment cmt">Gets capabilities.</p><div class="fullcomment"><div class="comment cmt"><p>Gets capabilities.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="scala.AnyRef#getClass" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getClass():Class[_]"></a>
@@ -1872,7 +1872,7 @@
         <span class="name">getPrivileged</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="https://www.scala-lang.org/api/2.12.12/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a>]</span>
       </span>
       
-      <p class="shortcomment cmt">Run container in privileged mode.</p><div class="fullcomment"><div class="comment cmt"><p>Run container in privileged mode. Processes in privileged containers are essentially equivalent to root on the host. Defaults to false.</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+      <p class="shortcomment cmt">Run container in privileged mode.</p><div class="fullcomment"><div class="comment cmt"><p>Run container in privileged mode. Processes in privileged containers are essentially equivalent to root on the host. Defaults to false.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.core.v1.SecurityContext#getProcMount" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getProcMount:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]"></a><a id="getProcMount:IO[K8sFailure,String]"></a>
@@ -1889,7 +1889,7 @@
         <span class="name">getProcMount</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">procMount denotes the type of proc mount to use for the containers.</p><div class="fullcomment"><div class="comment cmt"><p>procMount denotes the type of proc mount to use for the containers. The default is DefaultProcMount which uses the container runtime defaults for readonly paths and masked paths. This requires the ProcMountType feature flag to be enabled.</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+      <p class="shortcomment cmt">procMount denotes the type of proc mount to use for the containers.</p><div class="fullcomment"><div class="comment cmt"><p>procMount denotes the type of proc mount to use for the containers. The default is DefaultProcMount which uses the container runtime defaults for readonly paths and masked paths. This requires the ProcMountType feature flag to be enabled.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.core.v1.SecurityContext#getReadOnlyRootFilesystem" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getReadOnlyRootFilesystem:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Boolean]"></a><a id="getReadOnlyRootFilesystem:IO[K8sFailure,Boolean]"></a>
@@ -1906,7 +1906,7 @@
         <span class="name">getReadOnlyRootFilesystem</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="https://www.scala-lang.org/api/2.12.12/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a>]</span>
       </span>
       
-      <p class="shortcomment cmt">Whether this container has a read-only root filesystem.</p><div class="fullcomment"><div class="comment cmt"><p>Whether this container has a read-only root filesystem. Default is false.</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+      <p class="shortcomment cmt">Whether this container has a read-only root filesystem.</p><div class="fullcomment"><div class="comment cmt"><p>Whether this container has a read-only root filesystem. Default is false.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.core.v1.SecurityContext#getRunAsGroup" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getRunAsGroup:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Long]"></a><a id="getRunAsGroup:IO[K8sFailure,Long]"></a>
@@ -1923,7 +1923,7 @@
         <span class="name">getRunAsGroup</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="https://www.scala-lang.org/api/2.12.12/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a>]</span>
       </span>
       
-      <p class="shortcomment cmt">The GID to run the entrypoint of the container process.</p><div class="fullcomment"><div class="comment cmt"><p>The GID to run the entrypoint of the container process. Uses runtime default if unset. May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+      <p class="shortcomment cmt">The GID to run the entrypoint of the container process.</p><div class="fullcomment"><div class="comment cmt"><p>The GID to run the entrypoint of the container process. Uses runtime default if unset. May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.core.v1.SecurityContext#getRunAsNonRoot" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getRunAsNonRoot:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Boolean]"></a><a id="getRunAsNonRoot:IO[K8sFailure,Boolean]"></a>
@@ -1940,7 +1940,7 @@
         <span class="name">getRunAsNonRoot</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="https://www.scala-lang.org/api/2.12.12/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a>]</span>
       </span>
       
-      <p class="shortcomment cmt">Indicates that the container must run as a non-root user.</p><div class="fullcomment"><div class="comment cmt"><p>Indicates that the container must run as a non-root user. If true, the Kubelet will validate the image at runtime to ensure that it does not run as UID 0 (root) and fail to start the container if it does. If unset or false, no such validation will be performed. May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+      <p class="shortcomment cmt">Indicates that the container must run as a non-root user.</p><div class="fullcomment"><div class="comment cmt"><p>Indicates that the container must run as a non-root user. If true, the Kubelet will validate the image at runtime to ensure that it does not run as UID 0 (root) and fail to start the container if it does. If unset or false, no such validation will be performed. May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.core.v1.SecurityContext#getRunAsUser" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getRunAsUser:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Long]"></a><a id="getRunAsUser:IO[K8sFailure,Long]"></a>
@@ -1957,7 +1957,7 @@
         <span class="name">getRunAsUser</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="https://www.scala-lang.org/api/2.12.12/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a>]</span>
       </span>
       
-      <p class="shortcomment cmt">The UID to run the entrypoint of the container process.</p><div class="fullcomment"><div class="comment cmt"><p>The UID to run the entrypoint of the container process. Defaults to user specified in image metadata if unspecified. May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+      <p class="shortcomment cmt">The UID to run the entrypoint of the container process.</p><div class="fullcomment"><div class="comment cmt"><p>The UID to run the entrypoint of the container process. Defaults to user specified in image metadata if unspecified. May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.core.v1.SecurityContext#getSeLinuxOptions" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getSeLinuxOptions:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.model.core.v1.SELinuxOptions]"></a><a id="getSeLinuxOptions:IO[K8sFailure,SELinuxOptions]"></a>
@@ -1974,7 +1974,7 @@
         <span class="name">getSeLinuxOptions</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="SELinuxOptions.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.SELinuxOptions">SELinuxOptions</a>]</span>
       </span>
       
-      <p class="shortcomment cmt">Gets seLinuxOptions.</p><div class="fullcomment"><div class="comment cmt"><p>Gets seLinuxOptions.</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+      <p class="shortcomment cmt">Gets seLinuxOptions.</p><div class="fullcomment"><div class="comment cmt"><p>Gets seLinuxOptions.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.core.v1.SecurityContext#getSeccompProfile" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getSeccompProfile:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.model.core.v1.SeccompProfile]"></a><a id="getSeccompProfile:IO[K8sFailure,SeccompProfile]"></a>
@@ -1991,7 +1991,7 @@
         <span class="name">getSeccompProfile</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="SeccompProfile.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.SeccompProfile">SeccompProfile</a>]</span>
       </span>
       
-      <p class="shortcomment cmt">Gets seccompProfile.</p><div class="fullcomment"><div class="comment cmt"><p>Gets seccompProfile.</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+      <p class="shortcomment cmt">Gets seccompProfile.</p><div class="fullcomment"><div class="comment cmt"><p>Gets seccompProfile.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.core.v1.SecurityContext#getWindowsOptions" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getWindowsOptions:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.model.core.v1.WindowsSecurityContextOptions]"></a><a id="getWindowsOptions:IO[K8sFailure,WindowsSecurityContextOptions]"></a>
@@ -2008,7 +2008,7 @@
         <span class="name">getWindowsOptions</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="WindowsSecurityContextOptions.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.WindowsSecurityContextOptions">WindowsSecurityContextOptions</a>]</span>
       </span>
       
-      <p class="shortcomment cmt">Gets windowsOptions.</p><div class="fullcomment"><div class="comment cmt"><p>Gets windowsOptions.</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+      <p class="shortcomment cmt">Gets windowsOptions.</p><div class="fullcomment"><div class="comment cmt"><p>Gets windowsOptions.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="scala.Any#isInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isInstanceOf[T0]:Boolean"></a>

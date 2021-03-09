@@ -339,8 +339,8 @@
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Custom option type used in the generated Kubernetes data models.</p><p>Instances of Optional are either <a href="Optional$$Present.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional.Present">Optional.Present</a> or <a href="Optional$$Absent$.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional.Absent">Optional.Absent</a>.</p><p>The only difference between this type and <span class="extype" name="Option">Option</span> is that there is an implicit
-conversion defined from A to Optional[A], and from Option[A] to Optional[A].</p><p>This allows boilerplate-free definition of Kubernetes resources where most of the
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Custom option type used in the generated Kubernetes data models.</p><p>Instances of Optional are either <a href="Optional$$Present.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional.Present">Optional.Present</a> or <a href="Optional$$Absent$.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional.Absent">Optional.Absent</a>.</p><p>The only difference between this type and <a href="https://www.scala-lang.org/api/2.12.12/scala/Option.html" class="extype" name="scala.Option">scala.Option</a> is that there is an implicit
+conversion defined from <code>A</code><code> to </code>Optional[A]<code>, and from </code>Option[A]<code><code> to </code>Optional[A]</code>.</p><p>This allows boilerplate-free definition of Kubernetes resources where most of the
 fields are optional.
 </p></div><dl class="attributes block"> <dt>Self Type</dt><dd><a href="" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="com.coralogix.zio.k8s.client.model.Optional.A">A</span>]</dd></dl><div class="toggleContainer block">
           <span class="toggle">
@@ -999,7 +999,8 @@ fields are optional.
         <span class="name">toOption</span><span class="result">: <a href="https://www.scala-lang.org/api/2.12.12/scala/Option.html#scala.Option" class="extype" name="scala.Option">Option</a>[<span class="extype" name="com.coralogix.zio.k8s.client.model.Optional.A">A</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">Converts this optional value to standard <span class="extype" name="Option">Option</span></p>
+      <p class="shortcomment cmt">Converts this optional value to standard <a href="https://www.scala-lang.org/api/2.12.12/scala/Option.html" class="extype" name="scala.Option">scala.Option</a>
+</p>
     </li><li name="com.coralogix.zio.k8s.client.model.Optional#toRight" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="toRight[L](left:L):Either[L,A]"></a><a id="toRight[L](L):Either[L,A]"></a>
       <span class="permalink">

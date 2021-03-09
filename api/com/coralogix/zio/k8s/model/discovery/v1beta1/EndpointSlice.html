@@ -528,7 +528,7 @@
         <span class="name">getMetadata</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="../../pkg/apis/meta/v1/ObjectMeta.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.ObjectMeta">ObjectMeta</a>]</span>
       </span>
       
-      <p class="shortcomment cmt">Gets metadata.</p><div class="fullcomment"><div class="comment cmt"><p>Gets metadata.</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+      <p class="shortcomment cmt">Gets metadata.</p><div class="fullcomment"><div class="comment cmt"><p>Gets metadata.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.discovery.v1beta1.EndpointSlice#getPorts" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getPorts:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Vector[com.coralogix.zio.k8s.model.discovery.v1beta1.EndpointPort]]"></a><a id="getPorts:IO[K8sFailure,Vector[EndpointPort]]"></a>
@@ -545,7 +545,7 @@
         <span class="name">getPorts</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Vector">Vector</span>[<a href="EndpointPort.html" class="extype" name="com.coralogix.zio.k8s.model.discovery.v1beta1.EndpointPort">EndpointPort</a>]]</span>
       </span>
       
-      <p class="shortcomment cmt">ports specifies the list of network ports exposed by each endpoint in this slice.</p><div class="fullcomment"><div class="comment cmt"><p>ports specifies the list of network ports exposed by each endpoint in this slice. Each port must have a unique name. When ports is empty, it indicates that there are no defined ports. When a port is defined with a nil port value, it indicates &quot;all ports&quot;. Each slice may include a maximum of 100 ports.</p><p>If the field is not present, fails with <span class="extype" name="UndefinedField">UndefinedField</span>.
+      <p class="shortcomment cmt">ports specifies the list of network ports exposed by each endpoint in this slice.</p><div class="fullcomment"><div class="comment cmt"><p>ports specifies the list of network ports exposed by each endpoint in this slice. Each port must have a unique name. When ports is empty, it indicates that there are no defined ports. When a port is defined with a nil port value, it indicates &quot;all ports&quot;. Each slice may include a maximum of 100 ports.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="scala.Any#isInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isInstanceOf[T0]:Boolean"></a>
