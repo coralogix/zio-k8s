@@ -9,6 +9,8 @@ import zio.{ Has, ZIO, ZLayer, ZManaged }
 
 import java.net.http.HttpClient
 
+/** HTTP client implementation based on the httpclient-zio backend
+  */
 package object httpclient {
 
   /** An [[SttpClient]] layer configured with the proper SSL context based

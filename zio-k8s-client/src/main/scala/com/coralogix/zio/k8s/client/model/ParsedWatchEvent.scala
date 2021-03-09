@@ -32,7 +32,7 @@ object ParsedWatchEvent {
     IO.fromEither(implicitly[Decoder[T]].decodeAccumulating(json.hcursor).toEither)
       .mapError(DeserializationFailure.apply)
 
-  /** Converts an unparsed Kubernetes [[WatchEvent]] to [[ParsedWatchEvent]]
+  /** Converts an unparsed Kubernetes [[com.coralogix.zio.k8s.model.pkg.apis.meta.v1.WatchEvent]] to [[ParsedWatchEvent]]
     * @param event Unparsed event
     * @tparam T Payload type
     * @return Parsed event

@@ -80,7 +80,7 @@ lazy val client = Project("zio-k8s-client", file("zio-k8s-client"))
         }
     },
     buildInfoKeys    := Seq[BuildInfoKey](name, version, scalaVersion, sbtVersion, isSnapshot),
-    buildInfoPackage := "zio.k8s",
+    buildInfoPackage := "com.coralogix.zio.k8s",
     buildInfoObject  := "BuildInfo"
   )
   .enablePlugins(K8sResourceCodegenPlugin, BuildInfoPlugin)

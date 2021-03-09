@@ -8,8 +8,8 @@ import scala.language.implicitConversions
   *
   * Instances of Optional are either [[Optional.Present]] or [[Optional.Absent]].
   *
-  * The only difference between this type and [[Option]] is that there is an implicit
-  * conversion defined from A to Optional[A], and from Option[A] to Optional[A].
+  * The only difference between this type and [[scala.Option]] is that there is an implicit
+  * conversion defined from `A`` to `Optional[A]`, and from `Option[A]`` to `Optional[A]`.
   *
   * This allows boilerplate-free definition of Kubernetes resources where most of the
   * fields are optional.
@@ -19,8 +19,7 @@ sealed trait Optional[+A] { self =>
   val isDefined: Boolean
   val nonEmpty: Boolean
 
-  /** Converts this optional value to standard [[Option]]
-    * @return
+  /** Converts this optional value to standard [[scala.Option]]
     */
   final def toOption: Option[A] = self match {
     case Optional.Present(get) => Some(get)

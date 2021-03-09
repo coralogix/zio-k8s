@@ -427,11 +427,12 @@ trait ModelGenerator {
           val list = properties
             .filterKeys(filterKeysOf(d))
             .map { case (name, propSchema) =>
+              val escapedName = name.replace("$", "$$")
               val desc = escapeDocString(
                 Option(propSchema.getDescription)
                   .getOrElse("")
               )
-              s"  * @param $name $desc"
+              s"  * @param $escapedName $desc"
             }
             .mkString("\n")
 
@@ -464,7 +465,7 @@ trait ModelGenerator {
                 if (isRequired)
                   s"/** $desc\n *\n * This effect always succeeds, it is safe to use the field [[$name]] directly.\n */\n$from"
                 else
-                  s"/** $desc\n *\n * If the field is not present, fails with [[UndefinedField]].\n */\n$from"
+                  s"/** $desc\n *\n * If the field is not present, fails with [[com.coralogix.zio.k8s.client.UndefinedField]].\n */\n$from"
 
               from -> replacement
             }
@@ -481,6 +482,7 @@ trait ModelGenerator {
   private def escapeDocString(s: String): String =
     s.replace("/*", "&#47;*")
       .replace("*/", "*&#47;")
+      .replace("$", "$$")
 
   protected def toType(name: String, propSchema: Schema[_]): Type =
     (Option(propSchema.getType), Option(propSchema.get$ref())) match {

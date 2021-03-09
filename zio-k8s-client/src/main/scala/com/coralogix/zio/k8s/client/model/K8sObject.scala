@@ -66,7 +66,7 @@ trait K8sObject[T] {
       )
     )(obj)
 
-  /** Try to [[attachOwner()]] another Kubernetes resource as the owner of the given one,
+  /** Try to [[attachOwner]] another Kubernetes resource as the owner of the given one,
     * can fail with [[UndefinedField]] if some of the metadata fields are not present.
     */
   def tryAttachOwner[OwnerT: K8sObject: ResourceMetadata](

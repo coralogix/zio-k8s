@@ -11,7 +11,7 @@ trait ResourceStatus[StatusT, T] {
 
   /** Replaces the status of a resource that was previously get from server.
     *
-    * Use either [[getStatus()]] or [[Resource.get()]] to retrieve a value of the resource by name, and then
+    * Use either [[getStatus]] or [[Resource.get]] to retrieve a value of the resource by name, and then
     * call this method to update its status.
     *
     * @param of The resource object to manipulate
@@ -47,7 +47,7 @@ trait NamespacedResourceStatus[StatusT, T] {
 
   /** Replaces the status of a resource that was previously get from server.
     *
-    * Use either [[getStatus()]] or [[NamespacedResource.get()]] to retrieve a value of the resource by name, and then
+    * Use either [[getStatus]] or [[NamespacedResource.get]] to retrieve a value of the resource by name, and then
     * call this method to update its status.
     *
     * @param of The resource object to manipulate
@@ -83,7 +83,7 @@ trait ClusterResourceStatus[StatusT, T] {
 
   /** Replaces the status of a resource that was previously get from server.
     *
-    * Use either [[getStatus()]] or [[ClusterResource.get()]] to retrieve a value of the resource by name, and then
+    * Use either [[getStatus]] or [[ClusterResource.get]] to retrieve a value of the resource by name, and then
     * call this method to update its status.
     *
     * @param of The resource object to manipulate
