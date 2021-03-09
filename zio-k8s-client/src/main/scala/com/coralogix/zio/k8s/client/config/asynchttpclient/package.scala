@@ -10,8 +10,7 @@ import zio.blocking.Blocking
 import zio.system.System
 import zio.{ Has, ZLayer, ZManaged }
 
-/**
-  * HTTP client implementation based on the async-http-client-zio backend
+/** HTTP client implementation based on the async-http-client-zio backend
   */
 package object asynchttpclient {
 
