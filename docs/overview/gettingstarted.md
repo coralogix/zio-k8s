@@ -13,7 +13,7 @@ Start by adding `zio-k8s-client` as a dependency to your project:
 println(s"""```scala""")
 if (com.coralogix.zio.k8s.BuildInfo.isSnapshot)
   println(s"""resolvers += Resolver.sonatypeRepo("snapshots")""")
-println(s"""libraryDependencies += "com.coralogix" %% "zio-k8s-client" % "${zio.k8s.BuildInfo.version}"""")
+println(s"""libraryDependencies += "com.coralogix" %% "zio-k8s-client" % "${com.coralogix.zio.k8s.BuildInfo.version}"""")
 println(s"""```""")
 
 ```

@@ -11,9 +11,9 @@ To enable the _Quicklens support_ of `zio-k8s` an additional dependency has to b
 ```scala mdoc:passthrough
 
 println(s"""```scala""")
-if (zio.k8s.BuildInfo.isSnapshot)
+if (com.coralogix.zio.k8s.BuildInfo.isSnapshot)
   println(s"""resolvers += Resolver.sonatypeRepo("snapshots")""")
-println(s"""libraryDependencies += "com.coralogix" %% "zio-k8s-client-quicklens" % "${zio.k8s.BuildInfo.version}"""")
+println(s"""libraryDependencies += "com.coralogix" %% "zio-k8s-client-quicklens" % "${com.coralogix.zio.k8s.BuildInfo.version}"""")
 println(s"""```""")
 
 ```

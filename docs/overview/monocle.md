@@ -11,9 +11,9 @@ To enable the _Monocle support_ of `zio-k8s` an additional dependency has to be 
 ```scala mdoc:passthrough
 
 println(s"""```scala""")
-if (zio.k8s.BuildInfo.isSnapshot)
+if (com.coralogix.zio.k8s.BuildInfo.isSnapshot)
   println(s"""resolvers += Resolver.sonatypeRepo("snapshots")""")
-println(s"""libraryDependencies += "com.coralogix" %% "zio-k8s-client-monocle" % "${zio.k8s.BuildInfo.version}"""")
+println(s"""libraryDependencies += "com.coralogix" %% "zio-k8s-client-monocle" % "${com.coralogix.zio.k8s.BuildInfo.version}"""")
 println(s"""```""")
 
 ```

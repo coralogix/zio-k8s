@@ -66,9 +66,9 @@ The next step is to add `zio-k8s-crd` to the list of _sbt plugins_, in `project/
 ```scala mdoc:passthrough
 
 println(s"""```scala""")
-if (zio.k8s.BuildInfo.isSnapshot)
+if (com.coralogix.zio.k8s.BuildInfo.isSnapshot)
   println(s"""resolvers += Resolver.sonatypeRepo("snapshots")""")
-println(s"""addSbtPlugin("com.coralogix" %% "zio-k8s-crd" % "${zio.k8s.BuildInfo.version}"""")
+println(s"""addSbtPlugin("com.coralogix" %% "zio-k8s-crd" % "${com.coralogix.zio.k8s.BuildInfo.version}"""")
 println(s"""```""")
 
 ```
