@@ -16,6 +16,7 @@ jobs:
       - uses: olafurpg/setup-scala@v10
         with:
           java-version: "adopt@1.11"
+          fetch-depth: 0
       - uses: olafurpg/setup-gpg@v3
       - run: sbt docs/docusaurusPublishGhpages
         env:
