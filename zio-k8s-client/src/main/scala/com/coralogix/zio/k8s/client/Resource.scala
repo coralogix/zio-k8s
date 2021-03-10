@@ -196,7 +196,8 @@ trait NamespacedResource[T] {
     fieldSelector: Option[FieldSelector] = None,
     labelSelector: Option[LabelSelector] = None,
     resourceVersion: ListResourceVersion = ListResourceVersion.MostRecent
-  ): Stream[K8sFailure, T]
+  ): Stream[K8sFailure, T] =
+    asGenericResource.getAll(namespace, chunkSize, fieldSelector, labelSelector, resourceVersion)
 
   /** Watch stream of resource change events of type [[com.coralogix.zio.k8s.client.model.TypedWatchEvent]]
     *
@@ -216,7 +217,8 @@ trait NamespacedResource[T] {
     resourceVersion: Option[String],
     fieldSelector: Option[FieldSelector] = None,
     labelSelector: Option[LabelSelector] = None
-  ): Stream[K8sFailure, TypedWatchEvent[T]]
+  ): Stream[K8sFailure, TypedWatchEvent[T]] =
+    asGenericResource.watch(namespace, resourceVersion, fieldSelector, labelSelector)
 
   /** Infinite watch stream of resource change events of type [[com.coralogix.zio.k8s.client.model.TypedWatchEvent]]
     *
@@ -231,14 +233,16 @@ trait NamespacedResource[T] {
     namespace: Option[K8sNamespace],
     fieldSelector: Option[FieldSelector] = None,
     labelSelector: Option[LabelSelector] = None
-  ): ZStream[Clock, K8sFailure, TypedWatchEvent[T]]
+  ): ZStream[Clock, K8sFailure, TypedWatchEvent[T]] =
+    asGenericResource.watchForever(namespace, fieldSelector, labelSelector)
 
   /** Get a resource by its name
     * @param name Name of the resource
     * @param namespace Namespace of the resource
     * @return Returns the current version of the resource
     */
-  def get(name: String, namespace: K8sNamespace): IO[K8sFailure, T]
+  def get(name: String, namespace: K8sNamespace): IO[K8sFailure, T] =
+    asGenericResource.get(name, Some(namespace))
 
   /** Creates a new resource
     * @param newResource The new resource to define in the cluster.
@@ -246,7 +250,8 @@ trait NamespacedResource[T] {
     * @param dryRun If true, the request is sent to the server but it will not create the resource.
     * @return Returns the created resource as it was returned from Kubernetes
     */
-  def create(newResource: T, namespace: K8sNamespace, dryRun: Boolean = false): IO[K8sFailure, T]
+  def create(newResource: T, namespace: K8sNamespace, dryRun: Boolean = false): IO[K8sFailure, T] =
+    asGenericResource.create(newResource, Some(namespace), dryRun)
 
   /** Replaces an existing resource selected by its name
     * @param name Name of the resource
@@ -260,7 +265,8 @@ trait NamespacedResource[T] {
     updatedResource: T,
     namespace: K8sNamespace,
     dryRun: Boolean = false
-  ): IO[K8sFailure, T]
+  ): IO[K8sFailure, T] =
+    asGenericResource.replace(name, updatedResource, Some(namespace), dryRun)
 
   /** Deletes an existing resource selected by its name
     * @param name Name of the resource
@@ -278,7 +284,40 @@ trait NamespacedResource[T] {
     dryRun: Boolean = false,
     gracePeriod: Option[Duration] = None,
     propagationPolicy: Option[PropagationPolicy] = None
-  ): IO[K8sFailure, Status]
+  ): IO[K8sFailure, Status] =
+    asGenericResource.delete(
+      name,
+      deleteOptions,
+      Some(namespace),
+      dryRun,
+      gracePeriod,
+      propagationPolicy
+    )
+
+  /** Deletes an existing resource selected by its name and waits until it has gone
+    * @param name Name of the resource
+    * @param deleteOptions Delete options
+    * @param namespace Namespace of the resource
+    * @param dryRun If true, the request is sent to the server but it will not create the resource.
+    * @param gracePeriod The duration in seconds before the object should be deleted. Value must be non-negative integer. The value zero indicates delete immediately. If this value is nil, the default grace period for the specified type will be used. Defaults to a per object value if not specified. zero means delete immediately.
+    * @param propagationPolicy Whether and how garbage collection will be performed. Either this field or OrphanDependents may be set, but not both. The default policy is decided by the existing finalizer set in the metadata.finalizers and the resource-specific default policy. Acceptable values are: 'Orphan' - orphan the dependents; 'Background' - allow the garbage collector to delete the dependents in the background; 'Foreground' - a cascading policy that deletes all dependents in the foreground.
+    */
+  def deleteAndWait(
+    name: String,
+    deleteOptions: DeleteOptions,
+    namespace: K8sNamespace,
+    dryRun: Boolean = false,
+    gracePeriod: Option[Duration] = None,
+    propagationPolicy: Option[PropagationPolicy] = None
+  ): ZIO[Clock, K8sFailure, Unit] =
+    asGenericResource.deleteAndWait(
+      name,
+      deleteOptions,
+      Some(namespace),
+      dryRun,
+      gracePeriod,
+      propagationPolicy
+    )
 }
 
 /** Generic interface for working with Kubernetes cluster resources.
@@ -305,7 +344,8 @@ trait ClusterResource[T] {
     fieldSelector: Option[FieldSelector] = None,
     labelSelector: Option[LabelSelector] = None,
     resourceVersion: ListResourceVersion = ListResourceVersion.MostRecent
-  ): Stream[K8sFailure, T]
+  ): Stream[K8sFailure, T] =
+    asGenericResource.getAll(None, chunkSize, fieldSelector, labelSelector, resourceVersion)
 
   /** Watch stream of resource change events of type [[com.coralogix.zio.k8s.client.model.TypedWatchEvent]]
     *
@@ -323,7 +363,8 @@ trait ClusterResource[T] {
     resourceVersion: Option[String],
     fieldSelector: Option[FieldSelector] = None,
     labelSelector: Option[LabelSelector] = None
-  ): Stream[K8sFailure, TypedWatchEvent[T]]
+  ): Stream[K8sFailure, TypedWatchEvent[T]] =
+    asGenericResource.watch(None, resourceVersion, fieldSelector, labelSelector)
 
   /** Infinite watch stream of resource change events of type [[com.coralogix.zio.k8s.client.model.TypedWatchEvent]]
     *
@@ -336,20 +377,23 @@ trait ClusterResource[T] {
   def watchForever(
     fieldSelector: Option[FieldSelector] = None,
     labelSelector: Option[LabelSelector] = None
-  ): ZStream[Clock, K8sFailure, TypedWatchEvent[T]]
+  ): ZStream[Clock, K8sFailure, TypedWatchEvent[T]] =
+    asGenericResource.watchForever(None, fieldSelector, labelSelector)
 
   /** Get a resource by its name
     * @param name Name of the resource
     * @return Returns the current version of the resource
     */
-  def get(name: String): IO[K8sFailure, T]
+  def get(name: String): IO[K8sFailure, T] =
+    asGenericResource.get(name, None)
 
   /** Creates a new resource
     * @param newResource The new resource to define in the cluster.
     * @param dryRun If true, the request is sent to the server but it will not create the resource.
     * @return Returns the created resource as it was returned from Kubernetes
     */
-  def create(newResource: T, dryRun: Boolean = false): IO[K8sFailure, T]
+  def create(newResource: T, dryRun: Boolean = false): IO[K8sFailure, T] =
+    asGenericResource.create(newResource, None, dryRun)
 
   /** Replaces an existing resource selected by its name
     * @param name Name of the resource
@@ -361,7 +405,8 @@ trait ClusterResource[T] {
     name: String,
     updatedResource: T,
     dryRun: Boolean = false
-  ): IO[K8sFailure, T]
+  ): IO[K8sFailure, T] =
+    asGenericResource.replace(name, updatedResource, None, dryRun)
 
   /** Deletes an existing resource selected by its name
     * @param name Name of the resource
@@ -377,5 +422,29 @@ trait ClusterResource[T] {
     dryRun: Boolean = false,
     gracePeriod: Option[Duration] = None,
     propagationPolicy: Option[PropagationPolicy] = None
-  ): IO[K8sFailure, Status]
+  ): IO[K8sFailure, Status] =
+    asGenericResource.delete(name, deleteOptions, None, dryRun, gracePeriod, propagationPolicy)
+
+  /** Deletes an existing resource selected by its name and waits until it has gone
+    * @param name Name of the resource
+    * @param deleteOptions Delete options
+    * @param dryRun If true, the request is sent to the server but it will not create the resource.
+    * @param gracePeriod The duration in seconds before the object should be deleted. Value must be non-negative integer. The value zero indicates delete immediately. If this value is nil, the default grace period for the specified type will be used. Defaults to a per object value if not specified. zero means delete immediately.
+    * @param propagationPolicy Whether and how garbage collection will be performed. Either this field or OrphanDependents may be set, but not both. The default policy is decided by the existing finalizer set in the metadata.finalizers and the resource-specific default policy. Acceptable values are: 'Orphan' - orphan the dependents; 'Background' - allow the garbage collector to delete the dependents in the background; 'Foreground' - a cascading policy that deletes all dependents in the foreground.
+    */
+  def deleteAndWait(
+    name: String,
+    deleteOptions: DeleteOptions,
+    dryRun: Boolean = false,
+    gracePeriod: Option[Duration] = None,
+    propagationPolicy: Option[PropagationPolicy] = None
+  ): ZIO[Clock, K8sFailure, Unit] =
+    asGenericResource.deleteAndWait(
+      name,
+      deleteOptions,
+      None,
+      dryRun,
+      gracePeriod,
+      propagationPolicy
+    )
 }

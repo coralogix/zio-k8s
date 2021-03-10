@@ -13,7 +13,8 @@
   "crd-sidebar": {
     "CRD": [
       "crd/crd_index",
-      "crd/crd_howto"
+      "crd/crd_howto",
+      "crd/crd_custom"
     ]
   },
   "operator-sidebar": {

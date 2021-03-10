@@ -71,7 +71,16 @@ trait NamespacedResourceDeleteAll[T] {
     propagationPolicy: Option[PropagationPolicy] = None,
     fieldSelector: Option[FieldSelector] = None,
     labelSelector: Option[LabelSelector] = None
-  ): IO[K8sFailure, Status]
+  ): IO[K8sFailure, Status] =
+    asGenericResourceDeleteAll.deleteAll(
+      deleteOptions,
+      Some(namespace),
+      dryRun,
+      gracePeriod,
+      propagationPolicy,
+      fieldSelector,
+      labelSelector
+    )
 }
 
 /** Extra capability for [[ClusterResource]] interfaces providing deleteAll
@@ -103,5 +112,14 @@ trait ClusterResourceDeleteAll[T] {
     propagationPolicy: Option[PropagationPolicy] = None,
     fieldSelector: Option[FieldSelector] = None,
     labelSelector: Option[LabelSelector] = None
-  ): IO[K8sFailure, Status]
+  ): IO[K8sFailure, Status] =
+    asGenericResourceDeleteAll.deleteAll(
+      deleteOptions,
+      None,
+      dryRun,
+      gracePeriod,
+      propagationPolicy,
+      fieldSelector,
+      labelSelector
+    )
 }

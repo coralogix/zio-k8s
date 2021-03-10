@@ -65,26 +65,32 @@ trait SubresourceClientGenerator {
     val clusterDefs = subresource.actionVerbs.toList.flatMap {
       case "get" if subresource.hasStreamingGet =>
         val params = param"name: String" :: subresource.toMethodParameters
+        val customParamsMap = subresource.toMapFromParameters
         List(q"""
-          def $getTerm(..$params): ZStream[Any, K8sFailure, $modelT]
+          def $getTerm(..$params): ZStream[Any, K8sFailure, $modelT] =
+            $asGenericTerm.streamingGet(name, None, ${subresource.streamingGetTransducer}, $customParamsMap)
           """)
       case "get"                                =>
         val params = param"name: String" :: subresource.toMethodParameters
+        val customParamsMap = subresource.toMapFromParameters
         List(q"""
-          def $getTerm(..$params): ZIO[Any, K8sFailure, $modelT]
+          def $getTerm(..$params): ZIO[Any, K8sFailure, $modelT] =
+            $asGenericTerm.get(name, None, $customParamsMap)
           """)
       case "put"                                =>
         List(q"""
           def $putTerm(name: String,
                              updatedValue: $modelT,
                              dryRun: Boolean = false
-                            ): IO[K8sFailure, $modelT]
+                            ): IO[K8sFailure, $modelT] =
+            $asGenericTerm.replace(name, updatedValue, None, dryRun)
            """)
       case "post"                               =>
         List(q"""
            def $postTerm(name: String,
                          value: $modelT,
-                         dryRun: Boolean = false): IO[K8sFailure, $modelT]
+                         dryRun: Boolean = false): IO[K8sFailure, $modelT] =
+             $asGenericTerm.create(name, value, None, dryRun)
          """)
       case _                                    => List.empty
     }
@@ -93,14 +99,18 @@ trait SubresourceClientGenerator {
       case "get" if subresource.hasStreamingGet =>
         val params =
           param"name: String" :: param"namespace: K8sNamespace" :: subresource.toMethodParameters
+        val customParamsMap = subresource.toMapFromParameters
         List(q"""
-          def $getTerm(..$params): ZStream[Any, K8sFailure, $modelT]
+          def $getTerm(..$params): ZStream[Any, K8sFailure, $modelT] =
+            $asGenericTerm.streamingGet(name, Some(namespace), ${subresource.streamingGetTransducer}, $customParamsMap)
           """)
       case "get"                                =>
         val params =
           param"name: String" :: param"namespace: K8sNamespace" :: subresource.toMethodParameters
+        val customParamsMap = subresource.toMapFromParameters
         List(q"""
-          def $getTerm(..$params): ZIO[Any, K8sFailure, $modelT]
+          def $getTerm(..$params): ZIO[Any, K8sFailure, $modelT] =
+            $asGenericTerm.get(name, Some(namespace), $customParamsMap)
           """)
       case "put"                                =>
         List(q"""
@@ -108,14 +118,16 @@ trait SubresourceClientGenerator {
                              updatedValue: $modelT,
                              namespace: K8sNamespace,
                              dryRun: Boolean = false
-                            ): IO[K8sFailure, $modelT]
+                            ): IO[K8sFailure, $modelT] =
+             $asGenericTerm.replace(name, updatedValue, Some(namespace), dryRun)
            """)
       case "post"                               =>
         List(q"""
            def $postTerm(name: String,
                          value: $modelT,
                          namespace: K8sNamespace,
-                         dryRun: Boolean = false): IO[K8sFailure, $modelT]
+                         dryRun: Boolean = false): IO[K8sFailure, $modelT] =
+             $asGenericTerm.create(name, value, Some(namespace), dryRun)
          """)
       case _                                    => List.empty
     }
