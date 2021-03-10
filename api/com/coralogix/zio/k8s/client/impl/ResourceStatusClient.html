@@ -170,7 +170,7 @@
                         <a class="class" href="ResourceClient.html" title="Generic implementation of Resource and ResourceDeleteAll"></a>
                         <a href="ResourceClient.html" title="Generic implementation of Resource and ResourceDeleteAll">ResourceClient</a>
                       </li><li class="current-entities indented6">
-                        <span class="separator"></span>
+                        <a class="object" href="ResourceClientBase$.html" title=""></a>
                         <a class="trait" href="ResourceClientBase.html" title=""></a>
                         <a href="ResourceClientBase.html" title="">ResourceClientBase</a>
                       </li><li class="current-entities indented6">
@@ -349,6 +349,26 @@
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
+    </li><li name="com.coralogix.zio.k8s.client.impl.ResourceClientBase#asJsonAccumulating" visbl="prt" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="asJsonAccumulating[B](implicitevidence$1:io.circe.Decoder[B],implicitevidence$2:sttp.client3.IsOption[B]):sttp.client3.ResponseAs[Either[sttp.client3.ResponseException[String,cats.data.NonEmptyList[io.circe.Error]],B],Any]"></a><a id="asJsonAccumulating[B](Decoder[B],IsOption[B]):ResponseAs[Either[ResponseException[String,NonEmptyList[Error]],B],Any]"></a>
+      <span class="permalink">
+      <a href="../../../../../../com/coralogix/zio/k8s/client/impl/ResourceStatusClient.html#asJsonAccumulating[B](implicitevidence$1:io.circe.Decoder[B],implicitevidence$2:sttp.client3.IsOption[B]):sttp.client3.ResponseAs[Either[sttp.client3.ResponseException[String,cats.data.NonEmptyList[io.circe.Error]],B],Any]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">asJsonAccumulating</span><span class="tparams">[<span name="B">B</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="https://circe.github.io/circe/api/io/circe/Decoder.html#io.circe.Decoder" class="extype" name="io.circe.Decoder">Decoder</a>[<span class="extype" name="com.coralogix.zio.k8s.client.impl.ResourceClientBase.asJsonAccumulating.B">B</span>]</span>, <span name="arg1">arg1: <a href="https://javadoc.io/page/com.softwaremill.sttp.client3/json-common_2.12/3.1.7/sttp/client3/IsOption.html#sttp.client3.IsOption" class="extype" name="sttp.client3.IsOption">IsOption</a>[<span class="extype" name="com.coralogix.zio.k8s.client.impl.ResourceClientBase.asJsonAccumulating.B">B</span>]</span>)</span><span class="result">: <a href="https://javadoc.io/page/com.softwaremill.sttp.client3/core_2.12/3.1.7/sttp/client3/ResponseAs.html#sttp.client3.ResponseAs" class="extype" name="sttp.client3.ResponseAs">ResponseAs</a>[<span class="extype" name="scala.Either">Either</span>[<a href="https://javadoc.io/page/com.softwaremill.sttp.client3/core_2.12/3.1.7/sttp/client3/ResponseException.html#sttp.client3.ResponseException" class="extype" name="sttp.client3.ResponseException">ResponseException</a>[<span class="extype" name="scala.Predef.String">String</span>, <a href="http://typelevel.org/cats/api/cats/data/NonEmptyList.html#cats.data.NonEmptyList" class="extype" name="cats.data.NonEmptyList">NonEmptyList</a>[<a href="https://circe.github.io/circe/api/io/circe/Error.html#io.circe.Error" class="extype" name="io.circe.Error">Error</a>]], <span class="extype" name="com.coralogix.zio.k8s.client.impl.ResourceClientBase.asJsonAccumulating.B">B</span>], <a href="https://www.scala-lang.org/api/2.12.12/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">If the response is successful (2xx), tries to deserialize the body from a string into JSON.</p><div class="fullcomment"><div class="comment cmt"><p>If the response is successful (2xx), tries to deserialize the body from a string into JSON. Returns:
+- <code>Right(b)</code> if the parsing was successful
+- <code>Left(HttpError(String))</code> if the response code was other than 2xx (deserialization is not attempted)
+- <code>Left(DeserializationException)</code> if there's an error during deserialization
+</p></div><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd><dt>Definition Classes</dt><dd><a href="ResourceClientBase.html" class="extype" name="com.coralogix.zio.k8s.client.impl.ResourceClientBase">ResourceClientBase</a></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.client.impl.ResourceStatusClient#backend" visbl="prt" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="backend:sttp.client3.SttpBackend[zio.Task,sttp.capabilities.zio.ZioStreamswithsttp.capabilities.WebSockets]"></a><a id="backend:SttpBackend[Task,ZioStreamswithWebSockets]"></a>
       <span class="permalink">
@@ -525,9 +545,9 @@
       
       <p class="shortcomment cmt">Get the status of a given subresource by name</p><div class="fullcomment"><div class="comment cmt"><p>Get the status of a given subresource by name</p></div><dl class="paramcmts block"><dt class="param">name</dt><dd class="cmt"><p>Name of the resource</p></dd><dt class="param">namespace</dt><dd class="cmt"><p>Namespace. For namespaced resources it must be Some, for cluster resources it must be None.</p></dd><dt>returns</dt><dd class="cmt"><p>Returns the full resource object but with possibly the non-status fields absent.</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="com.coralogix.zio.k8s.client.impl.ResourceStatusClient">ResourceStatusClient</a> → <a href="../ResourceStatus.html" class="extype" name="com.coralogix.zio.k8s.client.ResourceStatus">ResourceStatus</a></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.client.impl.ResourceClientBase#handleFailures" visbl="prt" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="handleFailures[A](f:zio.Task[sttp.client3.Response[Either[sttp.client3.ResponseException[String,io.circe.Error],A]]]):zio.IO[com.coralogix.zio.k8s.client.K8sFailure,A]"></a><a id="handleFailures[A](Task[Response[Either[ResponseException[String,Error],A]]]):IO[K8sFailure,A]"></a>
+      <a id="handleFailures[A](f:zio.Task[sttp.client3.Response[Either[sttp.client3.ResponseException[String,cats.data.NonEmptyList[io.circe.Error]],A]]]):zio.IO[com.coralogix.zio.k8s.client.K8sFailure,A]"></a><a id="handleFailures[A](Task[Response[Either[ResponseException[String,NonEmptyList[Error]],A]]]):IO[K8sFailure,A]"></a>
       <span class="permalink">
-      <a href="../../../../../../com/coralogix/zio/k8s/client/impl/ResourceStatusClient.html#handleFailures[A](f:zio.Task[sttp.client3.Response[Either[sttp.client3.ResponseException[String,io.circe.Error],A]]]):zio.IO[com.coralogix.zio.k8s.client.K8sFailure,A]" title="Permalink">
+      <a href="../../../../../../com/coralogix/zio/k8s/client/impl/ResourceStatusClient.html#handleFailures[A](f:zio.Task[sttp.client3.Response[Either[sttp.client3.ResponseException[String,cats.data.NonEmptyList[io.circe.Error]],A]]]):zio.IO[com.coralogix.zio.k8s.client.K8sFailure,A]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -536,7 +556,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">handleFailures</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="f">f: <a href="../../../../../../zio/index.html#Task[+A]=zio.ZIO[Any,Throwable,A]" class="extmbr" name="zio.Task">Task</a>[<a href="https://javadoc.io/page/com.softwaremill.sttp.client3/core_2.12/3.1.7/sttp/client3/Response.html#sttp.client3.Response" class="extype" name="sttp.client3.Response">Response</a>[<span class="extype" name="scala.Either">Either</span>[<a href="https://javadoc.io/page/com.softwaremill.sttp.client3/core_2.12/3.1.7/sttp/client3/ResponseException.html#sttp.client3.ResponseException" class="extype" name="sttp.client3.ResponseException">ResponseException</a>[<span class="extype" name="scala.Predef.String">String</span>, <a href="https://circe.github.io/circe/api/io/circe/Error.html#io.circe.Error" class="extype" name="io.circe.Error">Error</a>], <span class="extype" name="com.coralogix.zio.k8s.client.impl.ResourceClientBase.handleFailures.A">A</span>]]]</span>)</span><span class="result">: <a href="../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="com.coralogix.zio.k8s.client.impl.ResourceClientBase.handleFailures.A">A</span>]</span>
+        <span class="name">handleFailures</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="f">f: <a href="../../../../../../zio/index.html#Task[+A]=zio.ZIO[Any,Throwable,A]" class="extmbr" name="zio.Task">Task</a>[<a href="https://javadoc.io/page/com.softwaremill.sttp.client3/core_2.12/3.1.7/sttp/client3/Response.html#sttp.client3.Response" class="extype" name="sttp.client3.Response">Response</a>[<span class="extype" name="scala.Either">Either</span>[<a href="https://javadoc.io/page/com.softwaremill.sttp.client3/core_2.12/3.1.7/sttp/client3/ResponseException.html#sttp.client3.ResponseException" class="extype" name="sttp.client3.ResponseException">ResponseException</a>[<span class="extype" name="scala.Predef.String">String</span>, <a href="http://typelevel.org/cats/api/cats/data/NonEmptyList.html#cats.data.NonEmptyList" class="extype" name="cats.data.NonEmptyList">NonEmptyList</a>[<a href="https://circe.github.io/circe/api/io/circe/Error.html#io.circe.Error" class="extype" name="io.circe.Error">Error</a>]], <span class="extype" name="com.coralogix.zio.k8s.client.impl.ResourceClientBase.handleFailures.A">A</span>]]]</span>)</span><span class="result">: <a href="../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="com.coralogix.zio.k8s.client.impl.ResourceClientBase.handleFailures.A">A</span>]</span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd><dt>Definition Classes</dt><dd><a href="ResourceClientBase.html" class="extype" name="com.coralogix.zio.k8s.client.impl.ResourceClientBase">ResourceClientBase</a></dd></dl></div>
