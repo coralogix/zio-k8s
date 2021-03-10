@@ -1,5 +1,5 @@
 ---
-id: crd_howto
+id: crd_custom
 title:  "Custom Resource Definition by hand"
 ---
 
