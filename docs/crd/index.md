@@ -8,3 +8,5 @@ title:  "Custom Resource Definition support"
 Custom data types are supported by `zio-k8s` too with **code generation** from _Kubernetes_ `CustomResourceDefinition` resources by an `sbt` plugin called `zio-k8s-crd`.
 
 The [How to work with custom resources](howto.md) page explains in detail how to use this feature. Everything written on the [Working with resources page](../overview/resources.md) is applicable for custom resources too.
+
+It is possible to work with custom resources **without code generation** [as it is explained on the Custom Resource Definitions by hand](custom.md) page.

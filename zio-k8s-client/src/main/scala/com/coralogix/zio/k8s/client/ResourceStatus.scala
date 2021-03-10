@@ -61,14 +61,16 @@ trait NamespacedResourceStatus[StatusT, T] {
     updatedStatus: StatusT,
     namespace: K8sNamespace,
     dryRun: Boolean = false
-  ): IO[K8sFailure, T]
+  ): IO[K8sFailure, T] =
+    asGenericResourceStatus.replaceStatus(of, updatedStatus, Some(namespace), dryRun)
 
   /** Get the status of a given subresource by name
     * @param name Name of the resource
     * @param namespace Namespace of the resource
     * @return Returns the full resource object but with possibly the non-status fields absent.
     */
-  def getStatus(name: String, namespace: K8sNamespace): IO[K8sFailure, T]
+  def getStatus(name: String, namespace: K8sNamespace): IO[K8sFailure, T] =
+    asGenericResourceStatus.getStatus(name, Some(namespace))
 }
 
 /** Extra capability for [[ClusterResource]] interfaces to manage status subresources
@@ -95,11 +97,13 @@ trait ClusterResourceStatus[StatusT, T] {
     of: T,
     updatedStatus: StatusT,
     dryRun: Boolean = false
-  ): IO[K8sFailure, T]
+  ): IO[K8sFailure, T] =
+    asGenericResourceStatus.replaceStatus(of, updatedStatus, None, dryRun)
 
   /** Get the status of a given subresource by name
     * @param name Name of the resource
     * @return Returns the full resource object but with possibly the non-status fields absent.
     */
-  def getStatus(name: String): IO[K8sFailure, T]
+  def getStatus(name: String): IO[K8sFailure, T] =
+    asGenericResourceStatus.getStatus(name, None)
 }
