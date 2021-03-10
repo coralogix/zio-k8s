@@ -1,22 +1,20 @@
 package com.coralogix.zio.k8s.client.impl
 
 import _root_.io.circe._
+import cats.data.NonEmptyList
 import com.coralogix.zio.k8s.client.model.{ K8sCluster, K8sNamespace, K8sResourceType }
 import com.coralogix.zio.k8s.client.{ K8sFailure, RequestFailure, Subresource }
 import sttp.capabilities.WebSockets
 import sttp.capabilities.zio.ZioStreams
+import sttp.client3.circe._
 import sttp.client3.{
   asEither,
-  asStream,
   asStreamAlwaysUnsafe,
-  asStreamUnsafe,
-  asString,
   asStringAlways,
   HttpError,
   ResponseException,
   SttpBackend
 }
-import sttp.client3.circe._
 import zio.stream.{ ZStream, ZTransducer }
 import zio.{ IO, Task }
 
@@ -45,7 +43,7 @@ final class SubresourceClient[T: Encoder: Decoder](
           simple(Some(name), Some(subresourceName), namespace)
             .addParams(customParameters)
         )
-        .response(asJson[T])
+        .response(asJsonAccumulating[T])
         .send(backend)
     }
 
@@ -65,7 +63,8 @@ final class SubresourceClient[T: Encoder: Decoder](
           .response(
             asEither(
               asStringAlways.mapWithMetadata { case (body, meta) =>
-                HttpError(body, meta.code).asInstanceOf[ResponseException[String, Error]]
+                HttpError(body, meta.code)
+                  .asInstanceOf[ResponseException[String, NonEmptyList[Error]]]
               },
               asStreamAlwaysUnsafe(ZioStreams)
             )
@@ -88,7 +87,7 @@ final class SubresourceClient[T: Encoder: Decoder](
       k8sRequest
         .put(modifying(name, Some(subresourceName), namespace, dryRun))
         .body(updatedValue)
-        .response(asJson[T])
+        .response(asJsonAccumulating[T])
         .send(backend)
     }
 
@@ -102,7 +101,7 @@ final class SubresourceClient[T: Encoder: Decoder](
       k8sRequest
         .post(modifying(name, Some(subresourceName), namespace, dryRun))
         .body(value)
-        .response(asJson[T])
+        .response(asJsonAccumulating[T])
         .send(backend)
     }
 }

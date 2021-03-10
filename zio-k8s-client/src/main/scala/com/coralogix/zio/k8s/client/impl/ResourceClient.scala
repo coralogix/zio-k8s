@@ -2,6 +2,7 @@ package com.coralogix.zio.k8s.client.impl
 
 import _root_.io.circe._
 import _root_.io.circe.parser._
+import cats.data.NonEmptyList
 import com.coralogix.zio.k8s.client.model._
 import com.coralogix.zio.k8s.client._
 import com.coralogix.zio.k8s.model.pkg.apis.meta.v1.{ DeleteOptions, Status, WatchEvent }
@@ -31,8 +32,6 @@ final class ResourceClient[
   override protected val backend: SttpBackend[Task, ZioStreams with WebSockets]
 ) extends Resource[T] with ResourceDeleteAll[T] with ResourceClientBase {
 
-  // TODO: error-accumulating json unmarshallers instead of asJson
-
   def getAll(
     namespace: Option[K8sNamespace],
     chunkSize: Int,
@@ -53,7 +52,7 @@ final class ResourceClient[
               resourceVersion
             )
           )
-          .response(asJson[ObjectList[T]])
+          .response(asJsonAccumulating[ObjectList[T]])
           .send(backend)
       }.map { initialResponse =>
         val rest = ZStream {
@@ -78,7 +77,7 @@ final class ResourceClient[
                                                                          resourceVersion
                                                                        )
                                                                      )
-                                                                     .response(asJson[ObjectList[T]])
+                                                                     .response(asJsonAccumulating[ObjectList[T]])
                                                                      .send(backend)
                                                                  }.mapError(Some.apply)
                                                           _   <- nextContinueToken.set(lst.metadata.flatMap(_.continue))
@@ -92,7 +91,7 @@ final class ResourceClient[
     }
 
   private def asStreamUnsafeWithError: ResponseAs[
-    Either[ResponseException[String, Error], ZioStreams.BinaryStream],
+    Either[ResponseException[String, NonEmptyList[Error]], ZioStreams.BinaryStream],
     ZioStreams
   ] =
     asEither(
@@ -153,7 +152,7 @@ final class ResourceClient[
     handleFailures {
       k8sRequest
         .get(simple(Some(name), subresource = None, namespace))
-        .response(asJson[T])
+        .response(asJsonAccumulating[T])
         .send(backend)
     }
 
@@ -166,7 +165,7 @@ final class ResourceClient[
       k8sRequest
         .post(creating(namespace, dryRun))
         .body(newResource)
-        .response(asJson[T])
+        .response(asJsonAccumulating[T])
         .send(backend)
     }
 
@@ -180,7 +179,7 @@ final class ResourceClient[
       k8sRequest
         .put(modifying(name = name, subresource = None, namespace, dryRun))
         .body(updatedResource)
-        .response(asJson[T])
+        .response(asJsonAccumulating[T])
         .send(backend)
     }
 
@@ -205,7 +204,7 @@ final class ResourceClient[
           )
         )
         .body(deleteOptions)
-        .response(asJson[Status])
+        .response(asJsonAccumulating[Status])
         .send(backend)
     }
 
@@ -231,7 +230,7 @@ final class ResourceClient[
           )
         )
         .body(deleteOptions)
-        .response(asJson[Status])
+        .response(asJsonAccumulating[Status])
         .send(backend)
     }
 }
