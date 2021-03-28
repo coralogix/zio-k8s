@@ -84,10 +84,7 @@ trait ModelGenerator {
 
           Option(objectSchema.getProperties).map(_.asScala) match {
             case Some(properties) =>
-              val requiredProperties =
-                Option(objectSchema.getRequired)
-                  .map(_.asScala.toSet)
-                  .getOrElse(Set.empty)
+              val requiredProperties = Overrides.requiredFields(d)
 
               val props = properties
                 .filterKeys(filterKeysOf(d))
@@ -448,10 +445,7 @@ trait ModelGenerator {
           val objectSchema = d.schema.asInstanceOf[ObjectSchema]
           val properties =
             Option(objectSchema.getProperties).map(_.asScala).getOrElse(Map.empty)
-          val requiredProperties =
-            Option(objectSchema.getRequired)
-              .map(_.asScala.toSet)
-              .getOrElse(Set.empty)
+          val requiredProperties = Overrides.requiredFields(d)
 
           properties
             .filterKeys(filterKeysOf(d))
