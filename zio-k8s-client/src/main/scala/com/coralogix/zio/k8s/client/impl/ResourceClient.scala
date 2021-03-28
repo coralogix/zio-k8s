@@ -40,7 +40,7 @@ final class ResourceClient[
     resourceVersion: ListResourceVersion = ListResourceVersion.MostRecent
   ): Stream[K8sFailure, T] =
     ZStream.unwrap {
-      handleFailures {
+      handleFailures("getAll") {
         k8sRequest
           .get(
             paginated(
@@ -65,7 +65,7 @@ final class ResourceClient[
                                                         ZIO.fail(None)
                                                       case Optional.Present(token)                =>
                                                         for {
-                                                          lst <- handleFailures {
+                                                          lst <- handleFailures("getAll") {
                                                                    k8sRequest
                                                                      .get(
                                                                        paginated(
@@ -104,16 +104,17 @@ final class ResourceClient[
     fieldSelector: Option[FieldSelector],
     labelSelector: Option[LabelSelector],
     resourceVersion: Option[String]
-  ): Stream[K8sFailure, ParsedWatchEvent[T]] =
+  ): Stream[K8sFailure, ParsedWatchEvent[T]] = {
+    val reqInfo = K8sRequestInfo(resourceType, "watch")
     ZStream
       .unwrap {
-        handleFailures {
+        handleFailures("watch") {
           k8sRequest
             .get(watching(namespace, resourceVersion, fieldSelector, labelSelector))
             .response(asStreamUnsafeWithError)
             .readTimeout(10.minutes.asScala)
             .send(backend)
-        }.map(_.mapError(RequestFailure))
+        }.map(_.mapError(RequestFailure(reqInfo, _)))
       }
       .transduce(ZTransducer.utf8Decode >>> ZTransducer.splitLines)
       .mapM { line =>
@@ -121,10 +122,11 @@ final class ResourceClient[
           rawEvent <-
             ZIO
               .fromEither(decode[WatchEvent](line))
-              .mapError(DeserializationFailure.single)
-          event    <- ParsedWatchEvent.from[T](rawEvent)
+              .mapError(DeserializationFailure.single(reqInfo, _))
+          event    <- ParsedWatchEvent.from[T](reqInfo, rawEvent)
         } yield event
       }
+  }
 
   override def watch(
     namespace: Option[K8sNamespace],
@@ -149,7 +151,7 @@ final class ResourceClient[
     }
 
   def get(name: String, namespace: Option[K8sNamespace]): IO[K8sFailure, T] =
-    handleFailures {
+    handleFailures("get") {
       k8sRequest
         .get(simple(Some(name), subresource = None, namespace))
         .response(asJsonAccumulating[T])
@@ -161,7 +163,7 @@ final class ResourceClient[
     namespace: Option[K8sNamespace],
     dryRun: Boolean
   ): IO[K8sFailure, T] =
-    handleFailures {
+    handleFailures("create") {
       k8sRequest
         .post(creating(namespace, dryRun))
         .body(newResource)
@@ -175,7 +177,7 @@ final class ResourceClient[
     namespace: Option[K8sNamespace],
     dryRun: Boolean
   ): IO[K8sFailure, T] =
-    handleFailures {
+    handleFailures("replace") {
       k8sRequest
         .put(modifying(name = name, subresource = None, namespace, dryRun))
         .body(updatedResource)
@@ -191,7 +193,7 @@ final class ResourceClient[
     gracePeriod: Option[Duration] = None,
     propagationPolicy: Option[PropagationPolicy] = None
   ): IO[K8sFailure, Status] =
-    handleFailures {
+    handleFailures("delete") {
       k8sRequest
         .delete(
           deleting(
@@ -217,7 +219,7 @@ final class ResourceClient[
     fieldSelector: Option[FieldSelector] = None,
     labelSelector: Option[LabelSelector] = None
   ): IO[K8sFailure, Status] =
-    handleFailures {
+    handleFailures("deleteAll") {
       k8sRequest
         .delete(
           deletingMany(
