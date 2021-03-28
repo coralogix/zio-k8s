@@ -1,11 +1,11 @@
 package com.coralogix.zio.k8s.client.impl
 
-import cats.data.{ NonEmptyList, ValidatedNel }
-import com.coralogix.zio.k8s.client.model._
+import cats.data.NonEmptyList
 import com.coralogix.zio.k8s.client._
+import com.coralogix.zio.k8s.client.model._
 import com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Status
-import io.circe.{ Decoder, Error }
 import io.circe.parser.{ decode, decodeAccumulating }
+import io.circe.{ Decoder, Error }
 import sttp.capabilities.WebSockets
 import sttp.capabilities.zio.ZioStreams
 import sttp.client3.json.RichResponseAs
@@ -16,7 +16,6 @@ import sttp.client3.{
   Empty,
   HttpError,
   IsOption,
-  JsonInput,
   RequestT,
   Response,
   ResponseAs,
@@ -131,14 +130,15 @@ trait ResourceClientBase {
       cluster
     )
 
-  protected def handleFailures[A](
+  protected def handleFailures[A](operation: String)(
     f: Task[Response[Either[ResponseException[String, NonEmptyList[Error]], A]]]
-  ): IO[K8sFailure, A] =
-    f.mapError(RequestFailure.apply)
+  ): IO[K8sFailure, A] = {
+    val reqInfo = K8sRequestInfo(resourceType, operation)
+    f.mapError(RequestFailure.apply(reqInfo, _))
       .flatMap { response =>
         response.body match {
           case Left(HttpError(error, StatusCode.Unauthorized)) =>
-            IO.fail(Unauthorized(error))
+            IO.fail(Unauthorized(reqInfo, error))
           case Left(HttpError(_, StatusCode.Gone))             =>
             IO.fail(Gone)
           case Left(HttpError(_, StatusCode.NotFound))         =>
@@ -146,16 +146,17 @@ trait ResourceClientBase {
           case Left(HttpError(error, code))                    =>
             decode[Status](error) match {
               case Left(_)       =>
-                IO.fail(HttpFailure(error, code))
+                IO.fail(HttpFailure(reqInfo, error, code))
               case Right(status) =>
-                IO.fail(DecodedFailure(status, code))
+                IO.fail(DecodedFailure(reqInfo, status, code))
             }
           case Left(DeserializationException(_, errors))       =>
-            IO.fail(DeserializationFailure(errors))
+            IO.fail(DeserializationFailure(reqInfo, errors))
           case Right(value)                                    =>
             IO.succeed(value)
         }
       }
+  }
 
   /** If the response is successful (2xx), tries to deserialize the body from a string into JSON. Returns:
     * - `Right(b)` if the parsing was successful
@@ -179,8 +180,5 @@ trait ResourceClientBase {
 
 object ResourceClientBase {
   implicit val showCirceErrors: ShowError[NonEmptyList[io.circe.Error]] =
-    new ShowError[NonEmptyList[Error]] {
-      override def show(t: NonEmptyList[Error]): String =
-        t.map(_.getMessage).toList.mkString("\n")
-    }
+    (t: NonEmptyList[Error]) => t.map(_.getMessage).toList.mkString("\n")
 }

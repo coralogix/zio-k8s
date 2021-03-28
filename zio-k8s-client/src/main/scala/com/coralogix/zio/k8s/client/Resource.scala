@@ -160,8 +160,8 @@ trait Resource[T] {
           _                   <- delete(name, deleteOptionsWithUid, namespace, dryRun, gracePeriod, propagationPolicy)
                                    .as(false)
                                    .catchSome {
-                                     case NotFound                               => ZIO.succeed(true) // Delete completed
-                                     case DecodedFailure(_, StatusCode.Conflict) =>
+                                     case NotFound                                  => ZIO.succeed(true) // Delete completed
+                                     case DecodedFailure(_, _, StatusCode.Conflict) =>
                                        ZIO.succeed(true) // Delete completed and a new item with same name was created
                                    }
                                    .repeat(Schedule.fixed(1.second) *> Schedule.recurUntil((done: Boolean) => done))

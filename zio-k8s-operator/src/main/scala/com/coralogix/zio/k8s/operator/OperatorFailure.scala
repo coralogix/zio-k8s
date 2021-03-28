@@ -20,27 +20,32 @@ case class OperatorError[E](error: E) extends OperatorFailure[E]
 
 object OperatorFailure {
   implicit val k8sFailureToThrowable: ConvertableToThrowable[K8sFailure] = {
-    case Unauthorized(message)         =>
-      new RuntimeException(s"K8s authorization error: $message")
-    case HttpFailure(message, code)    =>
-      new RuntimeException(s"K8s HTTP error: $message with code $code")
-    case DecodedFailure(status, code)  =>
-      new RuntimeException(s"K8s error: ${status.message} with code $code")
-    case DeserializationFailure(error) =>
+    case Unauthorized(reqInfo, message)         =>
+      new RuntimeException(s"${reqInfoToString(reqInfo)} K8s authorization error: $message")
+    case HttpFailure(reqInfo, message, code)    =>
+      new RuntimeException(s"${reqInfoToString(reqInfo)} K8s HTTP error: $message with code $code")
+    case DecodedFailure(reqInfo, status, code)  =>
       new RuntimeException(
-        s"K8s deserialization failure: ${error.toList.map(CircePrettyFailure.prettyPrint).mkString("\n")}"
+        s"${reqInfoToString(reqInfo)} K8s error: ${status.message} with code $code"
       )
-    case RequestFailure(reason)        =>
-      new RuntimeException(s"K8s request error", reason)
-    case Gone                          =>
+    case DeserializationFailure(reqInfo, error) =>
+      new RuntimeException(
+        s"${reqInfoToString(reqInfo)} K8s deserialization failure: ${error.toList.map(CircePrettyFailure.prettyPrint).mkString("\n")}"
+      )
+    case RequestFailure(reqInfo, reason)        =>
+      new RuntimeException(s"${reqInfoToString(reqInfo)} K8s request error", reason)
+    case Gone                                   =>
       new RuntimeException(s"Gone")
-    case InvalidEvent(eventType)       =>
-      new RuntimeException(s"Invalid event type: $eventType")
-    case UndefinedField(fieldName)     =>
+    case InvalidEvent(reqInfo, eventType)       =>
+      new RuntimeException(s"${reqInfoToString(reqInfo)} Invalid event type: $eventType")
+    case UndefinedField(fieldName)              =>
       new RuntimeException(s"Undefined field $fieldName")
-    case NotFound                      =>
+    case NotFound                               =>
       new RuntimeException(s"Not found")
   }
+
+  private def reqInfoToString(requestInfo: K8sRequestInfo): String =
+    s"[${requestInfo.resourceType.group}/${requestInfo.resourceType.version}/${requestInfo.resourceType.resourceType} ${requestInfo.operation}]"
 
   implicit def toThrowable[E: ConvertableToThrowable]
     : ConvertableToThrowable[OperatorFailure[E]] = {

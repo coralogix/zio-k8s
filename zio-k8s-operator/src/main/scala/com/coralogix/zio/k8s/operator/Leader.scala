@@ -177,7 +177,7 @@ object Leader {
         _               <- log.info(s"Acquiring lock '$lockName' in namespace '${namespace.value}'")
         lock            <- makeLock(lockName, namespace, self)
         finalRetryPolicy = retryPolicy && Schedule.recurWhileM[Logging, K8sFailure] {
-                             case DecodedFailure(status, code)
+                             case DecodedFailure(_, status, code)
                                  if status.reason.contains("AlreadyExists") =>
                                log.info(s"Lock is already taken, retrying...").as(true)
                              case _ =>

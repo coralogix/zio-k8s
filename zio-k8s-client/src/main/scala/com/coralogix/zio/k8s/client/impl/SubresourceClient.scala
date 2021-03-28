@@ -3,7 +3,7 @@ package com.coralogix.zio.k8s.client.impl
 import _root_.io.circe._
 import cats.data.NonEmptyList
 import com.coralogix.zio.k8s.client.model.{ K8sCluster, K8sNamespace, K8sResourceType }
-import com.coralogix.zio.k8s.client.{ K8sFailure, RequestFailure, Subresource }
+import com.coralogix.zio.k8s.client.{ K8sFailure, K8sRequestInfo, RequestFailure, Subresource }
 import sttp.capabilities.WebSockets
 import sttp.capabilities.zio.ZioStreams
 import sttp.client3.circe._
@@ -37,7 +37,7 @@ final class SubresourceClient[T: Encoder: Decoder](
     namespace: Option[K8sNamespace],
     customParameters: Map[String, String] = Map.empty
   ): IO[K8sFailure, T] =
-    handleFailures {
+    handleFailures(s"get $subresourceName") {
       k8sRequest
         .get(
           simple(Some(name), Some(subresourceName), namespace)
@@ -54,7 +54,7 @@ final class SubresourceClient[T: Encoder: Decoder](
     customParameters: Map[String, String] = Map.empty
   ): ZStream[Any, K8sFailure, T] =
     ZStream.unwrap {
-      handleFailures {
+      handleFailures(s"get $subresourceName") {
         k8sRequest
           .get(
             simple(Some(name), Some(subresourceName), namespace)
@@ -72,7 +72,7 @@ final class SubresourceClient[T: Encoder: Decoder](
           .send(backend)
       }.map { stream =>
         stream
-          .mapError(RequestFailure)
+          .mapError(RequestFailure(K8sRequestInfo(resourceType, s"get $subresourceName"), _))
           .transduce(transducer)
       }
     }
@@ -83,7 +83,7 @@ final class SubresourceClient[T: Encoder: Decoder](
     namespace: Option[K8sNamespace],
     dryRun: Boolean
   ): IO[K8sFailure, T] =
-    handleFailures {
+    handleFailures(s"replace $subresourceName") {
       k8sRequest
         .put(modifying(name, Some(subresourceName), namespace, dryRun))
         .body(updatedValue)
@@ -97,7 +97,7 @@ final class SubresourceClient[T: Encoder: Decoder](
     namespace: Option[K8sNamespace],
     dryRun: Boolean
   ): IO[K8sFailure, T] =
-    handleFailures {
+    handleFailures(s"create $subresourceName") {
       k8sRequest
         .post(modifying(name, Some(subresourceName), namespace, dryRun))
         .body(value)

@@ -15,7 +15,7 @@ sealed trait K8sFailure
   * Indicates that the Kubernetes API returned a HTTP 401 response.
   * @param message Message of the response
   */
-final case class Unauthorized(message: String) extends K8sFailure
+final case class Unauthorized(requestInfo: K8sRequestInfo, message: String) extends K8sFailure
 
 /** Failed HTTP response
   *
@@ -31,7 +31,8 @@ final case class Unauthorized(message: String) extends K8sFailure
   * @param message Response message
   * @param code Response status code
   */
-final case class HttpFailure(message: String, code: StatusCode) extends K8sFailure
+final case class HttpFailure(requestInfo: K8sRequestInfo, message: String, code: StatusCode)
+    extends K8sFailure
 
 /** Failed Kubernetes API request
   *
@@ -41,22 +42,26 @@ final case class HttpFailure(message: String, code: StatusCode) extends K8sFailu
   * @param status The Kubernetes [[com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Status]] value returned in the failure response
   * @param code Response status code
   */
-final case class DecodedFailure(status: Status, code: StatusCode) extends K8sFailure
+final case class DecodedFailure(requestInfo: K8sRequestInfo, status: Status, code: StatusCode)
+    extends K8sFailure
 
 /** Error indicating that Kubernetes API responded with success, but the response body
   * could not be deserialized to the expected data type.
   * @param error The list of deserialization errors
   */
-final case class DeserializationFailure(error: NonEmptyList[circe.Error]) extends K8sFailure
+final case class DeserializationFailure(
+  requestInfo: K8sRequestInfo,
+  error: NonEmptyList[circe.Error]
+) extends K8sFailure
 object DeserializationFailure {
-  def single(error: circe.Error): DeserializationFailure =
-    DeserializationFailure(NonEmptyList.one(error))
+  def single(requestInfo: K8sRequestInfo, error: circe.Error): DeserializationFailure =
+    DeserializationFailure(requestInfo, NonEmptyList.one(error))
 }
 
 /** Failed to send the HTTP request to the Kubernetes API
   * @param reason The failure reason
   */
-final case class RequestFailure(reason: Throwable) extends K8sFailure
+final case class RequestFailure(requestInfo: K8sRequestInfo, reason: Throwable) extends K8sFailure
 
 /** The server returned with HTTP 410 (Gone) which has a specific role in
   * handling watch streams.
@@ -66,7 +71,7 @@ case object Gone extends K8sFailure
 /** An unsupported event type was sent in a watch stream
   * @param eventType The unrecognized event type from the server
   */
-final case class InvalidEvent(eventType: String) extends K8sFailure
+final case class InvalidEvent(requestInfo: K8sRequestInfo, eventType: String) extends K8sFailure
 
 /** Error produced by the generated getter methods on Kubernetes data structures.
   *
