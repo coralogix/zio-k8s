@@ -60,7 +60,7 @@ class K8sModelProtocolTermInterp(implicit
   )(
     name: String,
     fieldName: String,
-    prop: Schema[_],
+    prop: Tracker[Schema[_]],
     meta: SwaggerUtil.ResolvedType[ScalaLanguage],
     requirement: PropertyRequirement,
     isCustomType: Boolean,

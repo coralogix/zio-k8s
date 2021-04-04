@@ -146,7 +146,7 @@ lazy val crd = Project("zio-k8s-crd", file("zio-k8s-crd"))
       "dev.zio"       %% "zio"              % zioVersion,
       "dev.zio"       %% "zio-streams"      % zioVersion,
       "dev.zio"       %% "zio-nio"          % "1.0.0-RC10",
-      "com.twilio"    %% "guardrail"        % "0.62.2",
+      "com.twilio"    %% "guardrail"        % "0.63.0",
       "org.scalameta" %% "scalafmt-dynamic" % "2.7.5",
       "org.atteo"      % "evo-inflector"    % "1.2.2",
       "dev.zio"       %% "zio-test"         % zioVersion % Test,
@@ -244,7 +244,7 @@ lazy val docs = project
     libraryDependencies ++= Seq(
       "dev.zio"                       %% "zio-config-typesafe"    % zioConfigVersion,
       "com.softwaremill.sttp.client3" %% "httpclient-backend-zio" % sttpVersion,
-      "dev.zio"                       %% "zio-metrics-prometheus" % "1.0.2"
+      "dev.zio"                       %% "zio-metrics-prometheus" % "1.0.5"
     ),
     ScalaUnidoc / unidoc / unidocProjectFilter := inProjects(
       client,
