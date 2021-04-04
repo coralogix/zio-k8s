@@ -1,6 +1,7 @@
 package com.coralogix.zio.k8s.crd.guardrail
 
 import cats.Monad
+import cats.data.NonEmptyList
 import com.twilio.guardrail.{
   CustomExtractionField,
   RenderedRoutes,
@@ -93,7 +94,7 @@ class NoServerSupport(implicit cl: CollectionsLibTerms[ScalaLanguage, Target])
 
   override def getExtraImports(
     tracing: Boolean,
-    supportPackage: List[String]
+    supportPackage: NonEmptyList[String]
   ): Target[List[Import]] =
     Target.pure(List.empty)
 }
