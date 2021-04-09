@@ -68,9 +68,9 @@ lazy val client = Project("zio-k8s-client", file("zio-k8s-client"))
       "com.softwaremill.sttp.client3" %% "httpclient-backend-zio"        % sttpVersion      % Optional
     ),
     testFrameworks += new TestFramework("zio.test.sbt.ZTestFramework"),
-    mappings in (Compile, packageSrc) ++= {
-      val base = (sourceManaged in Compile).value
-      val files = (managedSources in Compile).value
+    Compile / packageSrc / mappings ++= {
+      val base = (Compile / sourceManaged).value
+      val files = (Compile / managedSources).value
       files
         .map { f =>
           (f, f.relativeTo(base).map(_.getPath))
@@ -120,9 +120,9 @@ lazy val clientMonocle = Project("zio-k8s-client-monocle", file("zio-k8s-client-
       "dev.zio"                    %% "zio-test-sbt"  % zioVersion % Test
     ),
     testFrameworks += new TestFramework("zio.test.sbt.ZTestFramework"),
-    mappings in (Compile, packageSrc) ++= {
-      val base = (sourceManaged in Compile).value
-      val files = (managedSources in Compile).value
+    Compile / packageSrc / mappings ++= {
+      val base = (Compile / sourceManaged).value
+      val files = (Compile / managedSources).value
       files
         .map { f =>
           (f, f.relativeTo(base).map(_.getPath))
@@ -170,7 +170,7 @@ lazy val crd = Project("zio-k8s-crd", file("zio-k8s-crd"))
         Seq("-Xmx1024M", "-Dplugin.version=" + version.value)
     },
     scriptedBufferLog  := false,
-    publishLocal       := publishLocal.dependsOn(publishLocal in client).value
+    publishLocal       := publishLocal.dependsOn(client / publishLocal).value
   )
   .dependsOn(client)
   .enablePlugins(SbtPlugin)
@@ -208,10 +208,10 @@ lazy val leaderExample = Project("leader-example", file("examples/leader-example
       "com.softwaremill.sttp.client3" %% "httpclient-backend-zio" % sttpVersion,
       "com.softwaremill.sttp.client3" %% "slf4j-backend"          % sttpVersion
     ),
-    packageName in Docker := "leader-example",
-    version in Docker     := "0.0.1",
-    dockerBaseImage       := "openjdk:11",
-    publish / skip        := true
+    Docker / packageName := "leader-example",
+    Docker / version     := "0.0.1",
+    dockerBaseImage      := "openjdk:11",
+    publish / skip       := true
   )
   .dependsOn(operator)
   .enablePlugins(JavaAppPackaging, DockerPlugin)
@@ -237,7 +237,7 @@ val logsExample = Project("logs-example", file("examples/logs-example"))
 lazy val docs = project
   .in(file("zio-k8s-docs"))
   .settings(
-    skip.in(publish)                           := true,
+    publish / skip                             := true,
     moduleName                                 := "zio-k8s-docs",
     scalacOptions -= "-Yno-imports",
     scalacOptions -= "-Xfatal-warnings",
@@ -252,10 +252,10 @@ lazy val docs = project
       clientQuicklens,
       operator
     ),
-    ScalaUnidoc / unidoc / target              := (baseDirectory in LocalRootProject).value / "website" / "static" / "api",
+    ScalaUnidoc / unidoc / target              := (LocalRootProject / baseDirectory).value / "website" / "static" / "api",
     cleanFiles += (ScalaUnidoc / unidoc / target).value,
-    docusaurusCreateSite                       := docusaurusCreateSite.dependsOn(unidoc in Compile).value,
-    docusaurusPublishGhpages                   := docusaurusPublishGhpages.dependsOn(unidoc in Compile).value
+    docusaurusCreateSite                       := docusaurusCreateSite.dependsOn(Compile / unidoc).value,
+    docusaurusPublishGhpages                   := docusaurusPublishGhpages.dependsOn(Compile / unidoc).value
   )
   .dependsOn(client, clientQuicklens, clientMonocle, operator)
   .enablePlugins(MdocPlugin, DocusaurusPlugin, ScalaUnidocPlugin)

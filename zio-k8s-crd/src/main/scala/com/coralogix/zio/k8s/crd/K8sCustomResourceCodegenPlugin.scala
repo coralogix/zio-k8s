@@ -73,9 +73,9 @@ object K8sCustomResourceCodegenPlugin extends AutoPlugin {
     Seq(
       Compile / sourceGenerators += generateSources.taskValue,
       Compile / resourceGenerators += copyResourceDefinitions.taskValue,
-      mappings in (Compile, packageSrc) ++= {
-        val base = (sourceManaged in Compile).value
-        val files = (managedSources in Compile).value
+      Compile / packageSrc / mappings ++= {
+        val base = (Compile / sourceManaged).value
+        val files = (Compile / managedSources).value
         files.map(f => (f, f.relativeTo(base).get.getPath))
       },
       externalCustomResourceDefinitions := Seq.empty
