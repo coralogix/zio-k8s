@@ -244,7 +244,7 @@ lazy val docs = project
     libraryDependencies ++= Seq(
       "dev.zio"                       %% "zio-config-typesafe"    % zioConfigVersion,
       "com.softwaremill.sttp.client3" %% "httpclient-backend-zio" % sttpVersion,
-      "dev.zio"                       %% "zio-metrics-prometheus" % "1.0.5"
+      "dev.zio"                       %% "zio-metrics-prometheus" % "1.0.6"
     ),
     ScalaUnidoc / unidoc / unidocProjectFilter := inProjects(
       client,
