@@ -146,7 +146,7 @@ lazy val crd = Project("zio-k8s-crd", file("zio-k8s-crd"))
       "dev.zio"       %% "zio"              % zioVersion,
       "dev.zio"       %% "zio-streams"      % zioVersion,
       "dev.zio"       %% "zio-nio"          % "1.0.0-RC10",
-      "com.twilio"    %% "guardrail"        % "0.63.0",
+      "com.twilio"    %% "guardrail"        % "0.64.0",
       "org.scalameta" %% "scalafmt-dynamic" % "2.7.5",
       "org.atteo"      % "evo-inflector"    % "1.2.2",
       "dev.zio"       %% "zio-test"         % zioVersion % Test,
