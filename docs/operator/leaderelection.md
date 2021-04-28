@@ -7,11 +7,14 @@ As an operator watches events coming from the whole _Kubernetes cluster_, runnin
 
 This works by creating a `ConfigMap` resource and using the _Kubernetes resource ownership_ to tie its lifecycle to the running `Pod`s lifecycle. This way (even though the code itself releases the `ConfigMap` on exit) if the pod crashes, the cluster will automatically garbage collect the config map resource and let another instance acquire the lock.
 
+There is an alternative implementation that instead of working with `ConfigMap` resources uses its own custom resource called `LeaderLock`. This can be used in scenarios when giving permissions for arbitrary `ConfigMap` resources is undesirable. 
+
 ## Prerequisites
-To be able to use this logic, some prerequisites have to be met:
+To be able to use this feature, some prerequisites have to be met:
 
 - An environment variable with the active pod's name called `POD_NAME`
-- Proper access rights for `Pod` and `ConfigMap` resources
+- Proper access rights for `Pod` and `ConfigMap` or `LeaderLock` resources
+- When using `LeaderLock`, it's _custom resource definition_ must be installed
 
 To define the `POD_NAME` use the following in the `Pod` resource:
 
@@ -62,11 +65,14 @@ import zio.nio.core.file.Path
 import com.coralogix.zio.k8s.client.v1.configmaps.ConfigMaps
 import com.coralogix.zio.k8s.client.v1.pods.Pods
 import com.coralogix.zio.k8s.client.K8sFailure
-import com.coralogix.zio.k8s.operator.Leader
+import com.coralogix.zio.k8s.operator.contextinfo.ContextInfo
+import com.coralogix.zio.k8s.operator.leader
+import com.coralogix.zio.k8s.operator.leader.LeaderElection
 
 import zio.blocking.Blocking
 import zio.clock.Clock
 import zio.logging._
+import zio.magic._
 import zio.system.System
 
 val logging = Logging.console(
@@ -74,28 +80,38 @@ val logging = Logging.console(
       format = LogFormat.ColoredLogFormat()
     ) >>> Logging.withRootLoggerName("leader-example")
 
-val k8s: ZLayer[Blocking with System, Throwable, Pods with ConfigMaps] = 
-  k8sDefault >>> (Pods.live ++ ConfigMaps.live)
-
 def example(): ZIO[
-    Logging with Blocking with System with Clock with Pods with ConfigMaps,
+    Logging with Blocking with System with Clock with LeaderElection,
     Nothing,
     Option[Nothing]
   ] =
-    Leader.leaderForLife("leader-example-lock", None) {
+    leader.runAsLeader {
       exampleLeader()
     }
 
 def exampleLeader(): ZIO[Logging, Nothing, Nothing] =
     log.info(s"Got leader role") *> ZIO.never
 
-example.provideCustomLayer(
-    k8s ++ logging
+example.injectCustom(
+    logging,
+    k8sDefault,
+    ContextInfo.live,
+    Pods.live,
+    ConfigMaps.live,
+    LeaderElection.configMapLock("leader-example-lock")
 )
 ```
 
-Once we have the `Pods with ConfigMaps` requirements, as well as a ZIO `Logging` layer, protecting the application from running in multiple instances can happen by simply wrapping it in `Leader.leaderForLife`.
+We have to construct a `LeaderElection` layer with one of the layer constructors from the `LeaderElection` object. In this
+example we are using the `ConfigMap` based lock. This lock has two requirements:
+
+- `ContextInfo` to get information about the running pod
+- `ConfigMaps` to access the `ConfigMaps`
+
+The leader election module also depends on `Logging` to display information about the leader election process. 
+
+Once we have the `LeaderElection` layer, protecting the application from running in multiple instances can happen by simply wrapping it in `leader.runAsLeader`.
 
 In case the lock is already taken, the code will block and retry periodically to gain access to the config map.
 
-There is also a variant in the `Leader` module that returns a `ZManaged` for more precise control.
+There is also a variant in the `LeaderElection` module that returns a `ZManaged` for more precise control.
