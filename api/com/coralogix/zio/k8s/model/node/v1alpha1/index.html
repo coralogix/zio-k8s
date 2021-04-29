@@ -320,7 +320,7 @@
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a title="Overhead structure represents the resource overhead associated with running a pod." href="Overhead.html"><span class="name">Overhead</span></a><span class="params">(<span name="podFixed">podFixed: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <a href="../../pkg/api/resource/Quantity.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.api.resource.Quantity">Quantity</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <a href="https://www.scala-lang.org/api/2.12.12/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a> with <a href="https://www.scala-lang.org/api/2.12.12/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+        <a title="Overhead structure represents the resource overhead associated with running a pod." href="Overhead.html"><span class="name">Overhead</span></a><span class="params">(<span name="podFixed">podFixed: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <a href="../../pkg/api/resource/Quantity.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.api.resource.Quantity">Quantity</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       <p class="shortcomment cmt">Overhead structure represents the resource overhead associated with running a pod.</p><div class="fullcomment"><div class="comment cmt"><p>Overhead structure represents the resource overhead associated with running a pod.
@@ -337,7 +337,7 @@
         <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <a title="" href="OverheadFields.html"><span class="name">OverheadFields</span></a><span class="result"> extends <a href="https://www.scala-lang.org/api/2.12.12/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
+        <a title="" href="OverheadFields.html"><span class="name">OverheadFields</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       
       
@@ -353,7 +353,7 @@
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a title="RuntimeClass defines a class of container runtime supported in the cluster." href="RuntimeClass.html"><span class="name">RuntimeClass</span></a><span class="params">(<span name="metadata">metadata: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="../../pkg/apis/meta/v1/ObjectMeta.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.ObjectMeta">ObjectMeta</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="spec">spec: <a href="RuntimeClassSpec.html" class="extype" name="com.coralogix.zio.k8s.model.node.v1alpha1.RuntimeClassSpec">RuntimeClassSpec</a></span>)</span><span class="result"> extends <a href="https://www.scala-lang.org/api/2.12.12/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a> with <a href="https://www.scala-lang.org/api/2.12.12/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+        <a title="RuntimeClass defines a class of container runtime supported in the cluster." href="RuntimeClass.html"><span class="name">RuntimeClass</span></a><span class="params">(<span name="metadata">metadata: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="../../pkg/apis/meta/v1/ObjectMeta.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.ObjectMeta">ObjectMeta</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="spec">spec: <a href="RuntimeClassSpec.html" class="extype" name="com.coralogix.zio.k8s.model.node.v1alpha1.RuntimeClassSpec">RuntimeClassSpec</a></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       <p class="shortcomment cmt">RuntimeClass defines a class of container runtime supported in the cluster.</p><div class="fullcomment"><div class="comment cmt"><p>RuntimeClass defines a class of container runtime supported in the cluster. The RuntimeClass is used to determine which container runtime is used to run all containers in a pod. RuntimeClasses are (currently) manually defined by a user or cluster provisioner, and referenced in the PodSpec. The Kubelet is responsible for resolving the RuntimeClassName reference before running the pod.  For more details, see https://git.k8s.io/enhancements/keps/sig-node/runtime-class.md
@@ -370,7 +370,7 @@
         <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <a title="" href="RuntimeClassFields.html"><span class="name">RuntimeClassFields</span></a><span class="result"> extends <a href="https://www.scala-lang.org/api/2.12.12/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
+        <a title="" href="RuntimeClassFields.html"><span class="name">RuntimeClassFields</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       
       
@@ -386,7 +386,7 @@
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a title="RuntimeClassSpec is a specification of a RuntimeClass." href="RuntimeClassSpec.html"><span class="name">RuntimeClassSpec</span></a><span class="params">(<span name="overhead">overhead: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="Overhead.html" class="extype" name="com.coralogix.zio.k8s.model.node.v1alpha1.Overhead">Overhead</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="runtimeHandler">runtimeHandler: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="scheduling">scheduling: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="Scheduling.html" class="extype" name="com.coralogix.zio.k8s.model.node.v1alpha1.Scheduling">Scheduling</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <a href="https://www.scala-lang.org/api/2.12.12/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a> with <a href="https://www.scala-lang.org/api/2.12.12/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+        <a title="RuntimeClassSpec is a specification of a RuntimeClass." href="RuntimeClassSpec.html"><span class="name">RuntimeClassSpec</span></a><span class="params">(<span name="overhead">overhead: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="Overhead.html" class="extype" name="com.coralogix.zio.k8s.model.node.v1alpha1.Overhead">Overhead</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="runtimeHandler">runtimeHandler: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="scheduling">scheduling: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="Scheduling.html" class="extype" name="com.coralogix.zio.k8s.model.node.v1alpha1.Scheduling">Scheduling</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       <p class="shortcomment cmt">RuntimeClassSpec is a specification of a RuntimeClass.</p><div class="fullcomment"><div class="comment cmt"><p>RuntimeClassSpec is a specification of a RuntimeClass. It contains parameters that are required to describe the RuntimeClass to the Container Runtime Interface (CRI) implementation, as well as any other components that need to understand how the pod will be run. The RuntimeClassSpec is immutable.
@@ -403,7 +403,7 @@
         <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <a title="" href="RuntimeClassSpecFields.html"><span class="name">RuntimeClassSpecFields</span></a><span class="result"> extends <a href="https://www.scala-lang.org/api/2.12.12/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
+        <a title="" href="RuntimeClassSpecFields.html"><span class="name">RuntimeClassSpecFields</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       
       
@@ -419,7 +419,7 @@
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a title="Scheduling specifies the scheduling constraints for nodes supporting a RuntimeClass." href="Scheduling.html"><span class="name">Scheduling</span></a><span class="params">(<span name="nodeSelector">nodeSelector: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="tolerations">tolerations: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="../../core/v1/Toleration.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.Toleration">Toleration</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <a href="https://www.scala-lang.org/api/2.12.12/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a> with <a href="https://www.scala-lang.org/api/2.12.12/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+        <a title="Scheduling specifies the scheduling constraints for nodes supporting a RuntimeClass." href="Scheduling.html"><span class="name">Scheduling</span></a><span class="params">(<span name="nodeSelector">nodeSelector: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="tolerations">tolerations: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="../../core/v1/Toleration.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.Toleration">Toleration</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       <p class="shortcomment cmt">Scheduling specifies the scheduling constraints for nodes supporting a RuntimeClass.</p><div class="fullcomment"><div class="comment cmt"><p>Scheduling specifies the scheduling constraints for nodes supporting a RuntimeClass.
@@ -436,7 +436,7 @@
         <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <a title="" href="SchedulingFields.html"><span class="name">SchedulingFields</span></a><span class="result"> extends <a href="https://www.scala-lang.org/api/2.12.12/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
+        <a title="" href="SchedulingFields.html"><span class="name">SchedulingFields</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       
       
@@ -460,7 +460,7 @@
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a title="" href="Overhead$.html"><span class="name">Overhead</span></a><span class="result"> extends <a href="OverheadFields.html" class="extype" name="com.coralogix.zio.k8s.model.node.v1alpha1.OverheadFields">OverheadFields</a> with <a href="https://www.scala-lang.org/api/2.12.12/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+        <a title="" href="Overhead$.html"><span class="name">Overhead</span></a><span class="result"> extends <a href="OverheadFields.html" class="extype" name="com.coralogix.zio.k8s.model.node.v1alpha1.OverheadFields">OverheadFields</a> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       
@@ -476,7 +476,7 @@
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a title="" href="RuntimeClass$.html"><span class="name">RuntimeClass</span></a><span class="result"> extends <a href="RuntimeClassFields.html" class="extype" name="com.coralogix.zio.k8s.model.node.v1alpha1.RuntimeClassFields">RuntimeClassFields</a> with <a href="https://www.scala-lang.org/api/2.12.12/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+        <a title="" href="RuntimeClass$.html"><span class="name">RuntimeClass</span></a><span class="result"> extends <a href="RuntimeClassFields.html" class="extype" name="com.coralogix.zio.k8s.model.node.v1alpha1.RuntimeClassFields">RuntimeClassFields</a> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       
@@ -492,7 +492,7 @@
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a title="" href="RuntimeClassSpec$.html"><span class="name">RuntimeClassSpec</span></a><span class="result"> extends <a href="RuntimeClassSpecFields.html" class="extype" name="com.coralogix.zio.k8s.model.node.v1alpha1.RuntimeClassSpecFields">RuntimeClassSpecFields</a> with <a href="https://www.scala-lang.org/api/2.12.12/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+        <a title="" href="RuntimeClassSpec$.html"><span class="name">RuntimeClassSpec</span></a><span class="result"> extends <a href="RuntimeClassSpecFields.html" class="extype" name="com.coralogix.zio.k8s.model.node.v1alpha1.RuntimeClassSpecFields">RuntimeClassSpecFields</a> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       
@@ -508,7 +508,7 @@
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a title="" href="Scheduling$.html"><span class="name">Scheduling</span></a><span class="result"> extends <a href="SchedulingFields.html" class="extype" name="com.coralogix.zio.k8s.model.node.v1alpha1.SchedulingFields">SchedulingFields</a> with <a href="https://www.scala-lang.org/api/2.12.12/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+        <a title="" href="Scheduling$.html"><span class="name">Scheduling</span></a><span class="result"> extends <a href="SchedulingFields.html" class="extype" name="com.coralogix.zio.k8s.model.node.v1alpha1.SchedulingFields">SchedulingFields</a> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       

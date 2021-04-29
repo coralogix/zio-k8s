@@ -63,7 +63,7 @@
         </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">QuickLens support</h1></header><article><div><span><p><a href="https://github.com/softwaremill/quicklens">Quicklens</a> is a library that helps writing code that modified deeply nested data structures. This fits well some of the <em>Kubernetes resources</em> that can consists of many layers of data structures, including
 optional fields, lists and maps in the middle.</p>
 <p>To enable the <em>Quicklens support</em> of <code>zio-k8s</code> an additional dependency has to be imported:</p>
-<pre><code class="hljs css language-scala">libraryDependencies += <span class="hljs-string">"com.coralogix"</span> %% <span class="hljs-string">"zio-k8s-client-quicklens"</span> % <span class="hljs-string">"1.0.0"</span>
+<pre><code class="hljs css language-scala">libraryDependencies += <span class="hljs-string">"com.coralogix"</span> %% <span class="hljs-string">"zio-k8s-client-quicklens"</span> % <span class="hljs-string">"1.2.0"</span>
 </code></pre>
 <p>Then by importing both <code>com.softwaremill.quicklens._</code> and <code>com.coralogix.zio.k8s.quicklens._</code>, the library can be used as expected:</p>
 <pre><code class="hljs css language-scala"><span class="hljs-keyword">import</span> com.coralogix.zio.k8s.quicklens._

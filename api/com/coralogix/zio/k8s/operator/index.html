@@ -199,6 +199,38 @@
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="com.coralogix.zio.k8s">k8s</a></dd></dl></div>
+    </li><li name="com.coralogix.zio.k8s.operator.contextinfo" visbl="pub" class="indented6 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="contextinfo"></a><a id="contextinfo:contextinfo"></a>
+      <span class="permalink">
+      <a href="../../../../../com/coralogix/zio/k8s/operator/contextinfo/index.html" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="contextinfo/index.html"><span class="name">contextinfo</span></a>
+      </span>
+      
+      
+    </li><li name="com.coralogix.zio.k8s.operator.leader" visbl="pub" class="indented6 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="leader"></a><a id="leader:leader"></a>
+      <span class="permalink">
+      <a href="../../../../../com/coralogix/zio/k8s/operator/leader/index.html" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="leader/index.html"><span class="name">leader</span></a>
+      </span>
+      
+      
     </li><li class="current-entities indented5">
                         <span class="separator"></span>
                         <a class="class" href="ClusterOperator.html" title=""></a>
@@ -207,10 +239,6 @@
                         <span class="separator"></span>
                         <a class="class" href="KubernetesFailure.html" title="Operator failed with a Kubernetes error"></a>
                         <a href="KubernetesFailure.html" title="Operator failed with a Kubernetes error">KubernetesFailure</a>
-                      </li><li class="current-entities indented5">
-                        <span class="separator"></span>
-                        <a class="object" href="Leader$.html" title="Simple leader election implementation"></a>
-                        <a href="Leader$.html" title="Simple leader election implementation">Leader</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
                         <a class="class" href="NamespacedOperator.html" title=""></a>
@@ -326,7 +354,7 @@
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a title="Operator failed with a Kubernetes error" href="KubernetesFailure.html"><span class="name">KubernetesFailure</span></a><span class="params">(<span name="failure">failure: <a href="../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a></span>)</span><span class="result"> extends <a href="OperatorFailure.html" class="extype" name="com.coralogix.zio.k8s.operator.OperatorFailure">OperatorFailure</a>[<a href="https://www.scala-lang.org/api/2.12.12/scala/Nothing.html#scala.Nothing" class="extype" name="scala.Nothing">Nothing</a>] with <a href="https://www.scala-lang.org/api/2.12.12/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a> with <a href="https://www.scala-lang.org/api/2.12.12/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+        <a title="Operator failed with a Kubernetes error" href="KubernetesFailure.html"><span class="name">KubernetesFailure</span></a><span class="params">(<span name="failure">failure: <a href="../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a></span>)</span><span class="result"> extends <a href="OperatorFailure.html" class="extype" name="com.coralogix.zio.k8s.operator.OperatorFailure">OperatorFailure</a>[<span class="extype" name="scala.Nothing">Nothing</span>] with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       <p class="shortcomment cmt">Operator failed with a Kubernetes error
@@ -359,7 +387,7 @@
         <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <a title="Core implementation of the operator logic." href="Operator.html"><span class="name">Operator</span></a><span class="tparams">[<span name="R">R</span>, <span name="E">E</span>, <span name="T">T</span>]</span><span class="result"> extends <a href="https://www.scala-lang.org/api/2.12.12/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
+        <a title="Core implementation of the operator logic." href="Operator.html"><span class="name">Operator</span></a><span class="tparams">[<span name="R">R</span>, <span name="E">E</span>, <span name="T">T</span>]</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       
       <p class="shortcomment cmt">Core implementation of the operator logic.</p><div class="fullcomment"><div class="comment cmt"><p>Core implementation of the operator logic.
@@ -377,7 +405,7 @@ Watches a stream and calls an event processor.</p><p>An instance of this is tied
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a title="Operator failed with an application-specific error" href="OperatorError.html"><span class="name">OperatorError</span></a><span class="tparams">[<span name="E">E</span>]</span><span class="params">(<span name="error">error: <span class="extype" name="com.coralogix.zio.k8s.operator.OperatorError.E">E</span></span>)</span><span class="result"> extends <a href="OperatorFailure.html" class="extype" name="com.coralogix.zio.k8s.operator.OperatorFailure">OperatorFailure</a>[<span class="extype" name="com.coralogix.zio.k8s.operator.OperatorError.E">E</span>] with <a href="https://www.scala-lang.org/api/2.12.12/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a> with <a href="https://www.scala-lang.org/api/2.12.12/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+        <a title="Operator failed with an application-specific error" href="OperatorError.html"><span class="name">OperatorError</span></a><span class="tparams">[<span name="E">E</span>]</span><span class="params">(<span name="error">error: <span class="extype" name="com.coralogix.zio.k8s.operator.OperatorError.E">E</span></span>)</span><span class="result"> extends <a href="OperatorFailure.html" class="extype" name="com.coralogix.zio.k8s.operator.OperatorFailure">OperatorFailure</a>[<span class="extype" name="com.coralogix.zio.k8s.operator.OperatorError.E">E</span>] with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       <p class="shortcomment cmt">Operator failed with an application-specific error</p><div class="fullcomment"><div class="comment cmt"><p>Operator failed with an application-specific error</p></div><dl class="paramcmts block"><dt class="tparam">E</dt><dd class="cmt"><p>Operator-specific error type</p></dd></dl></div>
@@ -393,7 +421,7 @@ Watches a stream and calls an event processor.</p><p>An instance of this is tied
         <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <a title="Operator failure type" href="OperatorFailure.html"><span class="name">OperatorFailure</span></a><span class="tparams">[<span name="E">+E</span>]</span><span class="result"> extends <a href="https://www.scala-lang.org/api/2.12.12/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
+        <a title="Operator failure type" href="OperatorFailure.html"><span class="name">OperatorFailure</span></a><span class="tparams">[<span name="E">+E</span>]</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       
       <p class="shortcomment cmt">Operator failure type</p><div class="fullcomment"><div class="comment cmt"><p>Operator failure type</p></div><dl class="paramcmts block"><dt class="tparam">E</dt><dd class="cmt"><p>Operator-specific error type</p></dd></dl></div>
@@ -405,28 +433,7 @@ Watches a stream and calls an event processor.</p><p>An instance of this is tied
         <div class="values members">
               <h3>Value Members</h3>
               <ol>
-                <li name="com.coralogix.zio.k8s.operator.Leader" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="Leader"></a><a id="Leader:Leader"></a>
-      <span class="permalink">
-      <a href="../../../../../com/coralogix/zio/k8s/operator/Leader$.html" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">object</span>
-      </span>
-      <span class="symbol">
-        <a title="Simple leader election implementation" href="Leader$.html"><span class="name">Leader</span></a>
-      </span>
-      
-      <p class="shortcomment cmt">Simple leader election implementation</p><div class="fullcomment"><div class="comment cmt"><p>Simple leader election implementation</p><p>The algorithm tries creating a ConfigMap with a given name and attaches the Pod it
-is running in as an owner of the config map.</p><p>If the ConfigMap already exists the leader election fails and retries with exponential backoff.
-If it succeeds then it runs the inner effect.</p><p>When the code terminates normally the acquired ConfigMap gets released. If the whole Pod gets
-killed without releasing the resource, the registered ownership will make Kubernetes apply
-cascading deletion so eventually a new Pod can register the ConfigMap again.
-</p></div></div>
-    </li><li name="com.coralogix.zio.k8s.operator.Operator" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+                <li name="com.coralogix.zio.k8s.operator.Operator" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="Operator"></a><a id="Operator:Operator"></a>
       <span class="permalink">
       <a href="../../../../../com/coralogix/zio/k8s/operator/Operator$.html" title="Permalink">
