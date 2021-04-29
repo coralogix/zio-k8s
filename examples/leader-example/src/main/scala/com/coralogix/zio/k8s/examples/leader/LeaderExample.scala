@@ -1,20 +1,20 @@
 package com.coralogix.zio.k8s.examples.leader
 
-import com.coralogix.zio.k8s.client._
+import com.coralogix.zio.k8s.client.apiextensions.v1.customresourcedefinitions.CustomResourceDefinitions
 import com.coralogix.zio.k8s.client.config._
 import com.coralogix.zio.k8s.client.config.httpclient._
-import com.coralogix.zio.k8s.client.kubernetes.Kubernetes
 import com.coralogix.zio.k8s.client.v1.configmaps.ConfigMaps
 import com.coralogix.zio.k8s.client.v1.pods.Pods
-import com.coralogix.zio.k8s.operator.Leader
+import com.coralogix.zio.k8s.operator.contextinfo.ContextInfo
+import com.coralogix.zio.k8s.operator.{ leader, Registration }
+import com.coralogix.zio.k8s.operator.leader.LeaderElection
+import com.coralogix.zio.k8s.operator.leader.locks.LeaderLockResource
+import com.coralogix.zio.k8s.operator.leader.locks.leaderlockresources.LeaderLockResources
 import zio._
 import zio.blocking.Blocking
 import zio.clock.Clock
-import zio.config.magnolia.DeriveConfigDescriptor._
-import zio.config.magnolia.name
-import zio.config.typesafe.TypesafeConfig
 import zio.logging.{ log, LogFormat, LogLevel, Logging }
-import zio.system.System
+import zio.magic._
 
 import scala.languageFeature.implicitConversions
 
@@ -38,26 +38,38 @@ object LeaderExample extends App {
 
     // Pods and ConfigMaps API
 //    val k8s = (cluster ++ client) >>> Kubernetes.live
-    val k8s = k8sDefault >>> Kubernetes.live
-    // val k8s = (cluster ++ client) >>> (Pods.live ++ ConfigMaps.live)
+//    val k8s = k8sDefault >>> Kubernetes.live
+//    val k8s = k8sDefault >>> (Pods.live ++ ConfigMaps.live)
+//    val leaderElection = k8s >>> LeaderElection.configMapLock("leader-example-lock")
 
     // Example code
-    example()
-      //.provideCustomLayer(k8s ++ logging)
-      .provideCustomLayer(
-        k8s.project(_.v1.pods) ++
-          k8s.project(_.v1.configmaps) ++
-          logging
+    val program =
+      Registration.registerIfMissing[LeaderLockResource](
+        LeaderLockResource.customResourceDefinition
+      ) *>
+        example()
+
+    program
+      .injectCustom(
+        logging,
+        k8sDefault,
+        CustomResourceDefinitions.live,
+        ContextInfo.live,
+        Pods.live,
+//        ConfigMaps.live,
+//        LeaderElection.configMapLock("leader-example-lock"),
+        LeaderLockResources.live,
+        LeaderElection.customLeaderLock("leader-example-lock", deleteLockOnRelease = false)
       )
       .exitCode
   }
 
   private def example(): ZIO[
-    Logging with Blocking with system.System with Clock with Pods with ConfigMaps,
+    Logging with Blocking with system.System with Clock with LeaderElection,
     Nothing,
     Option[Nothing]
   ] =
-    Leader.leaderForLife("leader-example-lock", None) {
+    leader.runAsLeader {
       exampleLeader()
     }
 
