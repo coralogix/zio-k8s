@@ -1,12 +1,14 @@
 package com.coralogix.zio.k8s.examples.leader
 
+import com.coralogix.zio.k8s.client.apiextensions.v1.customresourcedefinitions.CustomResourceDefinitions
 import com.coralogix.zio.k8s.client.config._
 import com.coralogix.zio.k8s.client.config.httpclient._
 import com.coralogix.zio.k8s.client.v1.configmaps.ConfigMaps
 import com.coralogix.zio.k8s.client.v1.pods.Pods
 import com.coralogix.zio.k8s.operator.contextinfo.ContextInfo
-import com.coralogix.zio.k8s.operator.leader
+import com.coralogix.zio.k8s.operator.{ leader, Registration }
 import com.coralogix.zio.k8s.operator.leader.LeaderElection
+import com.coralogix.zio.k8s.operator.leader.locks.LeaderLockResource
 import com.coralogix.zio.k8s.operator.leader.locks.leaderlockresources.LeaderLockResources
 import zio._
 import zio.blocking.Blocking
@@ -41,11 +43,17 @@ object LeaderExample extends App {
 //    val leaderElection = k8s >>> LeaderElection.configMapLock("leader-example-lock")
 
     // Example code
-    example()
-      //.provideCustomLayer(k8s ++ logging)
+    val program =
+      Registration.registerIfMissing[LeaderLockResource](
+        LeaderLockResource.customResourceDefinition
+      ) *>
+        example()
+
+    program
       .injectCustom(
         logging,
         k8sDefault,
+        CustomResourceDefinitions.live,
         ContextInfo.live,
         Pods.live,
 //        ConfigMaps.live,

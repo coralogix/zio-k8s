@@ -3,13 +3,16 @@ package com.coralogix.zio.k8s.operator.leader.locks
 import com.coralogix.zio.k8s.client.impl.ResourceClient
 import com.coralogix.zio.k8s.client.model._
 import com.coralogix.zio.k8s.client.{ model, NamespacedResource }
+import com.coralogix.zio.k8s.model.pkg.apis.apiextensions.v1.CustomResourceDefinition
 import com.coralogix.zio.k8s.model.pkg.apis.meta.v1.ObjectMeta
 import io.circe._
 import io.circe.syntax._
 import sttp.capabilities.WebSockets
 import sttp.capabilities.zio.ZioStreams
 import sttp.client3.SttpBackend
-import zio.{ Has, Task, ZLayer }
+import zio.{ Has, Task, ZIO, ZLayer }
+import zio.blocking.Blocking
+import zio.stream.{ ZStream, ZTransducer }
 
 case class LeaderLockResource(metadata: Optional[ObjectMeta])
 
@@ -40,6 +43,22 @@ object LeaderLockResource {
       ): LeaderLockResource =
         r.copy(metadata = r.metadata.map(f))
     }
+
+  val customResourceDefinition: ZIO[
+    Blocking,
+    Throwable,
+    com.coralogix.zio.k8s.model.pkg.apis.apiextensions.v1.CustomResourceDefinition
+  ] =
+    for {
+      rawYaml <- ZStream
+                   .fromInputStream(getClass.getResourceAsStream("/crds/leaderlock.yaml"))
+                   .transduce(ZTransducer.utf8Decode)
+                   .fold("")(_ ++ _)
+                   .orDie
+      crd     <- ZIO.fromEither(
+                   _root_.io.circe.yaml.parser.parse(rawYaml).flatMap(_.as[CustomResourceDefinition])
+                 )
+    } yield crd
 }
 
 package object leaderlockresources {
