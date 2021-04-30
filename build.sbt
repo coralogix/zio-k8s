@@ -205,7 +205,7 @@ lazy val leaderExample = Project("leader-example", file("examples/leader-example
   .settings(
     libraryDependencies ++= Seq(
       "dev.zio"                       %% "zio-config-typesafe"    % zioConfigVersion,
-      "io.github.kitlangton"          %% "zio-magic"              % "0.2.6",
+      "io.github.kitlangton"          %% "zio-magic"              % "0.3.0",
       "com.softwaremill.sttp.client3" %% "httpclient-backend-zio" % sttpVersion,
       "com.softwaremill.sttp.client3" %% "slf4j-backend"          % sttpVersion
     ),
@@ -244,7 +244,7 @@ lazy val docs = project
     scalacOptions -= "-Xfatal-warnings",
     libraryDependencies ++= Seq(
       "dev.zio"                       %% "zio-config-typesafe"    % zioConfigVersion,
-      "io.github.kitlangton"          %% "zio-magic"              % "0.2.6",
+      "io.github.kitlangton"          %% "zio-magic"              % "0.3.0",
       "com.softwaremill.sttp.client3" %% "httpclient-backend-zio" % sttpVersion,
       "dev.zio"                       %% "zio-metrics-prometheus" % "1.0.6"
     ),
