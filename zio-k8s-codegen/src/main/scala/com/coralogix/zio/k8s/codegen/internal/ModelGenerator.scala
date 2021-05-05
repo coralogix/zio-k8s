@@ -384,7 +384,7 @@ trait ModelGenerator {
                     implicit val $encoderName: Encoder[$entityNameT] =
                       Encoder.encodeString.contramap(_.value.format(com.coralogix.zio.k8s.client.model.k8sDateTimeFormatter))
                     implicit val $decoderName: Decoder[$entityNameT] =
-                      Decoder.decodeString.emapTry(str => Try(OffsetDateTime.parse(str, com.coralogix.zio.k8s.client.model.k8sDateTimeFormatter)).map($entityNameN.apply))
+                      Decoder.decodeString.emapTry(str => Try(OffsetDateTime.parse(str, java.time.format.DateTimeFormatter.ISO_OFFSET_DATE_TIME)).map($entityNameN.apply))
                   }
                """.stats
             case Some(other)           =>

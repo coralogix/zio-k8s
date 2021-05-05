@@ -30,6 +30,18 @@ object TimeSerializationSpec extends DefaultRunnableSpec {
         } yield assert(microTime2.map(_.value.toEpochSecond))(
           isRight(equalTo(microTime1.value.toEpochSecond))
         )
+      },
+      test("Can read time with 6 digit fraction part") {
+        val json = Json.fromString("2021-03-06T12:09:50.348652Z")
+        assert(json.as[MicroTime])(isRight(anything))
+      },
+      test("Can read time with 9 digit fraction part") {
+        val json = Json.fromString("2021-03-06T12:09:50.348652378Z")
+        assert(json.as[MicroTime])(isRight(anything))
+      },
+      test("Can read time without fraction part") {
+        val json = Json.fromString("2021-03-06T12:09:50Z")
+        assert(json.as[MicroTime])(isRight(anything))
       }
     )
 }
