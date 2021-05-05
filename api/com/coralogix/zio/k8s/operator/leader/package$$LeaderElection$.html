@@ -191,6 +191,10 @@
                         <a href="package$$ContextInfoError.html" title="Failure while gathering information about the running service">ContextInfoError</a>
                       </li><li class="current-entities indented6">
                         <span class="separator"></span>
+                        <a class="class" href="package$$DateTimeError.html" title="Failure while calling the Date-Time API"></a>
+                        <a href="package$$DateTimeError.html" title="Failure while calling the Date-Time API">DateTimeError</a>
+                      </li><li class="current-entities indented6">
+                        <span class="separator"></span>
                         <a class="class" href="package$$KubernetesError.html" title="Failure while calling the Kubernetes API"></a>
                         <a href="package$$KubernetesError.html" title="Failure while calling the Kubernetes API">KubernetesError</a>
                       </li><li class="current-entities indented6">
@@ -298,6 +302,22 @@
       </span>
       <span class="symbol">
         <a title="" href="package$$LeaderElection$$Live.html"><span class="name">Live</span></a><span class="result"> extends <a href="package$$LeaderElection$$Service.html" class="extype" name="com.coralogix.zio.k8s.operator.leader.LeaderElection.Service">Service</a></span>
+      </span>
+      
+      
+    </li><li name="com.coralogix.zio.k8s.operator.leader.LeaderElection.LiveTemporary" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="LiveTemporaryextendsLeaderElection.Service"></a><a id="LiveTemporary:LiveTemporary"></a>
+      <span class="permalink">
+      <a href="../../../../../../com/coralogix/zio/k8s/operator/leader/package$$LeaderElection$$LiveTemporary.html" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="package$$LeaderElection$$LiveTemporary.html"><span class="name">LiveTemporary</span></a><span class="result"> extends <a href="package$$LeaderElection$$Service.html" class="extype" name="com.coralogix.zio.k8s.operator.leader.LeaderElection.Service">Service</a></span>
       </span>
       
       
@@ -582,6 +602,26 @@ a look at <span class="extype" name="configMapLock()">configMapLock()</span>.
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
+    </li><li name="com.coralogix.zio.k8s.operator.leader.LeaderElection#leaseLock" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="leaseLock(lockName:String,leaseDuration:zio.duration.Duration,renewTimeout:zio.duration.Duration,retryPeriod:zio.duration.Duration):zio.ZLayer[zio.random.Randomwithcom.coralogix.zio.k8s.operator.contextinfo.ContextInfowithcom.coralogix.zio.k8s.client.coordination.v1.leases.Leases,Nothing,com.coralogix.zio.k8s.operator.leader.package.LeaderElection]"></a><a id="leaseLock(String,Duration,Duration,Duration):ZLayer[RandomwithContextInfowithLeases,Nothing,LeaderElection]"></a>
+      <span class="permalink">
+      <a href="../../../../../../com/coralogix/zio/k8s/operator/leader/package$$LeaderElection$.html#leaseLock(lockName:String,leaseDuration:zio.duration.Duration,renewTimeout:zio.duration.Duration,retryPeriod:zio.duration.Duration):zio.ZLayer[zio.random.Randomwithcom.coralogix.zio.k8s.operator.contextinfo.ContextInfowithcom.coralogix.zio.k8s.client.coordination.v1.leases.Leases,Nothing,com.coralogix.zio.k8s.operator.leader.package.LeaderElection]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">leaseLock</span><span class="params">(<span name="lockName">lockName: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="leaseDuration">leaseDuration: <span class="extype" name="zio.duration.Duration">Duration</span> = <span class="symbol"><span class="name"><a href="../../../../../../zio/index.html">15.seconds</a></span></span></span>, <span name="renewTimeout">renewTimeout: <span class="extype" name="zio.duration.Duration">Duration</span> = <span class="symbol"><span class="name"><a href="../../../../../../zio/index.html">10.seconds</a></span></span></span>, <span name="retryPeriod">retryPeriod: <span class="extype" name="zio.duration.Duration">Duration</span> = <span class="symbol"><span class="name"><a href="../../../../../../zio/index.html">2.seconds</a></span></span></span>)</span><span class="result">: <a href="https://javadoc.io/page/dev.zio/zio_2.12/1.0.7/zio/ZLayer.html#zio.ZLayer" class="extype" name="zio.ZLayer">ZLayer</a>[<span class="extype" name="zio.random.Random">Random</span> with <a href="../contextinfo/index.html#ContextInfo=zio.Has[com.coralogix.zio.k8s.operator.contextinfo.package.ContextInfo.Service]" class="extmbr" name="com.coralogix.zio.k8s.operator.contextinfo.ContextInfo">ContextInfo</a> with <a href="../../client/coordination/v1/leases/index.html#Leases=zio.Has[com.coralogix.zio.k8s.client.coordination.v1.leases.package.Leases.Service]" class="extmbr" name="com.coralogix.zio.k8s.client.coordination.v1.leases.Leases">Leases</a>, <span class="extype" name="scala.Nothing">Nothing</span>, <a href="index.html#LeaderElection=zio.Has[com.coralogix.zio.k8s.operator.leader.package.LeaderElection.Service]" class="extmbr" name="com.coralogix.zio.k8s.operator.leader.LeaderElection">LeaderElection</a>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Lease based leader election implementation</p><div class="fullcomment"><div class="comment cmt"><p>Lease based leader election implementation</p><p>The leadership is not guaranteed to be held forever, the effect executed in runAsLeader
+may be interrupted. It is recommended to retry runAsLeader in these cases to try to reacquire the lease.</p><p>This is a reimplementation of the Go leaderelection package:
+https://github.com/kubernetes/client-go/blob/master/tools/leaderelection/leaderelection.go
+</p></div><dl class="paramcmts block"><dt class="param">lockName</dt><dd class="cmt"><p>Name of the lease resource</p></dd><dt class="param">leaseDuration</dt><dd class="cmt"><p>Duration non-leader candidates must wait before acquiring leadership. This is measured
+                     against the time of the last observed change.</p></dd><dt class="param">renewTimeout</dt><dd class="cmt"><p>The maximum time a leader is allowed to try to renew its lease before giving up</p></dd><dt class="param">retryPeriod</dt><dd class="cmt"><p>Retry period for acquiring and renewing the lease</p></dd></dl></div>
     </li><li name="scala.AnyRef#ne" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="ne(x$1:AnyRef):Boolean"></a><a id="ne(AnyRef):Boolean"></a>
       <span class="permalink">
