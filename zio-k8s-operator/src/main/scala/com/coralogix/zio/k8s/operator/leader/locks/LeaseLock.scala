@@ -146,11 +146,13 @@ class LeaseLock(
       } yield result
 
     private def updateStore(newRecord: VersionedRecord): ZIO[Any, Nothing, Unit] =
-      store.get.flatMap {
-        case None            =>
-          store.set(Some(newRecord))
-        case Some(oldRecord) =>
-          store.set(Some(newRecord)).unless(oldRecord.record == newRecord.record)
+      store.update {
+        case None                                                    =>
+          Some(newRecord)
+        case Some(oldRecord) if oldRecord.record != newRecord.record =>
+          Some(newRecord)
+        case Some(oldRecord)                                         =>
+          Some(oldRecord)
       }
 
     private def get(): ZIO[Clock, LeaderElectionFailure[Nothing], Option[VersionedRecord]] =
