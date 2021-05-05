@@ -4,6 +4,9 @@ import sttp.client3.{ Empty, RequestT, UriContext }
 import sttp.model._
 import zio.duration._
 
+import java.time.ZoneOffset
+import java.time.format.DateTimeFormatter
+
 package object model extends LabelSelector.Syntax with FieldSelector.Syntax {
 
   /** Data type describing a configured Kuberntes cluster
@@ -176,4 +179,8 @@ package object model extends LabelSelector.Syntax with FieldSelector.Syntax {
         .addParam("labelSelector", labelSelector.map(_.asQuery))
         .addParam("allowWatchBookmarks", if (allowBookmarks) Some("true") else None)
   }
+
+  val k8sDateTimeFormatter: DateTimeFormatter = DateTimeFormatter
+    .ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'")
+    .withZone(ZoneOffset.UTC)
 }
