@@ -7,14 +7,24 @@ import com.coralogix.zio.k8s.client.model.{
   FieldSelector,
   K8sNamespace,
   K8sObject,
+  K8sResourceType,
   LabelSelector,
   ListResourceVersion,
   Modified,
+  Optional,
   PropagationPolicy,
   TypedWatchEvent
 }
-import com.coralogix.zio.k8s.client.{ K8sFailure, NotFound, Resource, ResourceDeleteAll }
+import com.coralogix.zio.k8s.client.{
+  DecodedFailure,
+  K8sFailure,
+  K8sRequestInfo,
+  NotFound,
+  Resource,
+  ResourceDeleteAll
+}
 import com.coralogix.zio.k8s.model.pkg.apis.meta.v1.{ DeleteOptions, Status }
+import sttp.model.StatusCode
 import zio.duration.Duration
 import zio.stm.{ TMap, TQueue, ZSTM }
 import zio.stream._
@@ -68,6 +78,17 @@ final class TestResourceClient[T: K8sObject] private (
     }
   }
 
+  private def increaseResourceVersion(resource: T): T = {
+    val resourceVersion = resource.metadata.flatMap(_.resourceVersion)
+    val newResourceVersion =
+      resourceVersion match {
+        case Optional.Present(value) =>
+          (value.toInt + 1).toString
+        case Optional.Absent         => "0"
+      }
+    resource.mapMetadata(_.copy(resourceVersion = newResourceVersion))
+  }
+
   override def create(
     newResource: T,
     namespace: Option[K8sNamespace],
@@ -75,14 +96,26 @@ final class TestResourceClient[T: K8sObject] private (
   ): IO[K8sFailure, T] = {
     val prefix = keyPrefix(namespace)
     if (!dryRun) {
+      val finalResource = increaseResourceVersion(newResource)
       for {
-        name <- newResource.getName
+        name <- finalResource.getName
         stm   = for {
-                  _ <- store.put(prefix + name, newResource)
-                  _ <- events.offer(Added(newResource))
+                  _ <- store.contains(prefix + name).flatMap {
+                         case true  =>
+                           ZSTM.fail(
+                             DecodedFailure(
+                               K8sRequestInfo(K8sResourceType("test", "group", "version"), "create"),
+                               Status(),
+                               StatusCode.Conflict
+                             )
+                           )
+                         case false => ZSTM.unit
+                       }
+                  _ <- store.put(prefix + name, finalResource)
+                  _ <- events.offer(Added(finalResource))
                 } yield ()
         _    <- stm.commit
-      } yield newResource
+      } yield finalResource
     } else {
       ZIO.succeed(newResource)
     }
@@ -96,10 +129,24 @@ final class TestResourceClient[T: K8sObject] private (
   ): IO[K8sFailure, T] = {
     val prefix = keyPrefix(namespace)
     if (!dryRun) {
+      val finalResource = increaseResourceVersion(updatedResource)
       val stm = for {
-        _ <- store.put(prefix + name, updatedResource)
-        _ <- events.offer(Modified(updatedResource))
-      } yield updatedResource
+        _ <- store.get(prefix + name).flatMap {
+               case Some(existing)
+                   if existing.metadata.flatMap(_.resourceVersion) != updatedResource.metadata
+                     .flatMap(_.resourceVersion) =>
+                 ZSTM.fail(
+                   DecodedFailure(
+                     K8sRequestInfo(K8sResourceType("test", "group", "version"), "replace"),
+                     Status(),
+                     StatusCode.Conflict
+                   )
+                 )
+               case _ => ZSTM.unit
+             }
+        _ <- store.put(prefix + name, finalResource)
+        _ <- events.offer(Modified(finalResource))
+      } yield finalResource
       stm.commit
     } else {
       ZIO.succeed(updatedResource)

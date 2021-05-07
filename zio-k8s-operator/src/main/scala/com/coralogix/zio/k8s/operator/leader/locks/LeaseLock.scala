@@ -15,7 +15,7 @@ import zio.clock.Clock
 import zio.duration._
 import zio.logging.{ log, Logging }
 import zio.random.Random
-import zio.{ clock, Has, IO, Queue, Ref, Schedule, ZIO, ZManaged }
+import zio.{ clock, Has, IO, Queue, Ref, Schedule, UIO, ZIO, ZManaged }
 
 import java.time.{ DateTimeException, OffsetDateTime }
 
@@ -37,10 +37,11 @@ class LeaseLock(
       store <- Ref.makeManaged[Option[VersionedRecord]](None)
       name  <- pod.getName.mapError(KubernetesError).toManaged_
       impl   = new Impl(store, namespace, name)
-      _     <- impl
-                 .acquire()
-                 .provideSome[Clock with Logging](_ ++ Has(random))
-                 .toManaged(_ => impl.release())
+      _     <- ZManaged.makeInterruptible(
+                 impl
+                   .acquire()
+                   .provideSome[Clock with Logging](_ ++ Has(random))
+               )(_ => impl.release())
       _     <- impl.renew().fork.toManaged_
     } yield ()
 
@@ -68,11 +69,14 @@ class LeaseLock(
 
     def renew(): ZIO[Clock with Logging, LeaderElectionFailure[Nothing], Unit] = {
       tryAcquireOrRenew()
+        .tapError { failure =>
+          logLeaderElectionFailure(failure) *>
+            log.info("Failed to renew leadership, will retry...")
+        }
         .retry(
-          (Schedule.fixed(retryPeriod) >>> Schedule.elapsed)
-            .whileOutput(_ < renewTimeout)
-            .as(false)
+          (Schedule.fixed(retryPeriod) >>> Schedule.elapsed).whileOutput(_ < renewTimeout)
         ) // trying to renew within the renew timeout period
+        .catchAll(_ => ZIO.succeed(false))
         .repeat(
           Schedule.fixed(retryPeriod).whileInput((success: Boolean) => success)
         ) // keep renewing if it succeeded
