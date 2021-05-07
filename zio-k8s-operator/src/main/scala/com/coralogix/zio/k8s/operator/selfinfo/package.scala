@@ -10,7 +10,7 @@ import zio.blocking.Blocking
 import zio.nio.core.file.Path
 import zio.nio.file.Files
 import zio.system.System
-import zio.{ Has, IO, ZIO, ZLayer }
+import zio.{ Has, IO, ULayer, ZIO, ZLayer }
 
 import java.io.IOException
 
@@ -77,6 +77,12 @@ package object contextinfo {
         system <- ZIO.service[System.Service]
         pods   <- ZIO.service[Pods.Service]
       } yield new LiveForcedNamespace(system, pods, namespace)).toLayer
+
+    def test(p: Pod, ns: K8sNamespace): ULayer[ContextInfo] =
+      ZLayer.succeed(new Service {
+        override def namespace: IO[ContextInfoFailure, K8sNamespace] = ZIO.succeed(ns)
+        override def pod: IO[ContextInfoFailure, Pod] = ZIO.succeed(p)
+      })
   }
 
   /** Possible failures of the the context-info gathering module
