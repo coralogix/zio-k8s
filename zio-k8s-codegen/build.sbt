@@ -11,7 +11,7 @@ scalacOptions ++= Seq("-feature", "-deprecation")
 
 libraryDependencies ++= Seq(
   "dev.zio"             %% "zio"              % "1.0.5",
-  "dev.zio"             %% "zio-nio"          % "1.0.0-RC10",
+  "dev.zio"             %% "zio-nio"          % "1.0.0-RC11",
   "io.swagger.parser.v3" % "swagger-parser"   % "2.0.24",
   "io.circe"            %% "circe-core"       % "0.13.0",
   "io.circe"            %% "circe-parser"     % "0.13.0",
