@@ -46,7 +46,7 @@ object LogsExample extends App {
     pods
       .getLog(podName, K8sNamespace.default, container = containerName, follow = Some(true))
       .tap { line =>
-        console.putStrLn(line)
+        console.putStrLn(line).ignore
       }
       .runDrain
 }
