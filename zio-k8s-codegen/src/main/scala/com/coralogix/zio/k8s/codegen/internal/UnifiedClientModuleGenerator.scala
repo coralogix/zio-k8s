@@ -71,7 +71,7 @@ trait UnifiedClientModuleGenerator {
 
     val defs = interfaces ++ List(liveClass, testClass, liveLayer, anyLayer, testLayer)
 
-    q"""package $pkg {
+    prettyPrint(q"""package $pkg {
 
         import com.coralogix.zio.k8s.client.model.{K8sCluster, ResourceMetadata}
         import com.coralogix.zio.k8s.client.impl.{ResourceClient, ResourceStatusClient, SubresourceClient}
@@ -89,7 +89,7 @@ trait UnifiedClientModuleGenerator {
           }
         }
         }
-     """.toString
+     """)
   }
 
   private def toInterfaceName(name: String): String =

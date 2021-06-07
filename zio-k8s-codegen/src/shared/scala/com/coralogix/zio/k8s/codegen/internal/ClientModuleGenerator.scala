@@ -639,7 +639,7 @@ trait ClientModuleGenerator {
           """
         }
 
-      code.toString
+      prettyPrint(code)
     }
 
   protected def getClientConstruction(

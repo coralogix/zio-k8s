@@ -21,7 +21,7 @@ import zio.{ Chunk, Task, ZIO }
 import java.io.File
 import java.nio.file.StandardCopyOption
 
-object K8sCustomResourceCodegen extends Common with ClientModuleGenerator {
+class K8sCustomResourceCodegen(val scalaVersion: String) extends Common with ClientModuleGenerator {
   def generateCustomResourceModuleCode(
     crd: CustomResourceDefinition,
     version: String,

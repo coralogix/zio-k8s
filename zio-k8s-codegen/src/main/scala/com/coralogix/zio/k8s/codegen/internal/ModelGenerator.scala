@@ -468,7 +468,7 @@ trait ModelGenerator {
       }
 
     getterDocs.foldLeft(
-      tree.toString
+      prettyPrint(tree)
         .replace("case class", classDesc + "\ncase class")
     ) { case (code, (from, to)) => code.replace(from, to) }
   }

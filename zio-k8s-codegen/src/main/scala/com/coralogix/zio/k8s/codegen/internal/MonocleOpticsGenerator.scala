@@ -13,7 +13,7 @@ import zio.nio.file.Files
 import scala.collection.JavaConverters._
 
 trait MonocleOpticsGenerator {
-  this: ModelGenerator =>
+  this: Common with ModelGenerator =>
 
   private val monocleRoot = Vector("com", "coralogix", "zio", "k8s", "monocle")
 
@@ -122,6 +122,6 @@ trait MonocleOpticsGenerator {
           }
           }
       """
-    tree.toString
+    prettyPrint(tree)
   }
 }

@@ -11,7 +11,7 @@ import zio.nio.file.Files
 import scala.meta._
 
 trait SubresourceClientGenerator {
-  this: ModelGenerator =>
+  this: ModelGenerator with Common =>
 
   def generateSubresourceAliases(
     scalafmt: Scalafmt,
@@ -132,7 +132,7 @@ trait SubresourceClientGenerator {
       case _                                    => List.empty
     }
 
-    q"""package $packageTerm {
+    prettyPrint(q"""package $packageTerm {
 
         import com.coralogix.zio.k8s.model._
         import com.coralogix.zio.k8s.client.K8sFailure
@@ -167,6 +167,6 @@ trait SubresourceClientGenerator {
             new SubresourceClient[$modelT](implicitly[ResourceMetadata[T]].resourceType, cluster, backend, $nameLit)
         }
         }
-     """.toString
+     """)
   }
 }
