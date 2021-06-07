@@ -61,7 +61,10 @@ final class SubresourceClient[T: Encoder: Decoder](
               .addParams(customParameters)
           )
           .response(
-            asEither[ResponseException[String, NonEmptyList[Error]], ZioStreams.BinaryStream, ZioStreams](
+            asEither[ResponseException[
+              String,
+              NonEmptyList[Error]
+            ], ZioStreams.BinaryStream, ZioStreams](
               asStringAlways.mapWithMetadata { case (body, meta) =>
                 HttpError(body, meta.code)
                   .asInstanceOf[ResponseException[String, NonEmptyList[Error]]]

@@ -30,7 +30,8 @@ object LeaderExample extends App {
     ) >>> Logging.withRootLoggerName("leader-example")
 
     // Pods and ConfigMaps API
-    val k8s = k8sDefault >>> (Pods.live ++ Leases.live ++ CustomResourceDefinitions.live ++ ContextInfo.live)
+    val k8s =
+      k8sDefault >>> (Pods.live ++ Leases.live ++ CustomResourceDefinitions.live ++ ContextInfo.live)
     val leaderElection = k8s >>> LeaderElection.leaseLock("leader-example-lock")
 
     // Example code
