@@ -5,7 +5,7 @@ import org.scalafmt.interfaces.Scalafmt
 import sbt.util.Logger
 import zio.ZIO
 import zio.blocking.Blocking
-import com.coralogix.zio.k8s.codegen.internal.CodegenIO.{ format, writeTextFile }
+import com.coralogix.zio.k8s.codegen.internal.CodegenIO.writeTextFile
 import com.coralogix.zio.k8s.codegen.internal.Conversions.splitName
 import zio.nio.core.file.Path
 import zio.nio.file.Files

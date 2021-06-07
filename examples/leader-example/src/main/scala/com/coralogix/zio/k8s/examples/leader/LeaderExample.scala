@@ -29,19 +29,9 @@ object LeaderExample extends App {
       format = LogFormat.ColoredLogFormat()
     ) >>> Logging.withRootLoggerName("leader-example")
 
-    // Loading config from HOCON
-//    val configDesc = descriptor[Config]
-//    val config = TypesafeConfig.fromDefaultLoader[Config](configDesc)
-
-    // K8s configuration and client layers
-//    val client = (System.any ++ Blocking.any ++ config.project(_.k8s)) >>> k8sSttpClient
-//    val cluster = (Blocking.any ++ config.project(_.k8s)) >>> k8sCluster
-
     // Pods and ConfigMaps API
-//    val k8s = (cluster ++ client) >>> Kubernetes.live
-//    val k8s = k8sDefault >>> Kubernetes.live
-//    val k8s = k8sDefault >>> (Pods.live ++ ConfigMaps.live)
-//    val leaderElection = k8s >>> LeaderElection.configMapLock("leader-example-lock")
+    val k8s = k8sDefault >>> (Pods.live ++ Leases.live ++ CustomResourceDefinitions.live ++ ContextInfo.live)
+    val leaderElection = k8s >>> LeaderElection.leaseLock("leader-example-lock")
 
     // Example code
     val program =
@@ -51,19 +41,7 @@ object LeaderExample extends App {
         example()
 
     program
-      .injectCustom(
-        logging,
-        k8sDefault,
-        CustomResourceDefinitions.live,
-        ContextInfo.live,
-        Pods.live,
-//        ConfigMaps.live,
-//        LeaderElection.configMapLock("leader-example-lock"),
-//        LeaderLockResources.live,
-//        LeaderElection.customLeaderLock("leader-example-lock", deleteLockOnRelease = false),
-        Leases.live,
-        LeaderElection.leaseLock("leader-example-lock")
-      )
+      .provideCustomLayer(logging ++ k8s ++ leaderElection)
       .exitCode
   }
 

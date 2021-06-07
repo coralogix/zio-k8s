@@ -35,7 +35,7 @@ class LeaseLock(
   ): ZManaged[Clock with Logging, leader.LeaderElectionFailure[Nothing], Unit] =
     for {
       store <- Ref.makeManaged[Option[VersionedRecord]](None)
-      name  <- pod.getName.mapError(KubernetesError).toManaged_
+      name  <- pod.getName.mapError(KubernetesError.apply).toManaged_
       impl   = new Impl(store, namespace, name)
       _     <- ZManaged.makeInterruptible(
                  impl
@@ -87,7 +87,7 @@ class LeaseLock(
         .flatMap {
           case Some(stored) if stored.record.holderIdentity == identity =>
             for {
-              now      <- clock.currentDateTime.mapError(DateTimeError)
+              now      <- clock.currentDateTime.mapError(DateTimeError.apply)
               newRecord =
                 LeaderElectionRecord(
                   holderIdentity = identity,
@@ -108,7 +108,7 @@ class LeaseLock(
       : ZIO[Clock with Logging, LeaderElectionFailure[Nothing], Boolean] =
       for {
         latest <- get()
-        now    <- clock.currentDateTime.mapError(DateTimeError)
+        now    <- clock.currentDateTime.mapError(DateTimeError.apply)
         result <- latest match {
                     case None            =>
                       val record = LeaderElectionRecord(identity, leaseDuration, now, now, 0)

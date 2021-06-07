@@ -45,8 +45,8 @@ package object leader {
     class Live(contextInfo: ContextInfo.Service, lock: LeaderLock) extends Service {
       override def lease: ZManaged[Clock with Logging, LeaderElectionFailure[Nothing], Unit] =
         for {
-          namespace   <- contextInfo.namespace.toManaged_.mapError(ContextInfoError)
-          pod         <- contextInfo.pod.toManaged_.mapError(ContextInfoError)
+          namespace   <- contextInfo.namespace.toManaged_.mapError(ContextInfoError.apply)
+          pod         <- contextInfo.pod.toManaged_.mapError(ContextInfoError.apply)
           managedLock <- lock.acquireLock(namespace, pod)
         } yield managedLock
 
@@ -59,8 +59,8 @@ package object leader {
     ) extends Service {
       override def lease: ZManaged[Clock with Logging, LeaderElectionFailure[Nothing], Unit] =
         for {
-          namespace   <- contextInfo.namespace.toManaged_.mapError(ContextInfoError)
-          pod         <- contextInfo.pod.toManaged_.mapError(ContextInfoError)
+          namespace   <- contextInfo.namespace.toManaged_.mapError(ContextInfoError.apply)
+          pod         <- contextInfo.pod.toManaged_.mapError(ContextInfoError.apply)
           managedLock <- lock.acquireLock(namespace, pod)
         } yield managedLock
 

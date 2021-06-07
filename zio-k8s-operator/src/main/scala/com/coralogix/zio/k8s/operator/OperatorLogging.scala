@@ -22,6 +22,7 @@ object OperatorLogging {
       .annotate(logResourceType, Some(operatorContext.resourceType.resourceType))
       .annotate(logNamespace, operatorContext.namespace)
 
+  @FunctionalInterface
   trait ConvertableToThrowable[E] {
     def toThrowable(value: E): Throwable
   }

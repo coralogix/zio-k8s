@@ -119,15 +119,12 @@ trait Descriptors {
     insecureServerCertificate <> secureServerCertificate
 
   private val clientConfig: ConfigDescriptor[K8sClientConfig] =
-    (boolean("debug") |@| serverCertificate)(K8sClientConfig.apply, K8sClientConfig.unapply)
+    (boolean("debug") |@| serverCertificate).to[K8sClientConfig]
 
   /** ZIO Config descriptor for [[K8sClusterConfig]]
     */
   val clusterConfigDescriptor: ConfigDescriptor[K8sClusterConfig] =
     (nested("host")(uri) |@| nested("authentication")(k8sAuthentication) |@| nested("client")(
       clientConfig
-    ))(
-      K8sClusterConfig.apply,
-      K8sClusterConfig.unapply
-    )
+    )).to[K8sClusterConfig]
 }

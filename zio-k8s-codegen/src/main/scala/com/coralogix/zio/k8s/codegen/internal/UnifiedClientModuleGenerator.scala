@@ -1,6 +1,6 @@
 package com.coralogix.zio.k8s.codegen.internal
 
-import com.coralogix.zio.k8s.codegen.internal.CodegenIO.{ format, writeTextFile }
+import com.coralogix.zio.k8s.codegen.internal.CodegenIO.writeTextFile
 import com.coralogix.zio.k8s.codegen.internal.Conversions.{ groupNameToPackageName, splitName }
 import com.coralogix.zio.k8s.codegen.internal.UnifiedClientModuleGenerator._
 import org.scalafmt.interfaces.Scalafmt

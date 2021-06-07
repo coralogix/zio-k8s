@@ -19,7 +19,7 @@ package object asynchttpclient {
     */
   val k8sSttpClient
     : ZLayer[Has[K8sClusterConfig] with System with Blocking, Throwable, SttpClient] =
-    ZLayer.fromServiceManaged { config: K8sClusterConfig =>
+    ZLayer.fromServiceManaged { (config: K8sClusterConfig) =>
       for {
         runtime                    <- ZManaged.runtime[Any]
         sslContext                 <- SSL(config.client.serverCertificate, config.authentication).toManaged_
