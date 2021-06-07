@@ -2,11 +2,10 @@ package com.coralogix.zio.k8s.client.config
 
 import sttp.client3._
 import zio.config._
-import zio.config.magnolia.descriptor
 import zio.config.typesafe.TypesafeConfig
 import zio.nio.core.file.Path
 import zio.test.environment.TestEnvironment
-import zio.test.{ assertM, Assertion, DefaultRunnableSpec, ZSpec }
+import zio.test.{assertM, Assertion, DefaultRunnableSpec, ZSpec}
 
 object ConfigSpec extends DefaultRunnableSpec {
   override def spec: ZSpec[TestEnvironment, Any] =
@@ -42,7 +41,8 @@ object ConfigSpec extends DefaultRunnableSpec {
     )
 
   case class Config(k8s: K8sClusterConfig)
-  val configDesc: ConfigDescriptor[Config] = descriptor[Config]
+
+  val configDesc: ConfigDescriptor[Config] = ConfigDescriptor.nested("k8s")(clusterConfigDescriptor).to[Config]
 
   val example1: String =
     """k8s {
