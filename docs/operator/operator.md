@@ -30,7 +30,7 @@ sealed trait CustomOperatorFailures
 val eventProcessor: EventProcessor[Clock, CustomOperatorFailures, Pod] = 
     (ctx, event) => 
         event match {
-            case Reseted =>
+            case Reseted() =>
                 ZIO.unit
             case Added(item) =>
                 ZIO.unit
@@ -82,7 +82,7 @@ object OperatorMetrics {
         namespace: Option[K8sNamespace]
     ): Array[String] = {
         val eventType = event match {
-            case Reseted => "reseted"
+            case Reseted() => "reseted"
             case Added(_) => "added"
             case Modified(_) => "modified"
             case Deleted(_) => "deleted"
