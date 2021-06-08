@@ -5,7 +5,7 @@ import com.coralogix.zio.k8s.client.model.K8sObject._
 /** Watch events with decoded payload
   * @tparam T Watched resource type
   */
-sealed trait TypedWatchEvent[+T] {
+sealed trait TypedWatchEvent[T] {
 
   /** Resource version of the payload
     */
@@ -18,7 +18,7 @@ sealed trait TypedWatchEvent[+T] {
 
 /** Watch stream reseted
   */
-case object Reseted extends TypedWatchEvent[Nothing] {
+case class Reseted[T]() extends TypedWatchEvent[T] {
   override val resourceVersion: Option[String] = None
   override val namespace: Option[K8sNamespace] = None
 }

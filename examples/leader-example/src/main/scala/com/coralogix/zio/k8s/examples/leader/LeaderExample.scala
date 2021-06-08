@@ -15,7 +15,8 @@ import zio._
 import zio.blocking.Blocking
 import zio.clock.Clock
 import zio.logging.{ log, LogFormat, LogLevel, Logging }
-import zio.magic._
+import zio.random.Random
+import zio.system.System
 
 import scala.languageFeature.implicitConversions
 
@@ -30,9 +31,11 @@ object LeaderExample extends App {
     ) >>> Logging.withRootLoggerName("leader-example")
 
     // Pods and ConfigMaps API
-    val k8s =
-      k8sDefault >>> (Pods.live ++ Leases.live ++ CustomResourceDefinitions.live ++ ContextInfo.live)
-    val leaderElection = k8s >>> LeaderElection.leaseLock("leader-example-lock")
+    val pods = k8sDefault >>> Pods.live
+    val leases = k8sDefault >>> Leases.live
+    val crds = k8sDefault >>> CustomResourceDefinitions.live
+    val contextInfo = (Blocking.any ++ System.any ++ pods) >>> ContextInfo.live.mapError(f => FiberFailure(Cause.fail(f)))
+    val leaderElection = (Random.any ++ leases ++ contextInfo) >>> LeaderElection.leaseLock("leader-example-lock")
 
     // Example code
     val program =
@@ -42,7 +45,7 @@ object LeaderExample extends App {
         example()
 
     program
-      .provideCustomLayer(logging ++ k8s ++ leaderElection)
+      .provideCustomLayer(logging ++ crds ++ leaderElection)
       .exitCode
   }
 

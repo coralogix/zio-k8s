@@ -25,7 +25,7 @@ package object aspects {
         (ctx: OperatorContext, event: TypedWatchEvent[T]) =>
           log.locally(OperatorLogging(ctx.withSpecificNamespace(event.namespace))) {
             (event match {
-              case event @ Reseted            =>
+              case event @ Reseted()          =>
                 log.debug(s"State reseted") *>
                   f(ctx, event)
               case event @ Added(resource)    =>

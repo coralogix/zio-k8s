@@ -49,13 +49,14 @@ object K8sCustomResourceCodegenPlugin extends AutoPlugin {
 
         val crds = externalCustomResourceDefinitions.value
         val resourcesDir = (Compile / resourceManaged).value
+        val scalaVer = scalaVersion.value
 
         val cachedFun = FileFunction.cached(
           streams.value.cacheDirectory / "k8s-crd-res"
         ) { input: Set[File] =>
           input.foldLeft(Set.empty[File]) { (result, crdYaml) =>
             val fs = runtime.unsafeRun(
-              K8sCustomResourceCodegen.generateResource(
+              new K8sCustomResourceCodegen(scalaVer).generateResource(
                 ZPath.fromJava(crdYaml.toPath),
                 ZPath.fromJava(resourcesDir.toPath),
                 log

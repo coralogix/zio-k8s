@@ -75,7 +75,7 @@ trait Resource[T] {
     fieldSelector: Option[FieldSelector] = None,
     labelSelector: Option[LabelSelector] = None
   ): ZStream[Clock, K8sFailure, TypedWatchEvent[T]] =
-    ZStream.succeed(Reseted) ++ watch(namespace, None, fieldSelector, labelSelector)
+    ZStream.succeed(Reseted[T]()) ++ watch(namespace, None, fieldSelector, labelSelector)
       .retry(Schedule.recurWhileEquals(Gone))
 
   /** Get a resource by its name
