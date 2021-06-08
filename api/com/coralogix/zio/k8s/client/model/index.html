@@ -308,7 +308,7 @@
         <a title="Contains data structures, ZIO layers and zio-config descriptors for configuring the zio-k8s client." href="../config/index.html"><span class="name">config</span></a>
       </span>
       
-      <p class="shortcomment cmt">Contains data structures, ZIO layers and zio-config descriptors for configuring the zio-k8s client.</p><div class="fullcomment"><div class="comment cmt"><p>Contains data structures, ZIO layers and zio-config descriptors for configuring the zio-k8s client.</p><p>Each zio-k8s client module depends on two ZIO modules: <a href="package$$K8sCluster.html" class="extype" name="com.coralogix.zio.k8s.client.model.K8sCluster">com.coralogix.zio.k8s.client.model.K8sCluster</a> and an <a href="https://javadoc.io/page/com.softwaremill.sttp.client3/core_2.12/3.3.0/sttp/client3/SttpBackend.html" class="extype" name="sttp.client3.SttpBackend">sttp.client3.SttpBackend</a>.
+      <p class="shortcomment cmt">Contains data structures, ZIO layers and zio-config descriptors for configuring the zio-k8s client.</p><div class="fullcomment"><div class="comment cmt"><p>Contains data structures, ZIO layers and zio-config descriptors for configuring the zio-k8s client.</p><p>Each zio-k8s client module depends on two ZIO modules: <a href="package$$K8sCluster.html" class="extype" name="com.coralogix.zio.k8s.client.model.K8sCluster">com.coralogix.zio.k8s.client.model.K8sCluster</a> and an <a href="https://javadoc.io/page/com.softwaremill.sttp.client3/core_2.12/3.3.6/sttp/client3/SttpBackend.html" class="extype" name="sttp.client3.SttpBackend">sttp.client3.SttpBackend</a>.
 To use the default configuration (use kubeconfig if available, otherwise fallback to service account token),
 use either <code>asynchttpclient.k8sDefault</code> or <code>httpclient.k8sDefault</code> depending on your chosen sttp backend.</p><p>Manual configuration is possible by providing a <a href="../config/package$$K8sClusterConfig.html" class="extype" name="com.coralogix.zio.k8s.client.config.K8sClusterConfig">K8sClusterConfig</a> value to both the <a href="../config/index.html#k8sCluster:zio.ZLayer[zio.blocking.Blockingwithzio.Has[com.coralogix.zio.k8s.client.config.package.K8sClusterConfig],Throwable,zio.Has[com.coralogix.zio.k8s.client.model.K8sCluster]]" class="extmbr" name="com.coralogix.zio.k8s.client.config#k8sCluster">k8sCluster</a> layer
 and either <code>asynchttpclient.k8sSttpClient</code> or <code>httpclient.k8sSttpClient</code>.</p><p>Instead of manually providing the configuration, zio-config descriptors are available to load them from any
@@ -576,8 +576,8 @@ supported source.
                         <a href="PropagationPolicy.html" title="Propagation policy for resource deletion">PropagationPolicy</a>
                       </li><li class="current-entities indented6">
                         <span class="separator"></span>
-                        <a class="object" href="Reseted$.html" title="Watch stream reseted"></a>
-                        <a href="Reseted$.html" title="Watch stream reseted">Reseted</a>
+                        <a class="class" href="Reseted.html" title="Watch stream reseted"></a>
+                        <a href="Reseted.html" title="Watch stream reseted">Reseted</a>
                       </li><li class="current-entities indented6">
                         <span class="separator"></span>
                         <a class="trait" href="ResourceMetadata.html" title="Resource metadata typeclass"></a>
@@ -877,7 +877,7 @@ the Kubernetes server.
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a title="Data type describing a configured Kuberntes cluster" href="package$$K8sCluster.html"><span class="name">K8sCluster</span></a><span class="params">(<span name="host">host: <a href="https://javadoc.io/page/com.softwaremill.sttp.model/core_2.12/1.4.4/sttp/model/Uri.html#sttp.model.Uri" class="extype" name="sttp.model.Uri">Uri</a></span>, <span name="applyToken">applyToken: <span class="extype" name="scala.Option">Option</span>[(<a href="https://javadoc.io/page/com.softwaremill.sttp.client3/core_2.12/3.3.0/sttp/client3/RequestT.html#sttp.client3.RequestT" class="extype" name="sttp.client3.RequestT">RequestT</a>[<a href="../../../../../../sttp/client3/index.html#Empty[X]=None.type" class="extmbr" name="sttp.client3.Empty">Empty</a>, <span class="extype" name="scala.Either">Either</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.Predef.String">String</span>], <span class="extype" name="scala.Any">Any</span>]) ⇒ <a href="https://javadoc.io/page/com.softwaremill.sttp.client3/core_2.12/3.3.0/sttp/client3/RequestT.html#sttp.client3.RequestT" class="extype" name="sttp.client3.RequestT">RequestT</a>[<a href="../../../../../../sttp/client3/index.html#Empty[X]=None.type" class="extmbr" name="sttp.client3.Empty">Empty</a>, <span class="extype" name="scala.Either">Either</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.Predef.String">String</span>], <span class="extype" name="scala.Any">Any</span>]]</span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a title="Data type describing a configured Kuberntes cluster" href="package$$K8sCluster.html"><span class="name">K8sCluster</span></a><span class="params">(<span name="host">host: <a href="https://javadoc.io/page/com.softwaremill.sttp.model/core_2.12/1.4.7/sttp/model/Uri.html#sttp.model.Uri" class="extype" name="sttp.model.Uri">Uri</a></span>, <span name="applyToken">applyToken: <span class="extype" name="scala.Option">Option</span>[(<a href="https://javadoc.io/page/com.softwaremill.sttp.client3/core_2.12/3.3.6/sttp/client3/RequestT.html#sttp.client3.RequestT" class="extype" name="sttp.client3.RequestT">RequestT</a>[<a href="../../../../../../sttp/client3/index.html#Empty[X]=None.type" class="extmbr" name="sttp.client3.Empty">Empty</a>, <span class="extype" name="scala.Either">Either</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.Predef.String">String</span>], <span class="extype" name="scala.Any">Any</span>]) ⇒ <a href="https://javadoc.io/page/com.softwaremill.sttp.client3/core_2.12/3.3.6/sttp/client3/RequestT.html#sttp.client3.RequestT" class="extype" name="sttp.client3.RequestT">RequestT</a>[<a href="../../../../../../sttp/client3/index.html#Empty[X]=None.type" class="extmbr" name="sttp.client3.Empty">Empty</a>, <span class="extype" name="scala.Either">Either</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.Predef.String">String</span>], <span class="extype" name="scala.Any">Any</span>]]</span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       <p class="shortcomment cmt">Data type describing a configured Kuberntes cluster</p><div class="fullcomment"><div class="comment cmt"><p>Data type describing a configured Kuberntes cluster</p></div><dl class="paramcmts block"><dt class="param">host</dt><dd class="cmt"><p>Host to connect to</p></dd><dt class="param">applyToken</dt><dd class="cmt"><p>Function to apply an authentication token to the HTTP request</p></dd></dl></div>
@@ -1220,7 +1220,7 @@ conversion defined from <code>A</code><code> to </code>Optional[A]<code>, and fr
 fields are optional.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.client.model.ParsedBookmark" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="ParsedBookmarkextendsParsedWatchEvent[Nothing]withProductwithSerializable"></a><a id="ParsedBookmark:ParsedBookmark"></a>
+      <a id="ParsedBookmark[T]extendsParsedWatchEvent[T]withProductwithSerializable"></a><a id="ParsedBookmark[T]:ParsedBookmark[T]"></a>
       <span class="permalink">
       <a href="../../../../../../com/coralogix/zio/k8s/client/model/ParsedBookmark.html" title="Permalink">
         <i class="material-icons"></i>
@@ -1231,7 +1231,7 @@ fields are optional.
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a title="Bookmark event" href="ParsedBookmark.html"><span class="name">ParsedBookmark</span></a><span class="params">(<span name="resourceVersion">resourceVersion: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result"> extends <a href="ParsedWatchEvent.html" class="extype" name="com.coralogix.zio.k8s.client.model.ParsedWatchEvent">ParsedWatchEvent</a>[<span class="extype" name="scala.Nothing">Nothing</span>] with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a title="Bookmark event" href="ParsedBookmark.html"><span class="name">ParsedBookmark</span></a><span class="tparams">[<span name="T">T</span>]</span><span class="params">(<span name="resourceVersion">resourceVersion: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result"> extends <a href="ParsedWatchEvent.html" class="extype" name="com.coralogix.zio.k8s.client.model.ParsedWatchEvent">ParsedWatchEvent</a>[<span class="extype" name="com.coralogix.zio.k8s.client.model.ParsedBookmark.T">T</span>] with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       <p class="shortcomment cmt">Bookmark event</p><div class="fullcomment"><div class="comment cmt"><p>Bookmark event</p></div><dl class="paramcmts block"><dt class="param">resourceVersion</dt><dd class="cmt"><p>Resource version to bookmark</p></dd></dl></div>
@@ -1252,7 +1252,7 @@ fields are optional.
       
       <p class="shortcomment cmt">Parsed typed watch event</p><div class="fullcomment"><div class="comment cmt"><p>Parsed typed watch event</p></div><dl class="paramcmts block"><dt class="tparam">T</dt><dd class="cmt"><p>Payload type</p></dd><dt class="param">event</dt><dd class="cmt"><p>Payload</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.client.model.ParsedWatchEvent" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
-      <a id="ParsedWatchEvent[+T]extendsAnyRef"></a><a id="ParsedWatchEvent[+T]:ParsedWatchEvent[T]"></a>
+      <a id="ParsedWatchEvent[T]extendsAnyRef"></a><a id="ParsedWatchEvent[T]:ParsedWatchEvent[T]"></a>
       <span class="permalink">
       <a href="../../../../../../com/coralogix/zio/k8s/client/model/ParsedWatchEvent.html" title="Permalink">
         <i class="material-icons"></i>
@@ -1263,7 +1263,7 @@ fields are optional.
         <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <a title="Watch event with parsed payload" href="ParsedWatchEvent.html"><span class="name">ParsedWatchEvent</span></a><span class="tparams">[<span name="T">+T</span>]</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+        <a title="Watch event with parsed payload" href="ParsedWatchEvent.html"><span class="name">ParsedWatchEvent</span></a><span class="tparams">[<span name="T">T</span>]</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       
       <p class="shortcomment cmt">Watch event with parsed payload</p><div class="fullcomment"><div class="comment cmt"><p>Watch event with parsed payload</p><p>This type is used internally by the watch stream. End users should
@@ -1287,6 +1287,23 @@ the bookmark event which is transparently handled by the client.
       
       <p class="shortcomment cmt">Propagation policy for resource deletion</p><div class="fullcomment"><div class="comment cmt"><p>Propagation policy for resource deletion</p><p>See https://kubernetes.io/docs/concepts/workloads/controllers/garbage-collection/
 </p></div></div>
+    </li><li name="com.coralogix.zio.k8s.client.model.Reseted" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="Reseted[T]extendsTypedWatchEvent[T]withProductwithSerializable"></a><a id="Reseted[T]:Reseted[T]"></a>
+      <span class="permalink">
+      <a href="../../../../../../com/coralogix/zio/k8s/client/model/Reseted.html" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a title="Watch stream reseted" href="Reseted.html"><span class="name">Reseted</span></a><span class="tparams">[<span name="T">T</span>]</span><span class="params">()</span><span class="result"> extends <a href="TypedWatchEvent.html" class="extype" name="com.coralogix.zio.k8s.client.model.TypedWatchEvent">TypedWatchEvent</a>[<span class="extype" name="com.coralogix.zio.k8s.client.model.Reseted.T">T</span>] with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      
+      <p class="shortcomment cmt">Watch stream reseted
+</p>
     </li><li name="com.coralogix.zio.k8s.client.model.ResourceMetadata" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="ResourceMetadata[T]extendsAnyRef"></a><a id="ResourceMetadata[T]:ResourceMetadata[T]"></a>
       <span class="permalink">
@@ -1304,7 +1321,7 @@ the bookmark event which is transparently handled by the client.
       
       <p class="shortcomment cmt">Resource metadata typeclass</p><div class="fullcomment"><div class="comment cmt"><p>Resource metadata typeclass</p></div><dl class="paramcmts block"><dt class="tparam">T</dt><dd class="cmt"><p>Resource type</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.client.model.TypedWatchEvent" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
-      <a id="TypedWatchEvent[+T]extendsAnyRef"></a><a id="TypedWatchEvent[+T]:TypedWatchEvent[T]"></a>
+      <a id="TypedWatchEvent[T]extendsAnyRef"></a><a id="TypedWatchEvent[T]:TypedWatchEvent[T]"></a>
       <span class="permalink">
       <a href="../../../../../../com/coralogix/zio/k8s/client/model/TypedWatchEvent.html" title="Permalink">
         <i class="material-icons"></i>
@@ -1315,7 +1332,7 @@ the bookmark event which is transparently handled by the client.
         <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <a title="Watch events with decoded payload" href="TypedWatchEvent.html"><span class="name">TypedWatchEvent</span></a><span class="tparams">[<span name="T">+T</span>]</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+        <a title="Watch events with decoded payload" href="TypedWatchEvent.html"><span class="name">TypedWatchEvent</span></a><span class="tparams">[<span name="T">T</span>]</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       
       <p class="shortcomment cmt">Watch events with decoded payload</p><div class="fullcomment"><div class="comment cmt"><p>Watch events with decoded payload</p></div><dl class="paramcmts block"><dt class="tparam">T</dt><dd class="cmt"><p>Watched resource type</p></dd></dl></div>
@@ -1357,7 +1374,7 @@ the bookmark event which is transparently handled by the client.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">field</span><span class="params">(<span name="path">path: <a href="https://javadoc.io/page/dev.zio/zio_2.12/1.0.7/zio/Chunk.html#zio.Chunk" class="extype" name="zio.Chunk">Chunk</a>[<span class="extype" name="scala.Predef.String">String</span>]</span>)</span><span class="result">: <a href="#FieldextendsAnyRef" class="extmbr" name="com.coralogix.zio.k8s.client.model.FieldSelector.Syntax.Field">Field</a></span>
+        <span class="name">field</span><span class="params">(<span name="path">path: <a href="https://javadoc.io/page/dev.zio/zio_2.12/1.0.9/zio/Chunk.html#zio.Chunk" class="extype" name="zio.Chunk">Chunk</a>[<span class="extype" name="scala.Predef.String">String</span>]</span>)</span><span class="result">: <a href="#FieldextendsAnyRef" class="extmbr" name="com.coralogix.zio.k8s.client.model.FieldSelector.Syntax.Field">Field</a></span>
       </span>
       
       <p class="shortcomment cmt">Field constructor, used by the generated companion objects
@@ -1557,23 +1574,6 @@ the bookmark event which is transparently handled by the client.
       </span>
       
       
-    </li><li name="com.coralogix.zio.k8s.client.model.Reseted" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="Reseted"></a><a id="Reseted:Reseted"></a>
-      <span class="permalink">
-      <a href="../../../../../../com/coralogix/zio/k8s/client/model/Reseted$.html" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">object</span>
-      </span>
-      <span class="symbol">
-        <a title="Watch stream reseted" href="Reseted$.html"><span class="name">Reseted</span></a><span class="result"> extends <a href="TypedWatchEvent.html" class="extype" name="com.coralogix.zio.k8s.client.model.TypedWatchEvent">TypedWatchEvent</a>[<span class="extype" name="scala.Nothing">Nothing</span>] with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
-      </span>
-      
-      <p class="shortcomment cmt">Watch stream reseted
-</p>
     </li>
               </ol>
             </div>

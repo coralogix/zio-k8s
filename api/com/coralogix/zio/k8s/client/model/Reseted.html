@@ -149,10 +149,10 @@
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../index.html" class="extype" name="com.coralogix.zio.k8s">k8s</a></dd></dl></div>
-    </li><li name="com.coralogix.zio.k8s.client.config" visbl="pub" class="indented6 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="config"></a><a id="config:config"></a>
+    </li><li name="com.coralogix.zio.k8s.client.model" visbl="pub" class="indented6 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="model"></a><a id="model:model"></a>
       <span class="permalink">
-      <a href="../../../../../../com/coralogix/zio/k8s/client/config/index.html" title="Permalink">
+      <a href="../../../../../../com/coralogix/zio/k8s/client/model/index.html" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -161,102 +161,188 @@
         <span class="kind">package</span>
       </span>
       <span class="symbol">
-        <a title="Contains data structures, ZIO layers and zio-config descriptors for configuring the zio-k8s client." href="index.html"><span class="name">config</span></a>
+        <a title="" href="index.html"><span class="name">model</span></a>
       </span>
       
-      <p class="shortcomment cmt">Contains data structures, ZIO layers and zio-config descriptors for configuring the zio-k8s client.</p><div class="fullcomment"><div class="comment cmt"><p>Contains data structures, ZIO layers and zio-config descriptors for configuring the zio-k8s client.</p><p>Each zio-k8s client module depends on two ZIO modules: <a href="../model/package$$K8sCluster.html" class="extype" name="com.coralogix.zio.k8s.client.model.K8sCluster">com.coralogix.zio.k8s.client.model.K8sCluster</a> and an <a href="https://javadoc.io/page/com.softwaremill.sttp.client3/core_2.12/3.3.0/sttp/client3/SttpBackend.html" class="extype" name="sttp.client3.SttpBackend">sttp.client3.SttpBackend</a>.
-To use the default configuration (use kubeconfig if available, otherwise fallback to service account token),
-use either <code>asynchttpclient.k8sDefault</code> or <code>httpclient.k8sDefault</code> depending on your chosen sttp backend.</p><p>Manual configuration is possible by providing a <a href="package$$K8sClusterConfig.html" class="extype" name="com.coralogix.zio.k8s.client.config.K8sClusterConfig">K8sClusterConfig</a> value to both the <a href="index.html#k8sCluster:zio.ZLayer[zio.blocking.Blockingwithzio.Has[com.coralogix.zio.k8s.client.config.package.K8sClusterConfig],Throwable,zio.Has[com.coralogix.zio.k8s.client.model.K8sCluster]]" class="extmbr" name="com.coralogix.zio.k8s.client.config#k8sCluster">k8sCluster</a> layer
-and either <code>asynchttpclient.k8sSttpClient</code> or <code>httpclient.k8sSttpClient</code>.</p><p>Instead of manually providing the configuration, zio-config descriptors are available to load them from any
-supported source.
-</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="com.coralogix.zio.k8s.client">client</a></dd></dl></div>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="com.coralogix.zio.k8s.client">client</a></dd></dl></div>
+    </li><li name="com.coralogix.zio.k8s.client.model.primitives" visbl="pub" class="indented7 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="primitives"></a><a id="primitives:primitives"></a>
+      <span class="permalink">
+      <a href="../../../../../../com/coralogix/zio/k8s/client/model/primitives/index.html" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="primitives/index.html"><span class="name">primitives</span></a>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="com.coralogix.zio.k8s.client.model">model</a></dd></dl></div>
     </li><li class="current-entities indented6">
                         <span class="separator"></span>
-                        <a class="trait" href="Descriptors.html" title="Defines ZIO Config descriptors for all the configuration data types of zio-k8s"></a>
-                        <a href="Descriptors.html" title="Defines ZIO Config descriptors for all the configuration data types of zio-k8s">Descriptors</a>
-                      </li><li class="current-entities indented6">
-                        <a class="object" href="package$$K8sAuthentication$.html" title=""></a>
-                        <a class="trait" href="package$$K8sAuthentication.html" title="Type of authentication to use with the Kubernetes cluster"></a>
-                        <a href="package$$K8sAuthentication.html" title="Type of authentication to use with the Kubernetes cluster">K8sAuthentication</a>
+                        <a class="class" href="Added.html" title="Resource added"></a>
+                        <a href="Added.html" title="Resource added">Added</a>
                       </li><li class="current-entities indented6">
                         <span class="separator"></span>
-                        <a class="class" href="package$$K8sClientConfig.html" title="Configuration for the HTTP connection towards the Kubernetes API"></a>
-                        <a href="package$$K8sClientConfig.html" title="Configuration for the HTTP connection towards the Kubernetes API">K8sClientConfig</a>
+                        <a class="class" href="Deleted.html" title="Resource has been deleted"></a>
+                        <a href="Deleted.html" title="Resource has been deleted">Deleted</a>
                       </li><li class="current-entities indented6">
-                        <a class="object" href="" title=""></a>
-                        <a class="class" href="package$$K8sClusterConfig.html" title="Configures the zio-k8s client"></a>
-                        <a href="package$$K8sClusterConfig.html" title="Configures the zio-k8s client">K8sClusterConfig</a>
+                        <span class="separator"></span>
+                        <a class="trait" href="FieldSelector$$Syntax$Field.html" title=""></a>
+                        <a href="FieldSelector$$Syntax$Field.html" title="">Field</a>
                       </li><li class="current-entities indented6">
-                        <a class="object" href="package$$K8sServerCertificate$.html" title=""></a>
-                        <a class="trait" href="package$$K8sServerCertificate.html" title="Configured Kubernetes server certifications"></a>
-                        <a href="package$$K8sServerCertificate.html" title="Configured Kubernetes server certifications">K8sServerCertificate</a>
+                        <a class="object" href="FieldSelector$.html" title=""></a>
+                        <a class="trait" href="FieldSelector.html" title="A composable field selector"></a>
+                        <a href="FieldSelector.html" title="A composable field selector">FieldSelector</a>
                       </li><li class="current-entities indented6">
-                        <a class="object" href="package$$KeySource$.html" title=""></a>
-                        <a class="trait" href="package$$KeySource.html" title="Abstraction for configuring keys"></a>
-                        <a href="package$$KeySource.html" title="Abstraction for configuring keys">KeySource</a>
+                        <span class="separator"></span>
+                        <a class="class" href="package$$K8sCluster.html" title="Data type describing a configured Kuberntes cluster"></a>
+                        <a href="package$$K8sCluster.html" title="Data type describing a configured Kuberntes cluster">K8sCluster</a>
                       </li><li class="current-entities indented6">
-                        <a class="object" href="Kubeconfig$.html" title=""></a>
-                        <a class="class" href="Kubeconfig.html" title=""></a>
-                        <a href="Kubeconfig.html" title="">Kubeconfig</a>
+                        <span class="separator"></span>
+                        <a class="class" href="package$$K8sCreatorUri.html" title=""></a>
+                        <a href="package$$K8sCreatorUri.html" title="">K8sCreatorUri</a>
                       </li><li class="current-entities indented6">
-                        <a class="object" href="KubeconfigCluster$.html" title=""></a>
-                        <a class="class" href="KubeconfigCluster.html" title=""></a>
-                        <a href="KubeconfigCluster.html" title="">KubeconfigCluster</a>
+                        <span class="separator"></span>
+                        <a class="class" href="package$$K8sDeletingManyUri.html" title=""></a>
+                        <a href="package$$K8sDeletingManyUri.html" title="">K8sDeletingManyUri</a>
                       </li><li class="current-entities indented6">
-                        <a class="object" href="KubeconfigClusterInfo$.html" title=""></a>
-                        <a class="class" href="KubeconfigClusterInfo.html" title=""></a>
-                        <a href="KubeconfigClusterInfo.html" title="">KubeconfigClusterInfo</a>
+                        <span class="separator"></span>
+                        <a class="class" href="package$$K8sDeletingUri.html" title=""></a>
+                        <a href="package$$K8sDeletingUri.html" title="">K8sDeletingUri</a>
                       </li><li class="current-entities indented6">
-                        <a class="object" href="KubeconfigContext$.html" title=""></a>
-                        <a class="class" href="KubeconfigContext.html" title=""></a>
-                        <a href="KubeconfigContext.html" title="">KubeconfigContext</a>
+                        <span class="separator"></span>
+                        <a class="class" href="package$$K8sModifierUri.html" title=""></a>
+                        <a href="package$$K8sModifierUri.html" title="">K8sModifierUri</a>
                       </li><li class="current-entities indented6">
-                        <a class="object" href="KubeconfigContextInfo$.html" title=""></a>
-                        <a class="class" href="KubeconfigContextInfo.html" title=""></a>
-                        <a href="KubeconfigContextInfo.html" title="">KubeconfigContextInfo</a>
+                        <a class="object" href="package$$K8sNamespace$.html" title=""></a>
+                        <a class="class" href="package$$K8sNamespace.html" title="A Kubernetes namespace"></a>
+                        <a href="package$$K8sNamespace.html" title="A Kubernetes namespace">K8sNamespace</a>
                       </li><li class="current-entities indented6">
-                        <a class="object" href="KubeconfigUser$.html" title=""></a>
-                        <a class="class" href="KubeconfigUser.html" title=""></a>
-                        <a href="KubeconfigUser.html" title="">KubeconfigUser</a>
+                        <a class="object" href="K8sObject$.html" title=""></a>
+                        <a class="trait" href="K8sObject.html" title="Common operations for every Kubernetes resource's object"></a>
+                        <a href="K8sObject.html" title="Common operations for every Kubernetes resource's object">K8sObject</a>
                       </li><li class="current-entities indented6">
-                        <a class="object" href="KubeconfigUserInfo$.html" title=""></a>
-                        <a class="class" href="KubeconfigUserInfo.html" title=""></a>
-                        <a href="KubeconfigUserInfo.html" title="">KubeconfigUserInfo</a>
+                        <span class="separator"></span>
+                        <a class="trait" href="K8sObjectOps.html" title="Extension methods for Kubernetes resources"></a>
+                        <a href="K8sObjectOps.html" title="Extension methods for Kubernetes resources">K8sObjectOps</a>
+                      </li><li class="current-entities indented6">
+                        <a class="object" href="K8sObjectStatus$.html" title=""></a>
+                        <a class="trait" href="K8sObjectStatus.html" title="Common operations for every Kubernetes resource type supporting status subresources."></a>
+                        <a href="K8sObjectStatus.html" title="Common operations for every Kubernetes resource type supporting status subresources.">K8sObjectStatus</a>
+                      </li><li class="current-entities indented6">
+                        <span class="separator"></span>
+                        <a class="trait" href="K8sObjectStatusOps.html" title="Extension methods for Kubernetes resources with status subresource support"></a>
+                        <a href="K8sObjectStatusOps.html" title="Extension methods for Kubernetes resources with status subresource support">K8sObjectStatusOps</a>
+                      </li><li class="current-entities indented6">
+                        <span class="separator"></span>
+                        <a class="class" href="package$$K8sPaginatedUri.html" title=""></a>
+                        <a href="package$$K8sPaginatedUri.html" title="">K8sPaginatedUri</a>
+                      </li><li class="current-entities indented6">
+                        <span class="separator"></span>
+                        <a class="class" href="package$$K8sResourceType.html" title="Metadata identifying a Kubernetes resource"></a>
+                        <a href="package$$K8sResourceType.html" title="Metadata identifying a Kubernetes resource">K8sResourceType</a>
+                      </li><li class="current-entities indented6">
+                        <span class="separator"></span>
+                        <a class="class" href="package$$K8sSimpleUri.html" title=""></a>
+                        <a href="package$$K8sSimpleUri.html" title="">K8sSimpleUri</a>
+                      </li><li class="current-entities indented6">
+                        <span class="separator"></span>
+                        <a class="trait" href="package$$K8sUri.html" title="Kubernetes API URI"></a>
+                        <a href="package$$K8sUri.html" title="Kubernetes API URI">K8sUri</a>
+                      </li><li class="current-entities indented6">
+                        <span class="separator"></span>
+                        <a class="class" href="package$$K8sWatchUri.html" title=""></a>
+                        <a href="package$$K8sWatchUri.html" title="">K8sWatchUri</a>
+                      </li><li class="current-entities indented6">
+                        <span class="separator"></span>
+                        <a class="trait" href="LabelSelector$$Syntax$Label.html" title=""></a>
+                        <a href="LabelSelector$$Syntax$Label.html" title="">Label</a>
+                      </li><li class="current-entities indented6">
+                        <a class="object" href="LabelSelector$.html" title=""></a>
+                        <a class="trait" href="LabelSelector.html" title="Composable label selector"></a>
+                        <a href="LabelSelector.html" title="Composable label selector">LabelSelector</a>
+                      </li><li class="current-entities indented6">
+                        <a class="object" href="ListResourceVersion$.html" title=""></a>
+                        <a class="trait" href="ListResourceVersion.html" title="Resource version options for listing resource"></a>
+                        <a href="ListResourceVersion.html" title="Resource version options for listing resource">ListResourceVersion</a>
+                      </li><li class="current-entities indented6">
+                        <span class="separator"></span>
+                        <a class="class" href="Modified.html" title="Existing resource modified"></a>
+                        <a href="Modified.html" title="Existing resource modified">Modified</a>
+                      </li><li class="current-entities indented6">
+                        <a class="object" href="ObjectList$.html" title=""></a>
+                        <a class="class" href="ObjectList.html" title="Response type of the getAll operation"></a>
+                        <a href="ObjectList.html" title="Response type of the getAll operation">ObjectList</a>
+                      </li><li class="current-entities indented6">
+                        <a class="object" href="Optional$.html" title=""></a>
+                        <a class="trait" href="Optional.html" title="Custom option type used in the generated Kubernetes data models."></a>
+                        <a href="Optional.html" title="Custom option type used in the generated Kubernetes data models.">Optional</a>
+                      </li><li class="current-entities indented6">
+                        <span class="separator"></span>
+                        <a class="class" href="ParsedBookmark.html" title="Bookmark event"></a>
+                        <a href="ParsedBookmark.html" title="Bookmark event">ParsedBookmark</a>
+                      </li><li class="current-entities indented6">
+                        <span class="separator"></span>
+                        <a class="class" href="ParsedTypedWatchEvent.html" title="Parsed typed watch event"></a>
+                        <a href="ParsedTypedWatchEvent.html" title="Parsed typed watch event">ParsedTypedWatchEvent</a>
+                      </li><li class="current-entities indented6">
+                        <a class="object" href="ParsedWatchEvent$.html" title=""></a>
+                        <a class="trait" href="ParsedWatchEvent.html" title="Watch event with parsed payload"></a>
+                        <a href="ParsedWatchEvent.html" title="Watch event with parsed payload">ParsedWatchEvent</a>
+                      </li><li class="current-entities indented6">
+                        <a class="object" href="PropagationPolicy$.html" title=""></a>
+                        <a class="trait" href="PropagationPolicy.html" title="Propagation policy for resource deletion"></a>
+                        <a href="PropagationPolicy.html" title="Propagation policy for resource deletion">PropagationPolicy</a>
+                      </li><li class="current-entities indented6">
+                        <span class="separator"></span>
+                        <a class="class" href="" title="Watch stream reseted"></a>
+                        <a href="" title="Watch stream reseted">Reseted</a>
+                      </li><li class="current-entities indented6">
+                        <span class="separator"></span>
+                        <a class="trait" href="ResourceMetadata.html" title="Resource metadata typeclass"></a>
+                        <a href="ResourceMetadata.html" title="Resource metadata typeclass">ResourceMetadata</a>
+                      </li><li class="current-entities indented6">
+                        <span class="separator"></span>
+                        <a class="trait" href="TypedWatchEvent.html" title="Watch events with decoded payload"></a>
+                        <a href="TypedWatchEvent.html" title="Watch events with decoded payload">TypedWatchEvent</a>
                       </li>
               </ul>
             </div>
           </div>
           <div id="content">
-            <body class="object value">
+            <body class="class type">
       <div id="definition">
-        <a href="package$$K8sClusterConfig.html" title="See companion class"><div class="big-circle object-companion-class">o</div></a>
-        <p id="owner"><a href="../../../../../index.html" class="extype" name="com">com</a>.<a href="../../../../index.html" class="extype" name="com.coralogix">coralogix</a>.<a href="../../../index.html" class="extype" name="com.coralogix.zio">zio</a>.<a href="../../index.html" class="extype" name="com.coralogix.zio.k8s">k8s</a>.<a href="../index.html" class="extype" name="com.coralogix.zio.k8s.client">client</a>.<a href="index.html" class="extype" name="com.coralogix.zio.k8s.client.config">config</a></p>
-        <h1><a href="package$$K8sClusterConfig.html" title="See companion class">K8sClusterConfig</a><span class="permalink">
-      <a href="../../../../../../com/coralogix/zio/k8s/client/config/package$$K8sClusterConfig$.html" title="Permalink">
+        <div class="big-circle class">c</div>
+        <p id="owner"><a href="../../../../../index.html" class="extype" name="com">com</a>.<a href="../../../../index.html" class="extype" name="com.coralogix">coralogix</a>.<a href="../../../index.html" class="extype" name="com.coralogix.zio">zio</a>.<a href="../../index.html" class="extype" name="com.coralogix.zio.k8s">k8s</a>.<a href="../index.html" class="extype" name="com.coralogix.zio.k8s.client">client</a>.<a href="index.html" class="extype" name="com.coralogix.zio.k8s.client.model">model</a></p>
+        <h1>Reseted<span class="permalink">
+      <a href="../../../../../../com/coralogix/zio/k8s/client/model/Reseted.html" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span></h1>
-        <h3><span class="morelinks"><div>
-            Companion <a href="package$$K8sClusterConfig.html" title="See companion class">class K8sClusterConfig</a>
-          </div></span></h3>
+        <h3><span class="morelinks"></span></h3>
       </div>
 
       <h4 id="signature" class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
-        <span class="kind">object</span>
+        <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <span class="name">K8sClusterConfig</span><span class="result"> extends <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <span class="name">Reseted</span><span class="tparams">[<span name="T">T</span>]</span><span class="params">()</span><span class="result"> extends <a href="TypedWatchEvent.html" class="extype" name="com.coralogix.zio.k8s.client.model.TypedWatchEvent">TypedWatchEvent</a>[<span class="extype" name="com.coralogix.zio.k8s.client.model.Reseted.T">T</span>] with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Watch stream reseted
+</p></div><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
-          <div class="superTypes hiddenContent"><span class="extype" name="scala.Serializable">Serializable</span>, <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java/io/Serializable.html#java.io.Serializable" class="extype" name="java.io.Serializable">Serializable</a>, <span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
+          <div class="superTypes hiddenContent"><span class="extype" name="scala.Serializable">Serializable</span>, <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java/io/Serializable.html#java.io.Serializable" class="extype" name="java.io.Serializable">Serializable</a>, <span class="extype" name="scala.Product">Product</span>, <span class="extype" name="scala.Equals">Equals</span>, <a href="TypedWatchEvent.html" class="extype" name="com.coralogix.zio.k8s.client.model.TypedWatchEvent">TypedWatchEvent</a>[<span class="extype" name="com.coralogix.zio.k8s.client.model.Reseted.T">T</span>], <span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
         </div></div>
         
 
@@ -282,7 +368,7 @@ supported source.
                   <span class="filtertype">Inherited<br />
                   </span>
                   <ol id="linearization">
-                    <li class="in" name="com.coralogix.zio.k8s.client.config.K8sClusterConfig"><span>K8sClusterConfig</span></li><li class="in" name="scala.Serializable"><span>Serializable</span></li><li class="in" name="java.io.Serializable"><span>Serializable</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
+                    <li class="in" name="com.coralogix.zio.k8s.client.model.Reseted"><span>Reseted</span></li><li class="in" name="scala.Serializable"><span>Serializable</span></li><li class="in" name="java.io.Serializable"><span>Serializable</span></li><li class="in" name="scala.Product"><span>Product</span></li><li class="in" name="scala.Equals"><span>Equals</span></li><li class="in" name="com.coralogix.zio.k8s.client.model.TypedWatchEvent"><span>TypedWatchEvent</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
                   </ol>
                 </div><div class="ancestors">
               <span class="filtertype"></span>
@@ -300,7 +386,26 @@ supported source.
 
       <div id="template">
         <div id="allMembers">
-        
+        <div id="constructors" class="members">
+              <h3>Instance Constructors</h3>
+              <ol><li name="com.coralogix.zio.k8s.client.model.Reseted#&lt;init&gt;" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="&lt;init&gt;():com.coralogix.zio.k8s.client.model.Reseted[T]"></a><a id="&lt;init&gt;:Reseted[T]"></a>
+      <span class="permalink">
+      <a href="../../../../../../com/coralogix/zio/k8s/client/model/Reseted.html#&lt;init&gt;():com.coralogix.zio.k8s.client.model.Reseted[T]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">new</span>
+      </span>
+      <span class="symbol">
+        <span class="name">Reseted</span><span class="params">()</span>
+      </span>
+      
+      
+    </li></ol>
+            </div>
 
         
 
@@ -312,7 +417,7 @@ supported source.
                 <li name="scala.AnyRef#!=" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="!=(x$1:Any):Boolean"></a><a id="!=(Any):Boolean"></a>
       <span class="permalink">
-      <a href="../../../../../../com/coralogix/zio/k8s/client/config/package$$K8sClusterConfig$.html#!=(x$1:Any):Boolean" title="Permalink">
+      <a href="../../../../../../com/coralogix/zio/k8s/client/model/Reseted.html#!=(x$1:Any):Boolean" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -328,7 +433,7 @@ supported source.
     </li><li name="scala.AnyRef###" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="##():Int"></a>
       <span class="permalink">
-      <a href="../../../../../../com/coralogix/zio/k8s/client/config/package$$K8sClusterConfig$.html###():Int" title="Permalink">
+      <a href="../../../../../../com/coralogix/zio/k8s/client/model/Reseted.html###():Int" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -344,7 +449,7 @@ supported source.
     </li><li name="scala.AnyRef#==" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="==(x$1:Any):Boolean"></a><a id="==(Any):Boolean"></a>
       <span class="permalink">
-      <a href="../../../../../../com/coralogix/zio/k8s/client/config/package$$K8sClusterConfig$.html#==(x$1:Any):Boolean" title="Permalink">
+      <a href="../../../../../../com/coralogix/zio/k8s/client/model/Reseted.html#==(x$1:Any):Boolean" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -360,7 +465,7 @@ supported source.
     </li><li name="scala.Any#asInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="asInstanceOf[T0]:T0"></a>
       <span class="permalink">
-      <a href="../../../../../../com/coralogix/zio/k8s/client/config/package$$K8sClusterConfig$.html#asInstanceOf[T0]:T0" title="Permalink">
+      <a href="../../../../../../com/coralogix/zio/k8s/client/model/Reseted.html#asInstanceOf[T0]:T0" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -376,7 +481,7 @@ supported source.
     </li><li name="scala.AnyRef#clone" visbl="prt" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="clone():Object"></a><a id="clone():AnyRef"></a>
       <span class="permalink">
-      <a href="../../../../../../com/coralogix/zio/k8s/client/config/package$$K8sClusterConfig$.html#clone():Object" title="Permalink">
+      <a href="../../../../../../com/coralogix/zio/k8s/client/model/Reseted.html#clone():Object" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -402,7 +507,7 @@ supported source.
     </li><li name="scala.AnyRef#eq" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="eq(x$1:AnyRef):Boolean"></a><a id="eq(AnyRef):Boolean"></a>
       <span class="permalink">
-      <a href="../../../../../../com/coralogix/zio/k8s/client/config/package$$K8sClusterConfig$.html#eq(x$1:AnyRef):Boolean" title="Permalink">
+      <a href="../../../../../../com/coralogix/zio/k8s/client/model/Reseted.html#eq(x$1:AnyRef):Boolean" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -415,26 +520,10 @@ supported source.
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
-    </li><li name="scala.AnyRef#equals" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="equals(x$1:Any):Boolean"></a><a id="equals(Any):Boolean"></a>
-      <span class="permalink">
-      <a href="../../../../../../com/coralogix/zio/k8s/client/config/package$$K8sClusterConfig$.html#equals(x$1:Any):Boolean" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">equals</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
     </li><li name="scala.AnyRef#getClass" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getClass():Class[_]"></a>
       <span class="permalink">
-      <a href="../../../../../../com/coralogix/zio/k8s/client/config/package$$K8sClusterConfig$.html#getClass():Class[_]" title="Permalink">
+      <a href="../../../../../../com/coralogix/zio/k8s/client/model/Reseted.html#getClass():Class[_]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -452,31 +541,10 @@ supported source.
                 <span class="name">@HotSpotIntrinsicCandidate</span><span class="args">()</span>
               
         </dd></dl></div>
-    </li><li name="scala.AnyRef#hashCode" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="hashCode():Int"></a>
-      <span class="permalink">
-      <a href="../../../../../../com/coralogix/zio/k8s/client/config/package$$K8sClusterConfig$.html#hashCode():Int" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">hashCode</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd><dt>Annotations</dt><dd>
-                <span class="name">@native</span><span class="args">()</span>
-              
-                <span class="name">@HotSpotIntrinsicCandidate</span><span class="args">()</span>
-              
-        </dd></dl></div>
     </li><li name="scala.Any#isInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isInstanceOf[T0]:Boolean"></a>
       <span class="permalink">
-      <a href="../../../../../../com/coralogix/zio/k8s/client/config/package$$K8sClusterConfig$.html#isInstanceOf[T0]:Boolean" title="Permalink">
+      <a href="../../../../../../com/coralogix/zio/k8s/client/model/Reseted.html#isInstanceOf[T0]:Boolean" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -489,27 +557,28 @@ supported source.
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
-    </li><li name="com.coralogix.zio.k8s.client.config.K8sClusterConfig#k8sClusterConfigDescriptor" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="k8sClusterConfigDescriptor:zio.config.magnolia.DeriveConfigDescriptor.Descriptor[com.coralogix.zio.k8s.client.config.package.K8sClusterConfig]"></a><a id="k8sClusterConfigDescriptor:Descriptor[K8sClusterConfig]"></a>
+    </li><li name="com.coralogix.zio.k8s.client.model.Reseted#namespace" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="namespace:Option[com.coralogix.zio.k8s.client.model.K8sNamespace]"></a><a id="namespace:Option[K8sNamespace]"></a>
       <span class="permalink">
-      <a href="../../../../../../com/coralogix/zio/k8s/client/config/package$$K8sClusterConfig$.html#k8sClusterConfigDescriptor:zio.config.magnolia.DeriveConfigDescriptor.Descriptor[com.coralogix.zio.k8s.client.config.package.K8sClusterConfig]" title="Permalink">
+      <a href="../../../../../../com/coralogix/zio/k8s/client/model/Reseted.html#namespace:Option[com.coralogix.zio.k8s.client.model.K8sNamespace]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
       <span class="modifier_kind">
-        <span class="modifier">implicit </span>
+        <span class="modifier"></span>
         <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">k8sClusterConfigDescriptor</span><span class="result">: <span class="extype" name="zio.config.magnolia.DeriveConfigDescriptor.Descriptor">Descriptor</span>[<a href="package$$K8sClusterConfig.html" class="extype" name="com.coralogix.zio.k8s.client.config.K8sClusterConfig">K8sClusterConfig</a>]</span>
+        <span class="name">namespace</span><span class="result">: <span class="extype" name="scala.Option">Option</span>[<a href="package$$K8sNamespace.html" class="extype" name="com.coralogix.zio.k8s.client.model.K8sNamespace">K8sNamespace</a>]</span>
       </span>
       
-      <p class="shortcomment cmt">ZIO Config descriptor for <a href="package$$K8sClusterConfig.html" class="extype" name="com.coralogix.zio.k8s.client.config.K8sClusterConfig">K8sClusterConfig</a>
-</p>
+      <p class="shortcomment cmt">Namespace of the payload
+</p><div class="fullcomment"><div class="comment cmt"><p>Namespace of the payload
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="com.coralogix.zio.k8s.client.model.Reseted">Reseted</a> → <a href="TypedWatchEvent.html" class="extype" name="com.coralogix.zio.k8s.client.model.TypedWatchEvent">TypedWatchEvent</a></dd></dl></div>
     </li><li name="scala.AnyRef#ne" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="ne(x$1:AnyRef):Boolean"></a><a id="ne(AnyRef):Boolean"></a>
       <span class="permalink">
-      <a href="../../../../../../com/coralogix/zio/k8s/client/config/package$$K8sClusterConfig$.html#ne(x$1:AnyRef):Boolean" title="Permalink">
+      <a href="../../../../../../com/coralogix/zio/k8s/client/model/Reseted.html#ne(x$1:AnyRef):Boolean" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -525,7 +594,7 @@ supported source.
     </li><li name="scala.AnyRef#notify" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="notify():Unit"></a>
       <span class="permalink">
-      <a href="../../../../../../com/coralogix/zio/k8s/client/config/package$$K8sClusterConfig$.html#notify():Unit" title="Permalink">
+      <a href="../../../../../../com/coralogix/zio/k8s/client/model/Reseted.html#notify():Unit" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -546,7 +615,7 @@ supported source.
     </li><li name="scala.AnyRef#notifyAll" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="notifyAll():Unit"></a>
       <span class="permalink">
-      <a href="../../../../../../com/coralogix/zio/k8s/client/config/package$$K8sClusterConfig$.html#notifyAll():Unit" title="Permalink">
+      <a href="../../../../../../com/coralogix/zio/k8s/client/model/Reseted.html#notifyAll():Unit" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -564,10 +633,28 @@ supported source.
                 <span class="name">@HotSpotIntrinsicCandidate</span><span class="args">()</span>
               
         </dd></dl></div>
+    </li><li name="com.coralogix.zio.k8s.client.model.Reseted#resourceVersion" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="resourceVersion:Option[String]"></a>
+      <span class="permalink">
+      <a href="../../../../../../com/coralogix/zio/k8s/client/model/Reseted.html#resourceVersion:Option[String]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">resourceVersion</span><span class="result">: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Predef.String">String</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Resource version of the payload
+</p><div class="fullcomment"><div class="comment cmt"><p>Resource version of the payload
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="com.coralogix.zio.k8s.client.model.Reseted">Reseted</a> → <a href="TypedWatchEvent.html" class="extype" name="com.coralogix.zio.k8s.client.model.TypedWatchEvent">TypedWatchEvent</a></dd></dl></div>
     </li><li name="scala.AnyRef#synchronized" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="synchronized[T0](x$1:=&gt;T0):T0"></a><a id="synchronized[T0](⇒T0):T0"></a>
       <span class="permalink">
-      <a href="../../../../../../com/coralogix/zio/k8s/client/config/package$$K8sClusterConfig$.html#synchronized[T0](x$1:=&gt;T0):T0" title="Permalink">
+      <a href="../../../../../../com/coralogix/zio/k8s/client/model/Reseted.html#synchronized[T0](x$1:=&gt;T0):T0" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -580,26 +667,10 @@ supported source.
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
-    </li><li name="scala.AnyRef#toString" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="toString():String"></a>
-      <span class="permalink">
-      <a href="../../../../../../com/coralogix/zio/k8s/client/config/package$$K8sClusterConfig$.html#toString():String" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">toString</span><span class="params">()</span><span class="result">: <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java/lang/String.html#java.lang.String" class="extype" name="java.lang.String">String</a></span>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
     </li><li name="scala.AnyRef#wait" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="wait(x$1:Long,x$2:Int):Unit"></a><a id="wait(Long,Int):Unit"></a>
       <span class="permalink">
-      <a href="../../../../../../com/coralogix/zio/k8s/client/config/package$$K8sClusterConfig$.html#wait(x$1:Long,x$2:Int):Unit" title="Permalink">
+      <a href="../../../../../../com/coralogix/zio/k8s/client/model/Reseted.html#wait(x$1:Long,x$2:Int):Unit" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -621,7 +692,7 @@ supported source.
     </li><li name="scala.AnyRef#wait" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="wait(x$1:Long):Unit"></a><a id="wait(Long):Unit"></a>
       <span class="permalink">
-      <a href="../../../../../../com/coralogix/zio/k8s/client/config/package$$K8sClusterConfig$.html#wait(x$1:Long):Unit" title="Permalink">
+      <a href="../../../../../../com/coralogix/zio/k8s/client/model/Reseted.html#wait(x$1:Long):Unit" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -645,7 +716,7 @@ supported source.
     </li><li name="scala.AnyRef#wait" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="wait():Unit"></a>
       <span class="permalink">
-      <a href="../../../../../../com/coralogix/zio/k8s/client/config/package$$K8sClusterConfig$.html#wait():Unit" title="Permalink">
+      <a href="../../../../../../com/coralogix/zio/k8s/client/model/Reseted.html#wait():Unit" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -675,7 +746,7 @@ supported source.
               <ol><li name="scala.AnyRef#finalize" visbl="prt" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="finalize():Unit"></a>
       <span class="permalink">
-      <a href="../../../../../../com/coralogix/zio/k8s/client/config/package$$K8sClusterConfig$.html#finalize():Unit" title="Permalink">
+      <a href="../../../../../../com/coralogix/zio/k8s/client/model/Reseted.html#finalize():Unit" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -705,6 +776,12 @@ supported source.
               <h3>Inherited from <span class="extype" name="scala.Serializable">Serializable</span></h3>
             </div><div class="parent" name="java.io.Serializable">
               <h3>Inherited from <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java/io/Serializable.html#java.io.Serializable" class="extype" name="java.io.Serializable">Serializable</a></h3>
+            </div><div class="parent" name="scala.Product">
+              <h3>Inherited from <span class="extype" name="scala.Product">Product</span></h3>
+            </div><div class="parent" name="scala.Equals">
+              <h3>Inherited from <span class="extype" name="scala.Equals">Equals</span></h3>
+            </div><div class="parent" name="com.coralogix.zio.k8s.client.model.TypedWatchEvent">
+              <h3>Inherited from <a href="TypedWatchEvent.html" class="extype" name="com.coralogix.zio.k8s.client.model.TypedWatchEvent">TypedWatchEvent</a>[<span class="extype" name="com.coralogix.zio.k8s.client.model.Reseted.T">T</span>]</h3>
             </div><div class="parent" name="scala.AnyRef">
               <h3>Inherited from <span class="extype" name="scala.AnyRef">AnyRef</span></h3>
             </div><div class="parent" name="scala.Any">

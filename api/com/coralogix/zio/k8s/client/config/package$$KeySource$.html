@@ -164,7 +164,7 @@
         <a title="Contains data structures, ZIO layers and zio-config descriptors for configuring the zio-k8s client." href="index.html"><span class="name">config</span></a>
       </span>
       
-      <p class="shortcomment cmt">Contains data structures, ZIO layers and zio-config descriptors for configuring the zio-k8s client.</p><div class="fullcomment"><div class="comment cmt"><p>Contains data structures, ZIO layers and zio-config descriptors for configuring the zio-k8s client.</p><p>Each zio-k8s client module depends on two ZIO modules: <a href="../model/package$$K8sCluster.html" class="extype" name="com.coralogix.zio.k8s.client.model.K8sCluster">com.coralogix.zio.k8s.client.model.K8sCluster</a> and an <a href="https://javadoc.io/page/com.softwaremill.sttp.client3/core_2.12/3.3.0/sttp/client3/SttpBackend.html" class="extype" name="sttp.client3.SttpBackend">sttp.client3.SttpBackend</a>.
+      <p class="shortcomment cmt">Contains data structures, ZIO layers and zio-config descriptors for configuring the zio-k8s client.</p><div class="fullcomment"><div class="comment cmt"><p>Contains data structures, ZIO layers and zio-config descriptors for configuring the zio-k8s client.</p><p>Each zio-k8s client module depends on two ZIO modules: <a href="../model/package$$K8sCluster.html" class="extype" name="com.coralogix.zio.k8s.client.model.K8sCluster">com.coralogix.zio.k8s.client.model.K8sCluster</a> and an <a href="https://javadoc.io/page/com.softwaremill.sttp.client3/core_2.12/3.3.6/sttp/client3/SttpBackend.html" class="extype" name="sttp.client3.SttpBackend">sttp.client3.SttpBackend</a>.
 To use the default configuration (use kubeconfig if available, otherwise fallback to service account token),
 use either <code>asynchttpclient.k8sDefault</code> or <code>httpclient.k8sDefault</code> depending on your chosen sttp backend.</p><p>Manual configuration is possible by providing a <a href="package$$K8sClusterConfig.html" class="extype" name="com.coralogix.zio.k8s.client.config.K8sClusterConfig">K8sClusterConfig</a> value to both the <a href="index.html#k8sCluster:zio.ZLayer[zio.blocking.Blockingwithzio.Has[com.coralogix.zio.k8s.client.config.package.K8sClusterConfig],Throwable,zio.Has[com.coralogix.zio.k8s.client.model.K8sCluster]]" class="extmbr" name="com.coralogix.zio.k8s.client.config#k8sCluster">k8sCluster</a> layer
 and either <code>asynchttpclient.k8sSttpClient</code> or <code>httpclient.k8sSttpClient</code>.</p><p>Instead of manually providing the configuration, zio-config descriptors are available to load them from any
@@ -183,7 +183,7 @@ supported source.
                         <a class="class" href="package$$K8sClientConfig.html" title="Configuration for the HTTP connection towards the Kubernetes API"></a>
                         <a href="package$$K8sClientConfig.html" title="Configuration for the HTTP connection towards the Kubernetes API">K8sClientConfig</a>
                       </li><li class="current-entities indented6">
-                        <a class="object" href="package$$K8sClusterConfig$.html" title=""></a>
+                        <span class="separator"></span>
                         <a class="class" href="package$$K8sClusterConfig.html" title="Configures the zio-k8s client"></a>
                         <a href="package$$K8sClusterConfig.html" title="Configures the zio-k8s client">K8sClusterConfig</a>
                       </li><li class="current-entities indented6">
@@ -332,7 +332,7 @@ supported source.
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a title="Key loaded from an external file" href="package$$KeySource$$FromFile.html"><span class="name">FromFile</span></a><span class="params">(<span name="path">path: <a href="https://javadoc.io/page/dev.zio/zio-nio-core_2.12/1.0.0-RC10/zio/nio/core/file/Path.html#zio.nio.core.file.Path" class="extype" name="zio.nio.core.file.Path">Path</a></span>)</span><span class="result"> extends <a href="package$$KeySource.html" class="extype" name="com.coralogix.zio.k8s.client.config.KeySource">KeySource</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a title="Key loaded from an external file" href="package$$KeySource$$FromFile.html"><span class="name">FromFile</span></a><span class="params">(<span name="path">path: <a href="https://javadoc.io/page/dev.zio/zio-nio-core_2.12/1.0.0-RC11/zio/nio/core/file/Path.html#zio.nio.core.file.Path" class="extype" name="zio.nio.core.file.Path">Path</a></span>)</span><span class="result"> extends <a href="package$$KeySource.html" class="extype" name="com.coralogix.zio.k8s.client.config.KeySource">KeySource</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       <p class="shortcomment cmt">Key loaded from an external file</p><div class="fullcomment"><div class="comment cmt"><p>Key loaded from an external file</p></div><dl class="paramcmts block"><dt class="param">path</dt><dd class="cmt"><p>path of the file</p></dd></dl></div>

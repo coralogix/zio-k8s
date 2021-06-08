@@ -80,9 +80,9 @@ for optional fields instead of standard <code>Option</code> to reduce boilerplat
 <p>There is a couple of type classes that has to be implemented for these data structures. First of all, it has
 to support being encoded to and decoded from JSON. This can be done by providing a <em>JSON codec</em>:</p>
 <pre><code class="hljs css language-scala"><span class="hljs-keyword">implicit</span> <span class="hljs-keyword">val</span> crontabCodec: <span class="hljs-type">Codec</span>[<span class="hljs-type">Crontab</span>] = deriveCodec
-<span class="hljs-comment">// crontabCodec: Codec[Crontab] = io.circe.generic.codec.DerivedAsObjectCodec$$anon$1@64d2f4ba</span>
+<span class="hljs-comment">// crontabCodec: Codec[Crontab] = io.circe.generic.codec.DerivedAsObjectCodec$$anon$1@726d47c</span>
 <span class="hljs-keyword">implicit</span> <span class="hljs-keyword">val</span> crontabStatusCodec: <span class="hljs-type">Codec</span>[<span class="hljs-type">CrontabStatus</span>] = deriveCodec
-<span class="hljs-comment">// crontabStatusCodec: Codec[CrontabStatus] = io.circe.generic.codec.DerivedAsObjectCodec$$anon$1@4390ca40</span>
+<span class="hljs-comment">// crontabStatusCodec: Codec[CrontabStatus] = io.circe.generic.codec.DerivedAsObjectCodec$$anon$1@5108f411</span>
 </code></pre>
 <p>Note that in practice you should put each implicit in the related type's companion object.</p>
 <p>In order to be able to use the generic functions in zio-k8s, you have to provide an instance of
@@ -94,7 +94,7 @@ and status fields of the custom resource:</p>
     <span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">mapMetadata</span></span>(f: <span class="hljs-type">ObjectMeta</span> =&gt; <span class="hljs-type">ObjectMeta</span>)(r: <span class="hljs-type">Crontab</span>): <span class="hljs-type">Crontab</span> =
       r.copy(metadata = r.metadata.map(f))
   }
-<span class="hljs-comment">// k8sObject: K8sObject[Crontab] = repl.MdocSession$App$$anon$5@6d406037</span>
+<span class="hljs-comment">// k8sObject: K8sObject[Crontab] = repl.MdocSession$App$$anon$3@41f24125</span>
 
   <span class="hljs-keyword">implicit</span> <span class="hljs-keyword">val</span> k8sObjectStatus: <span class="hljs-type">K8sObjectStatus</span>[<span class="hljs-type">Crontab</span>, <span class="hljs-type">CrontabStatus</span>] =
     <span class="hljs-keyword">new</span> <span class="hljs-type">K8sObjectStatus</span>[<span class="hljs-type">Crontab</span>, <span class="hljs-type">CrontabStatus</span>] {
@@ -102,7 +102,7 @@ and status fields of the custom resource:</p>
       <span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">mapStatus</span></span>(f: <span class="hljs-type">CrontabStatus</span> =&gt; <span class="hljs-type">CrontabStatus</span>)(obj: <span class="hljs-type">Crontab</span>): <span class="hljs-type">Crontab</span> =
         obj.copy(status = obj.status.map(f))
     }
-<span class="hljs-comment">// k8sObjectStatus: K8sObjectStatus[Crontab, CrontabStatus] = repl.MdocSession$App$$anon$6@1d3981ca</span>
+<span class="hljs-comment">// k8sObjectStatus: K8sObjectStatus[Crontab, CrontabStatus] = repl.MdocSession$App$$anon$4@79a0a925</span>
 </code></pre>
 <p>Finally we need to provide some <em>metadata</em> about the resource type with the <code>ResourceMetadata</code> type class:</p>
 <pre><code class="hljs css language-scala"><span class="hljs-keyword">implicit</span> <span class="hljs-keyword">val</span> metadata: <span class="hljs-type">ResourceMetadata</span>[<span class="hljs-type">Crontab</span>] = <span class="hljs-keyword">new</span> <span class="hljs-type">ResourceMetadata</span>[<span class="hljs-type">Crontab</span>] {
@@ -110,7 +110,7 @@ and status fields of the custom resource:</p>
   <span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">apiVersion</span></span>: <span class="hljs-type">String</span> = <span class="hljs-string">"apiextensions.k8s.io/v1"</span>
   <span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">resourceType</span></span>: model.<span class="hljs-type">K8sResourceType</span> = <span class="hljs-type">K8sResourceType</span>(<span class="hljs-string">"crontabs"</span>, <span class="hljs-string">"apiextensions.k8s.io"</span>, <span class="hljs-string">"v1"</span>)
 }
-<span class="hljs-comment">// metadata: ResourceMetadata[Crontab] = repl.MdocSession$App$$anon$7@2199c063</span>
+<span class="hljs-comment">// metadata: ResourceMetadata[Crontab] = repl.MdocSession$App$$anon$5@7305d78e</span>
 </code></pre>
 <p>This is all we need for the <em>model</em> of our custom resources. The next step is creating a ZIO module for working
 with these resources through the Kubernetes API.</p>
