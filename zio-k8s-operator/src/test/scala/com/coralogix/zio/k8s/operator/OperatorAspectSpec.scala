@@ -18,7 +18,7 @@ object OperatorAspectSpec extends DefaultRunnableSpec {
         val eventProcessor: EventProcessor[Clock, CustomOperatorFailures, Pod] =
           (ctx, event) =>
             event match {
-              case Reseted()        =>
+              case Reseted()      =>
                 ZIO.unit
               case Added(item)    =>
                 ZIO.unit

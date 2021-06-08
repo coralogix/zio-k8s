@@ -34,8 +34,11 @@ object LeaderExample extends App {
     val pods = k8sDefault >>> Pods.live
     val leases = k8sDefault >>> Leases.live
     val crds = k8sDefault >>> CustomResourceDefinitions.live
-    val contextInfo = (Blocking.any ++ System.any ++ pods) >>> ContextInfo.live.mapError(f => FiberFailure(Cause.fail(f)))
-    val leaderElection = (Random.any ++ leases ++ contextInfo) >>> LeaderElection.leaseLock("leader-example-lock")
+    val contextInfo = (Blocking.any ++ System.any ++ pods) >>> ContextInfo.live.mapError(f =>
+      FiberFailure(Cause.fail(f))
+    )
+    val leaderElection =
+      (Random.any ++ leases ++ contextInfo) >>> LeaderElection.leaseLock("leader-example-lock")
 
     // Example code
     val program =
