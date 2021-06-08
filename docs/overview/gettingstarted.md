@@ -131,15 +131,14 @@ val cluster = Blocking.any ++ System.any ++ config >>> k8sCluster
 import com.coralogix.zio.k8s.client.config._
 import com.coralogix.zio.k8s.client.config.httpclient._
 import zio.blocking.Blocking
-import zio.config.magnolia.DeriveConfigDescriptor._
-import zio.config.magnolia.name
+import zio.config.ConfigDescriptor
 import zio.config.typesafe._
 import zio.system.System
 
 case class Config(k8s: K8sClusterConfig)
 
 // Loading config from HOCON
-val configDesc = descriptor[Config]
+val configDesc = ConfigDescriptor.nested("k8s")(clusterConfigDescriptor).to[Config]
 val config = TypesafeConfig.fromDefaultLoader[Config](configDesc)
 
 // K8s configuration and client layers

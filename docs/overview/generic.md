@@ -63,7 +63,7 @@ import zio.console.Console
 def getAndPrint[T : Tag](name: String, namespace: K8sNamespace): ZIO[Console with Has[NamespacedResource[T]], K8sFailure, Unit] =
     for {
         obj <- ResourceClient.namespaced.get(name, namespace)
-        _ <- console.putStrLn(obj.toString)
+        _ <- console.putStrLn(obj.toString).ignore
     } yield ()
 ```
 
@@ -85,7 +85,7 @@ def getAndPrintUid[T : Tag : K8sObject](name: String, namespace: K8sNamespace): 
     for {
         obj <- ResourceClient.namespaced.get(name, namespace)
         uid <- obj.getUid
-        _ <- console.putStrLn(uid)
+        _ <- console.putStrLn(uid).ignore
     } yield ()
 ```
 
