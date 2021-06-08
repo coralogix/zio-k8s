@@ -1,6 +1,13 @@
 package com.coralogix.zio.k8s.operator
 
-import com.coralogix.zio.k8s.client.model.{ Added, Deleted, K8sObject, Modified, Reseted }
+import com.coralogix.zio.k8s.client.model.{
+  Added,
+  Deleted,
+  K8sObject,
+  Modified,
+  Reseted,
+  TypedWatchEvent
+}
 import com.coralogix.zio.k8s.operator.Operator.{ Aspect, _ }
 import zio.Cause
 import zio.logging.{ log, Logging }
@@ -15,10 +22,10 @@ package object aspects {
       override def apply[R1 <: Logging, E1 >: Nothing](
         f: EventProcessor[R1, E1, T]
       ): EventProcessor[R1, E1, T] =
-        (ctx, event) =>
+        (ctx: OperatorContext, event: TypedWatchEvent[T]) =>
           log.locally(OperatorLogging(ctx.withSpecificNamespace(event.namespace))) {
             (event match {
-              case event @ Reseted            =>
+              case event @ Reseted()          =>
                 log.debug(s"State reseted") *>
                   f(ctx, event)
               case event @ Added(resource)    =>

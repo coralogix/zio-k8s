@@ -18,7 +18,7 @@ package object httpclient {
     */
   val k8sSttpClient
     : ZLayer[Has[K8sClusterConfig] with System with Blocking, Throwable, SttpClient] =
-    ZLayer.fromServiceManaged { config: K8sClusterConfig =>
+    ZLayer.fromServiceManaged { (config: K8sClusterConfig) =>
       val disableHostnameVerification = config.client.serverCertificate match {
         case K8sServerCertificate.Insecure                               => true
         case K8sServerCertificate.Secure(_, disableHostnameVerification) =>

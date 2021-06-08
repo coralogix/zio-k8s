@@ -15,7 +15,8 @@ import zio._
 import zio.blocking.Blocking
 import zio.clock.Clock
 import zio.logging.{ log, LogFormat, LogLevel, Logging }
-import zio.magic._
+import zio.random.Random
+import zio.system.System
 
 import scala.languageFeature.implicitConversions
 
@@ -29,19 +30,15 @@ object LeaderExample extends App {
       format = LogFormat.ColoredLogFormat()
     ) >>> Logging.withRootLoggerName("leader-example")
 
-    // Loading config from HOCON
-//    val configDesc = descriptor[Config]
-//    val config = TypesafeConfig.fromDefaultLoader[Config](configDesc)
-
-    // K8s configuration and client layers
-//    val client = (System.any ++ Blocking.any ++ config.project(_.k8s)) >>> k8sSttpClient
-//    val cluster = (Blocking.any ++ config.project(_.k8s)) >>> k8sCluster
-
     // Pods and ConfigMaps API
-//    val k8s = (cluster ++ client) >>> Kubernetes.live
-//    val k8s = k8sDefault >>> Kubernetes.live
-//    val k8s = k8sDefault >>> (Pods.live ++ ConfigMaps.live)
-//    val leaderElection = k8s >>> LeaderElection.configMapLock("leader-example-lock")
+    val pods = k8sDefault >>> Pods.live
+    val leases = k8sDefault >>> Leases.live
+    val crds = k8sDefault >>> CustomResourceDefinitions.live
+    val contextInfo = (Blocking.any ++ System.any ++ pods) >>> ContextInfo.live.mapError(f =>
+      FiberFailure(Cause.fail(f))
+    )
+    val leaderElection =
+      (Random.any ++ leases ++ contextInfo) >>> LeaderElection.leaseLock("leader-example-lock")
 
     // Example code
     val program =
@@ -51,19 +48,7 @@ object LeaderExample extends App {
         example()
 
     program
-      .injectCustom(
-        logging,
-        k8sDefault,
-        CustomResourceDefinitions.live,
-        ContextInfo.live,
-        Pods.live,
-//        ConfigMaps.live,
-//        LeaderElection.configMapLock("leader-example-lock"),
-//        LeaderLockResources.live,
-//        LeaderElection.customLeaderLock("leader-example-lock", deleteLockOnRelease = false),
-        Leases.live,
-        LeaderElection.leaseLock("leader-example-lock")
-      )
+      .provideCustomLayer(logging ++ crds ++ leaderElection)
       .exitCode
   }
 

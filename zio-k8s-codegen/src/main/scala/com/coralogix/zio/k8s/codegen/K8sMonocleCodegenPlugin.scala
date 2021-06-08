@@ -11,7 +11,8 @@ object K8sMonocleCodegenPlugin extends AutoPlugin {
       Def.task {
         val log = streams.value.log
         val runtime = zio.Runtime.default
-        val codegen = new K8sResourceCodegen(log)
+        val scalaVer = scalaVersion.value
+        val codegen = new K8sResourceCodegen(log, scalaVer)
 
         val sourcesDir = (Compile / sourceManaged).value
         val ver = scalaVersion.value

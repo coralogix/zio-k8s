@@ -16,7 +16,7 @@ import java.io.File
 import java.nio.charset.StandardCharsets
 import scala.collection.JavaConverters._
 
-class K8sResourceCodegen(val logger: sbt.Logger)
+class K8sResourceCodegen(val logger: sbt.Logger, val scalaVersion: String)
     extends Common with ModelGenerator with ClientModuleGenerator with MonocleOpticsGenerator
     with SubresourceClientGenerator with UnifiedClientModuleGenerator {
 

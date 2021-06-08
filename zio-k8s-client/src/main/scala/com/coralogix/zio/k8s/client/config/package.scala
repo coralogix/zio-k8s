@@ -5,7 +5,6 @@ import sttp.client3.UriContext
 import sttp.model.Uri
 import zio.blocking.Blocking
 import zio.config._
-import zio.config.magnolia.DeriveConfigDescriptor.Descriptor
 import zio.nio.core.file.Path
 import zio.system.System
 import zio.{ system, Has, Task, ZIO, ZLayer, ZManaged }
@@ -154,14 +153,6 @@ package object config extends Descriptors {
         case None       =>
           this
       }
-  }
-
-  object K8sClusterConfig {
-
-    /** ZIO Config descriptor for [[K8sClusterConfig]]
-      */
-    implicit val k8sClusterConfigDescriptor: Descriptor[K8sClusterConfig] =
-      Descriptor(clusterConfigDescriptor)
   }
 
   /** Layer producing a [[com.coralogix.zio.k8s.client.model.K8sCluster]] from a provided K8sClusterConfig

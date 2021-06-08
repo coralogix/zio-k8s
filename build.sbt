@@ -1,6 +1,6 @@
 val scala212Version = "2.12.12"
 val scala213Version = "2.13.4"
-// val scala3Version = "3.0.0-M3"
+val scala3Version = "3.0.0"
 
 val zioVersion = "1.0.9"
 val zioConfigVersion = "1.0.6"
@@ -25,7 +25,7 @@ inThisBuild(
 val commonSettings = Seq(
   organization       := "com.coralogix",
   scalaVersion       := scala212Version,
-  crossScalaVersions := List(scala212Version, scala213Version),
+  crossScalaVersions := List(scala212Version, scala213Version, scala3Version),
   autoAPIMappings    := true
 )
 
@@ -49,7 +49,6 @@ lazy val client = Project("zio-k8s-client", file("zio-k8s-client"))
       "dev.zio"                       %% "zio"                           % zioVersion,
       "dev.zio"                       %% "zio-streams"                   % zioVersion,
       "dev.zio"                       %% "zio-config"                    % zioConfigVersion,
-      "dev.zio"                       %% "zio-config-magnolia"           % zioConfigVersion,
       "dev.zio"                       %% "zio-logging"                   % "0.5.10",
       "dev.zio"                       %% "zio-nio"                       % "1.0.0-RC11",
       "com.softwaremill.sttp.client3" %% "core"                          % sttpVersion,
@@ -100,6 +99,7 @@ lazy val clientQuicklens = Project("zio-k8s-client-quicklens", file("zio-k8s-cli
 lazy val clientMonocle = Project("zio-k8s-client-monocle", file("zio-k8s-client-monocle"))
   .settings(commonSettings)
   .settings(
+    crossScalaVersions := List(scala212Version, scala213Version),
     Compile / scalacOptions ++= {
       CrossVersion.partialVersion(scalaVersion.value) match {
         case Some((2, n)) if n >= 13 => "-Ymacro-annotations" :: Nil
@@ -205,7 +205,6 @@ lazy val leaderExample = Project("leader-example", file("examples/leader-example
   .settings(
     libraryDependencies ++= Seq(
       "dev.zio"                       %% "zio-config-typesafe"    % zioConfigVersion,
-      "io.github.kitlangton"          %% "zio-magic"              % "0.3.2",
       "com.softwaremill.sttp.client3" %% "httpclient-backend-zio" % sttpVersion,
       "com.softwaremill.sttp.client3" %% "slf4j-backend"          % sttpVersion
     ),

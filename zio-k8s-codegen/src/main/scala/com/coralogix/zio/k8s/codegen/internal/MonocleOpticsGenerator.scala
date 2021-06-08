@@ -1,6 +1,6 @@
 package com.coralogix.zio.k8s.codegen.internal
 
-import com.coralogix.zio.k8s.codegen.internal.CodegenIO.{ format, writeTextFile }
+import com.coralogix.zio.k8s.codegen.internal.CodegenIO.writeTextFile
 import com.coralogix.zio.k8s.codegen.internal.Conversions.splitName
 import io.swagger.v3.oas.models.media.ObjectSchema
 import org.scalafmt.interfaces.Scalafmt
@@ -13,7 +13,7 @@ import zio.nio.file.Files
 import scala.collection.JavaConverters._
 
 trait MonocleOpticsGenerator {
-  this: ModelGenerator =>
+  this: Common with ModelGenerator =>
 
   private val monocleRoot = Vector("com", "coralogix", "zio", "k8s", "monocle")
 
@@ -122,6 +122,6 @@ trait MonocleOpticsGenerator {
           }
           }
       """
-    tree.toString
+    prettyPrint(tree)
   }
 }

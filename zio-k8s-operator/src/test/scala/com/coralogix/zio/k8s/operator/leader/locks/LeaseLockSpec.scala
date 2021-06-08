@@ -67,7 +67,7 @@ object LeaseLockSpec extends DefaultRunnableSpec {
   def disableFailures: RIO[Has[TestLeases], Unit] =
     ZIO.service[TestLeases].flatMap(_.disableFailures)
 
-  private def failingLeases(): ULayer[Leases with Has[TestLeases]] =
+  private def failingLeases: ULayer[Leases with Has[TestLeases]] =
     Leases.test >>> ZLayer
       .fromServiceManyM[Leases.Service, Any, Nothing, Leases with Has[TestLeases]] { testImpl =>
         Ref.make(true).map { failSwitch =>

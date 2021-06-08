@@ -61,7 +61,10 @@ final class SubresourceClient[T: Encoder: Decoder](
               .addParams(customParameters)
           )
           .response(
-            asEither(
+            asEither[ResponseException[
+              String,
+              NonEmptyList[Error]
+            ], ZioStreams.BinaryStream, ZioStreams](
               asStringAlways.mapWithMetadata { case (body, meta) =>
                 HttpError(body, meta.code)
                   .asInstanceOf[ResponseException[String, NonEmptyList[Error]]]
@@ -70,7 +73,7 @@ final class SubresourceClient[T: Encoder: Decoder](
             )
           )
           .send(backend)
-      }.map { stream =>
+      }.map { (stream: ZioStreams.BinaryStream) =>
         stream
           .mapError(RequestFailure(K8sRequestInfo(resourceType, s"get $subresourceName"), _))
           .transduce(transducer)

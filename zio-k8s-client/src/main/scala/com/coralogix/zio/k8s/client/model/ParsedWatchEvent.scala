@@ -19,7 +19,7 @@ import zio.IO
   *
   * @tparam T Payload type
   */
-sealed trait ParsedWatchEvent[+T]
+sealed trait ParsedWatchEvent[T]
 
 /** Parsed typed watch event
   * @param event Payload
@@ -30,7 +30,7 @@ final case class ParsedTypedWatchEvent[T](event: TypedWatchEvent[T]) extends Par
 /** Bookmark event
   * @param resourceVersion Resource version to bookmark
   */
-final case class ParsedBookmark(resourceVersion: String) extends ParsedWatchEvent[Nothing]
+final case class ParsedBookmark[T](resourceVersion: String) extends ParsedWatchEvent[T]
 
 object ParsedWatchEvent {
   private def parseOrFail[T: Decoder](requestInfo: K8sRequestInfo, json: Json): IO[K8sFailure, T] =
