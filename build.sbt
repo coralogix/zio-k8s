@@ -167,7 +167,7 @@ lazy val crd = Project("zio-k8s-crd", file("zio-k8s-crd"))
     },
     scriptedLaunchOpts := {
       scriptedLaunchOpts.value ++
-        Seq("-Xmx1024M", "-Dplugin.version=" + version.value)
+        Seq("-Xmx1024M", "-Xss2048k", "-Dplugin.version=" + version.value)
     },
     scriptedBufferLog  := false,
     publishLocal       := publishLocal.dependsOn(client / publishLocal).value
