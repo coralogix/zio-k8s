@@ -3,7 +3,7 @@ id: overview_monocle
 title: "Monocle support"
 ---
 
-[Moncole](https://www.optics.dev/Monocle/) is an _optics library_ that helps writing code that modified deeply nested data structures. This fits well some of the _Kubernetes resources_ that can consists of many layers of data structures, including
+[Moncole](https://www.optics.dev/Monocle/) is an _optics library_ that helps writing code that modifies deeply nested data structures. This fits well some of the _Kubernetes resources_ that can consists of many layers of data structures, including
 optional fields, lists and maps in the middle.
 
 To enable the _Monocle support_ of `zio-k8s` an additional dependency has to be imported:

@@ -11,5 +11,6 @@ This section gives an overview of the `zio-k8s-client`.
 - [Testing](testing.md) - describes how to create mocked Kubernetes clients for using in **tests**
 
 Working with deeply nested hierarchies of _Kubernetes_ data can be more convenient by using one of the existing **optics libraries** `zio-k8s` has support for:
+- [ZIO Optics](ziooptics.md) - shows how to work with the [ZIO Optics library](https://zio.github.io/zio-optics/)
 - [Quicklens](quicklens.md) - shows how to work with the [Quicklens library](https://github.com/softwaremill/quicklens)
 - [Monocle](monocle.md) - shows how to work with the [Monocle library](https://www.optics.dev/Monocle/)
