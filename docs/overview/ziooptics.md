@@ -40,7 +40,7 @@ val pod = Pod(
     )
   )
 
-val f = (metadataO >>> namespaceO).set("namespace-1")
+val f = (metadataO >>> namespaceO).set("namespace-1")(_)
 
 f(pod)
 ```
