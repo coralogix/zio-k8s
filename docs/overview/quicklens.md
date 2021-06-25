@@ -3,7 +3,7 @@ id: overview_quicklens
 title: "QuickLens support"
 ---
 
-[Quicklens](https://github.com/softwaremill/quicklens) is a library that helps writing code that modified deeply nested data structures. This fits well some of the _Kubernetes resources_ that can consists of many layers of data structures, including
+[Quicklens](https://github.com/softwaremill/quicklens) is a library that helps writing code that modifies deeply nested data structures. This fits well some of the _Kubernetes resources_ that can consists of many layers of data structures, including
 optional fields, lists and maps in the middle.
 
 To enable the _Quicklens support_ of `zio-k8s` an additional dependency has to be imported:

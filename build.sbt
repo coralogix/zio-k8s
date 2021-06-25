@@ -37,6 +37,7 @@ lazy val root = Project("zio-k8s", file("."))
     client,
     clientMonocle,
     clientQuicklens,
+    clientZioOptics,
     crd,
     operator,
     examples
@@ -134,6 +135,31 @@ lazy val clientMonocle = Project("zio-k8s-client-monocle", file("zio-k8s-client-
   )
   .dependsOn(client)
   .enablePlugins(K8sMonocleCodegenPlugin)
+
+lazy val clientZioOptics = Project("zio-k8s-client-optics", file("zio-k8s-client-optics"))
+  .settings(commonSettings)
+  .settings(
+    crossScalaVersions := List(scala212Version, scala213Version, scala3Version),
+    libraryDependencies ++= Seq(
+      "dev.zio" %% "zio-optics"   % "0.1.0",
+      "dev.zio" %% "zio-test"     % zioVersion % Test,
+      "dev.zio" %% "zio-test-sbt" % zioVersion % Test
+    ),
+    testFrameworks += new TestFramework("zio.test.sbt.ZTestFramework"),
+    Compile / packageSrc / mappings ++= {
+      val base = (Compile / sourceManaged).value
+      val files = (Compile / managedSources).value
+      files
+        .map { f =>
+          (f, f.relativeTo(base).map(_.getPath))
+        }
+        .collect { case (f, Some(g)) =>
+          (f -> g)
+        }
+    }
+  )
+  .dependsOn(client)
+  .enablePlugins(K8sOpticsCodegenPlugin)
 
 lazy val crd = Project("zio-k8s-crd", file("zio-k8s-crd"))
   .settings(commonSettings)
@@ -258,5 +284,5 @@ lazy val docs = project
     docusaurusCreateSite                       := docusaurusCreateSite.dependsOn(Compile / unidoc).value,
     docusaurusPublishGhpages                   := docusaurusPublishGhpages.dependsOn(Compile / unidoc).value
   )
-  .dependsOn(client, clientQuicklens, clientMonocle, operator)
+  .dependsOn(client, clientQuicklens, clientMonocle, clientZioOptics, operator)
   .enablePlugins(MdocPlugin, DocusaurusPlugin, ScalaUnidocPlugin)

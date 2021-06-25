@@ -4,7 +4,6 @@ import com.coralogix.zio.k8s.codegen.internal.CodegenIO.writeTextFile
 import com.coralogix.zio.k8s.codegen.internal.Conversions.splitName
 import io.swagger.v3.oas.models.media.ObjectSchema
 import org.scalafmt.interfaces.Scalafmt
-import sbt.util.Logger
 import zio.ZIO
 import zio.blocking.Blocking
 import zio.nio.core.file.Path
@@ -12,12 +11,12 @@ import zio.nio.file.Files
 
 import scala.collection.JavaConverters._
 
-trait MonocleOpticsGenerator {
+trait ZioOpticsGenerator {
   this: Common with ModelGenerator =>
 
-  private val monocleRoot = Vector("com", "coralogix", "zio", "k8s", "monocle")
+  private val opticsRoot = Vector("com", "coralogix", "zio", "k8s", "optics")
 
-  protected def generateAllMonocleOptics(
+  protected def generateAllZioOptics(
     scalafmt: Scalafmt,
     targetRoot: Path,
     definitions: Set[IdentifiedSchema]
@@ -26,17 +25,17 @@ trait MonocleOpticsGenerator {
     for {
       _     <-
         ZIO.effect(
-          logger.info(s"Generating Monocle optics for ${filteredDefinitions.size} models...")
+          logger.info(s"Generating ZIO Optics for ${filteredDefinitions.size} models...")
         )
       paths <- ZIO.foreach(filteredDefinitions) { d =>
                  val (groupName, entityName) = splitName(d.name)
-                 val pkg = (monocleRoot ++ groupName)
+                 val pkg = (opticsRoot ++ groupName)
                  val modelPkg = (modelRoot ++ groupName)
 
                  for {
                    _         <- ZIO.effect(logger.info(s"Generating '$entityName' to ${pkg.mkString(".")}"))
                    src        =
-                     generateMonocleOptics(modelRoot, pkg, modelPkg, entityName, d)
+                     generateZioOptics(modelRoot, pkg, modelPkg, entityName, d)
                    targetDir  = pkg.foldLeft(targetRoot)(_ / _)
                    _         <- Files.createDirectories(targetDir)
                    targetPath = targetDir / s"$entityName.scala"
@@ -47,7 +46,7 @@ trait MonocleOpticsGenerator {
     } yield paths
   }
 
-  private def generateMonocleOptics(
+  private def generateZioOptics(
     modelRootPackage: Vector[String],
     pkg: Vector[String],
     modelPkg: Vector[String],
@@ -85,12 +84,12 @@ trait MonocleOpticsGenerator {
 
                 if (isRequired)
                   List(
-                    q"""val $nameLP: Lens[$entityNameT, $propT] = GenLens[$entityNameT](_.$nameN)"""
+                    q"""val $nameLP: Lens[$entityNameT, $propT] = Lens(obj => Right(obj.$nameN), value => obj => Right(obj.copy($nameN = value)))"""
                   )
                 else
                   List(
-                    q"""val $nameLP: Lens[$entityNameT, Optional[$propT]] = GenLens[$entityNameT](_.$nameN)""",
-                    q"""val $nameOP: MonocleOptional[$entityNameT, $propT] = optional($nameLN)"""
+                    q"""val $nameLP: Lens[$entityNameT, Optional[$propT]] = Lens(obj => Right(obj.$nameN), value => obj => Right(obj.copy($nameN = value)))""",
+                    q"""val $nameOP = $nameLN >>> present[$propT, $propT]"""
                   )
               }
           case _                => List.empty
@@ -101,18 +100,12 @@ trait MonocleOpticsGenerator {
     val tree =
       q"""package $packageTerm {
 
-          import io.circe._
-          import io.circe.syntax._
           import java.time.OffsetDateTime
-          import scala.util.Try
-          import zio.{Chunk, IO, ZIO}
-
-          import monocle.{Lens, Traversal}
-          import monocle.{Optional => MonocleOptional}
-          import monocle.macros.GenLens
+          import zio.Chunk
+          import zio.optics._
 
           import com.coralogix.zio.k8s.client.model.Optional
-          import com.coralogix.zio.k8s.monocle.optional
+          import com.coralogix.zio.k8s.optics.{absent, present}
 
           import $modelRootPackageTerm._
           import $modelPackageTerm._

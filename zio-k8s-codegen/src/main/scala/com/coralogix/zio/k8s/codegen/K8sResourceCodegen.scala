@@ -18,7 +18,7 @@ import scala.collection.JavaConverters._
 
 class K8sResourceCodegen(val logger: sbt.Logger, val scalaVersion: String)
     extends Common with ModelGenerator with ClientModuleGenerator with MonocleOpticsGenerator
-    with SubresourceClientGenerator with UnifiedClientModuleGenerator {
+    with SubresourceClientGenerator with UnifiedClientModuleGenerator with ZioOpticsGenerator {
 
   def generateAll(from: Path, targetDir: Path): ZIO[Blocking, Throwable, Seq[File]] =
     for {
@@ -75,7 +75,25 @@ class K8sResourceCodegen(val logger: sbt.Logger, val scalaVersion: String)
                        .toSet
 
       // Generating code
-      opticsPaths <- generateAllOptics(scalafmt, targetDir, definitions)
+      opticsPaths <- generateAllMonocleOptics(scalafmt, targetDir, definitions)
+    } yield opticsPaths.map(_.toFile).toSeq
+
+  def generateAllOptics(
+                          from: Path,
+                          targetDir: Path
+                        ): ZIO[Blocking, Throwable, Seq[File]] =
+    for {
+      // Loading
+      spec     <- loadK8sSwagger(from)
+      scalafmt <- ZIO.effect(Scalafmt.create(this.getClass.getClassLoader))
+
+      // Identifying
+      definitions  = spec.getComponents.getSchemas.asScala
+        .flatMap((IdentifiedSchema.identifyDefinition _).tupled)
+        .toSet
+
+      // Generating code
+      opticsPaths <- generateAllZioOptics(scalafmt, targetDir, definitions)
     } yield opticsPaths.map(_.toFile).toSeq
 
   private def loadK8sSwagger(from: Path): ZIO[Blocking, Throwable, OpenAPI] =
