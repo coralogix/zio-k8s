@@ -1,6 +1,7 @@
 package com.coralogix.zio.k8s.client.model
 
 import io.circe.{ Decoder, Encoder }
+import zio.Chunk
 
 import scala.language.implicitConversions
 
@@ -131,10 +132,22 @@ sealed trait Optional[+A] { self =>
       case Optional.Absent       => Iterator.empty
     }
 
+  final def toChunk: Chunk[A] =
+    self match {
+      case Optional.Present(get) => Chunk.single(get)
+      case Optional.Absent       => Chunk.empty
+    }
+
   final def toList: List[A] =
     self match {
       case Optional.Present(get) => get :: Nil
       case Optional.Absent       => Nil
+    }
+
+  final def toVector: Vector[A] =
+    self match {
+      case Optional.Present(get) => Vector(get)
+      case Optional.Absent       => Vector.empty
     }
 }
 
