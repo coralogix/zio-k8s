@@ -4,7 +4,7 @@ val scala3Version = "3.0.0"
 
 val zioVersion = "1.0.9"
 val zioConfigVersion = "1.0.6"
-val sttpVersion = "3.3.7"
+val sttpVersion = "3.3.9"
 
 inThisBuild(
   List(
