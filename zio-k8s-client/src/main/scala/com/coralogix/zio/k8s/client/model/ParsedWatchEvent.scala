@@ -6,7 +6,6 @@ import com.coralogix.zio.k8s.client.{
   K8sFailure,
   K8sRequestInfo
 }
-import com.coralogix.zio.k8s.client.model.K8sObject._
 import com.coralogix.zio.k8s.model.pkg.apis.meta.v1.WatchEvent
 import io.circe.{ Decoder, Json }
 import zio.IO
@@ -33,9 +32,14 @@ final case class ParsedTypedWatchEvent[T](event: TypedWatchEvent[T]) extends Par
 final case class ParsedBookmark[T](resourceVersion: String) extends ParsedWatchEvent[T]
 
 object ParsedWatchEvent {
-  private def parseOrFail[T: Decoder](requestInfo: K8sRequestInfo, json: Json): IO[K8sFailure, T] =
-    IO.fromEither(implicitly[Decoder[T]].decodeAccumulating(json.hcursor).toEither)
+  private def parseOrFail[T](requestInfo: K8sRequestInfo, json: Json)(implicit
+    decoder: Decoder[T]
+  ): IO[K8sFailure, T] =
+    IO.fromEither(decoder.decodeAccumulating(json.hcursor).toEither)
       .mapError(DeserializationFailure(requestInfo, _))
+
+  private val bookmarkedResourceVersion: Decoder[String] =
+    Decoder.instance(c => c.downField("metadata").get[String]("resourceVersion"))
 
   /** Converts an unparsed Kubernetes [[com.coralogix.zio.k8s.model.pkg.apis.meta.v1.WatchEvent]] to [[ParsedWatchEvent]]
     * @param event Unparsed event
@@ -60,11 +64,8 @@ object ParsedWatchEvent {
           ParsedTypedWatchEvent(Deleted(obj))
         )
       case "BOOKMARK" =>
-        for {
-          item            <- parseOrFail[T](requestInfo, event.`object`.value)
-          metadata        <- item.getMetadata
-          resourceVersion <- metadata.getResourceVersion
-        } yield ParsedBookmark(resourceVersion)
+        parseOrFail(requestInfo, event.`object`.value)(bookmarkedResourceVersion)
+          .map(ParsedBookmark.apply)
       case _          =>
         IO.fail(InvalidEvent(requestInfo, event.`type`))
     }
