@@ -164,7 +164,7 @@
         <a title="Contains data structures, ZIO layers and zio-config descriptors for configuring the zio-k8s client." href="index.html"><span class="name">config</span></a>
       </span>
       
-      <p class="shortcomment cmt">Contains data structures, ZIO layers and zio-config descriptors for configuring the zio-k8s client.</p><div class="fullcomment"><div class="comment cmt"><p>Contains data structures, ZIO layers and zio-config descriptors for configuring the zio-k8s client.</p><p>Each zio-k8s client module depends on two ZIO modules: <a href="../model/package$$K8sCluster.html" class="extype" name="com.coralogix.zio.k8s.client.model.K8sCluster">com.coralogix.zio.k8s.client.model.K8sCluster</a> and an <a href="https://javadoc.io/page/com.softwaremill.sttp.client3/core_2.12/3.3.6/sttp/client3/SttpBackend.html" class="extype" name="sttp.client3.SttpBackend">sttp.client3.SttpBackend</a>.
+      <p class="shortcomment cmt">Contains data structures, ZIO layers and zio-config descriptors for configuring the zio-k8s client.</p><div class="fullcomment"><div class="comment cmt"><p>Contains data structures, ZIO layers and zio-config descriptors for configuring the zio-k8s client.</p><p>Each zio-k8s client module depends on two ZIO modules: <a href="../model/package$$K8sCluster.html" class="extype" name="com.coralogix.zio.k8s.client.model.K8sCluster">com.coralogix.zio.k8s.client.model.K8sCluster</a> and an <a href="https://javadoc.io/page/com.softwaremill.sttp.client3/core_2.12/3.3.13/sttp/client3/SttpBackend.html" class="extype" name="sttp.client3.SttpBackend">sttp.client3.SttpBackend</a>.
 To use the default configuration (use kubeconfig if available, otherwise fallback to service account token),
 use either <code>asynchttpclient.k8sDefault</code> or <code>httpclient.k8sDefault</code> depending on your chosen sttp backend.</p><p>Manual configuration is possible by providing a <a href="" class="extype" name="com.coralogix.zio.k8s.client.config.K8sClusterConfig">K8sClusterConfig</a> value to both the <a href="index.html#k8sCluster:zio.ZLayer[zio.blocking.Blockingwithzio.Has[com.coralogix.zio.k8s.client.config.package.K8sClusterConfig],Throwable,zio.Has[com.coralogix.zio.k8s.client.model.K8sCluster]]" class="extmbr" name="com.coralogix.zio.k8s.client.config#k8sCluster">k8sCluster</a> layer
 and either <code>asynchttpclient.k8sSttpClient</code> or <code>httpclient.k8sSttpClient</code>.</p><p>Instead of manually providing the configuration, zio-config descriptors are available to load them from any
@@ -245,7 +245,7 @@ supported source.
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <span class="name">K8sClusterConfig</span><span class="params">(<span name="host">host: <a href="https://javadoc.io/page/com.softwaremill.sttp.model/core_2.12/1.4.7/sttp/model/Uri.html#sttp.model.Uri" class="extype" name="sttp.model.Uri">Uri</a></span>, <span name="authentication">authentication: <a href="package$$K8sAuthentication.html" class="extype" name="com.coralogix.zio.k8s.client.config.K8sAuthentication">K8sAuthentication</a></span>, <span name="client">client: <a href="package$$K8sClientConfig.html" class="extype" name="com.coralogix.zio.k8s.client.config.K8sClientConfig">K8sClientConfig</a></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <span class="name">K8sClusterConfig</span><span class="params">(<span name="host">host: <a href="https://javadoc.io/page/com.softwaremill.sttp.model/core_2.12/1.4.9/sttp/model/Uri.html#sttp.model.Uri" class="extype" name="sttp.model.Uri">Uri</a></span>, <span name="authentication">authentication: <a href="package$$K8sAuthentication.html" class="extype" name="com.coralogix.zio.k8s.client.config.K8sAuthentication">K8sAuthentication</a></span>, <span name="client">client: <a href="package$$K8sClientConfig.html" class="extype" name="com.coralogix.zio.k8s.client.config.K8sClientConfig">K8sClientConfig</a></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       </h4>
 
@@ -313,7 +313,7 @@ supported source.
         <span class="kind">new</span>
       </span>
       <span class="symbol">
-        <span class="name">K8sClusterConfig</span><span class="params">(<span name="host">host: <a href="https://javadoc.io/page/com.softwaremill.sttp.model/core_2.12/1.4.7/sttp/model/Uri.html#sttp.model.Uri" class="extype" name="sttp.model.Uri">Uri</a></span>, <span name="authentication">authentication: <a href="package$$K8sAuthentication.html" class="extype" name="com.coralogix.zio.k8s.client.config.K8sAuthentication">K8sAuthentication</a></span>, <span name="client">client: <a href="package$$K8sClientConfig.html" class="extype" name="com.coralogix.zio.k8s.client.config.K8sClientConfig">K8sClientConfig</a></span>)</span>
+        <span class="name">K8sClusterConfig</span><span class="params">(<span name="host">host: <a href="https://javadoc.io/page/com.softwaremill.sttp.model/core_2.12/1.4.9/sttp/model/Uri.html#sttp.model.Uri" class="extype" name="sttp.model.Uri">Uri</a></span>, <span name="authentication">authentication: <a href="package$$K8sAuthentication.html" class="extype" name="com.coralogix.zio.k8s.client.config.K8sAuthentication">K8sAuthentication</a></span>, <span name="client">client: <a href="package$$K8sClientConfig.html" class="extype" name="com.coralogix.zio.k8s.client.config.K8sClientConfig">K8sClientConfig</a></span>)</span>
       </span>
       
       <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">host</dt><dd class="cmt"><p>URL of the Kubernetes API</p></dd><dt class="param">authentication</dt><dd class="cmt"><p>Authentication method to use</p></dd><dt class="param">client</dt><dd class="cmt"><p>HTTP client configuration</p></dd></dl></div>
@@ -517,7 +517,7 @@ is not supported by the hostname verification algorithm. Use this together with 
         <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">host</span><span class="result">: <a href="https://javadoc.io/page/com.softwaremill.sttp.model/core_2.12/1.4.7/sttp/model/Uri.html#sttp.model.Uri" class="extype" name="sttp.model.Uri">Uri</a></span>
+        <span class="name">host</span><span class="result">: <a href="https://javadoc.io/page/com.softwaremill.sttp.model/core_2.12/1.4.9/sttp/model/Uri.html#sttp.model.Uri" class="extype" name="sttp.model.Uri">Uri</a></span>
       </span>
       
       
