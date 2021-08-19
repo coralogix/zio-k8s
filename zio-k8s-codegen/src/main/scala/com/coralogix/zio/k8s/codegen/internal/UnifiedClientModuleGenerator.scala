@@ -85,7 +85,7 @@ trait UnifiedClientModuleGenerator {
 
           type Kubernetes = Has[Kubernetes.Service]
           object Kubernetes {
-            ..${defs}
+            ..$defs
           }
         }
         }
@@ -207,13 +207,13 @@ trait UnifiedClientModuleGenerator {
     if (isTest)
       q"""
        class $nameT(runtime: Runtime[Any]) extends Service {
-         ..${childDefs}
+         ..$childDefs
        }
      """
     else
       q"""
        class $nameT(backend: SttpBackend[Task, ZioStreams with WebSockets], cluster: K8sCluster) extends Service {
-         ..${childDefs}
+         ..$childDefs
        }
      """
   }
@@ -227,7 +227,7 @@ trait UnifiedClientModuleGenerator {
     val ifaceType = Init(ifaceStack.mkString(".").parse[Type].get, Name.Anonymous(), List.empty)
     q"""
        lazy val $namePat = new $ifaceType {
-         ..${childDefs}
+         ..$childDefs
        }
      """
   }

@@ -5,8 +5,7 @@ import com.softwaremill.quicklens.{ QuicklensFunctor, QuicklensSingleAtFunctor }
 
 import java.util.NoSuchElementException
 
-/** Implements support for zio-k8s' custom [[Optional]] type to be used
-  * with QuickLens
+/** Implements support for zio-k8s' custom [[Optional]] type to be used with QuickLens
   */
 package object quicklens {
 

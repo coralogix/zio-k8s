@@ -11,11 +11,16 @@ import sttp.client3.circe._
 import zio.{ IO, Task }
 
 /** Generic implementation for [[ResourceStatus]]
-  * @param resourceType Kubernetes resource metadata
-  * @param cluster Configured Kubernetes cluster
-  * @param backend Configured HTTP client
-  * @tparam StatusT Status subresource type
-  * @tparam T Resource type
+  * @param resourceType
+  *   Kubernetes resource metadata
+  * @param cluster
+  *   Configured Kubernetes cluster
+  * @param backend
+  *   Configured HTTP client
+  * @tparam StatusT
+  *   Status subresource type
+  * @tparam T
+  *   Resource type
   */
 final class ResourceStatusClient[StatusT: Encoder, T: K8sObject: Encoder: Decoder](
   override protected val resourceType: K8sResourceType,

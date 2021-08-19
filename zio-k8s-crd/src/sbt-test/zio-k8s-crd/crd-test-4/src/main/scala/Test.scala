@@ -1,2 +1,1 @@
-object Test {
-}
+object Test {}

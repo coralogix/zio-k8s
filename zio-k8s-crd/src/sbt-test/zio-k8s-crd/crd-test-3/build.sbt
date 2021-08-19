@@ -1,5 +1,5 @@
 externalCustomResourceDefinitions := Seq(
-  file("crds/helmrelease.yaml"),
+  file("crds/helmrelease.yaml")
 )
 
 enablePlugins(K8sCustomResourceCodegenPlugin)

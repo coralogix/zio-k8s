@@ -28,7 +28,8 @@ package object leader {
         *
         * If you want to manage the lock as a ZManaged use [[lease]]
         *
-        * @param f Inner effect to protect
+        * @param f
+        *   Inner effect to protect
         */
       def runAsLeader[R, E, A](f: ZIO[R, E, A]): ZIO[R with Clock with Logging, E, Option[A]] =
         lease
@@ -83,7 +84,8 @@ package object leader {
 
     /** Constructs a leader election interface using a given [[LeaderLock]] layer
       *
-      * For built-in leader election algorithms check [[configMapLock()]] and [[customLeaderLock()]].
+      * For built-in leader election algorithms check [[configMapLock()]] and
+      * [[customLeaderLock()]].
       */
     def fromLock: ZLayer[Has[LeaderLock] with ContextInfo, Nothing, LeaderElection] =
       (for {
@@ -93,15 +95,15 @@ package object leader {
 
     /** Simple leader election implementation
       *
-      * The algorithm tries creating a ConfigMap with a given name and attaches the Pod it
-      * is running in as an owner of the config map.
+      * The algorithm tries creating a ConfigMap with a given name and attaches the Pod it is
+      * running in as an owner of the config map.
       *
-      * If the ConfigMap already exists the leader election fails and retries with exponential backoff.
-      * If it succeeds then it runs the inner effect.
+      * If the ConfigMap already exists the leader election fails and retries with exponential
+      * backoff. If it succeeds then it runs the inner effect.
       *
-      * When the code terminates normally the acquired ConfigMap gets released. If the whole Pod gets
-      * killed without releasing the resource, the registered ownership will make Kubernetes apply
-      * cascading deletion so eventually a new Pod can register the ConfigMap again.
+      * When the code terminates normally the acquired ConfigMap gets released. If the whole Pod
+      * gets killed without releasing the resource, the registered ownership will make Kubernetes
+      * apply cascading deletion so eventually a new Pod can register the ConfigMap again.
       */
     def configMapLock(
       lockName: String,
@@ -118,15 +120,15 @@ package object leader {
       * The algorithm tries creating a LeaderLock resource with a given name and attaches the Pod it
       * is running in as an owner of the config map.
       *
-      * If the LeaderLock already exists the leader election fails and retries with exponential backoff.
-      * If it succeeds then it runs the inner effect.
+      * If the LeaderLock already exists the leader election fails and retries with exponential
+      * backoff. If it succeeds then it runs the inner effect.
       *
-      * When the code terminates normally the acquired LeaderLock gets released. If the whole Pod gets
-      * killed without releasing the resource, the registered ownership will make Kubernetes apply
-      * cascading deletion so eventually a new Pod can register the LeaderLock again.
+      * When the code terminates normally the acquired LeaderLock gets released. If the whole Pod
+      * gets killed without releasing the resource, the registered ownership will make Kubernetes
+      * apply cascading deletion so eventually a new Pod can register the LeaderLock again.
       *
-      * This method requires the registration of the LeaderLock custom resource. As an alternative take
-      * a look at [[configMapLock()]].
+      * This method requires the registration of the LeaderLock custom resource. As an alternative
+      * take a look at [[configMapLock()]].
       */
     def customLeaderLock(
       lockName: String,
@@ -140,17 +142,22 @@ package object leader {
 
     /** Lease based leader election implementation
       *
-      * The leadership is not guaranteed to be held forever, the effect executed in runAsLeader
-      * may be interrupted. It is recommended to retry runAsLeader in these cases to try to reacquire the lease.
+      * The leadership is not guaranteed to be held forever, the effect executed in runAsLeader may
+      * be interrupted. It is recommended to retry runAsLeader in these cases to try to reacquire
+      * the lease.
       *
       * This is a reimplementation of the Go leaderelection package:
       * https://github.com/kubernetes/client-go/blob/master/tools/leaderelection/leaderelection.go
       *
-      * @param lockName Name of the lease resource
-      * @param leaseDuration Duration non-leader candidates must wait before acquiring leadership. This is measured
-      *                      against the time of the last observed change.
-      * @param renewTimeout The maximum time a leader is allowed to try to renew its lease before giving up
-      * @param retryPeriod  Retry period for acquiring and renewing the lease
+      * @param lockName
+      *   Name of the lease resource
+      * @param leaseDuration
+      *   Duration non-leader candidates must wait before acquiring leadership. This is measured
+      *   against the time of the last observed change.
+      * @param renewTimeout
+      *   The maximum time a leader is allowed to try to renew its lease before giving up
+      * @param retryPeriod
+      *   Retry period for acquiring and renewing the lease
       */
     def leaseLock(
       lockName: String,
@@ -192,7 +199,8 @@ package object leader {
   }
 
   /** Possible failures of the leader election algorithm
-    * @tparam E Failure type of the inner effect
+    * @tparam E
+    *   Failure type of the inner effect
     */
   sealed trait LeaderElectionFailure[+E]
 
@@ -212,12 +220,13 @@ package object leader {
     */
   final case class ApplicationError[E](error: E) extends LeaderElectionFailure[E]
 
-  /** Runs the given effect by applying the leader election algorithm, with the guarantee that
-    * the inner effect will only run at once in the Kubernetes cluster.
+  /** Runs the given effect by applying the leader election algorithm, with the guarantee that the
+    * inner effect will only run at once in the Kubernetes cluster.
     *
     * If you want to manage the lock as a ZManaged use [[lease()]]
     *
-    * @param f Inner effect to protect
+    * @param f
+    *   Inner effect to protect
     */
   def runAsLeader[R, E, A](
     f: ZIO[R, E, A]

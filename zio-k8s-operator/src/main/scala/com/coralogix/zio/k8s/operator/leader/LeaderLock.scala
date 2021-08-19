@@ -6,8 +6,7 @@ import zio.ZManaged
 import zio.clock.Clock
 import zio.logging.Logging
 
-/** Common interface for different lock implementations used for
-  * leader election.
+/** Common interface for different lock implementations used for leader election.
   */
 trait LeaderLock {
   def acquireLock(

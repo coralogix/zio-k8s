@@ -16,12 +16,15 @@ object Registration {
 
   /** Register a Custom Resource Definition if it is not registered yet
     *
-    * When using the zio-k8s-crd plugin, the effect to provide the custom resource definition
-    * is automatically generated.
+    * When using the zio-k8s-crd plugin, the effect to provide the custom resource definition is
+    * automatically generated.
     *
-    * @param customResourceDefinition Effect returning the custom resource definition
-    * @param metadata Resource metadata
-    * @tparam T Resource type
+    * @param customResourceDefinition
+    *   Effect returning the custom resource definition
+    * @param metadata
+    *   Resource metadata
+    * @tparam T
+    *   Resource type
     */
   def registerIfMissing[T](
     customResourceDefinition: ZIO[Blocking, Throwable, CustomResourceDefinition]
