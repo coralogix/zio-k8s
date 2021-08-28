@@ -12,8 +12,8 @@ import scala.language.implicitConversions
   * The only difference between this type and [[scala.Option]] is that there is an implicit
   * conversion defined from `A`` to `Optional[A]`, and from `Option[A]`` to `Optional[A]`.
   *
-  * This allows boilerplate-free definition of Kubernetes resources where most of the
-  * fields are optional.
+  * This allows boilerplate-free definition of Kubernetes resources where most of the fields are
+  * optional.
   */
 sealed trait Optional[+A] { self =>
   val isEmpty: Boolean
@@ -154,8 +154,10 @@ sealed trait Optional[+A] { self =>
 object Optional {
 
   /** Optional value that is present
-    * @param get the value
-    * @tparam A type of the value
+    * @param get
+    *   the value
+    * @tparam A
+    *   type of the value
     */
   final case class Present[+A](get: A) extends Optional[A] {
     override val isEmpty: Boolean = false

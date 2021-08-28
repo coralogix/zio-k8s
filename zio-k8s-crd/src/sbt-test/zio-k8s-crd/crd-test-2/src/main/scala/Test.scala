@@ -12,9 +12,10 @@ object Test {
     CronTab.Spec(
       cronSpec = "x",
       image = "y",
-      replicas = None,
+      replicas = None
     )
   )
 
-  val scale: ZIO[crontabs.CronTabs, K8sFailure, Scale] = crontabs.getScale("name", K8sNamespace.default)
+  val scale: ZIO[crontabs.CronTabs, K8sFailure, Scale] =
+    crontabs.getScale("name", K8sNamespace.default)
 }

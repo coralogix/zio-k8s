@@ -31,9 +31,12 @@ import zio.stream._
 import zio.{ IO, ZIO }
 
 /** Implementation of [[Resource]] and [[ResourceDeleteAll]] to be used from unit tests
-  * @param store Object store
-  * @param events Watch event queue
-  * @tparam T Resource type
+  * @param store
+  *   Object store
+  * @param events
+  *   Watch event queue
+  * @tparam T
+  *   Resource type
   */
 final class TestResourceClient[T: K8sObject] private (
   store: TMap[String, T],
@@ -217,9 +220,12 @@ final class TestResourceClient[T: K8sObject] private (
 
 object TestResourceClient {
 
-  /** Creates a test implementation of [[Resource]] and [[ResourceDeleteAll]] to be used from unit tests
-    * @tparam T Resource type
-    * @return Test client
+  /** Creates a test implementation of [[Resource]] and [[ResourceDeleteAll]] to be used from unit
+    * tests
+    * @tparam T
+    *   Resource type
+    * @return
+    *   Test client
     */
   def make[T: K8sObject]: ZIO[Any, Nothing, TestResourceClient[T]] =
     for {

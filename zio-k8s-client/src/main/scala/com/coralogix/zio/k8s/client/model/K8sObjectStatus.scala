@@ -3,11 +3,12 @@ package com.coralogix.zio.k8s.client.model
 import com.coralogix.zio.k8s.client.{ K8sFailure, UndefinedField }
 import zio.{ IO, ZIO }
 
-/** Common operations for every Kubernetes resource type supporting
-  * status subresources.
+/** Common operations for every Kubernetes resource type supporting status subresources.
   *
-  * @tparam ResourceT Resource type
-  * @tparam StatusT Subresource type
+  * @tparam ResourceT
+  *   Resource type
+  * @tparam StatusT
+  *   Subresource type
   */
 trait K8sObjectStatus[ResourceT, StatusT] {
 
@@ -16,7 +17,8 @@ trait K8sObjectStatus[ResourceT, StatusT] {
   def status(obj: ResourceT): Optional[StatusT]
 
   /** Modifies the status of the object with the given function f
-    * @param f Function modifying the status
+    * @param f
+    *   Function modifying the status
     */
   def mapStatus(f: StatusT => StatusT)(obj: ResourceT): ResourceT
 

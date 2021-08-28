@@ -1,5 +1,5 @@
 externalCustomResourceDefinitions := Seq(
-  file("crds/crontab.yaml"),
+  file("crds/crontab.yaml")
 )
 
 enablePlugins(K8sCustomResourceCodegenPlugin)

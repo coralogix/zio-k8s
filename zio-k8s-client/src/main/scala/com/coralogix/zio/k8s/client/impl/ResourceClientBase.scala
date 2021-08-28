@@ -158,10 +158,12 @@ trait ResourceClientBase {
       }
   }
 
-  /** If the response is successful (2xx), tries to deserialize the body from a string into JSON. Returns:
-    * - `Right(b)` if the parsing was successful
-    * - `Left(HttpError(String))` if the response code was other than 2xx (deserialization is not attempted)
-    * - `Left(DeserializationException)` if there's an error during deserialization
+  /** If the response is successful (2xx), tries to deserialize the body from a string into JSON.
+    * Returns:
+    *   - `Right(b)` if the parsing was successful
+    *   - `Left(HttpError(String))` if the response code was other than 2xx (deserialization is not
+    *     attempted)
+    *   - `Left(DeserializationException)` if there's an error during deserialization
     */
   protected def asJsonAccumulating[B: Decoder: IsOption]
     : ResponseAs[Either[ResponseException[String, NonEmptyList[io.circe.Error]], B], Any] = {

@@ -5,9 +5,12 @@ import io.circe.syntax._
 import com.coralogix.zio.k8s.model.pkg.apis.meta.v1.ListMeta
 
 /** Response type of the getAll operation
-  * @param metadata List metadata with continuation token
-  * @param items Items
-  * @tparam T Resource type
+  * @param metadata
+  *   List metadata with continuation token
+  * @param items
+  *   Items
+  * @tparam T
+  *   Resource type
   */
 case class ObjectList[+T](metadata: Optional[ListMeta], items: List[T])
 

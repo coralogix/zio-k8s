@@ -19,10 +19,15 @@ import zio.stream._
   *
   * See https://kubernetes.io/docs/reference/using-api/api-concepts/
   *
-  * @param resourceType Kubernetes resource metadata
-  * @param cluster Configured Kubernetes cluster
-  * @param backend Configured HTTP client
-  * @tparam T Resource type, must have JSON encoder and decoder and an implemententation of [[com.coralogix.zio.k8s.client.model.K8sObject]]
+  * @param resourceType
+  *   Kubernetes resource metadata
+  * @param cluster
+  *   Configured Kubernetes cluster
+  * @param backend
+  *   Configured HTTP client
+  * @tparam T
+  *   Resource type, must have JSON encoder and decoder and an implemententation of
+  *   [[com.coralogix.zio.k8s.client.model.K8sObject]]
   */
 final class ResourceClient[
   T: K8sObject: Encoder: Decoder
@@ -244,12 +249,19 @@ object ResourceClient {
   object namespaced {
 
     /** A paginated query of all resources with filtering possibilities
-      * @param namespace Constraint the query to a given namespace. If None, results returned from all namespaces.
-      * @param chunkSize Number of items to return per HTTP request
-      * @param fieldSelector Constrain the returned items by field selectors. Not all fields are supported by the server.
-      * @param labelSelector Constrain the returned items by label selectors.
-      * @param resourceVersion Control the returned resources' version.
-      * @return A stream of resources
+      * @param namespace
+      *   Constraint the query to a given namespace. If None, results returned from all namespaces.
+      * @param chunkSize
+      *   Number of items to return per HTTP request
+      * @param fieldSelector
+      *   Constrain the returned items by field selectors. Not all fields are supported by the
+      *   server.
+      * @param labelSelector
+      *   Constrain the returned items by label selectors.
+      * @param resourceVersion
+      *   Control the returned resources' version.
+      * @return
+      *   A stream of resources
       */
     def getAll[T: Tag](
       namespace: Option[K8sNamespace],
@@ -262,18 +274,26 @@ object ResourceClient {
         _.get.getAll(namespace, chunkSize, fieldSelector, labelSelector, resourceVersion)
       )
 
-    /** Watch stream of resource change events of type [[com.coralogix.zio.k8s.client.model.TypedWatchEvent]]
+    /** Watch stream of resource change events of type
+      * [[com.coralogix.zio.k8s.client.model.TypedWatchEvent]]
       *
-      * This function requires the user to control the starting resourceVersion and to
-      * restart the watch stream when the server closes the connection.
+      * This function requires the user to control the starting resourceVersion and to restart the
+      * watch stream when the server closes the connection.
       *
       * For a more convenient variant check [[watchForever]].
       *
-      * @param namespace Constraint the watched resources by their namespace. If None, all namespaces will be watched.
-      * @param resourceVersion Last known resource version
-      * @param fieldSelector Constrain the returned items by field selectors. Not all fields are supported by the server.
-      * @param labelSelector Constrain the returned items by label selectors.
-      * @return A stream of watch events
+      * @param namespace
+      *   Constraint the watched resources by their namespace. If None, all namespaces will be
+      *   watched.
+      * @param resourceVersion
+      *   Last known resource version
+      * @param fieldSelector
+      *   Constrain the returned items by field selectors. Not all fields are supported by the
+      *   server.
+      * @param labelSelector
+      *   Constrain the returned items by label selectors.
+      * @return
+      *   A stream of watch events
       */
     def watch[T: Tag](
       namespace: Option[K8sNamespace],
@@ -283,14 +303,21 @@ object ResourceClient {
     ): ZStream[Has[NamespacedResource[T]], K8sFailure, TypedWatchEvent[T]] =
       ZStream.accessStream(_.get.watch(namespace, resourceVersion, fieldSelector, labelSelector))
 
-    /** Infinite watch stream of resource change events of type [[com.coralogix.zio.k8s.client.model.TypedWatchEvent]]
+    /** Infinite watch stream of resource change events of type
+      * [[com.coralogix.zio.k8s.client.model.TypedWatchEvent]]
       *
       * The underlying implementation takes advantage of Kubernetes watch bookmarks.
       *
-      * @param namespace Constraint the watched resources by their namespace. If None, all namespaces will be watched.
-      * @param fieldSelector Constrain the returned items by field selectors. Not all fields are supported by the server.
-      * @param labelSelector Constrain the returned items by label selectors.
-      * @return A stream of watch events
+      * @param namespace
+      *   Constraint the watched resources by their namespace. If None, all namespaces will be
+      *   watched.
+      * @param fieldSelector
+      *   Constrain the returned items by field selectors. Not all fields are supported by the
+      *   server.
+      * @param labelSelector
+      *   Constrain the returned items by label selectors.
+      * @return
+      *   A stream of watch events
       */
     def watchForever[T: Tag](
       namespace: Option[K8sNamespace],
@@ -302,9 +329,12 @@ object ResourceClient {
       ZStream.accessStream(_.get.watchForever(namespace, fieldSelector, labelSelector))
 
     /** Get a resource by its name
-      * @param name Name of the resource
-      * @param namespace Namespace of the resource
-      * @return Returns the current version of the resource
+      * @param name
+      *   Name of the resource
+      * @param namespace
+      *   Namespace of the resource
+      * @return
+      *   Returns the current version of the resource
       */
     def get[T: Tag](
       name: String,
@@ -313,10 +343,14 @@ object ResourceClient {
       ZIO.accessM(_.get.get(name, namespace))
 
     /** Creates a new resource
-      * @param newResource The new resource to define in the cluster.
-      * @param namespace Namespace of the resource.
-      * @param dryRun If true, the request is sent to the server but it will not create the resource.
-      * @return Returns the created resource as it was returned from Kubernetes
+      * @param newResource
+      *   The new resource to define in the cluster.
+      * @param namespace
+      *   Namespace of the resource.
+      * @param dryRun
+      *   If true, the request is sent to the server but it will not create the resource.
+      * @return
+      *   Returns the created resource as it was returned from Kubernetes
       */
     def create[T: Tag](
       newResource: T,
@@ -326,11 +360,16 @@ object ResourceClient {
       ZIO.accessM(_.get.create(newResource, namespace, dryRun))
 
     /** Replaces an existing resource selected by its name
-      * @param name Name of the resource
-      * @param updatedResource The new value of the resource
-      * @param namespace Namespace of the resource
-      * @param dryRun If true, the request is sent to the server but it will not create the resource.
-      * @return Returns the updated resource as it was returned from Kubernetes
+      * @param name
+      *   Name of the resource
+      * @param updatedResource
+      *   The new value of the resource
+      * @param namespace
+      *   Namespace of the resource
+      * @param dryRun
+      *   If true, the request is sent to the server but it will not create the resource.
+      * @return
+      *   Returns the updated resource as it was returned from Kubernetes
       */
     def replace[T: Tag](
       name: String,
@@ -342,14 +381,19 @@ object ResourceClient {
 
     /** Replaces the status of a resource that was previously get from server.
       *
-      * Use either [[getStatus]] or [[NamespacedResource.get]] to retrieve a value of the resource by name, and then
-      * call this method to update its status.
+      * Use either [[getStatus]] or [[NamespacedResource.get]] to retrieve a value of the resource
+      * by name, and then call this method to update its status.
       *
-      * @param of The resource object to manipulate
-      * @param updatedStatus Updated status value
-      * @param namespace Namespace of the resource
-      * @param dryRun If true, the request is sent to the server but it will not create the resource.
-      * @return Returns the updated resource (not just the status)
+      * @param of
+      *   The resource object to manipulate
+      * @param updatedStatus
+      *   Updated status value
+      * @param namespace
+      *   Namespace of the resource
+      * @param dryRun
+      *   If true, the request is sent to the server but it will not create the resource.
+      * @return
+      *   Returns the updated resource (not just the status)
       */
     def replaceStatus[StatusT: Tag, T: Tag](
       of: T,
@@ -360,9 +404,12 @@ object ResourceClient {
       ZIO.accessM(_.get.replaceStatus(of, updatedStatus, namespace, dryRun))
 
     /** Get the status of a given subresource by name
-      * @param name Name of the resource
-      * @param namespace Namespace of the resource
-      * @return Returns the full resource object but with possibly the non-status fields absent.
+      * @param name
+      *   Name of the resource
+      * @param namespace
+      *   Namespace of the resource
+      * @return
+      *   Returns the full resource object but with possibly the non-status fields absent.
       */
     def getStatus[StatusT: Tag, T: Tag](
       name: String,
@@ -371,13 +418,28 @@ object ResourceClient {
       ZIO.accessM(_.get.getStatus(name, namespace))
 
     /** Deletes an existing resource selected by its name
-      * @param name Name of the resource
-      * @param deleteOptions Delete options
-      * @param namespace Namespace of the resource
-      * @param dryRun If true, the request is sent to the server but it will not create the resource.
-      * @param gracePeriod The duration in seconds before the object should be deleted. Value must be non-negative integer. The value zero indicates delete immediately. If this value is nil, the default grace period for the specified type will be used. Defaults to a per object value if not specified. zero means delete immediately.
-      * @param propagationPolicy Whether and how garbage collection will be performed. Either this field or OrphanDependents may be set, but not both. The default policy is decided by the existing finalizer set in the metadata.finalizers and the resource-specific default policy. Acceptable values are: 'Orphan' - orphan the dependents; 'Background' - allow the garbage collector to delete the dependents in the background; 'Foreground' - a cascading policy that deletes all dependents in the foreground.
-      * @return Response from the Kubernetes API
+      * @param name
+      *   Name of the resource
+      * @param deleteOptions
+      *   Delete options
+      * @param namespace
+      *   Namespace of the resource
+      * @param dryRun
+      *   If true, the request is sent to the server but it will not create the resource.
+      * @param gracePeriod
+      *   The duration in seconds before the object should be deleted. Value must be non-negative
+      *   integer. The value zero indicates delete immediately. If this value is nil, the default
+      *   grace period for the specified type will be used. Defaults to a per object value if not
+      *   specified. zero means delete immediately.
+      * @param propagationPolicy
+      *   Whether and how garbage collection will be performed. Either this field or
+      *   OrphanDependents may be set, but not both. The default policy is decided by the existing
+      *   finalizer set in the metadata.finalizers and the resource-specific default policy.
+      *   Acceptable values are: 'Orphan' - orphan the dependents; 'Background' - allow the garbage
+      *   collector to delete the dependents in the background; 'Foreground' - a cascading policy
+      *   that deletes all dependents in the foreground.
+      * @return
+      *   Response from the Kubernetes API
       */
     def delete[T: Tag](
       name: String,
@@ -393,14 +455,31 @@ object ResourceClient {
 
     /** Delete all resources matching the provided constraints
       *
-      * @param deleteOptions Delete options
-      * @param namespace Namespace of the resources to be deleted
-      * @param dryRun If true, the request is sent to the server but it will not create the resource.
-      * @param gracePeriod The duration in seconds before the object should be deleted. Value must be non-negative integer. The value zero indicates delete immediately. If this value is nil, the default grace period for the specified type will be used. Defaults to a per object value if not specified. zero means delete immediately.
-      * @param propagationPolicy Whether and how garbage collection will be performed. Either this field or OrphanDependents may be set, but not both. The default policy is decided by the existing finalizer set in the metadata.finalizers and the resource-specific default policy. Acceptable values are: 'Orphan' - orphan the dependents; 'Background' - allow the garbage collector to delete the dependents in the background; 'Foreground' - a cascading policy that deletes all dependents in the foreground.
-      * @param fieldSelector Select the items to be deleted by field selectors. Not all fields are supported by the server.
-      * @param labelSelector Select the items to be deleted by label selectors.
-      * @return Status returned by the Kubernetes API
+      * @param deleteOptions
+      *   Delete options
+      * @param namespace
+      *   Namespace of the resources to be deleted
+      * @param dryRun
+      *   If true, the request is sent to the server but it will not create the resource.
+      * @param gracePeriod
+      *   The duration in seconds before the object should be deleted. Value must be non-negative
+      *   integer. The value zero indicates delete immediately. If this value is nil, the default
+      *   grace period for the specified type will be used. Defaults to a per object value if not
+      *   specified. zero means delete immediately.
+      * @param propagationPolicy
+      *   Whether and how garbage collection will be performed. Either this field or
+      *   OrphanDependents may be set, but not both. The default policy is decided by the existing
+      *   finalizer set in the metadata.finalizers and the resource-specific default policy.
+      *   Acceptable values are: 'Orphan' - orphan the dependents; 'Background' - allow the garbage
+      *   collector to delete the dependents in the background; 'Foreground' - a cascading policy
+      *   that deletes all dependents in the foreground.
+      * @param fieldSelector
+      *   Select the items to be deleted by field selectors. Not all fields are supported by the
+      *   server.
+      * @param labelSelector
+      *   Select the items to be deleted by label selectors.
+      * @return
+      *   Status returned by the Kubernetes API
       */
     def deleteAll[T: Tag](
       deleteOptions: DeleteOptions,
@@ -429,11 +508,17 @@ object ResourceClient {
   object cluster {
 
     /** A paginated query of all resources with filtering possibilities
-      * @param chunkSize Number of items to return per HTTP request
-      * @param fieldSelector Constrain the returned items by field selectors. Not all fields are supported by the server.
-      * @param labelSelector Constrain the returned items by label selectors.
-      * @param resourceVersion Control the returned resources' version.
-      * @return A stream of resources
+      * @param chunkSize
+      *   Number of items to return per HTTP request
+      * @param fieldSelector
+      *   Constrain the returned items by field selectors. Not all fields are supported by the
+      *   server.
+      * @param labelSelector
+      *   Constrain the returned items by label selectors.
+      * @param resourceVersion
+      *   Control the returned resources' version.
+      * @return
+      *   A stream of resources
       */
     def getAll[T: Tag](
       chunkSize: Int = 10,
@@ -443,17 +528,23 @@ object ResourceClient {
     ): ZStream[Has[ClusterResource[T]], K8sFailure, T] =
       ZStream.accessStream(_.get.getAll(chunkSize, fieldSelector, labelSelector, resourceVersion))
 
-    /** Watch stream of resource change events of type [[com.coralogix.zio.k8s.client.model.TypedWatchEvent]]
+    /** Watch stream of resource change events of type
+      * [[com.coralogix.zio.k8s.client.model.TypedWatchEvent]]
       *
-      * This function requires the user to control the starting resourceVersion and to
-      * restart the watch stream when the server closes the connection.
+      * This function requires the user to control the starting resourceVersion and to restart the
+      * watch stream when the server closes the connection.
       *
       * For a more convenient variant check [[watchForever]].
       *
-      * @param resourceVersion Last known resource version
-      * @param fieldSelector Constrain the returned items by field selectors. Not all fields are supported by the server.
-      * @param labelSelector Constrain the returned items by label selectors.
-      * @return A stream of watch events
+      * @param resourceVersion
+      *   Last known resource version
+      * @param fieldSelector
+      *   Constrain the returned items by field selectors. Not all fields are supported by the
+      *   server.
+      * @param labelSelector
+      *   Constrain the returned items by label selectors.
+      * @return
+      *   A stream of watch events
       */
     def watch[T: Tag](
       resourceVersion: Option[String],
@@ -462,13 +553,18 @@ object ResourceClient {
     ): ZStream[Has[ClusterResource[T]], K8sFailure, TypedWatchEvent[T]] =
       ZStream.accessStream(_.get.watch(resourceVersion, fieldSelector, labelSelector))
 
-    /** Infinite watch stream of resource change events of type [[com.coralogix.zio.k8s.client.model.TypedWatchEvent]]
+    /** Infinite watch stream of resource change events of type
+      * [[com.coralogix.zio.k8s.client.model.TypedWatchEvent]]
       *
       * The underlying implementation takes advantage of Kubernetes watch bookmarks.
       *
-      * @param fieldSelector Constrain the returned items by field selectors. Not all fields are supported by the server.
-      * @param labelSelector Constrain the returned items by label selectors.
-      * @return A stream of watch events
+      * @param fieldSelector
+      *   Constrain the returned items by field selectors. Not all fields are supported by the
+      *   server.
+      * @param labelSelector
+      *   Constrain the returned items by label selectors.
+      * @return
+      *   A stream of watch events
       */
     def watchForever[T: Tag](
       fieldSelector: Option[FieldSelector] = None,
@@ -477,8 +573,10 @@ object ResourceClient {
       ZStream.accessStream(_.get.watchForever(fieldSelector, labelSelector))
 
     /** Get a resource by its name
-      * @param name Name of the resource
-      * @return Returns the current version of the resource
+      * @param name
+      *   Name of the resource
+      * @return
+      *   Returns the current version of the resource
       */
     def get[T: Tag](
       name: String
@@ -486,9 +584,12 @@ object ResourceClient {
       ZIO.accessM(_.get.get(name))
 
     /** Creates a new resource
-      * @param newResource The new resource to define in the cluster.
-      * @param dryRun If true, the request is sent to the server but it will not create the resource.
-      * @return Returns the created resource as it was returned from Kubernetes
+      * @param newResource
+      *   The new resource to define in the cluster.
+      * @param dryRun
+      *   If true, the request is sent to the server but it will not create the resource.
+      * @return
+      *   Returns the created resource as it was returned from Kubernetes
       */
     def create[T: Tag](
       newResource: T,
@@ -497,10 +598,14 @@ object ResourceClient {
       ZIO.accessM(_.get.create(newResource, dryRun))
 
     /** Replaces an existing resource selected by its name
-      * @param name Name of the resource
-      * @param updatedResource The new value of the resource
-      * @param dryRun If true, the request is sent to the server but it will not create the resource.
-      * @return Returns the updated resource as it was returned from Kubernetes
+      * @param name
+      *   Name of the resource
+      * @param updatedResource
+      *   The new value of the resource
+      * @param dryRun
+      *   If true, the request is sent to the server but it will not create the resource.
+      * @return
+      *   Returns the updated resource as it was returned from Kubernetes
       */
     def replace[T: Tag](
       name: String,
@@ -511,13 +616,17 @@ object ResourceClient {
 
     /** Replaces the status of a resource that was previously get from server.
       *
-      * Use either [[getStatus]] or [[ClusterResource.get]] to retrieve a value of the resource by name, and then
-      * call this method to update its status.
+      * Use either [[getStatus]] or [[ClusterResource.get]] to retrieve a value of the resource by
+      * name, and then call this method to update its status.
       *
-      * @param of The resource object to manipulate
-      * @param updatedStatus Updated status value
-      * @param dryRun If true, the request is sent to the server but it will not create the resource.
-      * @return Returns the updated resource (not just the status)
+      * @param of
+      *   The resource object to manipulate
+      * @param updatedStatus
+      *   Updated status value
+      * @param dryRun
+      *   If true, the request is sent to the server but it will not create the resource.
+      * @return
+      *   Returns the updated resource (not just the status)
       */
     def replaceStatus[StatusT: Tag, T: Tag](
       of: T,
@@ -527,8 +636,10 @@ object ResourceClient {
       ZIO.accessM(_.get.replaceStatus(of, updatedStatus, dryRun))
 
     /** Get the status of a given subresource by name
-      * @param name Name of the resource
-      * @return Returns the full resource object but with possibly the non-status fields absent.
+      * @param name
+      *   Name of the resource
+      * @return
+      *   Returns the full resource object but with possibly the non-status fields absent.
       */
     def getStatus[StatusT: Tag, T: Tag](
       name: String
@@ -536,12 +647,26 @@ object ResourceClient {
       ZIO.accessM(_.get.getStatus(name))
 
     /** Deletes an existing resource selected by its name
-      * @param name Name of the resource
-      * @param deleteOptions Delete options
-      * @param dryRun If true, the request is sent to the server but it will not create the resource.
-      * @param gracePeriod The duration in seconds before the object should be deleted. Value must be non-negative integer. The value zero indicates delete immediately. If this value is nil, the default grace period for the specified type will be used. Defaults to a per object value if not specified. zero means delete immediately.
-      * @param propagationPolicy Whether and how garbage collection will be performed. Either this field or OrphanDependents may be set, but not both. The default policy is decided by the existing finalizer set in the metadata.finalizers and the resource-specific default policy. Acceptable values are: 'Orphan' - orphan the dependents; 'Background' - allow the garbage collector to delete the dependents in the background; 'Foreground' - a cascading policy that deletes all dependents in the foreground.
-      * @return Response from the Kubernetes API
+      * @param name
+      *   Name of the resource
+      * @param deleteOptions
+      *   Delete options
+      * @param dryRun
+      *   If true, the request is sent to the server but it will not create the resource.
+      * @param gracePeriod
+      *   The duration in seconds before the object should be deleted. Value must be non-negative
+      *   integer. The value zero indicates delete immediately. If this value is nil, the default
+      *   grace period for the specified type will be used. Defaults to a per object value if not
+      *   specified. zero means delete immediately.
+      * @param propagationPolicy
+      *   Whether and how garbage collection will be performed. Either this field or
+      *   OrphanDependents may be set, but not both. The default policy is decided by the existing
+      *   finalizer set in the metadata.finalizers and the resource-specific default policy.
+      *   Acceptable values are: 'Orphan' - orphan the dependents; 'Background' - allow the garbage
+      *   collector to delete the dependents in the background; 'Foreground' - a cascading policy
+      *   that deletes all dependents in the foreground.
+      * @return
+      *   Response from the Kubernetes API
       */
     def delete[T: Tag](
       name: String,
@@ -554,13 +679,29 @@ object ResourceClient {
 
     /** Delete all resources matching the provided constraints
       *
-      * @param deleteOptions Delete options
-      * @param dryRun If true, the request is sent to the server but it will not create the resource.
-      * @param gracePeriod The duration in seconds before the object should be deleted. Value must be non-negative integer. The value zero indicates delete immediately. If this value is nil, the default grace period for the specified type will be used. Defaults to a per object value if not specified. zero means delete immediately.
-      * @param propagationPolicy Whether and how garbage collection will be performed. Either this field or OrphanDependents may be set, but not both. The default policy is decided by the existing finalizer set in the metadata.finalizers and the resource-specific default policy. Acceptable values are: 'Orphan' - orphan the dependents; 'Background' - allow the garbage collector to delete the dependents in the background; 'Foreground' - a cascading policy that deletes all dependents in the foreground.
-      * @param fieldSelector Select the items to be deleted by field selectors. Not all fields are supported by the server.
-      * @param labelSelector Select the items to be deleted by label selectors.
-      * @return Status returned by the Kubernetes API
+      * @param deleteOptions
+      *   Delete options
+      * @param dryRun
+      *   If true, the request is sent to the server but it will not create the resource.
+      * @param gracePeriod
+      *   The duration in seconds before the object should be deleted. Value must be non-negative
+      *   integer. The value zero indicates delete immediately. If this value is nil, the default
+      *   grace period for the specified type will be used. Defaults to a per object value if not
+      *   specified. zero means delete immediately.
+      * @param propagationPolicy
+      *   Whether and how garbage collection will be performed. Either this field or
+      *   OrphanDependents may be set, but not both. The default policy is decided by the existing
+      *   finalizer set in the metadata.finalizers and the resource-specific default policy.
+      *   Acceptable values are: 'Orphan' - orphan the dependents; 'Background' - allow the garbage
+      *   collector to delete the dependents in the background; 'Foreground' - a cascading policy
+      *   that deletes all dependents in the foreground.
+      * @param fieldSelector
+      *   Select the items to be deleted by field selectors. Not all fields are supported by the
+      *   server.
+      * @param labelSelector
+      *   Select the items to be deleted by label selectors.
+      * @return
+      *   Status returned by the Kubernetes API
       */
     def deleteAll[T: Tag](
       deleteOptions: DeleteOptions,

@@ -272,7 +272,7 @@ trait ClientModuleGenerator {
               Type.With(l, t"Has[$r]")
           }
           val serviceT = Type.Select(typeAliasTerm, Type.Name("Service"))
-          val typeAlias = q"""type ${typeAliasT} = ${t"Has[$serviceT]"}"""
+          val typeAlias = q"""type $typeAliasT = ${t"Has[$serviceT]"}"""
           val typeAliasGeneric = q"""type Generic = $typeAliasRhs"""
 
           val mainInterfaceI = Init(mainInterface, Name.Anonymous(), List.empty)
@@ -318,7 +318,7 @@ trait ClientModuleGenerator {
               $typeAliasGeneric
 
               trait Service
-                extends $mainInterfaceI with ..${extraInterfaceIs} {
+                extends $mainInterfaceI with ..$extraInterfaceIs {
 
                 val asGeneric: $typeAliasGenericT = $interfacesWrappedInHas
               }
@@ -518,7 +518,7 @@ trait ClientModuleGenerator {
               Type.With(l, t"Has[$r]")
           }
           val serviceT = Type.Select(typeAliasTerm, Type.Name("Service"))
-          val typeAlias = q"""type ${typeAliasT} = ${t"Has[$serviceT]"}"""
+          val typeAlias = q"""type $typeAliasT = ${t"Has[$serviceT]"}"""
           val typeAliasGeneric = q"""type Generic = $typeAliasRhs"""
 
           val mainInterfaceI = Init(mainInterface, Name.Anonymous(), List.empty)
@@ -564,7 +564,7 @@ trait ClientModuleGenerator {
               $typeAliasGeneric
 
               trait Service
-                extends $mainInterfaceI with ..${extraInterfaceIs} {
+                extends $mainInterfaceI with ..$extraInterfaceIs {
 
                 val asGeneric: $typeAliasGenericT = $interfacesWrappedInHas
               }

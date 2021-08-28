@@ -13,8 +13,8 @@ import java.net.http.HttpClient
   */
 package object httpclient {
 
-  /** An [[SttpClient]] layer configured with the proper SSL context based
-    * on the provided [[K8sClusterConfig]] using the httpclient-backend-zio backend.
+  /** An [[SttpClient]] layer configured with the proper SSL context based on the provided
+    * [[K8sClusterConfig]] using the httpclient-backend-zio backend.
     */
   val k8sSttpClient
     : ZLayer[Has[K8sClusterConfig] with System with Blocking, Throwable, SttpClient] =
@@ -55,8 +55,8 @@ package object httpclient {
       } yield client
     }
 
-  /** Layer producing a [[K8sCluster]] and an [[SttpClient]] module that can be directly used
-    * to initialize specific Kubernetes client modules, using the [[defaultConfigChain]].
+  /** Layer producing a [[K8sCluster]] and an [[SttpClient]] module that can be directly used to
+    * initialize specific Kubernetes client modules, using the [[defaultConfigChain]].
     */
   val k8sDefault: ZLayer[Blocking with System, Throwable, Has[K8sCluster] with SttpClient] =
     (Blocking.any ++ System.any) >+> defaultConfigChain >>> (k8sCluster ++ k8sSttpClient)

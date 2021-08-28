@@ -110,7 +110,7 @@ class K8sModelProtocolTermInterp(implicit
 
       List[Defn.Def](
         q"override def toString: String = ${toStringTerms
-          .foldLeft[Term](Lit.String(s"${clsName}("))((accum, term) => q"$accum + $term")} + ${Lit.String(")")}"
+          .foldLeft[Term](Lit.String(s"$clsName("))((accum, term) => q"$accum + $term")} + ${Lit.String(")")}"
       )
     } else
       List.empty[Defn.Def]
@@ -155,14 +155,14 @@ class K8sModelProtocolTermInterp(implicit
                     Target.pure(
                       Option(
                         q"""
-                    Decoder.${Term.Name(s"forProduct${paramCount}")}(..${names})(${Term
+                    Decoder.${Term.Name(s"forProduct$paramCount")}(..$names)(${Term
                           .Name(clsName)}.apply _)
                   """
                       )
                     )
                   } else
                     params.zipWithIndex
-                      .traverse({ case (param, idx) =>
+                      .traverse { case (param, idx) =>
                         for {
                           rawTpe <- Target.fromOption(param.term.decltpe, UserError("Missing type"))
                           tpe    <- rawTpe match {
@@ -184,7 +184,7 @@ class K8sModelProtocolTermInterp(implicit
                             NonEmptyVector.of[Term => Term](
                               t => q"$t.downField($name)",
                               emptyToNull,
-                              t => q"$t.as[${tpe}]"
+                              t => q"$t.as[$tpe]"
                             )
                           }
 
@@ -200,7 +200,7 @@ class K8sModelProtocolTermInterp(implicit
                               .filter(!_.contains($name))
                               .fold(${emptyToNull(
                                   q"c.downField($name)"
-                                )}.as[${tpe}].map(x => ${present(q"x")})) { _ =>
+                                )}.as[$tpe].map(x => ${present(q"x")})) { _ =>
                                 Right($absent)
                               }
                           )($t)
@@ -216,7 +216,7 @@ class K8sModelProtocolTermInterp(implicit
                             case PropertyRequirement.OptionalLegacy   =>
                               decodeField(tpe)
                             case PropertyRequirement.RequiredNullable =>
-                              decodeField(t"Json") :+ (t => q"$t.flatMap(_.as[${tpe}])")
+                              decodeField(t"Json") :+ (t => q"$t.flatMap(_.as[$tpe])")
                             case PropertyRequirement.Optional         => // matched only where there is inconsistency between encoder and decoder
                               decodeOptionalField(param.baseType)(x => q"Option($x)", q"None")
                           }
@@ -249,7 +249,7 @@ class K8sModelProtocolTermInterp(implicit
                           val enum = enumerator"""${Pat.Var(term)} <- $parseTerm"""
                           (term, enum)
                         }
-                      })(MonadF)
+                      }(MonadF)
                       .map({ pairs =>
                         val (terms, enumerators) = pairs.unzip
                         Option(
@@ -257,8 +257,8 @@ class K8sModelProtocolTermInterp(implicit
                     new Decoder[${Type.Name(clsName)}] {
                       final def apply(c: HCursor): Decoder.Result[${Type.Name(clsName)}] =
                         for {
-                          ..${enumerators}
-                        } yield ${Term.Name(clsName)}(..${terms})
+                          ..$enumerators
+                        } yield ${Term.Name(clsName)}(..$terms)
                     }
                   """
                         )
@@ -330,7 +330,7 @@ class K8sModelProtocolTermInterp(implicit
         val optional = allFields.collect { case Left(field) =>
           field
         }
-        val simpleCase = q"Vector(..${pairs})"
+        val simpleCase = q"Vector(..$pairs)"
         val arg = optional.foldLeft[Term](simpleCase) { (acc, field) =>
           q"$acc ++ $field"
         }

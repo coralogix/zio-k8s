@@ -2,7 +2,7 @@ externalCustomResourceDefinitions := Seq(
   file("crds/keda.sh_clustertriggerauthentications.yaml"),
   file("crds/keda.sh_scaledjobs.yaml"),
   file("crds/keda.sh_scaledobjects.yaml"),
-  file("crds/keda.sh_triggerauthentications.yaml"),
+  file("crds/keda.sh_triggerauthentications.yaml")
 )
 
 enablePlugins(K8sCustomResourceCodegenPlugin)

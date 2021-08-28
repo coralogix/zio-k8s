@@ -7,9 +7,12 @@ import com.coralogix.zio.k8s.client.model.K8sObjectStatus._
 import zio.IO
 
 /** Test implementation of [[ResourceStatus]] to be used from unit tests
-  * @param client The test client implementation to attach to
-  * @tparam StatusT Status subresource type
-  * @tparam T Resource type
+  * @param client
+  *   The test client implementation to attach to
+  * @tparam StatusT
+  *   Status subresource type
+  * @tparam T
+  *   Resource type
   */
 final class TestResourceStatusClient[StatusT, T](client: TestResourceClient[T])(implicit
   r: K8sObject[T],
