@@ -10,8 +10,10 @@ import java.time.format.DateTimeFormatter
 package object model extends LabelSelector.Syntax with FieldSelector.Syntax {
 
   /** Data type describing a configured Kuberntes cluster
-    * @param host Host to connect to
-    * @param applyToken Function to apply an authentication token to the HTTP request
+    * @param host
+    *   Host to connect to
+    * @param applyToken
+    *   Function to apply an authentication token to the HTTP request
     */
   case class K8sCluster(
     host: Uri,
@@ -21,9 +23,12 @@ package object model extends LabelSelector.Syntax with FieldSelector.Syntax {
   )
 
   /** Metadata identifying a Kubernetes resource
-    * @param resourceType Resource type (kind)
-    * @param group Group
-    * @param version Version
+    * @param resourceType
+    *   Resource type (kind)
+    * @param group
+    *   Group
+    * @param version
+    *   Version
     */
   case class K8sResourceType(resourceType: String, group: String, version: String)
 

@@ -207,7 +207,7 @@ trait ModelGenerator {
                       if (group.isEmpty)
                         Lit.String(version)
                       else
-                        Lit.String(s"${group}/${version}")
+                        Lit.String(s"$group/$version")
 
                     val statusOps =
                       findStatusEntityOfSchema(schema.asInstanceOf[ObjectSchema]) match {

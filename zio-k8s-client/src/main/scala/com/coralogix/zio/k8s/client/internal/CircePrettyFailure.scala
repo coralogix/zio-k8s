@@ -104,8 +104,10 @@ object CircePrettyFailure {
     )
 
   /** Pretty print a Circe failure into a human readable string
-    * @param error Circe decoding failure
-    * @return Human readable string
+    * @param error
+    *   Circe decoding failure
+    * @return
+    *   Human readable string
     */
   def prettyPrint(error: Error): String =
     error match {

@@ -7,8 +7,10 @@ import zio.stream.{ ZStream, ZTransducer }
 import zio.{ IO, ZIO }
 
 /** Test implementation of [[Subresource]] to be used from unit tests
-  * @param store Subresource data store
-  * @tparam T Subresource type
+  * @param store
+  *   Subresource data store
+  * @tparam T
+  *   Subresource type
   */
 final class TestSubresourceClient[T] private (store: TMap[String, T]) extends Subresource[T] {
   override def get(
@@ -66,8 +68,10 @@ final class TestSubresourceClient[T] private (store: TMap[String, T]) extends Su
 object TestSubresourceClient {
 
   /** Creates a test implementation of [[Subresource]] to be used in unit tests
-    * @tparam T Subresource type
-    * @return Test client
+    * @tparam T
+    *   Subresource type
+    * @return
+    *   Test client
     */
   def make[T]: ZIO[Any, Nothing, TestSubresourceClient[T]] =
     for {

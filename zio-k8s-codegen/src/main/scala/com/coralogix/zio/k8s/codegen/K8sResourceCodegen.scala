@@ -79,9 +79,9 @@ class K8sResourceCodegen(val logger: sbt.Logger, val scalaVersion: String)
     } yield opticsPaths.map(_.toFile).toSeq
 
   def generateAllOptics(
-                          from: Path,
-                          targetDir: Path
-                        ): ZIO[Blocking, Throwable, Seq[File]] =
+    from: Path,
+    targetDir: Path
+  ): ZIO[Blocking, Throwable, Seq[File]] =
     for {
       // Loading
       spec     <- loadK8sSwagger(from)
@@ -89,8 +89,8 @@ class K8sResourceCodegen(val logger: sbt.Logger, val scalaVersion: String)
 
       // Identifying
       definitions  = spec.getComponents.getSchemas.asScala
-        .flatMap((IdentifiedSchema.identifyDefinition _).tupled)
-        .toSet
+                       .flatMap((IdentifiedSchema.identifyDefinition _).tupled)
+                       .toSet
 
       // Generating code
       opticsPaths <- generateAllZioOptics(scalafmt, targetDir, definitions)

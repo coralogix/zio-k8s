@@ -8,7 +8,7 @@ import zio.ZIO
 import zio.blocking.Blocking
 import zio.nio.core.file.Path
 
-import java.nio.file.{ Paths => JPaths, Path => JPath }
+import java.nio.file.{ Path => JPath, Paths => JPaths }
 
 import scala.meta.Tree
 import scala.meta.internal.prettyprinters.TreeSyntax

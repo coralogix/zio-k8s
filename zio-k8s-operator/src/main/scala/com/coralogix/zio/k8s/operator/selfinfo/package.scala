@@ -98,7 +98,8 @@ package object contextinfo {
       */
     final case class UnknownNamespace(reason: Option[IOException]) extends ContextInfoFailure
 
-    /** Could not determine the running Pod's name. It has to be provided in the POD_NAME environment variable.
+    /** Could not determine the running Pod's name. It has to be provided in the POD_NAME
+      * environment variable.
       */
     final case class PodNameMissing(reason: Option[SecurityException]) extends ContextInfoFailure
 

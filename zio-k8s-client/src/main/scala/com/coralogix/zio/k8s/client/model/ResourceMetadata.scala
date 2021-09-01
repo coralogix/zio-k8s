@@ -1,7 +1,8 @@
 package com.coralogix.zio.k8s.client.model
 
 /** Resource metadata typeclass
-  * @tparam T Resource type
+  * @tparam T
+  *   Resource type
   */
 trait ResourceMetadata[T] {
 

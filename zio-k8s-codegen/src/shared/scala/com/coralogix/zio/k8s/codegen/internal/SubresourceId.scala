@@ -49,7 +49,7 @@ case class SubresourceId(
     typ match {
       case t"Boolean" => q"""if ($nameTerm) "true" else "false""""
       case t"String"  => nameTerm
-      case _          => q"${nameTerm}.toString"
+      case _          => q"$nameTerm.toString"
     }
   }
 }

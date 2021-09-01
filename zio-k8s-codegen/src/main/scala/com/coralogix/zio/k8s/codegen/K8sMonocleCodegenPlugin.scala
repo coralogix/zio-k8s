@@ -18,7 +18,7 @@ object K8sMonocleCodegenPlugin extends AutoPlugin {
         val ver = scalaVersion.value
 
         val cachedFun = FileFunction.cached(
-          streams.value.cacheDirectory / s"k8s-monocle-src-${ver}",
+          streams.value.cacheDirectory / s"k8s-monocle-src-$ver",
           FileInfo.hash
         ) { input: Set[File] =>
           input.foldLeft(Set.empty[File]) { (result, k8sSwagger) =>

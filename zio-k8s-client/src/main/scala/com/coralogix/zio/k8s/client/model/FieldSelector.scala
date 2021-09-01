@@ -4,15 +4,14 @@ import zio.Chunk
 
 /** A composable field selector
   *
-  * Every Kubernetes model's companion object contain a set of [[Field]] definitions.
-  * To construct [[FieldSelector]] values for queries, use these [[Field]] values and
-  * the operators defined on them.
+  * Every Kubernetes model's companion object contain a set of [[Field]] definitions. To construct
+  * [[FieldSelector]] values for queries, use these [[Field]] values and the operators defined on
+  * them.
   *
-  * Note that a very small subset of the fields is actually usable as field seletors,
-  * but there is no compile-time information about which one of them are. For this reason
-  * we provide a [[Field]] for each available field and it is the developer's responsibility
-  * to only use supported fields in field selectors, or handle the errors returned by
-  * the Kubernetes server.
+  * Note that a very small subset of the fields is actually usable as field seletors, but there is
+  * no compile-time information about which one of them are. For this reason we provide a [[Field]]
+  * for each available field and it is the developer's responsibility to only use supported fields
+  * in field selectors, or handle the errors returned by the Kubernetes server.
   */
 sealed trait FieldSelector { self =>
 

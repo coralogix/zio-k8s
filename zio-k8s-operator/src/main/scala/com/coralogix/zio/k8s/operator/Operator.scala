@@ -16,8 +16,7 @@ import zio.duration.durationInt
 import zio.logging.{ log, Logging }
 import zio.stream.ZStream
 
-/** Core implementation of the operator logic.
-  * Watches a stream and calls an event processor.
+/** Core implementation of the operator logic. Watches a stream and calls an event processor.
   *
   * An instance of this is tied to one particular resource type in one namespace.
   *
@@ -150,8 +149,8 @@ final class ClusterOperator[R, E, T](
 
 object Operator {
 
-  /** Static contextual information for the event processors,
-    * usable for implementing generic loggers/metrics etc.
+  /** Static contextual information for the event processors, usable for implementing generic
+    * loggers/metrics etc.
     */
   case class OperatorContext(resourceType: K8sResourceType, namespace: Option[K8sNamespace]) {
     def withSpecificNamespace(namespace: Option[K8sNamespace]): OperatorContext =
@@ -164,15 +163,20 @@ object Operator {
   /** Operator event processor
     *
     * This is the type to be implemented when writing operators using the zio-k8s-operator library.
-    * @tparam R Operator environment
-    * @tparam E Operator-specific error type
-    * @tparam T Resource type
+    * @tparam R
+    *   Operator environment
+    * @tparam E
+    *   Operator-specific error type
+    * @tparam T
+    *   Resource type
     */
   trait EventProcessor[-R, +E, T] { self =>
 
     /** Process an incoming event
-      * @param context Information about the operator
-      * @param event Event to be processed
+      * @param context
+      *   Information about the operator
+      * @param event
+      *   Event to be processed
       */
     def apply(context: OperatorContext, event: TypedWatchEvent[T]): ZIO[R, OperatorFailure[E], Unit]
 
@@ -183,13 +187,20 @@ object Operator {
   }
 
   /** Creates an operator for a namespaced resource
-    * @param eventProcessor Event processor implementation
-    * @param namespace Namespace to run in. If None, it will watch resources from all namespaces.
-    * @param buffer Buffer size for the incoming events
-    * @tparam R Operator environment
-    * @tparam E Operator-specific error type
-    * @tparam T Resource type
-    * @return An operator that can be run with [[Operator.start()]]
+    * @param eventProcessor
+    *   Event processor implementation
+    * @param namespace
+    *   Namespace to run in. If None, it will watch resources from all namespaces.
+    * @param buffer
+    *   Buffer size for the incoming events
+    * @tparam R
+    *   Operator environment
+    * @tparam E
+    *   Operator-specific error type
+    * @tparam T
+    *   Resource type
+    * @return
+    *   An operator that can be run with [[Operator.start()]]
     */
   def namespaced[R: Tag, E, T: Tag: ResourceMetadata](
     eventProcessor: EventProcessor[R, E, T]
@@ -203,12 +214,18 @@ object Operator {
     }
 
   /** Creates an operator for a cluster resource
-    * @param eventProcessor Event processor implementation
-    * @param buffer Buffer size for the incoming events
-    * @tparam R Operator environment
-    * @tparam E Operator-specific error type
-    * @tparam T Resource type
-    * @return An operator that can be run with [[Operator.start()]]
+    * @param eventProcessor
+    *   Event processor implementation
+    * @param buffer
+    *   Buffer size for the incoming events
+    * @tparam R
+    *   Operator environment
+    * @tparam E
+    *   Operator-specific error type
+    * @tparam T
+    *   Resource type
+    * @return
+    *   An operator that can be run with [[Operator.start()]]
     */
   def cluster[R: Tag, E, T: Tag: ResourceMetadata](
     eventProcessor: EventProcessor[R, E, T]

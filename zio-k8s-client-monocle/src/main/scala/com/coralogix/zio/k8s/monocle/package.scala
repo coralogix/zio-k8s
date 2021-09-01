@@ -5,8 +5,8 @@ import client.model.{ Optional => K8sOptional }
 
 /** Provides support for Monocle for the Kubernetes data models
   *
-  * This package contains objects for all Kubernetes resource data models with
-  * [[Lens]] and [[Optional]] optics for all their fields.
+  * This package contains objects for all Kubernetes resource data models with [[Lens]] and
+  * [[Optional]] optics for all their fields.
   */
 package object monocle {
 

@@ -5,8 +5,8 @@ import zio.Chunk
 /** Composable label selector
   *
   * Use the label constructor [[LabelSelector.Syntax.label]] imported through the
-  * [[com.coralogix.zio.k8s.client.model]] to define labels, and the operators
-  * defined on them to construct label selectors from them.
+  * [[com.coralogix.zio.k8s.client.model]] to define labels, and the operators defined on them to
+  * construct label selectors from them.
   */
 sealed trait LabelSelector { self =>
 

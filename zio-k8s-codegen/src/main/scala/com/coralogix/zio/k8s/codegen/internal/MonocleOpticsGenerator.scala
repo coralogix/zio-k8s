@@ -118,7 +118,7 @@ trait MonocleOpticsGenerator {
           import $modelPackageTerm._
 
           object $entityOpticsN {
-            ..${optics}
+            ..$optics
           }
           }
       """
