@@ -16,7 +16,7 @@ object K8sSwaggerPlugin extends AutoPlugin {
 
   override def projectSettings: Seq[Def.Setting[_]] =
     Seq(
-      k8sVersion    := "v1.20.1",
+      k8sVersion    := "v1.22.1",
       getK8sSwagger := getK8sSwaggerTask.value
     )
 
