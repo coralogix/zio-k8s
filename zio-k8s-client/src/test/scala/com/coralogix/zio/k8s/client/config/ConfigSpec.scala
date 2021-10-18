@@ -12,7 +12,6 @@ import cats.implicits._
 import com.coralogix.zio.k8s.client.config.K8sAuthentication.ServiceAccountToken
 import com.coralogix.zio.k8s.client.config.KeySource.FromString
 import zio.nio.file.Files
-import zio.test.TestAspect.ignore
 
 import java.nio.charset.StandardCharsets
 
