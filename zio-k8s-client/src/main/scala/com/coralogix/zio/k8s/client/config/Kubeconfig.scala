@@ -38,6 +38,25 @@ object KubeconfigContext {
   implicit val codec: Codec[KubeconfigContext] = deriveCodec
 }
 
+final case class ExecEnv(name: String, value: String)
+
+object ExecEnv {
+  implicit val codec: Codec[ExecEnv] = deriveCodec
+}
+
+final case class ExecConfig(
+  apiVersion: String,
+  command: String,
+  env: Option[Set[ExecEnv]],
+  args: Option[List[String]],
+  installHint: Option[String],
+  provideClusterInfo: Option[Boolean]
+)
+
+object ExecConfig {
+  implicit val codec: Codec[ExecConfig] = deriveCodec
+}
+
 case class KubeconfigUserInfo(
   `client-certificate`: Option[String],
   `client-certificate-data`: Option[String],
@@ -45,7 +64,8 @@ case class KubeconfigUserInfo(
   `client-key-data`: Option[String],
   token: Option[String],
   username: Option[String],
-  password: Option[String]
+  password: Option[String],
+  exec: Option[ExecConfig]
 )
 
 object KubeconfigUserInfo {
