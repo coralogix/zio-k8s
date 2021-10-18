@@ -130,7 +130,7 @@ object ConfigSpec extends DefaultRunnableSpec {
             maybeToken  <- loadTokenByCommand.provideLayer(configLayer)
           } yield maybeToken)(Assertion.equalTo(Some("my-bearer-token")))
         )
-      } @@ ignore
+      }
     )
 
   case class Config(k8s: K8sClusterConfig)
