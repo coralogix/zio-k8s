@@ -127,7 +127,7 @@ object ConfigSpec extends DefaultRunnableSpec {
           assertM(for {
             configLayer <- ZIO.effect(kubeconfigFile(path))
             maybeToken  <- loadTokenByCommand.provideLayer(configLayer)
-          } yield maybeToken)(Assertion.equalTo(Some("my-bearer-token")))
+          } yield maybeToken)(Assertion.equalTo(Some("bearer-token")))
         )
       }
     )
