@@ -251,8 +251,15 @@
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>API server instances report the versions they can decode and the version they encode objects to when persisting objects in the backend.
-</p></div><dl class="paramcmts block"><dt class="param">commonEncodingVersion</dt><dd class="cmt"><p>If all API server instances agree on the same encoding storage version, then this field is set to that version. Otherwise this field is left empty. API servers should finish updating its storageVersionStatus entry before serving write operations, so that this field will be in sync with the reality.</p></dd><dt class="param">conditions</dt><dd class="cmt"><p>The latest available observations of the storageVersion's state.</p></dd><dt class="param">storageVersions</dt><dd class="cmt"><p>The reported versions per API server instance.</p></dd></dl><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>API server instances report the versions they can decode and the version they encode objects to
+when persisting objects in the backend.
+</p></div><dl class="paramcmts block"><dt class="param">commonEncodingVersion</dt><dd class="cmt"><p>
+  If all API server instances agree on the same encoding storage version, then this field is set
+  to that version. Otherwise this field is left empty. API servers should finish updating its
+  storageVersionStatus entry before serving write operations, so that this field will be in sync
+  with the reality.</p></dd><dt class="param">conditions</dt><dd class="cmt"><p>
+  The latest available observations of the storageVersion's state.</p></dd><dt class="param">storageVersions</dt><dd class="cmt"><p>
+  The reported versions per API server instance.</p></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -317,7 +324,13 @@
         <span class="name">StorageVersionStatus</span><span class="params">(<span name="commonEncodingVersion">commonEncodingVersion: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="conditions">conditions: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="StorageVersionCondition.html" class="extype" name="com.coralogix.zio.k8s.model.apiserverinternal.v1alpha1.StorageVersionCondition">StorageVersionCondition</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="storageVersions">storageVersions: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="ServerStorageVersion.html" class="extype" name="com.coralogix.zio.k8s.model.apiserverinternal.v1alpha1.ServerStorageVersion">ServerStorageVersion</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span>
       </span>
       
-      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">commonEncodingVersion</dt><dd class="cmt"><p>If all API server instances agree on the same encoding storage version, then this field is set to that version. Otherwise this field is left empty. API servers should finish updating its storageVersionStatus entry before serving write operations, so that this field will be in sync with the reality.</p></dd><dt class="param">conditions</dt><dd class="cmt"><p>The latest available observations of the storageVersion's state.</p></dd><dt class="param">storageVersions</dt><dd class="cmt"><p>The reported versions per API server instance.</p></dd></dl></div>
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">commonEncodingVersion</dt><dd class="cmt"><p>
+  If all API server instances agree on the same encoding storage version, then this field is set
+  to that version. Otherwise this field is left empty. API servers should finish updating its
+  storageVersionStatus entry before serving write operations, so that this field will be in sync
+  with the reality.</p></dd><dt class="param">conditions</dt><dd class="cmt"><p>
+  The latest available observations of the storageVersion's state.</p></dd><dt class="param">storageVersions</dt><dd class="cmt"><p>
+  The reported versions per API server instance.</p></dd></dl></div>
     </li></ol>
             </div>
 
@@ -502,7 +515,11 @@
         <span class="name">getCommonEncodingVersion</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">If all API server instances agree on the same encoding storage version, then this field is set to that version.</p><div class="fullcomment"><div class="comment cmt"><p>If all API server instances agree on the same encoding storage version, then this field is set to that version. Otherwise this field is left empty. API servers should finish updating its storageVersionStatus entry before serving write operations, so that this field will be in sync with the reality.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">If all API server instances agree on the same encoding storage version, then this field is set
+to that version.</p><div class="fullcomment"><div class="comment cmt"><p>If all API server instances agree on the same encoding storage version, then this field is set
+to that version. Otherwise this field is left empty. API servers should finish updating its
+storageVersionStatus entry before serving write operations, so that this field will be in sync
+with the reality.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.apiserverinternal.v1alpha1.StorageVersionStatus#getConditions" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getConditions:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Vector[com.coralogix.zio.k8s.model.apiserverinternal.v1alpha1.StorageVersionCondition]]"></a><a id="getConditions:IO[K8sFailure,Vector[StorageVersionCondition]]"></a>

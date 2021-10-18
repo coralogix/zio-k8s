@@ -1588,7 +1588,14 @@
 
       
           <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Node affinity is a group of node affinity scheduling rules.
-</p></div><dl class="paramcmts block"><dt class="param">preferredDuringSchedulingIgnoredDuringExecution</dt><dd class="cmt"><p>The scheduler will prefer to schedule pods to nodes that satisfy the affinity expressions specified by this field, but it may choose a node that violates one or more of the expressions. The node that is most preferred is the one with the greatest sum of weights, i.e. for each node that meets all of the scheduling requirements (resource request, requiredDuringScheduling affinity expressions, etc.), compute a sum by iterating through the elements of this field and adding &quot;weight&quot; to the sum if the node matches the corresponding matchExpressions; the node(s) with the highest sum are the most preferred.</p></dd></dl><div class="toggleContainer block">
+</p></div><dl class="paramcmts block"><dt class="param">preferredDuringSchedulingIgnoredDuringExecution</dt><dd class="cmt"><p>
+  The scheduler will prefer to schedule pods to nodes that satisfy the affinity expressions
+  specified by this field, but it may choose a node that violates one or more of the
+  expressions. The node that is most preferred is the one with the greatest sum of weights, i.e.
+  for each node that meets all of the scheduling requirements (resource request,
+  requiredDuringScheduling affinity expressions, etc.), compute a sum by iterating through the
+  elements of this field and adding &quot;weight&quot; to the sum if the node matches the corresponding
+  matchExpressions; the node(s) with the highest sum are the most preferred.</p></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -1653,7 +1660,14 @@
         <span class="name">NodeAffinity</span><span class="params">(<span name="preferredDuringSchedulingIgnoredDuringExecution">preferredDuringSchedulingIgnoredDuringExecution: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="PreferredSchedulingTerm.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.PreferredSchedulingTerm">PreferredSchedulingTerm</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="requiredDuringSchedulingIgnoredDuringExecution">requiredDuringSchedulingIgnoredDuringExecution: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="NodeSelector.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.NodeSelector">NodeSelector</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span>
       </span>
       
-      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">preferredDuringSchedulingIgnoredDuringExecution</dt><dd class="cmt"><p>The scheduler will prefer to schedule pods to nodes that satisfy the affinity expressions specified by this field, but it may choose a node that violates one or more of the expressions. The node that is most preferred is the one with the greatest sum of weights, i.e. for each node that meets all of the scheduling requirements (resource request, requiredDuringScheduling affinity expressions, etc.), compute a sum by iterating through the elements of this field and adding &quot;weight&quot; to the sum if the node matches the corresponding matchExpressions; the node(s) with the highest sum are the most preferred.</p></dd></dl></div>
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">preferredDuringSchedulingIgnoredDuringExecution</dt><dd class="cmt"><p>
+  The scheduler will prefer to schedule pods to nodes that satisfy the affinity expressions
+  specified by this field, but it may choose a node that violates one or more of the
+  expressions. The node that is most preferred is the one with the greatest sum of weights, i.e.
+  for each node that meets all of the scheduling requirements (resource request,
+  requiredDuringScheduling affinity expressions, etc.), compute a sum by iterating through the
+  elements of this field and adding &quot;weight&quot; to the sum if the node matches the corresponding
+  matchExpressions; the node(s) with the highest sum are the most preferred.</p></dd></dl></div>
     </li></ol>
             </div>
 
@@ -1806,7 +1820,15 @@
         <span class="name">getPreferredDuringSchedulingIgnoredDuringExecution</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Vector">Vector</span>[<a href="PreferredSchedulingTerm.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.PreferredSchedulingTerm">PreferredSchedulingTerm</a>]]</span>
       </span>
       
-      <p class="shortcomment cmt">The scheduler will prefer to schedule pods to nodes that satisfy the affinity expressions specified by this field, but it may choose a node that violates one or more of the expressions.</p><div class="fullcomment"><div class="comment cmt"><p>The scheduler will prefer to schedule pods to nodes that satisfy the affinity expressions specified by this field, but it may choose a node that violates one or more of the expressions. The node that is most preferred is the one with the greatest sum of weights, i.e. for each node that meets all of the scheduling requirements (resource request, requiredDuringScheduling affinity expressions, etc.), compute a sum by iterating through the elements of this field and adding &quot;weight&quot; to the sum if the node matches the corresponding matchExpressions; the node(s) with the highest sum are the most preferred.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">The scheduler will prefer to schedule pods to nodes that satisfy the affinity expressions
+specified by this field, but it may choose a node that violates one or more of the
+expressions.</p><div class="fullcomment"><div class="comment cmt"><p>The scheduler will prefer to schedule pods to nodes that satisfy the affinity expressions
+specified by this field, but it may choose a node that violates one or more of the
+expressions. The node that is most preferred is the one with the greatest sum of weights, i.e.
+for each node that meets all of the scheduling requirements (resource request,
+requiredDuringScheduling affinity expressions, etc.), compute a sum by iterating through the
+elements of this field and adding &quot;weight&quot; to the sum if the node matches the corresponding
+matchExpressions; the node(s) with the highest sum are the most preferred.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.core.v1.NodeAffinity#getRequiredDuringSchedulingIgnoredDuringExecution" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getRequiredDuringSchedulingIgnoredDuringExecution:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.model.core.v1.NodeSelector]"></a><a id="getRequiredDuringSchedulingIgnoredDuringExecution:IO[K8sFailure,NodeSelector]"></a>

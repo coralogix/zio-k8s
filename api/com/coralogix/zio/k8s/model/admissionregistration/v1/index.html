@@ -237,23 +237,7 @@
                         <span class="separator"></span>
                         <a class="class" href="WebhookClientConfigFields.html" title=""></a>
                         <a href="WebhookClientConfigFields.html" title="">WebhookClientConfigFields</a>
-                      </li><li name="com.coralogix.zio.k8s.model.admissionregistration.v1beta1" visbl="pub" class="indented7 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="v1beta1"></a><a id="v1beta1:v1beta1"></a>
-      <span class="permalink">
-      <a href="../../../../../../../com/coralogix/zio/k8s/model/admissionregistration/v1beta1/index.html" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">package</span>
-      </span>
-      <span class="symbol">
-        <a title="" href="../v1beta1/index.html"><span class="name">v1beta1</span></a>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="com.coralogix.zio.k8s.model.admissionregistration">admissionregistration</a></dd></dl></div>
-    </li>
+                      </li>
               </ul>
             </div>
           </div>
@@ -332,13 +316,57 @@
       </span>
       
       <p class="shortcomment cmt">MutatingWebhook describes an admission webhook and the resources and operations it applies to.</p><div class="fullcomment"><div class="comment cmt"><p>MutatingWebhook describes an admission webhook and the resources and operations it applies to.
-</p></div><dl class="paramcmts block"><dt class="param">admissionReviewVersions</dt><dd class="cmt"><p>AdmissionReviewVersions is an ordered list of preferred <code>AdmissionReview</code> versions the Webhook expects. API server will try to use first version in the list which it supports. If none of the versions specified in this list supported by API server, validation will fail for this object. If a persisted webhook configuration specifies allowed versions and does not include any versions known to the API Server, calls to the webhook will fail and be subject to the failure policy.</p></dd><dt class="param">failurePolicy</dt><dd class="cmt"><p>FailurePolicy defines how unrecognized errors from the admission endpoint are handled - allowed values are Ignore or Fail. Defaults to Fail.</p></dd><dt class="param">matchPolicy</dt><dd class="cmt"><p>matchPolicy defines how the &quot;rules&quot; list is used to match incoming requests. Allowed values are &quot;Exact&quot; or &quot;Equivalent&quot;.
-- Exact: match a request only if it exactly matches a specified rule. For example, if deployments can be modified via apps/v1, apps/v1beta1, and extensions/v1beta1, but &quot;rules&quot; only included <code>apiGroups:[&quot;apps&quot;], apiVersions:[&quot;v1&quot;], resources: [&quot;deployments&quot;]</code>, a request to apps/v1beta1 or extensions/v1beta1 would not be sent to the webhook.
-- Equivalent: match a request if modifies a resource listed in rules, even via another API group or version. For example, if deployments can be modified via apps/v1, apps/v1beta1, and extensions/v1beta1, and &quot;rules&quot; only included <code>apiGroups:[&quot;apps&quot;], apiVersions:[&quot;v1&quot;], resources: [&quot;deployments&quot;]</code>, a request to apps/v1beta1 or extensions/v1beta1 would be converted to apps/v1 and sent to the webhook.
-Defaults to &quot;Equivalent&quot;</p></dd><dt class="param">name</dt><dd class="cmt"><p>The name of the admission webhook. Name should be fully qualified, e.g., imagepolicy.kubernetes.io, where &quot;imagepolicy&quot; is the name of the webhook, and kubernetes.io is the name of the organization. Required.</p></dd><dt class="param">reinvocationPolicy</dt><dd class="cmt"><p>reinvocationPolicy indicates whether this webhook should be called multiple times as part of a single admission evaluation. Allowed values are &quot;Never&quot; and &quot;IfNeeded&quot;.
+</p></div><dl class="paramcmts block"><dt class="param">admissionReviewVersions</dt><dd class="cmt"><p>
+  AdmissionReviewVersions is an ordered list of preferred <code>AdmissionReview</code> versions the Webhook
+  expects. API server will try to use first version in the list which it supports. If none of
+  the versions specified in this list supported by API server, validation will fail for this
+  object. If a persisted webhook configuration specifies allowed versions and does not include
+  any versions known to the API Server, calls to the webhook will fail and be subject to the
+  failure policy.</p></dd><dt class="param">failurePolicy</dt><dd class="cmt"><p>
+  FailurePolicy defines how unrecognized errors from the admission endpoint are handled -
+  allowed values are Ignore or Fail. Defaults to Fail.</p></dd><dt class="param">matchPolicy</dt><dd class="cmt"><p>
+  matchPolicy defines how the &quot;rules&quot; list is used to match incoming requests. Allowed values
+  are &quot;Exact&quot; or &quot;Equivalent&quot;.
+- Exact: match a request only if it exactly matches a specified rule. For example, if
+deployments can be modified via apps/v1, apps/v1beta1, and extensions/v1beta1, but &quot;rules&quot; only
+included <code>apiGroups:[&quot;apps&quot;], apiVersions:[&quot;v1&quot;], resources: [&quot;deployments&quot;]</code>, a request to
+apps/v1beta1 or extensions/v1beta1 would not be sent to the webhook.
+- Equivalent: match a request if modifies a resource listed in rules, even via another API group
+or version. For example, if deployments can be modified via apps/v1, apps/v1beta1, and
+extensions/v1beta1, and &quot;rules&quot; only included <code>apiGroups:[&quot;apps&quot;], apiVersions:[&quot;v1&quot;],
+resources: [&quot;deployments&quot;]</code>, a request to apps/v1beta1 or extensions/v1beta1 would be converted
+to apps/v1 and sent to the webhook.
+Defaults to &quot;Equivalent&quot;</p></dd><dt class="param">name</dt><dd class="cmt"><p>
+  The name of the admission webhook. Name should be fully qualified, e.g.,
+  imagepolicy.kubernetes.io, where &quot;imagepolicy&quot; is the name of the webhook, and kubernetes.io
+  is the name of the organization. Required.</p></dd><dt class="param">reinvocationPolicy</dt><dd class="cmt"><p>
+  reinvocationPolicy indicates whether this webhook should be called multiple times as part of a
+  single admission evaluation. Allowed values are &quot;Never&quot; and &quot;IfNeeded&quot;.
 Never: the webhook will not be called more than once in a single admission evaluation.
-IfNeeded: the webhook will be called at least one additional time as part of the admission evaluation if the object being admitted is modified by other admission plugins after the initial webhook call. Webhooks that specify this option *must* be idempotent, able to process objects they previously admitted. Note: * the number of additional invocations is not guaranteed to be exactly one. * if additional invocations result in further modifications to the object, webhooks are not guaranteed to be invoked again. * webhooks that use this option may be reordered to minimize the number of additional invocations. * to validate an object after all mutations are guaranteed complete, use a validating admission webhook instead.
-Defaults to &quot;Never&quot;.</p></dd><dt class="param">rules</dt><dd class="cmt"><p>Rules describes what operations on what resources/subresources the webhook cares about. The webhook cares about an operation if it matches _any_ Rule. However, in order to prevent ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks from putting the cluster in a state which cannot be recovered from without completely disabling the plugin, ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks are never called on admission requests for ValidatingWebhookConfiguration and MutatingWebhookConfiguration objects.</p></dd><dt class="param">sideEffects</dt><dd class="cmt"><p>SideEffects states whether this webhook has side effects. Acceptable values are: None, NoneOnDryRun (webhooks created via v1beta1 may also specify Some or Unknown). Webhooks with side effects MUST implement a reconciliation system, since a request may be rejected by a future step in the admission change and the side effects therefore need to be undone. Requests with the dryRun attribute will be auto-rejected if they match a webhook with sideEffects == Unknown or Some.</p></dd><dt class="param">timeoutSeconds</dt><dd class="cmt"><p>TimeoutSeconds specifies the timeout for this webhook. After the timeout passes, the webhook call will be ignored or the API call will fail based on the failure policy. The timeout value must be between 1 and 30 seconds. Default to 10 seconds.</p></dd></dl></div>
+IfNeeded: the webhook will be called at least one additional time as part of the admission
+evaluation if the object being admitted is modified by other admission plugins after the initial
+webhook call. Webhooks that specify this option *must* be idempotent, able to process objects
+they previously admitted. Note: * the number of additional invocations is not guaranteed to be
+exactly one. * if additional invocations result in further modifications to the object, webhooks
+are not guaranteed to be invoked again. * webhooks that use this option may be reordered to
+minimize the number of additional invocations. * to validate an object after all mutations are
+guaranteed complete, use a validating admission webhook instead.
+Defaults to &quot;Never&quot;.</p></dd><dt class="param">rules</dt><dd class="cmt"><p>
+  Rules describes what operations on what resources/subresources the webhook cares about. The
+  webhook cares about an operation if it matches _any_ Rule. However, in order to prevent
+  ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks from putting the cluster in a state
+  which cannot be recovered from without completely disabling the plugin,
+  ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks are never called on admission
+  requests for ValidatingWebhookConfiguration and MutatingWebhookConfiguration objects.</p></dd><dt class="param">sideEffects</dt><dd class="cmt"><p>
+  SideEffects states whether this webhook has side effects. Acceptable values are: None,
+  NoneOnDryRun (webhooks created via v1beta1 may also specify Some or Unknown). Webhooks with
+  side effects MUST implement a reconciliation system, since a request may be rejected by a
+  future step in the admission chain and the side effects therefore need to be undone. Requests
+  with the dryRun attribute will be auto-rejected if they match a webhook with sideEffects ==
+  Unknown or Some.</p></dd><dt class="param">timeoutSeconds</dt><dd class="cmt"><p>
+  TimeoutSeconds specifies the timeout for this webhook. After the timeout passes, the webhook
+  call will be ignored or the API call will fail based on the failure policy. The timeout value
+  must be between 1 and 30 seconds. Default to 10 seconds.</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.admissionregistration.v1.MutatingWebhookConfiguration" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="MutatingWebhookConfigurationextendsProductwithSerializable"></a><a id="MutatingWebhookConfiguration:MutatingWebhookConfiguration"></a>
       <span class="permalink">
@@ -354,8 +382,11 @@ Defaults to &quot;Never&quot;.</p></dd><dt class="param">rules</dt><dd class="cm
         <a title="MutatingWebhookConfiguration describes the configuration of and admission webhook that accept or reject and may change the object." href="MutatingWebhookConfiguration.html"><span class="name">MutatingWebhookConfiguration</span></a><span class="params">(<span name="metadata">metadata: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="../../pkg/apis/meta/v1/ObjectMeta.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.ObjectMeta">ObjectMeta</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="webhooks">webhooks: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="MutatingWebhook.html" class="extype" name="com.coralogix.zio.k8s.model.admissionregistration.v1.MutatingWebhook">MutatingWebhook</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
-      <p class="shortcomment cmt">MutatingWebhookConfiguration describes the configuration of and admission webhook that accept or reject and may change the object.</p><div class="fullcomment"><div class="comment cmt"><p>MutatingWebhookConfiguration describes the configuration of and admission webhook that accept or reject and may change the object.
-</p></div><dl class="paramcmts block"><dt class="param">webhooks</dt><dd class="cmt"><p>Webhooks is a list of webhooks and the affected resources and operations.</p></dd></dl></div>
+      <p class="shortcomment cmt">MutatingWebhookConfiguration describes the configuration of and admission webhook that accept or
+reject and may change the object.</p><div class="fullcomment"><div class="comment cmt"><p>MutatingWebhookConfiguration describes the configuration of and admission webhook that accept or
+reject and may change the object.
+</p></div><dl class="paramcmts block"><dt class="param">webhooks</dt><dd class="cmt"><p>
+  Webhooks is a list of webhooks and the affected resources and operations.</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.admissionregistration.v1.MutatingWebhookConfigurationFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="MutatingWebhookConfigurationFieldsextendsAnyRef"></a><a id="MutatingWebhookConfigurationFields:MutatingWebhookConfigurationFields"></a>
       <span class="permalink">
@@ -403,11 +434,28 @@ Defaults to &quot;Never&quot;.</p></dd><dt class="param">rules</dt><dd class="cm
         <a title="RuleWithOperations is a tuple of Operations and Resources." href="RuleWithOperations.html"><span class="name">RuleWithOperations</span></a><span class="params">(<span name="apiGroups">apiGroups: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="apiVersions">apiVersions: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="operations">operations: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="resources">resources: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="scope">scope: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
-      <p class="shortcomment cmt">RuleWithOperations is a tuple of Operations and Resources.</p><div class="fullcomment"><div class="comment cmt"><p>RuleWithOperations is a tuple of Operations and Resources. It is recommended to make sure that all the tuple expansions are valid.
-</p></div><dl class="paramcmts block"><dt class="param">apiGroups</dt><dd class="cmt"><p>APIGroups is the API groups the resources belong to. '*' is all groups. If '*' is present, the length of the slice must be one. Required.</p></dd><dt class="param">apiVersions</dt><dd class="cmt"><p>APIVersions is the API versions the resources belong to. '*' is all versions. If '*' is present, the length of the slice must be one. Required.</p></dd><dt class="param">operations</dt><dd class="cmt"><p>Operations is the operations the admission hook cares about - CREATE, UPDATE, DELETE, CONNECT or * for all of those operations and any future admission operations that are added. If '*' is present, the length of the slice must be one. Required.</p></dd><dt class="param">resources</dt><dd class="cmt"><p>Resources is a list of resources this rule applies to.
-For example: 'pods' means pods. 'pods/log' means the log subresource of pods. '*' means all resources, but not subresources. 'pods&#47;*' means all subresources of pods. '*&#47;scale' means all scale subresources. '*&#47;*' means all resources and their subresources.
-If wildcard is present, the validation rule will ensure resources do not overlap with each other.
-Depending on the enclosing object, subresources might not be allowed. Required.</p></dd><dt class="param">scope</dt><dd class="cmt"><p>scope specifies the scope of this rule. Valid values are &quot;Cluster&quot;, &quot;Namespaced&quot;, and &quot;*&quot; &quot;Cluster&quot; means that only cluster-scoped resources will match this rule. Namespace API objects are cluster-scoped. &quot;Namespaced&quot; means that only namespaced resources will match this rule. &quot;*&quot; means that there are no scope restrictions. Subresources match the scope of their parent resource. Default is &quot;*&quot;.</p></dd></dl></div>
+      <p class="shortcomment cmt">RuleWithOperations is a tuple of Operations and Resources.</p><div class="fullcomment"><div class="comment cmt"><p>RuleWithOperations is a tuple of Operations and Resources. It is recommended to make sure that
+all the tuple expansions are valid.
+</p></div><dl class="paramcmts block"><dt class="param">apiGroups</dt><dd class="cmt"><p>
+  APIGroups is the API groups the resources belong to. '*' is all groups. If '*' is present, the
+  length of the slice must be one. Required.</p></dd><dt class="param">apiVersions</dt><dd class="cmt"><p>
+  APIVersions is the API versions the resources belong to. '*' is all versions. If '*' is
+  present, the length of the slice must be one. Required.</p></dd><dt class="param">operations</dt><dd class="cmt"><p>
+  Operations is the operations the admission hook cares about - CREATE, UPDATE, DELETE, CONNECT
+  or * for all of those operations and any future admission operations that are added. If '*' is
+  present, the length of the slice must be one. Required.</p></dd><dt class="param">resources</dt><dd class="cmt"><p>
+  Resources is a list of resources this rule applies to.
+For example: 'pods' means pods. 'pods/log' means the log subresource of pods. '*' means all
+resources, but not subresources. 'pods&#47;*' means all subresources of pods. '*&#47;scale'
+means all scale subresources. '*&#47;*' means all resources and their subresources.
+If wildcard is present, the validation rule will ensure resources do not overlap with each
+other.
+Depending on the enclosing object, subresources might not be allowed. Required.</p></dd><dt class="param">scope</dt><dd class="cmt"><p>
+  scope specifies the scope of this rule. Valid values are &quot;Cluster&quot;, &quot;Namespaced&quot;, and &quot;*&quot;
+  &quot;Cluster&quot; means that only cluster-scoped resources will match this rule. Namespace API objects
+  are cluster-scoped. &quot;Namespaced&quot; means that only namespaced resources will match this rule.
+  &quot;*&quot; means that there are no scope restrictions. Subresources match the scope of their parent
+  resource. Default is &quot;*&quot;.</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.admissionregistration.v1.RuleWithOperationsFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="RuleWithOperationsFieldsextendsAnyRef"></a><a id="RuleWithOperationsFields:RuleWithOperationsFields"></a>
       <span class="permalink">
@@ -441,7 +489,12 @@ Depending on the enclosing object, subresources might not be allowed. Required.<
       
       <p class="shortcomment cmt">ServiceReference holds a reference to Service.legacy.k8s.io
 </p><div class="fullcomment"><div class="comment cmt"><p>ServiceReference holds a reference to Service.legacy.k8s.io
-</p></div><dl class="paramcmts block"><dt class="param">name</dt><dd class="cmt"><p><code>name</code> is the name of the service. Required</p></dd><dt class="param">namespace</dt><dd class="cmt"><p><code>namespace</code> is the namespace of the service. Required</p></dd><dt class="param">path</dt><dd class="cmt"><p><code>path</code> is an optional URL path which will be sent in any request to this service.</p></dd><dt class="param">port</dt><dd class="cmt"><p>If specified, the port on the service that hosting webhook. Default to 443 for backward compatibility. <code>port</code> should be a valid port number (1-65535, inclusive).</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="param">name</dt><dd class="cmt"><p>
+  <code>name</code> is the name of the service. Required</p></dd><dt class="param">namespace</dt><dd class="cmt"><p>
+  <code>namespace</code> is the namespace of the service. Required</p></dd><dt class="param">path</dt><dd class="cmt"><p>
+  <code>path</code> is an optional URL path which will be sent in any request to this service.</p></dd><dt class="param">port</dt><dd class="cmt"><p>
+  If specified, the port on the service that hosting webhook. Default to 443 for backward
+  compatibility. <code>port</code> should be a valid port number (1-65535, inclusive).</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.admissionregistration.v1.ServiceReferenceFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="ServiceReferenceFieldsextendsAnyRef"></a><a id="ServiceReferenceFields:ServiceReferenceFields"></a>
       <span class="permalink">
@@ -474,10 +527,45 @@ Depending on the enclosing object, subresources might not be allowed. Required.<
       </span>
       
       <p class="shortcomment cmt">ValidatingWebhook describes an admission webhook and the resources and operations it applies to.</p><div class="fullcomment"><div class="comment cmt"><p>ValidatingWebhook describes an admission webhook and the resources and operations it applies to.
-</p></div><dl class="paramcmts block"><dt class="param">admissionReviewVersions</dt><dd class="cmt"><p>AdmissionReviewVersions is an ordered list of preferred <code>AdmissionReview</code> versions the Webhook expects. API server will try to use first version in the list which it supports. If none of the versions specified in this list supported by API server, validation will fail for this object. If a persisted webhook configuration specifies allowed versions and does not include any versions known to the API Server, calls to the webhook will fail and be subject to the failure policy.</p></dd><dt class="param">failurePolicy</dt><dd class="cmt"><p>FailurePolicy defines how unrecognized errors from the admission endpoint are handled - allowed values are Ignore or Fail. Defaults to Fail.</p></dd><dt class="param">matchPolicy</dt><dd class="cmt"><p>matchPolicy defines how the &quot;rules&quot; list is used to match incoming requests. Allowed values are &quot;Exact&quot; or &quot;Equivalent&quot;.
-- Exact: match a request only if it exactly matches a specified rule. For example, if deployments can be modified via apps/v1, apps/v1beta1, and extensions/v1beta1, but &quot;rules&quot; only included <code>apiGroups:[&quot;apps&quot;], apiVersions:[&quot;v1&quot;], resources: [&quot;deployments&quot;]</code>, a request to apps/v1beta1 or extensions/v1beta1 would not be sent to the webhook.
-- Equivalent: match a request if modifies a resource listed in rules, even via another API group or version. For example, if deployments can be modified via apps/v1, apps/v1beta1, and extensions/v1beta1, and &quot;rules&quot; only included <code>apiGroups:[&quot;apps&quot;], apiVersions:[&quot;v1&quot;], resources: [&quot;deployments&quot;]</code>, a request to apps/v1beta1 or extensions/v1beta1 would be converted to apps/v1 and sent to the webhook.
-Defaults to &quot;Equivalent&quot;</p></dd><dt class="param">name</dt><dd class="cmt"><p>The name of the admission webhook. Name should be fully qualified, e.g., imagepolicy.kubernetes.io, where &quot;imagepolicy&quot; is the name of the webhook, and kubernetes.io is the name of the organization. Required.</p></dd><dt class="param">rules</dt><dd class="cmt"><p>Rules describes what operations on what resources/subresources the webhook cares about. The webhook cares about an operation if it matches _any_ Rule. However, in order to prevent ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks from putting the cluster in a state which cannot be recovered from without completely disabling the plugin, ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks are never called on admission requests for ValidatingWebhookConfiguration and MutatingWebhookConfiguration objects.</p></dd><dt class="param">sideEffects</dt><dd class="cmt"><p>SideEffects states whether this webhook has side effects. Acceptable values are: None, NoneOnDryRun (webhooks created via v1beta1 may also specify Some or Unknown). Webhooks with side effects MUST implement a reconciliation system, since a request may be rejected by a future step in the admission change and the side effects therefore need to be undone. Requests with the dryRun attribute will be auto-rejected if they match a webhook with sideEffects == Unknown or Some.</p></dd><dt class="param">timeoutSeconds</dt><dd class="cmt"><p>TimeoutSeconds specifies the timeout for this webhook. After the timeout passes, the webhook call will be ignored or the API call will fail based on the failure policy. The timeout value must be between 1 and 30 seconds. Default to 10 seconds.</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="param">admissionReviewVersions</dt><dd class="cmt"><p>
+  AdmissionReviewVersions is an ordered list of preferred <code>AdmissionReview</code> versions the Webhook
+  expects. API server will try to use first version in the list which it supports. If none of
+  the versions specified in this list supported by API server, validation will fail for this
+  object. If a persisted webhook configuration specifies allowed versions and does not include
+  any versions known to the API Server, calls to the webhook will fail and be subject to the
+  failure policy.</p></dd><dt class="param">failurePolicy</dt><dd class="cmt"><p>
+  FailurePolicy defines how unrecognized errors from the admission endpoint are handled -
+  allowed values are Ignore or Fail. Defaults to Fail.</p></dd><dt class="param">matchPolicy</dt><dd class="cmt"><p>
+  matchPolicy defines how the &quot;rules&quot; list is used to match incoming requests. Allowed values
+  are &quot;Exact&quot; or &quot;Equivalent&quot;.
+- Exact: match a request only if it exactly matches a specified rule. For example, if
+deployments can be modified via apps/v1, apps/v1beta1, and extensions/v1beta1, but &quot;rules&quot; only
+included <code>apiGroups:[&quot;apps&quot;], apiVersions:[&quot;v1&quot;], resources: [&quot;deployments&quot;]</code>, a request to
+apps/v1beta1 or extensions/v1beta1 would not be sent to the webhook.
+- Equivalent: match a request if modifies a resource listed in rules, even via another API group
+or version. For example, if deployments can be modified via apps/v1, apps/v1beta1, and
+extensions/v1beta1, and &quot;rules&quot; only included <code>apiGroups:[&quot;apps&quot;], apiVersions:[&quot;v1&quot;],
+resources: [&quot;deployments&quot;]</code>, a request to apps/v1beta1 or extensions/v1beta1 would be converted
+to apps/v1 and sent to the webhook.
+Defaults to &quot;Equivalent&quot;</p></dd><dt class="param">name</dt><dd class="cmt"><p>
+  The name of the admission webhook. Name should be fully qualified, e.g.,
+  imagepolicy.kubernetes.io, where &quot;imagepolicy&quot; is the name of the webhook, and kubernetes.io
+  is the name of the organization. Required.</p></dd><dt class="param">rules</dt><dd class="cmt"><p>
+  Rules describes what operations on what resources/subresources the webhook cares about. The
+  webhook cares about an operation if it matches _any_ Rule. However, in order to prevent
+  ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks from putting the cluster in a state
+  which cannot be recovered from without completely disabling the plugin,
+  ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks are never called on admission
+  requests for ValidatingWebhookConfiguration and MutatingWebhookConfiguration objects.</p></dd><dt class="param">sideEffects</dt><dd class="cmt"><p>
+  SideEffects states whether this webhook has side effects. Acceptable values are: None,
+  NoneOnDryRun (webhooks created via v1beta1 may also specify Some or Unknown). Webhooks with
+  side effects MUST implement a reconciliation system, since a request may be rejected by a
+  future step in the admission chain and the side effects therefore need to be undone. Requests
+  with the dryRun attribute will be auto-rejected if they match a webhook with sideEffects ==
+  Unknown or Some.</p></dd><dt class="param">timeoutSeconds</dt><dd class="cmt"><p>
+  TimeoutSeconds specifies the timeout for this webhook. After the timeout passes, the webhook
+  call will be ignored or the API call will fail based on the failure policy. The timeout value
+  must be between 1 and 30 seconds. Default to 10 seconds.</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.admissionregistration.v1.ValidatingWebhookConfiguration" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="ValidatingWebhookConfigurationextendsProductwithSerializable"></a><a id="ValidatingWebhookConfiguration:ValidatingWebhookConfiguration"></a>
       <span class="permalink">
@@ -493,8 +581,11 @@ Defaults to &quot;Equivalent&quot;</p></dd><dt class="param">name</dt><dd class=
         <a title="ValidatingWebhookConfiguration describes the configuration of and admission webhook that accept or reject and object without changing it." href="ValidatingWebhookConfiguration.html"><span class="name">ValidatingWebhookConfiguration</span></a><span class="params">(<span name="metadata">metadata: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="../../pkg/apis/meta/v1/ObjectMeta.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.ObjectMeta">ObjectMeta</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="webhooks">webhooks: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="ValidatingWebhook.html" class="extype" name="com.coralogix.zio.k8s.model.admissionregistration.v1.ValidatingWebhook">ValidatingWebhook</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
-      <p class="shortcomment cmt">ValidatingWebhookConfiguration describes the configuration of and admission webhook that accept or reject and object without changing it.</p><div class="fullcomment"><div class="comment cmt"><p>ValidatingWebhookConfiguration describes the configuration of and admission webhook that accept or reject and object without changing it.
-</p></div><dl class="paramcmts block"><dt class="param">webhooks</dt><dd class="cmt"><p>Webhooks is a list of webhooks and the affected resources and operations.</p></dd></dl></div>
+      <p class="shortcomment cmt">ValidatingWebhookConfiguration describes the configuration of and admission webhook that accept
+or reject and object without changing it.</p><div class="fullcomment"><div class="comment cmt"><p>ValidatingWebhookConfiguration describes the configuration of and admission webhook that accept
+or reject and object without changing it.
+</p></div><dl class="paramcmts block"><dt class="param">webhooks</dt><dd class="cmt"><p>
+  Webhooks is a list of webhooks and the affected resources and operations.</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.admissionregistration.v1.ValidatingWebhookConfigurationFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="ValidatingWebhookConfigurationFieldsextendsAnyRef"></a><a id="ValidatingWebhookConfigurationFields:ValidatingWebhookConfigurationFields"></a>
       <span class="permalink">
@@ -539,17 +630,29 @@ Defaults to &quot;Equivalent&quot;</p></dd><dt class="param">name</dt><dd class=
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a title="WebhookClientConfig contains the information to make a TLS connection with the webhook" href="WebhookClientConfig.html"><span class="name">WebhookClientConfig</span></a><span class="params">(<span name="caBundle">caBundle: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="https://javadoc.io/page/dev.zio/zio_2.12/1.0.10/zio/Chunk.html#zio.Chunk" class="extype" name="zio.Chunk">Chunk</a>[<span class="extype" name="scala.Byte">Byte</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="service">service: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="ServiceReference.html" class="extype" name="com.coralogix.zio.k8s.model.admissionregistration.v1.ServiceReference">ServiceReference</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="url">url: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a title="WebhookClientConfig contains the information to make a TLS connection with the webhook" href="WebhookClientConfig.html"><span class="name">WebhookClientConfig</span></a><span class="params">(<span name="caBundle">caBundle: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="https://javadoc.io/page/dev.zio/zio_2.12/1.0.12/zio/Chunk.html#zio.Chunk" class="extype" name="zio.Chunk">Chunk</a>[<span class="extype" name="scala.Byte">Byte</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="service">service: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="ServiceReference.html" class="extype" name="com.coralogix.zio.k8s.model.admissionregistration.v1.ServiceReference">ServiceReference</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="url">url: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       <p class="shortcomment cmt">WebhookClientConfig contains the information to make a TLS connection with the webhook
 </p><div class="fullcomment"><div class="comment cmt"><p>WebhookClientConfig contains the information to make a TLS connection with the webhook
-</p></div><dl class="paramcmts block"><dt class="param">caBundle</dt><dd class="cmt"><p><code>caBundle</code> is a PEM encoded CA bundle which will be used to validate the webhook's server certificate. If unspecified, system trust roots on the apiserver are used.</p></dd><dt class="param">url</dt><dd class="cmt"><p><code>url</code> gives the location of the webhook, in standard URL form (<code>scheme://host:port/path</code>). Exactly one of <code>url</code> or <code>service</code> must be specified.
-The <code>host</code> should not refer to a service running in the cluster; use the <code>service</code> field instead. The host might be resolved via external DNS in some apiservers (e.g., <code>kube-apiserver</code> cannot resolve in-cluster DNS as that would be a layering violation). <code>host</code> may also be an IP address.
-Please note that using <code>localhost</code> or <code>127.0.0.1</code> as a <code>host</code> is risky unless you take great care to run this webhook on all hosts which run an apiserver which might need to make calls to this webhook. Such installs are likely to be non-portable, i.e., not easy to turn up in a new cluster.
+</p></div><dl class="paramcmts block"><dt class="param">caBundle</dt><dd class="cmt"><p>
+  <code>caBundle</code> is a PEM encoded CA bundle which will be used to validate the webhook's server
+  certificate. If unspecified, system trust roots on the apiserver are used.</p></dd><dt class="param">url</dt><dd class="cmt"><p>
+  <code>url</code> gives the location of the webhook, in standard URL form (<code>scheme://host:port/path</code>).
+  Exactly one of <code>url</code> or <code>service</code> must be specified.
+The <code>host</code> should not refer to a service running in the cluster; use the <code>service</code> field
+instead. The host might be resolved via external DNS in some apiservers (e.g., <code>kube-apiserver</code>
+cannot resolve in-cluster DNS as that would be a layering violation). <code>host</code> may also be an IP
+address.
+Please note that using <code>localhost</code> or <code>127.0.0.1</code> as a <code>host</code> is risky unless you take great
+care to run this webhook on all hosts which run an apiserver which might need to make calls to
+this webhook. Such installs are likely to be non-portable, i.e., not easy to turn up in a new
+cluster.
 The scheme must be &quot;https&quot;; the URL must begin with &quot;https://&quot;.
-A path is optional, and if present may be any string permissible in a URL. You may use the path to pass an arbitrary string to the webhook, for example, a cluster identifier.
-Attempting to use a user or basic auth e.g. &quot;user:password@&quot; is not allowed. Fragments (&quot;#...&quot;) and query parameters (&quot;?...&quot;) are not allowed, either.</p></dd></dl></div>
+A path is optional, and if present may be any string permissible in a URL. You may use the path
+to pass an arbitrary string to the webhook, for example, a cluster identifier.
+Attempting to use a user or basic auth e.g. &quot;user:password@&quot; is not allowed. Fragments (&quot;#...&quot;)
+and query parameters (&quot;?...&quot;) are not allowed, either.</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.admissionregistration.v1.WebhookClientConfigFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="WebhookClientConfigFieldsextendsAnyRef"></a><a id="WebhookClientConfigFields:WebhookClientConfigFields"></a>
       <span class="permalink">

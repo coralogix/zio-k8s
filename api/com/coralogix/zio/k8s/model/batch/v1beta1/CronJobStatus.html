@@ -238,13 +238,14 @@
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <span class="name">CronJobStatus</span><span class="params">(<span name="active">active: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="../../core/v1/ObjectReference.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.ObjectReference">ObjectReference</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="lastScheduleTime">lastScheduleTime: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="../../pkg/apis/meta/v1/Time.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Time">Time</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <span class="name">CronJobStatus</span><span class="params">(<span name="active">active: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="../../core/v1/ObjectReference.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.ObjectReference">ObjectReference</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="lastScheduleTime">lastScheduleTime: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="../../pkg/apis/meta/v1/Time.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Time">Time</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="lastSuccessfulTime">lastSuccessfulTime: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="../../pkg/apis/meta/v1/Time.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Time">Time</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       </h4>
 
       
           <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>CronJobStatus represents the current state of a cron job.
-</p></div><dl class="paramcmts block"><dt class="param">active</dt><dd class="cmt"><p>A list of pointers to currently running jobs.</p></dd></dl><div class="toggleContainer block">
+</p></div><dl class="paramcmts block"><dt class="param">active</dt><dd class="cmt"><p>
+  A list of pointers to currently running jobs.</p></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -295,9 +296,9 @@
         <div id="constructors" class="members">
               <h3>Instance Constructors</h3>
               <ol><li name="com.coralogix.zio.k8s.model.batch.v1beta1.CronJobStatus#&lt;init&gt;" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="&lt;init&gt;(active:com.coralogix.zio.k8s.client.model.Optional[Vector[com.coralogix.zio.k8s.model.core.v1.ObjectReference]],lastScheduleTime:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Time]):com.coralogix.zio.k8s.model.batch.v1beta1.CronJobStatus"></a><a id="&lt;init&gt;:CronJobStatus"></a>
+      <a id="&lt;init&gt;(active:com.coralogix.zio.k8s.client.model.Optional[Vector[com.coralogix.zio.k8s.model.core.v1.ObjectReference]],lastScheduleTime:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Time],lastSuccessfulTime:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Time]):com.coralogix.zio.k8s.model.batch.v1beta1.CronJobStatus"></a><a id="&lt;init&gt;:CronJobStatus"></a>
       <span class="permalink">
-      <a href="../../../../../../../com/coralogix/zio/k8s/model/batch/v1beta1/CronJobStatus.html#&lt;init&gt;(active:com.coralogix.zio.k8s.client.model.Optional[Vector[com.coralogix.zio.k8s.model.core.v1.ObjectReference]],lastScheduleTime:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Time]):com.coralogix.zio.k8s.model.batch.v1beta1.CronJobStatus" title="Permalink">
+      <a href="../../../../../../../com/coralogix/zio/k8s/model/batch/v1beta1/CronJobStatus.html#&lt;init&gt;(active:com.coralogix.zio.k8s.client.model.Optional[Vector[com.coralogix.zio.k8s.model.core.v1.ObjectReference]],lastScheduleTime:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Time],lastSuccessfulTime:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Time]):com.coralogix.zio.k8s.model.batch.v1beta1.CronJobStatus" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -306,10 +307,11 @@
         <span class="kind">new</span>
       </span>
       <span class="symbol">
-        <span class="name">CronJobStatus</span><span class="params">(<span name="active">active: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="../../core/v1/ObjectReference.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.ObjectReference">ObjectReference</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="lastScheduleTime">lastScheduleTime: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="../../pkg/apis/meta/v1/Time.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Time">Time</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span>
+        <span class="name">CronJobStatus</span><span class="params">(<span name="active">active: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="../../core/v1/ObjectReference.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.ObjectReference">ObjectReference</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="lastScheduleTime">lastScheduleTime: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="../../pkg/apis/meta/v1/Time.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Time">Time</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="lastSuccessfulTime">lastSuccessfulTime: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="../../pkg/apis/meta/v1/Time.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Time">Time</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span>
       </span>
       
-      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">active</dt><dd class="cmt"><p>A list of pointers to currently running jobs.</p></dd></dl></div>
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">active</dt><dd class="cmt"><p>
+  A list of pointers to currently running jobs.</p></dd></dl></div>
     </li></ol>
             </div>
 
@@ -497,6 +499,23 @@
       
       <p class="shortcomment cmt">Gets lastScheduleTime.</p><div class="fullcomment"><div class="comment cmt"><p>Gets lastScheduleTime.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.batch.v1beta1.CronJobStatus#getLastSuccessfulTime" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="getLastSuccessfulTime:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Time]"></a><a id="getLastSuccessfulTime:IO[K8sFailure,Time]"></a>
+      <span class="permalink">
+      <a href="../../../../../../../com/coralogix/zio/k8s/model/batch/v1beta1/CronJobStatus.html#getLastSuccessfulTime:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Time]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">getLastSuccessfulTime</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="../../pkg/apis/meta/v1/Time.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Time">Time</a>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Gets lastSuccessfulTime.</p><div class="fullcomment"><div class="comment cmt"><p>Gets lastSuccessfulTime.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+</p></div></div>
     </li><li name="scala.Any#isInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isInstanceOf[T0]:Boolean"></a>
       <span class="permalink">
@@ -526,6 +545,22 @@
       </span>
       <span class="symbol">
         <span class="name">lastScheduleTime</span><span class="result">: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="../../pkg/apis/meta/v1/Time.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Time">Time</a>]</span>
+      </span>
+      
+      
+    </li><li name="com.coralogix.zio.k8s.model.batch.v1beta1.CronJobStatus#lastSuccessfulTime" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="lastSuccessfulTime:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Time]"></a><a id="lastSuccessfulTime:Optional[Time]"></a>
+      <span class="permalink">
+      <a href="../../../../../../../com/coralogix/zio/k8s/model/batch/v1beta1/CronJobStatus.html#lastSuccessfulTime:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Time]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">lastSuccessfulTime</span><span class="result">: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="../../pkg/apis/meta/v1/Time.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Time">Time</a>]</span>
       </span>
       
       

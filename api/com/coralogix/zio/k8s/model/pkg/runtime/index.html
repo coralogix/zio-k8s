@@ -331,24 +331,16 @@
         <a title="RawExtension is used to hold extensions in external versions." href="RawExtension.html"><span class="name">RawExtension</span></a><span class="params">(<span name="value">value: <a href="https://circe.github.io/circe/api/io/circe/Json.html#io.circe.Json" class="extype" name="io.circe.Json">Json</a></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
-      <p class="shortcomment cmt">RawExtension is used to hold extensions in external versions.</p><div class="fullcomment"><div class="comment cmt"><p>RawExtension is used to hold extensions in external versions.</p><p>To use this, make a field which has RawExtension as its type in your external, versioned struct, and Object in your internal struct. You also need to register your various plugin types.</p><p>// Internal package: type MyAPIObject struct {
-runtime.TypeMeta <code>json:&quot;,inline&quot;</code>
-MyPlugin runtime.Object <code>json:&quot;myPlugin&quot;</code>
-} type PluginA struct {
-AOption string <code>json:&quot;aOption&quot;</code>
-}</p><p>// External package: type MyAPIObject struct {
-runtime.TypeMeta <code>json:&quot;,inline&quot;</code>
-MyPlugin runtime.RawExtension <code>json:&quot;myPlugin&quot;</code>
-} type PluginA struct {
-AOption string <code>json:&quot;aOption&quot;</code>
-}</p><p>// On the wire, the JSON will look something like this: {
-&quot;kind&quot;:&quot;MyAPIObject&quot;,
-&quot;apiVersion&quot;:&quot;v1&quot;,
-&quot;myPlugin&quot;: {
- &quot;kind&quot;:&quot;PluginA&quot;,
- &quot;aOption&quot;:&quot;foo&quot;,
-},
-}</p><p>So what happens? Decode first uses json or yaml to unmarshal the serialized data into your external MyAPIObject. That causes the raw JSON to be stored, but not unpacked. The next step is to copy (using pkg/conversion) into the internal struct. The runtime package's DefaultScheme has conversion functions installed which will unpack the JSON stored in RawExtension, turning it into the correct object type, and storing it in the Object. (TODO: In the case where the object is of an unknown type, a runtime.Unknown object will be created and stored.)
+      <p class="shortcomment cmt">RawExtension is used to hold extensions in external versions.</p><div class="fullcomment"><div class="comment cmt"><p>RawExtension is used to hold extensions in external versions.</p><p>To use this, make a field which has RawExtension as its type in your external, versioned struct,
+and Object in your internal struct. You also need to register your various plugin types.</p><p>// Internal package: type MyAPIObject struct { runtime.TypeMeta <code>json:&quot;,inline&quot;</code> MyPlugin
+runtime.Object <code>json:&quot;myPlugin&quot;</code> } type PluginA struct { AOption string <code>json:&quot;aOption&quot;</code> }</p><p>// External package: type MyAPIObject struct { runtime.TypeMeta <code>json:&quot;,inline&quot;</code> MyPlugin
+runtime.RawExtension <code>json:&quot;myPlugin&quot;</code> } type PluginA struct { AOption string <code>json:&quot;aOption&quot;</code> }</p><p>// On the wire, the JSON will look something like this: { &quot;kind&quot;:&quot;MyAPIObject&quot;,
+&quot;apiVersion&quot;:&quot;v1&quot;, &quot;myPlugin&quot;: { &quot;kind&quot;:&quot;PluginA&quot;, &quot;aOption&quot;:&quot;foo&quot;, }, }</p><p>So what happens? Decode first uses json or yaml to unmarshal the serialized data into your
+external MyAPIObject. That causes the raw JSON to be stored, but not unpacked. The next step is
+to copy (using pkg/conversion) into the internal struct. The runtime package's DefaultScheme has
+conversion functions installed which will unpack the JSON stored in RawExtension, turning it
+into the correct object type, and storing it in the Object. (TODO: In the case where the object
+is of an unknown type, a runtime.Unknown object will be created and stored.)
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.pkg.runtime.RawExtensionFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="RawExtensionFieldsextendsAnyRef"></a><a id="RawExtensionFields:RawExtensionFields"></a>

@@ -406,18 +406,30 @@
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <span class="name">WebhookClientConfig</span><span class="params">(<span name="caBundle">caBundle: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="https://javadoc.io/page/dev.zio/zio_2.12/1.0.10/zio/Chunk.html#zio.Chunk" class="extype" name="zio.Chunk">Chunk</a>[<span class="extype" name="scala.Byte">Byte</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="service">service: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="ServiceReference.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.apiextensions.v1.ServiceReference">ServiceReference</a>] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="url">url: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <span class="name">WebhookClientConfig</span><span class="params">(<span name="caBundle">caBundle: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="https://javadoc.io/page/dev.zio/zio_2.12/1.0.12/zio/Chunk.html#zio.Chunk" class="extype" name="zio.Chunk">Chunk</a>[<span class="extype" name="scala.Byte">Byte</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="service">service: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="ServiceReference.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.apiextensions.v1.ServiceReference">ServiceReference</a>] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="url">url: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       </h4>
 
       
           <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>WebhookClientConfig contains the information to make a TLS connection with the webhook.
-</p></div><dl class="paramcmts block"><dt class="param">caBundle</dt><dd class="cmt"><p>caBundle is a PEM encoded CA bundle which will be used to validate the webhook's server certificate. If unspecified, system trust roots on the apiserver are used.</p></dd><dt class="param">url</dt><dd class="cmt"><p>url gives the location of the webhook, in standard URL form (<code>scheme://host:port/path</code>). Exactly one of <code>url</code> or <code>service</code> must be specified.
-The <code>host</code> should not refer to a service running in the cluster; use the <code>service</code> field instead. The host might be resolved via external DNS in some apiservers (e.g., <code>kube-apiserver</code> cannot resolve in-cluster DNS as that would be a layering violation). <code>host</code> may also be an IP address.
-Please note that using <code>localhost</code> or <code>127.0.0.1</code> as a <code>host</code> is risky unless you take great care to run this webhook on all hosts which run an apiserver which might need to make calls to this webhook. Such installs are likely to be non-portable, i.e., not easy to turn up in a new cluster.
+</p></div><dl class="paramcmts block"><dt class="param">caBundle</dt><dd class="cmt"><p>
+  caBundle is a PEM encoded CA bundle which will be used to validate the webhook's server
+  certificate. If unspecified, system trust roots on the apiserver are used.</p></dd><dt class="param">url</dt><dd class="cmt"><p>
+  url gives the location of the webhook, in standard URL form (<code>scheme://host:port/path</code>).
+  Exactly one of <code>url</code> or <code>service</code> must be specified.
+The <code>host</code> should not refer to a service running in the cluster; use the <code>service</code> field
+instead. The host might be resolved via external DNS in some apiservers (e.g., <code>kube-apiserver</code>
+cannot resolve in-cluster DNS as that would be a layering violation). <code>host</code> may also be an IP
+address.
+Please note that using <code>localhost</code> or <code>127.0.0.1</code> as a <code>host</code> is risky unless you take great
+care to run this webhook on all hosts which run an apiserver which might need to make calls to
+this webhook. Such installs are likely to be non-portable, i.e., not easy to turn up in a new
+cluster.
 The scheme must be &quot;https&quot;; the URL must begin with &quot;https://&quot;.
-A path is optional, and if present may be any string permissible in a URL. You may use the path to pass an arbitrary string to the webhook, for example, a cluster identifier.
-Attempting to use a user or basic auth e.g. &quot;user:password@&quot; is not allowed. Fragments (&quot;#...&quot;) and query parameters (&quot;?...&quot;) are not allowed, either.</p></dd></dl><div class="toggleContainer block">
+A path is optional, and if present may be any string permissible in a URL. You may use the path
+to pass an arbitrary string to the webhook, for example, a cluster identifier.
+Attempting to use a user or basic auth e.g. &quot;user:password@&quot; is not allowed. Fragments (&quot;#...&quot;)
+and query parameters (&quot;?...&quot;) are not allowed, either.</p></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -479,15 +491,27 @@ Attempting to use a user or basic auth e.g. &quot;user:password@&quot; is not al
         <span class="kind">new</span>
       </span>
       <span class="symbol">
-        <span class="name">WebhookClientConfig</span><span class="params">(<span name="caBundle">caBundle: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="https://javadoc.io/page/dev.zio/zio_2.12/1.0.10/zio/Chunk.html#zio.Chunk" class="extype" name="zio.Chunk">Chunk</a>[<span class="extype" name="scala.Byte">Byte</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="service">service: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="ServiceReference.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.apiextensions.v1.ServiceReference">ServiceReference</a>] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="url">url: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>)</span>
+        <span class="name">WebhookClientConfig</span><span class="params">(<span name="caBundle">caBundle: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="https://javadoc.io/page/dev.zio/zio_2.12/1.0.12/zio/Chunk.html#zio.Chunk" class="extype" name="zio.Chunk">Chunk</a>[<span class="extype" name="scala.Byte">Byte</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="service">service: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="ServiceReference.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.apiextensions.v1.ServiceReference">ServiceReference</a>] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="url">url: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>)</span>
       </span>
       
-      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">caBundle</dt><dd class="cmt"><p>caBundle is a PEM encoded CA bundle which will be used to validate the webhook's server certificate. If unspecified, system trust roots on the apiserver are used.</p></dd><dt class="param">url</dt><dd class="cmt"><p>url gives the location of the webhook, in standard URL form (<code>scheme://host:port/path</code>). Exactly one of <code>url</code> or <code>service</code> must be specified.
-The <code>host</code> should not refer to a service running in the cluster; use the <code>service</code> field instead. The host might be resolved via external DNS in some apiservers (e.g., <code>kube-apiserver</code> cannot resolve in-cluster DNS as that would be a layering violation). <code>host</code> may also be an IP address.
-Please note that using <code>localhost</code> or <code>127.0.0.1</code> as a <code>host</code> is risky unless you take great care to run this webhook on all hosts which run an apiserver which might need to make calls to this webhook. Such installs are likely to be non-portable, i.e., not easy to turn up in a new cluster.
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">caBundle</dt><dd class="cmt"><p>
+  caBundle is a PEM encoded CA bundle which will be used to validate the webhook's server
+  certificate. If unspecified, system trust roots on the apiserver are used.</p></dd><dt class="param">url</dt><dd class="cmt"><p>
+  url gives the location of the webhook, in standard URL form (<code>scheme://host:port/path</code>).
+  Exactly one of <code>url</code> or <code>service</code> must be specified.
+The <code>host</code> should not refer to a service running in the cluster; use the <code>service</code> field
+instead. The host might be resolved via external DNS in some apiservers (e.g., <code>kube-apiserver</code>
+cannot resolve in-cluster DNS as that would be a layering violation). <code>host</code> may also be an IP
+address.
+Please note that using <code>localhost</code> or <code>127.0.0.1</code> as a <code>host</code> is risky unless you take great
+care to run this webhook on all hosts which run an apiserver which might need to make calls to
+this webhook. Such installs are likely to be non-portable, i.e., not easy to turn up in a new
+cluster.
 The scheme must be &quot;https&quot;; the URL must begin with &quot;https://&quot;.
-A path is optional, and if present may be any string permissible in a URL. You may use the path to pass an arbitrary string to the webhook, for example, a cluster identifier.
-Attempting to use a user or basic auth e.g. &quot;user:password@&quot; is not allowed. Fragments (&quot;#...&quot;) and query parameters (&quot;?...&quot;) are not allowed, either.</p></dd></dl></div>
+A path is optional, and if present may be any string permissible in a URL. You may use the path
+to pass an arbitrary string to the webhook, for example, a cluster identifier.
+Attempting to use a user or basic auth e.g. &quot;user:password@&quot; is not allowed. Fragments (&quot;#...&quot;)
+and query parameters (&quot;?...&quot;) are not allowed, either.</p></dd></dl></div>
     </li></ol>
             </div>
 
@@ -574,7 +598,7 @@ Attempting to use a user or basic auth e.g. &quot;user:password@&quot; is not al
         <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">caBundle</span><span class="result">: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="https://javadoc.io/page/dev.zio/zio_2.12/1.0.10/zio/Chunk.html#zio.Chunk" class="extype" name="zio.Chunk">Chunk</a>[<span class="extype" name="scala.Byte">Byte</span>]]</span>
+        <span class="name">caBundle</span><span class="result">: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="https://javadoc.io/page/dev.zio/zio_2.12/1.0.12/zio/Chunk.html#zio.Chunk" class="extype" name="zio.Chunk">Chunk</a>[<span class="extype" name="scala.Byte">Byte</span>]]</span>
       </span>
       
       
@@ -632,10 +656,12 @@ Attempting to use a user or basic auth e.g. &quot;user:password@&quot; is not al
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">getCaBundle</span><span class="result">: <a href="../../../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="https://javadoc.io/page/dev.zio/zio_2.12/1.0.10/zio/Chunk.html#zio.Chunk" class="extype" name="zio.Chunk">Chunk</a>[<span class="extype" name="scala.Byte">Byte</span>]]</span>
+        <span class="name">getCaBundle</span><span class="result">: <a href="../../../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="https://javadoc.io/page/dev.zio/zio_2.12/1.0.12/zio/Chunk.html#zio.Chunk" class="extype" name="zio.Chunk">Chunk</a>[<span class="extype" name="scala.Byte">Byte</span>]]</span>
       </span>
       
-      <p class="shortcomment cmt">caBundle is a PEM encoded CA bundle which will be used to validate the webhook's server certificate.</p><div class="fullcomment"><div class="comment cmt"><p>caBundle is a PEM encoded CA bundle which will be used to validate the webhook's server certificate. If unspecified, system trust roots on the apiserver are used.</p><p>If the field is not present, fails with <a href="../../../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">caBundle is a PEM encoded CA bundle which will be used to validate the webhook's server
+certificate.</p><div class="fullcomment"><div class="comment cmt"><p>caBundle is a PEM encoded CA bundle which will be used to validate the webhook's server
+certificate. If unspecified, system trust roots on the apiserver are used.</p><p>If the field is not present, fails with <a href="../../../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="scala.AnyRef#getClass" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getClass():Class[_]"></a>
@@ -690,7 +716,16 @@ Attempting to use a user or basic auth e.g. &quot;user:password@&quot; is not al
         <span class="name">getUrl</span><span class="result">: <a href="../../../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">url gives the location of the webhook, in standard URL form (<code>scheme://host:port/path</code>).</p><div class="fullcomment"><div class="comment cmt"><p>url gives the location of the webhook, in standard URL form (<code>scheme://host:port/path</code>). Exactly one of <code>url</code> or <code>service</code> must be specified.</p><p>The <code>host</code> should not refer to a service running in the cluster; use the <code>service</code> field instead. The host might be resolved via external DNS in some apiservers (e.g., <code>kube-apiserver</code> cannot resolve in-cluster DNS as that would be a layering violation). <code>host</code> may also be an IP address.</p><p>Please note that using <code>localhost</code> or <code>127.0.0.1</code> as a <code>host</code> is risky unless you take great care to run this webhook on all hosts which run an apiserver which might need to make calls to this webhook. Such installs are likely to be non-portable, i.e., not easy to turn up in a new cluster.</p><p>The scheme must be &quot;https&quot;; the URL must begin with &quot;https://&quot;.</p><p>A path is optional, and if present may be any string permissible in a URL. You may use the path to pass an arbitrary string to the webhook, for example, a cluster identifier.</p><p>Attempting to use a user or basic auth e.g. &quot;user:password@&quot; is not allowed. Fragments (&quot;#...&quot;) and query parameters (&quot;?...&quot;) are not allowed, either.</p><p>If the field is not present, fails with <a href="../../../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">url gives the location of the webhook, in standard URL form (<code>scheme://host:port/path</code>).</p><div class="fullcomment"><div class="comment cmt"><p>url gives the location of the webhook, in standard URL form (<code>scheme://host:port/path</code>).
+Exactly one of <code>url</code> or <code>service</code> must be specified.</p><p>The <code>host</code> should not refer to a service running in the cluster; use the <code>service</code> field
+instead. The host might be resolved via external DNS in some apiservers (e.g.,
+<code>kube-apiserver</code> cannot resolve in-cluster DNS as that would be a layering violation). <code>host</code>
+may also be an IP address.</p><p>Please note that using <code>localhost</code> or <code>127.0.0.1</code> as a <code>host</code> is risky unless you take great
+care to run this webhook on all hosts which run an apiserver which might need to make calls to
+this webhook. Such installs are likely to be non-portable, i.e., not easy to turn up in a new
+cluster.</p><p>The scheme must be &quot;https&quot;; the URL must begin with &quot;https://&quot;.</p><p>A path is optional, and if present may be any string permissible in a URL. You may use the
+path to pass an arbitrary string to the webhook, for example, a cluster identifier.</p><p>Attempting to use a user or basic auth e.g. &quot;user:password@&quot; is not allowed. Fragments
+(&quot;#...&quot;) and query parameters (&quot;?...&quot;) are not allowed, either.</p><p>If the field is not present, fails with <a href="../../../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="scala.Any#isInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isInstanceOf[T0]:Boolean"></a>

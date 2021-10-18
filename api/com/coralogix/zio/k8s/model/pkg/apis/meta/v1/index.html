@@ -460,7 +460,16 @@
       </span>
       
       <p class="shortcomment cmt">APIGroup contains the name, the supported versions, and the preferred version of a group.</p><div class="fullcomment"><div class="comment cmt"><p>APIGroup contains the name, the supported versions, and the preferred version of a group.
-</p></div><dl class="paramcmts block"><dt class="param">name</dt><dd class="cmt"><p>name is the name of the group.</p></dd><dt class="param">serverAddressByClientCIDRs</dt><dd class="cmt"><p>a map of client CIDR to server address that is serving this group. This is to help clients reach servers in the most network-efficient way possible. Clients can use the appropriate server address as per the CIDR that they match. In case of multiple matches, clients should use the longest matching CIDR. The server returns only those CIDRs that it thinks that the client can match. For example: the master will return an internal IP CIDR only, if the client reaches the server using an internal IP. Server looks at X-Forwarded-For header or X-Real-Ip header or request.RemoteAddr (in that order) to get the client IP.</p></dd><dt class="param">versions</dt><dd class="cmt"><p>versions are the versions supported in this group.</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="param">name</dt><dd class="cmt"><p>
+  name is the name of the group.</p></dd><dt class="param">serverAddressByClientCIDRs</dt><dd class="cmt"><p>
+  a map of client CIDR to server address that is serving this group. This is to help clients
+  reach servers in the most network-efficient way possible. Clients can use the appropriate
+  server address as per the CIDR that they match. In case of multiple matches, clients should
+  use the longest matching CIDR. The server returns only those CIDRs that it thinks that the
+  client can match. For example: the master will return an internal IP CIDR only, if the client
+  reaches the server using an internal IP. Server looks at X-Forwarded-For header or X-Real-Ip
+  header or request.RemoteAddr (in that order) to get the client IP.</p></dd><dt class="param">versions</dt><dd class="cmt"><p>
+  versions are the versions supported in this group.</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.APIGroupFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="APIGroupFieldsextendsAnyRef"></a><a id="APIGroupFields:APIGroupFields"></a>
       <span class="permalink">
@@ -493,7 +502,27 @@
       </span>
       
       <p class="shortcomment cmt">APIResource specifies the name of a resource and whether it is namespaced.</p><div class="fullcomment"><div class="comment cmt"><p>APIResource specifies the name of a resource and whether it is namespaced.
-</p></div><dl class="paramcmts block"><dt class="param">categories</dt><dd class="cmt"><p>categories is a list of the grouped resources this resource belongs to (e.g. 'all')</p></dd><dt class="param">group</dt><dd class="cmt"><p>group is the preferred group of the resource.  Empty implies the group of the containing resource list. For subresources, this may have a different value, for example: Scale&quot;.</p></dd><dt class="param">kind</dt><dd class="cmt"><p>kind is the kind for the resource (e.g. 'Foo' is the kind for a resource 'foo')</p></dd><dt class="param">name</dt><dd class="cmt"><p>name is the plural name of the resource.</p></dd><dt class="param">namespaced</dt><dd class="cmt"><p>namespaced indicates if a resource is namespaced or not.</p></dd><dt class="param">shortNames</dt><dd class="cmt"><p>shortNames is a list of suggested short names of the resource.</p></dd><dt class="param">singularName</dt><dd class="cmt"><p>singularName is the singular name of the resource.  This allows clients to handle plural and singular opaquely. The singularName is more correct for reporting status on a single item and both singular and plural are allowed from the kubectl CLI interface.</p></dd><dt class="param">storageVersionHash</dt><dd class="cmt"><p>The hash value of the storage version, the version this resource is converted to when written to the data store. Value must be treated as opaque by clients. Only equality comparison on the value is valid. This is an alpha feature and may change or be removed in the future. The field is populated by the apiserver only if the StorageVersionHash feature gate is enabled. This field will remain optional even if it graduates.</p></dd><dt class="param">verbs</dt><dd class="cmt"><p>verbs is a list of supported kube verbs (this includes get, list, watch, create, update, patch, delete, deletecollection, and proxy)</p></dd><dt class="param">version</dt><dd class="cmt"><p>version is the preferred version of the resource.  Empty implies the version of the containing resource list For subresources, this may have a different value, for example: v1 (while inside a v1beta1 version of the core resource's group)&quot;.</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="param">categories</dt><dd class="cmt"><p>
+  categories is a list of the grouped resources this resource belongs to (e.g. 'all')</p></dd><dt class="param">group</dt><dd class="cmt"><p>
+  group is the preferred group of the resource. Empty implies the group of the containing
+  resource list. For subresources, this may have a different value, for example: Scale&quot;.</p></dd><dt class="param">kind</dt><dd class="cmt"><p>
+  kind is the kind for the resource (e.g. 'Foo' is the kind for a resource 'foo')</p></dd><dt class="param">name</dt><dd class="cmt"><p>
+  name is the plural name of the resource.</p></dd><dt class="param">namespaced</dt><dd class="cmt"><p>
+  namespaced indicates if a resource is namespaced or not.</p></dd><dt class="param">shortNames</dt><dd class="cmt"><p>
+  shortNames is a list of suggested short names of the resource.</p></dd><dt class="param">singularName</dt><dd class="cmt"><p>
+  singularName is the singular name of the resource. This allows clients to handle plural and
+  singular opaquely. The singularName is more correct for reporting status on a single item and
+  both singular and plural are allowed from the kubectl CLI interface.</p></dd><dt class="param">storageVersionHash</dt><dd class="cmt"><p>
+  The hash value of the storage version, the version this resource is converted to when written
+  to the data store. Value must be treated as opaque by clients. Only equality comparison on the
+  value is valid. This is an alpha feature and may change or be removed in the future. The field
+  is populated by the apiserver only if the StorageVersionHash feature gate is enabled. This
+  field will remain optional even if it graduates.</p></dd><dt class="param">verbs</dt><dd class="cmt"><p>
+  verbs is a list of supported kube verbs (this includes get, list, watch, create, update,
+  patch, delete, deletecollection, and proxy)</p></dd><dt class="param">version</dt><dd class="cmt"><p>
+  version is the preferred version of the resource. Empty implies the version of the containing
+  resource list For subresources, this may have a different value, for example: v1 (while inside
+  a v1beta1 version of the core resource's group)&quot;.</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.APIResourceFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="APIResourceFieldsextendsAnyRef"></a><a id="APIResourceFields:APIResourceFields"></a>
       <span class="permalink">
@@ -525,8 +554,18 @@
         <a title="APIVersions lists the versions that are available, to allow clients to discover the API at /api, which is the root path of the legacy v1 API." href="APIVersions.html"><span class="name">APIVersions</span></a><span class="params">(<span name="serverAddressByClientCIDRs">serverAddressByClientCIDRs: <span class="extype" name="scala.Vector">Vector</span>[<a href="ServerAddressByClientCIDR.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.ServerAddressByClientCIDR">ServerAddressByClientCIDR</a>]</span>, <span name="versions">versions: <span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]</span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
-      <p class="shortcomment cmt">APIVersions lists the versions that are available, to allow clients to discover the API at /api, which is the root path of the legacy v1 API.</p><div class="fullcomment"><div class="comment cmt"><p>APIVersions lists the versions that are available, to allow clients to discover the API at /api, which is the root path of the legacy v1 API.
-</p></div><dl class="paramcmts block"><dt class="param">serverAddressByClientCIDRs</dt><dd class="cmt"><p>a map of client CIDR to server address that is serving this group. This is to help clients reach servers in the most network-efficient way possible. Clients can use the appropriate server address as per the CIDR that they match. In case of multiple matches, clients should use the longest matching CIDR. The server returns only those CIDRs that it thinks that the client can match. For example: the master will return an internal IP CIDR only, if the client reaches the server using an internal IP. Server looks at X-Forwarded-For header or X-Real-Ip header or request.RemoteAddr (in that order) to get the client IP.</p></dd><dt class="param">versions</dt><dd class="cmt"><p>versions are the api versions that are available.</p></dd></dl></div>
+      <p class="shortcomment cmt">APIVersions lists the versions that are available, to allow clients to discover the API at /api,
+which is the root path of the legacy v1 API.</p><div class="fullcomment"><div class="comment cmt"><p>APIVersions lists the versions that are available, to allow clients to discover the API at /api,
+which is the root path of the legacy v1 API.
+</p></div><dl class="paramcmts block"><dt class="param">serverAddressByClientCIDRs</dt><dd class="cmt"><p>
+  a map of client CIDR to server address that is serving this group. This is to help clients
+  reach servers in the most network-efficient way possible. Clients can use the appropriate
+  server address as per the CIDR that they match. In case of multiple matches, clients should
+  use the longest matching CIDR. The server returns only those CIDRs that it thinks that the
+  client can match. For example: the master will return an internal IP CIDR only, if the client
+  reaches the server using an internal IP. Server looks at X-Forwarded-For header or X-Real-Ip
+  header or request.RemoteAddr (in that order) to get the client IP.</p></dd><dt class="param">versions</dt><dd class="cmt"><p>
+  versions are the api versions that are available.</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.APIVersionsFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="APIVersionsFieldsextendsAnyRef"></a><a id="APIVersionsFields:APIVersionsFields"></a>
       <span class="permalink">
@@ -559,7 +598,19 @@
       </span>
       
       <p class="shortcomment cmt">Condition contains details for one aspect of the current state of this API Resource.</p><div class="fullcomment"><div class="comment cmt"><p>Condition contains details for one aspect of the current state of this API Resource.
-</p></div><dl class="paramcmts block"><dt class="param">message</dt><dd class="cmt"><p>message is a human readable message indicating details about the transition. This may be an empty string.</p></dd><dt class="param">observedGeneration</dt><dd class="cmt"><p>observedGeneration represents the .metadata.generation that the condition was set based upon. For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date with respect to the current state of the instance.</p></dd><dt class="param">reason</dt><dd class="cmt"><p>reason contains a programmatic identifier indicating the reason for the condition's last transition. Producers of specific condition types may define expected values and meanings for this field, and whether the values are considered a guaranteed API. The value should be a CamelCase string. This field may not be empty.</p></dd><dt class="param">status</dt><dd class="cmt"><p>status of the condition, one of True, False, Unknown.</p></dd><dt class="param">type</dt><dd class="cmt"><p>type of condition in CamelCase or in foo.example.com/CamelCase.</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="param">message</dt><dd class="cmt"><p>
+  message is a human readable message indicating details about the transition. This may be an
+  empty string.</p></dd><dt class="param">observedGeneration</dt><dd class="cmt"><p>
+  observedGeneration represents the .metadata.generation that the condition was set based upon.
+  For instance, if .metadata.generation is currently 12, but the
+  .status.conditions[x].observedGeneration is 9, the condition is out of date with respect to
+  the current state of the instance.</p></dd><dt class="param">reason</dt><dd class="cmt"><p>
+  reason contains a programmatic identifier indicating the reason for the condition's last
+  transition. Producers of specific condition types may define expected values and meanings for
+  this field, and whether the values are considered a guaranteed API. The value should be a
+  CamelCase string. This field may not be empty.</p></dd><dt class="param">status</dt><dd class="cmt"><p>
+  status of the condition, one of True, False, Unknown.</p></dd><dt class="param">type</dt><dd class="cmt"><p>
+  type of condition in CamelCase or in foo.example.com/CamelCase.</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.ConditionFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="ConditionFieldsextendsAnyRef"></a><a id="ConditionFields:ConditionFields"></a>
       <span class="permalink">
@@ -592,7 +643,23 @@
       </span>
       
       <p class="shortcomment cmt">DeleteOptions may be provided when deleting an API object.</p><div class="fullcomment"><div class="comment cmt"><p>DeleteOptions may be provided when deleting an API object.
-</p></div><dl class="paramcmts block"><dt class="param">dryRun</dt><dd class="cmt"><p>When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed</p></dd><dt class="param">gracePeriodSeconds</dt><dd class="cmt"><p>The duration in seconds before the object should be deleted. Value must be non-negative integer. The value zero indicates delete immediately. If this value is nil, the default grace period for the specified type will be used. Defaults to a per object value if not specified. zero means delete immediately.</p></dd><dt class="param">orphanDependents</dt><dd class="cmt"><p>Deprecated: please use the PropagationPolicy, this field will be deprecated in 1.7. Should the dependent objects be orphaned. If true/false, the &quot;orphan&quot; finalizer will be added to/removed from the object's finalizers list. Either this field or PropagationPolicy may be set, but not both.</p></dd><dt class="param">propagationPolicy</dt><dd class="cmt"><p>Whether and how garbage collection will be performed. Either this field or OrphanDependents may be set, but not both. The default policy is decided by the existing finalizer set in the metadata.finalizers and the resource-specific default policy. Acceptable values are: 'Orphan' - orphan the dependents; 'Background' - allow the garbage collector to delete the dependents in the background; 'Foreground' - a cascading policy that deletes all dependents in the foreground.</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="param">dryRun</dt><dd class="cmt"><p>
+  When present, indicates that modifications should not be persisted. An invalid or unrecognized
+  dryRun directive will result in an error response and no further processing of the request.
+  Valid values are: - All: all dry run stages will be processed</p></dd><dt class="param">gracePeriodSeconds</dt><dd class="cmt"><p>
+  The duration in seconds before the object should be deleted. Value must be non-negative
+  integer. The value zero indicates delete immediately. If this value is nil, the default grace
+  period for the specified type will be used. Defaults to a per object value if not specified.
+  zero means delete immediately.</p></dd><dt class="param">orphanDependents</dt><dd class="cmt"><p>
+  Deprecated: please use the PropagationPolicy, this field will be deprecated in 1.7. Should the
+  dependent objects be orphaned. If true/false, the &quot;orphan&quot; finalizer will be added to/removed
+  from the object's finalizers list. Either this field or PropagationPolicy may be set, but not
+  both.</p></dd><dt class="param">propagationPolicy</dt><dd class="cmt"><p>
+  Whether and how garbage collection will be performed. Either this field or OrphanDependents
+  may be set, but not both. The default policy is decided by the existing finalizer set in the
+  metadata.finalizers and the resource-specific default policy. Acceptable values are: 'Orphan'</p><ul><li>orphan the dependents; 'Background' - allow the garbage collector to delete the dependents
+  in the background; 'Foreground' - a cascading policy that deletes all dependents in the
+  foreground.</li></ul></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.DeleteOptionsFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="DeleteOptionsFieldsextendsAnyRef"></a><a id="DeleteOptionsFields:DeleteOptionsFields"></a>
       <span class="permalink">
@@ -624,7 +691,13 @@
         <a title="FieldsV1 stores a set of fields in a data structure like a Trie, in JSON format." href="FieldsV1.html"><span class="name">FieldsV1</span></a><span class="params">(<span name="value">value: <a href="https://circe.github.io/circe/api/io/circe/Json.html#io.circe.Json" class="extype" name="io.circe.Json">Json</a></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
-      <p class="shortcomment cmt">FieldsV1 stores a set of fields in a data structure like a Trie, in JSON format.</p><div class="fullcomment"><div class="comment cmt"><p>FieldsV1 stores a set of fields in a data structure like a Trie, in JSON format.</p><p>Each key is either a '.' representing the field itself, and will always map to an empty set, or a string representing a sub-field or item. The string will follow one of these four formats: 'f:&lt;name&gt;', where &lt;name&gt; is the name of a field in a struct, or key in a map 'v:&lt;value&gt;', where &lt;value&gt; is the exact json formatted value of a list item 'i:&lt;index&gt;', where &lt;index&gt; is position of a item in a list 'k:&lt;keys&gt;', where &lt;keys&gt; is a map of  a list item's key fields to their unique values If a key maps to an empty Fields value, the field that key represents is part of the set.</p><p>The exact format is defined in sigs.k8s.io/structured-merge-diff
+      <p class="shortcomment cmt">FieldsV1 stores a set of fields in a data structure like a Trie, in JSON format.</p><div class="fullcomment"><div class="comment cmt"><p>FieldsV1 stores a set of fields in a data structure like a Trie, in JSON format.</p><p>Each key is either a '.' representing the field itself, and will always map to an empty set, or
+a string representing a sub-field or item. The string will follow one of these four formats:
+'f:&lt;name&gt;', where &lt;name&gt; is the name of a field in a struct, or key in a map 'v:&lt;value&gt;', where
+&lt;value&gt; is the exact json formatted value of a list item 'i:&lt;index&gt;', where &lt;index&gt; is position
+of a item in a list 'k:&lt;keys&gt;', where &lt;keys&gt; is a map of a list item's key fields to their
+unique values If a key maps to an empty Fields value, the field that key represents is part of
+the set.</p><p>The exact format is defined in sigs.k8s.io/structured-merge-diff
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.FieldsV1Fields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="FieldsV1FieldsextendsAnyRef"></a><a id="FieldsV1Fields:FieldsV1Fields"></a>
@@ -657,8 +730,12 @@
         <a title="GroupVersion contains the &quot;group/version&quot; and &quot;version&quot; string of a version." href="GroupVersionForDiscovery.html"><span class="name">GroupVersionForDiscovery</span></a><span class="params">(<span name="groupVersion">groupVersion: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="version">version: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
-      <p class="shortcomment cmt">GroupVersion contains the &quot;group/version&quot; and &quot;version&quot; string of a version.</p><div class="fullcomment"><div class="comment cmt"><p>GroupVersion contains the &quot;group/version&quot; and &quot;version&quot; string of a version. It is made a struct to keep extensibility.
-</p></div><dl class="paramcmts block"><dt class="param">groupVersion</dt><dd class="cmt"><p>groupVersion specifies the API group and version in the form &quot;group/version&quot;</p></dd><dt class="param">version</dt><dd class="cmt"><p>version specifies the version in the form of &quot;version&quot;. This is to save the clients the trouble of splitting the GroupVersion.</p></dd></dl></div>
+      <p class="shortcomment cmt">GroupVersion contains the &quot;group/version&quot; and &quot;version&quot; string of a version.</p><div class="fullcomment"><div class="comment cmt"><p>GroupVersion contains the &quot;group/version&quot; and &quot;version&quot; string of a version. It is made a struct
+to keep extensibility.
+</p></div><dl class="paramcmts block"><dt class="param">groupVersion</dt><dd class="cmt"><p>
+  groupVersion specifies the API group and version in the form &quot;group/version&quot;</p></dd><dt class="param">version</dt><dd class="cmt"><p>
+  version specifies the version in the form of &quot;version&quot;. This is to save the clients the
+  trouble of splitting the GroupVersion.</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.GroupVersionForDiscoveryFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="GroupVersionForDiscoveryFieldsextendsAnyRef"></a><a id="GroupVersionForDiscoveryFields:GroupVersionForDiscoveryFields"></a>
       <span class="permalink">
@@ -690,8 +767,14 @@
         <a title="A label selector is a label query over a set of resources." href="LabelSelector.html"><span class="name">LabelSelector</span></a><span class="params">(<span name="matchExpressions">matchExpressions: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="LabelSelectorRequirement.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.LabelSelectorRequirement">LabelSelectorRequirement</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="matchLabels">matchLabels: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
-      <p class="shortcomment cmt">A label selector is a label query over a set of resources.</p><div class="fullcomment"><div class="comment cmt"><p>A label selector is a label query over a set of resources. The result of matchLabels and matchExpressions are ANDed. An empty label selector matches all objects. A null label selector matches no objects.
-</p></div><dl class="paramcmts block"><dt class="param">matchExpressions</dt><dd class="cmt"><p>matchExpressions is a list of label selector requirements. The requirements are ANDed.</p></dd><dt class="param">matchLabels</dt><dd class="cmt"><p>matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is &quot;key&quot;, the operator is &quot;In&quot;, and the values array contains only &quot;value&quot;. The requirements are ANDed.</p></dd></dl></div>
+      <p class="shortcomment cmt">A label selector is a label query over a set of resources.</p><div class="fullcomment"><div class="comment cmt"><p>A label selector is a label query over a set of resources. The result of matchLabels and
+matchExpressions are ANDed. An empty label selector matches all objects. A null label selector
+matches no objects.
+</p></div><dl class="paramcmts block"><dt class="param">matchExpressions</dt><dd class="cmt"><p>
+  matchExpressions is a list of label selector requirements. The requirements are ANDed.</p></dd><dt class="param">matchLabels</dt><dd class="cmt"><p>
+  matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is
+  equivalent to an element of matchExpressions, whose key field is &quot;key&quot;, the operator is &quot;In&quot;,
+  and the values array contains only &quot;value&quot;. The requirements are ANDed.</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.LabelSelectorFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="LabelSelectorFieldsextendsAnyRef"></a><a id="LabelSelectorFields:LabelSelectorFields"></a>
       <span class="permalink">
@@ -723,8 +806,16 @@
         <a title="A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values." href="LabelSelectorRequirement.html"><span class="name">LabelSelectorRequirement</span></a><span class="params">(<span name="key">key: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="operator">operator: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="values">values: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
-      <p class="shortcomment cmt">A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.</p><div class="fullcomment"><div class="comment cmt"><p>A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-</p></div><dl class="paramcmts block"><dt class="param">key</dt><dd class="cmt"><p>key is the label key that the selector applies to.</p></dd><dt class="param">operator</dt><dd class="cmt"><p>operator represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists and DoesNotExist.</p></dd><dt class="param">values</dt><dd class="cmt"><p>values is an array of string values. If the operator is In or NotIn, the values array must be non-empty. If the operator is Exists or DoesNotExist, the values array must be empty. This array is replaced during a strategic merge patch.</p></dd></dl></div>
+      <p class="shortcomment cmt">A label selector requirement is a selector that contains values, a key, and an operator that
+relates the key and values.</p><div class="fullcomment"><div class="comment cmt"><p>A label selector requirement is a selector that contains values, a key, and an operator that
+relates the key and values.
+</p></div><dl class="paramcmts block"><dt class="param">key</dt><dd class="cmt"><p>
+  key is the label key that the selector applies to.</p></dd><dt class="param">operator</dt><dd class="cmt"><p>
+  operator represents a key's relationship to a set of values. Valid operators are In, NotIn,
+  Exists and DoesNotExist.</p></dd><dt class="param">values</dt><dd class="cmt"><p>
+  values is an array of string values. If the operator is In or NotIn, the values array must be
+  non-empty. If the operator is Exists or DoesNotExist, the values array must be empty. This
+  array is replaced during a strategic merge patch.</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.LabelSelectorRequirementFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="LabelSelectorRequirementFieldsextendsAnyRef"></a><a id="LabelSelectorRequirementFields:LabelSelectorRequirementFields"></a>
       <span class="permalink">
@@ -756,9 +847,32 @@
         <a title="ListMeta describes metadata that synthetic resources must have, including lists and various status objects." href="ListMeta.html"><span class="name">ListMeta</span></a><span class="params">(<span name="continue">continue: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="remainingItemCount">remainingItemCount: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Long">Long</span>] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="resourceVersion">resourceVersion: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="selfLink">selfLink: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
-      <p class="shortcomment cmt">ListMeta describes metadata that synthetic resources must have, including lists and various status objects.</p><div class="fullcomment"><div class="comment cmt"><p>ListMeta describes metadata that synthetic resources must have, including lists and various status objects. A resource may have only one of {ObjectMeta, ListMeta}.
-</p></div><dl class="paramcmts block"><dt class="param">continue</dt><dd class="cmt"><p>continue may be set if the user set a limit on the number of items returned, and indicates that the server has more data available. The value is opaque and may be used to issue another request to the endpoint that served this list to retrieve the next set of available objects. Continuing a consistent list may not be possible if the server configuration has changed or more than a few minutes have passed. The resourceVersion field returned when using this continue value will be identical to the value in the first response, unless you have received this token from an error message.</p></dd><dt class="param">remainingItemCount</dt><dd class="cmt"><p>remainingItemCount is the number of subsequent items in the list which are not included in this list response. If the list request contained label or field selectors, then the number of remaining items is unknown and the field will be left unset and omitted during serialization. If the list is complete (either because it is not chunking or because this is the last chunk), then there are no more remaining items and this field will be left unset and omitted during serialization. Servers older than v1.15 do not set this field. The intended use of the remainingItemCount is *estimating* the size of a collection. Clients should not rely on the remainingItemCount to be set or to be exact.</p></dd><dt class="param">resourceVersion</dt><dd class="cmt"><p>String that identifies the server's internal version of this object that can be used by clients to determine when objects have changed. Value must be treated as opaque by clients and passed unmodified back to the server. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency</p></dd><dt class="param">selfLink</dt><dd class="cmt"><p>selfLink is a URL representing this object. Populated by the system. Read-only.
-DEPRECATED Kubernetes will stop propagating this field in 1.20 release and the field is planned to be removed in 1.21 release.</p></dd></dl></div>
+      <p class="shortcomment cmt">ListMeta describes metadata that synthetic resources must have, including lists and various
+status objects.</p><div class="fullcomment"><div class="comment cmt"><p>ListMeta describes metadata that synthetic resources must have, including lists and various
+status objects. A resource may have only one of {ObjectMeta, ListMeta}.
+</p></div><dl class="paramcmts block"><dt class="param">continue</dt><dd class="cmt"><p>
+  continue may be set if the user set a limit on the number of items returned, and indicates
+  that the server has more data available. The value is opaque and may be used to issue another
+  request to the endpoint that served this list to retrieve the next set of available objects.
+  Continuing a consistent list may not be possible if the server configuration has changed or
+  more than a few minutes have passed. The resourceVersion field returned when using this
+  continue value will be identical to the value in the first response, unless you have received
+  this token from an error message.</p></dd><dt class="param">remainingItemCount</dt><dd class="cmt"><p>
+  remainingItemCount is the number of subsequent items in the list which are not included in
+  this list response. If the list request contained label or field selectors, then the number of
+  remaining items is unknown and the field will be left unset and omitted during serialization.
+  If the list is complete (either because it is not chunking or because this is the last chunk),
+  then there are no more remaining items and this field will be left unset and omitted during
+  serialization. Servers older than v1.15 do not set this field. The intended use of the
+  remainingItemCount is *estimating* the size of a collection. Clients should not rely on the
+  remainingItemCount to be set or to be exact.</p></dd><dt class="param">resourceVersion</dt><dd class="cmt"><p>
+  String that identifies the server's internal version of this object that can be used by
+  clients to determine when objects have changed. Value must be treated as opaque by clients and
+  passed unmodified back to the server. Populated by the system. Read-only. More info:
+  https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency</p></dd><dt class="param">selfLink</dt><dd class="cmt"><p>
+  selfLink is a URL representing this object. Populated by the system. Read-only.
+DEPRECATED Kubernetes will stop propagating this field in 1.20 release and the field is planned
+to be removed in 1.21 release.</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.ListMetaFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="ListMetaFieldsextendsAnyRef"></a><a id="ListMetaFields:ListMetaFields"></a>
       <span class="permalink">
@@ -787,11 +901,27 @@ DEPRECATED Kubernetes will stop propagating this field in 1.20 release and the f
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a title="ManagedFieldsEntry is a workflow-id, a FieldSet and the group version of the resource that the fieldset applies to." href="ManagedFieldsEntry.html"><span class="name">ManagedFieldsEntry</span></a><span class="params">(<span name="apiVersion">apiVersion: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="fieldsType">fieldsType: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="fieldsV1">fieldsV1: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="FieldsV1.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.FieldsV1">FieldsV1</a>] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="manager">manager: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="operation">operation: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="time">time: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="Time.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Time">Time</a>] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a title="ManagedFieldsEntry is a workflow-id, a FieldSet and the group version of the resource that the fieldset applies to." href="ManagedFieldsEntry.html"><span class="name">ManagedFieldsEntry</span></a><span class="params">(<span name="apiVersion">apiVersion: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="fieldsType">fieldsType: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="fieldsV1">fieldsV1: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="FieldsV1.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.FieldsV1">FieldsV1</a>] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="manager">manager: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="operation">operation: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="subresource">subresource: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="time">time: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="Time.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Time">Time</a>] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
-      <p class="shortcomment cmt">ManagedFieldsEntry is a workflow-id, a FieldSet and the group version of the resource that the fieldset applies to.</p><div class="fullcomment"><div class="comment cmt"><p>ManagedFieldsEntry is a workflow-id, a FieldSet and the group version of the resource that the fieldset applies to.
-</p></div><dl class="paramcmts block"><dt class="param">apiVersion</dt><dd class="cmt"><p>APIVersion defines the version of this resource that this field set applies to. The format is &quot;group/version&quot; just like the top-level APIVersion field. It is necessary to track the version of a field set because it cannot be automatically converted.</p></dd><dt class="param">fieldsType</dt><dd class="cmt"><p>FieldsType is the discriminator for the different fields format and version. There is currently only one possible value: &quot;FieldsV1&quot;</p></dd><dt class="param">manager</dt><dd class="cmt"><p>Manager is an identifier of the workflow managing these fields.</p></dd><dt class="param">operation</dt><dd class="cmt"><p>Operation is the type of operation which lead to this ManagedFieldsEntry being created. The only valid values for this field are 'Apply' and 'Update'.</p></dd></dl></div>
+      <p class="shortcomment cmt">ManagedFieldsEntry is a workflow-id, a FieldSet and the group version of the resource that the
+fieldset applies to.</p><div class="fullcomment"><div class="comment cmt"><p>ManagedFieldsEntry is a workflow-id, a FieldSet and the group version of the resource that the
+fieldset applies to.
+</p></div><dl class="paramcmts block"><dt class="param">apiVersion</dt><dd class="cmt"><p>
+  APIVersion defines the version of this resource that this field set applies to. The format is
+  &quot;group/version&quot; just like the top-level APIVersion field. It is necessary to track the version
+  of a field set because it cannot be automatically converted.</p></dd><dt class="param">fieldsType</dt><dd class="cmt"><p>
+  FieldsType is the discriminator for the different fields format and version. There is
+  currently only one possible value: &quot;FieldsV1&quot;</p></dd><dt class="param">manager</dt><dd class="cmt"><p>
+  Manager is an identifier of the workflow managing these fields.</p></dd><dt class="param">operation</dt><dd class="cmt"><p>
+  Operation is the type of operation which lead to this ManagedFieldsEntry being created. The
+  only valid values for this field are 'Apply' and 'Update'.</p></dd><dt class="param">subresource</dt><dd class="cmt"><p>
+  Subresource is the name of the subresource used to update that object, or empty string if the
+  object was updated through the main resource. The value of this field is used to distinguish
+  between managers, even if they share the same name. For example, a status update will be
+  distinct from a regular update using the same manager name. Note that the APIVersion field is
+  not related to the Subresource field and it always corresponds to the version of the main
+  resource.</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.ManagedFieldsEntryFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="ManagedFieldsEntryFieldsextendsAnyRef"></a><a id="ManagedFieldsEntryFields:ManagedFieldsEntryFields"></a>
       <span class="permalink">
@@ -839,14 +969,78 @@ DEPRECATED Kubernetes will stop propagating this field in 1.20 release and the f
         <a title="ObjectMeta is metadata that all persisted resources must have, which includes all objects users must create." href="ObjectMeta.html"><span class="name">ObjectMeta</span></a><span class="params">(<span name="annotations">annotations: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="clusterName">clusterName: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="creationTimestamp">creationTimestamp: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="Time.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Time">Time</a>] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="deletionGracePeriodSeconds">deletionGracePeriodSeconds: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Long">Long</span>] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="deletionTimestamp">deletionTimestamp: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="Time.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Time">Time</a>] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="finalizers">finalizers: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="generateName">generateName: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="generation">generation: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Long">Long</span>] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="labels">labels: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="managedFields">managedFields: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="ManagedFieldsEntry.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.ManagedFieldsEntry">ManagedFieldsEntry</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="name">name: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="namespace">namespace: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="ownerReferences">ownerReferences: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="OwnerReference.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.OwnerReference">OwnerReference</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="resourceVersion">resourceVersion: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="selfLink">selfLink: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="uid">uid: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
-      <p class="shortcomment cmt">ObjectMeta is metadata that all persisted resources must have, which includes all objects users must create.</p><div class="fullcomment"><div class="comment cmt"><p>ObjectMeta is metadata that all persisted resources must have, which includes all objects users must create.
-</p></div><dl class="paramcmts block"><dt class="param">annotations</dt><dd class="cmt"><p>Annotations is an unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. More info: http://kubernetes.io/docs/user-guide/annotations</p></dd><dt class="param">clusterName</dt><dd class="cmt"><p>The name of the cluster which the object belongs to. This is used to distinguish resources with same name and namespace in different clusters. This field is not set anywhere right now and apiserver is going to ignore it if set in create or update request.</p></dd><dt class="param">deletionGracePeriodSeconds</dt><dd class="cmt"><p>Number of seconds allowed for this object to gracefully terminate before it will be removed from the system. Only set when deletionTimestamp is also set. May only be shortened. Read-only.</p></dd><dt class="param">finalizers</dt><dd class="cmt"><p>Must be empty before the object is deleted from the registry. Each entry is an identifier for the responsible component that will remove the entry from the list. If the deletionTimestamp of the object is non-nil, entries in this list can only be removed. Finalizers may be processed and removed in any order.  Order is NOT enforced because it introduces significant risk of stuck finalizers. finalizers is a shared field, any actor with permission can reorder it. If the finalizer list is processed in order, then this can lead to a situation in which the component responsible for the first finalizer in the list is waiting for a signal (field value, external system, or other) produced by a component responsible for a finalizer later in the list, resulting in a deadlock. Without enforced ordering finalizers are free to order amongst themselves and are not vulnerable to ordering changes in the list.</p></dd><dt class="param">generateName</dt><dd class="cmt"><p>GenerateName is an optional prefix, used by the server, to generate a unique name ONLY IF the Name field has not been provided. If this field is used, the name returned to the client will be different than the name passed. This value will also be combined with a unique suffix. The provided value has the same validation rules as the Name field, and may be truncated by the length of the suffix required to make the value unique on the server.
-If this field is specified and the generated name exists, the server will NOT return a 409 - instead, it will either return 201 Created or 500 with Reason ServerTimeout indicating a unique name could not be found in the time allotted, and the client should retry (optionally after the time indicated in the Retry-After header).
-Applied only if Name is not specified. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#idempotency</p></dd><dt class="param">generation</dt><dd class="cmt"><p>A sequence number representing a specific generation of the desired state. Populated by the system. Read-only.</p></dd><dt class="param">labels</dt><dd class="cmt"><p>Map of string keys and values that can be used to organize and categorize (scope and select) objects. May match selectors of replication controllers and services. More info: http://kubernetes.io/docs/user-guide/labels</p></dd><dt class="param">managedFields</dt><dd class="cmt"><p>ManagedFields maps workflow-id and version to the set of fields that are managed by that workflow. This is mostly for internal housekeeping, and users typically shouldn't need to set or understand this field. A workflow can be the user's name, a controller's name, or the name of a specific apply path like &quot;ci-cd&quot;. The set of fields is always in the version that the workflow used when modifying the object.</p></dd><dt class="param">name</dt><dd class="cmt"><p>Name must be unique within a namespace. Is required when creating resources, although some resources may allow a client to request the generation of an appropriate name automatically. Name is primarily intended for creation idempotence and configuration definition. Cannot be updated. More info: http://kubernetes.io/docs/user-guide/identifiers#names</p></dd><dt class="param">namespace</dt><dd class="cmt"><p>Namespace defines the space within which each name must be unique. An empty namespace is equivalent to the &quot;default&quot; namespace, but &quot;default&quot; is the canonical representation. Not all objects are required to be scoped to a namespace - the value of this field for those objects will be empty.
-Must be a DNS_LABEL. Cannot be updated. More info: http://kubernetes.io/docs/user-guide/namespaces</p></dd><dt class="param">ownerReferences</dt><dd class="cmt"><p>List of objects depended by this object. If ALL objects in the list have been deleted, this object will be garbage collected. If this object is managed by a controller, then an entry in this list will point to this controller, with the controller field set to true. There cannot be more than one managing controller.</p></dd><dt class="param">resourceVersion</dt><dd class="cmt"><p>An opaque value that represents the internal version of this object that can be used by clients to determine when objects have changed. May be used for optimistic concurrency, change detection, and the watch operation on a resource or set of resources. Clients must treat these values as opaque and passed unmodified back to the server. They may only be valid for a particular resource or set of resources.
-Populated by the system. Read-only. Value must be treated as opaque by clients and . More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency</p></dd><dt class="param">selfLink</dt><dd class="cmt"><p>SelfLink is a URL representing this object. Populated by the system. Read-only.
-DEPRECATED Kubernetes will stop propagating this field in 1.20 release and the field is planned to be removed in 1.21 release.</p></dd><dt class="param">uid</dt><dd class="cmt"><p>UID is the unique in time and space value for this object. It is typically generated by the server on successful creation of a resource and is not allowed to change on PUT operations.
-Populated by the system. Read-only. More info: http://kubernetes.io/docs/user-guide/identifiers#uids</p></dd></dl></div>
+      <p class="shortcomment cmt">ObjectMeta is metadata that all persisted resources must have, which includes all objects users
+must create.</p><div class="fullcomment"><div class="comment cmt"><p>ObjectMeta is metadata that all persisted resources must have, which includes all objects users
+must create.
+</p></div><dl class="paramcmts block"><dt class="param">annotations</dt><dd class="cmt"><p>
+  Annotations is an unstructured key value map stored with a resource that may be set by
+  external tools to store and retrieve arbitrary metadata. They are not queryable and should be
+  preserved when modifying objects. More info: http://kubernetes.io/docs/user-guide/annotations</p></dd><dt class="param">clusterName</dt><dd class="cmt"><p>
+  The name of the cluster which the object belongs to. This is used to distinguish resources
+  with same name and namespace in different clusters. This field is not set anywhere right now
+  and apiserver is going to ignore it if set in create or update request.</p></dd><dt class="param">deletionGracePeriodSeconds</dt><dd class="cmt"><p>
+  Number of seconds allowed for this object to gracefully terminate before it will be removed
+  from the system. Only set when deletionTimestamp is also set. May only be shortened.
+  Read-only.</p></dd><dt class="param">finalizers</dt><dd class="cmt"><p>
+  Must be empty before the object is deleted from the registry. Each entry is an identifier for
+  the responsible component that will remove the entry from the list. If the deletionTimestamp
+  of the object is non-nil, entries in this list can only be removed. Finalizers may be
+  processed and removed in any order. Order is NOT enforced because it introduces significant
+  risk of stuck finalizers. finalizers is a shared field, any actor with permission can reorder
+  it. If the finalizer list is processed in order, then this can lead to a situation in which
+  the component responsible for the first finalizer in the list is waiting for a signal (field
+  value, external system, or other) produced by a component responsible for a finalizer later in
+  the list, resulting in a deadlock. Without enforced ordering finalizers are free to order
+  amongst themselves and are not vulnerable to ordering changes in the list.</p></dd><dt class="param">generateName</dt><dd class="cmt"><p>
+  GenerateName is an optional prefix, used by the server, to generate a unique name ONLY IF the
+  Name field has not been provided. If this field is used, the name returned to the client will
+  be different than the name passed. This value will also be combined with a unique suffix. The
+  provided value has the same validation rules as the Name field, and may be truncated by the
+  length of the suffix required to make the value unique on the server.
+If this field is specified and the generated name exists, the server will NOT return a 409 -
+instead, it will either return 201 Created or 500 with Reason ServerTimeout indicating a unique
+name could not be found in the time allotted, and the client should retry (optionally after the
+time indicated in the Retry-After header).
+Applied only if Name is not specified. More info:
+https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#idempotency</p></dd><dt class="param">generation</dt><dd class="cmt"><p>
+  A sequence number representing a specific generation of the desired state. Populated by the
+  system. Read-only.</p></dd><dt class="param">labels</dt><dd class="cmt"><p>
+  Map of string keys and values that can be used to organize and categorize (scope and select)
+  objects. May match selectors of replication controllers and services. More info:
+  http://kubernetes.io/docs/user-guide/labels</p></dd><dt class="param">managedFields</dt><dd class="cmt"><p>
+  ManagedFields maps workflow-id and version to the set of fields that are managed by that
+  workflow. This is mostly for internal housekeeping, and users typically shouldn't need to set
+  or understand this field. A workflow can be the user's name, a controller's name, or the name
+  of a specific apply path like &quot;ci-cd&quot;. The set of fields is always in the version that the
+  workflow used when modifying the object.</p></dd><dt class="param">name</dt><dd class="cmt"><p>
+  Name must be unique within a namespace. Is required when creating resources, although some
+  resources may allow a client to request the generation of an appropriate name automatically.
+  Name is primarily intended for creation idempotence and configuration definition. Cannot be
+  updated. More info: http://kubernetes.io/docs/user-guide/identifiers#names</p></dd><dt class="param">namespace</dt><dd class="cmt"><p>
+  Namespace defines the space within which each name must be unique. An empty namespace is
+  equivalent to the &quot;default&quot; namespace, but &quot;default&quot; is the canonical representation. Not all
+  objects are required to be scoped to a namespace - the value of this field for those objects
+  will be empty.
+Must be a DNS_LABEL. Cannot be updated. More info:
+http://kubernetes.io/docs/user-guide/namespaces</p></dd><dt class="param">ownerReferences</dt><dd class="cmt"><p>
+  List of objects depended by this object. If ALL objects in the list have been deleted, this
+  object will be garbage collected. If this object is managed by a controller, then an entry in
+  this list will point to this controller, with the controller field set to true. There cannot
+  be more than one managing controller.</p></dd><dt class="param">resourceVersion</dt><dd class="cmt"><p>
+  An opaque value that represents the internal version of this object that can be used by
+  clients to determine when objects have changed. May be used for optimistic concurrency, change
+  detection, and the watch operation on a resource or set of resources. Clients must treat these
+  values as opaque and passed unmodified back to the server. They may only be valid for a
+  particular resource or set of resources.
+Populated by the system. Read-only. Value must be treated as opaque by clients and . More info:
+https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency</p></dd><dt class="param">selfLink</dt><dd class="cmt"><p>
+  SelfLink is a URL representing this object. Populated by the system. Read-only.
+DEPRECATED Kubernetes will stop propagating this field in 1.20 release and the field is planned
+to be removed in 1.21 release.</p></dd><dt class="param">uid</dt><dd class="cmt"><p>
+  UID is the unique in time and space value for this object. It is typically generated by the
+  server on successful creation of a resource and is not allowed to change on PUT operations.
+Populated by the system. Read-only. More info:
+http://kubernetes.io/docs/user-guide/identifiers#uids</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.ObjectMetaFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="ObjectMetaFieldsextendsAnyRef"></a><a id="ObjectMetaFields:ObjectMetaFields"></a>
       <span class="permalink">
@@ -878,8 +1072,20 @@ Populated by the system. Read-only. More info: http://kubernetes.io/docs/user-gu
         <a title="OwnerReference contains enough information to let you identify an owning object." href="OwnerReference.html"><span class="name">OwnerReference</span></a><span class="params">(<span name="apiVersion">apiVersion: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="blockOwnerDeletion">blockOwnerDeletion: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Boolean">Boolean</span>] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="controller">controller: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Boolean">Boolean</span>] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="kind">kind: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="name">name: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="uid">uid: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
-      <p class="shortcomment cmt">OwnerReference contains enough information to let you identify an owning object.</p><div class="fullcomment"><div class="comment cmt"><p>OwnerReference contains enough information to let you identify an owning object. An owning object must be in the same namespace as the dependent, or be cluster-scoped, so there is no namespace field.
-</p></div><dl class="paramcmts block"><dt class="param">apiVersion</dt><dd class="cmt"><p>API version of the referent.</p></dd><dt class="param">blockOwnerDeletion</dt><dd class="cmt"><p>If true, AND if the owner has the &quot;foregroundDeletion&quot; finalizer, then the owner cannot be deleted from the key-value store until this reference is removed. Defaults to false. To set this field, a user needs &quot;delete&quot; permission of the owner, otherwise 422 (Unprocessable Entity) will be returned.</p></dd><dt class="param">controller</dt><dd class="cmt"><p>If true, this reference points to the managing controller.</p></dd><dt class="param">kind</dt><dd class="cmt"><p>Kind of the referent. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds</p></dd><dt class="param">name</dt><dd class="cmt"><p>Name of the referent. More info: http://kubernetes.io/docs/user-guide/identifiers#names</p></dd><dt class="param">uid</dt><dd class="cmt"><p>UID of the referent. More info: http://kubernetes.io/docs/user-guide/identifiers#uids</p></dd></dl></div>
+      <p class="shortcomment cmt">OwnerReference contains enough information to let you identify an owning object.</p><div class="fullcomment"><div class="comment cmt"><p>OwnerReference contains enough information to let you identify an owning object. An owning
+object must be in the same namespace as the dependent, or be cluster-scoped, so there is no
+namespace field.
+</p></div><dl class="paramcmts block"><dt class="param">apiVersion</dt><dd class="cmt"><p>
+  API version of the referent.</p></dd><dt class="param">blockOwnerDeletion</dt><dd class="cmt"><p>
+  If true, AND if the owner has the &quot;foregroundDeletion&quot; finalizer, then the owner cannot be
+  deleted from the key-value store until this reference is removed. Defaults to false. To set
+  this field, a user needs &quot;delete&quot; permission of the owner, otherwise 422 (Unprocessable
+  Entity) will be returned.</p></dd><dt class="param">controller</dt><dd class="cmt"><p>
+  If true, this reference points to the managing controller.</p></dd><dt class="param">kind</dt><dd class="cmt"><p>
+  Kind of the referent. More info:
+  https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds</p></dd><dt class="param">name</dt><dd class="cmt"><p>
+  Name of the referent. More info: http://kubernetes.io/docs/user-guide/identifiers#names</p></dd><dt class="param">uid</dt><dd class="cmt"><p>
+  UID of the referent. More info: http://kubernetes.io/docs/user-guide/identifiers#uids</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.OwnerReferenceFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="OwnerReferenceFieldsextendsAnyRef"></a><a id="OwnerReferenceFields:OwnerReferenceFields"></a>
       <span class="permalink">
@@ -944,7 +1150,9 @@ Populated by the system. Read-only. More info: http://kubernetes.io/docs/user-gu
       </span>
       
       <p class="shortcomment cmt">Preconditions must be fulfilled before an operation (update, delete, etc.) is carried out.</p><div class="fullcomment"><div class="comment cmt"><p>Preconditions must be fulfilled before an operation (update, delete, etc.) is carried out.
-</p></div><dl class="paramcmts block"><dt class="param">resourceVersion</dt><dd class="cmt"><p>Specifies the target ResourceVersion</p></dd><dt class="param">uid</dt><dd class="cmt"><p>Specifies the target UID.</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="param">resourceVersion</dt><dd class="cmt"><p>
+  Specifies the target ResourceVersion</p></dd><dt class="param">uid</dt><dd class="cmt"><p>
+  Specifies the target UID.</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.PreconditionsFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="PreconditionsFieldsextendsAnyRef"></a><a id="PreconditionsFields:PreconditionsFields"></a>
       <span class="permalink">
@@ -976,8 +1184,14 @@ Populated by the system. Read-only. More info: http://kubernetes.io/docs/user-gu
         <a title="ServerAddressByClientCIDR helps the client to determine the server address that they should use, depending on the clientCIDR that they match." href="ServerAddressByClientCIDR.html"><span class="name">ServerAddressByClientCIDR</span></a><span class="params">(<span name="clientCIDR">clientCIDR: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="serverAddress">serverAddress: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
-      <p class="shortcomment cmt">ServerAddressByClientCIDR helps the client to determine the server address that they should use, depending on the clientCIDR that they match.</p><div class="fullcomment"><div class="comment cmt"><p>ServerAddressByClientCIDR helps the client to determine the server address that they should use, depending on the clientCIDR that they match.
-</p></div><dl class="paramcmts block"><dt class="param">clientCIDR</dt><dd class="cmt"><p>The CIDR with which clients can match their IP to figure out the server address that they should use.</p></dd><dt class="param">serverAddress</dt><dd class="cmt"><p>Address of this server, suitable for a client that matches the above CIDR. This can be a hostname, hostname:port, IP or IP:port.</p></dd></dl></div>
+      <p class="shortcomment cmt">ServerAddressByClientCIDR helps the client to determine the server address that they should use,
+depending on the clientCIDR that they match.</p><div class="fullcomment"><div class="comment cmt"><p>ServerAddressByClientCIDR helps the client to determine the server address that they should use,
+depending on the clientCIDR that they match.
+</p></div><dl class="paramcmts block"><dt class="param">clientCIDR</dt><dd class="cmt"><p>
+  The CIDR with which clients can match their IP to figure out the server address that they
+  should use.</p></dd><dt class="param">serverAddress</dt><dd class="cmt"><p>
+  Address of this server, suitable for a client that matches the above CIDR. This can be a
+  hostname, hostname:port, IP or IP:port.</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.ServerAddressByClientCIDRFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="ServerAddressByClientCIDRFieldsextendsAnyRef"></a><a id="ServerAddressByClientCIDRFields:ServerAddressByClientCIDRFields"></a>
       <span class="permalink">
@@ -1010,7 +1224,14 @@ Populated by the system. Read-only. More info: http://kubernetes.io/docs/user-gu
       </span>
       
       <p class="shortcomment cmt">Status is a return value for calls that don't return other objects.</p><div class="fullcomment"><div class="comment cmt"><p>Status is a return value for calls that don't return other objects.
-</p></div><dl class="paramcmts block"><dt class="param">code</dt><dd class="cmt"><p>Suggested HTTP return code for this status, 0 if not set.</p></dd><dt class="param">message</dt><dd class="cmt"><p>A human-readable description of the status of this operation.</p></dd><dt class="param">reason</dt><dd class="cmt"><p>A machine-readable description of why this operation is in the &quot;Failure&quot; status. If this value is empty there is no information available. A Reason clarifies an HTTP status code but does not override it.</p></dd><dt class="param">status</dt><dd class="cmt"><p>Status of the operation. One of: &quot;Success&quot; or &quot;Failure&quot;. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="param">code</dt><dd class="cmt"><p>
+  Suggested HTTP return code for this status, 0 if not set.</p></dd><dt class="param">message</dt><dd class="cmt"><p>
+  A human-readable description of the status of this operation.</p></dd><dt class="param">reason</dt><dd class="cmt"><p>
+  A machine-readable description of why this operation is in the &quot;Failure&quot; status. If this value
+  is empty there is no information available. A Reason clarifies an HTTP status code but does
+  not override it.</p></dd><dt class="param">status</dt><dd class="cmt"><p>
+  Status of the operation. One of: &quot;Success&quot; or &quot;Failure&quot;. More info:
+  https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.StatusCause" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="StatusCauseextendsProductwithSerializable"></a><a id="StatusCause:StatusCause"></a>
       <span class="permalink">
@@ -1026,11 +1247,19 @@ Populated by the system. Read-only. More info: http://kubernetes.io/docs/user-gu
         <a title="StatusCause provides more information about an api.Status failure, including cases when multiple errors are encountered." href="StatusCause.html"><span class="name">StatusCause</span></a><span class="params">(<span name="field">field: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="message">message: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="reason">reason: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
-      <p class="shortcomment cmt">StatusCause provides more information about an api.Status failure, including cases when multiple errors are encountered.</p><div class="fullcomment"><div class="comment cmt"><p>StatusCause provides more information about an api.Status failure, including cases when multiple errors are encountered.
-</p></div><dl class="paramcmts block"><dt class="param">field</dt><dd class="cmt"><p>The field of the resource that has caused this error, as named by its JSON serialization. May include dot and postfix notation for nested attributes. Arrays are zero-indexed.  Fields may appear more than once in an array of causes due to fields having multiple errors. Optional.
-Examples:
- &quot;name&quot; - the field &quot;name&quot; on the current resource
- &quot;items[0].name&quot; - the field &quot;name&quot; on the first array entry in &quot;items&quot;</p></dd><dt class="param">message</dt><dd class="cmt"><p>A human-readable description of the cause of the error.  This field may be presented as-is to a reader.</p></dd><dt class="param">reason</dt><dd class="cmt"><p>A machine-readable description of the cause of the error. If this value is empty there is no information available.</p></dd></dl></div>
+      <p class="shortcomment cmt">StatusCause provides more information about an api.Status failure, including cases when multiple
+errors are encountered.</p><div class="fullcomment"><div class="comment cmt"><p>StatusCause provides more information about an api.Status failure, including cases when multiple
+errors are encountered.
+</p></div><dl class="paramcmts block"><dt class="param">field</dt><dd class="cmt"><p>
+  The field of the resource that has caused this error, as named by its JSON serialization. May
+  include dot and postfix notation for nested attributes. Arrays are zero-indexed. Fields may
+  appear more than once in an array of causes due to fields having multiple errors. Optional.
+Examples: &quot;name&quot; - the field &quot;name&quot; on the current resource &quot;items[0].name&quot; - the field &quot;name&quot;
+on the first array entry in &quot;items&quot;</p></dd><dt class="param">message</dt><dd class="cmt"><p>
+  A human-readable description of the cause of the error. This field may be presented as-is to a
+  reader.</p></dd><dt class="param">reason</dt><dd class="cmt"><p>
+  A machine-readable description of the cause of the error. If this value is empty there is no
+  information available.</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.StatusCauseFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="StatusCauseFieldsextendsAnyRef"></a><a id="StatusCauseFields:StatusCauseFields"></a>
       <span class="permalink">
@@ -1062,8 +1291,25 @@ Examples:
         <a title="StatusDetails is a set of additional properties that MAY be set by the server to provide additional information about a response." href="StatusDetails.html"><span class="name">StatusDetails</span></a><span class="params">(<span name="causes">causes: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="StatusCause.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.StatusCause">StatusCause</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="group">group: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="kind">kind: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="name">name: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="retryAfterSeconds">retryAfterSeconds: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="uid">uid: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
-      <p class="shortcomment cmt">StatusDetails is a set of additional properties that MAY be set by the server to provide additional information about a response.</p><div class="fullcomment"><div class="comment cmt"><p>StatusDetails is a set of additional properties that MAY be set by the server to provide additional information about a response. The Reason field of a Status object defines what attributes will be set. Clients must ignore fields that do not match the defined type of each attribute, and should assume that any attribute may be empty, invalid, or under defined.
-</p></div><dl class="paramcmts block"><dt class="param">causes</dt><dd class="cmt"><p>The Causes array includes more details associated with the StatusReason failure. Not all StatusReasons may provide detailed causes.</p></dd><dt class="param">group</dt><dd class="cmt"><p>The group attribute of the resource associated with the status StatusReason.</p></dd><dt class="param">kind</dt><dd class="cmt"><p>The kind attribute of the resource associated with the status StatusReason. On some operations may differ from the requested resource Kind. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds</p></dd><dt class="param">name</dt><dd class="cmt"><p>The name attribute of the resource associated with the status StatusReason (when there is a single name which can be described).</p></dd><dt class="param">retryAfterSeconds</dt><dd class="cmt"><p>If specified, the time in seconds before the operation should be retried. Some errors may indicate the client must take an alternate action - for those errors this field may indicate how long to wait before taking the alternate action.</p></dd><dt class="param">uid</dt><dd class="cmt"><p>UID of the resource. (when there is a single resource which can be described). More info: http://kubernetes.io/docs/user-guide/identifiers#uids</p></dd></dl></div>
+      <p class="shortcomment cmt">StatusDetails is a set of additional properties that MAY be set by the server to provide
+additional information about a response.</p><div class="fullcomment"><div class="comment cmt"><p>StatusDetails is a set of additional properties that MAY be set by the server to provide
+additional information about a response. The Reason field of a Status object defines what
+attributes will be set. Clients must ignore fields that do not match the defined type of each
+attribute, and should assume that any attribute may be empty, invalid, or under defined.
+</p></div><dl class="paramcmts block"><dt class="param">causes</dt><dd class="cmt"><p>
+  The Causes array includes more details associated with the StatusReason failure. Not all
+  StatusReasons may provide detailed causes.</p></dd><dt class="param">group</dt><dd class="cmt"><p>
+  The group attribute of the resource associated with the status StatusReason.</p></dd><dt class="param">kind</dt><dd class="cmt"><p>
+  The kind attribute of the resource associated with the status StatusReason. On some operations
+  may differ from the requested resource Kind. More info:
+  https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds</p></dd><dt class="param">name</dt><dd class="cmt"><p>
+  The name attribute of the resource associated with the status StatusReason (when there is a
+  single name which can be described).</p></dd><dt class="param">retryAfterSeconds</dt><dd class="cmt"><p>
+  If specified, the time in seconds before the operation should be retried. Some errors may
+  indicate the client must take an alternate action - for those errors this field may indicate
+  how long to wait before taking the alternate action.</p></dd><dt class="param">uid</dt><dd class="cmt"><p>
+  UID of the resource. (when there is a single resource which can be described). More info:
+  http://kubernetes.io/docs/user-guide/identifiers#uids</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.StatusDetailsFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="StatusDetailsFieldsextendsAnyRef"></a><a id="StatusDetailsFields:StatusDetailsFields"></a>
       <span class="permalink">
@@ -1111,7 +1357,8 @@ Examples:
         <a title="Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON." href="Time.html"><span class="name">Time</span></a><span class="params">(<span name="value">value: <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java/time/OffsetDateTime.html#java.time.OffsetDateTime" class="extype" name="java.time.OffsetDateTime">OffsetDateTime</a></span>)</span><span class="result"> extends <span class="extype" name="scala.AnyVal">AnyVal</span> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
-      <p class="shortcomment cmt">Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.</p><div class="fullcomment"><div class="comment cmt"><p>Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.
+      <p class="shortcomment cmt">Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.</p><div class="fullcomment"><div class="comment cmt"><p>Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON. Wrappers
+are provided for many of the factory methods that the time package offers.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.WatchEvent" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="WatchEventextendsProductwithSerializable"></a><a id="WatchEvent:WatchEvent"></a>

@@ -412,7 +412,12 @@
 
       
           <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>WebhookConversion describes how to call a conversion webhook
-</p></div><dl class="paramcmts block"><dt class="param">conversionReviewVersions</dt><dd class="cmt"><p>conversionReviewVersions is an ordered list of preferred <code>ConversionReview</code> versions the Webhook expects. The API server will use the first version in the list which it supports. If none of the versions specified in this list are supported by API server, conversion will fail for the custom resource. If a persisted Webhook configuration specifies allowed versions and does not include any versions known to the API Server, calls to the webhook will fail.</p></dd></dl><div class="toggleContainer block">
+</p></div><dl class="paramcmts block"><dt class="param">conversionReviewVersions</dt><dd class="cmt"><p>
+  conversionReviewVersions is an ordered list of preferred <code>ConversionReview</code> versions the
+  Webhook expects. The API server will use the first version in the list which it supports. If
+  none of the versions specified in this list are supported by API server, conversion will fail
+  for the custom resource. If a persisted Webhook configuration specifies allowed versions and
+  does not include any versions known to the API Server, calls to the webhook will fail.</p></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -477,7 +482,12 @@
         <span class="name">WebhookConversion</span><span class="params">(<span name="clientConfig">clientConfig: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="WebhookClientConfig.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.apiextensions.v1.WebhookClientConfig">WebhookClientConfig</a>] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="conversionReviewVersions">conversionReviewVersions: <span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]</span>)</span>
       </span>
       
-      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">conversionReviewVersions</dt><dd class="cmt"><p>conversionReviewVersions is an ordered list of preferred <code>ConversionReview</code> versions the Webhook expects. The API server will use the first version in the list which it supports. If none of the versions specified in this list are supported by API server, conversion will fail for the custom resource. If a persisted Webhook configuration specifies allowed versions and does not include any versions known to the API Server, calls to the webhook will fail.</p></dd></dl></div>
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">conversionReviewVersions</dt><dd class="cmt"><p>
+  conversionReviewVersions is an ordered list of preferred <code>ConversionReview</code> versions the
+  Webhook expects. The API server will use the first version in the list which it supports. If
+  none of the versions specified in this list are supported by API server, conversion will fail
+  for the custom resource. If a persisted Webhook configuration specifies allowed versions and
+  does not include any versions known to the API Server, calls to the webhook will fail.</p></dd></dl></div>
     </li></ol>
             </div>
 
@@ -679,7 +689,13 @@
         <span class="name">getConversionReviewVersions</span><span class="result">: <a href="../../../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]]</span>
       </span>
       
-      <p class="shortcomment cmt">conversionReviewVersions is an ordered list of preferred <code>ConversionReview</code> versions the Webhook expects.</p><div class="fullcomment"><div class="comment cmt"><p>conversionReviewVersions is an ordered list of preferred <code>ConversionReview</code> versions the Webhook expects. The API server will use the first version in the list which it supports. If none of the versions specified in this list are supported by API server, conversion will fail for the custom resource. If a persisted Webhook configuration specifies allowed versions and does not include any versions known to the API Server, calls to the webhook will fail.</p><p>This effect always succeeds, it is safe to use the field <a href="#conversionReviewVersions:Vector[String]" class="extmbr" name="com.coralogix.zio.k8s.model.pkg.apis.apiextensions.v1.WebhookConversion#conversionReviewVersions">conversionReviewVersions</a> directly.
+      <p class="shortcomment cmt">conversionReviewVersions is an ordered list of preferred <code>ConversionReview</code> versions the
+Webhook expects.</p><div class="fullcomment"><div class="comment cmt"><p>conversionReviewVersions is an ordered list of preferred <code>ConversionReview</code> versions the
+Webhook expects. The API server will use the first version in the list which it supports. If
+none of the versions specified in this list are supported by API server, conversion will fail
+for the custom resource. If a persisted Webhook configuration specifies allowed versions and
+does not include any versions known to the API Server, calls to the webhook will fail.</p><p>This effect always succeeds, it is safe to use the field <a href="#conversionReviewVersions:Vector[String]" class="extmbr" name="com.coralogix.zio.k8s.model.pkg.apis.apiextensions.v1.WebhookConversion#conversionReviewVersions">conversionReviewVersions</a>
+directly.
 </p></div></div>
     </li><li name="scala.Any#isInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isInstanceOf[T0]:Boolean"></a>

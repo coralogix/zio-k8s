@@ -412,7 +412,23 @@
 
       
           <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>CustomResourceSubresourceScale defines how to serve the scale subresource for CustomResources.
-</p></div><dl class="paramcmts block"><dt class="param">labelSelectorPath</dt><dd class="cmt"><p>labelSelectorPath defines the JSON path inside of a custom resource that corresponds to Scale <code>status.selector</code>. Only JSON paths without the array notation are allowed. Must be a JSON Path under <code>.status</code> or <code>.spec</code>. Must be set to work with HorizontalPodAutoscaler. The field pointed by this JSON path must be a string field (not a complex selector struct) which contains a serialized label selector in string form. More info: https://kubernetes.io/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions#scale-subresource If there is no value under the given path in the custom resource, the <code>status.selector</code> value in the <code>/scale</code> subresource will default to the empty string.</p></dd><dt class="param">specReplicasPath</dt><dd class="cmt"><p>specReplicasPath defines the JSON path inside of a custom resource that corresponds to Scale <code>spec.replicas</code>. Only JSON paths without the array notation are allowed. Must be a JSON Path under <code>.spec</code>. If there is no value under the given path in the custom resource, the <code>/scale</code> subresource will return an error on GET.</p></dd><dt class="param">statusReplicasPath</dt><dd class="cmt"><p>statusReplicasPath defines the JSON path inside of a custom resource that corresponds to Scale <code>status.replicas</code>. Only JSON paths without the array notation are allowed. Must be a JSON Path under <code>.status</code>. If there is no value under the given path in the custom resource, the <code>status.replicas</code> value in the <code>/scale</code> subresource will default to 0.</p></dd></dl><div class="toggleContainer block">
+</p></div><dl class="paramcmts block"><dt class="param">labelSelectorPath</dt><dd class="cmt"><p>
+  labelSelectorPath defines the JSON path inside of a custom resource that corresponds to Scale
+  <code>status.selector</code>. Only JSON paths without the array notation are allowed. Must be a JSON Path
+  under <code>.status</code> or <code>.spec</code>. Must be set to work with HorizontalPodAutoscaler. The field
+  pointed by this JSON path must be a string field (not a complex selector struct) which
+  contains a serialized label selector in string form. More info:
+  https://kubernetes.io/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions#scale-subresource
+  If there is no value under the given path in the custom resource, the <code>status.selector</code> value
+  in the <code>/scale</code> subresource will default to the empty string.</p></dd><dt class="param">specReplicasPath</dt><dd class="cmt"><p>
+  specReplicasPath defines the JSON path inside of a custom resource that corresponds to Scale
+  <code>spec.replicas</code>. Only JSON paths without the array notation are allowed. Must be a JSON Path
+  under <code>.spec</code>. If there is no value under the given path in the custom resource, the <code>/scale</code>
+  subresource will return an error on GET.</p></dd><dt class="param">statusReplicasPath</dt><dd class="cmt"><p>
+  statusReplicasPath defines the JSON path inside of a custom resource that corresponds to Scale
+  <code>status.replicas</code>. Only JSON paths without the array notation are allowed. Must be a JSON Path
+  under <code>.status</code>. If there is no value under the given path in the custom resource, the
+  <code>status.replicas</code> value in the <code>/scale</code> subresource will default to 0.</p></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -477,7 +493,23 @@
         <span class="name">CustomResourceSubresourceScale</span><span class="params">(<span name="labelSelectorPath">labelSelectorPath: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="specReplicasPath">specReplicasPath: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="statusReplicasPath">statusReplicasPath: <span class="extype" name="scala.Predef.String">String</span></span>)</span>
       </span>
       
-      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">labelSelectorPath</dt><dd class="cmt"><p>labelSelectorPath defines the JSON path inside of a custom resource that corresponds to Scale <code>status.selector</code>. Only JSON paths without the array notation are allowed. Must be a JSON Path under <code>.status</code> or <code>.spec</code>. Must be set to work with HorizontalPodAutoscaler. The field pointed by this JSON path must be a string field (not a complex selector struct) which contains a serialized label selector in string form. More info: https://kubernetes.io/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions#scale-subresource If there is no value under the given path in the custom resource, the <code>status.selector</code> value in the <code>/scale</code> subresource will default to the empty string.</p></dd><dt class="param">specReplicasPath</dt><dd class="cmt"><p>specReplicasPath defines the JSON path inside of a custom resource that corresponds to Scale <code>spec.replicas</code>. Only JSON paths without the array notation are allowed. Must be a JSON Path under <code>.spec</code>. If there is no value under the given path in the custom resource, the <code>/scale</code> subresource will return an error on GET.</p></dd><dt class="param">statusReplicasPath</dt><dd class="cmt"><p>statusReplicasPath defines the JSON path inside of a custom resource that corresponds to Scale <code>status.replicas</code>. Only JSON paths without the array notation are allowed. Must be a JSON Path under <code>.status</code>. If there is no value under the given path in the custom resource, the <code>status.replicas</code> value in the <code>/scale</code> subresource will default to 0.</p></dd></dl></div>
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">labelSelectorPath</dt><dd class="cmt"><p>
+  labelSelectorPath defines the JSON path inside of a custom resource that corresponds to Scale
+  <code>status.selector</code>. Only JSON paths without the array notation are allowed. Must be a JSON Path
+  under <code>.status</code> or <code>.spec</code>. Must be set to work with HorizontalPodAutoscaler. The field
+  pointed by this JSON path must be a string field (not a complex selector struct) which
+  contains a serialized label selector in string form. More info:
+  https://kubernetes.io/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions#scale-subresource
+  If there is no value under the given path in the custom resource, the <code>status.selector</code> value
+  in the <code>/scale</code> subresource will default to the empty string.</p></dd><dt class="param">specReplicasPath</dt><dd class="cmt"><p>
+  specReplicasPath defines the JSON path inside of a custom resource that corresponds to Scale
+  <code>spec.replicas</code>. Only JSON paths without the array notation are allowed. Must be a JSON Path
+  under <code>.spec</code>. If there is no value under the given path in the custom resource, the <code>/scale</code>
+  subresource will return an error on GET.</p></dd><dt class="param">statusReplicasPath</dt><dd class="cmt"><p>
+  statusReplicasPath defines the JSON path inside of a custom resource that corresponds to Scale
+  <code>status.replicas</code>. Only JSON paths without the array notation are allowed. Must be a JSON Path
+  under <code>.status</code>. If there is no value under the given path in the custom resource, the
+  <code>status.replicas</code> value in the <code>/scale</code> subresource will default to 0.</p></dd></dl></div>
     </li></ol>
             </div>
 
@@ -630,7 +662,15 @@
         <span class="name">getLabelSelectorPath</span><span class="result">: <a href="../../../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">labelSelectorPath defines the JSON path inside of a custom resource that corresponds to Scale <code>status.selector</code>.</p><div class="fullcomment"><div class="comment cmt"><p>labelSelectorPath defines the JSON path inside of a custom resource that corresponds to Scale <code>status.selector</code>. Only JSON paths without the array notation are allowed. Must be a JSON Path under <code>.status</code> or <code>.spec</code>. Must be set to work with HorizontalPodAutoscaler. The field pointed by this JSON path must be a string field (not a complex selector struct) which contains a serialized label selector in string form. More info: https://kubernetes.io/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions#scale-subresource If there is no value under the given path in the custom resource, the <code>status.selector</code> value in the <code>/scale</code> subresource will default to the empty string.</p><p>If the field is not present, fails with <a href="../../../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">labelSelectorPath defines the JSON path inside of a custom resource that corresponds to Scale
+<code>status.selector</code>.</p><div class="fullcomment"><div class="comment cmt"><p>labelSelectorPath defines the JSON path inside of a custom resource that corresponds to Scale
+<code>status.selector</code>. Only JSON paths without the array notation are allowed. Must be a JSON Path
+under <code>.status</code> or <code>.spec</code>. Must be set to work with HorizontalPodAutoscaler. The field
+pointed by this JSON path must be a string field (not a complex selector struct) which
+contains a serialized label selector in string form. More info:
+https://kubernetes.io/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions#scale-subresource
+If there is no value under the given path in the custom resource, the <code>status.selector</code> value
+in the <code>/scale</code> subresource will default to the empty string.</p><p>If the field is not present, fails with <a href="../../../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.pkg.apis.apiextensions.v1.CustomResourceSubresourceScale#getSpecReplicasPath" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getSpecReplicasPath:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]"></a><a id="getSpecReplicasPath:IO[K8sFailure,String]"></a>
@@ -647,7 +687,11 @@
         <span class="name">getSpecReplicasPath</span><span class="result">: <a href="../../../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">specReplicasPath defines the JSON path inside of a custom resource that corresponds to Scale <code>spec.replicas</code>.</p><div class="fullcomment"><div class="comment cmt"><p>specReplicasPath defines the JSON path inside of a custom resource that corresponds to Scale <code>spec.replicas</code>. Only JSON paths without the array notation are allowed. Must be a JSON Path under <code>.spec</code>. If there is no value under the given path in the custom resource, the <code>/scale</code> subresource will return an error on GET.</p><p>This effect always succeeds, it is safe to use the field <a href="#specReplicasPath:String" class="extmbr" name="com.coralogix.zio.k8s.model.pkg.apis.apiextensions.v1.CustomResourceSubresourceScale#specReplicasPath">specReplicasPath</a> directly.
+      <p class="shortcomment cmt">specReplicasPath defines the JSON path inside of a custom resource that corresponds to Scale
+<code>spec.replicas</code>.</p><div class="fullcomment"><div class="comment cmt"><p>specReplicasPath defines the JSON path inside of a custom resource that corresponds to Scale
+<code>spec.replicas</code>. Only JSON paths without the array notation are allowed. Must be a JSON Path
+under <code>.spec</code>. If there is no value under the given path in the custom resource, the <code>/scale</code>
+subresource will return an error on GET.</p><p>This effect always succeeds, it is safe to use the field <a href="#specReplicasPath:String" class="extmbr" name="com.coralogix.zio.k8s.model.pkg.apis.apiextensions.v1.CustomResourceSubresourceScale#specReplicasPath">specReplicasPath</a> directly.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.pkg.apis.apiextensions.v1.CustomResourceSubresourceScale#getStatusReplicasPath" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getStatusReplicasPath:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]"></a><a id="getStatusReplicasPath:IO[K8sFailure,String]"></a>
@@ -664,7 +708,11 @@
         <span class="name">getStatusReplicasPath</span><span class="result">: <a href="../../../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">statusReplicasPath defines the JSON path inside of a custom resource that corresponds to Scale <code>status.replicas</code>.</p><div class="fullcomment"><div class="comment cmt"><p>statusReplicasPath defines the JSON path inside of a custom resource that corresponds to Scale <code>status.replicas</code>. Only JSON paths without the array notation are allowed. Must be a JSON Path under <code>.status</code>. If there is no value under the given path in the custom resource, the <code>status.replicas</code> value in the <code>/scale</code> subresource will default to 0.</p><p>This effect always succeeds, it is safe to use the field <a href="#statusReplicasPath:String" class="extmbr" name="com.coralogix.zio.k8s.model.pkg.apis.apiextensions.v1.CustomResourceSubresourceScale#statusReplicasPath">statusReplicasPath</a> directly.
+      <p class="shortcomment cmt">statusReplicasPath defines the JSON path inside of a custom resource that corresponds to Scale
+<code>status.replicas</code>.</p><div class="fullcomment"><div class="comment cmt"><p>statusReplicasPath defines the JSON path inside of a custom resource that corresponds to Scale
+<code>status.replicas</code>. Only JSON paths without the array notation are allowed. Must be a JSON Path
+under <code>.status</code>. If there is no value under the given path in the custom resource, the
+<code>status.replicas</code> value in the <code>/scale</code> subresource will default to 0.</p><p>This effect always succeeds, it is safe to use the field <a href="#statusReplicasPath:String" class="extmbr" name="com.coralogix.zio.k8s.model.pkg.apis.apiextensions.v1.CustomResourceSubresourceScale#statusReplicasPath">statusReplicasPath</a> directly.
 </p></div></div>
     </li><li name="scala.Any#isInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isInstanceOf[T0]:Boolean"></a>

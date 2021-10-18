@@ -396,7 +396,14 @@
 
       
           <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>ReplicaSetStatus represents the current status of a ReplicaSet.
-</p></div><dl class="paramcmts block"><dt class="param">availableReplicas</dt><dd class="cmt"><p>The number of available replicas (ready for at least minReadySeconds) for this replica set.</p></dd><dt class="param">conditions</dt><dd class="cmt"><p>Represents the latest available observations of a replica set's current state.</p></dd><dt class="param">fullyLabeledReplicas</dt><dd class="cmt"><p>The number of pods that have labels matching the labels of the pod template of the replicaset.</p></dd><dt class="param">observedGeneration</dt><dd class="cmt"><p>ObservedGeneration reflects the generation of the most recently observed ReplicaSet.</p></dd><dt class="param">readyReplicas</dt><dd class="cmt"><p>The number of ready replicas for this replica set.</p></dd><dt class="param">replicas</dt><dd class="cmt"><p>Replicas is the most recently oberved number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller</p></dd></dl><div class="toggleContainer block">
+</p></div><dl class="paramcmts block"><dt class="param">availableReplicas</dt><dd class="cmt"><p>
+  The number of available replicas (ready for at least minReadySeconds) for this replica set.</p></dd><dt class="param">conditions</dt><dd class="cmt"><p>
+  Represents the latest available observations of a replica set's current state.</p></dd><dt class="param">fullyLabeledReplicas</dt><dd class="cmt"><p>
+  The number of pods that have labels matching the labels of the pod template of the replicaset.</p></dd><dt class="param">observedGeneration</dt><dd class="cmt"><p>
+  ObservedGeneration reflects the generation of the most recently observed ReplicaSet.</p></dd><dt class="param">readyReplicas</dt><dd class="cmt"><p>
+  The number of ready replicas for this replica set.</p></dd><dt class="param">replicas</dt><dd class="cmt"><p>
+  Replicas is the most recently oberved number of replicas. More info:
+  https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller</p></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -461,7 +468,14 @@
         <span class="name">ReplicaSetStatus</span><span class="params">(<span name="availableReplicas">availableReplicas: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="conditions">conditions: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="ReplicaSetCondition.html" class="extype" name="com.coralogix.zio.k8s.model.apps.v1.ReplicaSetCondition">ReplicaSetCondition</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="fullyLabeledReplicas">fullyLabeledReplicas: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="observedGeneration">observedGeneration: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Long">Long</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="readyReplicas">readyReplicas: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="replicas">replicas: <span class="extype" name="scala.Int">Int</span></span>)</span>
       </span>
       
-      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">availableReplicas</dt><dd class="cmt"><p>The number of available replicas (ready for at least minReadySeconds) for this replica set.</p></dd><dt class="param">conditions</dt><dd class="cmt"><p>Represents the latest available observations of a replica set's current state.</p></dd><dt class="param">fullyLabeledReplicas</dt><dd class="cmt"><p>The number of pods that have labels matching the labels of the pod template of the replicaset.</p></dd><dt class="param">observedGeneration</dt><dd class="cmt"><p>ObservedGeneration reflects the generation of the most recently observed ReplicaSet.</p></dd><dt class="param">readyReplicas</dt><dd class="cmt"><p>The number of ready replicas for this replica set.</p></dd><dt class="param">replicas</dt><dd class="cmt"><p>Replicas is the most recently oberved number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller</p></dd></dl></div>
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">availableReplicas</dt><dd class="cmt"><p>
+  The number of available replicas (ready for at least minReadySeconds) for this replica set.</p></dd><dt class="param">conditions</dt><dd class="cmt"><p>
+  Represents the latest available observations of a replica set's current state.</p></dd><dt class="param">fullyLabeledReplicas</dt><dd class="cmt"><p>
+  The number of pods that have labels matching the labels of the pod template of the replicaset.</p></dd><dt class="param">observedGeneration</dt><dd class="cmt"><p>
+  ObservedGeneration reflects the generation of the most recently observed ReplicaSet.</p></dd><dt class="param">readyReplicas</dt><dd class="cmt"><p>
+  The number of ready replicas for this replica set.</p></dd><dt class="param">replicas</dt><dd class="cmt"><p>
+  Replicas is the most recently oberved number of replicas. More info:
+  https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller</p></dd></dl></div>
     </li></ol>
             </div>
 
@@ -747,7 +761,8 @@
         <span class="name">getReplicas</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Int">Int</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">Replicas is the most recently oberved number of replicas.</p><div class="fullcomment"><div class="comment cmt"><p>Replicas is the most recently oberved number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller</p><p>This effect always succeeds, it is safe to use the field <a href="#replicas:Int" class="extmbr" name="com.coralogix.zio.k8s.model.apps.v1.ReplicaSetStatus#replicas">replicas</a> directly.
+      <p class="shortcomment cmt">Replicas is the most recently oberved number of replicas.</p><div class="fullcomment"><div class="comment cmt"><p>Replicas is the most recently oberved number of replicas. More info:
+https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller</p><p>This effect always succeeds, it is safe to use the field <a href="#replicas:Int" class="extmbr" name="com.coralogix.zio.k8s.model.apps.v1.ReplicaSetStatus#replicas">replicas</a> directly.
 </p></div></div>
     </li><li name="scala.Any#isInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isInstanceOf[T0]:Boolean"></a>

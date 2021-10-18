@@ -1587,8 +1587,19 @@
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Represents a Quobyte mount that lasts the lifetime of a pod. Quobyte volumes do not support ownership management or SELinux relabeling.
-</p></div><dl class="paramcmts block"><dt class="param">group</dt><dd class="cmt"><p>Group to map volume access to Default is no group</p></dd><dt class="param">readOnly</dt><dd class="cmt"><p>ReadOnly here will force the Quobyte volume to be mounted with read-only permissions. Defaults to false.</p></dd><dt class="param">registry</dt><dd class="cmt"><p>Registry represents a single or multiple Quobyte Registry services specified as a string as host:port pair (multiple entries are separated with commas) which acts as the central registry for volumes</p></dd><dt class="param">tenant</dt><dd class="cmt"><p>Tenant owning the given Quobyte volume in the Backend Used with dynamically provisioned Quobyte volumes, value is set by the plugin</p></dd><dt class="param">user</dt><dd class="cmt"><p>User to map volume access to Defaults to serivceaccount user</p></dd><dt class="param">volume</dt><dd class="cmt"><p>Volume is a string that references an already created Quobyte volume by name.</p></dd></dl><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Represents a Quobyte mount that lasts the lifetime of a pod. Quobyte volumes do not support
+ownership management or SELinux relabeling.
+</p></div><dl class="paramcmts block"><dt class="param">group</dt><dd class="cmt"><p>
+  Group to map volume access to Default is no group</p></dd><dt class="param">readOnly</dt><dd class="cmt"><p>
+  ReadOnly here will force the Quobyte volume to be mounted with read-only permissions. Defaults
+  to false.</p></dd><dt class="param">registry</dt><dd class="cmt"><p>
+  Registry represents a single or multiple Quobyte Registry services specified as a string as
+  host:port pair (multiple entries are separated with commas) which acts as the central registry
+  for volumes</p></dd><dt class="param">tenant</dt><dd class="cmt"><p>
+  Tenant owning the given Quobyte volume in the Backend Used with dynamically provisioned
+  Quobyte volumes, value is set by the plugin</p></dd><dt class="param">user</dt><dd class="cmt"><p>
+  User to map volume access to Defaults to serivceaccount user</p></dd><dt class="param">volume</dt><dd class="cmt"><p>
+  Volume is a string that references an already created Quobyte volume by name.</p></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -1653,7 +1664,17 @@
         <span class="name">QuobyteVolumeSource</span><span class="params">(<span name="group">group: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="readOnly">readOnly: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Boolean">Boolean</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="registry">registry: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="tenant">tenant: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="user">user: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="volume">volume: <span class="extype" name="scala.Predef.String">String</span></span>)</span>
       </span>
       
-      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">group</dt><dd class="cmt"><p>Group to map volume access to Default is no group</p></dd><dt class="param">readOnly</dt><dd class="cmt"><p>ReadOnly here will force the Quobyte volume to be mounted with read-only permissions. Defaults to false.</p></dd><dt class="param">registry</dt><dd class="cmt"><p>Registry represents a single or multiple Quobyte Registry services specified as a string as host:port pair (multiple entries are separated with commas) which acts as the central registry for volumes</p></dd><dt class="param">tenant</dt><dd class="cmt"><p>Tenant owning the given Quobyte volume in the Backend Used with dynamically provisioned Quobyte volumes, value is set by the plugin</p></dd><dt class="param">user</dt><dd class="cmt"><p>User to map volume access to Defaults to serivceaccount user</p></dd><dt class="param">volume</dt><dd class="cmt"><p>Volume is a string that references an already created Quobyte volume by name.</p></dd></dl></div>
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">group</dt><dd class="cmt"><p>
+  Group to map volume access to Default is no group</p></dd><dt class="param">readOnly</dt><dd class="cmt"><p>
+  ReadOnly here will force the Quobyte volume to be mounted with read-only permissions. Defaults
+  to false.</p></dd><dt class="param">registry</dt><dd class="cmt"><p>
+  Registry represents a single or multiple Quobyte Registry services specified as a string as
+  host:port pair (multiple entries are separated with commas) which acts as the central registry
+  for volumes</p></dd><dt class="param">tenant</dt><dd class="cmt"><p>
+  Tenant owning the given Quobyte volume in the Backend Used with dynamically provisioned
+  Quobyte volumes, value is set by the plugin</p></dd><dt class="param">user</dt><dd class="cmt"><p>
+  User to map volume access to Defaults to serivceaccount user</p></dd><dt class="param">volume</dt><dd class="cmt"><p>
+  Volume is a string that references an already created Quobyte volume by name.</p></dd></dl></div>
     </li></ol>
             </div>
 
@@ -1823,7 +1844,8 @@
         <span class="name">getReadOnly</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Boolean">Boolean</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">ReadOnly here will force the Quobyte volume to be mounted with read-only permissions.</p><div class="fullcomment"><div class="comment cmt"><p>ReadOnly here will force the Quobyte volume to be mounted with read-only permissions. Defaults to false.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">ReadOnly here will force the Quobyte volume to be mounted with read-only permissions.</p><div class="fullcomment"><div class="comment cmt"><p>ReadOnly here will force the Quobyte volume to be mounted with read-only permissions. Defaults
+to false.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.core.v1.QuobyteVolumeSource#getRegistry" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getRegistry:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]"></a><a id="getRegistry:IO[K8sFailure,String]"></a>
@@ -1840,7 +1862,11 @@
         <span class="name">getRegistry</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">Registry represents a single or multiple Quobyte Registry services specified as a string as host:port pair (multiple entries are separated with commas) which acts as the central registry for volumes</p><div class="fullcomment"><div class="comment cmt"><p>Registry represents a single or multiple Quobyte Registry services specified as a string as host:port pair (multiple entries are separated with commas) which acts as the central registry for volumes</p><p>This effect always succeeds, it is safe to use the field <a href="#registry:String" class="extmbr" name="com.coralogix.zio.k8s.model.core.v1.QuobyteVolumeSource#registry">registry</a> directly.
+      <p class="shortcomment cmt">Registry represents a single or multiple Quobyte Registry services specified as a string as
+host:port pair (multiple entries are separated with commas) which acts as the central registry
+for volumes</p><div class="fullcomment"><div class="comment cmt"><p>Registry represents a single or multiple Quobyte Registry services specified as a string as
+host:port pair (multiple entries are separated with commas) which acts as the central registry
+for volumes</p><p>This effect always succeeds, it is safe to use the field <a href="#registry:String" class="extmbr" name="com.coralogix.zio.k8s.model.core.v1.QuobyteVolumeSource#registry">registry</a> directly.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.core.v1.QuobyteVolumeSource#getTenant" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getTenant:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]"></a><a id="getTenant:IO[K8sFailure,String]"></a>
@@ -1857,7 +1883,9 @@
         <span class="name">getTenant</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">Tenant owning the given Quobyte volume in the Backend Used with dynamically provisioned Quobyte volumes, value is set by the plugin</p><div class="fullcomment"><div class="comment cmt"><p>Tenant owning the given Quobyte volume in the Backend Used with dynamically provisioned Quobyte volumes, value is set by the plugin</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">Tenant owning the given Quobyte volume in the Backend Used with dynamically provisioned
+Quobyte volumes, value is set by the plugin</p><div class="fullcomment"><div class="comment cmt"><p>Tenant owning the given Quobyte volume in the Backend Used with dynamically provisioned
+Quobyte volumes, value is set by the plugin</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.core.v1.QuobyteVolumeSource#getUser" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getUser:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]"></a><a id="getUser:IO[K8sFailure,String]"></a>

@@ -1588,7 +1588,19 @@
 
       
           <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>NodeConfigStatus describes the status of the config assigned by Node.Spec.ConfigSource.
-</p></div><dl class="paramcmts block"><dt class="param">error</dt><dd class="cmt"><p>Error describes any problems reconciling the Spec.ConfigSource to the Active config. Errors may occur, for example, attempting to checkpoint Spec.ConfigSource to the local Assigned record, attempting to checkpoint the payload associated with Spec.ConfigSource, attempting to load or validate the Assigned config, etc. Errors may occur at different points while syncing config. Earlier errors (e.g. download or checkpointing errors) will not result in a rollback to LastKnownGood, and may resolve across Kubelet retries. Later errors (e.g. loading or validating a checkpointed config) will result in a rollback to LastKnownGood. In the latter case, it is usually possible to resolve the error by fixing the config assigned in Spec.ConfigSource. You can find additional information for debugging by searching the error message in the Kubelet log. Error is a human-readable description of the error state; machines can check whether or not Error is empty, but should not rely on the stability of the Error text across Kubelet versions.</p></dd></dl><div class="toggleContainer block">
+</p></div><dl class="paramcmts block"><dt class="param">error</dt><dd class="cmt"><p>
+  Error describes any problems reconciling the Spec.ConfigSource to the Active config. Errors
+  may occur, for example, attempting to checkpoint Spec.ConfigSource to the local Assigned
+  record, attempting to checkpoint the payload associated with Spec.ConfigSource, attempting to
+  load or validate the Assigned config, etc. Errors may occur at different points while syncing
+  config. Earlier errors (e.g. download or checkpointing errors) will not result in a rollback
+  to LastKnownGood, and may resolve across Kubelet retries. Later errors (e.g. loading or
+  validating a checkpointed config) will result in a rollback to LastKnownGood. In the latter
+  case, it is usually possible to resolve the error by fixing the config assigned in
+  Spec.ConfigSource. You can find additional information for debugging by searching the error
+  message in the Kubelet log. Error is a human-readable description of the error state; machines
+  can check whether or not Error is empty, but should not rely on the stability of the Error
+  text across Kubelet versions.</p></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -1653,7 +1665,19 @@
         <span class="name">NodeConfigStatus</span><span class="params">(<span name="active">active: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="NodeConfigSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.NodeConfigSource">NodeConfigSource</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="assigned">assigned: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="NodeConfigSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.NodeConfigSource">NodeConfigSource</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="error">error: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="lastKnownGood">lastKnownGood: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="NodeConfigSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.NodeConfigSource">NodeConfigSource</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span>
       </span>
       
-      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">error</dt><dd class="cmt"><p>Error describes any problems reconciling the Spec.ConfigSource to the Active config. Errors may occur, for example, attempting to checkpoint Spec.ConfigSource to the local Assigned record, attempting to checkpoint the payload associated with Spec.ConfigSource, attempting to load or validate the Assigned config, etc. Errors may occur at different points while syncing config. Earlier errors (e.g. download or checkpointing errors) will not result in a rollback to LastKnownGood, and may resolve across Kubelet retries. Later errors (e.g. loading or validating a checkpointed config) will result in a rollback to LastKnownGood. In the latter case, it is usually possible to resolve the error by fixing the config assigned in Spec.ConfigSource. You can find additional information for debugging by searching the error message in the Kubelet log. Error is a human-readable description of the error state; machines can check whether or not Error is empty, but should not rely on the stability of the Error text across Kubelet versions.</p></dd></dl></div>
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">error</dt><dd class="cmt"><p>
+  Error describes any problems reconciling the Spec.ConfigSource to the Active config. Errors
+  may occur, for example, attempting to checkpoint Spec.ConfigSource to the local Assigned
+  record, attempting to checkpoint the payload associated with Spec.ConfigSource, attempting to
+  load or validate the Assigned config, etc. Errors may occur at different points while syncing
+  config. Earlier errors (e.g. download or checkpointing errors) will not result in a rollback
+  to LastKnownGood, and may resolve across Kubelet retries. Later errors (e.g. loading or
+  validating a checkpointed config) will result in a rollback to LastKnownGood. In the latter
+  case, it is usually possible to resolve the error by fixing the config assigned in
+  Spec.ConfigSource. You can find additional information for debugging by searching the error
+  message in the Kubelet log. Error is a human-readable description of the error state; machines
+  can check whether or not Error is empty, but should not rely on the stability of the Error
+  text across Kubelet versions.</p></dd></dl></div>
     </li></ol>
             </div>
 
@@ -1888,7 +1912,18 @@
         <span class="name">getError</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">Error describes any problems reconciling the Spec.ConfigSource to the Active config.</p><div class="fullcomment"><div class="comment cmt"><p>Error describes any problems reconciling the Spec.ConfigSource to the Active config. Errors may occur, for example, attempting to checkpoint Spec.ConfigSource to the local Assigned record, attempting to checkpoint the payload associated with Spec.ConfigSource, attempting to load or validate the Assigned config, etc. Errors may occur at different points while syncing config. Earlier errors (e.g. download or checkpointing errors) will not result in a rollback to LastKnownGood, and may resolve across Kubelet retries. Later errors (e.g. loading or validating a checkpointed config) will result in a rollback to LastKnownGood. In the latter case, it is usually possible to resolve the error by fixing the config assigned in Spec.ConfigSource. You can find additional information for debugging by searching the error message in the Kubelet log. Error is a human-readable description of the error state; machines can check whether or not Error is empty, but should not rely on the stability of the Error text across Kubelet versions.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">Error describes any problems reconciling the Spec.ConfigSource to the Active config.</p><div class="fullcomment"><div class="comment cmt"><p>Error describes any problems reconciling the Spec.ConfigSource to the Active config. Errors
+may occur, for example, attempting to checkpoint Spec.ConfigSource to the local Assigned
+record, attempting to checkpoint the payload associated with Spec.ConfigSource, attempting to
+load or validate the Assigned config, etc. Errors may occur at different points while syncing
+config. Earlier errors (e.g. download or checkpointing errors) will not result in a rollback
+to LastKnownGood, and may resolve across Kubelet retries. Later errors (e.g. loading or
+validating a checkpointed config) will result in a rollback to LastKnownGood. In the latter
+case, it is usually possible to resolve the error by fixing the config assigned in
+Spec.ConfigSource. You can find additional information for debugging by searching the error
+message in the Kubelet log. Error is a human-readable description of the error state; machines
+can check whether or not Error is empty, but should not rely on the stability of the Error
+text across Kubelet versions.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.core.v1.NodeConfigStatus#getLastKnownGood" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getLastKnownGood:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.model.core.v1.NodeConfigSource]"></a><a id="getLastKnownGood:IO[K8sFailure,NodeConfigSource]"></a>

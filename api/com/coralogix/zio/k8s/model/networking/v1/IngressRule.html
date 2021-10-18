@@ -226,6 +226,14 @@
                         <a class="class" href="IngressClassFields.html" title=""></a>
                         <a href="IngressClassFields.html" title="">IngressClassFields</a>
                       </li><li class="current-entities indented7">
+                        <a class="object" href="IngressClassParametersReference$.html" title=""></a>
+                        <a class="class" href="IngressClassParametersReference.html" title="IngressClassParametersReference identifies an API object."></a>
+                        <a href="IngressClassParametersReference.html" title="IngressClassParametersReference identifies an API object.">IngressClassParametersReference</a>
+                      </li><li class="current-entities indented7">
+                        <span class="separator"></span>
+                        <a class="class" href="IngressClassParametersReferenceFields.html" title=""></a>
+                        <a href="IngressClassParametersReferenceFields.html" title="">IngressClassParametersReferenceFields</a>
+                      </li><li class="current-entities indented7">
                         <a class="object" href="IngressClassSpec$.html" title=""></a>
                         <a class="class" href="IngressClassSpec.html" title="IngressClassSpec provides information about the class of an Ingress."></a>
                         <a href="IngressClassSpec.html" title="IngressClassSpec provides information about the class of an Ingress.">IngressClassSpec</a>
@@ -363,14 +371,25 @@
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>IngressRule represents the rules mapping the paths under a specified host to the related backend services. Incoming requests are first evaluated for a host match, then routed to the backend associated with the matching IngressRuleValue.
-</p></div><dl class="paramcmts block"><dt class="param">host</dt><dd class="cmt"><p>Host is the fully qualified domain name of a network host, as defined by RFC 3986. Note the following deviations from the &quot;host&quot; part of the URI as defined in RFC 3986: 1. IPs are not allowed. Currently an IngressRuleValue can only apply to
-  the IP in the Spec of the parent Ingress.
-2. The <code>:</code> delimiter is not respected because ports are not allowed.
-  Currently the port of an Ingress is implicitly :80 for http and
-  :443 for https.
-Both these may change in the future. Incoming requests are matched against the host before the IngressRuleValue. If the host is unspecified, the Ingress routes all traffic based on the specified IngressRuleValue.
-Host can be &quot;precise&quot; which is a domain name without the terminating dot of a network host (e.g. &quot;foo.bar.com&quot;) or &quot;wildcard&quot;, which is a domain name prefixed with a single wildcard label (e.g. &quot;*.foo.com&quot;). The wildcard character '*' must appear by itself as the first DNS label and matches only a single label. You cannot have a wildcard label by itself (e.g. Host == &quot;*&quot;). Requests will be matched against the Host field in the following way: 1. If Host is precise, the request matches this rule if the http host header is equal to Host. 2. If Host is a wildcard, then the request matches this rule if the http host header is to equal to the suffix (removing the first label) of the wildcard rule.</p></dd></dl><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>IngressRule represents the rules mapping the paths under a specified host to the related backend
+services. Incoming requests are first evaluated for a host match, then routed to the backend
+associated with the matching IngressRuleValue.
+</p></div><dl class="paramcmts block"><dt class="param">host</dt><dd class="cmt"><p>
+  Host is the fully qualified domain name of a network host, as defined by RFC 3986. Note the
+  following deviations from the &quot;host&quot; part of the URI as defined in RFC 3986: 1. IPs are not
+  allowed. Currently an IngressRuleValue can only apply to the IP in the Spec of the parent
+  Ingress. 2. The <code>:</code> delimiter is not respected because ports are not allowed. Currently the
+  port of an Ingress is implicitly :80 for http and :443 for https. Both these may change in the
+  future. Incoming requests are matched against the host before the IngressRuleValue. If the
+  host is unspecified, the Ingress routes all traffic based on the specified IngressRuleValue.
+Host can be &quot;precise&quot; which is a domain name without the terminating dot of a network host (e.g.
+&quot;foo.bar.com&quot;) or &quot;wildcard&quot;, which is a domain name prefixed with a single wildcard label (e.g.
+&quot;*.foo.com&quot;). The wildcard character '*' must appear by itself as the first DNS label and
+matches only a single label. You cannot have a wildcard label by itself (e.g. Host == &quot;*&quot;).
+Requests will be matched against the Host field in the following way: 1. If Host is precise, the
+request matches this rule if the http host header is equal to Host. 2. If Host is a wildcard,
+then the request matches this rule if the http host header is to equal to the suffix (removing
+the first label) of the wildcard rule.</p></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -435,13 +454,22 @@ Host can be &quot;precise&quot; which is a domain name without the terminating d
         <span class="name">IngressRule</span><span class="params">(<span name="host">host: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="http">http: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="HTTPIngressRuleValue.html" class="extype" name="com.coralogix.zio.k8s.model.networking.v1.HTTPIngressRuleValue">HTTPIngressRuleValue</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span>
       </span>
       
-      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">host</dt><dd class="cmt"><p>Host is the fully qualified domain name of a network host, as defined by RFC 3986. Note the following deviations from the &quot;host&quot; part of the URI as defined in RFC 3986: 1. IPs are not allowed. Currently an IngressRuleValue can only apply to
-  the IP in the Spec of the parent Ingress.
-2. The <code>:</code> delimiter is not respected because ports are not allowed.
-  Currently the port of an Ingress is implicitly :80 for http and
-  :443 for https.
-Both these may change in the future. Incoming requests are matched against the host before the IngressRuleValue. If the host is unspecified, the Ingress routes all traffic based on the specified IngressRuleValue.
-Host can be &quot;precise&quot; which is a domain name without the terminating dot of a network host (e.g. &quot;foo.bar.com&quot;) or &quot;wildcard&quot;, which is a domain name prefixed with a single wildcard label (e.g. &quot;*.foo.com&quot;). The wildcard character '*' must appear by itself as the first DNS label and matches only a single label. You cannot have a wildcard label by itself (e.g. Host == &quot;*&quot;). Requests will be matched against the Host field in the following way: 1. If Host is precise, the request matches this rule if the http host header is equal to Host. 2. If Host is a wildcard, then the request matches this rule if the http host header is to equal to the suffix (removing the first label) of the wildcard rule.</p></dd></dl></div>
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">host</dt><dd class="cmt"><p>
+  Host is the fully qualified domain name of a network host, as defined by RFC 3986. Note the
+  following deviations from the &quot;host&quot; part of the URI as defined in RFC 3986: 1. IPs are not
+  allowed. Currently an IngressRuleValue can only apply to the IP in the Spec of the parent
+  Ingress. 2. The <code>:</code> delimiter is not respected because ports are not allowed. Currently the
+  port of an Ingress is implicitly :80 for http and :443 for https. Both these may change in the
+  future. Incoming requests are matched against the host before the IngressRuleValue. If the
+  host is unspecified, the Ingress routes all traffic based on the specified IngressRuleValue.
+Host can be &quot;precise&quot; which is a domain name without the terminating dot of a network host (e.g.
+&quot;foo.bar.com&quot;) or &quot;wildcard&quot;, which is a domain name prefixed with a single wildcard label (e.g.
+&quot;*.foo.com&quot;). The wildcard character '*' must appear by itself as the first DNS label and
+matches only a single label. You cannot have a wildcard label by itself (e.g. Host == &quot;*&quot;).
+Requests will be matched against the Host field in the following way: 1. If Host is precise, the
+request matches this rule if the http host header is equal to Host. 2. If Host is a wildcard,
+then the request matches this rule if the http host header is to equal to the suffix (removing
+the first label) of the wildcard rule.</p></dd></dl></div>
     </li></ol>
             </div>
 
@@ -594,12 +622,19 @@ Host can be &quot;precise&quot; which is a domain name without the terminating d
         <span class="name">getHost</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">Host is the fully qualified domain name of a network host, as defined by RFC 3986.</p><div class="fullcomment"><div class="comment cmt"><p>Host is the fully qualified domain name of a network host, as defined by RFC 3986. Note the following deviations from the &quot;host&quot; part of the URI as defined in RFC 3986: 1. IPs are not allowed. Currently an IngressRuleValue can only apply to
-  the IP in the Spec of the parent Ingress.
-2. The <code>:</code> delimiter is not respected because ports are not allowed.
-  Currently the port of an Ingress is implicitly :80 for http and
-  :443 for https.
-Both these may change in the future. Incoming requests are matched against the host before the IngressRuleValue. If the host is unspecified, the Ingress routes all traffic based on the specified IngressRuleValue.</p><p>Host can be &quot;precise&quot; which is a domain name without the terminating dot of a network host (e.g. &quot;foo.bar.com&quot;) or &quot;wildcard&quot;, which is a domain name prefixed with a single wildcard label (e.g. &quot;*.foo.com&quot;). The wildcard character '*' must appear by itself as the first DNS label and matches only a single label. You cannot have a wildcard label by itself (e.g. Host == &quot;*&quot;). Requests will be matched against the Host field in the following way: 1. If Host is precise, the request matches this rule if the http host header is equal to Host. 2. If Host is a wildcard, then the request matches this rule if the http host header is to equal to the suffix (removing the first label) of the wildcard rule.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">Host is the fully qualified domain name of a network host, as defined by RFC 3986.</p><div class="fullcomment"><div class="comment cmt"><p>Host is the fully qualified domain name of a network host, as defined by RFC 3986. Note the
+following deviations from the &quot;host&quot; part of the URI as defined in RFC 3986: 1. IPs are not
+allowed. Currently an IngressRuleValue can only apply to the IP in the Spec of the parent
+Ingress. 2. The <code>:</code> delimiter is not respected because ports are not allowed. Currently the
+port of an Ingress is implicitly :80 for http and :443 for https. Both these may change in the
+future. Incoming requests are matched against the host before the IngressRuleValue. If the
+host is unspecified, the Ingress routes all traffic based on the specified IngressRuleValue.</p><p>Host can be &quot;precise&quot; which is a domain name without the terminating dot of a network host
+(e.g. &quot;foo.bar.com&quot;) or &quot;wildcard&quot;, which is a domain name prefixed with a single wildcard
+label (e.g. &quot;*.foo.com&quot;). The wildcard character '*' must appear by itself as the first DNS
+label and matches only a single label. You cannot have a wildcard label by itself (e.g. Host</p><h4> &quot;*&quot;). Requests will be matched against the Host field in the following way: 1. If Host is
+precise, the request matches this rule if the http host header is equal to Host. 2. If Host is
+a wildcard, then the request matches this rule if the http host header is to equal to the
+suffix (removing the first label) of the wildcard rule.</h4><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.networking.v1.IngressRule#getHttp" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getHttp:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.model.networking.v1.HTTPIngressRuleValue]"></a><a id="getHttp:IO[K8sFailure,HTTPIngressRuleValue]"></a>

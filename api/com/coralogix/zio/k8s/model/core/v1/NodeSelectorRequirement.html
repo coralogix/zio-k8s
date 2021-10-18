@@ -1587,8 +1587,16 @@
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>A node selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-</p></div><dl class="paramcmts block"><dt class="param">key</dt><dd class="cmt"><p>The label key that the selector applies to.</p></dd><dt class="param">operator</dt><dd class="cmt"><p>Represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists, DoesNotExist. Gt, and Lt.</p></dd><dt class="param">values</dt><dd class="cmt"><p>An array of string values. If the operator is In or NotIn, the values array must be non-empty. If the operator is Exists or DoesNotExist, the values array must be empty. If the operator is Gt or Lt, the values array must have a single element, which will be interpreted as an integer. This array is replaced during a strategic merge patch.</p></dd></dl><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>A node selector requirement is a selector that contains values, a key, and an operator that
+relates the key and values.
+</p></div><dl class="paramcmts block"><dt class="param">key</dt><dd class="cmt"><p>
+  The label key that the selector applies to.</p></dd><dt class="param">operator</dt><dd class="cmt"><p>
+  Represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists,
+  DoesNotExist. Gt, and Lt.</p></dd><dt class="param">values</dt><dd class="cmt"><p>
+  An array of string values. If the operator is In or NotIn, the values array must be non-empty.
+  If the operator is Exists or DoesNotExist, the values array must be empty. If the operator is
+  Gt or Lt, the values array must have a single element, which will be interpreted as an
+  integer. This array is replaced during a strategic merge patch.</p></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -1653,7 +1661,14 @@
         <span class="name">NodeSelectorRequirement</span><span class="params">(<span name="key">key: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="operator">operator: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="values">values: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span>
       </span>
       
-      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">key</dt><dd class="cmt"><p>The label key that the selector applies to.</p></dd><dt class="param">operator</dt><dd class="cmt"><p>Represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists, DoesNotExist. Gt, and Lt.</p></dd><dt class="param">values</dt><dd class="cmt"><p>An array of string values. If the operator is In or NotIn, the values array must be non-empty. If the operator is Exists or DoesNotExist, the values array must be empty. If the operator is Gt or Lt, the values array must have a single element, which will be interpreted as an integer. This array is replaced during a strategic merge patch.</p></dd></dl></div>
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">key</dt><dd class="cmt"><p>
+  The label key that the selector applies to.</p></dd><dt class="param">operator</dt><dd class="cmt"><p>
+  Represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists,
+  DoesNotExist. Gt, and Lt.</p></dd><dt class="param">values</dt><dd class="cmt"><p>
+  An array of string values. If the operator is In or NotIn, the values array must be non-empty.
+  If the operator is Exists or DoesNotExist, the values array must be empty. If the operator is
+  Gt or Lt, the values array must have a single element, which will be interpreted as an
+  integer. This array is replaced during a strategic merge patch.</p></dd></dl></div>
     </li></ol>
             </div>
 
@@ -1823,7 +1838,8 @@
         <span class="name">getOperator</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">Represents a key's relationship to a set of values.</p><div class="fullcomment"><div class="comment cmt"><p>Represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists, DoesNotExist. Gt, and Lt.</p><p>This effect always succeeds, it is safe to use the field <a href="#operator:String" class="extmbr" name="com.coralogix.zio.k8s.model.core.v1.NodeSelectorRequirement#operator">operator</a> directly.
+      <p class="shortcomment cmt">Represents a key's relationship to a set of values.</p><div class="fullcomment"><div class="comment cmt"><p>Represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists,
+DoesNotExist. Gt, and Lt.</p><p>This effect always succeeds, it is safe to use the field <a href="#operator:String" class="extmbr" name="com.coralogix.zio.k8s.model.core.v1.NodeSelectorRequirement#operator">operator</a> directly.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.core.v1.NodeSelectorRequirement#getValues" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getValues:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Vector[String]]"></a><a id="getValues:IO[K8sFailure,Vector[String]]"></a>
@@ -1840,7 +1856,10 @@
         <span class="name">getValues</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]]</span>
       </span>
       
-      <p class="shortcomment cmt">An array of string values.</p><div class="fullcomment"><div class="comment cmt"><p>An array of string values. If the operator is In or NotIn, the values array must be non-empty. If the operator is Exists or DoesNotExist, the values array must be empty. If the operator is Gt or Lt, the values array must have a single element, which will be interpreted as an integer. This array is replaced during a strategic merge patch.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">An array of string values.</p><div class="fullcomment"><div class="comment cmt"><p>An array of string values. If the operator is In or NotIn, the values array must be non-empty.
+If the operator is Exists or DoesNotExist, the values array must be empty. If the operator is
+Gt or Lt, the values array must have a single element, which will be interpreted as an
+integer. This array is replaced during a strategic merge patch.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="scala.Any#isInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isInstanceOf[T0]:Boolean"></a>

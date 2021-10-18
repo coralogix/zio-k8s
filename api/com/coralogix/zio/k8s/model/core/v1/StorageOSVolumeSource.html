@@ -1588,7 +1588,17 @@
 
       
           <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Represents a StorageOS persistent volume resource.
-</p></div><dl class="paramcmts block"><dt class="param">fsType</dt><dd class="cmt"><p>Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. &quot;ext4&quot;, &quot;xfs&quot;, &quot;ntfs&quot;. Implicitly inferred to be &quot;ext4&quot; if unspecified.</p></dd><dt class="param">readOnly</dt><dd class="cmt"><p>Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.</p></dd><dt class="param">volumeName</dt><dd class="cmt"><p>VolumeName is the human-readable name of the StorageOS volume.  Volume names are only unique within a namespace.</p></dd><dt class="param">volumeNamespace</dt><dd class="cmt"><p>VolumeNamespace specifies the scope of the volume within StorageOS.  If no namespace is specified then the Pod's namespace will be used.  This allows the Kubernetes name scoping to be mirrored within StorageOS for tighter integration. Set VolumeName to any name to override the default behaviour. Set to &quot;default&quot; if you are not using namespaces within StorageOS. Namespaces that do not pre-exist within StorageOS will be created.</p></dd></dl><div class="toggleContainer block">
+</p></div><dl class="paramcmts block"><dt class="param">fsType</dt><dd class="cmt"><p>
+  Filesystem type to mount. Must be a filesystem type supported by the host operating system.
+  Ex. &quot;ext4&quot;, &quot;xfs&quot;, &quot;ntfs&quot;. Implicitly inferred to be &quot;ext4&quot; if unspecified.</p></dd><dt class="param">readOnly</dt><dd class="cmt"><p>
+  Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.</p></dd><dt class="param">volumeName</dt><dd class="cmt"><p>
+  VolumeName is the human-readable name of the StorageOS volume. Volume names are only unique
+  within a namespace.</p></dd><dt class="param">volumeNamespace</dt><dd class="cmt"><p>
+  VolumeNamespace specifies the scope of the volume within StorageOS. If no namespace is
+  specified then the Pod's namespace will be used. This allows the Kubernetes name scoping to be
+  mirrored within StorageOS for tighter integration. Set VolumeName to any name to override the
+  default behaviour. Set to &quot;default&quot; if you are not using namespaces within StorageOS.
+  Namespaces that do not pre-exist within StorageOS will be created.</p></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -1653,7 +1663,17 @@
         <span class="name">StorageOSVolumeSource</span><span class="params">(<span name="fsType">fsType: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="readOnly">readOnly: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Boolean">Boolean</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="secretRef">secretRef: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="LocalObjectReference.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.LocalObjectReference">LocalObjectReference</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="volumeName">volumeName: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="volumeNamespace">volumeNamespace: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span>
       </span>
       
-      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">fsType</dt><dd class="cmt"><p>Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. &quot;ext4&quot;, &quot;xfs&quot;, &quot;ntfs&quot;. Implicitly inferred to be &quot;ext4&quot; if unspecified.</p></dd><dt class="param">readOnly</dt><dd class="cmt"><p>Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.</p></dd><dt class="param">volumeName</dt><dd class="cmt"><p>VolumeName is the human-readable name of the StorageOS volume.  Volume names are only unique within a namespace.</p></dd><dt class="param">volumeNamespace</dt><dd class="cmt"><p>VolumeNamespace specifies the scope of the volume within StorageOS.  If no namespace is specified then the Pod's namespace will be used.  This allows the Kubernetes name scoping to be mirrored within StorageOS for tighter integration. Set VolumeName to any name to override the default behaviour. Set to &quot;default&quot; if you are not using namespaces within StorageOS. Namespaces that do not pre-exist within StorageOS will be created.</p></dd></dl></div>
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">fsType</dt><dd class="cmt"><p>
+  Filesystem type to mount. Must be a filesystem type supported by the host operating system.
+  Ex. &quot;ext4&quot;, &quot;xfs&quot;, &quot;ntfs&quot;. Implicitly inferred to be &quot;ext4&quot; if unspecified.</p></dd><dt class="param">readOnly</dt><dd class="cmt"><p>
+  Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.</p></dd><dt class="param">volumeName</dt><dd class="cmt"><p>
+  VolumeName is the human-readable name of the StorageOS volume. Volume names are only unique
+  within a namespace.</p></dd><dt class="param">volumeNamespace</dt><dd class="cmt"><p>
+  VolumeNamespace specifies the scope of the volume within StorageOS. If no namespace is
+  specified then the Pod's namespace will be used. This allows the Kubernetes name scoping to be
+  mirrored within StorageOS for tighter integration. Set VolumeName to any name to override the
+  default behaviour. Set to &quot;default&quot; if you are not using namespaces within StorageOS.
+  Namespaces that do not pre-exist within StorageOS will be created.</p></dd></dl></div>
     </li></ol>
             </div>
 
@@ -1822,7 +1842,8 @@
         <span class="name">getFsType</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">Filesystem type to mount.</p><div class="fullcomment"><div class="comment cmt"><p>Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. &quot;ext4&quot;, &quot;xfs&quot;, &quot;ntfs&quot;. Implicitly inferred to be &quot;ext4&quot; if unspecified.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">Filesystem type to mount.</p><div class="fullcomment"><div class="comment cmt"><p>Filesystem type to mount. Must be a filesystem type supported by the host operating system.
+Ex. &quot;ext4&quot;, &quot;xfs&quot;, &quot;ntfs&quot;. Implicitly inferred to be &quot;ext4&quot; if unspecified.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.core.v1.StorageOSVolumeSource#getReadOnly" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getReadOnly:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Boolean]"></a><a id="getReadOnly:IO[K8sFailure,Boolean]"></a>
@@ -1873,7 +1894,8 @@
         <span class="name">getVolumeName</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">VolumeName is the human-readable name of the StorageOS volume.</p><div class="fullcomment"><div class="comment cmt"><p>VolumeName is the human-readable name of the StorageOS volume.  Volume names are only unique within a namespace.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">VolumeName is the human-readable name of the StorageOS volume.</p><div class="fullcomment"><div class="comment cmt"><p>VolumeName is the human-readable name of the StorageOS volume. Volume names are only unique
+within a namespace.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.core.v1.StorageOSVolumeSource#getVolumeNamespace" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getVolumeNamespace:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]"></a><a id="getVolumeNamespace:IO[K8sFailure,String]"></a>
@@ -1890,7 +1912,11 @@
         <span class="name">getVolumeNamespace</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">VolumeNamespace specifies the scope of the volume within StorageOS.</p><div class="fullcomment"><div class="comment cmt"><p>VolumeNamespace specifies the scope of the volume within StorageOS.  If no namespace is specified then the Pod's namespace will be used.  This allows the Kubernetes name scoping to be mirrored within StorageOS for tighter integration. Set VolumeName to any name to override the default behaviour. Set to &quot;default&quot; if you are not using namespaces within StorageOS. Namespaces that do not pre-exist within StorageOS will be created.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">VolumeNamespace specifies the scope of the volume within StorageOS.</p><div class="fullcomment"><div class="comment cmt"><p>VolumeNamespace specifies the scope of the volume within StorageOS. If no namespace is
+specified then the Pod's namespace will be used. This allows the Kubernetes name scoping to be
+mirrored within StorageOS for tighter integration. Set VolumeName to any name to override the
+default behaviour. Set to &quot;default&quot; if you are not using namespaces within StorageOS.
+Namespaces that do not pre-exist within StorageOS will be created.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="scala.Any#isInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isInstanceOf[T0]:Boolean"></a>

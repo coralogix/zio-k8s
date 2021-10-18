@@ -245,23 +245,7 @@
                         <span class="separator"></span>
                         <a class="class" href="UserInfoFields.html" title=""></a>
                         <a href="UserInfoFields.html" title="">UserInfoFields</a>
-                      </li><li name="com.coralogix.zio.k8s.model.authentication.v1beta1" visbl="pub" class="indented7 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="v1beta1"></a><a id="v1beta1:v1beta1"></a>
-      <span class="permalink">
-      <a href="../../../../../../../com/coralogix/zio/k8s/model/authentication/v1beta1/index.html" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">package</span>
-      </span>
-      <span class="symbol">
-        <a title="" href="../v1beta1/index.html"><span class="name">v1beta1</span></a>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="com.coralogix.zio.k8s.model.authentication">authentication</a></dd></dl></div>
-    </li>
+                      </li>
               </ul>
             </div>
           </div>
@@ -340,7 +324,11 @@
       </span>
       
       <p class="shortcomment cmt">BoundObjectReference is a reference to an object that a token is bound to.</p><div class="fullcomment"><div class="comment cmt"><p>BoundObjectReference is a reference to an object that a token is bound to.
-</p></div><dl class="paramcmts block"><dt class="param">apiVersion</dt><dd class="cmt"><p>API version of the referent.</p></dd><dt class="param">kind</dt><dd class="cmt"><p>Kind of the referent. Valid kinds are 'Pod' and 'Secret'.</p></dd><dt class="param">name</dt><dd class="cmt"><p>Name of the referent.</p></dd><dt class="param">uid</dt><dd class="cmt"><p>UID of the referent.</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="param">apiVersion</dt><dd class="cmt"><p>
+  API version of the referent.</p></dd><dt class="param">kind</dt><dd class="cmt"><p>
+  Kind of the referent. Valid kinds are 'Pod' and 'Secret'.</p></dd><dt class="param">name</dt><dd class="cmt"><p>
+  Name of the referent.</p></dd><dt class="param">uid</dt><dd class="cmt"><p>
+  UID of the referent.</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.authentication.v1.BoundObjectReferenceFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="BoundObjectReferenceFieldsextendsAnyRef"></a><a id="BoundObjectReferenceFields:BoundObjectReferenceFields"></a>
       <span class="permalink">
@@ -405,7 +393,14 @@
       </span>
       
       <p class="shortcomment cmt">TokenRequestSpec contains client provided parameters of a token request.</p><div class="fullcomment"><div class="comment cmt"><p>TokenRequestSpec contains client provided parameters of a token request.
-</p></div><dl class="paramcmts block"><dt class="param">audiences</dt><dd class="cmt"><p>Audiences are the intendend audiences of the token. A recipient of a token must identitfy themself with an identifier in the list of audiences of the token, and otherwise should reject the token. A token issued for multiple audiences may be used to authenticate against any of the audiences listed but implies a high degree of trust between the target audiences.</p></dd><dt class="param">expirationSeconds</dt><dd class="cmt"><p>ExpirationSeconds is the requested duration of validity of the request. The token issuer may return a token with a different validity duration so a client needs to check the 'expiration' field in a response.</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="param">audiences</dt><dd class="cmt"><p>
+  Audiences are the intendend audiences of the token. A recipient of a token must identitfy
+  themself with an identifier in the list of audiences of the token, and otherwise should reject
+  the token. A token issued for multiple audiences may be used to authenticate against any of
+  the audiences listed but implies a high degree of trust between the target audiences.</p></dd><dt class="param">expirationSeconds</dt><dd class="cmt"><p>
+  ExpirationSeconds is the requested duration of validity of the request. The token issuer may
+  return a token with a different validity duration so a client needs to check the 'expiration'
+  field in a response.</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.authentication.v1.TokenRequestSpecFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="TokenRequestSpecFieldsextendsAnyRef"></a><a id="TokenRequestSpecFields:TokenRequestSpecFields"></a>
       <span class="permalink">
@@ -438,7 +433,8 @@
       </span>
       
       <p class="shortcomment cmt">TokenRequestStatus is the result of a token request.</p><div class="fullcomment"><div class="comment cmt"><p>TokenRequestStatus is the result of a token request.
-</p></div><dl class="paramcmts block"><dt class="param">token</dt><dd class="cmt"><p>Token is the opaque bearer token.</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="param">token</dt><dd class="cmt"><p>
+  Token is the opaque bearer token.</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.authentication.v1.TokenRequestStatusFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="TokenRequestStatusFieldsextendsAnyRef"></a><a id="TokenRequestStatusFields:TokenRequestStatusFields"></a>
       <span class="permalink">
@@ -470,7 +466,8 @@
         <a title="TokenReview attempts to authenticate a token to a known user." href="TokenReview.html"><span class="name">TokenReview</span></a><span class="params">(<span name="metadata">metadata: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="../../pkg/apis/meta/v1/ObjectMeta.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.ObjectMeta">ObjectMeta</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="spec">spec: <a href="TokenReviewSpec.html" class="extype" name="com.coralogix.zio.k8s.model.authentication.v1.TokenReviewSpec">TokenReviewSpec</a></span>, <span name="status">status: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="TokenReviewStatus.html" class="extype" name="com.coralogix.zio.k8s.model.authentication.v1.TokenReviewStatus">TokenReviewStatus</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
-      <p class="shortcomment cmt">TokenReview attempts to authenticate a token to a known user.</p><div class="fullcomment"><div class="comment cmt"><p>TokenReview attempts to authenticate a token to a known user. Note: TokenReview requests may be cached by the webhook token authenticator plugin in the kube-apiserver.
+      <p class="shortcomment cmt">TokenReview attempts to authenticate a token to a known user.</p><div class="fullcomment"><div class="comment cmt"><p>TokenReview attempts to authenticate a token to a known user. Note: TokenReview requests may be
+cached by the webhook token authenticator plugin in the kube-apiserver.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.authentication.v1.TokenReviewFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="TokenReviewFieldsextendsAnyRef"></a><a id="TokenReviewFields:TokenReviewFields"></a>
@@ -504,7 +501,12 @@
       </span>
       
       <p class="shortcomment cmt">TokenReviewSpec is a description of the token authentication request.</p><div class="fullcomment"><div class="comment cmt"><p>TokenReviewSpec is a description of the token authentication request.
-</p></div><dl class="paramcmts block"><dt class="param">audiences</dt><dd class="cmt"><p>Audiences is a list of the identifiers that the resource server presented with the token identifies as. Audience-aware token authenticators will verify that the token was intended for at least one of the audiences in this list. If no audiences are provided, the audience will default to the audience of the Kubernetes apiserver.</p></dd><dt class="param">token</dt><dd class="cmt"><p>Token is the opaque bearer token.</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="param">audiences</dt><dd class="cmt"><p>
+  Audiences is a list of the identifiers that the resource server presented with the token
+  identifies as. Audience-aware token authenticators will verify that the token was intended for
+  at least one of the audiences in this list. If no audiences are provided, the audience will
+  default to the audience of the Kubernetes apiserver.</p></dd><dt class="param">token</dt><dd class="cmt"><p>
+  Token is the opaque bearer token.</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.authentication.v1.TokenReviewSpecFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="TokenReviewSpecFieldsextendsAnyRef"></a><a id="TokenReviewSpecFields:TokenReviewSpecFields"></a>
       <span class="permalink">
@@ -537,7 +539,16 @@
       </span>
       
       <p class="shortcomment cmt">TokenReviewStatus is the result of the token authentication request.</p><div class="fullcomment"><div class="comment cmt"><p>TokenReviewStatus is the result of the token authentication request.
-</p></div><dl class="paramcmts block"><dt class="param">audiences</dt><dd class="cmt"><p>Audiences are audience identifiers chosen by the authenticator that are compatible with both the TokenReview and token. An identifier is any identifier in the intersection of the TokenReviewSpec audiences and the token's audiences. A client of the TokenReview API that sets the spec.audiences field should validate that a compatible audience identifier is returned in the status.audiences field to ensure that the TokenReview server is audience aware. If a TokenReview returns an empty status.audience field where status.authenticated is &quot;true&quot;, the token is valid against the audience of the Kubernetes API server.</p></dd><dt class="param">authenticated</dt><dd class="cmt"><p>Authenticated indicates that the token was associated with a known user.</p></dd><dt class="param">error</dt><dd class="cmt"><p>Error indicates that the token couldn't be checked</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="param">audiences</dt><dd class="cmt"><p>
+  Audiences are audience identifiers chosen by the authenticator that are compatible with both
+  the TokenReview and token. An identifier is any identifier in the intersection of the
+  TokenReviewSpec audiences and the token's audiences. A client of the TokenReview API that sets
+  the spec.audiences field should validate that a compatible audience identifier is returned in
+  the status.audiences field to ensure that the TokenReview server is audience aware. If a
+  TokenReview returns an empty status.audience field where status.authenticated is &quot;true&quot;, the
+  token is valid against the audience of the Kubernetes API server.</p></dd><dt class="param">authenticated</dt><dd class="cmt"><p>
+  Authenticated indicates that the token was associated with a known user.</p></dd><dt class="param">error</dt><dd class="cmt"><p>
+  Error indicates that the token couldn't be checked</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.authentication.v1.TokenReviewStatusFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="TokenReviewStatusFieldsextendsAnyRef"></a><a id="TokenReviewStatusFields:TokenReviewStatusFields"></a>
       <span class="permalink">
@@ -570,7 +581,12 @@
       </span>
       
       <p class="shortcomment cmt">UserInfo holds the information about the user needed to implement the user.Info interface.</p><div class="fullcomment"><div class="comment cmt"><p>UserInfo holds the information about the user needed to implement the user.Info interface.
-</p></div><dl class="paramcmts block"><dt class="param">extra</dt><dd class="cmt"><p>Any additional information provided by the authenticator.</p></dd><dt class="param">groups</dt><dd class="cmt"><p>The names of groups this user is a part of.</p></dd><dt class="param">uid</dt><dd class="cmt"><p>A unique value that identifies this user across time. If this user is deleted and another user by the same name is added, they will have different UIDs.</p></dd><dt class="param">username</dt><dd class="cmt"><p>The name that uniquely identifies this user among all active users.</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="param">extra</dt><dd class="cmt"><p>
+  Any additional information provided by the authenticator.</p></dd><dt class="param">groups</dt><dd class="cmt"><p>
+  The names of groups this user is a part of.</p></dd><dt class="param">uid</dt><dd class="cmt"><p>
+  A unique value that identifies this user across time. If this user is deleted and another user
+  by the same name is added, they will have different UIDs.</p></dd><dt class="param">username</dt><dd class="cmt"><p>
+  The name that uniquely identifies this user among all active users.</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.authentication.v1.UserInfoFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="UserInfoFieldsextendsAnyRef"></a><a id="UserInfoFields:UserInfoFields"></a>
       <span class="permalink">

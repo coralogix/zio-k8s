@@ -1587,19 +1587,17 @@
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Endpoints is a collection of endpoints that implement the actual service. Example:
- Name: &quot;mysvc&quot;,
- Subsets: [
-   {
-     Addresses: [{&quot;ip&quot;: &quot;10.10.1.1&quot;}, {&quot;ip&quot;: &quot;10.10.2.2&quot;}],
-     Ports: [{&quot;name&quot;: &quot;a&quot;, &quot;port&quot;: 8675}, {&quot;name&quot;: &quot;b&quot;, &quot;port&quot;: 309}]
-   },
-   {
-     Addresses: [{&quot;ip&quot;: &quot;10.10.3.3&quot;}],
-     Ports: [{&quot;name&quot;: &quot;a&quot;, &quot;port&quot;: 93}, {&quot;name&quot;: &quot;b&quot;, &quot;port&quot;: 76}]
-   },
-]
-</p></div><dl class="paramcmts block"><dt class="param">subsets</dt><dd class="cmt"><p>The set of all endpoints is the union of all subsets. Addresses are placed into subsets according to the IPs they share. A single address with multiple ports, some of which are ready and some of which are not (because they come from different containers) will result in the address being displayed in different subsets for the different ports. No address will appear in both Addresses and NotReadyAddresses in the same subset. Sets of addresses and ports that comprise a service.</p></dd></dl><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Endpoints is a collection of endpoints that implement the actual service. Example: Name:
+&quot;mysvc&quot;, Subsets: [ { Addresses: [{&quot;ip&quot;: &quot;10.10.1.1&quot;}, {&quot;ip&quot;: &quot;10.10.2.2&quot;}], Ports: [{&quot;name&quot;:
+&quot;a&quot;, &quot;port&quot;: 8675}, {&quot;name&quot;: &quot;b&quot;, &quot;port&quot;: 309}] }, { Addresses: [{&quot;ip&quot;: &quot;10.10.3.3&quot;}], Ports:
+[{&quot;name&quot;: &quot;a&quot;, &quot;port&quot;: 93}, {&quot;name&quot;: &quot;b&quot;, &quot;port&quot;: 76}] }, ]
+</p></div><dl class="paramcmts block"><dt class="param">subsets</dt><dd class="cmt"><p>
+  The set of all endpoints is the union of all subsets. Addresses are placed into subsets
+  according to the IPs they share. A single address with multiple ports, some of which are ready
+  and some of which are not (because they come from different containers) will result in the
+  address being displayed in different subsets for the different ports. No address will appear
+  in both Addresses and NotReadyAddresses in the same subset. Sets of addresses and ports that
+  comprise a service.</p></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -1664,7 +1662,13 @@
         <span class="name">Endpoints</span><span class="params">(<span name="metadata">metadata: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="../../pkg/apis/meta/v1/ObjectMeta.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.ObjectMeta">ObjectMeta</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="subsets">subsets: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="EndpointSubset.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.EndpointSubset">EndpointSubset</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span>
       </span>
       
-      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">subsets</dt><dd class="cmt"><p>The set of all endpoints is the union of all subsets. Addresses are placed into subsets according to the IPs they share. A single address with multiple ports, some of which are ready and some of which are not (because they come from different containers) will result in the address being displayed in different subsets for the different ports. No address will appear in both Addresses and NotReadyAddresses in the same subset. Sets of addresses and ports that comprise a service.</p></dd></dl></div>
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">subsets</dt><dd class="cmt"><p>
+  The set of all endpoints is the union of all subsets. Addresses are placed into subsets
+  according to the IPs they share. A single address with multiple ports, some of which are ready
+  and some of which are not (because they come from different containers) will result in the
+  address being displayed in different subsets for the different ports. No address will appear
+  in both Addresses and NotReadyAddresses in the same subset. Sets of addresses and ports that
+  comprise a service.</p></dd></dl></div>
     </li></ol>
             </div>
 
@@ -1834,7 +1838,12 @@
         <span class="name">getSubsets</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Vector">Vector</span>[<a href="EndpointSubset.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.EndpointSubset">EndpointSubset</a>]]</span>
       </span>
       
-      <p class="shortcomment cmt">The set of all endpoints is the union of all subsets.</p><div class="fullcomment"><div class="comment cmt"><p>The set of all endpoints is the union of all subsets. Addresses are placed into subsets according to the IPs they share. A single address with multiple ports, some of which are ready and some of which are not (because they come from different containers) will result in the address being displayed in different subsets for the different ports. No address will appear in both Addresses and NotReadyAddresses in the same subset. Sets of addresses and ports that comprise a service.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">The set of all endpoints is the union of all subsets.</p><div class="fullcomment"><div class="comment cmt"><p>The set of all endpoints is the union of all subsets. Addresses are placed into subsets
+according to the IPs they share. A single address with multiple ports, some of which are ready
+and some of which are not (because they come from different containers) will result in the
+address being displayed in different subsets for the different ports. No address will appear
+in both Addresses and NotReadyAddresses in the same subset. Sets of addresses and ports that
+comprise a service.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="scala.Any#isInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isInstanceOf[T0]:Boolean"></a>

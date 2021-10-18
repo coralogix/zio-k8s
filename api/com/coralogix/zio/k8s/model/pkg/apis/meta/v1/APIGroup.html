@@ -412,7 +412,16 @@
 
       
           <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>APIGroup contains the name, the supported versions, and the preferred version of a group.
-</p></div><dl class="paramcmts block"><dt class="param">name</dt><dd class="cmt"><p>name is the name of the group.</p></dd><dt class="param">serverAddressByClientCIDRs</dt><dd class="cmt"><p>a map of client CIDR to server address that is serving this group. This is to help clients reach servers in the most network-efficient way possible. Clients can use the appropriate server address as per the CIDR that they match. In case of multiple matches, clients should use the longest matching CIDR. The server returns only those CIDRs that it thinks that the client can match. For example: the master will return an internal IP CIDR only, if the client reaches the server using an internal IP. Server looks at X-Forwarded-For header or X-Real-Ip header or request.RemoteAddr (in that order) to get the client IP.</p></dd><dt class="param">versions</dt><dd class="cmt"><p>versions are the versions supported in this group.</p></dd></dl><div class="toggleContainer block">
+</p></div><dl class="paramcmts block"><dt class="param">name</dt><dd class="cmt"><p>
+  name is the name of the group.</p></dd><dt class="param">serverAddressByClientCIDRs</dt><dd class="cmt"><p>
+  a map of client CIDR to server address that is serving this group. This is to help clients
+  reach servers in the most network-efficient way possible. Clients can use the appropriate
+  server address as per the CIDR that they match. In case of multiple matches, clients should
+  use the longest matching CIDR. The server returns only those CIDRs that it thinks that the
+  client can match. For example: the master will return an internal IP CIDR only, if the client
+  reaches the server using an internal IP. Server looks at X-Forwarded-For header or X-Real-Ip
+  header or request.RemoteAddr (in that order) to get the client IP.</p></dd><dt class="param">versions</dt><dd class="cmt"><p>
+  versions are the versions supported in this group.</p></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -477,7 +486,16 @@
         <span class="name">APIGroup</span><span class="params">(<span name="name">name: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="preferredVersion">preferredVersion: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="GroupVersionForDiscovery.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.GroupVersionForDiscovery">GroupVersionForDiscovery</a>] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="serverAddressByClientCIDRs">serverAddressByClientCIDRs: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="ServerAddressByClientCIDR.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.ServerAddressByClientCIDR">ServerAddressByClientCIDR</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="versions">versions: <span class="extype" name="scala.Vector">Vector</span>[<a href="GroupVersionForDiscovery.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.GroupVersionForDiscovery">GroupVersionForDiscovery</a>]</span>)</span>
       </span>
       
-      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">name</dt><dd class="cmt"><p>name is the name of the group.</p></dd><dt class="param">serverAddressByClientCIDRs</dt><dd class="cmt"><p>a map of client CIDR to server address that is serving this group. This is to help clients reach servers in the most network-efficient way possible. Clients can use the appropriate server address as per the CIDR that they match. In case of multiple matches, clients should use the longest matching CIDR. The server returns only those CIDRs that it thinks that the client can match. For example: the master will return an internal IP CIDR only, if the client reaches the server using an internal IP. Server looks at X-Forwarded-For header or X-Real-Ip header or request.RemoteAddr (in that order) to get the client IP.</p></dd><dt class="param">versions</dt><dd class="cmt"><p>versions are the versions supported in this group.</p></dd></dl></div>
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">name</dt><dd class="cmt"><p>
+  name is the name of the group.</p></dd><dt class="param">serverAddressByClientCIDRs</dt><dd class="cmt"><p>
+  a map of client CIDR to server address that is serving this group. This is to help clients
+  reach servers in the most network-efficient way possible. Clients can use the appropriate
+  server address as per the CIDR that they match. In case of multiple matches, clients should
+  use the longest matching CIDR. The server returns only those CIDRs that it thinks that the
+  client can match. For example: the master will return an internal IP CIDR only, if the client
+  reaches the server using an internal IP. Server looks at X-Forwarded-For header or X-Real-Ip
+  header or request.RemoteAddr (in that order) to get the client IP.</p></dd><dt class="param">versions</dt><dd class="cmt"><p>
+  versions are the versions supported in this group.</p></dd></dl></div>
     </li></ol>
             </div>
 
@@ -664,7 +682,13 @@
         <span class="name">getServerAddressByClientCIDRs</span><span class="result">: <a href="../../../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Vector">Vector</span>[<a href="ServerAddressByClientCIDR.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.ServerAddressByClientCIDR">ServerAddressByClientCIDR</a>]]</span>
       </span>
       
-      <p class="shortcomment cmt">a map of client CIDR to server address that is serving this group.</p><div class="fullcomment"><div class="comment cmt"><p>a map of client CIDR to server address that is serving this group. This is to help clients reach servers in the most network-efficient way possible. Clients can use the appropriate server address as per the CIDR that they match. In case of multiple matches, clients should use the longest matching CIDR. The server returns only those CIDRs that it thinks that the client can match. For example: the master will return an internal IP CIDR only, if the client reaches the server using an internal IP. Server looks at X-Forwarded-For header or X-Real-Ip header or request.RemoteAddr (in that order) to get the client IP.</p><p>If the field is not present, fails with <a href="../../../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">a map of client CIDR to server address that is serving this group.</p><div class="fullcomment"><div class="comment cmt"><p>a map of client CIDR to server address that is serving this group. This is to help clients
+reach servers in the most network-efficient way possible. Clients can use the appropriate
+server address as per the CIDR that they match. In case of multiple matches, clients should
+use the longest matching CIDR. The server returns only those CIDRs that it thinks that the
+client can match. For example: the master will return an internal IP CIDR only, if the client
+reaches the server using an internal IP. Server looks at X-Forwarded-For header or X-Real-Ip
+header or request.RemoteAddr (in that order) to get the client IP.</p><p>If the field is not present, fails with <a href="../../../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.APIGroup#getVersions" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getVersions:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Vector[com.coralogix.zio.k8s.model.pkg.apis.meta.v1.GroupVersionForDiscovery]]"></a><a id="getVersions:IO[K8sFailure,Vector[GroupVersionForDiscovery]]"></a>

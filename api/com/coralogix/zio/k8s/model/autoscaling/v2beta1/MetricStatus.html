@@ -348,7 +348,10 @@
 
       
           <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>MetricStatus describes the last-read state of a single metric.
-</p></div><dl class="paramcmts block"><dt class="param">type</dt><dd class="cmt"><p>type is the type of metric source.  It will be one of &quot;ContainerResource&quot;, &quot;External&quot;, &quot;Object&quot;, &quot;Pods&quot; or &quot;Resource&quot;, each corresponds to a matching field in the object. Note: &quot;ContainerResource&quot; type is available on when the feature-gate HPAContainerMetrics is enabled</p></dd></dl><div class="toggleContainer block">
+</p></div><dl class="paramcmts block"><dt class="param">type</dt><dd class="cmt"><p>
+  type is the type of metric source. It will be one of &quot;ContainerResource&quot;, &quot;External&quot;,
+  &quot;Object&quot;, &quot;Pods&quot; or &quot;Resource&quot;, each corresponds to a matching field in the object. Note:
+  &quot;ContainerResource&quot; type is available on when the feature-gate HPAContainerMetrics is enabled</p></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -413,7 +416,10 @@
         <span class="name">MetricStatus</span><span class="params">(<span name="containerResource">containerResource: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="ContainerResourceMetricStatus.html" class="extype" name="com.coralogix.zio.k8s.model.autoscaling.v2beta1.ContainerResourceMetricStatus">ContainerResourceMetricStatus</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="external">external: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="ExternalMetricStatus.html" class="extype" name="com.coralogix.zio.k8s.model.autoscaling.v2beta1.ExternalMetricStatus">ExternalMetricStatus</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="object">object: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="ObjectMetricStatus.html" class="extype" name="com.coralogix.zio.k8s.model.autoscaling.v2beta1.ObjectMetricStatus">ObjectMetricStatus</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="pods">pods: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="PodsMetricStatus.html" class="extype" name="com.coralogix.zio.k8s.model.autoscaling.v2beta1.PodsMetricStatus">PodsMetricStatus</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="resource">resource: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="ResourceMetricStatus.html" class="extype" name="com.coralogix.zio.k8s.model.autoscaling.v2beta1.ResourceMetricStatus">ResourceMetricStatus</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="type">type: <span class="extype" name="scala.Predef.String">String</span></span>)</span>
       </span>
       
-      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">type</dt><dd class="cmt"><p>type is the type of metric source.  It will be one of &quot;ContainerResource&quot;, &quot;External&quot;, &quot;Object&quot;, &quot;Pods&quot; or &quot;Resource&quot;, each corresponds to a matching field in the object. Note: &quot;ContainerResource&quot; type is available on when the feature-gate HPAContainerMetrics is enabled</p></dd></dl></div>
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">type</dt><dd class="cmt"><p>
+  type is the type of metric source. It will be one of &quot;ContainerResource&quot;, &quot;External&quot;,
+  &quot;Object&quot;, &quot;Pods&quot; or &quot;Resource&quot;, each corresponds to a matching field in the object. Note:
+  &quot;ContainerResource&quot; type is available on when the feature-gate HPAContainerMetrics is enabled</p></dd></dl></div>
     </li></ol>
             </div>
 
@@ -683,7 +689,9 @@
         <span class="name">getType</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">type is the type of metric source.</p><div class="fullcomment"><div class="comment cmt"><p>type is the type of metric source.  It will be one of &quot;ContainerResource&quot;, &quot;External&quot;, &quot;Object&quot;, &quot;Pods&quot; or &quot;Resource&quot;, each corresponds to a matching field in the object. Note: &quot;ContainerResource&quot; type is available on when the feature-gate HPAContainerMetrics is enabled</p><p>This effect always succeeds, it is safe to use the field <a href="#type:String" class="extmbr" name="com.coralogix.zio.k8s.model.autoscaling.v2beta1.MetricStatus#type">type</a> directly.
+      <p class="shortcomment cmt">type is the type of metric source.</p><div class="fullcomment"><div class="comment cmt"><p>type is the type of metric source. It will be one of &quot;ContainerResource&quot;, &quot;External&quot;,
+&quot;Object&quot;, &quot;Pods&quot; or &quot;Resource&quot;, each corresponds to a matching field in the object. Note:
+&quot;ContainerResource&quot; type is available on when the feature-gate HPAContainerMetrics is enabled</p><p>This effect always succeeds, it is safe to use the field <a href="#type:String" class="extmbr" name="com.coralogix.zio.k8s.model.autoscaling.v2beta1.MetricStatus#type">type</a> directly.
 </p></div></div>
     </li><li name="scala.Any#isInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isInstanceOf[T0]:Boolean"></a>

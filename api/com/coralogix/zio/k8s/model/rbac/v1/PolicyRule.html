@@ -275,8 +275,22 @@
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>PolicyRule holds information that describes a policy rule, but does not contain information about who the rule applies to or which namespace the rule applies to.
-</p></div><dl class="paramcmts block"><dt class="param">apiGroups</dt><dd class="cmt"><p>APIGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed.</p></dd><dt class="param">nonResourceURLs</dt><dd class="cmt"><p>NonResourceURLs is a set of partial urls that a user should have access to.  *s are allowed, but only as the full, final step in the path Since non-resource URLs are not namespaced, this field is only applicable for ClusterRoles referenced from a ClusterRoleBinding. Rules can either apply to API resources (such as &quot;pods&quot; or &quot;secrets&quot;) or non-resource URL paths (such as &quot;/api&quot;),  but not both.</p></dd><dt class="param">resourceNames</dt><dd class="cmt"><p>ResourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.</p></dd><dt class="param">resources</dt><dd class="cmt"><p>Resources is a list of resources this rule applies to.  ResourceAll represents all resources.</p></dd><dt class="param">verbs</dt><dd class="cmt"><p>Verbs is a list of Verbs that apply to ALL the ResourceKinds and AttributeRestrictions contained in this rule.  VerbAll represents all kinds.</p></dd></dl><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>PolicyRule holds information that describes a policy rule, but does not contain information
+about who the rule applies to or which namespace the rule applies to.
+</p></div><dl class="paramcmts block"><dt class="param">apiGroups</dt><dd class="cmt"><p>
+  APIGroups is the name of the APIGroup that contains the resources. If multiple API groups are
+  specified, any action requested against one of the enumerated resources in any API group will
+  be allowed.</p></dd><dt class="param">nonResourceURLs</dt><dd class="cmt"><p>
+  NonResourceURLs is a set of partial urls that a user should have access to. *s are allowed,
+  but only as the full, final step in the path Since non-resource URLs are not namespaced, this
+  field is only applicable for ClusterRoles referenced from a ClusterRoleBinding. Rules can
+  either apply to API resources (such as &quot;pods&quot; or &quot;secrets&quot;) or non-resource URL paths (such as
+  &quot;/api&quot;), but not both.</p></dd><dt class="param">resourceNames</dt><dd class="cmt"><p>
+  ResourceNames is an optional white list of names that the rule applies to. An empty set means
+  that everything is allowed.</p></dd><dt class="param">resources</dt><dd class="cmt"><p>
+  Resources is a list of resources this rule applies to. '*' represents all resources.</p></dd><dt class="param">verbs</dt><dd class="cmt"><p>
+  Verbs is a list of Verbs that apply to ALL the ResourceKinds and AttributeRestrictions
+  contained in this rule. '*' represents all verbs.</p></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -341,7 +355,20 @@
         <span class="name">PolicyRule</span><span class="params">(<span name="apiGroups">apiGroups: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="nonResourceURLs">nonResourceURLs: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="resourceNames">resourceNames: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="resources">resources: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="verbs">verbs: <span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]</span>)</span>
       </span>
       
-      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">apiGroups</dt><dd class="cmt"><p>APIGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed.</p></dd><dt class="param">nonResourceURLs</dt><dd class="cmt"><p>NonResourceURLs is a set of partial urls that a user should have access to.  *s are allowed, but only as the full, final step in the path Since non-resource URLs are not namespaced, this field is only applicable for ClusterRoles referenced from a ClusterRoleBinding. Rules can either apply to API resources (such as &quot;pods&quot; or &quot;secrets&quot;) or non-resource URL paths (such as &quot;/api&quot;),  but not both.</p></dd><dt class="param">resourceNames</dt><dd class="cmt"><p>ResourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.</p></dd><dt class="param">resources</dt><dd class="cmt"><p>Resources is a list of resources this rule applies to.  ResourceAll represents all resources.</p></dd><dt class="param">verbs</dt><dd class="cmt"><p>Verbs is a list of Verbs that apply to ALL the ResourceKinds and AttributeRestrictions contained in this rule.  VerbAll represents all kinds.</p></dd></dl></div>
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">apiGroups</dt><dd class="cmt"><p>
+  APIGroups is the name of the APIGroup that contains the resources. If multiple API groups are
+  specified, any action requested against one of the enumerated resources in any API group will
+  be allowed.</p></dd><dt class="param">nonResourceURLs</dt><dd class="cmt"><p>
+  NonResourceURLs is a set of partial urls that a user should have access to. *s are allowed,
+  but only as the full, final step in the path Since non-resource URLs are not namespaced, this
+  field is only applicable for ClusterRoles referenced from a ClusterRoleBinding. Rules can
+  either apply to API resources (such as &quot;pods&quot; or &quot;secrets&quot;) or non-resource URL paths (such as
+  &quot;/api&quot;), but not both.</p></dd><dt class="param">resourceNames</dt><dd class="cmt"><p>
+  ResourceNames is an optional white list of names that the rule applies to. An empty set means
+  that everything is allowed.</p></dd><dt class="param">resources</dt><dd class="cmt"><p>
+  Resources is a list of resources this rule applies to. '*' represents all resources.</p></dd><dt class="param">verbs</dt><dd class="cmt"><p>
+  Verbs is a list of Verbs that apply to ALL the ResourceKinds and AttributeRestrictions
+  contained in this rule. '*' represents all verbs.</p></dd></dl></div>
     </li></ol>
             </div>
 
@@ -489,7 +516,9 @@
         <span class="name">getApiGroups</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]]</span>
       </span>
       
-      <p class="shortcomment cmt">APIGroups is the name of the APIGroup that contains the resources.</p><div class="fullcomment"><div class="comment cmt"><p>APIGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">APIGroups is the name of the APIGroup that contains the resources.</p><div class="fullcomment"><div class="comment cmt"><p>APIGroups is the name of the APIGroup that contains the resources. If multiple API groups are
+specified, any action requested against one of the enumerated resources in any API group will
+be allowed.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="scala.AnyRef#getClass" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getClass():Class[_]"></a>
@@ -527,7 +556,11 @@
         <span class="name">getNonResourceURLs</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]]</span>
       </span>
       
-      <p class="shortcomment cmt">NonResourceURLs is a set of partial urls that a user should have access to.</p><div class="fullcomment"><div class="comment cmt"><p>NonResourceURLs is a set of partial urls that a user should have access to.  *s are allowed, but only as the full, final step in the path Since non-resource URLs are not namespaced, this field is only applicable for ClusterRoles referenced from a ClusterRoleBinding. Rules can either apply to API resources (such as &quot;pods&quot; or &quot;secrets&quot;) or non-resource URL paths (such as &quot;/api&quot;),  but not both.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">NonResourceURLs is a set of partial urls that a user should have access to.</p><div class="fullcomment"><div class="comment cmt"><p>NonResourceURLs is a set of partial urls that a user should have access to. *s are allowed,
+but only as the full, final step in the path Since non-resource URLs are not namespaced, this
+field is only applicable for ClusterRoles referenced from a ClusterRoleBinding. Rules can
+either apply to API resources (such as &quot;pods&quot; or &quot;secrets&quot;) or non-resource URL paths (such as
+&quot;/api&quot;), but not both.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.rbac.v1.PolicyRule#getResourceNames" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getResourceNames:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Vector[String]]"></a><a id="getResourceNames:IO[K8sFailure,Vector[String]]"></a>
@@ -544,7 +577,8 @@
         <span class="name">getResourceNames</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]]</span>
       </span>
       
-      <p class="shortcomment cmt">ResourceNames is an optional white list of names that the rule applies to.</p><div class="fullcomment"><div class="comment cmt"><p>ResourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">ResourceNames is an optional white list of names that the rule applies to.</p><div class="fullcomment"><div class="comment cmt"><p>ResourceNames is an optional white list of names that the rule applies to. An empty set means
+that everything is allowed.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.rbac.v1.PolicyRule#getResources" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getResources:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Vector[String]]"></a><a id="getResources:IO[K8sFailure,Vector[String]]"></a>
@@ -561,7 +595,7 @@
         <span class="name">getResources</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]]</span>
       </span>
       
-      <p class="shortcomment cmt">Resources is a list of resources this rule applies to.</p><div class="fullcomment"><div class="comment cmt"><p>Resources is a list of resources this rule applies to.  ResourceAll represents all resources.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">Resources is a list of resources this rule applies to.</p><div class="fullcomment"><div class="comment cmt"><p>Resources is a list of resources this rule applies to. '*' represents all resources.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.rbac.v1.PolicyRule#getVerbs" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getVerbs:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Vector[String]]"></a><a id="getVerbs:IO[K8sFailure,Vector[String]]"></a>
@@ -578,7 +612,9 @@
         <span class="name">getVerbs</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]]</span>
       </span>
       
-      <p class="shortcomment cmt">Verbs is a list of Verbs that apply to ALL the ResourceKinds and AttributeRestrictions contained in this rule.</p><div class="fullcomment"><div class="comment cmt"><p>Verbs is a list of Verbs that apply to ALL the ResourceKinds and AttributeRestrictions contained in this rule.  VerbAll represents all kinds.</p><p>This effect always succeeds, it is safe to use the field <a href="#verbs:Vector[String]" class="extmbr" name="com.coralogix.zio.k8s.model.rbac.v1.PolicyRule#verbs">verbs</a> directly.
+      <p class="shortcomment cmt">Verbs is a list of Verbs that apply to ALL the ResourceKinds and AttributeRestrictions
+contained in this rule.</p><div class="fullcomment"><div class="comment cmt"><p>Verbs is a list of Verbs that apply to ALL the ResourceKinds and AttributeRestrictions
+contained in this rule. '*' represents all verbs.</p><p>This effect always succeeds, it is safe to use the field <a href="#verbs:Vector[String]" class="extmbr" name="com.coralogix.zio.k8s.model.rbac.v1.PolicyRule#verbs">verbs</a> directly.
 </p></div></div>
     </li><li name="scala.Any#isInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isInstanceOf[T0]:Boolean"></a>

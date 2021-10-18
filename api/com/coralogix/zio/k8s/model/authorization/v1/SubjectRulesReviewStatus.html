@@ -247,8 +247,8 @@
                         <a href="SelfSubjectRulesReviewFields.html" title="">SelfSubjectRulesReviewFields</a>
                       </li><li class="current-entities indented7">
                         <a class="object" href="SelfSubjectRulesReviewSpec$.html" title=""></a>
-                        <a class="class" href="SelfSubjectRulesReviewSpec.html" title=""></a>
-                        <a href="SelfSubjectRulesReviewSpec.html" title="">SelfSubjectRulesReviewSpec</a>
+                        <a class="class" href="SelfSubjectRulesReviewSpec.html" title="SelfSubjectRulesReviewSpec defines the specification for SelfSubjectRulesReview."></a>
+                        <a href="SelfSubjectRulesReviewSpec.html" title="SelfSubjectRulesReviewSpec defines the specification for SelfSubjectRulesReview.">SelfSubjectRulesReviewSpec</a>
                       </li><li class="current-entities indented7">
                         <span class="separator"></span>
                         <a class="class" href="SelfSubjectRulesReviewSpecFields.html" title=""></a>
@@ -315,8 +315,21 @@
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>SubjectRulesReviewStatus contains the result of a rules check. This check can be incomplete depending on the set of authorizers the server is configured with and any errors experienced during evaluation. Because authorization rules are additive, if a rule appears in a list it's safe to assume the subject has that permission, even if that list is incomplete.
-</p></div><dl class="paramcmts block"><dt class="param">evaluationError</dt><dd class="cmt"><p>EvaluationError can appear in combination with Rules. It indicates an error occurred during rule evaluation, such as an authorizer that doesn't support rule evaluation, and that ResourceRules and/or NonResourceRules may be incomplete.</p></dd><dt class="param">incomplete</dt><dd class="cmt"><p>Incomplete is true when the rules returned by this call are incomplete. This is most commonly encountered when an authorizer, such as an external authorizer, doesn't support rules evaluation.</p></dd><dt class="param">nonResourceRules</dt><dd class="cmt"><p>NonResourceRules is the list of actions the subject is allowed to perform on non-resources. The list ordering isn't significant, may contain duplicates, and possibly be incomplete.</p></dd><dt class="param">resourceRules</dt><dd class="cmt"><p>ResourceRules is the list of actions the subject is allowed to perform on resources. The list ordering isn't significant, may contain duplicates, and possibly be incomplete.</p></dd></dl><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>SubjectRulesReviewStatus contains the result of a rules check. This check can be incomplete
+depending on the set of authorizers the server is configured with and any errors experienced
+during evaluation. Because authorization rules are additive, if a rule appears in a list it's
+safe to assume the subject has that permission, even if that list is incomplete.
+</p></div><dl class="paramcmts block"><dt class="param">evaluationError</dt><dd class="cmt"><p>
+  EvaluationError can appear in combination with Rules. It indicates an error occurred during
+  rule evaluation, such as an authorizer that doesn't support rule evaluation, and that
+  ResourceRules and/or NonResourceRules may be incomplete.</p></dd><dt class="param">incomplete</dt><dd class="cmt"><p>
+  Incomplete is true when the rules returned by this call are incomplete. This is most commonly
+  encountered when an authorizer, such as an external authorizer, doesn't support rules
+  evaluation.</p></dd><dt class="param">nonResourceRules</dt><dd class="cmt"><p>
+  NonResourceRules is the list of actions the subject is allowed to perform on non-resources.
+  The list ordering isn't significant, may contain duplicates, and possibly be incomplete.</p></dd><dt class="param">resourceRules</dt><dd class="cmt"><p>
+  ResourceRules is the list of actions the subject is allowed to perform on resources. The list
+  ordering isn't significant, may contain duplicates, and possibly be incomplete.</p></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -381,7 +394,17 @@
         <span class="name">SubjectRulesReviewStatus</span><span class="params">(<span name="evaluationError">evaluationError: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="incomplete">incomplete: <span class="extype" name="scala.Boolean">Boolean</span></span>, <span name="nonResourceRules">nonResourceRules: <span class="extype" name="scala.Vector">Vector</span>[<a href="NonResourceRule.html" class="extype" name="com.coralogix.zio.k8s.model.authorization.v1.NonResourceRule">NonResourceRule</a>]</span>, <span name="resourceRules">resourceRules: <span class="extype" name="scala.Vector">Vector</span>[<a href="ResourceRule.html" class="extype" name="com.coralogix.zio.k8s.model.authorization.v1.ResourceRule">ResourceRule</a>]</span>)</span>
       </span>
       
-      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">evaluationError</dt><dd class="cmt"><p>EvaluationError can appear in combination with Rules. It indicates an error occurred during rule evaluation, such as an authorizer that doesn't support rule evaluation, and that ResourceRules and/or NonResourceRules may be incomplete.</p></dd><dt class="param">incomplete</dt><dd class="cmt"><p>Incomplete is true when the rules returned by this call are incomplete. This is most commonly encountered when an authorizer, such as an external authorizer, doesn't support rules evaluation.</p></dd><dt class="param">nonResourceRules</dt><dd class="cmt"><p>NonResourceRules is the list of actions the subject is allowed to perform on non-resources. The list ordering isn't significant, may contain duplicates, and possibly be incomplete.</p></dd><dt class="param">resourceRules</dt><dd class="cmt"><p>ResourceRules is the list of actions the subject is allowed to perform on resources. The list ordering isn't significant, may contain duplicates, and possibly be incomplete.</p></dd></dl></div>
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">evaluationError</dt><dd class="cmt"><p>
+  EvaluationError can appear in combination with Rules. It indicates an error occurred during
+  rule evaluation, such as an authorizer that doesn't support rule evaluation, and that
+  ResourceRules and/or NonResourceRules may be incomplete.</p></dd><dt class="param">incomplete</dt><dd class="cmt"><p>
+  Incomplete is true when the rules returned by this call are incomplete. This is most commonly
+  encountered when an authorizer, such as an external authorizer, doesn't support rules
+  evaluation.</p></dd><dt class="param">nonResourceRules</dt><dd class="cmt"><p>
+  NonResourceRules is the list of actions the subject is allowed to perform on non-resources.
+  The list ordering isn't significant, may contain duplicates, and possibly be incomplete.</p></dd><dt class="param">resourceRules</dt><dd class="cmt"><p>
+  ResourceRules is the list of actions the subject is allowed to perform on resources. The list
+  ordering isn't significant, may contain duplicates, and possibly be incomplete.</p></dd></dl></div>
     </li></ol>
             </div>
 
@@ -550,7 +573,9 @@
         <span class="name">getEvaluationError</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">EvaluationError can appear in combination with Rules.</p><div class="fullcomment"><div class="comment cmt"><p>EvaluationError can appear in combination with Rules. It indicates an error occurred during rule evaluation, such as an authorizer that doesn't support rule evaluation, and that ResourceRules and/or NonResourceRules may be incomplete.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">EvaluationError can appear in combination with Rules.</p><div class="fullcomment"><div class="comment cmt"><p>EvaluationError can appear in combination with Rules. It indicates an error occurred during
+rule evaluation, such as an authorizer that doesn't support rule evaluation, and that
+ResourceRules and/or NonResourceRules may be incomplete.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.authorization.v1.SubjectRulesReviewStatus#getIncomplete" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getIncomplete:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Boolean]"></a><a id="getIncomplete:IO[K8sFailure,Boolean]"></a>
@@ -567,7 +592,9 @@
         <span class="name">getIncomplete</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Boolean">Boolean</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">Incomplete is true when the rules returned by this call are incomplete.</p><div class="fullcomment"><div class="comment cmt"><p>Incomplete is true when the rules returned by this call are incomplete. This is most commonly encountered when an authorizer, such as an external authorizer, doesn't support rules evaluation.</p><p>This effect always succeeds, it is safe to use the field <a href="#incomplete:Boolean" class="extmbr" name="com.coralogix.zio.k8s.model.authorization.v1.SubjectRulesReviewStatus#incomplete">incomplete</a> directly.
+      <p class="shortcomment cmt">Incomplete is true when the rules returned by this call are incomplete.</p><div class="fullcomment"><div class="comment cmt"><p>Incomplete is true when the rules returned by this call are incomplete. This is most commonly
+encountered when an authorizer, such as an external authorizer, doesn't support rules
+evaluation.</p><p>This effect always succeeds, it is safe to use the field <a href="#incomplete:Boolean" class="extmbr" name="com.coralogix.zio.k8s.model.authorization.v1.SubjectRulesReviewStatus#incomplete">incomplete</a> directly.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.authorization.v1.SubjectRulesReviewStatus#getNonResourceRules" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getNonResourceRules:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Vector[com.coralogix.zio.k8s.model.authorization.v1.NonResourceRule]]"></a><a id="getNonResourceRules:IO[K8sFailure,Vector[NonResourceRule]]"></a>
@@ -584,7 +611,8 @@
         <span class="name">getNonResourceRules</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Vector">Vector</span>[<a href="NonResourceRule.html" class="extype" name="com.coralogix.zio.k8s.model.authorization.v1.NonResourceRule">NonResourceRule</a>]]</span>
       </span>
       
-      <p class="shortcomment cmt">NonResourceRules is the list of actions the subject is allowed to perform on non-resources.</p><div class="fullcomment"><div class="comment cmt"><p>NonResourceRules is the list of actions the subject is allowed to perform on non-resources. The list ordering isn't significant, may contain duplicates, and possibly be incomplete.</p><p>This effect always succeeds, it is safe to use the field <a href="#nonResourceRules:Vector[com.coralogix.zio.k8s.model.authorization.v1.NonResourceRule]" class="extmbr" name="com.coralogix.zio.k8s.model.authorization.v1.SubjectRulesReviewStatus#nonResourceRules">nonResourceRules</a> directly.
+      <p class="shortcomment cmt">NonResourceRules is the list of actions the subject is allowed to perform on non-resources.</p><div class="fullcomment"><div class="comment cmt"><p>NonResourceRules is the list of actions the subject is allowed to perform on non-resources.
+The list ordering isn't significant, may contain duplicates, and possibly be incomplete.</p><p>This effect always succeeds, it is safe to use the field <a href="#nonResourceRules:Vector[com.coralogix.zio.k8s.model.authorization.v1.NonResourceRule]" class="extmbr" name="com.coralogix.zio.k8s.model.authorization.v1.SubjectRulesReviewStatus#nonResourceRules">nonResourceRules</a> directly.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.authorization.v1.SubjectRulesReviewStatus#getResourceRules" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getResourceRules:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Vector[com.coralogix.zio.k8s.model.authorization.v1.ResourceRule]]"></a><a id="getResourceRules:IO[K8sFailure,Vector[ResourceRule]]"></a>
@@ -601,7 +629,8 @@
         <span class="name">getResourceRules</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Vector">Vector</span>[<a href="ResourceRule.html" class="extype" name="com.coralogix.zio.k8s.model.authorization.v1.ResourceRule">ResourceRule</a>]]</span>
       </span>
       
-      <p class="shortcomment cmt">ResourceRules is the list of actions the subject is allowed to perform on resources.</p><div class="fullcomment"><div class="comment cmt"><p>ResourceRules is the list of actions the subject is allowed to perform on resources. The list ordering isn't significant, may contain duplicates, and possibly be incomplete.</p><p>This effect always succeeds, it is safe to use the field <a href="#resourceRules:Vector[com.coralogix.zio.k8s.model.authorization.v1.ResourceRule]" class="extmbr" name="com.coralogix.zio.k8s.model.authorization.v1.SubjectRulesReviewStatus#resourceRules">resourceRules</a> directly.
+      <p class="shortcomment cmt">ResourceRules is the list of actions the subject is allowed to perform on resources.</p><div class="fullcomment"><div class="comment cmt"><p>ResourceRules is the list of actions the subject is allowed to perform on resources. The list
+ordering isn't significant, may contain duplicates, and possibly be incomplete.</p><p>This effect always succeeds, it is safe to use the field <a href="#resourceRules:Vector[com.coralogix.zio.k8s.model.authorization.v1.ResourceRule]" class="extmbr" name="com.coralogix.zio.k8s.model.authorization.v1.SubjectRulesReviewStatus#resourceRules">resourceRules</a> directly.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.authorization.v1.SubjectRulesReviewStatus#incomplete" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="incomplete:Boolean"></a>

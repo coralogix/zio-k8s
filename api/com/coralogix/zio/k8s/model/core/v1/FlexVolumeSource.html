@@ -1587,8 +1587,15 @@
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>FlexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.
-</p></div><dl class="paramcmts block"><dt class="param">driver</dt><dd class="cmt"><p>Driver is the name of the driver to use for this volume.</p></dd><dt class="param">fsType</dt><dd class="cmt"><p>Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. &quot;ext4&quot;, &quot;xfs&quot;, &quot;ntfs&quot;. The default filesystem depends on FlexVolume script.</p></dd><dt class="param">options</dt><dd class="cmt"><p>Optional: Extra command options if any.</p></dd><dt class="param">readOnly</dt><dd class="cmt"><p>Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.</p></dd></dl><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>FlexVolume represents a generic volume resource that is provisioned/attached using an exec based
+plugin.
+</p></div><dl class="paramcmts block"><dt class="param">driver</dt><dd class="cmt"><p>
+  Driver is the name of the driver to use for this volume.</p></dd><dt class="param">fsType</dt><dd class="cmt"><p>
+  Filesystem type to mount. Must be a filesystem type supported by the host operating system.
+  Ex. &quot;ext4&quot;, &quot;xfs&quot;, &quot;ntfs&quot;. The default filesystem depends on FlexVolume script.</p></dd><dt class="param">options</dt><dd class="cmt"><p>
+  Optional: Extra command options if any.</p></dd><dt class="param">readOnly</dt><dd class="cmt"><p>
+  Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in
+  VolumeMounts.</p></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -1653,7 +1660,13 @@
         <span class="name">FlexVolumeSource</span><span class="params">(<span name="driver">driver: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="fsType">fsType: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="options">options: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="readOnly">readOnly: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Boolean">Boolean</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="secretRef">secretRef: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="LocalObjectReference.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.LocalObjectReference">LocalObjectReference</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span>
       </span>
       
-      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">driver</dt><dd class="cmt"><p>Driver is the name of the driver to use for this volume.</p></dd><dt class="param">fsType</dt><dd class="cmt"><p>Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. &quot;ext4&quot;, &quot;xfs&quot;, &quot;ntfs&quot;. The default filesystem depends on FlexVolume script.</p></dd><dt class="param">options</dt><dd class="cmt"><p>Optional: Extra command options if any.</p></dd><dt class="param">readOnly</dt><dd class="cmt"><p>Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.</p></dd></dl></div>
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">driver</dt><dd class="cmt"><p>
+  Driver is the name of the driver to use for this volume.</p></dd><dt class="param">fsType</dt><dd class="cmt"><p>
+  Filesystem type to mount. Must be a filesystem type supported by the host operating system.
+  Ex. &quot;ext4&quot;, &quot;xfs&quot;, &quot;ntfs&quot;. The default filesystem depends on FlexVolume script.</p></dd><dt class="param">options</dt><dd class="cmt"><p>
+  Optional: Extra command options if any.</p></dd><dt class="param">readOnly</dt><dd class="cmt"><p>
+  Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in
+  VolumeMounts.</p></dd></dl></div>
     </li></ol>
             </div>
 
@@ -1855,7 +1868,8 @@
         <span class="name">getFsType</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">Filesystem type to mount.</p><div class="fullcomment"><div class="comment cmt"><p>Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. &quot;ext4&quot;, &quot;xfs&quot;, &quot;ntfs&quot;. The default filesystem depends on FlexVolume script.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">Filesystem type to mount.</p><div class="fullcomment"><div class="comment cmt"><p>Filesystem type to mount. Must be a filesystem type supported by the host operating system.
+Ex. &quot;ext4&quot;, &quot;xfs&quot;, &quot;ntfs&quot;. The default filesystem depends on FlexVolume script.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.core.v1.FlexVolumeSource#getOptions" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getOptions:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Map[String,String]]"></a><a id="getOptions:IO[K8sFailure,Map[String,String]]"></a>
@@ -1889,7 +1903,8 @@
         <span class="name">getReadOnly</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Boolean">Boolean</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">Optional: Defaults to false (read/write).</p><div class="fullcomment"><div class="comment cmt"><p>Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">Optional: Defaults to false (read/write).</p><div class="fullcomment"><div class="comment cmt"><p>Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in
+VolumeMounts.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.core.v1.FlexVolumeSource#getSecretRef" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getSecretRef:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.model.core.v1.LocalObjectReference]"></a><a id="getSecretRef:IO[K8sFailure,LocalObjectReference]"></a>

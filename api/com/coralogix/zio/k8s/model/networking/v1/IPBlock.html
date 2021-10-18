@@ -226,6 +226,14 @@
                         <a class="class" href="IngressClassFields.html" title=""></a>
                         <a href="IngressClassFields.html" title="">IngressClassFields</a>
                       </li><li class="current-entities indented7">
+                        <a class="object" href="IngressClassParametersReference$.html" title=""></a>
+                        <a class="class" href="IngressClassParametersReference.html" title="IngressClassParametersReference identifies an API object."></a>
+                        <a href="IngressClassParametersReference.html" title="IngressClassParametersReference identifies an API object.">IngressClassParametersReference</a>
+                      </li><li class="current-entities indented7">
+                        <span class="separator"></span>
+                        <a class="class" href="IngressClassParametersReferenceFields.html" title=""></a>
+                        <a href="IngressClassParametersReferenceFields.html" title="">IngressClassParametersReferenceFields</a>
+                      </li><li class="current-entities indented7">
                         <a class="object" href="IngressClassSpec$.html" title=""></a>
                         <a class="class" href="IngressClassSpec.html" title="IngressClassSpec provides information about the class of an Ingress."></a>
                         <a href="IngressClassSpec.html" title="IngressClassSpec provides information about the class of an Ingress.">IngressClassSpec</a>
@@ -363,8 +371,15 @@
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>IPBlock describes a particular CIDR (Ex. &quot;192.168.1.1/24&quot;,&quot;2001:db9::/64&quot;) that is allowed to the pods matched by a NetworkPolicySpec's podSelector. The except entry describes CIDRs that should not be included within this rule.
-</p></div><dl class="paramcmts block"><dt class="param">cidr</dt><dd class="cmt"><p>CIDR is a string representing the IP Block Valid examples are &quot;192.168.1.1/24&quot; or &quot;2001:db9::/64&quot;</p></dd><dt class="param">except</dt><dd class="cmt"><p>Except is a slice of CIDRs that should not be included within an IP Block Valid examples are &quot;192.168.1.1/24&quot; or &quot;2001:db9::/64&quot; Except values will be rejected if they are outside the CIDR range</p></dd></dl><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>IPBlock describes a particular CIDR (Ex. &quot;192.168.1.1/24&quot;,&quot;2001:db9::/64&quot;) that is allowed to
+the pods matched by a NetworkPolicySpec's podSelector. The except entry describes CIDRs that
+should not be included within this rule.
+</p></div><dl class="paramcmts block"><dt class="param">cidr</dt><dd class="cmt"><p>
+  CIDR is a string representing the IP Block Valid examples are &quot;192.168.1.1/24&quot; or
+  &quot;2001:db9::/64&quot;</p></dd><dt class="param">except</dt><dd class="cmt"><p>
+  Except is a slice of CIDRs that should not be included within an IP Block Valid examples are
+  &quot;192.168.1.1/24&quot; or &quot;2001:db9::/64&quot; Except values will be rejected if they are outside the
+  CIDR range</p></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -429,7 +444,12 @@
         <span class="name">IPBlock</span><span class="params">(<span name="cidr">cidr: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="except">except: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span>
       </span>
       
-      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">cidr</dt><dd class="cmt"><p>CIDR is a string representing the IP Block Valid examples are &quot;192.168.1.1/24&quot; or &quot;2001:db9::/64&quot;</p></dd><dt class="param">except</dt><dd class="cmt"><p>Except is a slice of CIDRs that should not be included within an IP Block Valid examples are &quot;192.168.1.1/24&quot; or &quot;2001:db9::/64&quot; Except values will be rejected if they are outside the CIDR range</p></dd></dl></div>
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">cidr</dt><dd class="cmt"><p>
+  CIDR is a string representing the IP Block Valid examples are &quot;192.168.1.1/24&quot; or
+  &quot;2001:db9::/64&quot;</p></dd><dt class="param">except</dt><dd class="cmt"><p>
+  Except is a slice of CIDRs that should not be included within an IP Block Valid examples are
+  &quot;192.168.1.1/24&quot; or &quot;2001:db9::/64&quot; Except values will be rejected if they are outside the
+  CIDR range</p></dd></dl></div>
     </li></ol>
             </div>
 
@@ -593,7 +613,9 @@
         <span class="name">getCidr</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">CIDR is a string representing the IP Block Valid examples are &quot;192.168.1.1/24&quot; or &quot;2001:db9::/64&quot;</p><div class="fullcomment"><div class="comment cmt"><p>CIDR is a string representing the IP Block Valid examples are &quot;192.168.1.1/24&quot; or &quot;2001:db9::/64&quot;</p><p>This effect always succeeds, it is safe to use the field <a href="#cidr:String" class="extmbr" name="com.coralogix.zio.k8s.model.networking.v1.IPBlock#cidr">cidr</a> directly.
+      <p class="shortcomment cmt">CIDR is a string representing the IP Block Valid examples are &quot;192.168.1.1/24&quot; or
+&quot;2001:db9::/64&quot;</p><div class="fullcomment"><div class="comment cmt"><p>CIDR is a string representing the IP Block Valid examples are &quot;192.168.1.1/24&quot; or
+&quot;2001:db9::/64&quot;</p><p>This effect always succeeds, it is safe to use the field <a href="#cidr:String" class="extmbr" name="com.coralogix.zio.k8s.model.networking.v1.IPBlock#cidr">cidr</a> directly.
 </p></div></div>
     </li><li name="scala.AnyRef#getClass" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getClass():Class[_]"></a>
@@ -631,7 +653,11 @@
         <span class="name">getExcept</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]]</span>
       </span>
       
-      <p class="shortcomment cmt">Except is a slice of CIDRs that should not be included within an IP Block Valid examples are &quot;192.168.1.1/24&quot; or &quot;2001:db9::/64&quot; Except values will be rejected if they are outside the CIDR range</p><div class="fullcomment"><div class="comment cmt"><p>Except is a slice of CIDRs that should not be included within an IP Block Valid examples are &quot;192.168.1.1/24&quot; or &quot;2001:db9::/64&quot; Except values will be rejected if they are outside the CIDR range</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">Except is a slice of CIDRs that should not be included within an IP Block Valid examples are
+&quot;192.168.1.1/24&quot; or &quot;2001:db9::/64&quot; Except values will be rejected if they are outside the
+CIDR range</p><div class="fullcomment"><div class="comment cmt"><p>Except is a slice of CIDRs that should not be included within an IP Block Valid examples are
+&quot;192.168.1.1/24&quot; or &quot;2001:db9::/64&quot; Except values will be rejected if they are outside the
+CIDR range</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="scala.Any#isInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isInstanceOf[T0]:Boolean"></a>

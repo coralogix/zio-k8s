@@ -1588,7 +1588,16 @@
 
       
           <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>AzureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
-</p></div><dl class="paramcmts block"><dt class="param">cachingMode</dt><dd class="cmt"><p>Host Caching mode: None, Read Only, Read Write.</p></dd><dt class="param">diskName</dt><dd class="cmt"><p>The Name of the data disk in the blob storage</p></dd><dt class="param">diskURI</dt><dd class="cmt"><p>The URI the data disk in the blob storage</p></dd><dt class="param">fsType</dt><dd class="cmt"><p>Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. &quot;ext4&quot;, &quot;xfs&quot;, &quot;ntfs&quot;. Implicitly inferred to be &quot;ext4&quot; if unspecified.</p></dd><dt class="param">kind</dt><dd class="cmt"><p>Expected values Shared: multiple blob disks per storage account  Dedicated: single blob disk per storage account  Managed: azure managed data disk (only in managed availability set). defaults to shared</p></dd><dt class="param">readOnly</dt><dd class="cmt"><p>Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.</p></dd></dl><div class="toggleContainer block">
+</p></div><dl class="paramcmts block"><dt class="param">cachingMode</dt><dd class="cmt"><p>
+  Host Caching mode: None, Read Only, Read Write.</p></dd><dt class="param">diskName</dt><dd class="cmt"><p>
+  The Name of the data disk in the blob storage</p></dd><dt class="param">diskURI</dt><dd class="cmt"><p>
+  The URI the data disk in the blob storage</p></dd><dt class="param">fsType</dt><dd class="cmt"><p>
+  Filesystem type to mount. Must be a filesystem type supported by the host operating system.
+  Ex. &quot;ext4&quot;, &quot;xfs&quot;, &quot;ntfs&quot;. Implicitly inferred to be &quot;ext4&quot; if unspecified.</p></dd><dt class="param">kind</dt><dd class="cmt"><p>
+  Expected values Shared: multiple blob disks per storage account Dedicated: single blob disk
+  per storage account Managed: azure managed data disk (only in managed availability set).
+  defaults to shared</p></dd><dt class="param">readOnly</dt><dd class="cmt"><p>
+  Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.</p></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -1653,7 +1662,16 @@
         <span class="name">AzureDiskVolumeSource</span><span class="params">(<span name="cachingMode">cachingMode: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="diskName">diskName: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="diskURI">diskURI: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="fsType">fsType: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="kind">kind: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="readOnly">readOnly: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Boolean">Boolean</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span>
       </span>
       
-      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">cachingMode</dt><dd class="cmt"><p>Host Caching mode: None, Read Only, Read Write.</p></dd><dt class="param">diskName</dt><dd class="cmt"><p>The Name of the data disk in the blob storage</p></dd><dt class="param">diskURI</dt><dd class="cmt"><p>The URI the data disk in the blob storage</p></dd><dt class="param">fsType</dt><dd class="cmt"><p>Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. &quot;ext4&quot;, &quot;xfs&quot;, &quot;ntfs&quot;. Implicitly inferred to be &quot;ext4&quot; if unspecified.</p></dd><dt class="param">kind</dt><dd class="cmt"><p>Expected values Shared: multiple blob disks per storage account  Dedicated: single blob disk per storage account  Managed: azure managed data disk (only in managed availability set). defaults to shared</p></dd><dt class="param">readOnly</dt><dd class="cmt"><p>Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.</p></dd></dl></div>
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">cachingMode</dt><dd class="cmt"><p>
+  Host Caching mode: None, Read Only, Read Write.</p></dd><dt class="param">diskName</dt><dd class="cmt"><p>
+  The Name of the data disk in the blob storage</p></dd><dt class="param">diskURI</dt><dd class="cmt"><p>
+  The URI the data disk in the blob storage</p></dd><dt class="param">fsType</dt><dd class="cmt"><p>
+  Filesystem type to mount. Must be a filesystem type supported by the host operating system.
+  Ex. &quot;ext4&quot;, &quot;xfs&quot;, &quot;ntfs&quot;. Implicitly inferred to be &quot;ext4&quot; if unspecified.</p></dd><dt class="param">kind</dt><dd class="cmt"><p>
+  Expected values Shared: multiple blob disks per storage account Dedicated: single blob disk
+  per storage account Managed: azure managed data disk (only in managed availability set).
+  defaults to shared</p></dd><dt class="param">readOnly</dt><dd class="cmt"><p>
+  Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.</p></dd></dl></div>
     </li></ol>
             </div>
 
@@ -1921,7 +1939,8 @@
         <span class="name">getFsType</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">Filesystem type to mount.</p><div class="fullcomment"><div class="comment cmt"><p>Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. &quot;ext4&quot;, &quot;xfs&quot;, &quot;ntfs&quot;. Implicitly inferred to be &quot;ext4&quot; if unspecified.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">Filesystem type to mount.</p><div class="fullcomment"><div class="comment cmt"><p>Filesystem type to mount. Must be a filesystem type supported by the host operating system.
+Ex. &quot;ext4&quot;, &quot;xfs&quot;, &quot;ntfs&quot;. Implicitly inferred to be &quot;ext4&quot; if unspecified.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.core.v1.AzureDiskVolumeSource#getKind" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getKind:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]"></a><a id="getKind:IO[K8sFailure,String]"></a>
@@ -1938,7 +1957,10 @@
         <span class="name">getKind</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">Expected values Shared: multiple blob disks per storage account  Dedicated: single blob disk per storage account  Managed: azure managed data disk (only in managed availability set).</p><div class="fullcomment"><div class="comment cmt"><p>Expected values Shared: multiple blob disks per storage account  Dedicated: single blob disk per storage account  Managed: azure managed data disk (only in managed availability set). defaults to shared</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">Expected values Shared: multiple blob disks per storage account Dedicated: single blob disk
+per storage account Managed: azure managed data disk (only in managed availability set).</p><div class="fullcomment"><div class="comment cmt"><p>Expected values Shared: multiple blob disks per storage account Dedicated: single blob disk
+per storage account Managed: azure managed data disk (only in managed availability set).
+defaults to shared</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.core.v1.AzureDiskVolumeSource#getReadOnly" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getReadOnly:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Boolean]"></a><a id="getReadOnly:IO[K8sFailure,Boolean]"></a>

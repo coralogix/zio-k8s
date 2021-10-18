@@ -198,6 +198,14 @@
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="com.coralogix.zio.k8s.model.storage">storage</a></dd></dl></div>
     </li><li class="current-entities indented7">
+                        <a class="object" href="CSIStorageCapacity$.html" title=""></a>
+                        <a class="class" href="CSIStorageCapacity.html" title="CSIStorageCapacity stores the result of one CSI GetCapacity call."></a>
+                        <a href="CSIStorageCapacity.html" title="CSIStorageCapacity stores the result of one CSI GetCapacity call.">CSIStorageCapacity</a>
+                      </li><li class="current-entities indented7">
+                        <span class="separator"></span>
+                        <a class="class" href="CSIStorageCapacityFields.html" title=""></a>
+                        <a href="CSIStorageCapacityFields.html" title="">CSIStorageCapacityFields</a>
+                      </li><li class="current-entities indented7">
                         <a class="object" href="VolumeAttachment$.html" title=""></a>
                         <a class="class" href="VolumeAttachment.html" title="VolumeAttachment captures the intent to attach or detach the specified volume to/from the specified node."></a>
                         <a href="VolumeAttachment.html" title="VolumeAttachment captures the intent to attach or detach the specified volume to/from the specified node.">VolumeAttachment</a>
@@ -316,7 +324,51 @@
 
         <div id="types" class="types members">
               <h3>Type Members</h3>
-              <ol><li name="com.coralogix.zio.k8s.model.storage.v1alpha1.VolumeAttachment" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+              <ol><li name="com.coralogix.zio.k8s.model.storage.v1alpha1.CSIStorageCapacity" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="CSIStorageCapacityextendsProductwithSerializable"></a><a id="CSIStorageCapacity:CSIStorageCapacity"></a>
+      <span class="permalink">
+      <a href="../../../../../../../com/coralogix/zio/k8s/model/storage/v1alpha1/CSIStorageCapacity.html" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a title="CSIStorageCapacity stores the result of one CSI GetCapacity call." href="CSIStorageCapacity.html"><span class="name">CSIStorageCapacity</span></a><span class="params">(<span name="capacity">capacity: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="../../pkg/api/resource/Quantity.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.api.resource.Quantity">Quantity</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="maximumVolumeSize">maximumVolumeSize: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="../../pkg/api/resource/Quantity.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.api.resource.Quantity">Quantity</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="metadata">metadata: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="../../pkg/apis/meta/v1/ObjectMeta.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.ObjectMeta">ObjectMeta</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="nodeTopology">nodeTopology: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="../../pkg/apis/meta/v1/LabelSelector.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.LabelSelector">LabelSelector</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="storageClassName">storageClassName: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      
+      <p class="shortcomment cmt">CSIStorageCapacity stores the result of one CSI GetCapacity call.</p><div class="fullcomment"><div class="comment cmt"><p>CSIStorageCapacity stores the result of one CSI GetCapacity call. For a given StorageClass, this
+describes the available capacity in a particular topology segment. This can be used when
+considering where to instantiate new PersistentVolumes.</p><p>For example this can express things like: - StorageClass &quot;standard&quot; has &quot;1234 GiB&quot; available in
+&quot;topology.kubernetes.io/zone=us-east1&quot; - StorageClass &quot;localssd&quot; has &quot;10 GiB&quot; available in
+&quot;kubernetes.io/hostname=knode-abc123&quot;</p><p>The following three cases all imply that no capacity is available for a certain combination: -
+no object exists with suitable topology and storage class name - such an object exists, but the
+capacity is unset - such an object exists, but the capacity is zero</p><p>The producer of these objects can decide which approach is more suitable.</p><p>They are consumed by the kube-scheduler if the CSIStorageCapacity beta feature gate is enabled
+there and a CSI driver opts into capacity-aware scheduling with CSIDriver.StorageCapacity.
+</p></div><dl class="paramcmts block"><dt class="param">storageClassName</dt><dd class="cmt"><p>
+  The name of the StorageClass that the reported capacity applies to. It must meet the same
+  requirements as the name of a StorageClass object (non-empty, DNS subdomain). If that object
+  no longer exists, the CSIStorageCapacity object is obsolete and should be removed by its
+  creator. This field is immutable.</p></dd></dl></div>
+    </li><li name="com.coralogix.zio.k8s.model.storage.v1alpha1.CSIStorageCapacityFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="CSIStorageCapacityFieldsextendsAnyRef"></a><a id="CSIStorageCapacityFields:CSIStorageCapacityFields"></a>
+      <span class="permalink">
+      <a href="../../../../../../../com/coralogix/zio/k8s/model/storage/v1alpha1/CSIStorageCapacityFields.html" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="CSIStorageCapacityFields.html"><span class="name">CSIStorageCapacityFields</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+      </span>
+      
+      
+    </li><li name="com.coralogix.zio.k8s.model.storage.v1alpha1.VolumeAttachment" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="VolumeAttachmentextendsProductwithSerializable"></a><a id="VolumeAttachment:VolumeAttachment"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/storage/v1alpha1/VolumeAttachment.html" title="Permalink">
@@ -331,7 +383,9 @@
         <a title="VolumeAttachment captures the intent to attach or detach the specified volume to/from the specified node." href="VolumeAttachment.html"><span class="name">VolumeAttachment</span></a><span class="params">(<span name="metadata">metadata: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="../../pkg/apis/meta/v1/ObjectMeta.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.ObjectMeta">ObjectMeta</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="spec">spec: <a href="VolumeAttachmentSpec.html" class="extype" name="com.coralogix.zio.k8s.model.storage.v1alpha1.VolumeAttachmentSpec">VolumeAttachmentSpec</a></span>, <span name="status">status: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="VolumeAttachmentStatus.html" class="extype" name="com.coralogix.zio.k8s.model.storage.v1alpha1.VolumeAttachmentStatus">VolumeAttachmentStatus</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
-      <p class="shortcomment cmt">VolumeAttachment captures the intent to attach or detach the specified volume to/from the specified node.</p><div class="fullcomment"><div class="comment cmt"><p>VolumeAttachment captures the intent to attach or detach the specified volume to/from the specified node.</p><p>VolumeAttachment objects are non-namespaced.
+      <p class="shortcomment cmt">VolumeAttachment captures the intent to attach or detach the specified volume to/from the
+specified node.</p><div class="fullcomment"><div class="comment cmt"><p>VolumeAttachment captures the intent to attach or detach the specified volume to/from the
+specified node.</p><p>VolumeAttachment objects are non-namespaced.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.storage.v1alpha1.VolumeAttachmentFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="VolumeAttachmentFieldsextendsAnyRef"></a><a id="VolumeAttachmentFields:VolumeAttachmentFields"></a>
@@ -364,8 +418,11 @@
         <a title="VolumeAttachmentSource represents a volume that should be attached." href="VolumeAttachmentSource.html"><span class="name">VolumeAttachmentSource</span></a><span class="params">(<span name="inlineVolumeSpec">inlineVolumeSpec: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="../../core/v1/PersistentVolumeSpec.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.PersistentVolumeSpec">PersistentVolumeSpec</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="persistentVolumeName">persistentVolumeName: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
-      <p class="shortcomment cmt">VolumeAttachmentSource represents a volume that should be attached.</p><div class="fullcomment"><div class="comment cmt"><p>VolumeAttachmentSource represents a volume that should be attached. Right now only PersistenVolumes can be attached via external attacher, in future we may allow also inline volumes in pods. Exactly one member can be set.
-</p></div><dl class="paramcmts block"><dt class="param">persistentVolumeName</dt><dd class="cmt"><p>Name of the persistent volume to attach.</p></dd></dl></div>
+      <p class="shortcomment cmt">VolumeAttachmentSource represents a volume that should be attached.</p><div class="fullcomment"><div class="comment cmt"><p>VolumeAttachmentSource represents a volume that should be attached. Right now only
+PersistenVolumes can be attached via external attacher, in future we may allow also inline
+volumes in pods. Exactly one member can be set.
+</p></div><dl class="paramcmts block"><dt class="param">persistentVolumeName</dt><dd class="cmt"><p>
+  Name of the persistent volume to attach.</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.storage.v1alpha1.VolumeAttachmentSourceFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="VolumeAttachmentSourceFieldsextendsAnyRef"></a><a id="VolumeAttachmentSourceFields:VolumeAttachmentSourceFields"></a>
       <span class="permalink">
@@ -398,7 +455,10 @@
       </span>
       
       <p class="shortcomment cmt">VolumeAttachmentSpec is the specification of a VolumeAttachment request.</p><div class="fullcomment"><div class="comment cmt"><p>VolumeAttachmentSpec is the specification of a VolumeAttachment request.
-</p></div><dl class="paramcmts block"><dt class="param">attacher</dt><dd class="cmt"><p>Attacher indicates the name of the volume driver that MUST handle this request. This is the name returned by GetPluginName().</p></dd><dt class="param">nodeName</dt><dd class="cmt"><p>The node that the volume should be attached to.</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="param">attacher</dt><dd class="cmt"><p>
+  Attacher indicates the name of the volume driver that MUST handle this request. This is the
+  name returned by GetPluginName().</p></dd><dt class="param">nodeName</dt><dd class="cmt"><p>
+  The node that the volume should be attached to.</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.storage.v1alpha1.VolumeAttachmentSpecFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="VolumeAttachmentSpecFieldsextendsAnyRef"></a><a id="VolumeAttachmentSpecFields:VolumeAttachmentSpecFields"></a>
       <span class="permalink">
@@ -431,7 +491,12 @@
       </span>
       
       <p class="shortcomment cmt">VolumeAttachmentStatus is the status of a VolumeAttachment request.</p><div class="fullcomment"><div class="comment cmt"><p>VolumeAttachmentStatus is the status of a VolumeAttachment request.
-</p></div><dl class="paramcmts block"><dt class="param">attached</dt><dd class="cmt"><p>Indicates the volume is successfully attached. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.</p></dd><dt class="param">attachmentMetadata</dt><dd class="cmt"><p>Upon successful attach, this field is populated with any information returned by the attach operation that must be passed into subsequent WaitForAttach or Mount calls. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="param">attached</dt><dd class="cmt"><p>
+  Indicates the volume is successfully attached. This field must only be set by the entity
+  completing the attach operation, i.e. the external-attacher.</p></dd><dt class="param">attachmentMetadata</dt><dd class="cmt"><p>
+  Upon successful attach, this field is populated with any information returned by the attach
+  operation that must be passed into subsequent WaitForAttach or Mount calls. This field must
+  only be set by the entity completing the attach operation, i.e. the external-attacher.</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.storage.v1alpha1.VolumeAttachmentStatusFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="VolumeAttachmentStatusFieldsextendsAnyRef"></a><a id="VolumeAttachmentStatusFields:VolumeAttachmentStatusFields"></a>
       <span class="permalink">
@@ -464,7 +529,9 @@
       </span>
       
       <p class="shortcomment cmt">VolumeError captures an error encountered during a volume operation.</p><div class="fullcomment"><div class="comment cmt"><p>VolumeError captures an error encountered during a volume operation.
-</p></div><dl class="paramcmts block"><dt class="param">message</dt><dd class="cmt"><p>String detailing the error encountered during Attach or Detach operation. This string maybe logged, so it should not contain sensitive information.</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="param">message</dt><dd class="cmt"><p>
+  String detailing the error encountered during Attach or Detach operation. This string maybe
+  logged, so it should not contain sensitive information.</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.storage.v1alpha1.VolumeErrorFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="VolumeErrorFieldsextendsAnyRef"></a><a id="VolumeErrorFields:VolumeErrorFields"></a>
       <span class="permalink">
@@ -489,7 +556,23 @@
         <div class="values members">
               <h3>Value Members</h3>
               <ol>
-                <li name="com.coralogix.zio.k8s.model.storage.v1alpha1.VolumeAttachment" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+                <li name="com.coralogix.zio.k8s.model.storage.v1alpha1.CSIStorageCapacity" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="CSIStorageCapacity"></a><a id="CSIStorageCapacity:CSIStorageCapacity"></a>
+      <span class="permalink">
+      <a href="../../../../../../../com/coralogix/zio/k8s/model/storage/v1alpha1/CSIStorageCapacity$.html" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="CSIStorageCapacity$.html"><span class="name">CSIStorageCapacity</span></a><span class="result"> extends <a href="CSIStorageCapacityFields.html" class="extype" name="com.coralogix.zio.k8s.model.storage.v1alpha1.CSIStorageCapacityFields">CSIStorageCapacityFields</a> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      
+      
+    </li><li name="com.coralogix.zio.k8s.model.storage.v1alpha1.VolumeAttachment" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="VolumeAttachment"></a><a id="VolumeAttachment:VolumeAttachment"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/storage/v1alpha1/VolumeAttachment$.html" title="Permalink">

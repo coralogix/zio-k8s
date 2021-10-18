@@ -396,7 +396,20 @@
 
       
           <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>HorizontalPodAutoscalerSpec describes the desired functionality of the HorizontalPodAutoscaler.
-</p></div><dl class="paramcmts block"><dt class="param">maxReplicas</dt><dd class="cmt"><p>maxReplicas is the upper limit for the number of replicas to which the autoscaler can scale up. It cannot be less that minReplicas.</p></dd><dt class="param">metrics</dt><dd class="cmt"><p>metrics contains the specifications for which to use to calculate the desired replica count (the maximum replica count across all metrics will be used).  The desired replica count is calculated multiplying the ratio between the target value and the current value by the current number of pods.  Ergo, metrics used must decrease as the pod count is increased, and vice-versa.  See the individual metric source types for more information about how each type of metric must respond. If not set, the default metric will be set to 80% average CPU utilization.</p></dd><dt class="param">minReplicas</dt><dd class="cmt"><p>minReplicas is the lower limit for the number of replicas to which the autoscaler can scale down.  It defaults to 1 pod.  minReplicas is allowed to be 0 if the alpha feature gate HPAScaleToZero is enabled and at least one Object or External metric is configured.  Scaling is active as long as at least one metric value is available.</p></dd></dl><div class="toggleContainer block">
+</p></div><dl class="paramcmts block"><dt class="param">maxReplicas</dt><dd class="cmt"><p>
+  maxReplicas is the upper limit for the number of replicas to which the autoscaler can scale
+  up. It cannot be less that minReplicas.</p></dd><dt class="param">metrics</dt><dd class="cmt"><p>
+  metrics contains the specifications for which to use to calculate the desired replica count
+  (the maximum replica count across all metrics will be used). The desired replica count is
+  calculated multiplying the ratio between the target value and the current value by the current
+  number of pods. Ergo, metrics used must decrease as the pod count is increased, and
+  vice-versa. See the individual metric source types for more information about how each type of
+  metric must respond. If not set, the default metric will be set to 80% average CPU
+  utilization.</p></dd><dt class="param">minReplicas</dt><dd class="cmt"><p>
+  minReplicas is the lower limit for the number of replicas to which the autoscaler can scale
+  down. It defaults to 1 pod. minReplicas is allowed to be 0 if the alpha feature gate
+  HPAScaleToZero is enabled and at least one Object or External metric is configured. Scaling is
+  active as long as at least one metric value is available.</p></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -461,7 +474,20 @@
         <span class="name">HorizontalPodAutoscalerSpec</span><span class="params">(<span name="behavior">behavior: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="HorizontalPodAutoscalerBehavior.html" class="extype" name="com.coralogix.zio.k8s.model.autoscaling.v2beta2.HorizontalPodAutoscalerBehavior">HorizontalPodAutoscalerBehavior</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="maxReplicas">maxReplicas: <span class="extype" name="scala.Int">Int</span></span>, <span name="metrics">metrics: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="MetricSpec.html" class="extype" name="com.coralogix.zio.k8s.model.autoscaling.v2beta2.MetricSpec">MetricSpec</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="minReplicas">minReplicas: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="scaleTargetRef">scaleTargetRef: <a href="CrossVersionObjectReference.html" class="extype" name="com.coralogix.zio.k8s.model.autoscaling.v2beta2.CrossVersionObjectReference">CrossVersionObjectReference</a></span>)</span>
       </span>
       
-      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">maxReplicas</dt><dd class="cmt"><p>maxReplicas is the upper limit for the number of replicas to which the autoscaler can scale up. It cannot be less that minReplicas.</p></dd><dt class="param">metrics</dt><dd class="cmt"><p>metrics contains the specifications for which to use to calculate the desired replica count (the maximum replica count across all metrics will be used).  The desired replica count is calculated multiplying the ratio between the target value and the current value by the current number of pods.  Ergo, metrics used must decrease as the pod count is increased, and vice-versa.  See the individual metric source types for more information about how each type of metric must respond. If not set, the default metric will be set to 80% average CPU utilization.</p></dd><dt class="param">minReplicas</dt><dd class="cmt"><p>minReplicas is the lower limit for the number of replicas to which the autoscaler can scale down.  It defaults to 1 pod.  minReplicas is allowed to be 0 if the alpha feature gate HPAScaleToZero is enabled and at least one Object or External metric is configured.  Scaling is active as long as at least one metric value is available.</p></dd></dl></div>
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">maxReplicas</dt><dd class="cmt"><p>
+  maxReplicas is the upper limit for the number of replicas to which the autoscaler can scale
+  up. It cannot be less that minReplicas.</p></dd><dt class="param">metrics</dt><dd class="cmt"><p>
+  metrics contains the specifications for which to use to calculate the desired replica count
+  (the maximum replica count across all metrics will be used). The desired replica count is
+  calculated multiplying the ratio between the target value and the current value by the current
+  number of pods. Ergo, metrics used must decrease as the pod count is increased, and
+  vice-versa. See the individual metric source types for more information about how each type of
+  metric must respond. If not set, the default metric will be set to 80% average CPU
+  utilization.</p></dd><dt class="param">minReplicas</dt><dd class="cmt"><p>
+  minReplicas is the lower limit for the number of replicas to which the autoscaler can scale
+  down. It defaults to 1 pod. minReplicas is allowed to be 0 if the alpha feature gate
+  HPAScaleToZero is enabled and at least one Object or External metric is configured. Scaling is
+  active as long as at least one metric value is available.</p></dd></dl></div>
     </li></ol>
             </div>
 
@@ -647,7 +673,9 @@
         <span class="name">getMaxReplicas</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Int">Int</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">maxReplicas is the upper limit for the number of replicas to which the autoscaler can scale up.</p><div class="fullcomment"><div class="comment cmt"><p>maxReplicas is the upper limit for the number of replicas to which the autoscaler can scale up. It cannot be less that minReplicas.</p><p>This effect always succeeds, it is safe to use the field <a href="#maxReplicas:Int" class="extmbr" name="com.coralogix.zio.k8s.model.autoscaling.v2beta2.HorizontalPodAutoscalerSpec#maxReplicas">maxReplicas</a> directly.
+      <p class="shortcomment cmt">maxReplicas is the upper limit for the number of replicas to which the autoscaler can scale
+up.</p><div class="fullcomment"><div class="comment cmt"><p>maxReplicas is the upper limit for the number of replicas to which the autoscaler can scale
+up. It cannot be less that minReplicas.</p><p>This effect always succeeds, it is safe to use the field <a href="#maxReplicas:Int" class="extmbr" name="com.coralogix.zio.k8s.model.autoscaling.v2beta2.HorizontalPodAutoscalerSpec#maxReplicas">maxReplicas</a> directly.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.autoscaling.v2beta2.HorizontalPodAutoscalerSpec#getMetrics" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getMetrics:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Vector[com.coralogix.zio.k8s.model.autoscaling.v2beta2.MetricSpec]]"></a><a id="getMetrics:IO[K8sFailure,Vector[MetricSpec]]"></a>
@@ -664,7 +692,14 @@
         <span class="name">getMetrics</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Vector">Vector</span>[<a href="MetricSpec.html" class="extype" name="com.coralogix.zio.k8s.model.autoscaling.v2beta2.MetricSpec">MetricSpec</a>]]</span>
       </span>
       
-      <p class="shortcomment cmt">metrics contains the specifications for which to use to calculate the desired replica count (the maximum replica count across all metrics will be used).</p><div class="fullcomment"><div class="comment cmt"><p>metrics contains the specifications for which to use to calculate the desired replica count (the maximum replica count across all metrics will be used).  The desired replica count is calculated multiplying the ratio between the target value and the current value by the current number of pods.  Ergo, metrics used must decrease as the pod count is increased, and vice-versa.  See the individual metric source types for more information about how each type of metric must respond. If not set, the default metric will be set to 80% average CPU utilization.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">metrics contains the specifications for which to use to calculate the desired replica count
+(the maximum replica count across all metrics will be used).</p><div class="fullcomment"><div class="comment cmt"><p>metrics contains the specifications for which to use to calculate the desired replica count
+(the maximum replica count across all metrics will be used). The desired replica count is
+calculated multiplying the ratio between the target value and the current value by the current
+number of pods. Ergo, metrics used must decrease as the pod count is increased, and
+vice-versa. See the individual metric source types for more information about how each type of
+metric must respond. If not set, the default metric will be set to 80% average CPU
+utilization.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.autoscaling.v2beta2.HorizontalPodAutoscalerSpec#getMinReplicas" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getMinReplicas:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Int]"></a><a id="getMinReplicas:IO[K8sFailure,Int]"></a>
@@ -681,7 +716,11 @@
         <span class="name">getMinReplicas</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Int">Int</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">minReplicas is the lower limit for the number of replicas to which the autoscaler can scale down.</p><div class="fullcomment"><div class="comment cmt"><p>minReplicas is the lower limit for the number of replicas to which the autoscaler can scale down.  It defaults to 1 pod.  minReplicas is allowed to be 0 if the alpha feature gate HPAScaleToZero is enabled and at least one Object or External metric is configured.  Scaling is active as long as at least one metric value is available.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">minReplicas is the lower limit for the number of replicas to which the autoscaler can scale
+down.</p><div class="fullcomment"><div class="comment cmt"><p>minReplicas is the lower limit for the number of replicas to which the autoscaler can scale
+down. It defaults to 1 pod. minReplicas is allowed to be 0 if the alpha feature gate
+HPAScaleToZero is enabled and at least one Object or External metric is configured. Scaling is
+active as long as at least one metric value is available.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.autoscaling.v2beta2.HorizontalPodAutoscalerSpec#getScaleTargetRef" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getScaleTargetRef:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.model.autoscaling.v2beta2.CrossVersionObjectReference]"></a><a id="getScaleTargetRef:IO[K8sFailure,CrossVersionObjectReference]"></a>

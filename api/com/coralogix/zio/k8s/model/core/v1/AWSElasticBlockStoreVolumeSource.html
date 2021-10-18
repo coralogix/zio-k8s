@@ -1587,8 +1587,22 @@
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Represents a Persistent Disk resource in AWS.</p><p>An AWS EBS disk must exist before mounting to a container. The disk must also be in the same AWS zone as the kubelet. An AWS EBS disk can only be mounted as read/write once. AWS EBS volumes support ownership management and SELinux relabeling.
-</p></div><dl class="paramcmts block"><dt class="param">fsType</dt><dd class="cmt"><p>Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: &quot;ext4&quot;, &quot;xfs&quot;, &quot;ntfs&quot;. Implicitly inferred to be &quot;ext4&quot; if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore</p></dd><dt class="param">partition</dt><dd class="cmt"><p>The partition in the volume that you want to mount. If omitted, the default is to mount by volume name. Examples: For volume /dev/sda1, you specify the partition as &quot;1&quot;. Similarly, the volume partition for /dev/sda is &quot;0&quot; (or you can leave the property empty).</p></dd><dt class="param">readOnly</dt><dd class="cmt"><p>Specify &quot;true&quot; to force and set the ReadOnly property in VolumeMounts to &quot;true&quot;. If omitted, the default is &quot;false&quot;. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore</p></dd><dt class="param">volumeID</dt><dd class="cmt"><p>Unique ID of the persistent disk resource in AWS (Amazon EBS volume). More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore</p></dd></dl><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Represents a Persistent Disk resource in AWS.</p><p>An AWS EBS disk must exist before mounting to a container. The disk must also be in the same AWS
+zone as the kubelet. An AWS EBS disk can only be mounted as read/write once. AWS EBS volumes
+support ownership management and SELinux relabeling.
+</p></div><dl class="paramcmts block"><dt class="param">fsType</dt><dd class="cmt"><p>
+  Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is
+  supported by the host operating system. Examples: &quot;ext4&quot;, &quot;xfs&quot;, &quot;ntfs&quot;. Implicitly inferred
+  to be &quot;ext4&quot; if unspecified. More info:
+  https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore</p></dd><dt class="param">partition</dt><dd class="cmt"><p>
+  The partition in the volume that you want to mount. If omitted, the default is to mount by
+  volume name. Examples: For volume /dev/sda1, you specify the partition as &quot;1&quot;. Similarly, the
+  volume partition for /dev/sda is &quot;0&quot; (or you can leave the property empty).</p></dd><dt class="param">readOnly</dt><dd class="cmt"><p>
+  Specify &quot;true&quot; to force and set the ReadOnly property in VolumeMounts to &quot;true&quot;. If omitted,
+  the default is &quot;false&quot;. More info:
+  https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore</p></dd><dt class="param">volumeID</dt><dd class="cmt"><p>
+  Unique ID of the persistent disk resource in AWS (Amazon EBS volume). More info:
+  https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore</p></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -1653,7 +1667,19 @@
         <span class="name">AWSElasticBlockStoreVolumeSource</span><span class="params">(<span name="fsType">fsType: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="partition">partition: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="readOnly">readOnly: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Boolean">Boolean</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="volumeID">volumeID: <span class="extype" name="scala.Predef.String">String</span></span>)</span>
       </span>
       
-      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">fsType</dt><dd class="cmt"><p>Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: &quot;ext4&quot;, &quot;xfs&quot;, &quot;ntfs&quot;. Implicitly inferred to be &quot;ext4&quot; if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore</p></dd><dt class="param">partition</dt><dd class="cmt"><p>The partition in the volume that you want to mount. If omitted, the default is to mount by volume name. Examples: For volume /dev/sda1, you specify the partition as &quot;1&quot;. Similarly, the volume partition for /dev/sda is &quot;0&quot; (or you can leave the property empty).</p></dd><dt class="param">readOnly</dt><dd class="cmt"><p>Specify &quot;true&quot; to force and set the ReadOnly property in VolumeMounts to &quot;true&quot;. If omitted, the default is &quot;false&quot;. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore</p></dd><dt class="param">volumeID</dt><dd class="cmt"><p>Unique ID of the persistent disk resource in AWS (Amazon EBS volume). More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore</p></dd></dl></div>
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">fsType</dt><dd class="cmt"><p>
+  Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is
+  supported by the host operating system. Examples: &quot;ext4&quot;, &quot;xfs&quot;, &quot;ntfs&quot;. Implicitly inferred
+  to be &quot;ext4&quot; if unspecified. More info:
+  https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore</p></dd><dt class="param">partition</dt><dd class="cmt"><p>
+  The partition in the volume that you want to mount. If omitted, the default is to mount by
+  volume name. Examples: For volume /dev/sda1, you specify the partition as &quot;1&quot;. Similarly, the
+  volume partition for /dev/sda is &quot;0&quot; (or you can leave the property empty).</p></dd><dt class="param">readOnly</dt><dd class="cmt"><p>
+  Specify &quot;true&quot; to force and set the ReadOnly property in VolumeMounts to &quot;true&quot;. If omitted,
+  the default is &quot;false&quot;. More info:
+  https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore</p></dd><dt class="param">volumeID</dt><dd class="cmt"><p>
+  Unique ID of the persistent disk resource in AWS (Amazon EBS volume). More info:
+  https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore</p></dd></dl></div>
     </li></ol>
             </div>
 
@@ -1822,7 +1848,10 @@
         <span class="name">getFsType</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">Filesystem type of the volume that you want to mount.</p><div class="fullcomment"><div class="comment cmt"><p>Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: &quot;ext4&quot;, &quot;xfs&quot;, &quot;ntfs&quot;. Implicitly inferred to be &quot;ext4&quot; if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">Filesystem type of the volume that you want to mount.</p><div class="fullcomment"><div class="comment cmt"><p>Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is
+supported by the host operating system. Examples: &quot;ext4&quot;, &quot;xfs&quot;, &quot;ntfs&quot;. Implicitly inferred
+to be &quot;ext4&quot; if unspecified. More info:
+https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.core.v1.AWSElasticBlockStoreVolumeSource#getPartition" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getPartition:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Int]"></a><a id="getPartition:IO[K8sFailure,Int]"></a>
@@ -1839,7 +1868,9 @@
         <span class="name">getPartition</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Int">Int</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">The partition in the volume that you want to mount.</p><div class="fullcomment"><div class="comment cmt"><p>The partition in the volume that you want to mount. If omitted, the default is to mount by volume name. Examples: For volume /dev/sda1, you specify the partition as &quot;1&quot;. Similarly, the volume partition for /dev/sda is &quot;0&quot; (or you can leave the property empty).</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">The partition in the volume that you want to mount.</p><div class="fullcomment"><div class="comment cmt"><p>The partition in the volume that you want to mount. If omitted, the default is to mount by
+volume name. Examples: For volume /dev/sda1, you specify the partition as &quot;1&quot;. Similarly, the
+volume partition for /dev/sda is &quot;0&quot; (or you can leave the property empty).</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.core.v1.AWSElasticBlockStoreVolumeSource#getReadOnly" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getReadOnly:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Boolean]"></a><a id="getReadOnly:IO[K8sFailure,Boolean]"></a>
@@ -1856,7 +1887,9 @@
         <span class="name">getReadOnly</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Boolean">Boolean</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">Specify &quot;true&quot; to force and set the ReadOnly property in VolumeMounts to &quot;true&quot;.</p><div class="fullcomment"><div class="comment cmt"><p>Specify &quot;true&quot; to force and set the ReadOnly property in VolumeMounts to &quot;true&quot;. If omitted, the default is &quot;false&quot;. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">Specify &quot;true&quot; to force and set the ReadOnly property in VolumeMounts to &quot;true&quot;.</p><div class="fullcomment"><div class="comment cmt"><p>Specify &quot;true&quot; to force and set the ReadOnly property in VolumeMounts to &quot;true&quot;. If omitted,
+the default is &quot;false&quot;. More info:
+https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.core.v1.AWSElasticBlockStoreVolumeSource#getVolumeID" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getVolumeID:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]"></a><a id="getVolumeID:IO[K8sFailure,String]"></a>
@@ -1873,7 +1906,8 @@
         <span class="name">getVolumeID</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">Unique ID of the persistent disk resource in AWS (Amazon EBS volume).</p><div class="fullcomment"><div class="comment cmt"><p>Unique ID of the persistent disk resource in AWS (Amazon EBS volume). More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore</p><p>This effect always succeeds, it is safe to use the field <a href="#volumeID:String" class="extmbr" name="com.coralogix.zio.k8s.model.core.v1.AWSElasticBlockStoreVolumeSource#volumeID">volumeID</a> directly.
+      <p class="shortcomment cmt">Unique ID of the persistent disk resource in AWS (Amazon EBS volume).</p><div class="fullcomment"><div class="comment cmt"><p>Unique ID of the persistent disk resource in AWS (Amazon EBS volume). More info:
+https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore</p><p>This effect always succeeds, it is safe to use the field <a href="#volumeID:String" class="extmbr" name="com.coralogix.zio.k8s.model.core.v1.AWSElasticBlockStoreVolumeSource#volumeID">volumeID</a> directly.
 </p></div></div>
     </li><li name="scala.Any#isInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isInstanceOf[T0]:Boolean"></a>

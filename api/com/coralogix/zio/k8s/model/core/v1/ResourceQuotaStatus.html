@@ -1588,7 +1588,10 @@
 
       
           <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>ResourceQuotaStatus defines the enforced hard limits and observed use.
-</p></div><dl class="paramcmts block"><dt class="param">hard</dt><dd class="cmt"><p>Hard is the set of enforced hard limits for each named resource. More info: https://kubernetes.io/docs/concepts/policy/resource-quotas/</p></dd><dt class="param">used</dt><dd class="cmt"><p>Used is the current observed total usage of the resource in the namespace.</p></dd></dl><div class="toggleContainer block">
+</p></div><dl class="paramcmts block"><dt class="param">hard</dt><dd class="cmt"><p>
+  Hard is the set of enforced hard limits for each named resource. More info:
+  https://kubernetes.io/docs/concepts/policy/resource-quotas/</p></dd><dt class="param">used</dt><dd class="cmt"><p>
+  Used is the current observed total usage of the resource in the namespace.</p></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -1653,7 +1656,10 @@
         <span class="name">ResourceQuotaStatus</span><span class="params">(<span name="hard">hard: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <a href="../../pkg/api/resource/Quantity.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.api.resource.Quantity">Quantity</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="used">used: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <a href="../../pkg/api/resource/Quantity.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.api.resource.Quantity">Quantity</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span>
       </span>
       
-      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">hard</dt><dd class="cmt"><p>Hard is the set of enforced hard limits for each named resource. More info: https://kubernetes.io/docs/concepts/policy/resource-quotas/</p></dd><dt class="param">used</dt><dd class="cmt"><p>Used is the current observed total usage of the resource in the namespace.</p></dd></dl></div>
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">hard</dt><dd class="cmt"><p>
+  Hard is the set of enforced hard limits for each named resource. More info:
+  https://kubernetes.io/docs/concepts/policy/resource-quotas/</p></dd><dt class="param">used</dt><dd class="cmt"><p>
+  Used is the current observed total usage of the resource in the namespace.</p></dd></dl></div>
     </li></ol>
             </div>
 
@@ -1806,7 +1812,8 @@
         <span class="name">getHard</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <a href="../../pkg/api/resource/Quantity.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.api.resource.Quantity">Quantity</a>]]</span>
       </span>
       
-      <p class="shortcomment cmt">Hard is the set of enforced hard limits for each named resource.</p><div class="fullcomment"><div class="comment cmt"><p>Hard is the set of enforced hard limits for each named resource. More info: https://kubernetes.io/docs/concepts/policy/resource-quotas/</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">Hard is the set of enforced hard limits for each named resource.</p><div class="fullcomment"><div class="comment cmt"><p>Hard is the set of enforced hard limits for each named resource. More info:
+https://kubernetes.io/docs/concepts/policy/resource-quotas/</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.core.v1.ResourceQuotaStatus#getUsed" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getUsed:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Map[String,com.coralogix.zio.k8s.model.pkg.api.resource.Quantity]]"></a><a id="getUsed:IO[K8sFailure,Map[String,Quantity]]"></a>

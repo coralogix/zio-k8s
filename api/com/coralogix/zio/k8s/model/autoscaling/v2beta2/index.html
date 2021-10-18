@@ -475,8 +475,15 @@
         <a title="ContainerResourceMetricSource indicates how to scale on a resource metric known to Kubernetes, as specified in requests and limits, describing each pod in the current scale target (e.g." href="ContainerResourceMetricSource.html"><span class="name">ContainerResourceMetricSource</span></a><span class="params">(<span name="container">container: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="name">name: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="target">target: <a href="MetricTarget.html" class="extype" name="com.coralogix.zio.k8s.model.autoscaling.v2beta2.MetricTarget">MetricTarget</a></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
-      <p class="shortcomment cmt">ContainerResourceMetricSource indicates how to scale on a resource metric known to Kubernetes, as specified in requests and limits, describing each pod in the current scale target (e.g.</p><div class="fullcomment"><div class="comment cmt"><p>ContainerResourceMetricSource indicates how to scale on a resource metric known to Kubernetes, as specified in requests and limits, describing each pod in the current scale target (e.g. CPU or memory).  The values will be averaged together before being compared to the target.  Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the &quot;pods&quot; source.  Only one &quot;target&quot; type should be set.
-</p></div><dl class="paramcmts block"><dt class="param">container</dt><dd class="cmt"><p>container is the name of the container in the pods of the scaling target</p></dd><dt class="param">name</dt><dd class="cmt"><p>name is the name of the resource in question.</p></dd></dl></div>
+      <p class="shortcomment cmt">ContainerResourceMetricSource indicates how to scale on a resource metric known to Kubernetes,
+as specified in requests and limits, describing each pod in the current scale target (e.g.</p><div class="fullcomment"><div class="comment cmt"><p>ContainerResourceMetricSource indicates how to scale on a resource metric known to Kubernetes,
+as specified in requests and limits, describing each pod in the current scale target (e.g. CPU
+or memory). The values will be averaged together before being compared to the target. Such
+metrics are built in to Kubernetes, and have special scaling options on top of those available
+to normal per-pod metrics using the &quot;pods&quot; source. Only one &quot;target&quot; type should be set.
+</p></div><dl class="paramcmts block"><dt class="param">container</dt><dd class="cmt"><p>
+  container is the name of the container in the pods of the scaling target</p></dd><dt class="param">name</dt><dd class="cmt"><p>
+  name is the name of the resource in question.</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.autoscaling.v2beta2.ContainerResourceMetricSourceFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="ContainerResourceMetricSourceFieldsextendsAnyRef"></a><a id="ContainerResourceMetricSourceFields:ContainerResourceMetricSourceFields"></a>
       <span class="permalink">
@@ -508,8 +515,16 @@
         <a title="ContainerResourceMetricStatus indicates the current value of a resource metric known to Kubernetes, as specified in requests and limits, describing a single container in each pod in the current scale target (e.g." href="ContainerResourceMetricStatus.html"><span class="name">ContainerResourceMetricStatus</span></a><span class="params">(<span name="container">container: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="current">current: <a href="MetricValueStatus.html" class="extype" name="com.coralogix.zio.k8s.model.autoscaling.v2beta2.MetricValueStatus">MetricValueStatus</a></span>, <span name="name">name: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
-      <p class="shortcomment cmt">ContainerResourceMetricStatus indicates the current value of a resource metric known to Kubernetes, as specified in requests and limits, describing a single container in each pod in the current scale target (e.g.</p><div class="fullcomment"><div class="comment cmt"><p>ContainerResourceMetricStatus indicates the current value of a resource metric known to Kubernetes, as specified in requests and limits, describing a single container in each pod in the current scale target (e.g. CPU or memory).  Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the &quot;pods&quot; source.
-</p></div><dl class="paramcmts block"><dt class="param">container</dt><dd class="cmt"><p>Container is the name of the container in the pods of the scaling target</p></dd><dt class="param">name</dt><dd class="cmt"><p>Name is the name of the resource in question.</p></dd></dl></div>
+      <p class="shortcomment cmt">ContainerResourceMetricStatus indicates the current value of a resource metric known to
+Kubernetes, as specified in requests and limits, describing a single container in each pod in
+the current scale target (e.g.</p><div class="fullcomment"><div class="comment cmt"><p>ContainerResourceMetricStatus indicates the current value of a resource metric known to
+Kubernetes, as specified in requests and limits, describing a single container in each pod in
+the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have
+special scaling options on top of those available to normal per-pod metrics using the &quot;pods&quot;
+source.
+</p></div><dl class="paramcmts block"><dt class="param">container</dt><dd class="cmt"><p>
+  Container is the name of the container in the pods of the scaling target</p></dd><dt class="param">name</dt><dd class="cmt"><p>
+  Name is the name of the resource in question.</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.autoscaling.v2beta2.ContainerResourceMetricStatusFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="ContainerResourceMetricStatusFieldsextendsAnyRef"></a><a id="ContainerResourceMetricStatusFields:ContainerResourceMetricStatusFields"></a>
       <span class="permalink">
@@ -541,8 +556,14 @@
         <a title="CrossVersionObjectReference contains enough information to let you identify the referred resource." href="CrossVersionObjectReference.html"><span class="name">CrossVersionObjectReference</span></a><span class="params">(<span name="apiVersion">apiVersion: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="kind">kind: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="name">name: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
-      <p class="shortcomment cmt">CrossVersionObjectReference contains enough information to let you identify the referred resource.</p><div class="fullcomment"><div class="comment cmt"><p>CrossVersionObjectReference contains enough information to let you identify the referred resource.
-</p></div><dl class="paramcmts block"><dt class="param">apiVersion</dt><dd class="cmt"><p>API version of the referent</p></dd><dt class="param">kind</dt><dd class="cmt"><p>Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds&quot;</p></dd><dt class="param">name</dt><dd class="cmt"><p>Name of the referent; More info: http://kubernetes.io/docs/user-guide/identifiers#names</p></dd></dl></div>
+      <p class="shortcomment cmt">CrossVersionObjectReference contains enough information to let you identify the referred
+resource.</p><div class="fullcomment"><div class="comment cmt"><p>CrossVersionObjectReference contains enough information to let you identify the referred
+resource.
+</p></div><dl class="paramcmts block"><dt class="param">apiVersion</dt><dd class="cmt"><p>
+  API version of the referent</p></dd><dt class="param">kind</dt><dd class="cmt"><p>
+  Kind of the referent; More info:
+  https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds&quot;</p></dd><dt class="param">name</dt><dd class="cmt"><p>
+  Name of the referent; More info: http://kubernetes.io/docs/user-guide/identifiers#names</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.autoscaling.v2beta2.CrossVersionObjectReferenceFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="CrossVersionObjectReferenceFieldsextendsAnyRef"></a><a id="CrossVersionObjectReferenceFields:CrossVersionObjectReferenceFields"></a>
       <span class="permalink">
@@ -574,7 +595,9 @@
         <a title="ExternalMetricSource indicates how to scale on a metric not associated with any Kubernetes object (for example length of queue in cloud messaging service, or QPS from loadbalancer running outside of cluster)." href="ExternalMetricSource.html"><span class="name">ExternalMetricSource</span></a><span class="params">(<span name="metric">metric: <a href="MetricIdentifier.html" class="extype" name="com.coralogix.zio.k8s.model.autoscaling.v2beta2.MetricIdentifier">MetricIdentifier</a></span>, <span name="target">target: <a href="MetricTarget.html" class="extype" name="com.coralogix.zio.k8s.model.autoscaling.v2beta2.MetricTarget">MetricTarget</a></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
-      <p class="shortcomment cmt">ExternalMetricSource indicates how to scale on a metric not associated with any Kubernetes object (for example length of queue in cloud messaging service, or QPS from loadbalancer running outside of cluster).</p>
+      <p class="shortcomment cmt">ExternalMetricSource indicates how to scale on a metric not associated with any Kubernetes
+object (for example length of queue in cloud messaging service, or QPS from loadbalancer running
+outside of cluster).</p>
     </li><li name="com.coralogix.zio.k8s.model.autoscaling.v2beta2.ExternalMetricSourceFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="ExternalMetricSourceFieldsextendsAnyRef"></a><a id="ExternalMetricSourceFields:ExternalMetricSourceFields"></a>
       <span class="permalink">
@@ -606,7 +629,8 @@
         <a title="ExternalMetricStatus indicates the current value of a global metric not associated with any Kubernetes object." href="ExternalMetricStatus.html"><span class="name">ExternalMetricStatus</span></a><span class="params">(<span name="current">current: <a href="MetricValueStatus.html" class="extype" name="com.coralogix.zio.k8s.model.autoscaling.v2beta2.MetricValueStatus">MetricValueStatus</a></span>, <span name="metric">metric: <a href="MetricIdentifier.html" class="extype" name="com.coralogix.zio.k8s.model.autoscaling.v2beta2.MetricIdentifier">MetricIdentifier</a></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
-      <p class="shortcomment cmt">ExternalMetricStatus indicates the current value of a global metric not associated with any Kubernetes object.</p>
+      <p class="shortcomment cmt">ExternalMetricStatus indicates the current value of a global metric not associated with any
+Kubernetes object.</p>
     </li><li name="com.coralogix.zio.k8s.model.autoscaling.v2beta2.ExternalMetricStatusFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="ExternalMetricStatusFieldsextendsAnyRef"></a><a id="ExternalMetricStatusFields:ExternalMetricStatusFields"></a>
       <span class="permalink">
@@ -639,7 +663,12 @@
       </span>
       
       <p class="shortcomment cmt">HPAScalingPolicy is a single policy which must hold true for a specified past interval.</p><div class="fullcomment"><div class="comment cmt"><p>HPAScalingPolicy is a single policy which must hold true for a specified past interval.
-</p></div><dl class="paramcmts block"><dt class="param">periodSeconds</dt><dd class="cmt"><p>PeriodSeconds specifies the window of time for which the policy should hold true. PeriodSeconds must be greater than zero and less than or equal to 1800 (30 min).</p></dd><dt class="param">type</dt><dd class="cmt"><p>Type is used to specify the scaling policy.</p></dd><dt class="param">value</dt><dd class="cmt"><p>Value contains the amount of change which is permitted by the policy. It must be greater than zero</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="param">periodSeconds</dt><dd class="cmt"><p>
+  PeriodSeconds specifies the window of time for which the policy should hold true.
+  PeriodSeconds must be greater than zero and less than or equal to 1800 (30 min).</p></dd><dt class="param">type</dt><dd class="cmt"><p>
+  Type is used to specify the scaling policy.</p></dd><dt class="param">value</dt><dd class="cmt"><p>
+  Value contains the amount of change which is permitted by the policy. It must be greater than
+  zero</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.autoscaling.v2beta2.HPAScalingPolicyFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="HPAScalingPolicyFieldsextendsAnyRef"></a><a id="HPAScalingPolicyFields:HPAScalingPolicyFields"></a>
       <span class="permalink">
@@ -671,8 +700,21 @@
         <a title="HPAScalingRules configures the scaling behavior for one direction." href="HPAScalingRules.html"><span class="name">HPAScalingRules</span></a><span class="params">(<span name="policies">policies: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="HPAScalingPolicy.html" class="extype" name="com.coralogix.zio.k8s.model.autoscaling.v2beta2.HPAScalingPolicy">HPAScalingPolicy</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="selectPolicy">selectPolicy: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="stabilizationWindowSeconds">stabilizationWindowSeconds: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
-      <p class="shortcomment cmt">HPAScalingRules configures the scaling behavior for one direction.</p><div class="fullcomment"><div class="comment cmt"><p>HPAScalingRules configures the scaling behavior for one direction. These Rules are applied after calculating DesiredReplicas from metrics for the HPA. They can limit the scaling velocity by specifying scaling policies. They can prevent flapping by specifying the stabilization window, so that the number of replicas is not set instantly, instead, the safest value from the stabilization window is chosen.
-</p></div><dl class="paramcmts block"><dt class="param">policies</dt><dd class="cmt"><p>policies is a list of potential scaling polices which can be used during scaling. At least one policy must be specified, otherwise the HPAScalingRules will be discarded as invalid</p></dd><dt class="param">selectPolicy</dt><dd class="cmt"><p>selectPolicy is used to specify which policy should be used. If not set, the default value MaxPolicySelect is used.</p></dd><dt class="param">stabilizationWindowSeconds</dt><dd class="cmt"><p>StabilizationWindowSeconds is the number of seconds for which past recommendations should be considered while scaling up or scaling down. StabilizationWindowSeconds must be greater than or equal to zero and less than or equal to 3600 (one hour). If not set, use the default values: - For scale up: 0 (i.e. no stabilization is done). - For scale down: 300 (i.e. the stabilization window is 300 seconds long).</p></dd></dl></div>
+      <p class="shortcomment cmt">HPAScalingRules configures the scaling behavior for one direction.</p><div class="fullcomment"><div class="comment cmt"><p>HPAScalingRules configures the scaling behavior for one direction. These Rules are applied after
+calculating DesiredReplicas from metrics for the HPA. They can limit the scaling velocity by
+specifying scaling policies. They can prevent flapping by specifying the stabilization window,
+so that the number of replicas is not set instantly, instead, the safest value from the
+stabilization window is chosen.
+</p></div><dl class="paramcmts block"><dt class="param">policies</dt><dd class="cmt"><p>
+  policies is a list of potential scaling polices which can be used during scaling. At least one
+  policy must be specified, otherwise the HPAScalingRules will be discarded as invalid</p></dd><dt class="param">selectPolicy</dt><dd class="cmt"><p>
+  selectPolicy is used to specify which policy should be used. If not set, the default value
+  MaxPolicySelect is used.</p></dd><dt class="param">stabilizationWindowSeconds</dt><dd class="cmt"><p>
+  StabilizationWindowSeconds is the number of seconds for which past recommendations should be
+  considered while scaling up or scaling down. StabilizationWindowSeconds must be greater than
+  or equal to zero and less than or equal to 3600 (one hour). If not set, use the default
+  values: - For scale up: 0 (i.e. no stabilization is done). - For scale down: 300 (i.e. the
+  stabilization window is 300 seconds long).</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.autoscaling.v2beta2.HPAScalingRulesFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="HPAScalingRulesFieldsextendsAnyRef"></a><a id="HPAScalingRulesFields:HPAScalingRulesFields"></a>
       <span class="permalink">
@@ -704,7 +746,9 @@
         <a title="HorizontalPodAutoscaler is the configuration for a horizontal pod autoscaler, which automatically manages the replica count of any resource implementing the scale subresource based on the metrics specified." href="HorizontalPodAutoscaler.html"><span class="name">HorizontalPodAutoscaler</span></a><span class="params">(<span name="metadata">metadata: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="../../pkg/apis/meta/v1/ObjectMeta.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.ObjectMeta">ObjectMeta</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="spec">spec: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="HorizontalPodAutoscalerSpec.html" class="extype" name="com.coralogix.zio.k8s.model.autoscaling.v2beta2.HorizontalPodAutoscalerSpec">HorizontalPodAutoscalerSpec</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="status">status: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="HorizontalPodAutoscalerStatus.html" class="extype" name="com.coralogix.zio.k8s.model.autoscaling.v2beta2.HorizontalPodAutoscalerStatus">HorizontalPodAutoscalerStatus</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
-      <p class="shortcomment cmt">HorizontalPodAutoscaler is the configuration for a horizontal pod autoscaler, which automatically manages the replica count of any resource implementing the scale subresource based on the metrics specified.</p>
+      <p class="shortcomment cmt">HorizontalPodAutoscaler is the configuration for a horizontal pod autoscaler, which
+automatically manages the replica count of any resource implementing the scale subresource based
+on the metrics specified.</p>
     </li><li name="com.coralogix.zio.k8s.model.autoscaling.v2beta2.HorizontalPodAutoscalerBehavior" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="HorizontalPodAutoscalerBehaviorextendsProductwithSerializable"></a><a id="HorizontalPodAutoscalerBehavior:HorizontalPodAutoscalerBehavior"></a>
       <span class="permalink">
@@ -720,7 +764,8 @@
         <a title="HorizontalPodAutoscalerBehavior configures the scaling behavior of the target in both Up and Down directions (scaleUp and scaleDown fields respectively)." href="HorizontalPodAutoscalerBehavior.html"><span class="name">HorizontalPodAutoscalerBehavior</span></a><span class="params">(<span name="scaleDown">scaleDown: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="HPAScalingRules.html" class="extype" name="com.coralogix.zio.k8s.model.autoscaling.v2beta2.HPAScalingRules">HPAScalingRules</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="scaleUp">scaleUp: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="HPAScalingRules.html" class="extype" name="com.coralogix.zio.k8s.model.autoscaling.v2beta2.HPAScalingRules">HPAScalingRules</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
-      <p class="shortcomment cmt">HorizontalPodAutoscalerBehavior configures the scaling behavior of the target in both Up and Down directions (scaleUp and scaleDown fields respectively).</p>
+      <p class="shortcomment cmt">HorizontalPodAutoscalerBehavior configures the scaling behavior of the target in both Up and
+Down directions (scaleUp and scaleDown fields respectively).</p>
     </li><li name="com.coralogix.zio.k8s.model.autoscaling.v2beta2.HorizontalPodAutoscalerBehaviorFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="HorizontalPodAutoscalerBehaviorFieldsextendsAnyRef"></a><a id="HorizontalPodAutoscalerBehaviorFields:HorizontalPodAutoscalerBehaviorFields"></a>
       <span class="permalink">
@@ -752,8 +797,14 @@
         <a title="HorizontalPodAutoscalerCondition describes the state of a HorizontalPodAutoscaler at a certain point." href="HorizontalPodAutoscalerCondition.html"><span class="name">HorizontalPodAutoscalerCondition</span></a><span class="params">(<span name="lastTransitionTime">lastTransitionTime: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="../../pkg/apis/meta/v1/Time.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Time">Time</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="message">message: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="reason">reason: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="status">status: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="type">type: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
-      <p class="shortcomment cmt">HorizontalPodAutoscalerCondition describes the state of a HorizontalPodAutoscaler at a certain point.</p><div class="fullcomment"><div class="comment cmt"><p>HorizontalPodAutoscalerCondition describes the state of a HorizontalPodAutoscaler at a certain point.
-</p></div><dl class="paramcmts block"><dt class="param">message</dt><dd class="cmt"><p>message is a human-readable explanation containing details about the transition</p></dd><dt class="param">reason</dt><dd class="cmt"><p>reason is the reason for the condition's last transition.</p></dd><dt class="param">status</dt><dd class="cmt"><p>status is the status of the condition (True, False, Unknown)</p></dd><dt class="param">type</dt><dd class="cmt"><p>type describes the current condition</p></dd></dl></div>
+      <p class="shortcomment cmt">HorizontalPodAutoscalerCondition describes the state of a HorizontalPodAutoscaler at a certain
+point.</p><div class="fullcomment"><div class="comment cmt"><p>HorizontalPodAutoscalerCondition describes the state of a HorizontalPodAutoscaler at a certain
+point.
+</p></div><dl class="paramcmts block"><dt class="param">message</dt><dd class="cmt"><p>
+  message is a human-readable explanation containing details about the transition</p></dd><dt class="param">reason</dt><dd class="cmt"><p>
+  reason is the reason for the condition's last transition.</p></dd><dt class="param">status</dt><dd class="cmt"><p>
+  status is the status of the condition (True, False, Unknown)</p></dd><dt class="param">type</dt><dd class="cmt"><p>
+  type describes the current condition</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.autoscaling.v2beta2.HorizontalPodAutoscalerConditionFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="HorizontalPodAutoscalerConditionFieldsextendsAnyRef"></a><a id="HorizontalPodAutoscalerConditionFields:HorizontalPodAutoscalerConditionFields"></a>
       <span class="permalink">
@@ -802,7 +853,20 @@
       </span>
       
       <p class="shortcomment cmt">HorizontalPodAutoscalerSpec describes the desired functionality of the HorizontalPodAutoscaler.</p><div class="fullcomment"><div class="comment cmt"><p>HorizontalPodAutoscalerSpec describes the desired functionality of the HorizontalPodAutoscaler.
-</p></div><dl class="paramcmts block"><dt class="param">maxReplicas</dt><dd class="cmt"><p>maxReplicas is the upper limit for the number of replicas to which the autoscaler can scale up. It cannot be less that minReplicas.</p></dd><dt class="param">metrics</dt><dd class="cmt"><p>metrics contains the specifications for which to use to calculate the desired replica count (the maximum replica count across all metrics will be used).  The desired replica count is calculated multiplying the ratio between the target value and the current value by the current number of pods.  Ergo, metrics used must decrease as the pod count is increased, and vice-versa.  See the individual metric source types for more information about how each type of metric must respond. If not set, the default metric will be set to 80% average CPU utilization.</p></dd><dt class="param">minReplicas</dt><dd class="cmt"><p>minReplicas is the lower limit for the number of replicas to which the autoscaler can scale down.  It defaults to 1 pod.  minReplicas is allowed to be 0 if the alpha feature gate HPAScaleToZero is enabled and at least one Object or External metric is configured.  Scaling is active as long as at least one metric value is available.</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="param">maxReplicas</dt><dd class="cmt"><p>
+  maxReplicas is the upper limit for the number of replicas to which the autoscaler can scale
+  up. It cannot be less that minReplicas.</p></dd><dt class="param">metrics</dt><dd class="cmt"><p>
+  metrics contains the specifications for which to use to calculate the desired replica count
+  (the maximum replica count across all metrics will be used). The desired replica count is
+  calculated multiplying the ratio between the target value and the current value by the current
+  number of pods. Ergo, metrics used must decrease as the pod count is increased, and
+  vice-versa. See the individual metric source types for more information about how each type of
+  metric must respond. If not set, the default metric will be set to 80% average CPU
+  utilization.</p></dd><dt class="param">minReplicas</dt><dd class="cmt"><p>
+  minReplicas is the lower limit for the number of replicas to which the autoscaler can scale
+  down. It defaults to 1 pod. minReplicas is allowed to be 0 if the alpha feature gate
+  HPAScaleToZero is enabled and at least one Object or External metric is configured. Scaling is
+  active as long as at least one metric value is available.</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.autoscaling.v2beta2.HorizontalPodAutoscalerSpecFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="HorizontalPodAutoscalerSpecFieldsextendsAnyRef"></a><a id="HorizontalPodAutoscalerSpecFields:HorizontalPodAutoscalerSpecFields"></a>
       <span class="permalink">
@@ -835,7 +899,15 @@
       </span>
       
       <p class="shortcomment cmt">HorizontalPodAutoscalerStatus describes the current status of a horizontal pod autoscaler.</p><div class="fullcomment"><div class="comment cmt"><p>HorizontalPodAutoscalerStatus describes the current status of a horizontal pod autoscaler.
-</p></div><dl class="paramcmts block"><dt class="param">conditions</dt><dd class="cmt"><p>conditions is the set of conditions required for this autoscaler to scale its target, and indicates whether or not those conditions are met.</p></dd><dt class="param">currentMetrics</dt><dd class="cmt"><p>currentMetrics is the last read state of the metrics used by this autoscaler.</p></dd><dt class="param">currentReplicas</dt><dd class="cmt"><p>currentReplicas is current number of replicas of pods managed by this autoscaler, as last seen by the autoscaler.</p></dd><dt class="param">desiredReplicas</dt><dd class="cmt"><p>desiredReplicas is the desired number of replicas of pods managed by this autoscaler, as last calculated by the autoscaler.</p></dd><dt class="param">observedGeneration</dt><dd class="cmt"><p>observedGeneration is the most recent generation observed by this autoscaler.</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="param">conditions</dt><dd class="cmt"><p>
+  conditions is the set of conditions required for this autoscaler to scale its target, and
+  indicates whether or not those conditions are met.</p></dd><dt class="param">currentMetrics</dt><dd class="cmt"><p>
+  currentMetrics is the last read state of the metrics used by this autoscaler.</p></dd><dt class="param">currentReplicas</dt><dd class="cmt"><p>
+  currentReplicas is current number of replicas of pods managed by this autoscaler, as last seen
+  by the autoscaler.</p></dd><dt class="param">desiredReplicas</dt><dd class="cmt"><p>
+  desiredReplicas is the desired number of replicas of pods managed by this autoscaler, as last
+  calculated by the autoscaler.</p></dd><dt class="param">observedGeneration</dt><dd class="cmt"><p>
+  observedGeneration is the most recent generation observed by this autoscaler.</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.autoscaling.v2beta2.HorizontalPodAutoscalerStatusFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="HorizontalPodAutoscalerStatusFieldsextendsAnyRef"></a><a id="HorizontalPodAutoscalerStatusFields:HorizontalPodAutoscalerStatusFields"></a>
       <span class="permalink">
@@ -869,7 +941,8 @@
       
       <p class="shortcomment cmt">MetricIdentifier defines the name and optionally selector for a metric
 </p><div class="fullcomment"><div class="comment cmt"><p>MetricIdentifier defines the name and optionally selector for a metric
-</p></div><dl class="paramcmts block"><dt class="param">name</dt><dd class="cmt"><p>name is the name of the given metric</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="param">name</dt><dd class="cmt"><p>
+  name is the name of the given metric</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.autoscaling.v2beta2.MetricIdentifierFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="MetricIdentifierFieldsextendsAnyRef"></a><a id="MetricIdentifierFields:MetricIdentifierFields"></a>
       <span class="permalink">
@@ -901,8 +974,13 @@
         <a title="MetricSpec specifies how to scale based on a single metric (only type and one other matching field should be set at once)." href="MetricSpec.html"><span class="name">MetricSpec</span></a><span class="params">(<span name="containerResource">containerResource: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="ContainerResourceMetricSource.html" class="extype" name="com.coralogix.zio.k8s.model.autoscaling.v2beta2.ContainerResourceMetricSource">ContainerResourceMetricSource</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="external">external: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="ExternalMetricSource.html" class="extype" name="com.coralogix.zio.k8s.model.autoscaling.v2beta2.ExternalMetricSource">ExternalMetricSource</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="object">object: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="ObjectMetricSource.html" class="extype" name="com.coralogix.zio.k8s.model.autoscaling.v2beta2.ObjectMetricSource">ObjectMetricSource</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="pods">pods: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="PodsMetricSource.html" class="extype" name="com.coralogix.zio.k8s.model.autoscaling.v2beta2.PodsMetricSource">PodsMetricSource</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="resource">resource: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="ResourceMetricSource.html" class="extype" name="com.coralogix.zio.k8s.model.autoscaling.v2beta2.ResourceMetricSource">ResourceMetricSource</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="type">type: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
-      <p class="shortcomment cmt">MetricSpec specifies how to scale based on a single metric (only <code>type</code> and one other matching field should be set at once).</p><div class="fullcomment"><div class="comment cmt"><p>MetricSpec specifies how to scale based on a single metric (only <code>type</code> and one other matching field should be set at once).
-</p></div><dl class="paramcmts block"><dt class="param">type</dt><dd class="cmt"><p>type is the type of metric source.  It should be one of &quot;ContainerResource&quot;, &quot;External&quot;, &quot;Object&quot;, &quot;Pods&quot; or &quot;Resource&quot;, each mapping to a matching field in the object. Note: &quot;ContainerResource&quot; type is available on when the feature-gate HPAContainerMetrics is enabled</p></dd></dl></div>
+      <p class="shortcomment cmt">MetricSpec specifies how to scale based on a single metric (only <code>type</code> and one other matching
+field should be set at once).</p><div class="fullcomment"><div class="comment cmt"><p>MetricSpec specifies how to scale based on a single metric (only <code>type</code> and one other matching
+field should be set at once).
+</p></div><dl class="paramcmts block"><dt class="param">type</dt><dd class="cmt"><p>
+  type is the type of metric source. It should be one of &quot;ContainerResource&quot;, &quot;External&quot;,
+  &quot;Object&quot;, &quot;Pods&quot; or &quot;Resource&quot;, each mapping to a matching field in the object. Note:
+  &quot;ContainerResource&quot; type is available on when the feature-gate HPAContainerMetrics is enabled</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.autoscaling.v2beta2.MetricSpecFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="MetricSpecFieldsextendsAnyRef"></a><a id="MetricSpecFields:MetricSpecFields"></a>
       <span class="permalink">
@@ -935,7 +1013,10 @@
       </span>
       
       <p class="shortcomment cmt">MetricStatus describes the last-read state of a single metric.</p><div class="fullcomment"><div class="comment cmt"><p>MetricStatus describes the last-read state of a single metric.
-</p></div><dl class="paramcmts block"><dt class="param">type</dt><dd class="cmt"><p>type is the type of metric source.  It will be one of &quot;ContainerResource&quot;, &quot;External&quot;, &quot;Object&quot;, &quot;Pods&quot; or &quot;Resource&quot;, each corresponds to a matching field in the object. Note: &quot;ContainerResource&quot; type is available on when the feature-gate HPAContainerMetrics is enabled</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="param">type</dt><dd class="cmt"><p>
+  type is the type of metric source. It will be one of &quot;ContainerResource&quot;, &quot;External&quot;,
+  &quot;Object&quot;, &quot;Pods&quot; or &quot;Resource&quot;, each corresponds to a matching field in the object. Note:
+  &quot;ContainerResource&quot; type is available on when the feature-gate HPAContainerMetrics is enabled</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.autoscaling.v2beta2.MetricStatusFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="MetricStatusFieldsextendsAnyRef"></a><a id="MetricStatusFields:MetricStatusFields"></a>
       <span class="permalink">
@@ -967,9 +1048,15 @@
         <a title="MetricTarget defines the target value, average value, or average utilization of a specific metric" href="MetricTarget.html"><span class="name">MetricTarget</span></a><span class="params">(<span name="averageUtilization">averageUtilization: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="averageValue">averageValue: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="../../pkg/api/resource/Quantity.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.api.resource.Quantity">Quantity</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="type">type: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="value">value: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="../../pkg/api/resource/Quantity.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.api.resource.Quantity">Quantity</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
-      <p class="shortcomment cmt">MetricTarget defines the target value, average value, or average utilization of a specific metric
-</p><div class="fullcomment"><div class="comment cmt"><p>MetricTarget defines the target value, average value, or average utilization of a specific metric
-</p></div><dl class="paramcmts block"><dt class="param">averageUtilization</dt><dd class="cmt"><p>averageUtilization is the target value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods. Currently only valid for Resource metric source type</p></dd><dt class="param">type</dt><dd class="cmt"><p>type represents whether the metric type is Utilization, Value, or AverageValue</p></dd></dl></div>
+      <p class="shortcomment cmt">MetricTarget defines the target value, average value, or average utilization of a specific
+metric
+</p><div class="fullcomment"><div class="comment cmt"><p>MetricTarget defines the target value, average value, or average utilization of a specific
+metric
+</p></div><dl class="paramcmts block"><dt class="param">averageUtilization</dt><dd class="cmt"><p>
+  averageUtilization is the target value of the average of the resource metric across all
+  relevant pods, represented as a percentage of the requested value of the resource for the
+  pods. Currently only valid for Resource metric source type</p></dd><dt class="param">type</dt><dd class="cmt"><p>
+  type represents whether the metric type is Utilization, Value, or AverageValue</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.autoscaling.v2beta2.MetricTargetFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="MetricTargetFieldsextendsAnyRef"></a><a id="MetricTargetFields:MetricTargetFields"></a>
       <span class="permalink">
@@ -1003,7 +1090,10 @@
       
       <p class="shortcomment cmt">MetricValueStatus holds the current value for a metric
 </p><div class="fullcomment"><div class="comment cmt"><p>MetricValueStatus holds the current value for a metric
-</p></div><dl class="paramcmts block"><dt class="param">averageUtilization</dt><dd class="cmt"><p>currentAverageUtilization is the current value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods.</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="param">averageUtilization</dt><dd class="cmt"><p>
+  currentAverageUtilization is the current value of the average of the resource metric across
+  all relevant pods, represented as a percentage of the requested value of the resource for the
+  pods.</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.autoscaling.v2beta2.MetricValueStatusFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="MetricValueStatusFieldsextendsAnyRef"></a><a id="MetricValueStatusFields:MetricValueStatusFields"></a>
       <span class="permalink">
@@ -1035,7 +1125,8 @@
         <a title="ObjectMetricSource indicates how to scale on a metric describing a kubernetes object (for example, hits-per-second on an Ingress object)." href="ObjectMetricSource.html"><span class="name">ObjectMetricSource</span></a><span class="params">(<span name="describedObject">describedObject: <a href="CrossVersionObjectReference.html" class="extype" name="com.coralogix.zio.k8s.model.autoscaling.v2beta2.CrossVersionObjectReference">CrossVersionObjectReference</a></span>, <span name="metric">metric: <a href="MetricIdentifier.html" class="extype" name="com.coralogix.zio.k8s.model.autoscaling.v2beta2.MetricIdentifier">MetricIdentifier</a></span>, <span name="target">target: <a href="MetricTarget.html" class="extype" name="com.coralogix.zio.k8s.model.autoscaling.v2beta2.MetricTarget">MetricTarget</a></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
-      <p class="shortcomment cmt">ObjectMetricSource indicates how to scale on a metric describing a kubernetes object (for example, hits-per-second on an Ingress object).</p>
+      <p class="shortcomment cmt">ObjectMetricSource indicates how to scale on a metric describing a kubernetes object (for
+example, hits-per-second on an Ingress object).</p>
     </li><li name="com.coralogix.zio.k8s.model.autoscaling.v2beta2.ObjectMetricSourceFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="ObjectMetricSourceFieldsextendsAnyRef"></a><a id="ObjectMetricSourceFields:ObjectMetricSourceFields"></a>
       <span class="permalink">
@@ -1067,7 +1158,8 @@
         <a title="ObjectMetricStatus indicates the current value of a metric describing a kubernetes object (for example, hits-per-second on an Ingress object)." href="ObjectMetricStatus.html"><span class="name">ObjectMetricStatus</span></a><span class="params">(<span name="current">current: <a href="MetricValueStatus.html" class="extype" name="com.coralogix.zio.k8s.model.autoscaling.v2beta2.MetricValueStatus">MetricValueStatus</a></span>, <span name="describedObject">describedObject: <a href="CrossVersionObjectReference.html" class="extype" name="com.coralogix.zio.k8s.model.autoscaling.v2beta2.CrossVersionObjectReference">CrossVersionObjectReference</a></span>, <span name="metric">metric: <a href="MetricIdentifier.html" class="extype" name="com.coralogix.zio.k8s.model.autoscaling.v2beta2.MetricIdentifier">MetricIdentifier</a></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
-      <p class="shortcomment cmt">ObjectMetricStatus indicates the current value of a metric describing a kubernetes object (for example, hits-per-second on an Ingress object).</p>
+      <p class="shortcomment cmt">ObjectMetricStatus indicates the current value of a metric describing a kubernetes object (for
+example, hits-per-second on an Ingress object).</p>
     </li><li name="com.coralogix.zio.k8s.model.autoscaling.v2beta2.ObjectMetricStatusFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="ObjectMetricStatusFieldsextendsAnyRef"></a><a id="ObjectMetricStatusFields:ObjectMetricStatusFields"></a>
       <span class="permalink">
@@ -1099,7 +1191,10 @@
         <a title="PodsMetricSource indicates how to scale on a metric describing each pod in the current scale target (for example, transactions-processed-per-second)." href="PodsMetricSource.html"><span class="name">PodsMetricSource</span></a><span class="params">(<span name="metric">metric: <a href="MetricIdentifier.html" class="extype" name="com.coralogix.zio.k8s.model.autoscaling.v2beta2.MetricIdentifier">MetricIdentifier</a></span>, <span name="target">target: <a href="MetricTarget.html" class="extype" name="com.coralogix.zio.k8s.model.autoscaling.v2beta2.MetricTarget">MetricTarget</a></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
-      <p class="shortcomment cmt">PodsMetricSource indicates how to scale on a metric describing each pod in the current scale target (for example, transactions-processed-per-second).</p><div class="fullcomment"><div class="comment cmt"><p>PodsMetricSource indicates how to scale on a metric describing each pod in the current scale target (for example, transactions-processed-per-second). The values will be averaged together before being compared to the target value.
+      <p class="shortcomment cmt">PodsMetricSource indicates how to scale on a metric describing each pod in the current scale
+target (for example, transactions-processed-per-second).</p><div class="fullcomment"><div class="comment cmt"><p>PodsMetricSource indicates how to scale on a metric describing each pod in the current scale
+target (for example, transactions-processed-per-second). The values will be averaged together
+before being compared to the target value.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.autoscaling.v2beta2.PodsMetricSourceFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="PodsMetricSourceFieldsextendsAnyRef"></a><a id="PodsMetricSourceFields:PodsMetricSourceFields"></a>
@@ -1132,7 +1227,8 @@
         <a title="PodsMetricStatus indicates the current value of a metric describing each pod in the current scale target (for example, transactions-processed-per-second)." href="PodsMetricStatus.html"><span class="name">PodsMetricStatus</span></a><span class="params">(<span name="current">current: <a href="MetricValueStatus.html" class="extype" name="com.coralogix.zio.k8s.model.autoscaling.v2beta2.MetricValueStatus">MetricValueStatus</a></span>, <span name="metric">metric: <a href="MetricIdentifier.html" class="extype" name="com.coralogix.zio.k8s.model.autoscaling.v2beta2.MetricIdentifier">MetricIdentifier</a></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
-      <p class="shortcomment cmt">PodsMetricStatus indicates the current value of a metric describing each pod in the current scale target (for example, transactions-processed-per-second).</p>
+      <p class="shortcomment cmt">PodsMetricStatus indicates the current value of a metric describing each pod in the current
+scale target (for example, transactions-processed-per-second).</p>
     </li><li name="com.coralogix.zio.k8s.model.autoscaling.v2beta2.PodsMetricStatusFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="PodsMetricStatusFieldsextendsAnyRef"></a><a id="PodsMetricStatusFields:PodsMetricStatusFields"></a>
       <span class="permalink">
@@ -1164,8 +1260,14 @@
         <a title="ResourceMetricSource indicates how to scale on a resource metric known to Kubernetes, as specified in requests and limits, describing each pod in the current scale target (e.g." href="ResourceMetricSource.html"><span class="name">ResourceMetricSource</span></a><span class="params">(<span name="name">name: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="target">target: <a href="MetricTarget.html" class="extype" name="com.coralogix.zio.k8s.model.autoscaling.v2beta2.MetricTarget">MetricTarget</a></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
-      <p class="shortcomment cmt">ResourceMetricSource indicates how to scale on a resource metric known to Kubernetes, as specified in requests and limits, describing each pod in the current scale target (e.g.</p><div class="fullcomment"><div class="comment cmt"><p>ResourceMetricSource indicates how to scale on a resource metric known to Kubernetes, as specified in requests and limits, describing each pod in the current scale target (e.g. CPU or memory).  The values will be averaged together before being compared to the target.  Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the &quot;pods&quot; source.  Only one &quot;target&quot; type should be set.
-</p></div><dl class="paramcmts block"><dt class="param">name</dt><dd class="cmt"><p>name is the name of the resource in question.</p></dd></dl></div>
+      <p class="shortcomment cmt">ResourceMetricSource indicates how to scale on a resource metric known to Kubernetes, as
+specified in requests and limits, describing each pod in the current scale target (e.g.</p><div class="fullcomment"><div class="comment cmt"><p>ResourceMetricSource indicates how to scale on a resource metric known to Kubernetes, as
+specified in requests and limits, describing each pod in the current scale target (e.g. CPU or
+memory). The values will be averaged together before being compared to the target. Such metrics
+are built in to Kubernetes, and have special scaling options on top of those available to normal
+per-pod metrics using the &quot;pods&quot; source. Only one &quot;target&quot; type should be set.
+</p></div><dl class="paramcmts block"><dt class="param">name</dt><dd class="cmt"><p>
+  name is the name of the resource in question.</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.autoscaling.v2beta2.ResourceMetricSourceFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="ResourceMetricSourceFieldsextendsAnyRef"></a><a id="ResourceMetricSourceFields:ResourceMetricSourceFields"></a>
       <span class="permalink">
@@ -1197,8 +1299,13 @@
         <a title="ResourceMetricStatus indicates the current value of a resource metric known to Kubernetes, as specified in requests and limits, describing each pod in the current scale target (e.g." href="ResourceMetricStatus.html"><span class="name">ResourceMetricStatus</span></a><span class="params">(<span name="current">current: <a href="MetricValueStatus.html" class="extype" name="com.coralogix.zio.k8s.model.autoscaling.v2beta2.MetricValueStatus">MetricValueStatus</a></span>, <span name="name">name: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
-      <p class="shortcomment cmt">ResourceMetricStatus indicates the current value of a resource metric known to Kubernetes, as specified in requests and limits, describing each pod in the current scale target (e.g.</p><div class="fullcomment"><div class="comment cmt"><p>ResourceMetricStatus indicates the current value of a resource metric known to Kubernetes, as specified in requests and limits, describing each pod in the current scale target (e.g. CPU or memory).  Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the &quot;pods&quot; source.
-</p></div><dl class="paramcmts block"><dt class="param">name</dt><dd class="cmt"><p>Name is the name of the resource in question.</p></dd></dl></div>
+      <p class="shortcomment cmt">ResourceMetricStatus indicates the current value of a resource metric known to Kubernetes, as
+specified in requests and limits, describing each pod in the current scale target (e.g.</p><div class="fullcomment"><div class="comment cmt"><p>ResourceMetricStatus indicates the current value of a resource metric known to Kubernetes, as
+specified in requests and limits, describing each pod in the current scale target (e.g. CPU or
+memory). Such metrics are built in to Kubernetes, and have special scaling options on top of
+those available to normal per-pod metrics using the &quot;pods&quot; source.
+</p></div><dl class="paramcmts block"><dt class="param">name</dt><dd class="cmt"><p>
+  Name is the name of the resource in question.</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.autoscaling.v2beta2.ResourceMetricStatusFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="ResourceMetricStatusFieldsextendsAnyRef"></a><a id="ResourceMetricStatusFields:ResourceMetricStatusFields"></a>
       <span class="permalink">

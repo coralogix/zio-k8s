@@ -247,8 +247,8 @@
                         <a href="SelfSubjectRulesReviewFields.html" title="">SelfSubjectRulesReviewFields</a>
                       </li><li class="current-entities indented7">
                         <a class="object" href="SelfSubjectRulesReviewSpec$.html" title=""></a>
-                        <a class="class" href="SelfSubjectRulesReviewSpec.html" title=""></a>
-                        <a href="SelfSubjectRulesReviewSpec.html" title="">SelfSubjectRulesReviewSpec</a>
+                        <a class="class" href="SelfSubjectRulesReviewSpec.html" title="SelfSubjectRulesReviewSpec defines the specification for SelfSubjectRulesReview."></a>
+                        <a href="SelfSubjectRulesReviewSpec.html" title="SelfSubjectRulesReviewSpec defines the specification for SelfSubjectRulesReview.">SelfSubjectRulesReviewSpec</a>
                       </li><li class="current-entities indented7">
                         <span class="separator"></span>
                         <a class="class" href="SelfSubjectRulesReviewSpecFields.html" title=""></a>
@@ -316,7 +316,16 @@
 
       
           <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>SubjectAccessReviewStatus
-</p></div><dl class="paramcmts block"><dt class="param">allowed</dt><dd class="cmt"><p>Allowed is required. True if the action would be allowed, false otherwise.</p></dd><dt class="param">denied</dt><dd class="cmt"><p>Denied is optional. True if the action would be denied, otherwise false. If both allowed is false and denied is false, then the authorizer has no opinion on whether to authorize the action. Denied may not be true if Allowed is true.</p></dd><dt class="param">evaluationError</dt><dd class="cmt"><p>EvaluationError is an indication that some error occurred during the authorization check. It is entirely possible to get an error and be able to continue determine authorization status in spite of it. For instance, RBAC can be missing a role, but enough roles are still present and bound to reason about the request.</p></dd><dt class="param">reason</dt><dd class="cmt"><p>Reason is optional.  It indicates why a request was allowed or denied.</p></dd></dl><div class="toggleContainer block">
+</p></div><dl class="paramcmts block"><dt class="param">allowed</dt><dd class="cmt"><p>
+  Allowed is required. True if the action would be allowed, false otherwise.</p></dd><dt class="param">denied</dt><dd class="cmt"><p>
+  Denied is optional. True if the action would be denied, otherwise false. If both allowed is
+  false and denied is false, then the authorizer has no opinion on whether to authorize the
+  action. Denied may not be true if Allowed is true.</p></dd><dt class="param">evaluationError</dt><dd class="cmt"><p>
+  EvaluationError is an indication that some error occurred during the authorization check. It
+  is entirely possible to get an error and be able to continue determine authorization status in
+  spite of it. For instance, RBAC can be missing a role, but enough roles are still present and
+  bound to reason about the request.</p></dd><dt class="param">reason</dt><dd class="cmt"><p>
+  Reason is optional. It indicates why a request was allowed or denied.</p></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -381,7 +390,16 @@
         <span class="name">SubjectAccessReviewStatus</span><span class="params">(<span name="allowed">allowed: <span class="extype" name="scala.Boolean">Boolean</span></span>, <span name="denied">denied: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Boolean">Boolean</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="evaluationError">evaluationError: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="reason">reason: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span>
       </span>
       
-      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">allowed</dt><dd class="cmt"><p>Allowed is required. True if the action would be allowed, false otherwise.</p></dd><dt class="param">denied</dt><dd class="cmt"><p>Denied is optional. True if the action would be denied, otherwise false. If both allowed is false and denied is false, then the authorizer has no opinion on whether to authorize the action. Denied may not be true if Allowed is true.</p></dd><dt class="param">evaluationError</dt><dd class="cmt"><p>EvaluationError is an indication that some error occurred during the authorization check. It is entirely possible to get an error and be able to continue determine authorization status in spite of it. For instance, RBAC can be missing a role, but enough roles are still present and bound to reason about the request.</p></dd><dt class="param">reason</dt><dd class="cmt"><p>Reason is optional.  It indicates why a request was allowed or denied.</p></dd></dl></div>
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">allowed</dt><dd class="cmt"><p>
+  Allowed is required. True if the action would be allowed, false otherwise.</p></dd><dt class="param">denied</dt><dd class="cmt"><p>
+  Denied is optional. True if the action would be denied, otherwise false. If both allowed is
+  false and denied is false, then the authorizer has no opinion on whether to authorize the
+  action. Denied may not be true if Allowed is true.</p></dd><dt class="param">evaluationError</dt><dd class="cmt"><p>
+  EvaluationError is an indication that some error occurred during the authorization check. It
+  is entirely possible to get an error and be able to continue determine authorization status in
+  spite of it. For instance, RBAC can be missing a role, but enough roles are still present and
+  bound to reason about the request.</p></dd><dt class="param">reason</dt><dd class="cmt"><p>
+  Reason is optional. It indicates why a request was allowed or denied.</p></dd></dl></div>
     </li></ol>
             </div>
 
@@ -599,7 +617,9 @@
         <span class="name">getDenied</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Boolean">Boolean</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">Denied is optional.</p><div class="fullcomment"><div class="comment cmt"><p>Denied is optional. True if the action would be denied, otherwise false. If both allowed is false and denied is false, then the authorizer has no opinion on whether to authorize the action. Denied may not be true if Allowed is true.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">Denied is optional.</p><div class="fullcomment"><div class="comment cmt"><p>Denied is optional. True if the action would be denied, otherwise false. If both allowed is
+false and denied is false, then the authorizer has no opinion on whether to authorize the
+action. Denied may not be true if Allowed is true.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.authorization.v1.SubjectAccessReviewStatus#getEvaluationError" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getEvaluationError:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]"></a><a id="getEvaluationError:IO[K8sFailure,String]"></a>
@@ -616,7 +636,10 @@
         <span class="name">getEvaluationError</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">EvaluationError is an indication that some error occurred during the authorization check.</p><div class="fullcomment"><div class="comment cmt"><p>EvaluationError is an indication that some error occurred during the authorization check. It is entirely possible to get an error and be able to continue determine authorization status in spite of it. For instance, RBAC can be missing a role, but enough roles are still present and bound to reason about the request.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">EvaluationError is an indication that some error occurred during the authorization check.</p><div class="fullcomment"><div class="comment cmt"><p>EvaluationError is an indication that some error occurred during the authorization check. It
+is entirely possible to get an error and be able to continue determine authorization status in
+spite of it. For instance, RBAC can be missing a role, but enough roles are still present and
+bound to reason about the request.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.authorization.v1.SubjectAccessReviewStatus#getReason" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getReason:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]"></a><a id="getReason:IO[K8sFailure,String]"></a>
@@ -633,7 +656,7 @@
         <span class="name">getReason</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">Reason is optional.</p><div class="fullcomment"><div class="comment cmt"><p>Reason is optional.  It indicates why a request was allowed or denied.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">Reason is optional.</p><div class="fullcomment"><div class="comment cmt"><p>Reason is optional. It indicates why a request was allowed or denied.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="scala.Any#isInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isInstanceOf[T0]:Boolean"></a>

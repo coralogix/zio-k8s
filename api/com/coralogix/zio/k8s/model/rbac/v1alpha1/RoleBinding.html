@@ -275,8 +275,13 @@
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>RoleBinding references a role, but does not contain it.  It can reference a Role in the same namespace or a ClusterRole in the global namespace. It adds who information via Subjects and namespace information by which namespace it exists in.  RoleBindings in a given namespace only have effect in that namespace. Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 RoleBinding, and will no longer be served in v1.22.
-</p></div><dl class="paramcmts block"><dt class="param">subjects</dt><dd class="cmt"><p>Subjects holds references to the objects the role applies to.</p></dd></dl><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>RoleBinding references a role, but does not contain it. It can reference a Role in the same
+namespace or a ClusterRole in the global namespace. It adds who information via Subjects and
+namespace information by which namespace it exists in. RoleBindings in a given namespace only
+have effect in that namespace. Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1
+RoleBinding, and will no longer be served in v1.22.
+</p></div><dl class="paramcmts block"><dt class="param">subjects</dt><dd class="cmt"><p>
+  Subjects holds references to the objects the role applies to.</p></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -341,7 +346,8 @@
         <span class="name">RoleBinding</span><span class="params">(<span name="metadata">metadata: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="../../pkg/apis/meta/v1/ObjectMeta.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.ObjectMeta">ObjectMeta</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="roleRef">roleRef: <a href="RoleRef.html" class="extype" name="com.coralogix.zio.k8s.model.rbac.v1alpha1.RoleRef">RoleRef</a></span>, <span name="subjects">subjects: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="Subject.html" class="extype" name="com.coralogix.zio.k8s.model.rbac.v1alpha1.Subject">Subject</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span>
       </span>
       
-      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">subjects</dt><dd class="cmt"><p>Subjects holds references to the objects the role applies to.</p></dd></dl></div>
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">subjects</dt><dd class="cmt"><p>
+  Subjects holds references to the objects the role applies to.</p></dd></dl></div>
     </li></ol>
             </div>
 

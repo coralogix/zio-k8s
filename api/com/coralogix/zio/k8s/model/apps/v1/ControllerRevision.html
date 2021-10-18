@@ -395,8 +395,16 @@
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>ControllerRevision implements an immutable snapshot of state data. Clients are responsible for serializing and deserializing the objects that contain their internal state. Once a ControllerRevision has been successfully created, it can not be updated. The API Server will fail validation of all requests that attempt to mutate the Data field. ControllerRevisions may, however, be deleted. Note that, due to its use by both the DaemonSet and StatefulSet controllers for update and rollback, this object is beta. However, it may be subject to name and representation changes in future releases, and clients should not depend on its stability. It is primarily for internal use by controllers.
-</p></div><dl class="paramcmts block"><dt class="param">revision</dt><dd class="cmt"><p>Revision indicates the revision of the state represented by Data.</p></dd></dl><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>ControllerRevision implements an immutable snapshot of state data. Clients are responsible for
+serializing and deserializing the objects that contain their internal state. Once a
+ControllerRevision has been successfully created, it can not be updated. The API Server will
+fail validation of all requests that attempt to mutate the Data field. ControllerRevisions may,
+however, be deleted. Note that, due to its use by both the DaemonSet and StatefulSet controllers
+for update and rollback, this object is beta. However, it may be subject to name and
+representation changes in future releases, and clients should not depend on its stability. It is
+primarily for internal use by controllers.
+</p></div><dl class="paramcmts block"><dt class="param">revision</dt><dd class="cmt"><p>
+  Revision indicates the revision of the state represented by Data.</p></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -461,7 +469,8 @@
         <span class="name">ControllerRevision</span><span class="params">(<span name="data">data: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="../../pkg/runtime/RawExtension.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.runtime.RawExtension">RawExtension</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="metadata">metadata: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="../../pkg/apis/meta/v1/ObjectMeta.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.ObjectMeta">ObjectMeta</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="revision">revision: <span class="extype" name="scala.Long">Long</span></span>)</span>
       </span>
       
-      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">revision</dt><dd class="cmt"><p>Revision indicates the revision of the state represented by Data.</p></dd></dl></div>
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">revision</dt><dd class="cmt"><p>
+  Revision indicates the revision of the state represented by Data.</p></dd></dl></div>
     </li></ol>
             </div>
 

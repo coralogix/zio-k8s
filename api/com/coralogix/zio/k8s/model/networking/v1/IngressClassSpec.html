@@ -226,6 +226,14 @@
                         <a class="class" href="IngressClassFields.html" title=""></a>
                         <a href="IngressClassFields.html" title="">IngressClassFields</a>
                       </li><li class="current-entities indented7">
+                        <a class="object" href="IngressClassParametersReference$.html" title=""></a>
+                        <a class="class" href="IngressClassParametersReference.html" title="IngressClassParametersReference identifies an API object."></a>
+                        <a href="IngressClassParametersReference.html" title="IngressClassParametersReference identifies an API object.">IngressClassParametersReference</a>
+                      </li><li class="current-entities indented7">
+                        <span class="separator"></span>
+                        <a class="class" href="IngressClassParametersReferenceFields.html" title=""></a>
+                        <a href="IngressClassParametersReferenceFields.html" title="">IngressClassParametersReferenceFields</a>
+                      </li><li class="current-entities indented7">
                         <a class="object" href="IngressClassSpec$.html" title=""></a>
                         <a class="class" href="" title="IngressClassSpec provides information about the class of an Ingress."></a>
                         <a href="" title="IngressClassSpec provides information about the class of an Ingress.">IngressClassSpec</a>
@@ -358,13 +366,18 @@
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <span class="name">IngressClassSpec</span><span class="params">(<span name="controller">controller: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="parameters">parameters: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="../../core/v1/TypedLocalObjectReference.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.TypedLocalObjectReference">TypedLocalObjectReference</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <span class="name">IngressClassSpec</span><span class="params">(<span name="controller">controller: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="parameters">parameters: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="IngressClassParametersReference.html" class="extype" name="com.coralogix.zio.k8s.model.networking.v1.IngressClassParametersReference">IngressClassParametersReference</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       </h4>
 
       
           <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>IngressClassSpec provides information about the class of an Ingress.
-</p></div><dl class="paramcmts block"><dt class="param">controller</dt><dd class="cmt"><p>Controller refers to the name of the controller that should handle this class. This allows for different &quot;flavors&quot; that are controlled by the same controller. For example, you may have different Parameters for the same implementing controller. This should be specified as a domain-prefixed path no more than 250 characters in length, e.g. &quot;acme.io/ingress-controller&quot;. This field is immutable.</p></dd></dl><div class="toggleContainer block">
+</p></div><dl class="paramcmts block"><dt class="param">controller</dt><dd class="cmt"><p>
+  Controller refers to the name of the controller that should handle this class. This allows for
+  different &quot;flavors&quot; that are controlled by the same controller. For example, you may have
+  different Parameters for the same implementing controller. This should be specified as a
+  domain-prefixed path no more than 250 characters in length, e.g. &quot;acme.io/ingress-controller&quot;.
+  This field is immutable.</p></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -415,9 +428,9 @@
         <div id="constructors" class="members">
               <h3>Instance Constructors</h3>
               <ol><li name="com.coralogix.zio.k8s.model.networking.v1.IngressClassSpec#&lt;init&gt;" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="&lt;init&gt;(controller:com.coralogix.zio.k8s.client.model.Optional[String],parameters:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.TypedLocalObjectReference]):com.coralogix.zio.k8s.model.networking.v1.IngressClassSpec"></a><a id="&lt;init&gt;:IngressClassSpec"></a>
+      <a id="&lt;init&gt;(controller:com.coralogix.zio.k8s.client.model.Optional[String],parameters:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.networking.v1.IngressClassParametersReference]):com.coralogix.zio.k8s.model.networking.v1.IngressClassSpec"></a><a id="&lt;init&gt;:IngressClassSpec"></a>
       <span class="permalink">
-      <a href="../../../../../../../com/coralogix/zio/k8s/model/networking/v1/IngressClassSpec.html#&lt;init&gt;(controller:com.coralogix.zio.k8s.client.model.Optional[String],parameters:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.TypedLocalObjectReference]):com.coralogix.zio.k8s.model.networking.v1.IngressClassSpec" title="Permalink">
+      <a href="../../../../../../../com/coralogix/zio/k8s/model/networking/v1/IngressClassSpec.html#&lt;init&gt;(controller:com.coralogix.zio.k8s.client.model.Optional[String],parameters:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.networking.v1.IngressClassParametersReference]):com.coralogix.zio.k8s.model.networking.v1.IngressClassSpec" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -426,10 +439,15 @@
         <span class="kind">new</span>
       </span>
       <span class="symbol">
-        <span class="name">IngressClassSpec</span><span class="params">(<span name="controller">controller: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="parameters">parameters: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="../../core/v1/TypedLocalObjectReference.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.TypedLocalObjectReference">TypedLocalObjectReference</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span>
+        <span class="name">IngressClassSpec</span><span class="params">(<span name="controller">controller: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="parameters">parameters: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="IngressClassParametersReference.html" class="extype" name="com.coralogix.zio.k8s.model.networking.v1.IngressClassParametersReference">IngressClassParametersReference</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span>
       </span>
       
-      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">controller</dt><dd class="cmt"><p>Controller refers to the name of the controller that should handle this class. This allows for different &quot;flavors&quot; that are controlled by the same controller. For example, you may have different Parameters for the same implementing controller. This should be specified as a domain-prefixed path no more than 250 characters in length, e.g. &quot;acme.io/ingress-controller&quot;. This field is immutable.</p></dd></dl></div>
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">controller</dt><dd class="cmt"><p>
+  Controller refers to the name of the controller that should handle this class. This allows for
+  different &quot;flavors&quot; that are controlled by the same controller. For example, you may have
+  different Parameters for the same implementing controller. This should be specified as a
+  domain-prefixed path no more than 250 characters in length, e.g. &quot;acme.io/ingress-controller&quot;.
+  This field is immutable.</p></dd></dl></div>
     </li></ol>
             </div>
 
@@ -598,12 +616,16 @@
         <span class="name">getController</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">Controller refers to the name of the controller that should handle this class.</p><div class="fullcomment"><div class="comment cmt"><p>Controller refers to the name of the controller that should handle this class. This allows for different &quot;flavors&quot; that are controlled by the same controller. For example, you may have different Parameters for the same implementing controller. This should be specified as a domain-prefixed path no more than 250 characters in length, e.g. &quot;acme.io/ingress-controller&quot;. This field is immutable.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">Controller refers to the name of the controller that should handle this class.</p><div class="fullcomment"><div class="comment cmt"><p>Controller refers to the name of the controller that should handle this class. This allows for
+different &quot;flavors&quot; that are controlled by the same controller. For example, you may have
+different Parameters for the same implementing controller. This should be specified as a
+domain-prefixed path no more than 250 characters in length, e.g. &quot;acme.io/ingress-controller&quot;.
+This field is immutable.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.networking.v1.IngressClassSpec#getParameters" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="getParameters:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.model.core.v1.TypedLocalObjectReference]"></a><a id="getParameters:IO[K8sFailure,TypedLocalObjectReference]"></a>
+      <a id="getParameters:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.model.networking.v1.IngressClassParametersReference]"></a><a id="getParameters:IO[K8sFailure,IngressClassParametersReference]"></a>
       <span class="permalink">
-      <a href="../../../../../../../com/coralogix/zio/k8s/model/networking/v1/IngressClassSpec.html#getParameters:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.model.core.v1.TypedLocalObjectReference]" title="Permalink">
+      <a href="../../../../../../../com/coralogix/zio/k8s/model/networking/v1/IngressClassSpec.html#getParameters:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.model.networking.v1.IngressClassParametersReference]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -612,7 +634,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">getParameters</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="../../core/v1/TypedLocalObjectReference.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.TypedLocalObjectReference">TypedLocalObjectReference</a>]</span>
+        <span class="name">getParameters</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="IngressClassParametersReference.html" class="extype" name="com.coralogix.zio.k8s.model.networking.v1.IngressClassParametersReference">IngressClassParametersReference</a>]</span>
       </span>
       
       <p class="shortcomment cmt">Gets parameters.</p><div class="fullcomment"><div class="comment cmt"><p>Gets parameters.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
@@ -692,9 +714,9 @@
               
         </dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.networking.v1.IngressClassSpec#parameters" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="parameters:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.TypedLocalObjectReference]"></a><a id="parameters:Optional[TypedLocalObjectReference]"></a>
+      <a id="parameters:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.networking.v1.IngressClassParametersReference]"></a><a id="parameters:Optional[IngressClassParametersReference]"></a>
       <span class="permalink">
-      <a href="../../../../../../../com/coralogix/zio/k8s/model/networking/v1/IngressClassSpec.html#parameters:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.TypedLocalObjectReference]" title="Permalink">
+      <a href="../../../../../../../com/coralogix/zio/k8s/model/networking/v1/IngressClassSpec.html#parameters:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.networking.v1.IngressClassParametersReference]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -703,7 +725,7 @@
         <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">parameters</span><span class="result">: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="../../core/v1/TypedLocalObjectReference.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.TypedLocalObjectReference">TypedLocalObjectReference</a>]</span>
+        <span class="name">parameters</span><span class="result">: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="IngressClassParametersReference.html" class="extype" name="com.coralogix.zio.k8s.model.networking.v1.IngressClassParametersReference">IngressClassParametersReference</a>]</span>
       </span>
       
       

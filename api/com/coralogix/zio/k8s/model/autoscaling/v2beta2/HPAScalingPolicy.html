@@ -396,7 +396,12 @@
 
       
           <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>HPAScalingPolicy is a single policy which must hold true for a specified past interval.
-</p></div><dl class="paramcmts block"><dt class="param">periodSeconds</dt><dd class="cmt"><p>PeriodSeconds specifies the window of time for which the policy should hold true. PeriodSeconds must be greater than zero and less than or equal to 1800 (30 min).</p></dd><dt class="param">type</dt><dd class="cmt"><p>Type is used to specify the scaling policy.</p></dd><dt class="param">value</dt><dd class="cmt"><p>Value contains the amount of change which is permitted by the policy. It must be greater than zero</p></dd></dl><div class="toggleContainer block">
+</p></div><dl class="paramcmts block"><dt class="param">periodSeconds</dt><dd class="cmt"><p>
+  PeriodSeconds specifies the window of time for which the policy should hold true.
+  PeriodSeconds must be greater than zero and less than or equal to 1800 (30 min).</p></dd><dt class="param">type</dt><dd class="cmt"><p>
+  Type is used to specify the scaling policy.</p></dd><dt class="param">value</dt><dd class="cmt"><p>
+  Value contains the amount of change which is permitted by the policy. It must be greater than
+  zero</p></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -461,7 +466,12 @@
         <span class="name">HPAScalingPolicy</span><span class="params">(<span name="periodSeconds">periodSeconds: <span class="extype" name="scala.Int">Int</span></span>, <span name="type">type: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="value">value: <span class="extype" name="scala.Int">Int</span></span>)</span>
       </span>
       
-      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">periodSeconds</dt><dd class="cmt"><p>PeriodSeconds specifies the window of time for which the policy should hold true. PeriodSeconds must be greater than zero and less than or equal to 1800 (30 min).</p></dd><dt class="param">type</dt><dd class="cmt"><p>Type is used to specify the scaling policy.</p></dd><dt class="param">value</dt><dd class="cmt"><p>Value contains the amount of change which is permitted by the policy. It must be greater than zero</p></dd></dl></div>
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">periodSeconds</dt><dd class="cmt"><p>
+  PeriodSeconds specifies the window of time for which the policy should hold true.
+  PeriodSeconds must be greater than zero and less than or equal to 1800 (30 min).</p></dd><dt class="param">type</dt><dd class="cmt"><p>
+  Type is used to specify the scaling policy.</p></dd><dt class="param">value</dt><dd class="cmt"><p>
+  Value contains the amount of change which is permitted by the policy. It must be greater than
+  zero</p></dd></dl></div>
     </li></ol>
             </div>
 
@@ -614,7 +624,8 @@
         <span class="name">getPeriodSeconds</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Int">Int</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">PeriodSeconds specifies the window of time for which the policy should hold true.</p><div class="fullcomment"><div class="comment cmt"><p>PeriodSeconds specifies the window of time for which the policy should hold true. PeriodSeconds must be greater than zero and less than or equal to 1800 (30 min).</p><p>This effect always succeeds, it is safe to use the field <a href="#periodSeconds:Int" class="extmbr" name="com.coralogix.zio.k8s.model.autoscaling.v2beta2.HPAScalingPolicy#periodSeconds">periodSeconds</a> directly.
+      <p class="shortcomment cmt">PeriodSeconds specifies the window of time for which the policy should hold true.</p><div class="fullcomment"><div class="comment cmt"><p>PeriodSeconds specifies the window of time for which the policy should hold true.
+PeriodSeconds must be greater than zero and less than or equal to 1800 (30 min).</p><p>This effect always succeeds, it is safe to use the field <a href="#periodSeconds:Int" class="extmbr" name="com.coralogix.zio.k8s.model.autoscaling.v2beta2.HPAScalingPolicy#periodSeconds">periodSeconds</a> directly.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.autoscaling.v2beta2.HPAScalingPolicy#getType" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getType:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]"></a><a id="getType:IO[K8sFailure,String]"></a>
@@ -648,7 +659,8 @@
         <span class="name">getValue</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Int">Int</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">Value contains the amount of change which is permitted by the policy.</p><div class="fullcomment"><div class="comment cmt"><p>Value contains the amount of change which is permitted by the policy. It must be greater than zero</p><p>This effect always succeeds, it is safe to use the field <a href="#value:Int" class="extmbr" name="com.coralogix.zio.k8s.model.autoscaling.v2beta2.HPAScalingPolicy#value">value</a> directly.
+      <p class="shortcomment cmt">Value contains the amount of change which is permitted by the policy.</p><div class="fullcomment"><div class="comment cmt"><p>Value contains the amount of change which is permitted by the policy. It must be greater than
+zero</p><p>This effect always succeeds, it is safe to use the field <a href="#value:Int" class="extmbr" name="com.coralogix.zio.k8s.model.autoscaling.v2beta2.HPAScalingPolicy#value">value</a> directly.
 </p></div></div>
     </li><li name="scala.Any#isInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isInstanceOf[T0]:Boolean"></a>

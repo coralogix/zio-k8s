@@ -1588,7 +1588,13 @@
 
       
           <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>PodCondition contains details for the current condition of this pod.
-</p></div><dl class="paramcmts block"><dt class="param">message</dt><dd class="cmt"><p>Human-readable message indicating details about last transition.</p></dd><dt class="param">reason</dt><dd class="cmt"><p>Unique, one-word, CamelCase reason for the condition's last transition.</p></dd><dt class="param">status</dt><dd class="cmt"><p>Status is the status of the condition. Can be True, False, Unknown. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-conditions</p></dd><dt class="param">type</dt><dd class="cmt"><p>Type is the type of the condition. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-conditions</p></dd></dl><div class="toggleContainer block">
+</p></div><dl class="paramcmts block"><dt class="param">message</dt><dd class="cmt"><p>
+  Human-readable message indicating details about last transition.</p></dd><dt class="param">reason</dt><dd class="cmt"><p>
+  Unique, one-word, CamelCase reason for the condition's last transition.</p></dd><dt class="param">status</dt><dd class="cmt"><p>
+  Status is the status of the condition. Can be True, False, Unknown. More info:
+  https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-conditions</p></dd><dt class="param">type</dt><dd class="cmt"><p>
+  Type is the type of the condition. More info:
+  https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-conditions</p></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -1653,7 +1659,13 @@
         <span class="name">PodCondition</span><span class="params">(<span name="lastProbeTime">lastProbeTime: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="../../pkg/apis/meta/v1/Time.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Time">Time</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="lastTransitionTime">lastTransitionTime: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="../../pkg/apis/meta/v1/Time.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Time">Time</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="message">message: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="reason">reason: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="status">status: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="type">type: <span class="extype" name="scala.Predef.String">String</span></span>)</span>
       </span>
       
-      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">message</dt><dd class="cmt"><p>Human-readable message indicating details about last transition.</p></dd><dt class="param">reason</dt><dd class="cmt"><p>Unique, one-word, CamelCase reason for the condition's last transition.</p></dd><dt class="param">status</dt><dd class="cmt"><p>Status is the status of the condition. Can be True, False, Unknown. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-conditions</p></dd><dt class="param">type</dt><dd class="cmt"><p>Type is the type of the condition. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-conditions</p></dd></dl></div>
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">message</dt><dd class="cmt"><p>
+  Human-readable message indicating details about last transition.</p></dd><dt class="param">reason</dt><dd class="cmt"><p>
+  Unique, one-word, CamelCase reason for the condition's last transition.</p></dd><dt class="param">status</dt><dd class="cmt"><p>
+  Status is the status of the condition. Can be True, False, Unknown. More info:
+  https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-conditions</p></dd><dt class="param">type</dt><dd class="cmt"><p>
+  Type is the type of the condition. More info:
+  https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-conditions</p></dd></dl></div>
     </li></ol>
             </div>
 
@@ -1874,7 +1886,8 @@
         <span class="name">getStatus</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">Status is the status of the condition.</p><div class="fullcomment"><div class="comment cmt"><p>Status is the status of the condition. Can be True, False, Unknown. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-conditions</p><p>This effect always succeeds, it is safe to use the field <a href="#status:String" class="extmbr" name="com.coralogix.zio.k8s.model.core.v1.PodCondition#status">status</a> directly.
+      <p class="shortcomment cmt">Status is the status of the condition.</p><div class="fullcomment"><div class="comment cmt"><p>Status is the status of the condition. Can be True, False, Unknown. More info:
+https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-conditions</p><p>This effect always succeeds, it is safe to use the field <a href="#status:String" class="extmbr" name="com.coralogix.zio.k8s.model.core.v1.PodCondition#status">status</a> directly.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.core.v1.PodCondition#getType" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getType:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]"></a><a id="getType:IO[K8sFailure,String]"></a>
@@ -1891,7 +1904,8 @@
         <span class="name">getType</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">Type is the type of the condition.</p><div class="fullcomment"><div class="comment cmt"><p>Type is the type of the condition. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-conditions</p><p>This effect always succeeds, it is safe to use the field <a href="#type:String" class="extmbr" name="com.coralogix.zio.k8s.model.core.v1.PodCondition#type">type</a> directly.
+      <p class="shortcomment cmt">Type is the type of the condition.</p><div class="fullcomment"><div class="comment cmt"><p>Type is the type of the condition. More info:
+https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-conditions</p><p>This effect always succeeds, it is safe to use the field <a href="#type:String" class="extmbr" name="com.coralogix.zio.k8s.model.core.v1.PodCondition#type">type</a> directly.
 </p></div></div>
     </li><li name="scala.Any#isInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isInstanceOf[T0]:Boolean"></a>

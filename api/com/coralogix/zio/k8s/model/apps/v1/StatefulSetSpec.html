@@ -390,13 +390,39 @@
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <span class="name">StatefulSetSpec</span><span class="params">(<span name="podManagementPolicy">podManagementPolicy: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="replicas">replicas: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="revisionHistoryLimit">revisionHistoryLimit: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="selector">selector: <a href="../../pkg/apis/meta/v1/LabelSelector.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.LabelSelector">LabelSelector</a></span>, <span name="serviceName">serviceName: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="template">template: <a href="../../core/v1/PodTemplateSpec.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.PodTemplateSpec">PodTemplateSpec</a></span>, <span name="updateStrategy">updateStrategy: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="StatefulSetUpdateStrategy.html" class="extype" name="com.coralogix.zio.k8s.model.apps.v1.StatefulSetUpdateStrategy">StatefulSetUpdateStrategy</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="volumeClaimTemplates">volumeClaimTemplates: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="../../core/v1/PersistentVolumeClaim.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.PersistentVolumeClaim">PersistentVolumeClaim</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <span class="name">StatefulSetSpec</span><span class="params">(<span name="minReadySeconds">minReadySeconds: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="podManagementPolicy">podManagementPolicy: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="replicas">replicas: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="revisionHistoryLimit">revisionHistoryLimit: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="selector">selector: <a href="../../pkg/apis/meta/v1/LabelSelector.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.LabelSelector">LabelSelector</a></span>, <span name="serviceName">serviceName: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="template">template: <a href="../../core/v1/PodTemplateSpec.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.PodTemplateSpec">PodTemplateSpec</a></span>, <span name="updateStrategy">updateStrategy: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="StatefulSetUpdateStrategy.html" class="extype" name="com.coralogix.zio.k8s.model.apps.v1.StatefulSetUpdateStrategy">StatefulSetUpdateStrategy</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="volumeClaimTemplates">volumeClaimTemplates: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="../../core/v1/PersistentVolumeClaim.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.PersistentVolumeClaim">PersistentVolumeClaim</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       </h4>
 
       
           <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>A StatefulSetSpec is the specification of a StatefulSet.
-</p></div><dl class="paramcmts block"><dt class="param">podManagementPolicy</dt><dd class="cmt"><p>podManagementPolicy controls how pods are created during initial scale up, when replacing pods on nodes, or when scaling down. The default policy is <code>OrderedReady</code>, where pods are created in increasing order (pod-0, then pod-1, etc) and the controller will wait until each pod is ready before continuing. When scaling down, the pods are removed in the opposite order. The alternative policy is <code>Parallel</code> which will create pods in parallel to match the desired scale without waiting, and on scale down will delete all pods at once.</p></dd><dt class="param">replicas</dt><dd class="cmt"><p>replicas is the desired number of replicas of the given Template. These are replicas in the sense that they are instantiations of the same Template, but individual replicas also have a consistent identity. If unspecified, defaults to 1.</p></dd><dt class="param">revisionHistoryLimit</dt><dd class="cmt"><p>revisionHistoryLimit is the maximum number of revisions that will be maintained in the StatefulSet's revision history. The revision history consists of all revisions not represented by a currently applied StatefulSetSpec version. The default value is 10.</p></dd><dt class="param">serviceName</dt><dd class="cmt"><p>serviceName is the name of the service that governs this StatefulSet. This service must exist before the StatefulSet, and is responsible for the network identity of the set. Pods get DNS/hostnames that follow the pattern: pod-specific-string.serviceName.default.svc.cluster.local where &quot;pod-specific-string&quot; is managed by the StatefulSet controller.</p></dd><dt class="param">volumeClaimTemplates</dt><dd class="cmt"><p>volumeClaimTemplates is a list of claims that pods are allowed to reference. The StatefulSet controller is responsible for mapping network identities to claims in a way that maintains the identity of a pod. Every claim in this list must have at least one matching (by name) volumeMount in one container in the template. A claim in this list takes precedence over any volumes in the template, with the same name.</p></dd></dl><div class="toggleContainer block">
+</p></div><dl class="paramcmts block"><dt class="param">minReadySeconds</dt><dd class="cmt"><p>
+  Minimum number of seconds for which a newly created pod should be ready without any of its
+  container crashing for it to be considered available. Defaults to 0 (pod will be considered
+  available as soon as it is ready) This is an alpha field and requires enabling
+  StatefulSetMinReadySeconds feature gate.</p></dd><dt class="param">podManagementPolicy</dt><dd class="cmt"><p>
+  podManagementPolicy controls how pods are created during initial scale up, when replacing pods
+  on nodes, or when scaling down. The default policy is <code>OrderedReady</code>, where pods are created
+  in increasing order (pod-0, then pod-1, etc) and the controller will wait until each pod is
+  ready before continuing. When scaling down, the pods are removed in the opposite order. The
+  alternative policy is <code>Parallel</code> which will create pods in parallel to match the desired scale
+  without waiting, and on scale down will delete all pods at once.</p></dd><dt class="param">replicas</dt><dd class="cmt"><p>
+  replicas is the desired number of replicas of the given Template. These are replicas in the
+  sense that they are instantiations of the same Template, but individual replicas also have a
+  consistent identity. If unspecified, defaults to 1.</p></dd><dt class="param">revisionHistoryLimit</dt><dd class="cmt"><p>
+  revisionHistoryLimit is the maximum number of revisions that will be maintained in the
+  StatefulSet's revision history. The revision history consists of all revisions not represented
+  by a currently applied StatefulSetSpec version. The default value is 10.</p></dd><dt class="param">serviceName</dt><dd class="cmt"><p>
+  serviceName is the name of the service that governs this StatefulSet. This service must exist
+  before the StatefulSet, and is responsible for the network identity of the set. Pods get
+  DNS/hostnames that follow the pattern:
+  pod-specific-string.serviceName.default.svc.cluster.local where &quot;pod-specific-string&quot; is
+  managed by the StatefulSet controller.</p></dd><dt class="param">volumeClaimTemplates</dt><dd class="cmt"><p>
+  volumeClaimTemplates is a list of claims that pods are allowed to reference. The StatefulSet
+  controller is responsible for mapping network identities to claims in a way that maintains the
+  identity of a pod. Every claim in this list must have at least one matching (by name)
+  volumeMount in one container in the template. A claim in this list takes precedence over any
+  volumes in the template, with the same name.</p></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -447,9 +473,9 @@
         <div id="constructors" class="members">
               <h3>Instance Constructors</h3>
               <ol><li name="com.coralogix.zio.k8s.model.apps.v1.StatefulSetSpec#&lt;init&gt;" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="&lt;init&gt;(podManagementPolicy:com.coralogix.zio.k8s.client.model.Optional[String],replicas:com.coralogix.zio.k8s.client.model.Optional[Int],revisionHistoryLimit:com.coralogix.zio.k8s.client.model.Optional[Int],selector:com.coralogix.zio.k8s.model.pkg.apis.meta.v1.LabelSelector,serviceName:String,template:com.coralogix.zio.k8s.model.core.v1.PodTemplateSpec,updateStrategy:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.apps.v1.StatefulSetUpdateStrategy],volumeClaimTemplates:com.coralogix.zio.k8s.client.model.Optional[Vector[com.coralogix.zio.k8s.model.core.v1.PersistentVolumeClaim]]):com.coralogix.zio.k8s.model.apps.v1.StatefulSetSpec"></a><a id="&lt;init&gt;:StatefulSetSpec"></a>
+      <a id="&lt;init&gt;(minReadySeconds:com.coralogix.zio.k8s.client.model.Optional[Int],podManagementPolicy:com.coralogix.zio.k8s.client.model.Optional[String],replicas:com.coralogix.zio.k8s.client.model.Optional[Int],revisionHistoryLimit:com.coralogix.zio.k8s.client.model.Optional[Int],selector:com.coralogix.zio.k8s.model.pkg.apis.meta.v1.LabelSelector,serviceName:String,template:com.coralogix.zio.k8s.model.core.v1.PodTemplateSpec,updateStrategy:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.apps.v1.StatefulSetUpdateStrategy],volumeClaimTemplates:com.coralogix.zio.k8s.client.model.Optional[Vector[com.coralogix.zio.k8s.model.core.v1.PersistentVolumeClaim]]):com.coralogix.zio.k8s.model.apps.v1.StatefulSetSpec"></a><a id="&lt;init&gt;:StatefulSetSpec"></a>
       <span class="permalink">
-      <a href="../../../../../../../com/coralogix/zio/k8s/model/apps/v1/StatefulSetSpec.html#&lt;init&gt;(podManagementPolicy:com.coralogix.zio.k8s.client.model.Optional[String],replicas:com.coralogix.zio.k8s.client.model.Optional[Int],revisionHistoryLimit:com.coralogix.zio.k8s.client.model.Optional[Int],selector:com.coralogix.zio.k8s.model.pkg.apis.meta.v1.LabelSelector,serviceName:String,template:com.coralogix.zio.k8s.model.core.v1.PodTemplateSpec,updateStrategy:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.apps.v1.StatefulSetUpdateStrategy],volumeClaimTemplates:com.coralogix.zio.k8s.client.model.Optional[Vector[com.coralogix.zio.k8s.model.core.v1.PersistentVolumeClaim]]):com.coralogix.zio.k8s.model.apps.v1.StatefulSetSpec" title="Permalink">
+      <a href="../../../../../../../com/coralogix/zio/k8s/model/apps/v1/StatefulSetSpec.html#&lt;init&gt;(minReadySeconds:com.coralogix.zio.k8s.client.model.Optional[Int],podManagementPolicy:com.coralogix.zio.k8s.client.model.Optional[String],replicas:com.coralogix.zio.k8s.client.model.Optional[Int],revisionHistoryLimit:com.coralogix.zio.k8s.client.model.Optional[Int],selector:com.coralogix.zio.k8s.model.pkg.apis.meta.v1.LabelSelector,serviceName:String,template:com.coralogix.zio.k8s.model.core.v1.PodTemplateSpec,updateStrategy:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.apps.v1.StatefulSetUpdateStrategy],volumeClaimTemplates:com.coralogix.zio.k8s.client.model.Optional[Vector[com.coralogix.zio.k8s.model.core.v1.PersistentVolumeClaim]]):com.coralogix.zio.k8s.model.apps.v1.StatefulSetSpec" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -458,10 +484,36 @@
         <span class="kind">new</span>
       </span>
       <span class="symbol">
-        <span class="name">StatefulSetSpec</span><span class="params">(<span name="podManagementPolicy">podManagementPolicy: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="replicas">replicas: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="revisionHistoryLimit">revisionHistoryLimit: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="selector">selector: <a href="../../pkg/apis/meta/v1/LabelSelector.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.LabelSelector">LabelSelector</a></span>, <span name="serviceName">serviceName: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="template">template: <a href="../../core/v1/PodTemplateSpec.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.PodTemplateSpec">PodTemplateSpec</a></span>, <span name="updateStrategy">updateStrategy: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="StatefulSetUpdateStrategy.html" class="extype" name="com.coralogix.zio.k8s.model.apps.v1.StatefulSetUpdateStrategy">StatefulSetUpdateStrategy</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="volumeClaimTemplates">volumeClaimTemplates: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="../../core/v1/PersistentVolumeClaim.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.PersistentVolumeClaim">PersistentVolumeClaim</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span>
+        <span class="name">StatefulSetSpec</span><span class="params">(<span name="minReadySeconds">minReadySeconds: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="podManagementPolicy">podManagementPolicy: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="replicas">replicas: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="revisionHistoryLimit">revisionHistoryLimit: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="selector">selector: <a href="../../pkg/apis/meta/v1/LabelSelector.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.LabelSelector">LabelSelector</a></span>, <span name="serviceName">serviceName: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="template">template: <a href="../../core/v1/PodTemplateSpec.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.PodTemplateSpec">PodTemplateSpec</a></span>, <span name="updateStrategy">updateStrategy: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="StatefulSetUpdateStrategy.html" class="extype" name="com.coralogix.zio.k8s.model.apps.v1.StatefulSetUpdateStrategy">StatefulSetUpdateStrategy</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="volumeClaimTemplates">volumeClaimTemplates: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="../../core/v1/PersistentVolumeClaim.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.PersistentVolumeClaim">PersistentVolumeClaim</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span>
       </span>
       
-      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">podManagementPolicy</dt><dd class="cmt"><p>podManagementPolicy controls how pods are created during initial scale up, when replacing pods on nodes, or when scaling down. The default policy is <code>OrderedReady</code>, where pods are created in increasing order (pod-0, then pod-1, etc) and the controller will wait until each pod is ready before continuing. When scaling down, the pods are removed in the opposite order. The alternative policy is <code>Parallel</code> which will create pods in parallel to match the desired scale without waiting, and on scale down will delete all pods at once.</p></dd><dt class="param">replicas</dt><dd class="cmt"><p>replicas is the desired number of replicas of the given Template. These are replicas in the sense that they are instantiations of the same Template, but individual replicas also have a consistent identity. If unspecified, defaults to 1.</p></dd><dt class="param">revisionHistoryLimit</dt><dd class="cmt"><p>revisionHistoryLimit is the maximum number of revisions that will be maintained in the StatefulSet's revision history. The revision history consists of all revisions not represented by a currently applied StatefulSetSpec version. The default value is 10.</p></dd><dt class="param">serviceName</dt><dd class="cmt"><p>serviceName is the name of the service that governs this StatefulSet. This service must exist before the StatefulSet, and is responsible for the network identity of the set. Pods get DNS/hostnames that follow the pattern: pod-specific-string.serviceName.default.svc.cluster.local where &quot;pod-specific-string&quot; is managed by the StatefulSet controller.</p></dd><dt class="param">volumeClaimTemplates</dt><dd class="cmt"><p>volumeClaimTemplates is a list of claims that pods are allowed to reference. The StatefulSet controller is responsible for mapping network identities to claims in a way that maintains the identity of a pod. Every claim in this list must have at least one matching (by name) volumeMount in one container in the template. A claim in this list takes precedence over any volumes in the template, with the same name.</p></dd></dl></div>
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">minReadySeconds</dt><dd class="cmt"><p>
+  Minimum number of seconds for which a newly created pod should be ready without any of its
+  container crashing for it to be considered available. Defaults to 0 (pod will be considered
+  available as soon as it is ready) This is an alpha field and requires enabling
+  StatefulSetMinReadySeconds feature gate.</p></dd><dt class="param">podManagementPolicy</dt><dd class="cmt"><p>
+  podManagementPolicy controls how pods are created during initial scale up, when replacing pods
+  on nodes, or when scaling down. The default policy is <code>OrderedReady</code>, where pods are created
+  in increasing order (pod-0, then pod-1, etc) and the controller will wait until each pod is
+  ready before continuing. When scaling down, the pods are removed in the opposite order. The
+  alternative policy is <code>Parallel</code> which will create pods in parallel to match the desired scale
+  without waiting, and on scale down will delete all pods at once.</p></dd><dt class="param">replicas</dt><dd class="cmt"><p>
+  replicas is the desired number of replicas of the given Template. These are replicas in the
+  sense that they are instantiations of the same Template, but individual replicas also have a
+  consistent identity. If unspecified, defaults to 1.</p></dd><dt class="param">revisionHistoryLimit</dt><dd class="cmt"><p>
+  revisionHistoryLimit is the maximum number of revisions that will be maintained in the
+  StatefulSet's revision history. The revision history consists of all revisions not represented
+  by a currently applied StatefulSetSpec version. The default value is 10.</p></dd><dt class="param">serviceName</dt><dd class="cmt"><p>
+  serviceName is the name of the service that governs this StatefulSet. This service must exist
+  before the StatefulSet, and is responsible for the network identity of the set. Pods get
+  DNS/hostnames that follow the pattern:
+  pod-specific-string.serviceName.default.svc.cluster.local where &quot;pod-specific-string&quot; is
+  managed by the StatefulSet controller.</p></dd><dt class="param">volumeClaimTemplates</dt><dd class="cmt"><p>
+  volumeClaimTemplates is a list of claims that pods are allowed to reference. The StatefulSet
+  controller is responsible for mapping network identities to claims in a way that maintains the
+  identity of a pod. Every claim in this list must have at least one matching (by name)
+  volumeMount in one container in the template. A claim in this list takes precedence over any
+  volumes in the template, with the same name.</p></dd></dl></div>
     </li></ol>
             </div>
 
@@ -599,6 +651,27 @@
                 <span class="name">@HotSpotIntrinsicCandidate</span><span class="args">()</span>
               
         </dd></dl></div>
+    </li><li name="com.coralogix.zio.k8s.model.apps.v1.StatefulSetSpec#getMinReadySeconds" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="getMinReadySeconds:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Int]"></a><a id="getMinReadySeconds:IO[K8sFailure,Int]"></a>
+      <span class="permalink">
+      <a href="../../../../../../../com/coralogix/zio/k8s/model/apps/v1/StatefulSetSpec.html#getMinReadySeconds:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Int]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">getMinReadySeconds</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Int">Int</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Minimum number of seconds for which a newly created pod should be ready without any of its
+container crashing for it to be considered available.</p><div class="fullcomment"><div class="comment cmt"><p>Minimum number of seconds for which a newly created pod should be ready without any of its
+container crashing for it to be considered available. Defaults to 0 (pod will be considered
+available as soon as it is ready) This is an alpha field and requires enabling
+StatefulSetMinReadySeconds feature gate.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+</p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.apps.v1.StatefulSetSpec#getPodManagementPolicy" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getPodManagementPolicy:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]"></a><a id="getPodManagementPolicy:IO[K8sFailure,String]"></a>
       <span class="permalink">
@@ -614,7 +687,13 @@
         <span class="name">getPodManagementPolicy</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">podManagementPolicy controls how pods are created during initial scale up, when replacing pods on nodes, or when scaling down.</p><div class="fullcomment"><div class="comment cmt"><p>podManagementPolicy controls how pods are created during initial scale up, when replacing pods on nodes, or when scaling down. The default policy is <code>OrderedReady</code>, where pods are created in increasing order (pod-0, then pod-1, etc) and the controller will wait until each pod is ready before continuing. When scaling down, the pods are removed in the opposite order. The alternative policy is <code>Parallel</code> which will create pods in parallel to match the desired scale without waiting, and on scale down will delete all pods at once.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">podManagementPolicy controls how pods are created during initial scale up, when replacing pods
+on nodes, or when scaling down.</p><div class="fullcomment"><div class="comment cmt"><p>podManagementPolicy controls how pods are created during initial scale up, when replacing pods
+on nodes, or when scaling down. The default policy is <code>OrderedReady</code>, where pods are created
+in increasing order (pod-0, then pod-1, etc) and the controller will wait until each pod is
+ready before continuing. When scaling down, the pods are removed in the opposite order. The
+alternative policy is <code>Parallel</code> which will create pods in parallel to match the desired scale
+without waiting, and on scale down will delete all pods at once.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.apps.v1.StatefulSetSpec#getReplicas" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getReplicas:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Int]"></a><a id="getReplicas:IO[K8sFailure,Int]"></a>
@@ -631,7 +710,9 @@
         <span class="name">getReplicas</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Int">Int</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">replicas is the desired number of replicas of the given Template.</p><div class="fullcomment"><div class="comment cmt"><p>replicas is the desired number of replicas of the given Template. These are replicas in the sense that they are instantiations of the same Template, but individual replicas also have a consistent identity. If unspecified, defaults to 1.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">replicas is the desired number of replicas of the given Template.</p><div class="fullcomment"><div class="comment cmt"><p>replicas is the desired number of replicas of the given Template. These are replicas in the
+sense that they are instantiations of the same Template, but individual replicas also have a
+consistent identity. If unspecified, defaults to 1.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.apps.v1.StatefulSetSpec#getRevisionHistoryLimit" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getRevisionHistoryLimit:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Int]"></a><a id="getRevisionHistoryLimit:IO[K8sFailure,Int]"></a>
@@ -648,7 +729,10 @@
         <span class="name">getRevisionHistoryLimit</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Int">Int</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">revisionHistoryLimit is the maximum number of revisions that will be maintained in the StatefulSet's revision history.</p><div class="fullcomment"><div class="comment cmt"><p>revisionHistoryLimit is the maximum number of revisions that will be maintained in the StatefulSet's revision history. The revision history consists of all revisions not represented by a currently applied StatefulSetSpec version. The default value is 10.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">revisionHistoryLimit is the maximum number of revisions that will be maintained in the
+StatefulSet's revision history.</p><div class="fullcomment"><div class="comment cmt"><p>revisionHistoryLimit is the maximum number of revisions that will be maintained in the
+StatefulSet's revision history. The revision history consists of all revisions not represented
+by a currently applied StatefulSetSpec version. The default value is 10.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.apps.v1.StatefulSetSpec#getSelector" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getSelector:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.model.pkg.apis.meta.v1.LabelSelector]"></a><a id="getSelector:IO[K8sFailure,LabelSelector]"></a>
@@ -682,7 +766,11 @@
         <span class="name">getServiceName</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">serviceName is the name of the service that governs this StatefulSet.</p><div class="fullcomment"><div class="comment cmt"><p>serviceName is the name of the service that governs this StatefulSet. This service must exist before the StatefulSet, and is responsible for the network identity of the set. Pods get DNS/hostnames that follow the pattern: pod-specific-string.serviceName.default.svc.cluster.local where &quot;pod-specific-string&quot; is managed by the StatefulSet controller.</p><p>This effect always succeeds, it is safe to use the field <a href="#serviceName:String" class="extmbr" name="com.coralogix.zio.k8s.model.apps.v1.StatefulSetSpec#serviceName">serviceName</a> directly.
+      <p class="shortcomment cmt">serviceName is the name of the service that governs this StatefulSet.</p><div class="fullcomment"><div class="comment cmt"><p>serviceName is the name of the service that governs this StatefulSet. This service must exist
+before the StatefulSet, and is responsible for the network identity of the set. Pods get
+DNS/hostnames that follow the pattern:
+pod-specific-string.serviceName.default.svc.cluster.local where &quot;pod-specific-string&quot; is
+managed by the StatefulSet controller.</p><p>This effect always succeeds, it is safe to use the field <a href="#serviceName:String" class="extmbr" name="com.coralogix.zio.k8s.model.apps.v1.StatefulSetSpec#serviceName">serviceName</a> directly.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.apps.v1.StatefulSetSpec#getTemplate" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getTemplate:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.model.core.v1.PodTemplateSpec]"></a><a id="getTemplate:IO[K8sFailure,PodTemplateSpec]"></a>
@@ -733,7 +821,11 @@
         <span class="name">getVolumeClaimTemplates</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Vector">Vector</span>[<a href="../../core/v1/PersistentVolumeClaim.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.PersistentVolumeClaim">PersistentVolumeClaim</a>]]</span>
       </span>
       
-      <p class="shortcomment cmt">volumeClaimTemplates is a list of claims that pods are allowed to reference.</p><div class="fullcomment"><div class="comment cmt"><p>volumeClaimTemplates is a list of claims that pods are allowed to reference. The StatefulSet controller is responsible for mapping network identities to claims in a way that maintains the identity of a pod. Every claim in this list must have at least one matching (by name) volumeMount in one container in the template. A claim in this list takes precedence over any volumes in the template, with the same name.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">volumeClaimTemplates is a list of claims that pods are allowed to reference.</p><div class="fullcomment"><div class="comment cmt"><p>volumeClaimTemplates is a list of claims that pods are allowed to reference. The StatefulSet
+controller is responsible for mapping network identities to claims in a way that maintains the
+identity of a pod. Every claim in this list must have at least one matching (by name)
+volumeMount in one container in the template. A claim in this list takes precedence over any
+volumes in the template, with the same name.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="scala.Any#isInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isInstanceOf[T0]:Boolean"></a>
@@ -751,6 +843,22 @@
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
+    </li><li name="com.coralogix.zio.k8s.model.apps.v1.StatefulSetSpec#minReadySeconds" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="minReadySeconds:com.coralogix.zio.k8s.client.model.Optional[Int]"></a><a id="minReadySeconds:Optional[Int]"></a>
+      <span class="permalink">
+      <a href="../../../../../../../com/coralogix/zio/k8s/model/apps/v1/StatefulSetSpec.html#minReadySeconds:com.coralogix.zio.k8s.client.model.Optional[Int]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">minReadySeconds</span><span class="result">: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Int">Int</span>]</span>
+      </span>
+      
+      
     </li><li name="scala.AnyRef#ne" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="ne(x$1:AnyRef):Boolean"></a><a id="ne(AnyRef):Boolean"></a>
       <span class="permalink">

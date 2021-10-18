@@ -1588,7 +1588,12 @@
 
       
           <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Information about the condition of a component.
-</p></div><dl class="paramcmts block"><dt class="param">error</dt><dd class="cmt"><p>Condition error code for a component. For example, a health check error code.</p></dd><dt class="param">message</dt><dd class="cmt"><p>Message about the condition for a component. For example, information about a health check.</p></dd><dt class="param">status</dt><dd class="cmt"><p>Status of the condition for a component. Valid values for &quot;Healthy&quot;: &quot;True&quot;, &quot;False&quot;, or &quot;Unknown&quot;.</p></dd><dt class="param">type</dt><dd class="cmt"><p>Type of condition for a component. Valid value: &quot;Healthy&quot;</p></dd></dl><div class="toggleContainer block">
+</p></div><dl class="paramcmts block"><dt class="param">error</dt><dd class="cmt"><p>
+  Condition error code for a component. For example, a health check error code.</p></dd><dt class="param">message</dt><dd class="cmt"><p>
+  Message about the condition for a component. For example, information about a health check.</p></dd><dt class="param">status</dt><dd class="cmt"><p>
+  Status of the condition for a component. Valid values for &quot;Healthy&quot;: &quot;True&quot;, &quot;False&quot;, or
+  &quot;Unknown&quot;.</p></dd><dt class="param">type</dt><dd class="cmt"><p>
+  Type of condition for a component. Valid value: &quot;Healthy&quot;</p></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -1653,7 +1658,12 @@
         <span class="name">ComponentCondition</span><span class="params">(<span name="error">error: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="message">message: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="status">status: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="type">type: <span class="extype" name="scala.Predef.String">String</span></span>)</span>
       </span>
       
-      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">error</dt><dd class="cmt"><p>Condition error code for a component. For example, a health check error code.</p></dd><dt class="param">message</dt><dd class="cmt"><p>Message about the condition for a component. For example, information about a health check.</p></dd><dt class="param">status</dt><dd class="cmt"><p>Status of the condition for a component. Valid values for &quot;Healthy&quot;: &quot;True&quot;, &quot;False&quot;, or &quot;Unknown&quot;.</p></dd><dt class="param">type</dt><dd class="cmt"><p>Type of condition for a component. Valid value: &quot;Healthy&quot;</p></dd></dl></div>
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">error</dt><dd class="cmt"><p>
+  Condition error code for a component. For example, a health check error code.</p></dd><dt class="param">message</dt><dd class="cmt"><p>
+  Message about the condition for a component. For example, information about a health check.</p></dd><dt class="param">status</dt><dd class="cmt"><p>
+  Status of the condition for a component. Valid values for &quot;Healthy&quot;: &quot;True&quot;, &quot;False&quot;, or
+  &quot;Unknown&quot;.</p></dd><dt class="param">type</dt><dd class="cmt"><p>
+  Type of condition for a component. Valid value: &quot;Healthy&quot;</p></dd></dl></div>
     </li></ol>
             </div>
 
@@ -1856,7 +1866,8 @@
         <span class="name">getStatus</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">Status of the condition for a component.</p><div class="fullcomment"><div class="comment cmt"><p>Status of the condition for a component. Valid values for &quot;Healthy&quot;: &quot;True&quot;, &quot;False&quot;, or &quot;Unknown&quot;.</p><p>This effect always succeeds, it is safe to use the field <a href="#status:String" class="extmbr" name="com.coralogix.zio.k8s.model.core.v1.ComponentCondition#status">status</a> directly.
+      <p class="shortcomment cmt">Status of the condition for a component.</p><div class="fullcomment"><div class="comment cmt"><p>Status of the condition for a component. Valid values for &quot;Healthy&quot;: &quot;True&quot;, &quot;False&quot;, or
+&quot;Unknown&quot;.</p><p>This effect always succeeds, it is safe to use the field <a href="#status:String" class="extmbr" name="com.coralogix.zio.k8s.model.core.v1.ComponentCondition#status">status</a> directly.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.core.v1.ComponentCondition#getType" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getType:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]"></a><a id="getType:IO[K8sFailure,String]"></a>

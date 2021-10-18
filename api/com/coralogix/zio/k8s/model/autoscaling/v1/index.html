@@ -347,8 +347,14 @@
         <a title="CrossVersionObjectReference contains enough information to let you identify the referred resource." href="CrossVersionObjectReference.html"><span class="name">CrossVersionObjectReference</span></a><span class="params">(<span name="apiVersion">apiVersion: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="kind">kind: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="name">name: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
-      <p class="shortcomment cmt">CrossVersionObjectReference contains enough information to let you identify the referred resource.</p><div class="fullcomment"><div class="comment cmt"><p>CrossVersionObjectReference contains enough information to let you identify the referred resource.
-</p></div><dl class="paramcmts block"><dt class="param">apiVersion</dt><dd class="cmt"><p>API version of the referent</p></dd><dt class="param">kind</dt><dd class="cmt"><p>Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds&quot;</p></dd><dt class="param">name</dt><dd class="cmt"><p>Name of the referent; More info: http://kubernetes.io/docs/user-guide/identifiers#names</p></dd></dl></div>
+      <p class="shortcomment cmt">CrossVersionObjectReference contains enough information to let you identify the referred
+resource.</p><div class="fullcomment"><div class="comment cmt"><p>CrossVersionObjectReference contains enough information to let you identify the referred
+resource.
+</p></div><dl class="paramcmts block"><dt class="param">apiVersion</dt><dd class="cmt"><p>
+  API version of the referent</p></dd><dt class="param">kind</dt><dd class="cmt"><p>
+  Kind of the referent; More info:
+  https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds&quot;</p></dd><dt class="param">name</dt><dd class="cmt"><p>
+  Name of the referent; More info: http://kubernetes.io/docs/user-guide/identifiers#names</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.autoscaling.v1.CrossVersionObjectReferenceFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="CrossVersionObjectReferenceFieldsextendsAnyRef"></a><a id="CrossVersionObjectReferenceFields:CrossVersionObjectReferenceFields"></a>
       <span class="permalink">
@@ -413,7 +419,15 @@
       </span>
       
       <p class="shortcomment cmt">specification of a horizontal pod autoscaler.</p><div class="fullcomment"><div class="comment cmt"><p>specification of a horizontal pod autoscaler.
-</p></div><dl class="paramcmts block"><dt class="param">maxReplicas</dt><dd class="cmt"><p>upper limit for the number of pods that can be set by the autoscaler; cannot be smaller than MinReplicas.</p></dd><dt class="param">minReplicas</dt><dd class="cmt"><p>minReplicas is the lower limit for the number of replicas to which the autoscaler can scale down.  It defaults to 1 pod.  minReplicas is allowed to be 0 if the alpha feature gate HPAScaleToZero is enabled and at least one Object or External metric is configured.  Scaling is active as long as at least one metric value is available.</p></dd><dt class="param">targetCPUUtilizationPercentage</dt><dd class="cmt"><p>target average CPU utilization (represented as a percentage of requested CPU) over all the pods; if not specified the default autoscaling policy will be used.</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="param">maxReplicas</dt><dd class="cmt"><p>
+  upper limit for the number of pods that can be set by the autoscaler; cannot be smaller than
+  MinReplicas.</p></dd><dt class="param">minReplicas</dt><dd class="cmt"><p>
+  minReplicas is the lower limit for the number of replicas to which the autoscaler can scale
+  down. It defaults to 1 pod. minReplicas is allowed to be 0 if the alpha feature gate
+  HPAScaleToZero is enabled and at least one Object or External metric is configured. Scaling is
+  active as long as at least one metric value is available.</p></dd><dt class="param">targetCPUUtilizationPercentage</dt><dd class="cmt"><p>
+  target average CPU utilization (represented as a percentage of requested CPU) over all the
+  pods; if not specified the default autoscaling policy will be used.</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.autoscaling.v1.HorizontalPodAutoscalerSpecFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="HorizontalPodAutoscalerSpecFieldsextendsAnyRef"></a><a id="HorizontalPodAutoscalerSpecFields:HorizontalPodAutoscalerSpecFields"></a>
       <span class="permalink">
@@ -447,7 +461,12 @@
       
       <p class="shortcomment cmt">current status of a horizontal pod autoscaler
 </p><div class="fullcomment"><div class="comment cmt"><p>current status of a horizontal pod autoscaler
-</p></div><dl class="paramcmts block"><dt class="param">currentCPUUtilizationPercentage</dt><dd class="cmt"><p>current average CPU utilization over all pods, represented as a percentage of requested CPU, e.g. 70 means that an average pod is using now 70% of its requested CPU.</p></dd><dt class="param">currentReplicas</dt><dd class="cmt"><p>current number of replicas of pods managed by this autoscaler.</p></dd><dt class="param">desiredReplicas</dt><dd class="cmt"><p>desired number of replicas of pods managed by this autoscaler.</p></dd><dt class="param">observedGeneration</dt><dd class="cmt"><p>most recent generation observed by this autoscaler.</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="param">currentCPUUtilizationPercentage</dt><dd class="cmt"><p>
+  current average CPU utilization over all pods, represented as a percentage of requested CPU,
+  e.g. 70 means that an average pod is using now 70% of its requested CPU.</p></dd><dt class="param">currentReplicas</dt><dd class="cmt"><p>
+  current number of replicas of pods managed by this autoscaler.</p></dd><dt class="param">desiredReplicas</dt><dd class="cmt"><p>
+  desired number of replicas of pods managed by this autoscaler.</p></dd><dt class="param">observedGeneration</dt><dd class="cmt"><p>
+  most recent generation observed by this autoscaler.</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.autoscaling.v1.HorizontalPodAutoscalerStatusFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="HorizontalPodAutoscalerStatusFieldsextendsAnyRef"></a><a id="HorizontalPodAutoscalerStatusFields:HorizontalPodAutoscalerStatusFields"></a>
       <span class="permalink">
@@ -512,7 +531,8 @@
       </span>
       
       <p class="shortcomment cmt">ScaleSpec describes the attributes of a scale subresource.</p><div class="fullcomment"><div class="comment cmt"><p>ScaleSpec describes the attributes of a scale subresource.
-</p></div><dl class="paramcmts block"><dt class="param">replicas</dt><dd class="cmt"><p>desired number of instances for the scaled object.</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="param">replicas</dt><dd class="cmt"><p>
+  desired number of instances for the scaled object.</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.autoscaling.v1.ScaleSpecFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="ScaleSpecFieldsextendsAnyRef"></a><a id="ScaleSpecFields:ScaleSpecFields"></a>
       <span class="permalink">
@@ -545,7 +565,12 @@
       </span>
       
       <p class="shortcomment cmt">ScaleStatus represents the current status of a scale subresource.</p><div class="fullcomment"><div class="comment cmt"><p>ScaleStatus represents the current status of a scale subresource.
-</p></div><dl class="paramcmts block"><dt class="param">replicas</dt><dd class="cmt"><p>actual number of observed instances of the scaled object.</p></dd><dt class="param">selector</dt><dd class="cmt"><p>label query over pods that should match the replicas count. This is same as the label selector but in the string format to avoid introspection by clients. The string will be in the same format as the query-param syntax. More info about label selectors: http://kubernetes.io/docs/user-guide/labels#label-selectors</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="param">replicas</dt><dd class="cmt"><p>
+  actual number of observed instances of the scaled object.</p></dd><dt class="param">selector</dt><dd class="cmt"><p>
+  label query over pods that should match the replicas count. This is same as the label selector
+  but in the string format to avoid introspection by clients. The string will be in the same
+  format as the query-param syntax. More info about label selectors:
+  http://kubernetes.io/docs/user-guide/labels#label-selectors</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.autoscaling.v1.ScaleStatusFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="ScaleStatusFieldsextendsAnyRef"></a><a id="ScaleStatusFields:ScaleStatusFields"></a>
       <span class="permalink">

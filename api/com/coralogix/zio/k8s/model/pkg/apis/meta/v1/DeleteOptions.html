@@ -412,7 +412,23 @@
 
       
           <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>DeleteOptions may be provided when deleting an API object.
-</p></div><dl class="paramcmts block"><dt class="param">dryRun</dt><dd class="cmt"><p>When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed</p></dd><dt class="param">gracePeriodSeconds</dt><dd class="cmt"><p>The duration in seconds before the object should be deleted. Value must be non-negative integer. The value zero indicates delete immediately. If this value is nil, the default grace period for the specified type will be used. Defaults to a per object value if not specified. zero means delete immediately.</p></dd><dt class="param">orphanDependents</dt><dd class="cmt"><p>Deprecated: please use the PropagationPolicy, this field will be deprecated in 1.7. Should the dependent objects be orphaned. If true/false, the &quot;orphan&quot; finalizer will be added to/removed from the object's finalizers list. Either this field or PropagationPolicy may be set, but not both.</p></dd><dt class="param">propagationPolicy</dt><dd class="cmt"><p>Whether and how garbage collection will be performed. Either this field or OrphanDependents may be set, but not both. The default policy is decided by the existing finalizer set in the metadata.finalizers and the resource-specific default policy. Acceptable values are: 'Orphan' - orphan the dependents; 'Background' - allow the garbage collector to delete the dependents in the background; 'Foreground' - a cascading policy that deletes all dependents in the foreground.</p></dd></dl><div class="toggleContainer block">
+</p></div><dl class="paramcmts block"><dt class="param">dryRun</dt><dd class="cmt"><p>
+  When present, indicates that modifications should not be persisted. An invalid or unrecognized
+  dryRun directive will result in an error response and no further processing of the request.
+  Valid values are: - All: all dry run stages will be processed</p></dd><dt class="param">gracePeriodSeconds</dt><dd class="cmt"><p>
+  The duration in seconds before the object should be deleted. Value must be non-negative
+  integer. The value zero indicates delete immediately. If this value is nil, the default grace
+  period for the specified type will be used. Defaults to a per object value if not specified.
+  zero means delete immediately.</p></dd><dt class="param">orphanDependents</dt><dd class="cmt"><p>
+  Deprecated: please use the PropagationPolicy, this field will be deprecated in 1.7. Should the
+  dependent objects be orphaned. If true/false, the &quot;orphan&quot; finalizer will be added to/removed
+  from the object's finalizers list. Either this field or PropagationPolicy may be set, but not
+  both.</p></dd><dt class="param">propagationPolicy</dt><dd class="cmt"><p>
+  Whether and how garbage collection will be performed. Either this field or OrphanDependents
+  may be set, but not both. The default policy is decided by the existing finalizer set in the
+  metadata.finalizers and the resource-specific default policy. Acceptable values are: 'Orphan'</p><ul><li>orphan the dependents; 'Background' - allow the garbage collector to delete the dependents
+  in the background; 'Foreground' - a cascading policy that deletes all dependents in the
+  foreground.</li></ul></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -477,7 +493,23 @@
         <span class="name">DeleteOptions</span><span class="params">(<span name="dryRun">dryRun: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="gracePeriodSeconds">gracePeriodSeconds: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Long">Long</span>] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="orphanDependents">orphanDependents: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Boolean">Boolean</span>] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="preconditions">preconditions: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="Preconditions.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Preconditions">Preconditions</a>] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="propagationPolicy">propagationPolicy: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>)</span>
       </span>
       
-      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">dryRun</dt><dd class="cmt"><p>When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed</p></dd><dt class="param">gracePeriodSeconds</dt><dd class="cmt"><p>The duration in seconds before the object should be deleted. Value must be non-negative integer. The value zero indicates delete immediately. If this value is nil, the default grace period for the specified type will be used. Defaults to a per object value if not specified. zero means delete immediately.</p></dd><dt class="param">orphanDependents</dt><dd class="cmt"><p>Deprecated: please use the PropagationPolicy, this field will be deprecated in 1.7. Should the dependent objects be orphaned. If true/false, the &quot;orphan&quot; finalizer will be added to/removed from the object's finalizers list. Either this field or PropagationPolicy may be set, but not both.</p></dd><dt class="param">propagationPolicy</dt><dd class="cmt"><p>Whether and how garbage collection will be performed. Either this field or OrphanDependents may be set, but not both. The default policy is decided by the existing finalizer set in the metadata.finalizers and the resource-specific default policy. Acceptable values are: 'Orphan' - orphan the dependents; 'Background' - allow the garbage collector to delete the dependents in the background; 'Foreground' - a cascading policy that deletes all dependents in the foreground.</p></dd></dl></div>
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">dryRun</dt><dd class="cmt"><p>
+  When present, indicates that modifications should not be persisted. An invalid or unrecognized
+  dryRun directive will result in an error response and no further processing of the request.
+  Valid values are: - All: all dry run stages will be processed</p></dd><dt class="param">gracePeriodSeconds</dt><dd class="cmt"><p>
+  The duration in seconds before the object should be deleted. Value must be non-negative
+  integer. The value zero indicates delete immediately. If this value is nil, the default grace
+  period for the specified type will be used. Defaults to a per object value if not specified.
+  zero means delete immediately.</p></dd><dt class="param">orphanDependents</dt><dd class="cmt"><p>
+  Deprecated: please use the PropagationPolicy, this field will be deprecated in 1.7. Should the
+  dependent objects be orphaned. If true/false, the &quot;orphan&quot; finalizer will be added to/removed
+  from the object's finalizers list. Either this field or PropagationPolicy may be set, but not
+  both.</p></dd><dt class="param">propagationPolicy</dt><dd class="cmt"><p>
+  Whether and how garbage collection will be performed. Either this field or OrphanDependents
+  may be set, but not both. The default policy is decided by the existing finalizer set in the
+  metadata.finalizers and the resource-specific default policy. Acceptable values are: 'Orphan'</p><ul><li>orphan the dependents; 'Background' - allow the garbage collector to delete the dependents
+  in the background; 'Foreground' - a cascading policy that deletes all dependents in the
+  foreground.</li></ul></dd></dl></div>
     </li></ol>
             </div>
 
@@ -646,7 +678,9 @@
         <span class="name">getDryRun</span><span class="result">: <a href="../../../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]]</span>
       </span>
       
-      <p class="shortcomment cmt">When present, indicates that modifications should not be persisted.</p><div class="fullcomment"><div class="comment cmt"><p>When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed</p><p>If the field is not present, fails with <a href="../../../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">When present, indicates that modifications should not be persisted.</p><div class="fullcomment"><div class="comment cmt"><p>When present, indicates that modifications should not be persisted. An invalid or unrecognized
+dryRun directive will result in an error response and no further processing of the request.
+Valid values are: - All: all dry run stages will be processed</p><p>If the field is not present, fails with <a href="../../../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.DeleteOptions#getGracePeriodSeconds" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getGracePeriodSeconds:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Long]"></a><a id="getGracePeriodSeconds:IO[K8sFailure,Long]"></a>
@@ -663,7 +697,10 @@
         <span class="name">getGracePeriodSeconds</span><span class="result">: <a href="../../../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Long">Long</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">The duration in seconds before the object should be deleted.</p><div class="fullcomment"><div class="comment cmt"><p>The duration in seconds before the object should be deleted. Value must be non-negative integer. The value zero indicates delete immediately. If this value is nil, the default grace period for the specified type will be used. Defaults to a per object value if not specified. zero means delete immediately.</p><p>If the field is not present, fails with <a href="../../../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">The duration in seconds before the object should be deleted.</p><div class="fullcomment"><div class="comment cmt"><p>The duration in seconds before the object should be deleted. Value must be non-negative
+integer. The value zero indicates delete immediately. If this value is nil, the default grace
+period for the specified type will be used. Defaults to a per object value if not specified.
+zero means delete immediately.</p><p>If the field is not present, fails with <a href="../../../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.DeleteOptions#getOrphanDependents" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getOrphanDependents:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Boolean]"></a><a id="getOrphanDependents:IO[K8sFailure,Boolean]"></a>
@@ -680,7 +717,10 @@
         <span class="name">getOrphanDependents</span><span class="result">: <a href="../../../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Boolean">Boolean</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">Deprecated: please use the PropagationPolicy, this field will be deprecated in 1.7.</p><div class="fullcomment"><div class="comment cmt"><p>Deprecated: please use the PropagationPolicy, this field will be deprecated in 1.7. Should the dependent objects be orphaned. If true/false, the &quot;orphan&quot; finalizer will be added to/removed from the object's finalizers list. Either this field or PropagationPolicy may be set, but not both.</p><p>If the field is not present, fails with <a href="../../../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">Deprecated: please use the PropagationPolicy, this field will be deprecated in 1.7.</p><div class="fullcomment"><div class="comment cmt"><p>Deprecated: please use the PropagationPolicy, this field will be deprecated in 1.7. Should the
+dependent objects be orphaned. If true/false, the &quot;orphan&quot; finalizer will be added to/removed
+from the object's finalizers list. Either this field or PropagationPolicy may be set, but not
+both.</p><p>If the field is not present, fails with <a href="../../../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.DeleteOptions#getPreconditions" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getPreconditions:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Preconditions]"></a><a id="getPreconditions:IO[K8sFailure,Preconditions]"></a>
@@ -714,7 +754,12 @@
         <span class="name">getPropagationPolicy</span><span class="result">: <a href="../../../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">Whether and how garbage collection will be performed.</p><div class="fullcomment"><div class="comment cmt"><p>Whether and how garbage collection will be performed. Either this field or OrphanDependents may be set, but not both. The default policy is decided by the existing finalizer set in the metadata.finalizers and the resource-specific default policy. Acceptable values are: 'Orphan' - orphan the dependents; 'Background' - allow the garbage collector to delete the dependents in the background; 'Foreground' - a cascading policy that deletes all dependents in the foreground.</p><p>If the field is not present, fails with <a href="../../../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">Whether and how garbage collection will be performed.</p><div class="fullcomment"><div class="comment cmt"><p>Whether and how garbage collection will be performed. Either this field or OrphanDependents
+may be set, but not both. The default policy is decided by the existing finalizer set in the
+metadata.finalizers and the resource-specific default policy. Acceptable values are: 'Orphan'
+- orphan the dependents; 'Background' - allow the garbage collector to delete the dependents
+in the background; 'Foreground' - a cascading policy that deletes all dependents in the
+foreground.</p><p>If the field is not present, fails with <a href="../../../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.DeleteOptions#gracePeriodSeconds" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="gracePeriodSeconds:com.coralogix.zio.k8s.client.model.Optional[Long]"></a><a id="gracePeriodSeconds:Optional[Long]"></a>

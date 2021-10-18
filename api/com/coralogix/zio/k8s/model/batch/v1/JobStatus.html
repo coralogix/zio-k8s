@@ -182,6 +182,30 @@
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="com.coralogix.zio.k8s.model.batch">batch</a></dd></dl></div>
     </li><li class="current-entities indented7">
+                        <a class="object" href="CronJob$.html" title=""></a>
+                        <a class="class" href="CronJob.html" title="CronJob represents the configuration of a single cron job."></a>
+                        <a href="CronJob.html" title="CronJob represents the configuration of a single cron job.">CronJob</a>
+                      </li><li class="current-entities indented7">
+                        <span class="separator"></span>
+                        <a class="class" href="CronJobFields.html" title=""></a>
+                        <a href="CronJobFields.html" title="">CronJobFields</a>
+                      </li><li class="current-entities indented7">
+                        <a class="object" href="CronJobSpec$.html" title=""></a>
+                        <a class="class" href="CronJobSpec.html" title="CronJobSpec describes how the job execution will look like and when it will actually run."></a>
+                        <a href="CronJobSpec.html" title="CronJobSpec describes how the job execution will look like and when it will actually run.">CronJobSpec</a>
+                      </li><li class="current-entities indented7">
+                        <span class="separator"></span>
+                        <a class="class" href="CronJobSpecFields.html" title=""></a>
+                        <a href="CronJobSpecFields.html" title="">CronJobSpecFields</a>
+                      </li><li class="current-entities indented7">
+                        <a class="object" href="CronJobStatus$.html" title=""></a>
+                        <a class="class" href="CronJobStatus.html" title="CronJobStatus represents the current state of a cron job."></a>
+                        <a href="CronJobStatus.html" title="CronJobStatus represents the current state of a cron job.">CronJobStatus</a>
+                      </li><li class="current-entities indented7">
+                        <span class="separator"></span>
+                        <a class="class" href="CronJobStatusFields.html" title=""></a>
+                        <a href="CronJobStatusFields.html" title="">CronJobStatusFields</a>
+                      </li><li class="current-entities indented7">
                         <a class="object" href="Job$.html" title=""></a>
                         <a class="class" href="Job.html" title="Job represents the configuration of a single job."></a>
                         <a href="Job.html" title="Job represents the configuration of a single job.">Job</a>
@@ -213,6 +237,22 @@
                         <span class="separator"></span>
                         <a class="class" href="JobStatusFields.html" title=""></a>
                         <a href="JobStatusFields.html" title="">JobStatusFields</a>
+                      </li><li class="current-entities indented7">
+                        <a class="object" href="JobTemplateSpec$.html" title=""></a>
+                        <a class="class" href="JobTemplateSpec.html" title="JobTemplateSpec describes the data a Job should have when created from a template"></a>
+                        <a href="JobTemplateSpec.html" title="JobTemplateSpec describes the data a Job should have when created from a template">JobTemplateSpec</a>
+                      </li><li class="current-entities indented7">
+                        <span class="separator"></span>
+                        <a class="class" href="JobTemplateSpecFields.html" title=""></a>
+                        <a href="JobTemplateSpecFields.html" title="">JobTemplateSpecFields</a>
+                      </li><li class="current-entities indented7">
+                        <a class="object" href="UncountedTerminatedPods$.html" title=""></a>
+                        <a class="class" href="UncountedTerminatedPods.html" title="UncountedTerminatedPods holds UIDs of Pods that have terminated but haven't been accounted in Job status counters."></a>
+                        <a href="UncountedTerminatedPods.html" title="UncountedTerminatedPods holds UIDs of Pods that have terminated but haven't been accounted in Job status counters.">UncountedTerminatedPods</a>
+                      </li><li class="current-entities indented7">
+                        <span class="separator"></span>
+                        <a class="class" href="UncountedTerminatedPodsFields.html" title=""></a>
+                        <a href="UncountedTerminatedPodsFields.html" title="">UncountedTerminatedPodsFields</a>
                       </li>
               </ul>
             </div>
@@ -238,13 +278,27 @@
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <span class="name">JobStatus</span><span class="params">(<span name="active">active: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="completionTime">completionTime: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="../../pkg/apis/meta/v1/Time.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Time">Time</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="conditions">conditions: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="JobCondition.html" class="extype" name="com.coralogix.zio.k8s.model.batch.v1.JobCondition">JobCondition</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="failed">failed: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="startTime">startTime: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="../../pkg/apis/meta/v1/Time.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Time">Time</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="succeeded">succeeded: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <span class="name">JobStatus</span><span class="params">(<span name="active">active: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="completedIndexes">completedIndexes: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="completionTime">completionTime: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="../../pkg/apis/meta/v1/Time.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Time">Time</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="conditions">conditions: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="JobCondition.html" class="extype" name="com.coralogix.zio.k8s.model.batch.v1.JobCondition">JobCondition</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="failed">failed: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="startTime">startTime: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="../../pkg/apis/meta/v1/Time.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Time">Time</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="succeeded">succeeded: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="uncountedTerminatedPods">uncountedTerminatedPods: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="UncountedTerminatedPods.html" class="extype" name="com.coralogix.zio.k8s.model.batch.v1.UncountedTerminatedPods">UncountedTerminatedPods</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       </h4>
 
       
           <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>JobStatus represents the current state of a Job.
-</p></div><dl class="paramcmts block"><dt class="param">active</dt><dd class="cmt"><p>The number of actively running pods.</p></dd><dt class="param">conditions</dt><dd class="cmt"><p>The latest available observations of an object's current state. When a job fails, one of the conditions will have type == &quot;Failed&quot;. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/</p></dd><dt class="param">failed</dt><dd class="cmt"><p>The number of pods which reached phase Failed.</p></dd><dt class="param">succeeded</dt><dd class="cmt"><p>The number of pods which reached phase Succeeded.</p></dd></dl><div class="toggleContainer block">
+</p></div><dl class="paramcmts block"><dt class="param">active</dt><dd class="cmt"><p>
+  The number of actively running pods.</p></dd><dt class="param">completedIndexes</dt><dd class="cmt"><p>
+  CompletedIndexes holds the completed indexes when .spec.completionMode = &quot;Indexed&quot; in a text
+  format. The indexes are represented as decimal integers separated by commas. The numbers are
+  listed in increasing order. Three or more consecutive numbers are compressed and represented
+  by the first and last element of the series, separated by a hyphen. For example, if the
+  completed indexes are 1, 3, 4, 5 and 7, they are represented as &quot;1,3-5,7&quot;.</p></dd><dt class="param">conditions</dt><dd class="cmt"><p>
+  The latest available observations of an object's current state. When a Job fails, one of the
+  conditions will have type &quot;Failed&quot; and status true. When a Job is suspended, one of the
+  conditions will have type &quot;Suspended&quot; and status true; when the Job is resumed, the status of
+  this condition will become false. When a Job is completed, one of the conditions will have
+  type &quot;Complete&quot; and status true. More info:
+  https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/</p></dd><dt class="param">failed</dt><dd class="cmt"><p>
+  The number of pods which reached phase Failed.</p></dd><dt class="param">succeeded</dt><dd class="cmt"><p>
+  The number of pods which reached phase Succeeded.</p></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -295,9 +349,9 @@
         <div id="constructors" class="members">
               <h3>Instance Constructors</h3>
               <ol><li name="com.coralogix.zio.k8s.model.batch.v1.JobStatus#&lt;init&gt;" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="&lt;init&gt;(active:com.coralogix.zio.k8s.client.model.Optional[Int],completionTime:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Time],conditions:com.coralogix.zio.k8s.client.model.Optional[Vector[com.coralogix.zio.k8s.model.batch.v1.JobCondition]],failed:com.coralogix.zio.k8s.client.model.Optional[Int],startTime:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Time],succeeded:com.coralogix.zio.k8s.client.model.Optional[Int]):com.coralogix.zio.k8s.model.batch.v1.JobStatus"></a><a id="&lt;init&gt;:JobStatus"></a>
+      <a id="&lt;init&gt;(active:com.coralogix.zio.k8s.client.model.Optional[Int],completedIndexes:com.coralogix.zio.k8s.client.model.Optional[String],completionTime:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Time],conditions:com.coralogix.zio.k8s.client.model.Optional[Vector[com.coralogix.zio.k8s.model.batch.v1.JobCondition]],failed:com.coralogix.zio.k8s.client.model.Optional[Int],startTime:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Time],succeeded:com.coralogix.zio.k8s.client.model.Optional[Int],uncountedTerminatedPods:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.batch.v1.UncountedTerminatedPods]):com.coralogix.zio.k8s.model.batch.v1.JobStatus"></a><a id="&lt;init&gt;:JobStatus"></a>
       <span class="permalink">
-      <a href="../../../../../../../com/coralogix/zio/k8s/model/batch/v1/JobStatus.html#&lt;init&gt;(active:com.coralogix.zio.k8s.client.model.Optional[Int],completionTime:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Time],conditions:com.coralogix.zio.k8s.client.model.Optional[Vector[com.coralogix.zio.k8s.model.batch.v1.JobCondition]],failed:com.coralogix.zio.k8s.client.model.Optional[Int],startTime:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Time],succeeded:com.coralogix.zio.k8s.client.model.Optional[Int]):com.coralogix.zio.k8s.model.batch.v1.JobStatus" title="Permalink">
+      <a href="../../../../../../../com/coralogix/zio/k8s/model/batch/v1/JobStatus.html#&lt;init&gt;(active:com.coralogix.zio.k8s.client.model.Optional[Int],completedIndexes:com.coralogix.zio.k8s.client.model.Optional[String],completionTime:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Time],conditions:com.coralogix.zio.k8s.client.model.Optional[Vector[com.coralogix.zio.k8s.model.batch.v1.JobCondition]],failed:com.coralogix.zio.k8s.client.model.Optional[Int],startTime:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Time],succeeded:com.coralogix.zio.k8s.client.model.Optional[Int],uncountedTerminatedPods:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.batch.v1.UncountedTerminatedPods]):com.coralogix.zio.k8s.model.batch.v1.JobStatus" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -306,10 +360,24 @@
         <span class="kind">new</span>
       </span>
       <span class="symbol">
-        <span class="name">JobStatus</span><span class="params">(<span name="active">active: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="completionTime">completionTime: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="../../pkg/apis/meta/v1/Time.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Time">Time</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="conditions">conditions: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="JobCondition.html" class="extype" name="com.coralogix.zio.k8s.model.batch.v1.JobCondition">JobCondition</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="failed">failed: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="startTime">startTime: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="../../pkg/apis/meta/v1/Time.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Time">Time</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="succeeded">succeeded: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span>
+        <span class="name">JobStatus</span><span class="params">(<span name="active">active: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="completedIndexes">completedIndexes: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="completionTime">completionTime: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="../../pkg/apis/meta/v1/Time.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Time">Time</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="conditions">conditions: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="JobCondition.html" class="extype" name="com.coralogix.zio.k8s.model.batch.v1.JobCondition">JobCondition</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="failed">failed: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="startTime">startTime: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="../../pkg/apis/meta/v1/Time.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Time">Time</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="succeeded">succeeded: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="uncountedTerminatedPods">uncountedTerminatedPods: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="UncountedTerminatedPods.html" class="extype" name="com.coralogix.zio.k8s.model.batch.v1.UncountedTerminatedPods">UncountedTerminatedPods</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span>
       </span>
       
-      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">active</dt><dd class="cmt"><p>The number of actively running pods.</p></dd><dt class="param">conditions</dt><dd class="cmt"><p>The latest available observations of an object's current state. When a job fails, one of the conditions will have type == &quot;Failed&quot;. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/</p></dd><dt class="param">failed</dt><dd class="cmt"><p>The number of pods which reached phase Failed.</p></dd><dt class="param">succeeded</dt><dd class="cmt"><p>The number of pods which reached phase Succeeded.</p></dd></dl></div>
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">active</dt><dd class="cmt"><p>
+  The number of actively running pods.</p></dd><dt class="param">completedIndexes</dt><dd class="cmt"><p>
+  CompletedIndexes holds the completed indexes when .spec.completionMode = &quot;Indexed&quot; in a text
+  format. The indexes are represented as decimal integers separated by commas. The numbers are
+  listed in increasing order. Three or more consecutive numbers are compressed and represented
+  by the first and last element of the series, separated by a hyphen. For example, if the
+  completed indexes are 1, 3, 4, 5 and 7, they are represented as &quot;1,3-5,7&quot;.</p></dd><dt class="param">conditions</dt><dd class="cmt"><p>
+  The latest available observations of an object's current state. When a Job fails, one of the
+  conditions will have type &quot;Failed&quot; and status true. When a Job is suspended, one of the
+  conditions will have type &quot;Suspended&quot; and status true; when the Job is resumed, the status of
+  this condition will become false. When a Job is completed, one of the conditions will have
+  type &quot;Complete&quot; and status true. More info:
+  https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/</p></dd><dt class="param">failed</dt><dd class="cmt"><p>
+  The number of pods which reached phase Failed.</p></dd><dt class="param">succeeded</dt><dd class="cmt"><p>
+  The number of pods which reached phase Succeeded.</p></dd></dl></div>
     </li></ol>
             </div>
 
@@ -426,6 +494,22 @@
                 <span class="name">@HotSpotIntrinsicCandidate</span><span class="args">()</span>
               
         </dd></dl></div>
+    </li><li name="com.coralogix.zio.k8s.model.batch.v1.JobStatus#completedIndexes" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="completedIndexes:com.coralogix.zio.k8s.client.model.Optional[String]"></a><a id="completedIndexes:Optional[String]"></a>
+      <span class="permalink">
+      <a href="../../../../../../../com/coralogix/zio/k8s/model/batch/v1/JobStatus.html#completedIndexes:com.coralogix.zio.k8s.client.model.Optional[String]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">completedIndexes</span><span class="result">: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>]</span>
+      </span>
+      
+      
     </li><li name="com.coralogix.zio.k8s.model.batch.v1.JobStatus#completionTime" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="completionTime:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Time]"></a><a id="completionTime:Optional[Time]"></a>
       <span class="permalink">
@@ -528,6 +612,28 @@
                 <span class="name">@HotSpotIntrinsicCandidate</span><span class="args">()</span>
               
         </dd></dl></div>
+    </li><li name="com.coralogix.zio.k8s.model.batch.v1.JobStatus#getCompletedIndexes" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="getCompletedIndexes:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]"></a><a id="getCompletedIndexes:IO[K8sFailure,String]"></a>
+      <span class="permalink">
+      <a href="../../../../../../../com/coralogix/zio/k8s/model/batch/v1/JobStatus.html#getCompletedIndexes:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">getCompletedIndexes</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">CompletedIndexes holds the completed indexes when .spec.completionMode = &quot;Indexed&quot; in a text
+format.</p><div class="fullcomment"><div class="comment cmt"><p>CompletedIndexes holds the completed indexes when .spec.completionMode = &quot;Indexed&quot; in a text
+format. The indexes are represented as decimal integers separated by commas. The numbers are
+listed in increasing order. Three or more consecutive numbers are compressed and represented
+by the first and last element of the series, separated by a hyphen. For example, if the
+completed indexes are 1, 3, 4, 5 and 7, they are represented as &quot;1,3-5,7&quot;.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+</p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.batch.v1.JobStatus#getCompletionTime" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getCompletionTime:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Time]"></a><a id="getCompletionTime:IO[K8sFailure,Time]"></a>
       <span class="permalink">
@@ -560,7 +666,12 @@
         <span class="name">getConditions</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Vector">Vector</span>[<a href="JobCondition.html" class="extype" name="com.coralogix.zio.k8s.model.batch.v1.JobCondition">JobCondition</a>]]</span>
       </span>
       
-      <p class="shortcomment cmt">The latest available observations of an object's current state.</p><div class="fullcomment"><div class="comment cmt"><p>The latest available observations of an object's current state. When a job fails, one of the conditions will have type == &quot;Failed&quot;. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">The latest available observations of an object's current state.</p><div class="fullcomment"><div class="comment cmt"><p>The latest available observations of an object's current state. When a Job fails, one of the
+conditions will have type &quot;Failed&quot; and status true. When a Job is suspended, one of the
+conditions will have type &quot;Suspended&quot; and status true; when the Job is resumed, the status of
+this condition will become false. When a Job is completed, one of the conditions will have
+type &quot;Complete&quot; and status true. More info:
+https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.batch.v1.JobStatus#getFailed" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getFailed:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Int]"></a><a id="getFailed:IO[K8sFailure,Int]"></a>
@@ -612,6 +723,23 @@
       </span>
       
       <p class="shortcomment cmt">The number of pods which reached phase Succeeded.</p><div class="fullcomment"><div class="comment cmt"><p>The number of pods which reached phase Succeeded.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.batch.v1.JobStatus#getUncountedTerminatedPods" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="getUncountedTerminatedPods:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.model.batch.v1.UncountedTerminatedPods]"></a><a id="getUncountedTerminatedPods:IO[K8sFailure,UncountedTerminatedPods]"></a>
+      <span class="permalink">
+      <a href="../../../../../../../com/coralogix/zio/k8s/model/batch/v1/JobStatus.html#getUncountedTerminatedPods:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.model.batch.v1.UncountedTerminatedPods]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">getUncountedTerminatedPods</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="UncountedTerminatedPods.html" class="extype" name="com.coralogix.zio.k8s.model.batch.v1.UncountedTerminatedPods">UncountedTerminatedPods</a>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Gets uncountedTerminatedPods.</p><div class="fullcomment"><div class="comment cmt"><p>Gets uncountedTerminatedPods.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="scala.Any#isInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isInstanceOf[T0]:Boolean"></a>
@@ -735,6 +863,22 @@
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li name="com.coralogix.zio.k8s.model.batch.v1.JobStatus#uncountedTerminatedPods" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="uncountedTerminatedPods:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.batch.v1.UncountedTerminatedPods]"></a><a id="uncountedTerminatedPods:Optional[UncountedTerminatedPods]"></a>
+      <span class="permalink">
+      <a href="../../../../../../../com/coralogix/zio/k8s/model/batch/v1/JobStatus.html#uncountedTerminatedPods:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.batch.v1.UncountedTerminatedPods]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">uncountedTerminatedPods</span><span class="result">: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="UncountedTerminatedPods.html" class="extype" name="com.coralogix.zio.k8s.model.batch.v1.UncountedTerminatedPods">UncountedTerminatedPods</a>]</span>
+      </span>
+      
+      
     </li><li name="scala.AnyRef#wait" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="wait(x$1:Long,x$2:Int):Unit"></a><a id="wait(Long,Int):Unit"></a>
       <span class="permalink">

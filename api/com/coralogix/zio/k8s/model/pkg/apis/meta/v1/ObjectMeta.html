@@ -411,14 +411,77 @@
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>ObjectMeta is metadata that all persisted resources must have, which includes all objects users must create.
-</p></div><dl class="paramcmts block"><dt class="param">annotations</dt><dd class="cmt"><p>Annotations is an unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. More info: http://kubernetes.io/docs/user-guide/annotations</p></dd><dt class="param">clusterName</dt><dd class="cmt"><p>The name of the cluster which the object belongs to. This is used to distinguish resources with same name and namespace in different clusters. This field is not set anywhere right now and apiserver is going to ignore it if set in create or update request.</p></dd><dt class="param">deletionGracePeriodSeconds</dt><dd class="cmt"><p>Number of seconds allowed for this object to gracefully terminate before it will be removed from the system. Only set when deletionTimestamp is also set. May only be shortened. Read-only.</p></dd><dt class="param">finalizers</dt><dd class="cmt"><p>Must be empty before the object is deleted from the registry. Each entry is an identifier for the responsible component that will remove the entry from the list. If the deletionTimestamp of the object is non-nil, entries in this list can only be removed. Finalizers may be processed and removed in any order.  Order is NOT enforced because it introduces significant risk of stuck finalizers. finalizers is a shared field, any actor with permission can reorder it. If the finalizer list is processed in order, then this can lead to a situation in which the component responsible for the first finalizer in the list is waiting for a signal (field value, external system, or other) produced by a component responsible for a finalizer later in the list, resulting in a deadlock. Without enforced ordering finalizers are free to order amongst themselves and are not vulnerable to ordering changes in the list.</p></dd><dt class="param">generateName</dt><dd class="cmt"><p>GenerateName is an optional prefix, used by the server, to generate a unique name ONLY IF the Name field has not been provided. If this field is used, the name returned to the client will be different than the name passed. This value will also be combined with a unique suffix. The provided value has the same validation rules as the Name field, and may be truncated by the length of the suffix required to make the value unique on the server.
-If this field is specified and the generated name exists, the server will NOT return a 409 - instead, it will either return 201 Created or 500 with Reason ServerTimeout indicating a unique name could not be found in the time allotted, and the client should retry (optionally after the time indicated in the Retry-After header).
-Applied only if Name is not specified. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#idempotency</p></dd><dt class="param">generation</dt><dd class="cmt"><p>A sequence number representing a specific generation of the desired state. Populated by the system. Read-only.</p></dd><dt class="param">labels</dt><dd class="cmt"><p>Map of string keys and values that can be used to organize and categorize (scope and select) objects. May match selectors of replication controllers and services. More info: http://kubernetes.io/docs/user-guide/labels</p></dd><dt class="param">managedFields</dt><dd class="cmt"><p>ManagedFields maps workflow-id and version to the set of fields that are managed by that workflow. This is mostly for internal housekeeping, and users typically shouldn't need to set or understand this field. A workflow can be the user's name, a controller's name, or the name of a specific apply path like &quot;ci-cd&quot;. The set of fields is always in the version that the workflow used when modifying the object.</p></dd><dt class="param">name</dt><dd class="cmt"><p>Name must be unique within a namespace. Is required when creating resources, although some resources may allow a client to request the generation of an appropriate name automatically. Name is primarily intended for creation idempotence and configuration definition. Cannot be updated. More info: http://kubernetes.io/docs/user-guide/identifiers#names</p></dd><dt class="param">namespace</dt><dd class="cmt"><p>Namespace defines the space within which each name must be unique. An empty namespace is equivalent to the &quot;default&quot; namespace, but &quot;default&quot; is the canonical representation. Not all objects are required to be scoped to a namespace - the value of this field for those objects will be empty.
-Must be a DNS_LABEL. Cannot be updated. More info: http://kubernetes.io/docs/user-guide/namespaces</p></dd><dt class="param">ownerReferences</dt><dd class="cmt"><p>List of objects depended by this object. If ALL objects in the list have been deleted, this object will be garbage collected. If this object is managed by a controller, then an entry in this list will point to this controller, with the controller field set to true. There cannot be more than one managing controller.</p></dd><dt class="param">resourceVersion</dt><dd class="cmt"><p>An opaque value that represents the internal version of this object that can be used by clients to determine when objects have changed. May be used for optimistic concurrency, change detection, and the watch operation on a resource or set of resources. Clients must treat these values as opaque and passed unmodified back to the server. They may only be valid for a particular resource or set of resources.
-Populated by the system. Read-only. Value must be treated as opaque by clients and . More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency</p></dd><dt class="param">selfLink</dt><dd class="cmt"><p>SelfLink is a URL representing this object. Populated by the system. Read-only.
-DEPRECATED Kubernetes will stop propagating this field in 1.20 release and the field is planned to be removed in 1.21 release.</p></dd><dt class="param">uid</dt><dd class="cmt"><p>UID is the unique in time and space value for this object. It is typically generated by the server on successful creation of a resource and is not allowed to change on PUT operations.
-Populated by the system. Read-only. More info: http://kubernetes.io/docs/user-guide/identifiers#uids</p></dd></dl><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>ObjectMeta is metadata that all persisted resources must have, which includes all objects users
+must create.
+</p></div><dl class="paramcmts block"><dt class="param">annotations</dt><dd class="cmt"><p>
+  Annotations is an unstructured key value map stored with a resource that may be set by
+  external tools to store and retrieve arbitrary metadata. They are not queryable and should be
+  preserved when modifying objects. More info: http://kubernetes.io/docs/user-guide/annotations</p></dd><dt class="param">clusterName</dt><dd class="cmt"><p>
+  The name of the cluster which the object belongs to. This is used to distinguish resources
+  with same name and namespace in different clusters. This field is not set anywhere right now
+  and apiserver is going to ignore it if set in create or update request.</p></dd><dt class="param">deletionGracePeriodSeconds</dt><dd class="cmt"><p>
+  Number of seconds allowed for this object to gracefully terminate before it will be removed
+  from the system. Only set when deletionTimestamp is also set. May only be shortened.
+  Read-only.</p></dd><dt class="param">finalizers</dt><dd class="cmt"><p>
+  Must be empty before the object is deleted from the registry. Each entry is an identifier for
+  the responsible component that will remove the entry from the list. If the deletionTimestamp
+  of the object is non-nil, entries in this list can only be removed. Finalizers may be
+  processed and removed in any order. Order is NOT enforced because it introduces significant
+  risk of stuck finalizers. finalizers is a shared field, any actor with permission can reorder
+  it. If the finalizer list is processed in order, then this can lead to a situation in which
+  the component responsible for the first finalizer in the list is waiting for a signal (field
+  value, external system, or other) produced by a component responsible for a finalizer later in
+  the list, resulting in a deadlock. Without enforced ordering finalizers are free to order
+  amongst themselves and are not vulnerable to ordering changes in the list.</p></dd><dt class="param">generateName</dt><dd class="cmt"><p>
+  GenerateName is an optional prefix, used by the server, to generate a unique name ONLY IF the
+  Name field has not been provided. If this field is used, the name returned to the client will
+  be different than the name passed. This value will also be combined with a unique suffix. The
+  provided value has the same validation rules as the Name field, and may be truncated by the
+  length of the suffix required to make the value unique on the server.
+If this field is specified and the generated name exists, the server will NOT return a 409 -
+instead, it will either return 201 Created or 500 with Reason ServerTimeout indicating a unique
+name could not be found in the time allotted, and the client should retry (optionally after the
+time indicated in the Retry-After header).
+Applied only if Name is not specified. More info:
+https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#idempotency</p></dd><dt class="param">generation</dt><dd class="cmt"><p>
+  A sequence number representing a specific generation of the desired state. Populated by the
+  system. Read-only.</p></dd><dt class="param">labels</dt><dd class="cmt"><p>
+  Map of string keys and values that can be used to organize and categorize (scope and select)
+  objects. May match selectors of replication controllers and services. More info:
+  http://kubernetes.io/docs/user-guide/labels</p></dd><dt class="param">managedFields</dt><dd class="cmt"><p>
+  ManagedFields maps workflow-id and version to the set of fields that are managed by that
+  workflow. This is mostly for internal housekeeping, and users typically shouldn't need to set
+  or understand this field. A workflow can be the user's name, a controller's name, or the name
+  of a specific apply path like &quot;ci-cd&quot;. The set of fields is always in the version that the
+  workflow used when modifying the object.</p></dd><dt class="param">name</dt><dd class="cmt"><p>
+  Name must be unique within a namespace. Is required when creating resources, although some
+  resources may allow a client to request the generation of an appropriate name automatically.
+  Name is primarily intended for creation idempotence and configuration definition. Cannot be
+  updated. More info: http://kubernetes.io/docs/user-guide/identifiers#names</p></dd><dt class="param">namespace</dt><dd class="cmt"><p>
+  Namespace defines the space within which each name must be unique. An empty namespace is
+  equivalent to the &quot;default&quot; namespace, but &quot;default&quot; is the canonical representation. Not all
+  objects are required to be scoped to a namespace - the value of this field for those objects
+  will be empty.
+Must be a DNS_LABEL. Cannot be updated. More info:
+http://kubernetes.io/docs/user-guide/namespaces</p></dd><dt class="param">ownerReferences</dt><dd class="cmt"><p>
+  List of objects depended by this object. If ALL objects in the list have been deleted, this
+  object will be garbage collected. If this object is managed by a controller, then an entry in
+  this list will point to this controller, with the controller field set to true. There cannot
+  be more than one managing controller.</p></dd><dt class="param">resourceVersion</dt><dd class="cmt"><p>
+  An opaque value that represents the internal version of this object that can be used by
+  clients to determine when objects have changed. May be used for optimistic concurrency, change
+  detection, and the watch operation on a resource or set of resources. Clients must treat these
+  values as opaque and passed unmodified back to the server. They may only be valid for a
+  particular resource or set of resources.
+Populated by the system. Read-only. Value must be treated as opaque by clients and . More info:
+https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency</p></dd><dt class="param">selfLink</dt><dd class="cmt"><p>
+  SelfLink is a URL representing this object. Populated by the system. Read-only.
+DEPRECATED Kubernetes will stop propagating this field in 1.20 release and the field is planned
+to be removed in 1.21 release.</p></dd><dt class="param">uid</dt><dd class="cmt"><p>
+  UID is the unique in time and space value for this object. It is typically generated by the
+  server on successful creation of a resource and is not allowed to change on PUT operations.
+Populated by the system. Read-only. More info:
+http://kubernetes.io/docs/user-guide/identifiers#uids</p></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -483,13 +546,75 @@ Populated by the system. Read-only. More info: http://kubernetes.io/docs/user-gu
         <span class="name">ObjectMeta</span><span class="params">(<span name="annotations">annotations: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="clusterName">clusterName: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="creationTimestamp">creationTimestamp: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="Time.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Time">Time</a>] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="deletionGracePeriodSeconds">deletionGracePeriodSeconds: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Long">Long</span>] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="deletionTimestamp">deletionTimestamp: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="Time.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Time">Time</a>] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="finalizers">finalizers: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="generateName">generateName: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="generation">generation: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Long">Long</span>] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="labels">labels: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="managedFields">managedFields: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="ManagedFieldsEntry.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.ManagedFieldsEntry">ManagedFieldsEntry</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="name">name: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="namespace">namespace: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="ownerReferences">ownerReferences: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="OwnerReference.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.OwnerReference">OwnerReference</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="resourceVersion">resourceVersion: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="selfLink">selfLink: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="uid">uid: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>)</span>
       </span>
       
-      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">annotations</dt><dd class="cmt"><p>Annotations is an unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. More info: http://kubernetes.io/docs/user-guide/annotations</p></dd><dt class="param">clusterName</dt><dd class="cmt"><p>The name of the cluster which the object belongs to. This is used to distinguish resources with same name and namespace in different clusters. This field is not set anywhere right now and apiserver is going to ignore it if set in create or update request.</p></dd><dt class="param">deletionGracePeriodSeconds</dt><dd class="cmt"><p>Number of seconds allowed for this object to gracefully terminate before it will be removed from the system. Only set when deletionTimestamp is also set. May only be shortened. Read-only.</p></dd><dt class="param">finalizers</dt><dd class="cmt"><p>Must be empty before the object is deleted from the registry. Each entry is an identifier for the responsible component that will remove the entry from the list. If the deletionTimestamp of the object is non-nil, entries in this list can only be removed. Finalizers may be processed and removed in any order.  Order is NOT enforced because it introduces significant risk of stuck finalizers. finalizers is a shared field, any actor with permission can reorder it. If the finalizer list is processed in order, then this can lead to a situation in which the component responsible for the first finalizer in the list is waiting for a signal (field value, external system, or other) produced by a component responsible for a finalizer later in the list, resulting in a deadlock. Without enforced ordering finalizers are free to order amongst themselves and are not vulnerable to ordering changes in the list.</p></dd><dt class="param">generateName</dt><dd class="cmt"><p>GenerateName is an optional prefix, used by the server, to generate a unique name ONLY IF the Name field has not been provided. If this field is used, the name returned to the client will be different than the name passed. This value will also be combined with a unique suffix. The provided value has the same validation rules as the Name field, and may be truncated by the length of the suffix required to make the value unique on the server.
-If this field is specified and the generated name exists, the server will NOT return a 409 - instead, it will either return 201 Created or 500 with Reason ServerTimeout indicating a unique name could not be found in the time allotted, and the client should retry (optionally after the time indicated in the Retry-After header).
-Applied only if Name is not specified. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#idempotency</p></dd><dt class="param">generation</dt><dd class="cmt"><p>A sequence number representing a specific generation of the desired state. Populated by the system. Read-only.</p></dd><dt class="param">labels</dt><dd class="cmt"><p>Map of string keys and values that can be used to organize and categorize (scope and select) objects. May match selectors of replication controllers and services. More info: http://kubernetes.io/docs/user-guide/labels</p></dd><dt class="param">managedFields</dt><dd class="cmt"><p>ManagedFields maps workflow-id and version to the set of fields that are managed by that workflow. This is mostly for internal housekeeping, and users typically shouldn't need to set or understand this field. A workflow can be the user's name, a controller's name, or the name of a specific apply path like &quot;ci-cd&quot;. The set of fields is always in the version that the workflow used when modifying the object.</p></dd><dt class="param">name</dt><dd class="cmt"><p>Name must be unique within a namespace. Is required when creating resources, although some resources may allow a client to request the generation of an appropriate name automatically. Name is primarily intended for creation idempotence and configuration definition. Cannot be updated. More info: http://kubernetes.io/docs/user-guide/identifiers#names</p></dd><dt class="param">namespace</dt><dd class="cmt"><p>Namespace defines the space within which each name must be unique. An empty namespace is equivalent to the &quot;default&quot; namespace, but &quot;default&quot; is the canonical representation. Not all objects are required to be scoped to a namespace - the value of this field for those objects will be empty.
-Must be a DNS_LABEL. Cannot be updated. More info: http://kubernetes.io/docs/user-guide/namespaces</p></dd><dt class="param">ownerReferences</dt><dd class="cmt"><p>List of objects depended by this object. If ALL objects in the list have been deleted, this object will be garbage collected. If this object is managed by a controller, then an entry in this list will point to this controller, with the controller field set to true. There cannot be more than one managing controller.</p></dd><dt class="param">resourceVersion</dt><dd class="cmt"><p>An opaque value that represents the internal version of this object that can be used by clients to determine when objects have changed. May be used for optimistic concurrency, change detection, and the watch operation on a resource or set of resources. Clients must treat these values as opaque and passed unmodified back to the server. They may only be valid for a particular resource or set of resources.
-Populated by the system. Read-only. Value must be treated as opaque by clients and . More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency</p></dd><dt class="param">selfLink</dt><dd class="cmt"><p>SelfLink is a URL representing this object. Populated by the system. Read-only.
-DEPRECATED Kubernetes will stop propagating this field in 1.20 release and the field is planned to be removed in 1.21 release.</p></dd><dt class="param">uid</dt><dd class="cmt"><p>UID is the unique in time and space value for this object. It is typically generated by the server on successful creation of a resource and is not allowed to change on PUT operations.
-Populated by the system. Read-only. More info: http://kubernetes.io/docs/user-guide/identifiers#uids</p></dd></dl></div>
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">annotations</dt><dd class="cmt"><p>
+  Annotations is an unstructured key value map stored with a resource that may be set by
+  external tools to store and retrieve arbitrary metadata. They are not queryable and should be
+  preserved when modifying objects. More info: http://kubernetes.io/docs/user-guide/annotations</p></dd><dt class="param">clusterName</dt><dd class="cmt"><p>
+  The name of the cluster which the object belongs to. This is used to distinguish resources
+  with same name and namespace in different clusters. This field is not set anywhere right now
+  and apiserver is going to ignore it if set in create or update request.</p></dd><dt class="param">deletionGracePeriodSeconds</dt><dd class="cmt"><p>
+  Number of seconds allowed for this object to gracefully terminate before it will be removed
+  from the system. Only set when deletionTimestamp is also set. May only be shortened.
+  Read-only.</p></dd><dt class="param">finalizers</dt><dd class="cmt"><p>
+  Must be empty before the object is deleted from the registry. Each entry is an identifier for
+  the responsible component that will remove the entry from the list. If the deletionTimestamp
+  of the object is non-nil, entries in this list can only be removed. Finalizers may be
+  processed and removed in any order. Order is NOT enforced because it introduces significant
+  risk of stuck finalizers. finalizers is a shared field, any actor with permission can reorder
+  it. If the finalizer list is processed in order, then this can lead to a situation in which
+  the component responsible for the first finalizer in the list is waiting for a signal (field
+  value, external system, or other) produced by a component responsible for a finalizer later in
+  the list, resulting in a deadlock. Without enforced ordering finalizers are free to order
+  amongst themselves and are not vulnerable to ordering changes in the list.</p></dd><dt class="param">generateName</dt><dd class="cmt"><p>
+  GenerateName is an optional prefix, used by the server, to generate a unique name ONLY IF the
+  Name field has not been provided. If this field is used, the name returned to the client will
+  be different than the name passed. This value will also be combined with a unique suffix. The
+  provided value has the same validation rules as the Name field, and may be truncated by the
+  length of the suffix required to make the value unique on the server.
+If this field is specified and the generated name exists, the server will NOT return a 409 -
+instead, it will either return 201 Created or 500 with Reason ServerTimeout indicating a unique
+name could not be found in the time allotted, and the client should retry (optionally after the
+time indicated in the Retry-After header).
+Applied only if Name is not specified. More info:
+https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#idempotency</p></dd><dt class="param">generation</dt><dd class="cmt"><p>
+  A sequence number representing a specific generation of the desired state. Populated by the
+  system. Read-only.</p></dd><dt class="param">labels</dt><dd class="cmt"><p>
+  Map of string keys and values that can be used to organize and categorize (scope and select)
+  objects. May match selectors of replication controllers and services. More info:
+  http://kubernetes.io/docs/user-guide/labels</p></dd><dt class="param">managedFields</dt><dd class="cmt"><p>
+  ManagedFields maps workflow-id and version to the set of fields that are managed by that
+  workflow. This is mostly for internal housekeeping, and users typically shouldn't need to set
+  or understand this field. A workflow can be the user's name, a controller's name, or the name
+  of a specific apply path like &quot;ci-cd&quot;. The set of fields is always in the version that the
+  workflow used when modifying the object.</p></dd><dt class="param">name</dt><dd class="cmt"><p>
+  Name must be unique within a namespace. Is required when creating resources, although some
+  resources may allow a client to request the generation of an appropriate name automatically.
+  Name is primarily intended for creation idempotence and configuration definition. Cannot be
+  updated. More info: http://kubernetes.io/docs/user-guide/identifiers#names</p></dd><dt class="param">namespace</dt><dd class="cmt"><p>
+  Namespace defines the space within which each name must be unique. An empty namespace is
+  equivalent to the &quot;default&quot; namespace, but &quot;default&quot; is the canonical representation. Not all
+  objects are required to be scoped to a namespace - the value of this field for those objects
+  will be empty.
+Must be a DNS_LABEL. Cannot be updated. More info:
+http://kubernetes.io/docs/user-guide/namespaces</p></dd><dt class="param">ownerReferences</dt><dd class="cmt"><p>
+  List of objects depended by this object. If ALL objects in the list have been deleted, this
+  object will be garbage collected. If this object is managed by a controller, then an entry in
+  this list will point to this controller, with the controller field set to true. There cannot
+  be more than one managing controller.</p></dd><dt class="param">resourceVersion</dt><dd class="cmt"><p>
+  An opaque value that represents the internal version of this object that can be used by
+  clients to determine when objects have changed. May be used for optimistic concurrency, change
+  detection, and the watch operation on a resource or set of resources. Clients must treat these
+  values as opaque and passed unmodified back to the server. They may only be valid for a
+  particular resource or set of resources.
+Populated by the system. Read-only. Value must be treated as opaque by clients and . More info:
+https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency</p></dd><dt class="param">selfLink</dt><dd class="cmt"><p>
+  SelfLink is a URL representing this object. Populated by the system. Read-only.
+DEPRECATED Kubernetes will stop propagating this field in 1.20 release and the field is planned
+to be removed in 1.21 release.</p></dd><dt class="param">uid</dt><dd class="cmt"><p>
+  UID is the unique in time and space value for this object. It is typically generated by the
+  server on successful creation of a resource and is not allowed to change on PUT operations.
+Populated by the system. Read-only. More info:
+http://kubernetes.io/docs/user-guide/identifiers#uids</p></dd></dl></div>
     </li></ol>
             </div>
 
@@ -749,7 +874,10 @@ Populated by the system. Read-only. More info: http://kubernetes.io/docs/user-gu
         <span class="name">getAnnotations</span><span class="result">: <a href="../../../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.Predef.String">String</span>]]</span>
       </span>
       
-      <p class="shortcomment cmt">Annotations is an unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata.</p><div class="fullcomment"><div class="comment cmt"><p>Annotations is an unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. More info: http://kubernetes.io/docs/user-guide/annotations</p><p>If the field is not present, fails with <a href="../../../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">Annotations is an unstructured key value map stored with a resource that may be set by
+external tools to store and retrieve arbitrary metadata.</p><div class="fullcomment"><div class="comment cmt"><p>Annotations is an unstructured key value map stored with a resource that may be set by
+external tools to store and retrieve arbitrary metadata. They are not queryable and should be
+preserved when modifying objects. More info: http://kubernetes.io/docs/user-guide/annotations</p><p>If the field is not present, fails with <a href="../../../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="scala.AnyRef#getClass" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getClass():Class[_]"></a>
@@ -787,7 +915,9 @@ Populated by the system. Read-only. More info: http://kubernetes.io/docs/user-gu
         <span class="name">getClusterName</span><span class="result">: <a href="../../../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">The name of the cluster which the object belongs to.</p><div class="fullcomment"><div class="comment cmt"><p>The name of the cluster which the object belongs to. This is used to distinguish resources with same name and namespace in different clusters. This field is not set anywhere right now and apiserver is going to ignore it if set in create or update request.</p><p>If the field is not present, fails with <a href="../../../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">The name of the cluster which the object belongs to.</p><div class="fullcomment"><div class="comment cmt"><p>The name of the cluster which the object belongs to. This is used to distinguish resources
+with same name and namespace in different clusters. This field is not set anywhere right now
+and apiserver is going to ignore it if set in create or update request.</p><p>If the field is not present, fails with <a href="../../../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.ObjectMeta#getCreationTimestamp" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getCreationTimestamp:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Time]"></a><a id="getCreationTimestamp:IO[K8sFailure,Time]"></a>
@@ -821,7 +951,10 @@ Populated by the system. Read-only. More info: http://kubernetes.io/docs/user-gu
         <span class="name">getDeletionGracePeriodSeconds</span><span class="result">: <a href="../../../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Long">Long</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">Number of seconds allowed for this object to gracefully terminate before it will be removed from the system.</p><div class="fullcomment"><div class="comment cmt"><p>Number of seconds allowed for this object to gracefully terminate before it will be removed from the system. Only set when deletionTimestamp is also set. May only be shortened. Read-only.</p><p>If the field is not present, fails with <a href="../../../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">Number of seconds allowed for this object to gracefully terminate before it will be removed
+from the system.</p><div class="fullcomment"><div class="comment cmt"><p>Number of seconds allowed for this object to gracefully terminate before it will be removed
+from the system. Only set when deletionTimestamp is also set. May only be shortened.
+Read-only.</p><p>If the field is not present, fails with <a href="../../../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.ObjectMeta#getDeletionTimestamp" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getDeletionTimestamp:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Time]"></a><a id="getDeletionTimestamp:IO[K8sFailure,Time]"></a>
@@ -855,7 +988,16 @@ Populated by the system. Read-only. More info: http://kubernetes.io/docs/user-gu
         <span class="name">getFinalizers</span><span class="result">: <a href="../../../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]]</span>
       </span>
       
-      <p class="shortcomment cmt">Must be empty before the object is deleted from the registry.</p><div class="fullcomment"><div class="comment cmt"><p>Must be empty before the object is deleted from the registry. Each entry is an identifier for the responsible component that will remove the entry from the list. If the deletionTimestamp of the object is non-nil, entries in this list can only be removed. Finalizers may be processed and removed in any order.  Order is NOT enforced because it introduces significant risk of stuck finalizers. finalizers is a shared field, any actor with permission can reorder it. If the finalizer list is processed in order, then this can lead to a situation in which the component responsible for the first finalizer in the list is waiting for a signal (field value, external system, or other) produced by a component responsible for a finalizer later in the list, resulting in a deadlock. Without enforced ordering finalizers are free to order amongst themselves and are not vulnerable to ordering changes in the list.</p><p>If the field is not present, fails with <a href="../../../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">Must be empty before the object is deleted from the registry.</p><div class="fullcomment"><div class="comment cmt"><p>Must be empty before the object is deleted from the registry. Each entry is an identifier for
+the responsible component that will remove the entry from the list. If the deletionTimestamp
+of the object is non-nil, entries in this list can only be removed. Finalizers may be
+processed and removed in any order. Order is NOT enforced because it introduces significant
+risk of stuck finalizers. finalizers is a shared field, any actor with permission can reorder
+it. If the finalizer list is processed in order, then this can lead to a situation in which
+the component responsible for the first finalizer in the list is waiting for a signal (field
+value, external system, or other) produced by a component responsible for a finalizer later in
+the list, resulting in a deadlock. Without enforced ordering finalizers are free to order
+amongst themselves and are not vulnerable to ordering changes in the list.</p><p>If the field is not present, fails with <a href="../../../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.ObjectMeta#getGenerateName" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getGenerateName:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]"></a><a id="getGenerateName:IO[K8sFailure,String]"></a>
@@ -872,7 +1014,16 @@ Populated by the system. Read-only. More info: http://kubernetes.io/docs/user-gu
         <span class="name">getGenerateName</span><span class="result">: <a href="../../../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">GenerateName is an optional prefix, used by the server, to generate a unique name ONLY IF the Name field has not been provided.</p><div class="fullcomment"><div class="comment cmt"><p>GenerateName is an optional prefix, used by the server, to generate a unique name ONLY IF the Name field has not been provided. If this field is used, the name returned to the client will be different than the name passed. This value will also be combined with a unique suffix. The provided value has the same validation rules as the Name field, and may be truncated by the length of the suffix required to make the value unique on the server.</p><p>If this field is specified and the generated name exists, the server will NOT return a 409 - instead, it will either return 201 Created or 500 with Reason ServerTimeout indicating a unique name could not be found in the time allotted, and the client should retry (optionally after the time indicated in the Retry-After header).</p><p>Applied only if Name is not specified. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#idempotency</p><p>If the field is not present, fails with <a href="../../../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">GenerateName is an optional prefix, used by the server, to generate a unique name ONLY IF the
+Name field has not been provided.</p><div class="fullcomment"><div class="comment cmt"><p>GenerateName is an optional prefix, used by the server, to generate a unique name ONLY IF the
+Name field has not been provided. If this field is used, the name returned to the client will
+be different than the name passed. This value will also be combined with a unique suffix. The
+provided value has the same validation rules as the Name field, and may be truncated by the
+length of the suffix required to make the value unique on the server.</p><p>If this field is specified and the generated name exists, the server will NOT return a 409 -
+instead, it will either return 201 Created or 500 with Reason ServerTimeout indicating a
+unique name could not be found in the time allotted, and the client should retry (optionally
+after the time indicated in the Retry-After header).</p><p>Applied only if Name is not specified. More info:
+https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#idempotency</p><p>If the field is not present, fails with <a href="../../../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.ObjectMeta#getGeneration" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getGeneration:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Long]"></a><a id="getGeneration:IO[K8sFailure,Long]"></a>
@@ -889,7 +1040,8 @@ Populated by the system. Read-only. More info: http://kubernetes.io/docs/user-gu
         <span class="name">getGeneration</span><span class="result">: <a href="../../../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Long">Long</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">A sequence number representing a specific generation of the desired state.</p><div class="fullcomment"><div class="comment cmt"><p>A sequence number representing a specific generation of the desired state. Populated by the system. Read-only.</p><p>If the field is not present, fails with <a href="../../../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">A sequence number representing a specific generation of the desired state.</p><div class="fullcomment"><div class="comment cmt"><p>A sequence number representing a specific generation of the desired state. Populated by the
+system. Read-only.</p><p>If the field is not present, fails with <a href="../../../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.ObjectMeta#getLabels" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getLabels:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Map[String,String]]"></a><a id="getLabels:IO[K8sFailure,Map[String,String]]"></a>
@@ -906,7 +1058,10 @@ Populated by the system. Read-only. More info: http://kubernetes.io/docs/user-gu
         <span class="name">getLabels</span><span class="result">: <a href="../../../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.Predef.String">String</span>]]</span>
       </span>
       
-      <p class="shortcomment cmt">Map of string keys and values that can be used to organize and categorize (scope and select) objects.</p><div class="fullcomment"><div class="comment cmt"><p>Map of string keys and values that can be used to organize and categorize (scope and select) objects. May match selectors of replication controllers and services. More info: http://kubernetes.io/docs/user-guide/labels</p><p>If the field is not present, fails with <a href="../../../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">Map of string keys and values that can be used to organize and categorize (scope and select)
+objects.</p><div class="fullcomment"><div class="comment cmt"><p>Map of string keys and values that can be used to organize and categorize (scope and select)
+objects. May match selectors of replication controllers and services. More info:
+http://kubernetes.io/docs/user-guide/labels</p><p>If the field is not present, fails with <a href="../../../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.ObjectMeta#getManagedFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getManagedFields:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Vector[com.coralogix.zio.k8s.model.pkg.apis.meta.v1.ManagedFieldsEntry]]"></a><a id="getManagedFields:IO[K8sFailure,Vector[ManagedFieldsEntry]]"></a>
@@ -923,7 +1078,12 @@ Populated by the system. Read-only. More info: http://kubernetes.io/docs/user-gu
         <span class="name">getManagedFields</span><span class="result">: <a href="../../../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Vector">Vector</span>[<a href="ManagedFieldsEntry.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.ManagedFieldsEntry">ManagedFieldsEntry</a>]]</span>
       </span>
       
-      <p class="shortcomment cmt">ManagedFields maps workflow-id and version to the set of fields that are managed by that workflow.</p><div class="fullcomment"><div class="comment cmt"><p>ManagedFields maps workflow-id and version to the set of fields that are managed by that workflow. This is mostly for internal housekeeping, and users typically shouldn't need to set or understand this field. A workflow can be the user's name, a controller's name, or the name of a specific apply path like &quot;ci-cd&quot;. The set of fields is always in the version that the workflow used when modifying the object.</p><p>If the field is not present, fails with <a href="../../../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">ManagedFields maps workflow-id and version to the set of fields that are managed by that
+workflow.</p><div class="fullcomment"><div class="comment cmt"><p>ManagedFields maps workflow-id and version to the set of fields that are managed by that
+workflow. This is mostly for internal housekeeping, and users typically shouldn't need to set
+or understand this field. A workflow can be the user's name, a controller's name, or the name
+of a specific apply path like &quot;ci-cd&quot;. The set of fields is always in the version that the
+workflow used when modifying the object.</p><p>If the field is not present, fails with <a href="../../../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.ObjectMeta#getName" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getName:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]"></a><a id="getName:IO[K8sFailure,String]"></a>
@@ -940,7 +1100,10 @@ Populated by the system. Read-only. More info: http://kubernetes.io/docs/user-gu
         <span class="name">getName</span><span class="result">: <a href="../../../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">Name must be unique within a namespace.</p><div class="fullcomment"><div class="comment cmt"><p>Name must be unique within a namespace. Is required when creating resources, although some resources may allow a client to request the generation of an appropriate name automatically. Name is primarily intended for creation idempotence and configuration definition. Cannot be updated. More info: http://kubernetes.io/docs/user-guide/identifiers#names</p><p>If the field is not present, fails with <a href="../../../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">Name must be unique within a namespace.</p><div class="fullcomment"><div class="comment cmt"><p>Name must be unique within a namespace. Is required when creating resources, although some
+resources may allow a client to request the generation of an appropriate name automatically.
+Name is primarily intended for creation idempotence and configuration definition. Cannot be
+updated. More info: http://kubernetes.io/docs/user-guide/identifiers#names</p><p>If the field is not present, fails with <a href="../../../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.ObjectMeta#getNamespace" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getNamespace:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]"></a><a id="getNamespace:IO[K8sFailure,String]"></a>
@@ -957,7 +1120,11 @@ Populated by the system. Read-only. More info: http://kubernetes.io/docs/user-gu
         <span class="name">getNamespace</span><span class="result">: <a href="../../../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">Namespace defines the space within which each name must be unique.</p><div class="fullcomment"><div class="comment cmt"><p>Namespace defines the space within which each name must be unique. An empty namespace is equivalent to the &quot;default&quot; namespace, but &quot;default&quot; is the canonical representation. Not all objects are required to be scoped to a namespace - the value of this field for those objects will be empty.</p><p>Must be a DNS_LABEL. Cannot be updated. More info: http://kubernetes.io/docs/user-guide/namespaces</p><p>If the field is not present, fails with <a href="../../../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">Namespace defines the space within which each name must be unique.</p><div class="fullcomment"><div class="comment cmt"><p>Namespace defines the space within which each name must be unique. An empty namespace is
+equivalent to the &quot;default&quot; namespace, but &quot;default&quot; is the canonical representation. Not all
+objects are required to be scoped to a namespace - the value of this field for those objects
+will be empty.</p><p>Must be a DNS_LABEL. Cannot be updated. More info:
+http://kubernetes.io/docs/user-guide/namespaces</p><p>If the field is not present, fails with <a href="../../../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.ObjectMeta#getOwnerReferences" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getOwnerReferences:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Vector[com.coralogix.zio.k8s.model.pkg.apis.meta.v1.OwnerReference]]"></a><a id="getOwnerReferences:IO[K8sFailure,Vector[OwnerReference]]"></a>
@@ -974,7 +1141,10 @@ Populated by the system. Read-only. More info: http://kubernetes.io/docs/user-gu
         <span class="name">getOwnerReferences</span><span class="result">: <a href="../../../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Vector">Vector</span>[<a href="OwnerReference.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.OwnerReference">OwnerReference</a>]]</span>
       </span>
       
-      <p class="shortcomment cmt">List of objects depended by this object.</p><div class="fullcomment"><div class="comment cmt"><p>List of objects depended by this object. If ALL objects in the list have been deleted, this object will be garbage collected. If this object is managed by a controller, then an entry in this list will point to this controller, with the controller field set to true. There cannot be more than one managing controller.</p><p>If the field is not present, fails with <a href="../../../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">List of objects depended by this object.</p><div class="fullcomment"><div class="comment cmt"><p>List of objects depended by this object. If ALL objects in the list have been deleted, this
+object will be garbage collected. If this object is managed by a controller, then an entry in
+this list will point to this controller, with the controller field set to true. There cannot
+be more than one managing controller.</p><p>If the field is not present, fails with <a href="../../../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.ObjectMeta#getResourceVersion" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getResourceVersion:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]"></a><a id="getResourceVersion:IO[K8sFailure,String]"></a>
@@ -991,7 +1161,14 @@ Populated by the system. Read-only. More info: http://kubernetes.io/docs/user-gu
         <span class="name">getResourceVersion</span><span class="result">: <a href="../../../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">An opaque value that represents the internal version of this object that can be used by clients to determine when objects have changed.</p><div class="fullcomment"><div class="comment cmt"><p>An opaque value that represents the internal version of this object that can be used by clients to determine when objects have changed. May be used for optimistic concurrency, change detection, and the watch operation on a resource or set of resources. Clients must treat these values as opaque and passed unmodified back to the server. They may only be valid for a particular resource or set of resources.</p><p>Populated by the system. Read-only. Value must be treated as opaque by clients and . More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency</p><p>If the field is not present, fails with <a href="../../../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">An opaque value that represents the internal version of this object that can be used by
+clients to determine when objects have changed.</p><div class="fullcomment"><div class="comment cmt"><p>An opaque value that represents the internal version of this object that can be used by
+clients to determine when objects have changed. May be used for optimistic concurrency, change
+detection, and the watch operation on a resource or set of resources. Clients must treat these
+values as opaque and passed unmodified back to the server. They may only be valid for a
+particular resource or set of resources.</p><p>Populated by the system. Read-only. Value must be treated as opaque by clients and . More
+info:
+https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency</p><p>If the field is not present, fails with <a href="../../../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.ObjectMeta#getSelfLink" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getSelfLink:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]"></a><a id="getSelfLink:IO[K8sFailure,String]"></a>
@@ -1008,7 +1185,8 @@ Populated by the system. Read-only. More info: http://kubernetes.io/docs/user-gu
         <span class="name">getSelfLink</span><span class="result">: <a href="../../../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">SelfLink is a URL representing this object.</p><div class="fullcomment"><div class="comment cmt"><p>SelfLink is a URL representing this object. Populated by the system. Read-only.</p><p>DEPRECATED Kubernetes will stop propagating this field in 1.20 release and the field is planned to be removed in 1.21 release.</p><p>If the field is not present, fails with <a href="../../../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">SelfLink is a URL representing this object.</p><div class="fullcomment"><div class="comment cmt"><p>SelfLink is a URL representing this object. Populated by the system. Read-only.</p><p>DEPRECATED Kubernetes will stop propagating this field in 1.20 release and the field is
+planned to be removed in 1.21 release.</p><p>If the field is not present, fails with <a href="../../../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.ObjectMeta#getUid" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getUid:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]"></a><a id="getUid:IO[K8sFailure,String]"></a>
@@ -1025,7 +1203,9 @@ Populated by the system. Read-only. More info: http://kubernetes.io/docs/user-gu
         <span class="name">getUid</span><span class="result">: <a href="../../../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">UID is the unique in time and space value for this object.</p><div class="fullcomment"><div class="comment cmt"><p>UID is the unique in time and space value for this object. It is typically generated by the server on successful creation of a resource and is not allowed to change on PUT operations.</p><p>Populated by the system. Read-only. More info: http://kubernetes.io/docs/user-guide/identifiers#uids</p><p>If the field is not present, fails with <a href="../../../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">UID is the unique in time and space value for this object.</p><div class="fullcomment"><div class="comment cmt"><p>UID is the unique in time and space value for this object. It is typically generated by the
+server on successful creation of a resource and is not allowed to change on PUT operations.</p><p>Populated by the system. Read-only. More info:
+http://kubernetes.io/docs/user-guide/identifiers#uids</p><p>If the field is not present, fails with <a href="../../../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="scala.Any#isInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isInstanceOf[T0]:Boolean"></a>

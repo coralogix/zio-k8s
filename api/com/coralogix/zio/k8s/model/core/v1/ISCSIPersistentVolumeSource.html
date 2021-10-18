@@ -1587,8 +1587,25 @@
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>ISCSIPersistentVolumeSource represents an ISCSI disk. ISCSI volumes can only be mounted as read/write once. ISCSI volumes support ownership management and SELinux relabeling.
-</p></div><dl class="paramcmts block"><dt class="param">chapAuthDiscovery</dt><dd class="cmt"><p>whether support iSCSI Discovery CHAP authentication</p></dd><dt class="param">chapAuthSession</dt><dd class="cmt"><p>whether support iSCSI Session CHAP authentication</p></dd><dt class="param">fsType</dt><dd class="cmt"><p>Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: &quot;ext4&quot;, &quot;xfs&quot;, &quot;ntfs&quot;. Implicitly inferred to be &quot;ext4&quot; if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#iscsi</p></dd><dt class="param">initiatorName</dt><dd class="cmt"><p>Custom iSCSI Initiator Name. If initiatorName is specified with iscsiInterface simultaneously, new iSCSI interface &lt;target portal&gt;:&lt;volume name&gt; will be created for the connection.</p></dd><dt class="param">iqn</dt><dd class="cmt"><p>Target iSCSI Qualified Name.</p></dd><dt class="param">iscsiInterface</dt><dd class="cmt"><p>iSCSI Interface Name that uses an iSCSI transport. Defaults to 'default' (tcp).</p></dd><dt class="param">lun</dt><dd class="cmt"><p>iSCSI Target Lun number.</p></dd><dt class="param">portals</dt><dd class="cmt"><p>iSCSI Target Portal List. The Portal is either an IP or ip_addr:port if the port is other than default (typically TCP ports 860 and 3260).</p></dd><dt class="param">readOnly</dt><dd class="cmt"><p>ReadOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false.</p></dd><dt class="param">targetPortal</dt><dd class="cmt"><p>iSCSI Target Portal. The Portal is either an IP or ip_addr:port if the port is other than default (typically TCP ports 860 and 3260).</p></dd></dl><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>ISCSIPersistentVolumeSource represents an ISCSI disk. ISCSI volumes can only be mounted as
+read/write once. ISCSI volumes support ownership management and SELinux relabeling.
+</p></div><dl class="paramcmts block"><dt class="param">chapAuthDiscovery</dt><dd class="cmt"><p>
+  whether support iSCSI Discovery CHAP authentication</p></dd><dt class="param">chapAuthSession</dt><dd class="cmt"><p>
+  whether support iSCSI Session CHAP authentication</p></dd><dt class="param">fsType</dt><dd class="cmt"><p>
+  Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is
+  supported by the host operating system. Examples: &quot;ext4&quot;, &quot;xfs&quot;, &quot;ntfs&quot;. Implicitly inferred
+  to be &quot;ext4&quot; if unspecified. More info:
+  https://kubernetes.io/docs/concepts/storage/volumes#iscsi</p></dd><dt class="param">initiatorName</dt><dd class="cmt"><p>
+  Custom iSCSI Initiator Name. If initiatorName is specified with iscsiInterface simultaneously,
+  new iSCSI interface &lt;target portal&gt;:&lt;volume name&gt; will be created for the connection.</p></dd><dt class="param">iqn</dt><dd class="cmt"><p>
+  Target iSCSI Qualified Name.</p></dd><dt class="param">iscsiInterface</dt><dd class="cmt"><p>
+  iSCSI Interface Name that uses an iSCSI transport. Defaults to 'default' (tcp).</p></dd><dt class="param">lun</dt><dd class="cmt"><p>
+  iSCSI Target Lun number.</p></dd><dt class="param">portals</dt><dd class="cmt"><p>
+  iSCSI Target Portal List. The Portal is either an IP or ip_addr:port if the port is other than
+  default (typically TCP ports 860 and 3260).</p></dd><dt class="param">readOnly</dt><dd class="cmt"><p>
+  ReadOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false.</p></dd><dt class="param">targetPortal</dt><dd class="cmt"><p>
+  iSCSI Target Portal. The Portal is either an IP or ip_addr:port if the port is other than
+  default (typically TCP ports 860 and 3260).</p></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -1653,7 +1670,23 @@
         <span class="name">ISCSIPersistentVolumeSource</span><span class="params">(<span name="chapAuthDiscovery">chapAuthDiscovery: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Boolean">Boolean</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="chapAuthSession">chapAuthSession: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Boolean">Boolean</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="fsType">fsType: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="initiatorName">initiatorName: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="iqn">iqn: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="iscsiInterface">iscsiInterface: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="lun">lun: <span class="extype" name="scala.Int">Int</span></span>, <span name="portals">portals: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="readOnly">readOnly: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Boolean">Boolean</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="secretRef">secretRef: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="SecretReference.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.SecretReference">SecretReference</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="targetPortal">targetPortal: <span class="extype" name="scala.Predef.String">String</span></span>)</span>
       </span>
       
-      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">chapAuthDiscovery</dt><dd class="cmt"><p>whether support iSCSI Discovery CHAP authentication</p></dd><dt class="param">chapAuthSession</dt><dd class="cmt"><p>whether support iSCSI Session CHAP authentication</p></dd><dt class="param">fsType</dt><dd class="cmt"><p>Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: &quot;ext4&quot;, &quot;xfs&quot;, &quot;ntfs&quot;. Implicitly inferred to be &quot;ext4&quot; if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#iscsi</p></dd><dt class="param">initiatorName</dt><dd class="cmt"><p>Custom iSCSI Initiator Name. If initiatorName is specified with iscsiInterface simultaneously, new iSCSI interface &lt;target portal&gt;:&lt;volume name&gt; will be created for the connection.</p></dd><dt class="param">iqn</dt><dd class="cmt"><p>Target iSCSI Qualified Name.</p></dd><dt class="param">iscsiInterface</dt><dd class="cmt"><p>iSCSI Interface Name that uses an iSCSI transport. Defaults to 'default' (tcp).</p></dd><dt class="param">lun</dt><dd class="cmt"><p>iSCSI Target Lun number.</p></dd><dt class="param">portals</dt><dd class="cmt"><p>iSCSI Target Portal List. The Portal is either an IP or ip_addr:port if the port is other than default (typically TCP ports 860 and 3260).</p></dd><dt class="param">readOnly</dt><dd class="cmt"><p>ReadOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false.</p></dd><dt class="param">targetPortal</dt><dd class="cmt"><p>iSCSI Target Portal. The Portal is either an IP or ip_addr:port if the port is other than default (typically TCP ports 860 and 3260).</p></dd></dl></div>
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">chapAuthDiscovery</dt><dd class="cmt"><p>
+  whether support iSCSI Discovery CHAP authentication</p></dd><dt class="param">chapAuthSession</dt><dd class="cmt"><p>
+  whether support iSCSI Session CHAP authentication</p></dd><dt class="param">fsType</dt><dd class="cmt"><p>
+  Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is
+  supported by the host operating system. Examples: &quot;ext4&quot;, &quot;xfs&quot;, &quot;ntfs&quot;. Implicitly inferred
+  to be &quot;ext4&quot; if unspecified. More info:
+  https://kubernetes.io/docs/concepts/storage/volumes#iscsi</p></dd><dt class="param">initiatorName</dt><dd class="cmt"><p>
+  Custom iSCSI Initiator Name. If initiatorName is specified with iscsiInterface simultaneously,
+  new iSCSI interface &lt;target portal&gt;:&lt;volume name&gt; will be created for the connection.</p></dd><dt class="param">iqn</dt><dd class="cmt"><p>
+  Target iSCSI Qualified Name.</p></dd><dt class="param">iscsiInterface</dt><dd class="cmt"><p>
+  iSCSI Interface Name that uses an iSCSI transport. Defaults to 'default' (tcp).</p></dd><dt class="param">lun</dt><dd class="cmt"><p>
+  iSCSI Target Lun number.</p></dd><dt class="param">portals</dt><dd class="cmt"><p>
+  iSCSI Target Portal List. The Portal is either an IP or ip_addr:port if the port is other than
+  default (typically TCP ports 860 and 3260).</p></dd><dt class="param">readOnly</dt><dd class="cmt"><p>
+  ReadOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false.</p></dd><dt class="param">targetPortal</dt><dd class="cmt"><p>
+  iSCSI Target Portal. The Portal is either an IP or ip_addr:port if the port is other than
+  default (typically TCP ports 860 and 3260).</p></dd></dl></div>
     </li></ol>
             </div>
 
@@ -1888,7 +1921,10 @@
         <span class="name">getFsType</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">Filesystem type of the volume that you want to mount.</p><div class="fullcomment"><div class="comment cmt"><p>Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: &quot;ext4&quot;, &quot;xfs&quot;, &quot;ntfs&quot;. Implicitly inferred to be &quot;ext4&quot; if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#iscsi</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">Filesystem type of the volume that you want to mount.</p><div class="fullcomment"><div class="comment cmt"><p>Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is
+supported by the host operating system. Examples: &quot;ext4&quot;, &quot;xfs&quot;, &quot;ntfs&quot;. Implicitly inferred
+to be &quot;ext4&quot; if unspecified. More info:
+https://kubernetes.io/docs/concepts/storage/volumes#iscsi</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.core.v1.ISCSIPersistentVolumeSource#getInitiatorName" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getInitiatorName:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]"></a><a id="getInitiatorName:IO[K8sFailure,String]"></a>
@@ -1905,7 +1941,8 @@
         <span class="name">getInitiatorName</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">Custom iSCSI Initiator Name.</p><div class="fullcomment"><div class="comment cmt"><p>Custom iSCSI Initiator Name. If initiatorName is specified with iscsiInterface simultaneously, new iSCSI interface &lt;target portal&gt;:&lt;volume name&gt; will be created for the connection.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">Custom iSCSI Initiator Name.</p><div class="fullcomment"><div class="comment cmt"><p>Custom iSCSI Initiator Name. If initiatorName is specified with iscsiInterface simultaneously,
+new iSCSI interface &lt;target portal&gt;:&lt;volume name&gt; will be created for the connection.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.core.v1.ISCSIPersistentVolumeSource#getIqn" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getIqn:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]"></a><a id="getIqn:IO[K8sFailure,String]"></a>
@@ -1973,7 +2010,8 @@
         <span class="name">getPortals</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]]</span>
       </span>
       
-      <p class="shortcomment cmt">iSCSI Target Portal List.</p><div class="fullcomment"><div class="comment cmt"><p>iSCSI Target Portal List. The Portal is either an IP or ip_addr:port if the port is other than default (typically TCP ports 860 and 3260).</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">iSCSI Target Portal List.</p><div class="fullcomment"><div class="comment cmt"><p>iSCSI Target Portal List. The Portal is either an IP or ip_addr:port if the port is other than
+default (typically TCP ports 860 and 3260).</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.core.v1.ISCSIPersistentVolumeSource#getReadOnly" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getReadOnly:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Boolean]"></a><a id="getReadOnly:IO[K8sFailure,Boolean]"></a>
@@ -2024,7 +2062,8 @@
         <span class="name">getTargetPortal</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">iSCSI Target Portal.</p><div class="fullcomment"><div class="comment cmt"><p>iSCSI Target Portal. The Portal is either an IP or ip_addr:port if the port is other than default (typically TCP ports 860 and 3260).</p><p>This effect always succeeds, it is safe to use the field <a href="#targetPortal:String" class="extmbr" name="com.coralogix.zio.k8s.model.core.v1.ISCSIPersistentVolumeSource#targetPortal">targetPortal</a> directly.
+      <p class="shortcomment cmt">iSCSI Target Portal.</p><div class="fullcomment"><div class="comment cmt"><p>iSCSI Target Portal. The Portal is either an IP or ip_addr:port if the port is other than
+default (typically TCP ports 860 and 3260).</p><p>This effect always succeeds, it is safe to use the field <a href="#targetPortal:String" class="extmbr" name="com.coralogix.zio.k8s.model.core.v1.ISCSIPersistentVolumeSource#targetPortal">targetPortal</a> directly.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.core.v1.ISCSIPersistentVolumeSource#initiatorName" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="initiatorName:com.coralogix.zio.k8s.client.model.Optional[String]"></a><a id="initiatorName:Optional[String]"></a>

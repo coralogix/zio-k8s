@@ -206,14 +206,6 @@
                         <a class="class" href="AllowedHostPathFields.html" title=""></a>
                         <a href="AllowedHostPathFields.html" title="">AllowedHostPathFields</a>
                       </li><li class="current-entities indented7">
-                        <a class="object" href="Eviction$.html" title=""></a>
-                        <a class="class" href="Eviction.html" title="Eviction evicts a pod from its node subject to certain policies and safety constraints."></a>
-                        <a href="Eviction.html" title="Eviction evicts a pod from its node subject to certain policies and safety constraints.">Eviction</a>
-                      </li><li class="current-entities indented7">
-                        <span class="separator"></span>
-                        <a class="class" href="EvictionFields.html" title=""></a>
-                        <a href="EvictionFields.html" title="">EvictionFields</a>
-                      </li><li class="current-entities indented7">
                         <a class="object" href="FSGroupStrategyOptions$.html" title=""></a>
                         <a class="class" href="" title="FSGroupStrategyOptions defines the strategy type and options used to create the strategy."></a>
                         <a href="" title="FSGroupStrategyOptions defines the strategy type and options used to create the strategy.">FSGroupStrategyOptions</a>
@@ -348,7 +340,10 @@
 
       
           <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>FSGroupStrategyOptions defines the strategy type and options used to create the strategy.
-</p></div><dl class="paramcmts block"><dt class="param">ranges</dt><dd class="cmt"><p>ranges are the allowed ranges of fs groups.  If you would like to force a single fs group then supply a single range with the same start and end. Required for MustRunAs.</p></dd><dt class="param">rule</dt><dd class="cmt"><p>rule is the strategy that will dictate what FSGroup is used in the SecurityContext.</p></dd></dl><div class="toggleContainer block">
+</p></div><dl class="paramcmts block"><dt class="param">ranges</dt><dd class="cmt"><p>
+  ranges are the allowed ranges of fs groups. If you would like to force a single fs group then
+  supply a single range with the same start and end. Required for MustRunAs.</p></dd><dt class="param">rule</dt><dd class="cmt"><p>
+  rule is the strategy that will dictate what FSGroup is used in the SecurityContext.</p></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -413,7 +408,10 @@
         <span class="name">FSGroupStrategyOptions</span><span class="params">(<span name="ranges">ranges: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="IDRange.html" class="extype" name="com.coralogix.zio.k8s.model.policy.v1beta1.IDRange">IDRange</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="rule">rule: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span>
       </span>
       
-      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">ranges</dt><dd class="cmt"><p>ranges are the allowed ranges of fs groups.  If you would like to force a single fs group then supply a single range with the same start and end. Required for MustRunAs.</p></dd><dt class="param">rule</dt><dd class="cmt"><p>rule is the strategy that will dictate what FSGroup is used in the SecurityContext.</p></dd></dl></div>
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">ranges</dt><dd class="cmt"><p>
+  ranges are the allowed ranges of fs groups. If you would like to force a single fs group then
+  supply a single range with the same start and end. Required for MustRunAs.</p></dd><dt class="param">rule</dt><dd class="cmt"><p>
+  rule is the strategy that will dictate what FSGroup is used in the SecurityContext.</p></dd></dl></div>
     </li></ol>
             </div>
 
@@ -566,7 +564,8 @@
         <span class="name">getRanges</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Vector">Vector</span>[<a href="IDRange.html" class="extype" name="com.coralogix.zio.k8s.model.policy.v1beta1.IDRange">IDRange</a>]]</span>
       </span>
       
-      <p class="shortcomment cmt">ranges are the allowed ranges of fs groups.</p><div class="fullcomment"><div class="comment cmt"><p>ranges are the allowed ranges of fs groups.  If you would like to force a single fs group then supply a single range with the same start and end. Required for MustRunAs.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">ranges are the allowed ranges of fs groups.</p><div class="fullcomment"><div class="comment cmt"><p>ranges are the allowed ranges of fs groups. If you would like to force a single fs group then
+supply a single range with the same start and end. Required for MustRunAs.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.policy.v1beta1.FSGroupStrategyOptions#getRule" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getRule:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]"></a><a id="getRule:IO[K8sFailure,String]"></a>

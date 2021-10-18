@@ -1588,7 +1588,16 @@
 
       
           <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>ContainerPort represents a network port in a single container.
-</p></div><dl class="paramcmts block"><dt class="param">containerPort</dt><dd class="cmt"><p>Number of port to expose on the pod's IP address. This must be a valid port number, 0 &lt; x &lt; 65536.</p></dd><dt class="param">hostIP</dt><dd class="cmt"><p>What host IP to bind the external port to.</p></dd><dt class="param">hostPort</dt><dd class="cmt"><p>Number of port to expose on the host. If specified, this must be a valid port number, 0 &lt; x &lt; 65536. If HostNetwork is specified, this must match ContainerPort. Most containers do not need this.</p></dd><dt class="param">name</dt><dd class="cmt"><p>If specified, this must be an IANA_SVC_NAME and unique within the pod. Each named port in a pod must have a unique name. Name for the port that can be referred to by services.</p></dd><dt class="param">protocol</dt><dd class="cmt"><p>Protocol for port. Must be UDP, TCP, or SCTP. Defaults to &quot;TCP&quot;.</p></dd></dl><div class="toggleContainer block">
+</p></div><dl class="paramcmts block"><dt class="param">containerPort</dt><dd class="cmt"><p>
+  Number of port to expose on the pod's IP address. This must be a valid port number, 0 &lt; x &lt;
+  65536.</p></dd><dt class="param">hostIP</dt><dd class="cmt"><p>
+  What host IP to bind the external port to.</p></dd><dt class="param">hostPort</dt><dd class="cmt"><p>
+  Number of port to expose on the host. If specified, this must be a valid port number, 0 &lt; x &lt;
+  65536. If HostNetwork is specified, this must match ContainerPort. Most containers do not need
+  this.</p></dd><dt class="param">name</dt><dd class="cmt"><p>
+  If specified, this must be an IANA_SVC_NAME and unique within the pod. Each named port in a
+  pod must have a unique name. Name for the port that can be referred to by services.</p></dd><dt class="param">protocol</dt><dd class="cmt"><p>
+  Protocol for port. Must be UDP, TCP, or SCTP. Defaults to &quot;TCP&quot;.</p></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -1653,7 +1662,16 @@
         <span class="name">ContainerPort</span><span class="params">(<span name="containerPort">containerPort: <span class="extype" name="scala.Int">Int</span></span>, <span name="hostIP">hostIP: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="hostPort">hostPort: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="name">name: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="protocol">protocol: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span>
       </span>
       
-      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">containerPort</dt><dd class="cmt"><p>Number of port to expose on the pod's IP address. This must be a valid port number, 0 &lt; x &lt; 65536.</p></dd><dt class="param">hostIP</dt><dd class="cmt"><p>What host IP to bind the external port to.</p></dd><dt class="param">hostPort</dt><dd class="cmt"><p>Number of port to expose on the host. If specified, this must be a valid port number, 0 &lt; x &lt; 65536. If HostNetwork is specified, this must match ContainerPort. Most containers do not need this.</p></dd><dt class="param">name</dt><dd class="cmt"><p>If specified, this must be an IANA_SVC_NAME and unique within the pod. Each named port in a pod must have a unique name. Name for the port that can be referred to by services.</p></dd><dt class="param">protocol</dt><dd class="cmt"><p>Protocol for port. Must be UDP, TCP, or SCTP. Defaults to &quot;TCP&quot;.</p></dd></dl></div>
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">containerPort</dt><dd class="cmt"><p>
+  Number of port to expose on the pod's IP address. This must be a valid port number, 0 &lt; x &lt;
+  65536.</p></dd><dt class="param">hostIP</dt><dd class="cmt"><p>
+  What host IP to bind the external port to.</p></dd><dt class="param">hostPort</dt><dd class="cmt"><p>
+  Number of port to expose on the host. If specified, this must be a valid port number, 0 &lt; x &lt;
+  65536. If HostNetwork is specified, this must match ContainerPort. Most containers do not need
+  this.</p></dd><dt class="param">name</dt><dd class="cmt"><p>
+  If specified, this must be an IANA_SVC_NAME and unique within the pod. Each named port in a
+  pod must have a unique name. Name for the port that can be referred to by services.</p></dd><dt class="param">protocol</dt><dd class="cmt"><p>
+  Protocol for port. Must be UDP, TCP, or SCTP. Defaults to &quot;TCP&quot;.</p></dd></dl></div>
     </li></ol>
             </div>
 
@@ -1822,7 +1840,8 @@
         <span class="name">getContainerPort</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Int">Int</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">Number of port to expose on the pod's IP address.</p><div class="fullcomment"><div class="comment cmt"><p>Number of port to expose on the pod's IP address. This must be a valid port number, 0 &lt; x &lt; 65536.</p><p>This effect always succeeds, it is safe to use the field <a href="#containerPort:Int" class="extmbr" name="com.coralogix.zio.k8s.model.core.v1.ContainerPort#containerPort">containerPort</a> directly.
+      <p class="shortcomment cmt">Number of port to expose on the pod's IP address.</p><div class="fullcomment"><div class="comment cmt"><p>Number of port to expose on the pod's IP address. This must be a valid port number, 0 &lt; x &lt;
+65536.</p><p>This effect always succeeds, it is safe to use the field <a href="#containerPort:Int" class="extmbr" name="com.coralogix.zio.k8s.model.core.v1.ContainerPort#containerPort">containerPort</a> directly.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.core.v1.ContainerPort#getHostIP" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getHostIP:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]"></a><a id="getHostIP:IO[K8sFailure,String]"></a>
@@ -1856,7 +1875,9 @@
         <span class="name">getHostPort</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Int">Int</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">Number of port to expose on the host.</p><div class="fullcomment"><div class="comment cmt"><p>Number of port to expose on the host. If specified, this must be a valid port number, 0 &lt; x &lt; 65536. If HostNetwork is specified, this must match ContainerPort. Most containers do not need this.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">Number of port to expose on the host.</p><div class="fullcomment"><div class="comment cmt"><p>Number of port to expose on the host. If specified, this must be a valid port number, 0 &lt; x &lt;
+65536. If HostNetwork is specified, this must match ContainerPort. Most containers do not need
+this.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.core.v1.ContainerPort#getName" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getName:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]"></a><a id="getName:IO[K8sFailure,String]"></a>
@@ -1873,7 +1894,8 @@
         <span class="name">getName</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">If specified, this must be an IANA_SVC_NAME and unique within the pod.</p><div class="fullcomment"><div class="comment cmt"><p>If specified, this must be an IANA_SVC_NAME and unique within the pod. Each named port in a pod must have a unique name. Name for the port that can be referred to by services.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">If specified, this must be an IANA_SVC_NAME and unique within the pod.</p><div class="fullcomment"><div class="comment cmt"><p>If specified, this must be an IANA_SVC_NAME and unique within the pod. Each named port in a
+pod must have a unique name. Name for the port that can be referred to by services.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.core.v1.ContainerPort#getProtocol" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getProtocol:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]"></a><a id="getProtocol:IO[K8sFailure,String]"></a>

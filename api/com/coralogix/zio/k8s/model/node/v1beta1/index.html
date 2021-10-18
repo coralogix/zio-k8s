@@ -316,7 +316,8 @@
       </span>
       
       <p class="shortcomment cmt">Overhead structure represents the resource overhead associated with running a pod.</p><div class="fullcomment"><div class="comment cmt"><p>Overhead structure represents the resource overhead associated with running a pod.
-</p></div><dl class="paramcmts block"><dt class="param">podFixed</dt><dd class="cmt"><p>PodFixed represents the fixed resource overhead associated with running a pod.</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="param">podFixed</dt><dd class="cmt"><p>
+  PodFixed represents the fixed resource overhead associated with running a pod.</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.node.v1beta1.OverheadFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="OverheadFieldsextendsAnyRef"></a><a id="OverheadFields:OverheadFields"></a>
       <span class="permalink">
@@ -348,8 +349,19 @@
         <a title="RuntimeClass defines a class of container runtime supported in the cluster." href="RuntimeClass.html"><span class="name">RuntimeClass</span></a><span class="params">(<span name="handler">handler: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="metadata">metadata: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="../../pkg/apis/meta/v1/ObjectMeta.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.ObjectMeta">ObjectMeta</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="overhead">overhead: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="Overhead.html" class="extype" name="com.coralogix.zio.k8s.model.node.v1beta1.Overhead">Overhead</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="scheduling">scheduling: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="Scheduling.html" class="extype" name="com.coralogix.zio.k8s.model.node.v1beta1.Scheduling">Scheduling</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
-      <p class="shortcomment cmt">RuntimeClass defines a class of container runtime supported in the cluster.</p><div class="fullcomment"><div class="comment cmt"><p>RuntimeClass defines a class of container runtime supported in the cluster. The RuntimeClass is used to determine which container runtime is used to run all containers in a pod. RuntimeClasses are (currently) manually defined by a user or cluster provisioner, and referenced in the PodSpec. The Kubelet is responsible for resolving the RuntimeClassName reference before running the pod.  For more details, see https://git.k8s.io/enhancements/keps/sig-node/runtime-class.md
-</p></div><dl class="paramcmts block"><dt class="param">handler</dt><dd class="cmt"><p>Handler specifies the underlying runtime and configuration that the CRI implementation will use to handle pods of this class. The possible values are specific to the node &amp; CRI configuration.  It is assumed that all handlers are available on every node, and handlers of the same name are equivalent on every node. For example, a handler called &quot;runc&quot; might specify that the runc OCI runtime (using native Linux containers) will be used to run the containers in a pod. The Handler must be lowercase, conform to the DNS Label (RFC 1123) requirements, and is immutable.</p></dd></dl></div>
+      <p class="shortcomment cmt">RuntimeClass defines a class of container runtime supported in the cluster.</p><div class="fullcomment"><div class="comment cmt"><p>RuntimeClass defines a class of container runtime supported in the cluster. The RuntimeClass is
+used to determine which container runtime is used to run all containers in a pod. RuntimeClasses
+are (currently) manually defined by a user or cluster provisioner, and referenced in the
+PodSpec. The Kubelet is responsible for resolving the RuntimeClassName reference before running
+the pod. For more details, see https://git.k8s.io/enhancements/keps/sig-node/585-runtime-class
+</p></div><dl class="paramcmts block"><dt class="param">handler</dt><dd class="cmt"><p>
+  Handler specifies the underlying runtime and configuration that the CRI implementation will
+  use to handle pods of this class. The possible values are specific to the node &amp; CRI
+  configuration. It is assumed that all handlers are available on every node, and handlers of
+  the same name are equivalent on every node. For example, a handler called &quot;runc&quot; might specify
+  that the runc OCI runtime (using native Linux containers) will be used to run the containers
+  in a pod. The Handler must be lowercase, conform to the DNS Label (RFC 1123) requirements, and
+  is immutable.</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.node.v1beta1.RuntimeClassFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="RuntimeClassFieldsextendsAnyRef"></a><a id="RuntimeClassFields:RuntimeClassFields"></a>
       <span class="permalink">
@@ -382,7 +394,13 @@
       </span>
       
       <p class="shortcomment cmt">Scheduling specifies the scheduling constraints for nodes supporting a RuntimeClass.</p><div class="fullcomment"><div class="comment cmt"><p>Scheduling specifies the scheduling constraints for nodes supporting a RuntimeClass.
-</p></div><dl class="paramcmts block"><dt class="param">nodeSelector</dt><dd class="cmt"><p>nodeSelector lists labels that must be present on nodes that support this RuntimeClass. Pods using this RuntimeClass can only be scheduled to a node matched by this selector. The RuntimeClass nodeSelector is merged with a pod's existing nodeSelector. Any conflicts will cause the pod to be rejected in admission.</p></dd><dt class="param">tolerations</dt><dd class="cmt"><p>tolerations are appended (excluding duplicates) to pods running with this RuntimeClass during admission, effectively unioning the set of nodes tolerated by the pod and the RuntimeClass.</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="param">nodeSelector</dt><dd class="cmt"><p>
+  nodeSelector lists labels that must be present on nodes that support this RuntimeClass. Pods
+  using this RuntimeClass can only be scheduled to a node matched by this selector. The
+  RuntimeClass nodeSelector is merged with a pod's existing nodeSelector. Any conflicts will
+  cause the pod to be rejected in admission.</p></dd><dt class="param">tolerations</dt><dd class="cmt"><p>
+  tolerations are appended (excluding duplicates) to pods running with this RuntimeClass during
+  admission, effectively unioning the set of nodes tolerated by the pod and the RuntimeClass.</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.node.v1beta1.SchedulingFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="SchedulingFieldsextendsAnyRef"></a><a id="SchedulingFields:SchedulingFields"></a>
       <span class="permalink">

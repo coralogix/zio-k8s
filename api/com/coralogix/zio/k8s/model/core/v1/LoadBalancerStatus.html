@@ -1588,7 +1588,9 @@
 
       
           <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>LoadBalancerStatus represents the status of a load-balancer.
-</p></div><dl class="paramcmts block"><dt class="param">ingress</dt><dd class="cmt"><p>Ingress is a list containing ingress points for the load-balancer. Traffic intended for the service should be sent to these ingress points.</p></dd></dl><div class="toggleContainer block">
+</p></div><dl class="paramcmts block"><dt class="param">ingress</dt><dd class="cmt"><p>
+  Ingress is a list containing ingress points for the load-balancer. Traffic intended for the
+  service should be sent to these ingress points.</p></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -1653,7 +1655,9 @@
         <span class="name">LoadBalancerStatus</span><span class="params">(<span name="ingress">ingress: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="LoadBalancerIngress.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.LoadBalancerIngress">LoadBalancerIngress</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span>
       </span>
       
-      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">ingress</dt><dd class="cmt"><p>Ingress is a list containing ingress points for the load-balancer. Traffic intended for the service should be sent to these ingress points.</p></dd></dl></div>
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">ingress</dt><dd class="cmt"><p>
+  Ingress is a list containing ingress points for the load-balancer. Traffic intended for the
+  service should be sent to these ingress points.</p></dd></dl></div>
     </li></ol>
             </div>
 
@@ -1806,7 +1810,8 @@
         <span class="name">getIngress</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Vector">Vector</span>[<a href="LoadBalancerIngress.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.LoadBalancerIngress">LoadBalancerIngress</a>]]</span>
       </span>
       
-      <p class="shortcomment cmt">Ingress is a list containing ingress points for the load-balancer.</p><div class="fullcomment"><div class="comment cmt"><p>Ingress is a list containing ingress points for the load-balancer. Traffic intended for the service should be sent to these ingress points.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">Ingress is a list containing ingress points for the load-balancer.</p><div class="fullcomment"><div class="comment cmt"><p>Ingress is a list containing ingress points for the load-balancer. Traffic intended for the
+service should be sent to these ingress points.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.core.v1.LoadBalancerStatus#ingress" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="ingress:com.coralogix.zio.k8s.client.model.Optional[Vector[com.coralogix.zio.k8s.model.core.v1.LoadBalancerIngress]]"></a><a id="ingress:Optional[Vector[LoadBalancerIngress]]"></a>

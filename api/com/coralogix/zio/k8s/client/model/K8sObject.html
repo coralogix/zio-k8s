@@ -339,7 +339,8 @@
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Common operations for every Kubernetes resource's object</p></div><dl class="paramcmts block"><dt class="tparam">T</dt><dd class="cmt"><p>Kubernetes resource type</p></dd></dl><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Common operations for every Kubernetes resource's object</p></div><dl class="paramcmts block"><dt class="tparam">T</dt><dd class="cmt"><p>
+  Kubernetes resource type</p></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -408,7 +409,8 @@
         <span class="name">mapMetadata</span><span class="params">(<span name="f">f: (<a href="../../model/pkg/apis/meta/v1/ObjectMeta.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.ObjectMeta">ObjectMeta</a>) ⇒ <a href="../../model/pkg/apis/meta/v1/ObjectMeta.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.ObjectMeta">ObjectMeta</a></span>)</span><span class="params">(<span name="r">r: <span class="extype" name="com.coralogix.zio.k8s.client.model.K8sObject.T">T</span></span>)</span><span class="result">: <span class="extype" name="com.coralogix.zio.k8s.client.model.K8sObject.T">T</span></span>
       </span>
       
-      <p class="shortcomment cmt">Maps the metadata of the object, constructing a new object with the modified metadata</p><div class="fullcomment"><div class="comment cmt"><p>Maps the metadata of the object, constructing a new object with the modified metadata</p></div><dl class="paramcmts block"><dt class="param">f</dt><dd class="cmt"><p>Function returning the modified metadata</p></dd></dl></div>
+      <p class="shortcomment cmt">Maps the metadata of the object, constructing a new object with the modified metadata</p><div class="fullcomment"><div class="comment cmt"><p>Maps the metadata of the object, constructing a new object with the modified metadata</p></div><dl class="paramcmts block"><dt class="param">f</dt><dd class="cmt"><p>
+  Function returning the modified metadata</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.client.model.K8sObject#metadata" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
       <a id="metadata(obj:T):com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.pkg.apis.meta.v1.ObjectMeta]"></a><a id="metadata(T):Optional[ObjectMeta]"></a>
       <span class="permalink">
@@ -511,7 +513,12 @@
         <span class="name">attachOwner</span><span class="params">(<span name="obj">obj: <span class="extype" name="com.coralogix.zio.k8s.client.model.K8sObject.T">T</span></span>)</span><span class="params">(<span name="ownerName">ownerName: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="ownerUid">ownerUid: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="ownerType">ownerType: <a href="package$$K8sResourceType.html" class="extype" name="com.coralogix.zio.k8s.client.model.K8sResourceType">K8sResourceType</a></span>)</span><span class="result">: <span class="extype" name="com.coralogix.zio.k8s.client.model.K8sObject.T">T</span></span>
       </span>
       
-      <p class="shortcomment cmt">Attach another Kubernetes resource as the owner of the given one</p><div class="fullcomment"><div class="comment cmt"><p>Attach another Kubernetes resource as the owner of the given one</p></div><dl class="paramcmts block"><dt class="param">obj</dt><dd class="cmt"><p>Object to attach the owner to</p></dd><dt class="param">ownerName</dt><dd class="cmt"><p>Owner's name</p></dd><dt class="param">ownerUid</dt><dd class="cmt"><p>Owner's UID</p></dd><dt class="param">ownerType</dt><dd class="cmt"><p>Owner's resource type</p></dd><dt>returns</dt><dd class="cmt"><p>The modified object with the attached owner</p></dd></dl></div>
+      <p class="shortcomment cmt">Attach another Kubernetes resource as the owner of the given one</p><div class="fullcomment"><div class="comment cmt"><p>Attach another Kubernetes resource as the owner of the given one</p></div><dl class="paramcmts block"><dt class="param">obj</dt><dd class="cmt"><p>
+  Object to attach the owner to</p></dd><dt class="param">ownerName</dt><dd class="cmt"><p>
+  Owner's name</p></dd><dt class="param">ownerUid</dt><dd class="cmt"><p>
+  Owner's UID</p></dd><dt class="param">ownerType</dt><dd class="cmt"><p>
+  Owner's resource type</p></dd><dt>returns</dt><dd class="cmt"><p>
+  The modified object with the attached owner</p></dd></dl></div>
     </li><li name="scala.AnyRef#clone" visbl="prt" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="clone():Object"></a><a id="clone():AnyRef"></a>
       <span class="permalink">
@@ -585,8 +592,8 @@
         <span class="name">generation</span><span class="params">(<span name="obj">obj: <span class="extype" name="com.coralogix.zio.k8s.client.model.K8sObject.T">T</span></span>)</span><span class="result">: <span class="extype" name="scala.Long">Long</span></span>
       </span>
       
-      <p class="shortcomment cmt">Gets the generation of the object stored in its metadata or 0 if it is not present
-(the resource was not uploaded yet)
+      <p class="shortcomment cmt">Gets the generation of the object stored in its metadata or 0 if it is not present (the
+resource was not uploaded yet)
 </p>
     </li><li name="scala.AnyRef#getClass" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getClass():Class[_]"></a>
@@ -640,7 +647,8 @@
         <span class="name">getName</span><span class="params">(<span name="obj">obj: <span class="extype" name="com.coralogix.zio.k8s.client.model.K8sObject.T">T</span></span>)</span><span class="result">: <a href="../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">Gets the name stored in the metadata of the object or fails with <a href="../UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">UndefinedField</a> if it is not present.</p>
+      <p class="shortcomment cmt">Gets the name stored in the metadata of the object or fails with <a href="../UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">UndefinedField</a> if it is
+not present.</p>
     </li><li name="com.coralogix.zio.k8s.client.model.K8sObject#getUid" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="getUid(obj:T):zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]"></a><a id="getUid(T):IO[K8sFailure,String]"></a>
       <span class="permalink">
@@ -656,7 +664,8 @@
         <span class="name">getUid</span><span class="params">(<span name="obj">obj: <span class="extype" name="com.coralogix.zio.k8s.client.model.K8sObject.T">T</span></span>)</span><span class="result">: <a href="../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">Gets the UID stored in the metadata of the object or fails with <a href="../UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">UndefinedField</a> if it is not present.</p>
+      <p class="shortcomment cmt">Gets the UID stored in the metadata of the object or fails with <a href="../UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">UndefinedField</a> if it is
+not present.</p>
     </li><li name="scala.AnyRef#hashCode" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="hashCode():Int"></a>
       <span class="permalink">
@@ -709,7 +718,11 @@
         <span class="name">isOwnedBy</span><span class="tparams">[<span name="OwnerT">OwnerT</span>]</span><span class="params">(<span name="obj">obj: <span class="extype" name="com.coralogix.zio.k8s.client.model.K8sObject.T">T</span></span>)</span><span class="params">(<span name="owner">owner: <span class="extype" name="com.coralogix.zio.k8s.client.model.K8sObject.isOwnedBy.OwnerT">OwnerT</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="" class="extype" name="com.coralogix.zio.k8s.client.model.K8sObject">K8sObject</a>[<span class="extype" name="com.coralogix.zio.k8s.client.model.K8sObject.isOwnedBy.OwnerT">OwnerT</span>]</span>, <span name="arg1">arg1: <a href="ResourceMetadata.html" class="extype" name="com.coralogix.zio.k8s.client.model.ResourceMetadata">ResourceMetadata</a>[<span class="extype" name="com.coralogix.zio.k8s.client.model.K8sObject.isOwnedBy.OwnerT">OwnerT</span>]</span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
       </span>
       
-      <p class="shortcomment cmt">Check if a resource is owned by an other one</p><div class="fullcomment"><div class="comment cmt"><p>Check if a resource is owned by an other one</p></div><dl class="paramcmts block"><dt class="tparam">OwnerT</dt><dd class="cmt"><p>Owner resource type</p></dd><dt class="param">obj</dt><dd class="cmt"><p>Owned resource object to check</p></dd><dt class="param">owner</dt><dd class="cmt"><p>Owner</p></dd><dt>returns</dt><dd class="cmt"><p>True if owner owns obj</p></dd></dl></div>
+      <p class="shortcomment cmt">Check if a resource is owned by an other one</p><div class="fullcomment"><div class="comment cmt"><p>Check if a resource is owned by an other one</p></div><dl class="paramcmts block"><dt class="tparam">OwnerT</dt><dd class="cmt"><p>
+  Owner resource type</p></dd><dt class="param">obj</dt><dd class="cmt"><p>
+  Owned resource object to check</p></dd><dt class="param">owner</dt><dd class="cmt"><p>
+  Owner</p></dd><dt>returns</dt><dd class="cmt"><p>
+  True if owner owns obj</p></dd></dl></div>
     </li><li name="scala.AnyRef#ne" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="ne(x$1:AnyRef):Boolean"></a><a id="ne(AnyRef):Boolean"></a>
       <span class="permalink">
@@ -815,8 +828,8 @@
         <span class="name">tryAttachOwner</span><span class="tparams">[<span name="OwnerT">OwnerT</span>]</span><span class="params">(<span name="obj">obj: <span class="extype" name="com.coralogix.zio.k8s.client.model.K8sObject.T">T</span></span>)</span><span class="params">(<span name="owner">owner: <span class="extype" name="com.coralogix.zio.k8s.client.model.K8sObject.tryAttachOwner.OwnerT">OwnerT</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="" class="extype" name="com.coralogix.zio.k8s.client.model.K8sObject">K8sObject</a>[<span class="extype" name="com.coralogix.zio.k8s.client.model.K8sObject.tryAttachOwner.OwnerT">OwnerT</span>]</span>, <span name="arg1">arg1: <a href="ResourceMetadata.html" class="extype" name="com.coralogix.zio.k8s.client.model.ResourceMetadata">ResourceMetadata</a>[<span class="extype" name="com.coralogix.zio.k8s.client.model.K8sObject.tryAttachOwner.OwnerT">OwnerT</span>]</span>)</span><span class="result">: <a href="../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="com.coralogix.zio.k8s.client.model.K8sObject.T">T</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">Try to <a href="#attachOwner(obj:T)(ownerName:String,ownerUid:String,ownerType:com.coralogix.zio.k8s.client.model.K8sResourceType):T" class="extmbr" name="com.coralogix.zio.k8s.client.model.K8sObject#attachOwner">attachOwner</a> another Kubernetes resource as the owner of the given one,
-can fail with <a href="../UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">UndefinedField</a> if some of the metadata fields are not present.</p>
+      <p class="shortcomment cmt">Try to <a href="#attachOwner(obj:T)(ownerName:String,ownerUid:String,ownerType:com.coralogix.zio.k8s.client.model.K8sResourceType):T" class="extmbr" name="com.coralogix.zio.k8s.client.model.K8sObject#attachOwner">attachOwner</a> another Kubernetes resource as the owner of the given one, can fail
+with <a href="../UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">UndefinedField</a> if some of the metadata fields are not present.</p>
     </li><li name="scala.AnyRef#wait" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="wait(x$1:Long,x$2:Int):Unit"></a><a id="wait(Long,Int):Unit"></a>
       <span class="permalink">

@@ -1588,7 +1588,15 @@
 
       
           <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Maps a string key to a path within a volume.
-</p></div><dl class="paramcmts block"><dt class="param">key</dt><dd class="cmt"><p>The key to project.</p></dd><dt class="param">mode</dt><dd class="cmt"><p>Optional: mode bits used to set permissions on this file. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. If not specified, the volume defaultMode will be used. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.</p></dd><dt class="param">path</dt><dd class="cmt"><p>The relative path of the file to map the key to. May not be an absolute path. May not contain the path element '..'. May not start with the string '..'.</p></dd></dl><div class="toggleContainer block">
+</p></div><dl class="paramcmts block"><dt class="param">key</dt><dd class="cmt"><p>
+  The key to project.</p></dd><dt class="param">mode</dt><dd class="cmt"><p>
+  Optional: mode bits used to set permissions on this file. Must be an octal value between 0000
+  and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values,
+  JSON requires decimal values for mode bits. If not specified, the volume defaultMode will be
+  used. This might be in conflict with other options that affect the file mode, like fsGroup,
+  and the result can be other mode bits set.</p></dd><dt class="param">path</dt><dd class="cmt"><p>
+  The relative path of the file to map the key to. May not be an absolute path. May not contain
+  the path element '..'. May not start with the string '..'.</p></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -1653,7 +1661,15 @@
         <span class="name">KeyToPath</span><span class="params">(<span name="key">key: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="mode">mode: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="path">path: <span class="extype" name="scala.Predef.String">String</span></span>)</span>
       </span>
       
-      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">key</dt><dd class="cmt"><p>The key to project.</p></dd><dt class="param">mode</dt><dd class="cmt"><p>Optional: mode bits used to set permissions on this file. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. If not specified, the volume defaultMode will be used. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.</p></dd><dt class="param">path</dt><dd class="cmt"><p>The relative path of the file to map the key to. May not be an absolute path. May not contain the path element '..'. May not start with the string '..'.</p></dd></dl></div>
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">key</dt><dd class="cmt"><p>
+  The key to project.</p></dd><dt class="param">mode</dt><dd class="cmt"><p>
+  Optional: mode bits used to set permissions on this file. Must be an octal value between 0000
+  and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values,
+  JSON requires decimal values for mode bits. If not specified, the volume defaultMode will be
+  used. This might be in conflict with other options that affect the file mode, like fsGroup,
+  and the result can be other mode bits set.</p></dd><dt class="param">path</dt><dd class="cmt"><p>
+  The relative path of the file to map the key to. May not be an absolute path. May not contain
+  the path element '..'. May not start with the string '..'.</p></dd></dl></div>
     </li></ol>
             </div>
 
@@ -1823,7 +1839,11 @@
         <span class="name">getMode</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Int">Int</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">Optional: mode bits used to set permissions on this file.</p><div class="fullcomment"><div class="comment cmt"><p>Optional: mode bits used to set permissions on this file. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. If not specified, the volume defaultMode will be used. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">Optional: mode bits used to set permissions on this file.</p><div class="fullcomment"><div class="comment cmt"><p>Optional: mode bits used to set permissions on this file. Must be an octal value between 0000
+and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values,
+JSON requires decimal values for mode bits. If not specified, the volume defaultMode will be
+used. This might be in conflict with other options that affect the file mode, like fsGroup,
+and the result can be other mode bits set.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.core.v1.KeyToPath#getPath" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getPath:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]"></a><a id="getPath:IO[K8sFailure,String]"></a>
@@ -1840,7 +1860,8 @@
         <span class="name">getPath</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">The relative path of the file to map the key to.</p><div class="fullcomment"><div class="comment cmt"><p>The relative path of the file to map the key to. May not be an absolute path. May not contain the path element '..'. May not start with the string '..'.</p><p>This effect always succeeds, it is safe to use the field <a href="#path:String" class="extmbr" name="com.coralogix.zio.k8s.model.core.v1.KeyToPath#path">path</a> directly.
+      <p class="shortcomment cmt">The relative path of the file to map the key to.</p><div class="fullcomment"><div class="comment cmt"><p>The relative path of the file to map the key to. May not be an absolute path. May not contain
+the path element '..'. May not start with the string '..'.</p><p>This effect always succeeds, it is safe to use the field <a href="#path:String" class="extmbr" name="com.coralogix.zio.k8s.model.core.v1.KeyToPath#path">path</a> directly.
 </p></div></div>
     </li><li name="scala.Any#isInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isInstanceOf[T0]:Boolean"></a>

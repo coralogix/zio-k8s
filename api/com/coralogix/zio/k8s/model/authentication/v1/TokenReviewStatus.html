@@ -276,7 +276,16 @@
 
       
           <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>TokenReviewStatus is the result of the token authentication request.
-</p></div><dl class="paramcmts block"><dt class="param">audiences</dt><dd class="cmt"><p>Audiences are audience identifiers chosen by the authenticator that are compatible with both the TokenReview and token. An identifier is any identifier in the intersection of the TokenReviewSpec audiences and the token's audiences. A client of the TokenReview API that sets the spec.audiences field should validate that a compatible audience identifier is returned in the status.audiences field to ensure that the TokenReview server is audience aware. If a TokenReview returns an empty status.audience field where status.authenticated is &quot;true&quot;, the token is valid against the audience of the Kubernetes API server.</p></dd><dt class="param">authenticated</dt><dd class="cmt"><p>Authenticated indicates that the token was associated with a known user.</p></dd><dt class="param">error</dt><dd class="cmt"><p>Error indicates that the token couldn't be checked</p></dd></dl><div class="toggleContainer block">
+</p></div><dl class="paramcmts block"><dt class="param">audiences</dt><dd class="cmt"><p>
+  Audiences are audience identifiers chosen by the authenticator that are compatible with both
+  the TokenReview and token. An identifier is any identifier in the intersection of the
+  TokenReviewSpec audiences and the token's audiences. A client of the TokenReview API that sets
+  the spec.audiences field should validate that a compatible audience identifier is returned in
+  the status.audiences field to ensure that the TokenReview server is audience aware. If a
+  TokenReview returns an empty status.audience field where status.authenticated is &quot;true&quot;, the
+  token is valid against the audience of the Kubernetes API server.</p></dd><dt class="param">authenticated</dt><dd class="cmt"><p>
+  Authenticated indicates that the token was associated with a known user.</p></dd><dt class="param">error</dt><dd class="cmt"><p>
+  Error indicates that the token couldn't be checked</p></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -341,7 +350,16 @@
         <span class="name">TokenReviewStatus</span><span class="params">(<span name="audiences">audiences: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="authenticated">authenticated: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Boolean">Boolean</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="error">error: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="user">user: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="UserInfo.html" class="extype" name="com.coralogix.zio.k8s.model.authentication.v1.UserInfo">UserInfo</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span>
       </span>
       
-      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">audiences</dt><dd class="cmt"><p>Audiences are audience identifiers chosen by the authenticator that are compatible with both the TokenReview and token. An identifier is any identifier in the intersection of the TokenReviewSpec audiences and the token's audiences. A client of the TokenReview API that sets the spec.audiences field should validate that a compatible audience identifier is returned in the status.audiences field to ensure that the TokenReview server is audience aware. If a TokenReview returns an empty status.audience field where status.authenticated is &quot;true&quot;, the token is valid against the audience of the Kubernetes API server.</p></dd><dt class="param">authenticated</dt><dd class="cmt"><p>Authenticated indicates that the token was associated with a known user.</p></dd><dt class="param">error</dt><dd class="cmt"><p>Error indicates that the token couldn't be checked</p></dd></dl></div>
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">audiences</dt><dd class="cmt"><p>
+  Audiences are audience identifiers chosen by the authenticator that are compatible with both
+  the TokenReview and token. An identifier is any identifier in the intersection of the
+  TokenReviewSpec audiences and the token's audiences. A client of the TokenReview API that sets
+  the spec.audiences field should validate that a compatible audience identifier is returned in
+  the status.audiences field to ensure that the TokenReview server is audience aware. If a
+  TokenReview returns an empty status.audience field where status.authenticated is &quot;true&quot;, the
+  token is valid against the audience of the Kubernetes API server.</p></dd><dt class="param">authenticated</dt><dd class="cmt"><p>
+  Authenticated indicates that the token was associated with a known user.</p></dd><dt class="param">error</dt><dd class="cmt"><p>
+  Error indicates that the token couldn't be checked</p></dd></dl></div>
     </li></ol>
             </div>
 
@@ -521,7 +539,14 @@
         <span class="name">getAudiences</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]]</span>
       </span>
       
-      <p class="shortcomment cmt">Audiences are audience identifiers chosen by the authenticator that are compatible with both the TokenReview and token.</p><div class="fullcomment"><div class="comment cmt"><p>Audiences are audience identifiers chosen by the authenticator that are compatible with both the TokenReview and token. An identifier is any identifier in the intersection of the TokenReviewSpec audiences and the token's audiences. A client of the TokenReview API that sets the spec.audiences field should validate that a compatible audience identifier is returned in the status.audiences field to ensure that the TokenReview server is audience aware. If a TokenReview returns an empty status.audience field where status.authenticated is &quot;true&quot;, the token is valid against the audience of the Kubernetes API server.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">Audiences are audience identifiers chosen by the authenticator that are compatible with both
+the TokenReview and token.</p><div class="fullcomment"><div class="comment cmt"><p>Audiences are audience identifiers chosen by the authenticator that are compatible with both
+the TokenReview and token. An identifier is any identifier in the intersection of the
+TokenReviewSpec audiences and the token's audiences. A client of the TokenReview API that sets
+the spec.audiences field should validate that a compatible audience identifier is returned in
+the status.audiences field to ensure that the TokenReview server is audience aware. If a
+TokenReview returns an empty status.audience field where status.authenticated is &quot;true&quot;, the
+token is valid against the audience of the Kubernetes API server.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.authentication.v1.TokenReviewStatus#getAuthenticated" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getAuthenticated:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Boolean]"></a><a id="getAuthenticated:IO[K8sFailure,Boolean]"></a>

@@ -229,23 +229,7 @@
                         <span class="separator"></span>
                         <a class="class" href="JobTemplateSpecFields.html" title=""></a>
                         <a href="JobTemplateSpecFields.html" title="">JobTemplateSpecFields</a>
-                      </li><li name="com.coralogix.zio.k8s.model.batch.v2alpha1" visbl="pub" class="indented7 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="v2alpha1"></a><a id="v2alpha1:v2alpha1"></a>
-      <span class="permalink">
-      <a href="../../../../../../../com/coralogix/zio/k8s/model/batch/v2alpha1/index.html" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">package</span>
-      </span>
-      <span class="symbol">
-        <a title="" href="../v2alpha1/index.html"><span class="name">v2alpha1</span></a>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="com.coralogix.zio.k8s.model.batch">batch</a></dd></dl></div>
-    </li>
+                      </li>
               </ul>
             </div>
           </div>
@@ -356,7 +340,20 @@
       </span>
       
       <p class="shortcomment cmt">CronJobSpec describes how the job execution will look like and when it will actually run.</p><div class="fullcomment"><div class="comment cmt"><p>CronJobSpec describes how the job execution will look like and when it will actually run.
-</p></div><dl class="paramcmts block"><dt class="param">concurrencyPolicy</dt><dd class="cmt"><p>Specifies how to treat concurrent executions of a Job. Valid values are: - &quot;Allow&quot; (default): allows CronJobs to run concurrently; - &quot;Forbid&quot;: forbids concurrent runs, skipping next run if previous run hasn't finished yet; - &quot;Replace&quot;: cancels currently running job and replaces it with a new one</p></dd><dt class="param">failedJobsHistoryLimit</dt><dd class="cmt"><p>The number of failed finished jobs to retain. This is a pointer to distinguish between explicit zero and not specified. Defaults to 1.</p></dd><dt class="param">schedule</dt><dd class="cmt"><p>The schedule in Cron format, see https://en.wikipedia.org/wiki/Cron.</p></dd><dt class="param">startingDeadlineSeconds</dt><dd class="cmt"><p>Optional deadline in seconds for starting the job if it misses scheduled time for any reason.  Missed jobs executions will be counted as failed ones.</p></dd><dt class="param">successfulJobsHistoryLimit</dt><dd class="cmt"><p>The number of successful finished jobs to retain. This is a pointer to distinguish between explicit zero and not specified. Defaults to 3.</p></dd><dt class="param">suspend</dt><dd class="cmt"><p>This flag tells the controller to suspend subsequent executions, it does not apply to already started executions.  Defaults to false.</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="param">concurrencyPolicy</dt><dd class="cmt"><p>
+  Specifies how to treat concurrent executions of a Job. Valid values are: - &quot;Allow&quot; (default):
+  allows CronJobs to run concurrently; - &quot;Forbid&quot;: forbids concurrent runs, skipping next run if
+  previous run hasn't finished yet; - &quot;Replace&quot;: cancels currently running job and replaces it
+  with a new one</p></dd><dt class="param">failedJobsHistoryLimit</dt><dd class="cmt"><p>
+  The number of failed finished jobs to retain. This is a pointer to distinguish between
+  explicit zero and not specified. Defaults to 1.</p></dd><dt class="param">schedule</dt><dd class="cmt"><p>
+  The schedule in Cron format, see https://en.wikipedia.org/wiki/Cron.</p></dd><dt class="param">startingDeadlineSeconds</dt><dd class="cmt"><p>
+  Optional deadline in seconds for starting the job if it misses scheduled time for any reason.
+  Missed jobs executions will be counted as failed ones.</p></dd><dt class="param">successfulJobsHistoryLimit</dt><dd class="cmt"><p>
+  The number of successful finished jobs to retain. This is a pointer to distinguish between
+  explicit zero and not specified. Defaults to 3.</p></dd><dt class="param">suspend</dt><dd class="cmt"><p>
+  This flag tells the controller to suspend subsequent executions, it does not apply to already
+  started executions. Defaults to false.</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.batch.v1beta1.CronJobSpecFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="CronJobSpecFieldsextendsAnyRef"></a><a id="CronJobSpecFields:CronJobSpecFields"></a>
       <span class="permalink">
@@ -385,11 +382,12 @@
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a title="CronJobStatus represents the current state of a cron job." href="CronJobStatus.html"><span class="name">CronJobStatus</span></a><span class="params">(<span name="active">active: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="../../core/v1/ObjectReference.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.ObjectReference">ObjectReference</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="lastScheduleTime">lastScheduleTime: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="../../pkg/apis/meta/v1/Time.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Time">Time</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a title="CronJobStatus represents the current state of a cron job." href="CronJobStatus.html"><span class="name">CronJobStatus</span></a><span class="params">(<span name="active">active: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="../../core/v1/ObjectReference.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.ObjectReference">ObjectReference</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="lastScheduleTime">lastScheduleTime: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="../../pkg/apis/meta/v1/Time.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Time">Time</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="lastSuccessfulTime">lastSuccessfulTime: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="../../pkg/apis/meta/v1/Time.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Time">Time</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       <p class="shortcomment cmt">CronJobStatus represents the current state of a cron job.</p><div class="fullcomment"><div class="comment cmt"><p>CronJobStatus represents the current state of a cron job.
-</p></div><dl class="paramcmts block"><dt class="param">active</dt><dd class="cmt"><p>A list of pointers to currently running jobs.</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="param">active</dt><dd class="cmt"><p>
+  A list of pointers to currently running jobs.</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.batch.v1beta1.CronJobStatusFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="CronJobStatusFieldsextendsAnyRef"></a><a id="CronJobStatusFields:CronJobStatusFields"></a>
       <span class="permalink">

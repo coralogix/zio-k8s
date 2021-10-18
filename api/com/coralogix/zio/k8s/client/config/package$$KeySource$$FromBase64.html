@@ -164,11 +164,15 @@
         <a title="Contains data structures, ZIO layers and zio-config descriptors for configuring the zio-k8s client." href="index.html"><span class="name">config</span></a>
       </span>
       
-      <p class="shortcomment cmt">Contains data structures, ZIO layers and zio-config descriptors for configuring the zio-k8s client.</p><div class="fullcomment"><div class="comment cmt"><p>Contains data structures, ZIO layers and zio-config descriptors for configuring the zio-k8s client.</p><p>Each zio-k8s client module depends on two ZIO modules: <a href="../model/package$$K8sCluster.html" class="extype" name="com.coralogix.zio.k8s.client.model.K8sCluster">com.coralogix.zio.k8s.client.model.K8sCluster</a> and an <a href="https://javadoc.io/page/com.softwaremill.sttp.client3/core_2.12/3.3.13/sttp/client3/SttpBackend.html" class="extype" name="sttp.client3.SttpBackend">sttp.client3.SttpBackend</a>.
-To use the default configuration (use kubeconfig if available, otherwise fallback to service account token),
-use either <code>asynchttpclient.k8sDefault</code> or <code>httpclient.k8sDefault</code> depending on your chosen sttp backend.</p><p>Manual configuration is possible by providing a <a href="package$$K8sClusterConfig.html" class="extype" name="com.coralogix.zio.k8s.client.config.K8sClusterConfig">K8sClusterConfig</a> value to both the <a href="index.html#k8sCluster:zio.ZLayer[zio.blocking.Blockingwithzio.Has[com.coralogix.zio.k8s.client.config.package.K8sClusterConfig],Throwable,zio.Has[com.coralogix.zio.k8s.client.model.K8sCluster]]" class="extmbr" name="com.coralogix.zio.k8s.client.config#k8sCluster">k8sCluster</a> layer
-and either <code>asynchttpclient.k8sSttpClient</code> or <code>httpclient.k8sSttpClient</code>.</p><p>Instead of manually providing the configuration, zio-config descriptors are available to load them from any
-supported source.
+      <p class="shortcomment cmt">Contains data structures, ZIO layers and zio-config descriptors for configuring the zio-k8s
+client.</p><div class="fullcomment"><div class="comment cmt"><p>Contains data structures, ZIO layers and zio-config descriptors for configuring the zio-k8s
+client.</p><p>Each zio-k8s client module depends on two ZIO modules:
+<a href="../model/package$$K8sCluster.html" class="extype" name="com.coralogix.zio.k8s.client.model.K8sCluster">com.coralogix.zio.k8s.client.model.K8sCluster</a> and an <a href="https://javadoc.io/page/com.softwaremill.sttp.client3/core_2.12/3.3.15/sttp/client3/SttpBackend.html" class="extype" name="sttp.client3.SttpBackend">sttp.client3.SttpBackend</a>. To use
+the default configuration (use kubeconfig if available, otherwise fallback to service account
+token), use either <code>asynchttpclient.k8sDefault</code> or <code>httpclient.k8sDefault</code> depending on your
+chosen sttp backend.</p><p>Manual configuration is possible by providing a <a href="package$$K8sClusterConfig.html" class="extype" name="com.coralogix.zio.k8s.client.config.K8sClusterConfig">K8sClusterConfig</a> value to both the
+<a href="index.html#k8sCluster:zio.ZLayer[zio.blocking.Blockingwithzio.Has[com.coralogix.zio.k8s.client.config.package.K8sClusterConfig],Throwable,zio.Has[com.coralogix.zio.k8s.client.model.K8sCluster]]" class="extmbr" name="com.coralogix.zio.k8s.client.config#k8sCluster">k8sCluster</a> layer and either <code>asynchttpclient.k8sSttpClient</code> or <code>httpclient.k8sSttpClient</code>.</p><p>Instead of manually providing the configuration, zio-config descriptors are available to load
+them from any supported source.
 </p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="com.coralogix.zio.k8s.client">client</a></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.client.config.KeySource" visbl="pub" class="indented7 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="KeySource"></a><a id="KeySource:KeySource"></a>
@@ -226,7 +230,8 @@ supported source.
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Key loaded from a Base64 string</p></div><dl class="paramcmts block"><dt class="param">base64</dt><dd class="cmt"><p>base64 encoded key value</p></dd></dl><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Key loaded from a Base64 string</p></div><dl class="paramcmts block"><dt class="param">base64</dt><dd class="cmt"><p>
+  base64 encoded key value</p></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -291,7 +296,8 @@ supported source.
         <span class="name">FromBase64</span><span class="params">(<span name="base64">base64: <span class="extype" name="scala.Predef.String">String</span></span>)</span>
       </span>
       
-      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">base64</dt><dd class="cmt"><p>base64 encoded key value</p></dd></dl></div>
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">base64</dt><dd class="cmt"><p>
+  base64 encoded key value</p></dd></dl></div>
     </li></ol>
             </div>
 

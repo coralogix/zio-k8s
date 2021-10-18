@@ -243,9 +243,14 @@
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>CertificateSigningRequest objects provide a mechanism to obtain x509 certificates by submitting a certificate signing request, and having it asynchronously approved and issued.</p><p>Kubelets use this API to obtain:
-1. client certificates to authenticate to kube-apiserver (with the &quot;kubernetes.io/kube-apiserver-client-kubelet&quot; signerName).
-2. serving certificates for TLS endpoints kube-apiserver can connect to securely (with the &quot;kubernetes.io/kubelet-serving&quot; signerName).</p><p>This API can be used to request client certificates to authenticate to kube-apiserver (with the &quot;kubernetes.io/kube-apiserver-client&quot; signerName), or to obtain certificates from custom non-Kubernetes signers.
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>CertificateSigningRequest objects provide a mechanism to obtain x509 certificates by submitting
+a certificate signing request, and having it asynchronously approved and issued.</p><p>Kubelets use this API to obtain:
+1. client certificates to authenticate to kube-apiserver (with the
+&quot;kubernetes.io/kube-apiserver-client-kubelet&quot; signerName). 2. serving certificates for TLS
+endpoints kube-apiserver can connect to securely (with the &quot;kubernetes.io/kubelet-serving&quot;
+signerName).</p><p>This API can be used to request client certificates to authenticate to kube-apiserver (with the
+&quot;kubernetes.io/kube-apiserver-client&quot; signerName), or to obtain certificates from custom
+non-Kubernetes signers.
 </p></div><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes

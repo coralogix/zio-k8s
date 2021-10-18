@@ -411,8 +411,14 @@
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>A label selector is a label query over a set of resources. The result of matchLabels and matchExpressions are ANDed. An empty label selector matches all objects. A null label selector matches no objects.
-</p></div><dl class="paramcmts block"><dt class="param">matchExpressions</dt><dd class="cmt"><p>matchExpressions is a list of label selector requirements. The requirements are ANDed.</p></dd><dt class="param">matchLabels</dt><dd class="cmt"><p>matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is &quot;key&quot;, the operator is &quot;In&quot;, and the values array contains only &quot;value&quot;. The requirements are ANDed.</p></dd></dl><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>A label selector is a label query over a set of resources. The result of matchLabels and
+matchExpressions are ANDed. An empty label selector matches all objects. A null label selector
+matches no objects.
+</p></div><dl class="paramcmts block"><dt class="param">matchExpressions</dt><dd class="cmt"><p>
+  matchExpressions is a list of label selector requirements. The requirements are ANDed.</p></dd><dt class="param">matchLabels</dt><dd class="cmt"><p>
+  matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is
+  equivalent to an element of matchExpressions, whose key field is &quot;key&quot;, the operator is &quot;In&quot;,
+  and the values array contains only &quot;value&quot;. The requirements are ANDed.</p></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -477,7 +483,11 @@
         <span class="name">LabelSelector</span><span class="params">(<span name="matchExpressions">matchExpressions: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="LabelSelectorRequirement.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.LabelSelectorRequirement">LabelSelectorRequirement</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="matchLabels">matchLabels: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>)</span>
       </span>
       
-      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">matchExpressions</dt><dd class="cmt"><p>matchExpressions is a list of label selector requirements. The requirements are ANDed.</p></dd><dt class="param">matchLabels</dt><dd class="cmt"><p>matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is &quot;key&quot;, the operator is &quot;In&quot;, and the values array contains only &quot;value&quot;. The requirements are ANDed.</p></dd></dl></div>
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">matchExpressions</dt><dd class="cmt"><p>
+  matchExpressions is a list of label selector requirements. The requirements are ANDed.</p></dd><dt class="param">matchLabels</dt><dd class="cmt"><p>
+  matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is
+  equivalent to an element of matchExpressions, whose key field is &quot;key&quot;, the operator is &quot;In&quot;,
+  and the values array contains only &quot;value&quot;. The requirements are ANDed.</p></dd></dl></div>
     </li></ol>
             </div>
 
@@ -647,7 +657,9 @@
         <span class="name">getMatchLabels</span><span class="result">: <a href="../../../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.Predef.String">String</span>]]</span>
       </span>
       
-      <p class="shortcomment cmt">matchLabels is a map of {key,value} pairs.</p><div class="fullcomment"><div class="comment cmt"><p>matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is &quot;key&quot;, the operator is &quot;In&quot;, and the values array contains only &quot;value&quot;. The requirements are ANDed.</p><p>If the field is not present, fails with <a href="../../../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">matchLabels is a map of {key,value} pairs.</p><div class="fullcomment"><div class="comment cmt"><p>matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is
+equivalent to an element of matchExpressions, whose key field is &quot;key&quot;, the operator is &quot;In&quot;,
+and the values array contains only &quot;value&quot;. The requirements are ANDed.</p><p>If the field is not present, fails with <a href="../../../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="scala.Any#isInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isInstanceOf[T0]:Boolean"></a>

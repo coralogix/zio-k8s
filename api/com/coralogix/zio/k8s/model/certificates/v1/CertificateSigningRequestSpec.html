@@ -238,39 +238,71 @@
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <span class="name">CertificateSigningRequestSpec</span><span class="params">(<span name="extra">extra: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="groups">groups: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="request">request: <a href="https://javadoc.io/page/dev.zio/zio_2.12/1.0.10/zio/Chunk.html#zio.Chunk" class="extype" name="zio.Chunk">Chunk</a>[<span class="extype" name="scala.Byte">Byte</span>]</span>, <span name="signerName">signerName: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="uid">uid: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="usages">usages: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="username">username: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <span class="name">CertificateSigningRequestSpec</span><span class="params">(<span name="expirationSeconds">expirationSeconds: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="extra">extra: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="groups">groups: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="request">request: <a href="https://javadoc.io/page/dev.zio/zio_2.12/1.0.12/zio/Chunk.html#zio.Chunk" class="extype" name="zio.Chunk">Chunk</a>[<span class="extype" name="scala.Byte">Byte</span>]</span>, <span name="signerName">signerName: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="uid">uid: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="usages">usages: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="username">username: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       </h4>
 
       
           <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>CertificateSigningRequestSpec contains the certificate request.
-</p></div><dl class="paramcmts block"><dt class="param">extra</dt><dd class="cmt"><p>extra contains extra attributes of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.</p></dd><dt class="param">groups</dt><dd class="cmt"><p>groups contains group membership of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.</p></dd><dt class="param">request</dt><dd class="cmt"><p>request contains an x509 certificate signing request encoded in a &quot;CERTIFICATE REQUEST&quot; PEM block. When serialized as JSON or YAML, the data is additionally base64-encoded.</p></dd><dt class="param">signerName</dt><dd class="cmt"><p>signerName indicates the requested signer, and is a qualified name.
-List/watch requests for CertificateSigningRequests can filter on this field using a &quot;spec.signerName=NAME&quot; fieldSelector.
+</p></div><dl class="paramcmts block"><dt class="param">expirationSeconds</dt><dd class="cmt"><p>
+  expirationSeconds is the requested duration of validity of the issued certificate. The
+  certificate signer may issue a certificate with a different validity duration so a client must
+  check the delta between the notBefore and and notAfter fields in the issued certificate to
+  determine the actual duration.
+The v1.22+ in-tree implementations of the well-known Kubernetes signers will honor this field as
+long as the requested duration is not greater than the maximum duration they will honor per the
+--cluster-signing-duration CLI flag to the Kubernetes controller manager.
+Certificate signers may not honor this field for various reasons:
+1. Old signer that is unaware of the field (such as the in-tree implementations prior to v1.22)
+2. Signer whose configured maximum is shorter than the requested duration 3. Signer whose
+configured minimum is longer than the requested duration
+The minimum valid value for expirationSeconds is 600, i.e. 10 minutes.
+As of v1.22, this field is beta and is controlled via the CSRDuration feature gate.</p></dd><dt class="param">extra</dt><dd class="cmt"><p>
+  extra contains extra attributes of the user that created the CertificateSigningRequest.
+  Populated by the API server on creation and immutable.</p></dd><dt class="param">groups</dt><dd class="cmt"><p>
+  groups contains group membership of the user that created the CertificateSigningRequest.
+  Populated by the API server on creation and immutable.</p></dd><dt class="param">request</dt><dd class="cmt"><p>
+  request contains an x509 certificate signing request encoded in a &quot;CERTIFICATE REQUEST&quot; PEM
+  block. When serialized as JSON or YAML, the data is additionally base64-encoded.</p></dd><dt class="param">signerName</dt><dd class="cmt"><p>
+  signerName indicates the requested signer, and is a qualified name.
+List/watch requests for CertificateSigningRequests can filter on this field using a
+&quot;spec.signerName=NAME&quot; fieldSelector.
 Well-known Kubernetes signers are:
-1. &quot;kubernetes.io/kube-apiserver-client&quot;: issues client certificates that can be used to authenticate to kube-apiserver.
- Requests for this signer are never auto-approved by kube-controller-manager, can be issued by the &quot;csrsigning&quot; controller in kube-controller-manager.
-2. &quot;kubernetes.io/kube-apiserver-client-kubelet&quot;: issues client certificates that kubelets use to authenticate to kube-apiserver.
- Requests for this signer can be auto-approved by the &quot;csrapproving&quot; controller in kube-controller-manager, and can be issued by the &quot;csrsigning&quot; controller in kube-controller-manager.
-3. &quot;kubernetes.io/kubelet-serving&quot; issues serving certificates that kubelets use to serve TLS endpoints, which kube-apiserver can connect to securely.
- Requests for this signer are never auto-approved by kube-controller-manager, and can be issued by the &quot;csrsigning&quot; controller in kube-controller-manager.
-More details are available at https://k8s.io/docs/reference/access-authn-authz/certificate-signing-requests/#kubernetes-signers
+1. &quot;kubernetes.io/kube-apiserver-client&quot;: issues client certificates that can be used to
+authenticate to kube-apiserver. Requests for this signer are never auto-approved by
+kube-controller-manager, can be issued by the &quot;csrsigning&quot; controller in
+kube-controller-manager. 2. &quot;kubernetes.io/kube-apiserver-client-kubelet&quot;: issues client
+certificates that kubelets use to authenticate to kube-apiserver. Requests for this signer can
+be auto-approved by the &quot;csrapproving&quot; controller in kube-controller-manager, and can be issued
+by the &quot;csrsigning&quot; controller in kube-controller-manager. 3. &quot;kubernetes.io/kubelet-serving&quot;
+issues serving certificates that kubelets use to serve TLS endpoints, which kube-apiserver can
+connect to securely. Requests for this signer are never auto-approved by
+kube-controller-manager, and can be issued by the &quot;csrsigning&quot; controller in
+kube-controller-manager.
+More details are available at
+https://k8s.io/docs/reference/access-authn-authz/certificate-signing-requests/#kubernetes-signers
 Custom signerNames can also be specified. The signer defines:
-1. Trust distribution: how trust (CA bundles) are distributed.
-2. Permitted subjects: and behavior when a disallowed subject is requested.
-3. Required, permitted, or forbidden x509 extensions in the request (including whether subjectAltNames are allowed, which types, restrictions on allowed values) and behavior when a disallowed extension is requested.
-4. Required, permitted, or forbidden key usages / extended key usages.
-5. Expiration/certificate lifetime: whether it is fixed by the signer, configurable by the admin.
-6. Whether or not requests for CA certificates are allowed.</p></dd><dt class="param">uid</dt><dd class="cmt"><p>uid contains the uid of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.</p></dd><dt class="param">usages</dt><dd class="cmt"><p>usages specifies a set of key usages requested in the issued certificate.
-Requests for TLS client certificates typically request: &quot;digital signature&quot;, &quot;key encipherment&quot;, &quot;client auth&quot;.
-Requests for TLS serving certificates typically request: &quot;key encipherment&quot;, &quot;digital signature&quot;, &quot;server auth&quot;.
-Valid values are:
-&quot;signing&quot;, &quot;digital signature&quot;, &quot;content commitment&quot;,
-&quot;key encipherment&quot;, &quot;key agreement&quot;, &quot;data encipherment&quot;,
-&quot;cert sign&quot;, &quot;crl sign&quot;, &quot;encipher only&quot;, &quot;decipher only&quot;, &quot;any&quot;,
-&quot;server auth&quot;, &quot;client auth&quot;,
-&quot;code signing&quot;, &quot;email protection&quot;, &quot;s/mime&quot;,
-&quot;ipsec end system&quot;, &quot;ipsec tunnel&quot;, &quot;ipsec user&quot;,
-&quot;timestamping&quot;, &quot;ocsp signing&quot;, &quot;microsoft sgc&quot;, &quot;netscape sgc&quot;</p></dd><dt class="param">username</dt><dd class="cmt"><p>username contains the name of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.</p></dd></dl><div class="toggleContainer block">
+1. Trust distribution: how trust (CA bundles) are distributed. 2. Permitted subjects: and
+behavior when a disallowed subject is requested. 3. Required, permitted, or forbidden x509
+extensions in the request (including whether subjectAltNames are allowed, which types,
+restrictions on allowed values) and behavior when a disallowed extension is requested. 4.
+Required, permitted, or forbidden key usages / extended key usages. 5. Expiration/certificate
+lifetime: whether it is fixed by the signer, configurable by the admin. 6. Whether or not
+requests for CA certificates are allowed.</p></dd><dt class="param">uid</dt><dd class="cmt"><p>
+  uid contains the uid of the user that created the CertificateSigningRequest. Populated by the
+  API server on creation and immutable.</p></dd><dt class="param">usages</dt><dd class="cmt"><p>
+  usages specifies a set of key usages requested in the issued certificate.
+Requests for TLS client certificates typically request: &quot;digital signature&quot;, &quot;key encipherment&quot;,
+&quot;client auth&quot;.
+Requests for TLS serving certificates typically request: &quot;key encipherment&quot;, &quot;digital
+signature&quot;, &quot;server auth&quot;.
+Valid values are: &quot;signing&quot;, &quot;digital signature&quot;, &quot;content commitment&quot;, &quot;key encipherment&quot;, &quot;key
+agreement&quot;, &quot;data encipherment&quot;, &quot;cert sign&quot;, &quot;crl sign&quot;, &quot;encipher only&quot;, &quot;decipher only&quot;,
+&quot;any&quot;, &quot;server auth&quot;, &quot;client auth&quot;, &quot;code signing&quot;, &quot;email protection&quot;, &quot;s/mime&quot;, &quot;ipsec end
+system&quot;, &quot;ipsec tunnel&quot;, &quot;ipsec user&quot;, &quot;timestamping&quot;, &quot;ocsp signing&quot;, &quot;microsoft sgc&quot;,
+&quot;netscape sgc&quot;</p></dd><dt class="param">username</dt><dd class="cmt"><p>
+  username contains the name of the user that created the CertificateSigningRequest. Populated
+  by the API server on creation and immutable.</p></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -321,9 +353,9 @@ Valid values are:
         <div id="constructors" class="members">
               <h3>Instance Constructors</h3>
               <ol><li name="com.coralogix.zio.k8s.model.certificates.v1.CertificateSigningRequestSpec#&lt;init&gt;" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="&lt;init&gt;(extra:com.coralogix.zio.k8s.client.model.Optional[Map[String,Vector[String]]],groups:com.coralogix.zio.k8s.client.model.Optional[Vector[String]],request:zio.Chunk[Byte],signerName:String,uid:com.coralogix.zio.k8s.client.model.Optional[String],usages:com.coralogix.zio.k8s.client.model.Optional[Vector[String]],username:com.coralogix.zio.k8s.client.model.Optional[String]):com.coralogix.zio.k8s.model.certificates.v1.CertificateSigningRequestSpec"></a><a id="&lt;init&gt;:CertificateSigningRequestSpec"></a>
+      <a id="&lt;init&gt;(expirationSeconds:com.coralogix.zio.k8s.client.model.Optional[Int],extra:com.coralogix.zio.k8s.client.model.Optional[Map[String,Vector[String]]],groups:com.coralogix.zio.k8s.client.model.Optional[Vector[String]],request:zio.Chunk[Byte],signerName:String,uid:com.coralogix.zio.k8s.client.model.Optional[String],usages:com.coralogix.zio.k8s.client.model.Optional[Vector[String]],username:com.coralogix.zio.k8s.client.model.Optional[String]):com.coralogix.zio.k8s.model.certificates.v1.CertificateSigningRequestSpec"></a><a id="&lt;init&gt;:CertificateSigningRequestSpec"></a>
       <span class="permalink">
-      <a href="../../../../../../../com/coralogix/zio/k8s/model/certificates/v1/CertificateSigningRequestSpec.html#&lt;init&gt;(extra:com.coralogix.zio.k8s.client.model.Optional[Map[String,Vector[String]]],groups:com.coralogix.zio.k8s.client.model.Optional[Vector[String]],request:zio.Chunk[Byte],signerName:String,uid:com.coralogix.zio.k8s.client.model.Optional[String],usages:com.coralogix.zio.k8s.client.model.Optional[Vector[String]],username:com.coralogix.zio.k8s.client.model.Optional[String]):com.coralogix.zio.k8s.model.certificates.v1.CertificateSigningRequestSpec" title="Permalink">
+      <a href="../../../../../../../com/coralogix/zio/k8s/model/certificates/v1/CertificateSigningRequestSpec.html#&lt;init&gt;(expirationSeconds:com.coralogix.zio.k8s.client.model.Optional[Int],extra:com.coralogix.zio.k8s.client.model.Optional[Map[String,Vector[String]]],groups:com.coralogix.zio.k8s.client.model.Optional[Vector[String]],request:zio.Chunk[Byte],signerName:String,uid:com.coralogix.zio.k8s.client.model.Optional[String],usages:com.coralogix.zio.k8s.client.model.Optional[Vector[String]],username:com.coralogix.zio.k8s.client.model.Optional[String]):com.coralogix.zio.k8s.model.certificates.v1.CertificateSigningRequestSpec" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -332,36 +364,68 @@ Valid values are:
         <span class="kind">new</span>
       </span>
       <span class="symbol">
-        <span class="name">CertificateSigningRequestSpec</span><span class="params">(<span name="extra">extra: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="groups">groups: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="request">request: <a href="https://javadoc.io/page/dev.zio/zio_2.12/1.0.10/zio/Chunk.html#zio.Chunk" class="extype" name="zio.Chunk">Chunk</a>[<span class="extype" name="scala.Byte">Byte</span>]</span>, <span name="signerName">signerName: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="uid">uid: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="usages">usages: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="username">username: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span>
+        <span class="name">CertificateSigningRequestSpec</span><span class="params">(<span name="expirationSeconds">expirationSeconds: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="extra">extra: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="groups">groups: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="request">request: <a href="https://javadoc.io/page/dev.zio/zio_2.12/1.0.12/zio/Chunk.html#zio.Chunk" class="extype" name="zio.Chunk">Chunk</a>[<span class="extype" name="scala.Byte">Byte</span>]</span>, <span name="signerName">signerName: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="uid">uid: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="usages">usages: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="username">username: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span>
       </span>
       
-      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">extra</dt><dd class="cmt"><p>extra contains extra attributes of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.</p></dd><dt class="param">groups</dt><dd class="cmt"><p>groups contains group membership of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.</p></dd><dt class="param">request</dt><dd class="cmt"><p>request contains an x509 certificate signing request encoded in a &quot;CERTIFICATE REQUEST&quot; PEM block. When serialized as JSON or YAML, the data is additionally base64-encoded.</p></dd><dt class="param">signerName</dt><dd class="cmt"><p>signerName indicates the requested signer, and is a qualified name.
-List/watch requests for CertificateSigningRequests can filter on this field using a &quot;spec.signerName=NAME&quot; fieldSelector.
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">expirationSeconds</dt><dd class="cmt"><p>
+  expirationSeconds is the requested duration of validity of the issued certificate. The
+  certificate signer may issue a certificate with a different validity duration so a client must
+  check the delta between the notBefore and and notAfter fields in the issued certificate to
+  determine the actual duration.
+The v1.22+ in-tree implementations of the well-known Kubernetes signers will honor this field as
+long as the requested duration is not greater than the maximum duration they will honor per the
+--cluster-signing-duration CLI flag to the Kubernetes controller manager.
+Certificate signers may not honor this field for various reasons:
+1. Old signer that is unaware of the field (such as the in-tree implementations prior to v1.22)
+2. Signer whose configured maximum is shorter than the requested duration 3. Signer whose
+configured minimum is longer than the requested duration
+The minimum valid value for expirationSeconds is 600, i.e. 10 minutes.
+As of v1.22, this field is beta and is controlled via the CSRDuration feature gate.</p></dd><dt class="param">extra</dt><dd class="cmt"><p>
+  extra contains extra attributes of the user that created the CertificateSigningRequest.
+  Populated by the API server on creation and immutable.</p></dd><dt class="param">groups</dt><dd class="cmt"><p>
+  groups contains group membership of the user that created the CertificateSigningRequest.
+  Populated by the API server on creation and immutable.</p></dd><dt class="param">request</dt><dd class="cmt"><p>
+  request contains an x509 certificate signing request encoded in a &quot;CERTIFICATE REQUEST&quot; PEM
+  block. When serialized as JSON or YAML, the data is additionally base64-encoded.</p></dd><dt class="param">signerName</dt><dd class="cmt"><p>
+  signerName indicates the requested signer, and is a qualified name.
+List/watch requests for CertificateSigningRequests can filter on this field using a
+&quot;spec.signerName=NAME&quot; fieldSelector.
 Well-known Kubernetes signers are:
-1. &quot;kubernetes.io/kube-apiserver-client&quot;: issues client certificates that can be used to authenticate to kube-apiserver.
- Requests for this signer are never auto-approved by kube-controller-manager, can be issued by the &quot;csrsigning&quot; controller in kube-controller-manager.
-2. &quot;kubernetes.io/kube-apiserver-client-kubelet&quot;: issues client certificates that kubelets use to authenticate to kube-apiserver.
- Requests for this signer can be auto-approved by the &quot;csrapproving&quot; controller in kube-controller-manager, and can be issued by the &quot;csrsigning&quot; controller in kube-controller-manager.
-3. &quot;kubernetes.io/kubelet-serving&quot; issues serving certificates that kubelets use to serve TLS endpoints, which kube-apiserver can connect to securely.
- Requests for this signer are never auto-approved by kube-controller-manager, and can be issued by the &quot;csrsigning&quot; controller in kube-controller-manager.
-More details are available at https://k8s.io/docs/reference/access-authn-authz/certificate-signing-requests/#kubernetes-signers
+1. &quot;kubernetes.io/kube-apiserver-client&quot;: issues client certificates that can be used to
+authenticate to kube-apiserver. Requests for this signer are never auto-approved by
+kube-controller-manager, can be issued by the &quot;csrsigning&quot; controller in
+kube-controller-manager. 2. &quot;kubernetes.io/kube-apiserver-client-kubelet&quot;: issues client
+certificates that kubelets use to authenticate to kube-apiserver. Requests for this signer can
+be auto-approved by the &quot;csrapproving&quot; controller in kube-controller-manager, and can be issued
+by the &quot;csrsigning&quot; controller in kube-controller-manager. 3. &quot;kubernetes.io/kubelet-serving&quot;
+issues serving certificates that kubelets use to serve TLS endpoints, which kube-apiserver can
+connect to securely. Requests for this signer are never auto-approved by
+kube-controller-manager, and can be issued by the &quot;csrsigning&quot; controller in
+kube-controller-manager.
+More details are available at
+https://k8s.io/docs/reference/access-authn-authz/certificate-signing-requests/#kubernetes-signers
 Custom signerNames can also be specified. The signer defines:
-1. Trust distribution: how trust (CA bundles) are distributed.
-2. Permitted subjects: and behavior when a disallowed subject is requested.
-3. Required, permitted, or forbidden x509 extensions in the request (including whether subjectAltNames are allowed, which types, restrictions on allowed values) and behavior when a disallowed extension is requested.
-4. Required, permitted, or forbidden key usages / extended key usages.
-5. Expiration/certificate lifetime: whether it is fixed by the signer, configurable by the admin.
-6. Whether or not requests for CA certificates are allowed.</p></dd><dt class="param">uid</dt><dd class="cmt"><p>uid contains the uid of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.</p></dd><dt class="param">usages</dt><dd class="cmt"><p>usages specifies a set of key usages requested in the issued certificate.
-Requests for TLS client certificates typically request: &quot;digital signature&quot;, &quot;key encipherment&quot;, &quot;client auth&quot;.
-Requests for TLS serving certificates typically request: &quot;key encipherment&quot;, &quot;digital signature&quot;, &quot;server auth&quot;.
-Valid values are:
-&quot;signing&quot;, &quot;digital signature&quot;, &quot;content commitment&quot;,
-&quot;key encipherment&quot;, &quot;key agreement&quot;, &quot;data encipherment&quot;,
-&quot;cert sign&quot;, &quot;crl sign&quot;, &quot;encipher only&quot;, &quot;decipher only&quot;, &quot;any&quot;,
-&quot;server auth&quot;, &quot;client auth&quot;,
-&quot;code signing&quot;, &quot;email protection&quot;, &quot;s/mime&quot;,
-&quot;ipsec end system&quot;, &quot;ipsec tunnel&quot;, &quot;ipsec user&quot;,
-&quot;timestamping&quot;, &quot;ocsp signing&quot;, &quot;microsoft sgc&quot;, &quot;netscape sgc&quot;</p></dd><dt class="param">username</dt><dd class="cmt"><p>username contains the name of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.</p></dd></dl></div>
+1. Trust distribution: how trust (CA bundles) are distributed. 2. Permitted subjects: and
+behavior when a disallowed subject is requested. 3. Required, permitted, or forbidden x509
+extensions in the request (including whether subjectAltNames are allowed, which types,
+restrictions on allowed values) and behavior when a disallowed extension is requested. 4.
+Required, permitted, or forbidden key usages / extended key usages. 5. Expiration/certificate
+lifetime: whether it is fixed by the signer, configurable by the admin. 6. Whether or not
+requests for CA certificates are allowed.</p></dd><dt class="param">uid</dt><dd class="cmt"><p>
+  uid contains the uid of the user that created the CertificateSigningRequest. Populated by the
+  API server on creation and immutable.</p></dd><dt class="param">usages</dt><dd class="cmt"><p>
+  usages specifies a set of key usages requested in the issued certificate.
+Requests for TLS client certificates typically request: &quot;digital signature&quot;, &quot;key encipherment&quot;,
+&quot;client auth&quot;.
+Requests for TLS serving certificates typically request: &quot;key encipherment&quot;, &quot;digital
+signature&quot;, &quot;server auth&quot;.
+Valid values are: &quot;signing&quot;, &quot;digital signature&quot;, &quot;content commitment&quot;, &quot;key encipherment&quot;, &quot;key
+agreement&quot;, &quot;data encipherment&quot;, &quot;cert sign&quot;, &quot;crl sign&quot;, &quot;encipher only&quot;, &quot;decipher only&quot;,
+&quot;any&quot;, &quot;server auth&quot;, &quot;client auth&quot;, &quot;code signing&quot;, &quot;email protection&quot;, &quot;s/mime&quot;, &quot;ipsec end
+system&quot;, &quot;ipsec tunnel&quot;, &quot;ipsec user&quot;, &quot;timestamping&quot;, &quot;ocsp signing&quot;, &quot;microsoft sgc&quot;,
+&quot;netscape sgc&quot;</p></dd><dt class="param">username</dt><dd class="cmt"><p>
+  username contains the name of the user that created the CertificateSigningRequest. Populated
+  by the API server on creation and immutable.</p></dd></dl></div>
     </li></ol>
             </div>
 
@@ -478,6 +542,22 @@ Valid values are:
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li name="com.coralogix.zio.k8s.model.certificates.v1.CertificateSigningRequestSpec#expirationSeconds" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="expirationSeconds:com.coralogix.zio.k8s.client.model.Optional[Int]"></a><a id="expirationSeconds:Optional[Int]"></a>
+      <span class="permalink">
+      <a href="../../../../../../../com/coralogix/zio/k8s/model/certificates/v1/CertificateSigningRequestSpec.html#expirationSeconds:com.coralogix.zio.k8s.client.model.Optional[Int]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">expirationSeconds</span><span class="result">: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Int">Int</span>]</span>
+      </span>
+      
+      
     </li><li name="com.coralogix.zio.k8s.model.certificates.v1.CertificateSigningRequestSpec#extra" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="extra:com.coralogix.zio.k8s.client.model.Optional[Map[String,Vector[String]]]"></a><a id="extra:Optional[Map[String,Vector[String]]]"></a>
       <span class="permalink">
@@ -515,6 +595,30 @@ Valid values are:
                 <span class="name">@HotSpotIntrinsicCandidate</span><span class="args">()</span>
               
         </dd></dl></div>
+    </li><li name="com.coralogix.zio.k8s.model.certificates.v1.CertificateSigningRequestSpec#getExpirationSeconds" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="getExpirationSeconds:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Int]"></a><a id="getExpirationSeconds:IO[K8sFailure,Int]"></a>
+      <span class="permalink">
+      <a href="../../../../../../../com/coralogix/zio/k8s/model/certificates/v1/CertificateSigningRequestSpec.html#getExpirationSeconds:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Int]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">getExpirationSeconds</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Int">Int</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">expirationSeconds is the requested duration of validity of the issued certificate.</p><div class="fullcomment"><div class="comment cmt"><p>expirationSeconds is the requested duration of validity of the issued certificate. The
+certificate signer may issue a certificate with a different validity duration so a client must
+check the delta between the notBefore and and notAfter fields in the issued certificate to
+determine the actual duration.</p><p>The v1.22+ in-tree implementations of the well-known Kubernetes signers will honor this field
+as long as the requested duration is not greater than the maximum duration they will honor per
+the --cluster-signing-duration CLI flag to the Kubernetes controller manager.</p><p>Certificate signers may not honor this field for various reasons:</p><p>1. Old signer that is unaware of the field (such as the in-tree implementations prior to
+v1.22) 2. Signer whose configured maximum is shorter than the requested duration 3. Signer
+whose configured minimum is longer than the requested duration</p><p>The minimum valid value for expirationSeconds is 600, i.e. 10 minutes.</p><p>As of v1.22, this field is beta and is controlled via the CSRDuration feature gate.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+</p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.certificates.v1.CertificateSigningRequestSpec#getExtra" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getExtra:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Map[String,Vector[String]]]"></a><a id="getExtra:IO[K8sFailure,Map[String,Vector[String]]]"></a>
       <span class="permalink">
@@ -530,7 +634,8 @@ Valid values are:
         <span class="name">getExtra</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]]]</span>
       </span>
       
-      <p class="shortcomment cmt">extra contains extra attributes of the user that created the CertificateSigningRequest.</p><div class="fullcomment"><div class="comment cmt"><p>extra contains extra attributes of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">extra contains extra attributes of the user that created the CertificateSigningRequest.</p><div class="fullcomment"><div class="comment cmt"><p>extra contains extra attributes of the user that created the CertificateSigningRequest.
+Populated by the API server on creation and immutable.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.certificates.v1.CertificateSigningRequestSpec#getGroups" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getGroups:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Vector[String]]"></a><a id="getGroups:IO[K8sFailure,Vector[String]]"></a>
@@ -547,7 +652,8 @@ Valid values are:
         <span class="name">getGroups</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]]</span>
       </span>
       
-      <p class="shortcomment cmt">groups contains group membership of the user that created the CertificateSigningRequest.</p><div class="fullcomment"><div class="comment cmt"><p>groups contains group membership of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">groups contains group membership of the user that created the CertificateSigningRequest.</p><div class="fullcomment"><div class="comment cmt"><p>groups contains group membership of the user that created the CertificateSigningRequest.
+Populated by the API server on creation and immutable.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.certificates.v1.CertificateSigningRequestSpec#getRequest" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getRequest:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,zio.Chunk[Byte]]"></a><a id="getRequest:IO[K8sFailure,Chunk[Byte]]"></a>
@@ -561,10 +667,12 @@ Valid values are:
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">getRequest</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="https://javadoc.io/page/dev.zio/zio_2.12/1.0.10/zio/Chunk.html#zio.Chunk" class="extype" name="zio.Chunk">Chunk</a>[<span class="extype" name="scala.Byte">Byte</span>]]</span>
+        <span class="name">getRequest</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="https://javadoc.io/page/dev.zio/zio_2.12/1.0.12/zio/Chunk.html#zio.Chunk" class="extype" name="zio.Chunk">Chunk</a>[<span class="extype" name="scala.Byte">Byte</span>]]</span>
       </span>
       
-      <p class="shortcomment cmt">request contains an x509 certificate signing request encoded in a &quot;CERTIFICATE REQUEST&quot; PEM block.</p><div class="fullcomment"><div class="comment cmt"><p>request contains an x509 certificate signing request encoded in a &quot;CERTIFICATE REQUEST&quot; PEM block. When serialized as JSON or YAML, the data is additionally base64-encoded.</p><p>This effect always succeeds, it is safe to use the field <a href="#request:zio.Chunk[Byte]" class="extmbr" name="com.coralogix.zio.k8s.model.certificates.v1.CertificateSigningRequestSpec#request">request</a> directly.
+      <p class="shortcomment cmt">request contains an x509 certificate signing request encoded in a &quot;CERTIFICATE REQUEST&quot; PEM
+block.</p><div class="fullcomment"><div class="comment cmt"><p>request contains an x509 certificate signing request encoded in a &quot;CERTIFICATE REQUEST&quot; PEM
+block. When serialized as JSON or YAML, the data is additionally base64-encoded.</p><p>This effect always succeeds, it is safe to use the field <a href="#request:zio.Chunk[Byte]" class="extmbr" name="com.coralogix.zio.k8s.model.certificates.v1.CertificateSigningRequestSpec#request">request</a> directly.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.certificates.v1.CertificateSigningRequestSpec#getSignerName" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getSignerName:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]"></a><a id="getSignerName:IO[K8sFailure,String]"></a>
@@ -581,19 +689,27 @@ Valid values are:
         <span class="name">getSignerName</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">signerName indicates the requested signer, and is a qualified name.</p><div class="fullcomment"><div class="comment cmt"><p>signerName indicates the requested signer, and is a qualified name.</p><p>List/watch requests for CertificateSigningRequests can filter on this field using a &quot;spec.signerName=NAME&quot; fieldSelector.</p><p>Well-known Kubernetes signers are:
-1. &quot;kubernetes.io/kube-apiserver-client&quot;: issues client certificates that can be used to authenticate to kube-apiserver.
- Requests for this signer are never auto-approved by kube-controller-manager, can be issued by the &quot;csrsigning&quot; controller in kube-controller-manager.
-2. &quot;kubernetes.io/kube-apiserver-client-kubelet&quot;: issues client certificates that kubelets use to authenticate to kube-apiserver.
- Requests for this signer can be auto-approved by the &quot;csrapproving&quot; controller in kube-controller-manager, and can be issued by the &quot;csrsigning&quot; controller in kube-controller-manager.
-3. &quot;kubernetes.io/kubelet-serving&quot; issues serving certificates that kubelets use to serve TLS endpoints, which kube-apiserver can connect to securely.
- Requests for this signer are never auto-approved by kube-controller-manager, and can be issued by the &quot;csrsigning&quot; controller in kube-controller-manager.</p><p>More details are available at https://k8s.io/docs/reference/access-authn-authz/certificate-signing-requests/#kubernetes-signers</p><p>Custom signerNames can also be specified. The signer defines:
-1. Trust distribution: how trust (CA bundles) are distributed.
-2. Permitted subjects: and behavior when a disallowed subject is requested.
-3. Required, permitted, or forbidden x509 extensions in the request (including whether subjectAltNames are allowed, which types, restrictions on allowed values) and behavior when a disallowed extension is requested.
-4. Required, permitted, or forbidden key usages / extended key usages.
-5. Expiration/certificate lifetime: whether it is fixed by the signer, configurable by the admin.
-6. Whether or not requests for CA certificates are allowed.</p><p>This effect always succeeds, it is safe to use the field <a href="#signerName:String" class="extmbr" name="com.coralogix.zio.k8s.model.certificates.v1.CertificateSigningRequestSpec#signerName">signerName</a> directly.
+      <p class="shortcomment cmt">signerName indicates the requested signer, and is a qualified name.</p><div class="fullcomment"><div class="comment cmt"><p>signerName indicates the requested signer, and is a qualified name.</p><p>List/watch requests for CertificateSigningRequests can filter on this field using a
+&quot;spec.signerName=NAME&quot; fieldSelector.</p><p>Well-known Kubernetes signers are:
+1. &quot;kubernetes.io/kube-apiserver-client&quot;: issues client certificates that can be used to
+authenticate to kube-apiserver. Requests for this signer are never auto-approved by
+kube-controller-manager, can be issued by the &quot;csrsigning&quot; controller in
+kube-controller-manager. 2. &quot;kubernetes.io/kube-apiserver-client-kubelet&quot;: issues client
+certificates that kubelets use to authenticate to kube-apiserver. Requests for this signer can
+be auto-approved by the &quot;csrapproving&quot; controller in kube-controller-manager, and can be
+issued by the &quot;csrsigning&quot; controller in kube-controller-manager. 3.
+&quot;kubernetes.io/kubelet-serving&quot; issues serving certificates that kubelets use to serve TLS
+endpoints, which kube-apiserver can connect to securely. Requests for this signer are never
+auto-approved by kube-controller-manager, and can be issued by the &quot;csrsigning&quot; controller in
+kube-controller-manager.</p><p>More details are available at
+https://k8s.io/docs/reference/access-authn-authz/certificate-signing-requests/#kubernetes-signers</p><p>Custom signerNames can also be specified. The signer defines:
+1. Trust distribution: how trust (CA bundles) are distributed. 2. Permitted subjects: and
+behavior when a disallowed subject is requested. 3. Required, permitted, or forbidden x509
+extensions in the request (including whether subjectAltNames are allowed, which types,
+restrictions on allowed values) and behavior when a disallowed extension is requested. 4.
+Required, permitted, or forbidden key usages / extended key usages. 5. Expiration/certificate
+lifetime: whether it is fixed by the signer, configurable by the admin. 6. Whether or not
+requests for CA certificates are allowed.</p><p>This effect always succeeds, it is safe to use the field <a href="#signerName:String" class="extmbr" name="com.coralogix.zio.k8s.model.certificates.v1.CertificateSigningRequestSpec#signerName">signerName</a> directly.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.certificates.v1.CertificateSigningRequestSpec#getUid" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getUid:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]"></a><a id="getUid:IO[K8sFailure,String]"></a>
@@ -610,7 +726,8 @@ Valid values are:
         <span class="name">getUid</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">uid contains the uid of the user that created the CertificateSigningRequest.</p><div class="fullcomment"><div class="comment cmt"><p>uid contains the uid of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">uid contains the uid of the user that created the CertificateSigningRequest.</p><div class="fullcomment"><div class="comment cmt"><p>uid contains the uid of the user that created the CertificateSigningRequest. Populated by the
+API server on creation and immutable.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.certificates.v1.CertificateSigningRequestSpec#getUsages" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getUsages:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Vector[String]]"></a><a id="getUsages:IO[K8sFailure,Vector[String]]"></a>
@@ -627,14 +744,13 @@ Valid values are:
         <span class="name">getUsages</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]]</span>
       </span>
       
-      <p class="shortcomment cmt">usages specifies a set of key usages requested in the issued certificate.</p><div class="fullcomment"><div class="comment cmt"><p>usages specifies a set of key usages requested in the issued certificate.</p><p>Requests for TLS client certificates typically request: &quot;digital signature&quot;, &quot;key encipherment&quot;, &quot;client auth&quot;.</p><p>Requests for TLS serving certificates typically request: &quot;key encipherment&quot;, &quot;digital signature&quot;, &quot;server auth&quot;.</p><p>Valid values are:
-&quot;signing&quot;, &quot;digital signature&quot;, &quot;content commitment&quot;,
-&quot;key encipherment&quot;, &quot;key agreement&quot;, &quot;data encipherment&quot;,
-&quot;cert sign&quot;, &quot;crl sign&quot;, &quot;encipher only&quot;, &quot;decipher only&quot;, &quot;any&quot;,
-&quot;server auth&quot;, &quot;client auth&quot;,
-&quot;code signing&quot;, &quot;email protection&quot;, &quot;s/mime&quot;,
-&quot;ipsec end system&quot;, &quot;ipsec tunnel&quot;, &quot;ipsec user&quot;,
-&quot;timestamping&quot;, &quot;ocsp signing&quot;, &quot;microsoft sgc&quot;, &quot;netscape sgc&quot;</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">usages specifies a set of key usages requested in the issued certificate.</p><div class="fullcomment"><div class="comment cmt"><p>usages specifies a set of key usages requested in the issued certificate.</p><p>Requests for TLS client certificates typically request: &quot;digital signature&quot;, &quot;key
+encipherment&quot;, &quot;client auth&quot;.</p><p>Requests for TLS serving certificates typically request: &quot;key encipherment&quot;, &quot;digital
+signature&quot;, &quot;server auth&quot;.</p><p>Valid values are: &quot;signing&quot;, &quot;digital signature&quot;, &quot;content commitment&quot;, &quot;key encipherment&quot;,
+&quot;key agreement&quot;, &quot;data encipherment&quot;, &quot;cert sign&quot;, &quot;crl sign&quot;, &quot;encipher only&quot;, &quot;decipher
+only&quot;, &quot;any&quot;, &quot;server auth&quot;, &quot;client auth&quot;, &quot;code signing&quot;, &quot;email protection&quot;, &quot;s/mime&quot;,
+&quot;ipsec end system&quot;, &quot;ipsec tunnel&quot;, &quot;ipsec user&quot;, &quot;timestamping&quot;, &quot;ocsp signing&quot;, &quot;microsoft
+sgc&quot;, &quot;netscape sgc&quot;</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.certificates.v1.CertificateSigningRequestSpec#getUsername" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getUsername:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]"></a><a id="getUsername:IO[K8sFailure,String]"></a>
@@ -651,7 +767,8 @@ Valid values are:
         <span class="name">getUsername</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">username contains the name of the user that created the CertificateSigningRequest.</p><div class="fullcomment"><div class="comment cmt"><p>username contains the name of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">username contains the name of the user that created the CertificateSigningRequest.</p><div class="fullcomment"><div class="comment cmt"><p>username contains the name of the user that created the CertificateSigningRequest. Populated
+by the API server on creation and immutable.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.certificates.v1.CertificateSigningRequestSpec#groups" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="groups:com.coralogix.zio.k8s.client.model.Optional[Vector[String]]"></a><a id="groups:Optional[Vector[String]]"></a>
@@ -755,7 +872,7 @@ Valid values are:
         <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">request</span><span class="result">: <a href="https://javadoc.io/page/dev.zio/zio_2.12/1.0.10/zio/Chunk.html#zio.Chunk" class="extype" name="zio.Chunk">Chunk</a>[<span class="extype" name="scala.Byte">Byte</span>]</span>
+        <span class="name">request</span><span class="result">: <a href="https://javadoc.io/page/dev.zio/zio_2.12/1.0.12/zio/Chunk.html#zio.Chunk" class="extype" name="zio.Chunk">Chunk</a>[<span class="extype" name="scala.Byte">Byte</span>]</span>
       </span>
       
       

@@ -236,7 +236,13 @@
 
       
           <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Scheduling specifies the scheduling constraints for nodes supporting a RuntimeClass.
-</p></div><dl class="paramcmts block"><dt class="param">nodeSelector</dt><dd class="cmt"><p>nodeSelector lists labels that must be present on nodes that support this RuntimeClass. Pods using this RuntimeClass can only be scheduled to a node matched by this selector. The RuntimeClass nodeSelector is merged with a pod's existing nodeSelector. Any conflicts will cause the pod to be rejected in admission.</p></dd><dt class="param">tolerations</dt><dd class="cmt"><p>tolerations are appended (excluding duplicates) to pods running with this RuntimeClass during admission, effectively unioning the set of nodes tolerated by the pod and the RuntimeClass.</p></dd></dl><div class="toggleContainer block">
+</p></div><dl class="paramcmts block"><dt class="param">nodeSelector</dt><dd class="cmt"><p>
+  nodeSelector lists labels that must be present on nodes that support this RuntimeClass. Pods
+  using this RuntimeClass can only be scheduled to a node matched by this selector. The
+  RuntimeClass nodeSelector is merged with a pod's existing nodeSelector. Any conflicts will
+  cause the pod to be rejected in admission.</p></dd><dt class="param">tolerations</dt><dd class="cmt"><p>
+  tolerations are appended (excluding duplicates) to pods running with this RuntimeClass during
+  admission, effectively unioning the set of nodes tolerated by the pod and the RuntimeClass.</p></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -301,7 +307,13 @@
         <span class="name">Scheduling</span><span class="params">(<span name="nodeSelector">nodeSelector: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="tolerations">tolerations: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="../../core/v1/Toleration.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.Toleration">Toleration</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span>
       </span>
       
-      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">nodeSelector</dt><dd class="cmt"><p>nodeSelector lists labels that must be present on nodes that support this RuntimeClass. Pods using this RuntimeClass can only be scheduled to a node matched by this selector. The RuntimeClass nodeSelector is merged with a pod's existing nodeSelector. Any conflicts will cause the pod to be rejected in admission.</p></dd><dt class="param">tolerations</dt><dd class="cmt"><p>tolerations are appended (excluding duplicates) to pods running with this RuntimeClass during admission, effectively unioning the set of nodes tolerated by the pod and the RuntimeClass.</p></dd></dl></div>
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">nodeSelector</dt><dd class="cmt"><p>
+  nodeSelector lists labels that must be present on nodes that support this RuntimeClass. Pods
+  using this RuntimeClass can only be scheduled to a node matched by this selector. The
+  RuntimeClass nodeSelector is merged with a pod's existing nodeSelector. Any conflicts will
+  cause the pod to be rejected in admission.</p></dd><dt class="param">tolerations</dt><dd class="cmt"><p>
+  tolerations are appended (excluding duplicates) to pods running with this RuntimeClass during
+  admission, effectively unioning the set of nodes tolerated by the pod and the RuntimeClass.</p></dd></dl></div>
     </li></ol>
             </div>
 
@@ -454,7 +466,10 @@
         <span class="name">getNodeSelector</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.Predef.String">String</span>]]</span>
       </span>
       
-      <p class="shortcomment cmt">nodeSelector lists labels that must be present on nodes that support this RuntimeClass.</p><div class="fullcomment"><div class="comment cmt"><p>nodeSelector lists labels that must be present on nodes that support this RuntimeClass. Pods using this RuntimeClass can only be scheduled to a node matched by this selector. The RuntimeClass nodeSelector is merged with a pod's existing nodeSelector. Any conflicts will cause the pod to be rejected in admission.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">nodeSelector lists labels that must be present on nodes that support this RuntimeClass.</p><div class="fullcomment"><div class="comment cmt"><p>nodeSelector lists labels that must be present on nodes that support this RuntimeClass. Pods
+using this RuntimeClass can only be scheduled to a node matched by this selector. The
+RuntimeClass nodeSelector is merged with a pod's existing nodeSelector. Any conflicts will
+cause the pod to be rejected in admission.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.node.v1beta1.Scheduling#getTolerations" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getTolerations:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Vector[com.coralogix.zio.k8s.model.core.v1.Toleration]]"></a><a id="getTolerations:IO[K8sFailure,Vector[Toleration]]"></a>
@@ -471,7 +486,9 @@
         <span class="name">getTolerations</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Vector">Vector</span>[<a href="../../core/v1/Toleration.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.Toleration">Toleration</a>]]</span>
       </span>
       
-      <p class="shortcomment cmt">tolerations are appended (excluding duplicates) to pods running with this RuntimeClass during admission, effectively unioning the set of nodes tolerated by the pod and the RuntimeClass.</p><div class="fullcomment"><div class="comment cmt"><p>tolerations are appended (excluding duplicates) to pods running with this RuntimeClass during admission, effectively unioning the set of nodes tolerated by the pod and the RuntimeClass.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">tolerations are appended (excluding duplicates) to pods running with this RuntimeClass during
+admission, effectively unioning the set of nodes tolerated by the pod and the RuntimeClass.</p><div class="fullcomment"><div class="comment cmt"><p>tolerations are appended (excluding duplicates) to pods running with this RuntimeClass during
+admission, effectively unioning the set of nodes tolerated by the pod and the RuntimeClass.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="scala.Any#isInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isInstanceOf[T0]:Boolean"></a>

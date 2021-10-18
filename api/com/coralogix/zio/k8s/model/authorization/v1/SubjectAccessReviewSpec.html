@@ -247,8 +247,8 @@
                         <a href="SelfSubjectRulesReviewFields.html" title="">SelfSubjectRulesReviewFields</a>
                       </li><li class="current-entities indented7">
                         <a class="object" href="SelfSubjectRulesReviewSpec$.html" title=""></a>
-                        <a class="class" href="SelfSubjectRulesReviewSpec.html" title=""></a>
-                        <a href="SelfSubjectRulesReviewSpec.html" title="">SelfSubjectRulesReviewSpec</a>
+                        <a class="class" href="SelfSubjectRulesReviewSpec.html" title="SelfSubjectRulesReviewSpec defines the specification for SelfSubjectRulesReview."></a>
+                        <a href="SelfSubjectRulesReviewSpec.html" title="SelfSubjectRulesReviewSpec defines the specification for SelfSubjectRulesReview.">SelfSubjectRulesReviewSpec</a>
                       </li><li class="current-entities indented7">
                         <span class="separator"></span>
                         <a class="class" href="SelfSubjectRulesReviewSpecFields.html" title=""></a>
@@ -315,8 +315,15 @@
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>SubjectAccessReviewSpec is a description of the access request.  Exactly one of ResourceAuthorizationAttributes and NonResourceAuthorizationAttributes must be set
-</p></div><dl class="paramcmts block"><dt class="param">extra</dt><dd class="cmt"><p>Extra corresponds to the user.Info.GetExtra() method from the authenticator.  Since that is input to the authorizer it needs a reflection here.</p></dd><dt class="param">groups</dt><dd class="cmt"><p>Groups is the groups you're testing for.</p></dd><dt class="param">uid</dt><dd class="cmt"><p>UID information about the requesting user.</p></dd><dt class="param">user</dt><dd class="cmt"><p>User is the user you're testing for. If you specify &quot;User&quot; but not &quot;Groups&quot;, then is it interpreted as &quot;What if User were not a member of any groups</p></dd></dl><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>SubjectAccessReviewSpec is a description of the access request. Exactly one of
+ResourceAuthorizationAttributes and NonResourceAuthorizationAttributes must be set
+</p></div><dl class="paramcmts block"><dt class="param">extra</dt><dd class="cmt"><p>
+  Extra corresponds to the user.Info.GetExtra() method from the authenticator. Since that is
+  input to the authorizer it needs a reflection here.</p></dd><dt class="param">groups</dt><dd class="cmt"><p>
+  Groups is the groups you're testing for.</p></dd><dt class="param">uid</dt><dd class="cmt"><p>
+  UID information about the requesting user.</p></dd><dt class="param">user</dt><dd class="cmt"><p>
+  User is the user you're testing for. If you specify &quot;User&quot; but not &quot;Groups&quot;, then is it
+  interpreted as &quot;What if User were not a member of any groups</p></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -381,7 +388,13 @@
         <span class="name">SubjectAccessReviewSpec</span><span class="params">(<span name="extra">extra: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="groups">groups: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="nonResourceAttributes">nonResourceAttributes: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="NonResourceAttributes.html" class="extype" name="com.coralogix.zio.k8s.model.authorization.v1.NonResourceAttributes">NonResourceAttributes</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="resourceAttributes">resourceAttributes: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="ResourceAttributes.html" class="extype" name="com.coralogix.zio.k8s.model.authorization.v1.ResourceAttributes">ResourceAttributes</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="uid">uid: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="user">user: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span>
       </span>
       
-      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">extra</dt><dd class="cmt"><p>Extra corresponds to the user.Info.GetExtra() method from the authenticator.  Since that is input to the authorizer it needs a reflection here.</p></dd><dt class="param">groups</dt><dd class="cmt"><p>Groups is the groups you're testing for.</p></dd><dt class="param">uid</dt><dd class="cmt"><p>UID information about the requesting user.</p></dd><dt class="param">user</dt><dd class="cmt"><p>User is the user you're testing for. If you specify &quot;User&quot; but not &quot;Groups&quot;, then is it interpreted as &quot;What if User were not a member of any groups</p></dd></dl></div>
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">extra</dt><dd class="cmt"><p>
+  Extra corresponds to the user.Info.GetExtra() method from the authenticator. Since that is
+  input to the authorizer it needs a reflection here.</p></dd><dt class="param">groups</dt><dd class="cmt"><p>
+  Groups is the groups you're testing for.</p></dd><dt class="param">uid</dt><dd class="cmt"><p>
+  UID information about the requesting user.</p></dd><dt class="param">user</dt><dd class="cmt"><p>
+  User is the user you're testing for. If you specify &quot;User&quot; but not &quot;Groups&quot;, then is it
+  interpreted as &quot;What if User were not a member of any groups</p></dd></dl></div>
     </li></ol>
             </div>
 
@@ -550,7 +563,8 @@
         <span class="name">getExtra</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]]]</span>
       </span>
       
-      <p class="shortcomment cmt">Extra corresponds to the user.Info.GetExtra() method from the authenticator.</p><div class="fullcomment"><div class="comment cmt"><p>Extra corresponds to the user.Info.GetExtra() method from the authenticator.  Since that is input to the authorizer it needs a reflection here.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">Extra corresponds to the user.Info.GetExtra() method from the authenticator.</p><div class="fullcomment"><div class="comment cmt"><p>Extra corresponds to the user.Info.GetExtra() method from the authenticator. Since that is
+input to the authorizer it needs a reflection here.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.authorization.v1.SubjectAccessReviewSpec#getGroups" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getGroups:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Vector[String]]"></a><a id="getGroups:IO[K8sFailure,Vector[String]]"></a>
@@ -635,7 +649,8 @@
         <span class="name">getUser</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">User is the user you're testing for.</p><div class="fullcomment"><div class="comment cmt"><p>User is the user you're testing for. If you specify &quot;User&quot; but not &quot;Groups&quot;, then is it interpreted as &quot;What if User were not a member of any groups</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">User is the user you're testing for.</p><div class="fullcomment"><div class="comment cmt"><p>User is the user you're testing for. If you specify &quot;User&quot; but not &quot;Groups&quot;, then is it
+interpreted as &quot;What if User were not a member of any groups</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.authorization.v1.SubjectAccessReviewSpec#groups" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="groups:com.coralogix.zio.k8s.client.model.Optional[Vector[String]]"></a><a id="groups:Optional[Vector[String]]"></a>

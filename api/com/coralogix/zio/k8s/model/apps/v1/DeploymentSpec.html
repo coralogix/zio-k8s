@@ -396,7 +396,19 @@
 
       
           <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>DeploymentSpec is the specification of the desired behavior of the Deployment.
-</p></div><dl class="paramcmts block"><dt class="param">minReadySeconds</dt><dd class="cmt"><p>Minimum number of seconds for which a newly created pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)</p></dd><dt class="param">paused</dt><dd class="cmt"><p>Indicates that the deployment is paused.</p></dd><dt class="param">progressDeadlineSeconds</dt><dd class="cmt"><p>The maximum time in seconds for a deployment to make progress before it is considered to be failed. The deployment controller will continue to process failed deployments and a condition with a ProgressDeadlineExceeded reason will be surfaced in the deployment status. Note that progress will not be estimated during the time a deployment is paused. Defaults to 600s.</p></dd><dt class="param">replicas</dt><dd class="cmt"><p>Number of desired pods. This is a pointer to distinguish between explicit zero and not specified. Defaults to 1.</p></dd><dt class="param">revisionHistoryLimit</dt><dd class="cmt"><p>The number of old ReplicaSets to retain to allow rollback. This is a pointer to distinguish between explicit zero and not specified. Defaults to 10.</p></dd></dl><div class="toggleContainer block">
+</p></div><dl class="paramcmts block"><dt class="param">minReadySeconds</dt><dd class="cmt"><p>
+  Minimum number of seconds for which a newly created pod should be ready without any of its
+  container crashing, for it to be considered available. Defaults to 0 (pod will be considered
+  available as soon as it is ready)</p></dd><dt class="param">paused</dt><dd class="cmt"><p>
+  Indicates that the deployment is paused.</p></dd><dt class="param">progressDeadlineSeconds</dt><dd class="cmt"><p>
+  The maximum time in seconds for a deployment to make progress before it is considered to be
+  failed. The deployment controller will continue to process failed deployments and a condition
+  with a ProgressDeadlineExceeded reason will be surfaced in the deployment status. Note that
+  progress will not be estimated during the time a deployment is paused. Defaults to 600s.</p></dd><dt class="param">replicas</dt><dd class="cmt"><p>
+  Number of desired pods. This is a pointer to distinguish between explicit zero and not
+  specified. Defaults to 1.</p></dd><dt class="param">revisionHistoryLimit</dt><dd class="cmt"><p>
+  The number of old ReplicaSets to retain to allow rollback. This is a pointer to distinguish
+  between explicit zero and not specified. Defaults to 10.</p></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -461,7 +473,19 @@
         <span class="name">DeploymentSpec</span><span class="params">(<span name="minReadySeconds">minReadySeconds: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="paused">paused: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Boolean">Boolean</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="progressDeadlineSeconds">progressDeadlineSeconds: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="replicas">replicas: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="revisionHistoryLimit">revisionHistoryLimit: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="selector">selector: <a href="../../pkg/apis/meta/v1/LabelSelector.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.LabelSelector">LabelSelector</a></span>, <span name="strategy">strategy: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="DeploymentStrategy.html" class="extype" name="com.coralogix.zio.k8s.model.apps.v1.DeploymentStrategy">DeploymentStrategy</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="template">template: <a href="../../core/v1/PodTemplateSpec.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.PodTemplateSpec">PodTemplateSpec</a></span>)</span>
       </span>
       
-      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">minReadySeconds</dt><dd class="cmt"><p>Minimum number of seconds for which a newly created pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)</p></dd><dt class="param">paused</dt><dd class="cmt"><p>Indicates that the deployment is paused.</p></dd><dt class="param">progressDeadlineSeconds</dt><dd class="cmt"><p>The maximum time in seconds for a deployment to make progress before it is considered to be failed. The deployment controller will continue to process failed deployments and a condition with a ProgressDeadlineExceeded reason will be surfaced in the deployment status. Note that progress will not be estimated during the time a deployment is paused. Defaults to 600s.</p></dd><dt class="param">replicas</dt><dd class="cmt"><p>Number of desired pods. This is a pointer to distinguish between explicit zero and not specified. Defaults to 1.</p></dd><dt class="param">revisionHistoryLimit</dt><dd class="cmt"><p>The number of old ReplicaSets to retain to allow rollback. This is a pointer to distinguish between explicit zero and not specified. Defaults to 10.</p></dd></dl></div>
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">minReadySeconds</dt><dd class="cmt"><p>
+  Minimum number of seconds for which a newly created pod should be ready without any of its
+  container crashing, for it to be considered available. Defaults to 0 (pod will be considered
+  available as soon as it is ready)</p></dd><dt class="param">paused</dt><dd class="cmt"><p>
+  Indicates that the deployment is paused.</p></dd><dt class="param">progressDeadlineSeconds</dt><dd class="cmt"><p>
+  The maximum time in seconds for a deployment to make progress before it is considered to be
+  failed. The deployment controller will continue to process failed deployments and a condition
+  with a ProgressDeadlineExceeded reason will be surfaced in the deployment status. Note that
+  progress will not be estimated during the time a deployment is paused. Defaults to 600s.</p></dd><dt class="param">replicas</dt><dd class="cmt"><p>
+  Number of desired pods. This is a pointer to distinguish between explicit zero and not
+  specified. Defaults to 1.</p></dd><dt class="param">revisionHistoryLimit</dt><dd class="cmt"><p>
+  The number of old ReplicaSets to retain to allow rollback. This is a pointer to distinguish
+  between explicit zero and not specified. Defaults to 10.</p></dd></dl></div>
     </li></ol>
             </div>
 
@@ -614,7 +638,10 @@
         <span class="name">getMinReadySeconds</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Int">Int</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">Minimum number of seconds for which a newly created pod should be ready without any of its container crashing, for it to be considered available.</p><div class="fullcomment"><div class="comment cmt"><p>Minimum number of seconds for which a newly created pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">Minimum number of seconds for which a newly created pod should be ready without any of its
+container crashing, for it to be considered available.</p><div class="fullcomment"><div class="comment cmt"><p>Minimum number of seconds for which a newly created pod should be ready without any of its
+container crashing, for it to be considered available. Defaults to 0 (pod will be considered
+available as soon as it is ready)</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.apps.v1.DeploymentSpec#getPaused" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getPaused:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Boolean]"></a><a id="getPaused:IO[K8sFailure,Boolean]"></a>
@@ -648,7 +675,11 @@
         <span class="name">getProgressDeadlineSeconds</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Int">Int</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">The maximum time in seconds for a deployment to make progress before it is considered to be failed.</p><div class="fullcomment"><div class="comment cmt"><p>The maximum time in seconds for a deployment to make progress before it is considered to be failed. The deployment controller will continue to process failed deployments and a condition with a ProgressDeadlineExceeded reason will be surfaced in the deployment status. Note that progress will not be estimated during the time a deployment is paused. Defaults to 600s.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">The maximum time in seconds for a deployment to make progress before it is considered to be
+failed.</p><div class="fullcomment"><div class="comment cmt"><p>The maximum time in seconds for a deployment to make progress before it is considered to be
+failed. The deployment controller will continue to process failed deployments and a condition
+with a ProgressDeadlineExceeded reason will be surfaced in the deployment status. Note that
+progress will not be estimated during the time a deployment is paused. Defaults to 600s.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.apps.v1.DeploymentSpec#getReplicas" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getReplicas:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Int]"></a><a id="getReplicas:IO[K8sFailure,Int]"></a>
@@ -665,7 +696,8 @@
         <span class="name">getReplicas</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Int">Int</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">Number of desired pods.</p><div class="fullcomment"><div class="comment cmt"><p>Number of desired pods. This is a pointer to distinguish between explicit zero and not specified. Defaults to 1.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">Number of desired pods.</p><div class="fullcomment"><div class="comment cmt"><p>Number of desired pods. This is a pointer to distinguish between explicit zero and not
+specified. Defaults to 1.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.apps.v1.DeploymentSpec#getRevisionHistoryLimit" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getRevisionHistoryLimit:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Int]"></a><a id="getRevisionHistoryLimit:IO[K8sFailure,Int]"></a>
@@ -682,7 +714,8 @@
         <span class="name">getRevisionHistoryLimit</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Int">Int</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">The number of old ReplicaSets to retain to allow rollback.</p><div class="fullcomment"><div class="comment cmt"><p>The number of old ReplicaSets to retain to allow rollback. This is a pointer to distinguish between explicit zero and not specified. Defaults to 10.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">The number of old ReplicaSets to retain to allow rollback.</p><div class="fullcomment"><div class="comment cmt"><p>The number of old ReplicaSets to retain to allow rollback. This is a pointer to distinguish
+between explicit zero and not specified. Defaults to 10.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.apps.v1.DeploymentSpec#getSelector" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getSelector:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.model.pkg.apis.meta.v1.LabelSelector]"></a><a id="getSelector:IO[K8sFailure,LabelSelector]"></a>

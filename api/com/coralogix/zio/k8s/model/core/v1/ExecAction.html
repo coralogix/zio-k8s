@@ -1588,7 +1588,12 @@
 
       
           <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>ExecAction describes a &quot;run in container&quot; action.
-</p></div><dl class="paramcmts block"><dt class="param">command</dt><dd class="cmt"><p>Command is the command line to execute inside the container, the working directory for the command  is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions ('|', etc) won't work. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy.</p></dd></dl><div class="toggleContainer block">
+</p></div><dl class="paramcmts block"><dt class="param">command</dt><dd class="cmt"><p>
+  Command is the command line to execute inside the container, the working directory for the
+  command is root ('/') in the container's filesystem. The command is simply exec'd, it is not
+  run inside a shell, so traditional shell instructions ('|', etc) won't work. To use a shell,
+  you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and
+  non-zero is unhealthy.</p></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -1653,7 +1658,12 @@
         <span class="name">ExecAction</span><span class="params">(<span name="command">command: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span>
       </span>
       
-      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">command</dt><dd class="cmt"><p>Command is the command line to execute inside the container, the working directory for the command  is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions ('|', etc) won't work. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy.</p></dd></dl></div>
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">command</dt><dd class="cmt"><p>
+  Command is the command line to execute inside the container, the working directory for the
+  command is root ('/') in the container's filesystem. The command is simply exec'd, it is not
+  run inside a shell, so traditional shell instructions ('|', etc) won't work. To use a shell,
+  you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and
+  non-zero is unhealthy.</p></dd></dl></div>
     </li></ol>
             </div>
 
@@ -1822,7 +1832,12 @@
         <span class="name">getCommand</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]]</span>
       </span>
       
-      <p class="shortcomment cmt">Command is the command line to execute inside the container, the working directory for the command  is root ('/') in the container's filesystem.</p><div class="fullcomment"><div class="comment cmt"><p>Command is the command line to execute inside the container, the working directory for the command  is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions ('|', etc) won't work. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">Command is the command line to execute inside the container, the working directory for the
+command is root ('/') in the container's filesystem.</p><div class="fullcomment"><div class="comment cmt"><p>Command is the command line to execute inside the container, the working directory for the
+command is root ('/') in the container's filesystem. The command is simply exec'd, it is not
+run inside a shell, so traditional shell instructions ('|', etc) won't work. To use a shell,
+you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and
+non-zero is unhealthy.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="scala.Any#isInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isInstanceOf[T0]:Boolean"></a>

@@ -308,11 +308,15 @@
         <a title="Contains data structures, ZIO layers and zio-config descriptors for configuring the zio-k8s client." href="config/index.html"><span class="name">config</span></a>
       </span>
       
-      <p class="shortcomment cmt">Contains data structures, ZIO layers and zio-config descriptors for configuring the zio-k8s client.</p><div class="fullcomment"><div class="comment cmt"><p>Contains data structures, ZIO layers and zio-config descriptors for configuring the zio-k8s client.</p><p>Each zio-k8s client module depends on two ZIO modules: <a href="model/package$$K8sCluster.html" class="extype" name="com.coralogix.zio.k8s.client.model.K8sCluster">com.coralogix.zio.k8s.client.model.K8sCluster</a> and an <a href="https://javadoc.io/page/com.softwaremill.sttp.client3/core_2.12/3.3.13/sttp/client3/SttpBackend.html" class="extype" name="sttp.client3.SttpBackend">sttp.client3.SttpBackend</a>.
-To use the default configuration (use kubeconfig if available, otherwise fallback to service account token),
-use either <code>asynchttpclient.k8sDefault</code> or <code>httpclient.k8sDefault</code> depending on your chosen sttp backend.</p><p>Manual configuration is possible by providing a <a href="config/package$$K8sClusterConfig.html" class="extype" name="com.coralogix.zio.k8s.client.config.K8sClusterConfig">K8sClusterConfig</a> value to both the <a href="config/index.html#k8sCluster:zio.ZLayer[zio.blocking.Blockingwithzio.Has[com.coralogix.zio.k8s.client.config.package.K8sClusterConfig],Throwable,zio.Has[com.coralogix.zio.k8s.client.model.K8sCluster]]" class="extmbr" name="com.coralogix.zio.k8s.client.config#k8sCluster">k8sCluster</a> layer
-and either <code>asynchttpclient.k8sSttpClient</code> or <code>httpclient.k8sSttpClient</code>.</p><p>Instead of manually providing the configuration, zio-config descriptors are available to load them from any
-supported source.
+      <p class="shortcomment cmt">Contains data structures, ZIO layers and zio-config descriptors for configuring the zio-k8s
+client.</p><div class="fullcomment"><div class="comment cmt"><p>Contains data structures, ZIO layers and zio-config descriptors for configuring the zio-k8s
+client.</p><p>Each zio-k8s client module depends on two ZIO modules:
+<a href="model/package$$K8sCluster.html" class="extype" name="com.coralogix.zio.k8s.client.model.K8sCluster">com.coralogix.zio.k8s.client.model.K8sCluster</a> and an <a href="https://javadoc.io/page/com.softwaremill.sttp.client3/core_2.12/3.3.15/sttp/client3/SttpBackend.html" class="extype" name="sttp.client3.SttpBackend">sttp.client3.SttpBackend</a>. To use
+the default configuration (use kubeconfig if available, otherwise fallback to service account
+token), use either <code>asynchttpclient.k8sDefault</code> or <code>httpclient.k8sDefault</code> depending on your
+chosen sttp backend.</p><p>Manual configuration is possible by providing a <a href="config/package$$K8sClusterConfig.html" class="extype" name="com.coralogix.zio.k8s.client.config.K8sClusterConfig">K8sClusterConfig</a> value to both the
+<a href="config/index.html#k8sCluster:zio.ZLayer[zio.blocking.Blockingwithzio.Has[com.coralogix.zio.k8s.client.config.package.K8sClusterConfig],Throwable,zio.Has[com.coralogix.zio.k8s.client.model.K8sCluster]]" class="extmbr" name="com.coralogix.zio.k8s.client.config#k8sCluster">k8sCluster</a> layer and either <code>asynchttpclient.k8sSttpClient</code> or <code>httpclient.k8sSttpClient</code>.</p><p>Instead of manually providing the configuration, zio-config descriptors are available to load
+them from any supported source.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.client.coordination" visbl="pub" class="indented6 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="coordination"></a><a id="coordination:coordination"></a>
@@ -359,22 +363,6 @@ supported source.
       </span>
       <span class="symbol">
         <a title="" href="events/index.html"><span class="name">events</span></a>
-      </span>
-      
-      
-    </li><li name="com.coralogix.zio.k8s.client.extensions" visbl="pub" class="indented6 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="extensions"></a><a id="extensions:extensions"></a>
-      <span class="permalink">
-      <a href="../../../../../com/coralogix/zio/k8s/client/extensions/index.html" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">package</span>
-      </span>
-      <span class="symbol">
-        <a title="" href="extensions/index.html"><span class="name">extensions</span></a>
       </span>
       
       
@@ -685,8 +673,8 @@ supported source.
         <a title="Provides support for Monocle for the Kubernetes data models" href="../monocle/index.html"><span class="name">monocle</span></a>
       </span>
       
-      <p class="shortcomment cmt">Provides support for Monocle for the Kubernetes data models</p><div class="fullcomment"><div class="comment cmt"><p>Provides support for Monocle for the Kubernetes data models</p><p>This package contains objects for all Kubernetes resource data models with
-<span class="extype" name="Lens">Lens</span> and <span class="extype" name="Optional">Optional</span> optics for all their fields.
+      <p class="shortcomment cmt">Provides support for Monocle for the Kubernetes data models</p><div class="fullcomment"><div class="comment cmt"><p>Provides support for Monocle for the Kubernetes data models</p><p>This package contains objects for all Kubernetes resource data models with <span class="extype" name="Lens">Lens</span> and
+<span class="extype" name="Optional">Optional</span> optics for all their fields.
 </p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="com.coralogix.zio.k8s">k8s</a></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.operator" visbl="pub" class="indented5 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="operator"></a><a id="operator:operator"></a>
@@ -783,7 +771,8 @@ supported source.
       </span>
       
       <p class="shortcomment cmt">Generic interface for working with Kubernetes cluster resources.</p><div class="fullcomment"><div class="comment cmt"><p>Generic interface for working with Kubernetes cluster resources.</p><p>More type safe than <a href="Resource.html" class="extype" name="com.coralogix.zio.k8s.client.Resource">Resource</a> as it does not allow passing a namespace.
-</p></div><dl class="paramcmts block"><dt class="tparam">T</dt><dd class="cmt"><p>Resource type</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="tparam">T</dt><dd class="cmt"><p>
+  Resource type</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.client.ClusterResourceDeleteAll" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="ClusterResourceDeleteAll[T]extendsAnyRef"></a><a id="ClusterResourceDeleteAll[T]:ClusterResourceDeleteAll[T]"></a>
       <span class="permalink">
@@ -800,7 +789,8 @@ supported source.
       </span>
       
       <p class="shortcomment cmt">Extra capability for <a href="ClusterResource.html" class="extype" name="com.coralogix.zio.k8s.client.ClusterResource">ClusterResource</a> interfaces providing deleteAll</p><div class="fullcomment"><div class="comment cmt"><p>Extra capability for <a href="ClusterResource.html" class="extype" name="com.coralogix.zio.k8s.client.ClusterResource">ClusterResource</a> interfaces providing deleteAll</p><p>It is separated because it is not supported by all resources.
-</p></div><dl class="paramcmts block"><dt class="tparam">T</dt><dd class="cmt"><p>Resource type</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="tparam">T</dt><dd class="cmt"><p>
+  Resource type</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.client.ClusterResourceStatus" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="ClusterResourceStatus[StatusT,T]extendsAnyRef"></a><a id="ClusterResourceStatus[StatusT,T]:ClusterResourceStatus[StatusT,T]"></a>
       <span class="permalink">
@@ -816,7 +806,9 @@ supported source.
         <a title="Extra capability for ClusterResource interfaces to manage status subresources" href="ClusterResourceStatus.html"><span class="name">ClusterResourceStatus</span></a><span class="tparams">[<span name="StatusT">StatusT</span>, <span name="T">T</span>]</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       
-      <p class="shortcomment cmt">Extra capability for <a href="ClusterResource.html" class="extype" name="com.coralogix.zio.k8s.client.ClusterResource">ClusterResource</a> interfaces to manage status subresources</p><div class="fullcomment"><div class="comment cmt"><p>Extra capability for <a href="ClusterResource.html" class="extype" name="com.coralogix.zio.k8s.client.ClusterResource">ClusterResource</a> interfaces to manage status subresources</p></div><dl class="paramcmts block"><dt class="tparam">StatusT</dt><dd class="cmt"><p>Status subresource type</p></dd><dt class="tparam">T</dt><dd class="cmt"><p>Resource type</p></dd></dl></div>
+      <p class="shortcomment cmt">Extra capability for <a href="ClusterResource.html" class="extype" name="com.coralogix.zio.k8s.client.ClusterResource">ClusterResource</a> interfaces to manage status subresources</p><div class="fullcomment"><div class="comment cmt"><p>Extra capability for <a href="ClusterResource.html" class="extype" name="com.coralogix.zio.k8s.client.ClusterResource">ClusterResource</a> interfaces to manage status subresources</p></div><dl class="paramcmts block"><dt class="tparam">StatusT</dt><dd class="cmt"><p>
+  Status subresource type</p></dd><dt class="tparam">T</dt><dd class="cmt"><p>
+  Resource type</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.client.DecodedFailure" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="DecodedFailureextendsK8sFailurewithProductwithSerializable"></a><a id="DecodedFailure:DecodedFailure"></a>
       <span class="permalink">
@@ -829,12 +821,15 @@ supported source.
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a title="Failed Kubernetes API request" href="DecodedFailure.html"><span class="name">DecodedFailure</span></a><span class="params">(<span name="requestInfo">requestInfo: <a href="K8sRequestInfo.html" class="extype" name="com.coralogix.zio.k8s.client.K8sRequestInfo">K8sRequestInfo</a></span>, <span name="status">status: <a href="../model/pkg/apis/meta/v1/Status.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Status">Status</a></span>, <span name="code">code: <a href="https://javadoc.io/page/com.softwaremill.sttp.model/core_2.12/1.4.9/sttp/model/StatusCode.html#sttp.model.StatusCode" class="extype" name="sttp.model.StatusCode">StatusCode</a></span>)</span><span class="result"> extends <a href="K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a title="Failed Kubernetes API request" href="DecodedFailure.html"><span class="name">DecodedFailure</span></a><span class="params">(<span name="requestInfo">requestInfo: <a href="K8sRequestInfo.html" class="extype" name="com.coralogix.zio.k8s.client.K8sRequestInfo">K8sRequestInfo</a></span>, <span name="status">status: <a href="../model/pkg/apis/meta/v1/Status.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Status">Status</a></span>, <span name="code">code: <a href="https://javadoc.io/page/com.softwaremill.sttp.model/core_2.12/1.4.13/sttp/model/StatusCode.html#sttp.model.StatusCode" class="extype" name="sttp.model.StatusCode">StatusCode</a></span>)</span><span class="result"> extends <a href="K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
-      <p class="shortcomment cmt">Failed Kubernetes API request</p><div class="fullcomment"><div class="comment cmt"><p>Failed Kubernetes API request</p><p>Note that some specific failure types are encoded by their own failure type.
-See <a href="Unauthorized.html" class="extype" name="com.coralogix.zio.k8s.client.Unauthorized">Unauthorized</a>, <a href="Gone$.html" class="extype" name="com.coralogix.zio.k8s.client.Gone">Gone</a> and <a href="NotFound$.html" class="extype" name="com.coralogix.zio.k8s.client.NotFound">NotFound</a>.
-</p></div><dl class="paramcmts block"><dt class="param">status</dt><dd class="cmt"><p>The Kubernetes <a href="../model/pkg/apis/meta/v1/Status.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Status">com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Status</a> value returned in the failure response</p></dd><dt class="param">code</dt><dd class="cmt"><p>Response status code</p></dd></dl></div>
+      <p class="shortcomment cmt">Failed Kubernetes API request</p><div class="fullcomment"><div class="comment cmt"><p>Failed Kubernetes API request</p><p>Note that some specific failure types are encoded by their own failure type. See
+<a href="Unauthorized.html" class="extype" name="com.coralogix.zio.k8s.client.Unauthorized">Unauthorized</a>, <a href="Gone$.html" class="extype" name="com.coralogix.zio.k8s.client.Gone">Gone</a> and <a href="NotFound$.html" class="extype" name="com.coralogix.zio.k8s.client.NotFound">NotFound</a>.
+</p></div><dl class="paramcmts block"><dt class="param">status</dt><dd class="cmt"><p>
+  The Kubernetes <a href="../model/pkg/apis/meta/v1/Status.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Status">com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Status</a> value returned in the
+  failure response</p></dd><dt class="param">code</dt><dd class="cmt"><p>
+  Response status code</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.client.DeserializationFailure" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="DeserializationFailureextendsK8sFailurewithProductwithSerializable"></a><a id="DeserializationFailure:DeserializationFailure"></a>
       <span class="permalink">
@@ -850,9 +845,10 @@ See <a href="Unauthorized.html" class="extype" name="com.coralogix.zio.k8s.clien
         <a title="Error indicating that Kubernetes API responded with success, but the response body could not be deserialized to the expected data type." href="DeserializationFailure.html"><span class="name">DeserializationFailure</span></a><span class="params">(<span name="requestInfo">requestInfo: <a href="K8sRequestInfo.html" class="extype" name="com.coralogix.zio.k8s.client.K8sRequestInfo">K8sRequestInfo</a></span>, <span name="error">error: <a href="http://typelevel.org/cats/api/cats/data/NonEmptyList.html#cats.data.NonEmptyList" class="extype" name="cats.data.NonEmptyList">NonEmptyList</a>[<a href="https://circe.github.io/circe/api/io/circe/Error.html#io.circe.Error" class="extype" name="io.circe.Error">Error</a>]</span>)</span><span class="result"> extends <a href="K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
-      <p class="shortcomment cmt">Error indicating that Kubernetes API responded with success, but the response body
-could not be deserialized to the expected data type.</p><div class="fullcomment"><div class="comment cmt"><p>Error indicating that Kubernetes API responded with success, but the response body
-could not be deserialized to the expected data type.</p></div><dl class="paramcmts block"><dt class="param">error</dt><dd class="cmt"><p>The list of deserialization errors</p></dd></dl></div>
+      <p class="shortcomment cmt">Error indicating that Kubernetes API responded with success, but the response body could not be
+deserialized to the expected data type.</p><div class="fullcomment"><div class="comment cmt"><p>Error indicating that Kubernetes API responded with success, but the response body could not be
+deserialized to the expected data type.</p></div><dl class="paramcmts block"><dt class="param">error</dt><dd class="cmt"><p>
+  The list of deserialization errors</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.client.HttpFailure" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="HttpFailureextendsK8sFailurewithProductwithSerializable"></a><a id="HttpFailure:HttpFailure"></a>
       <span class="permalink">
@@ -865,14 +861,16 @@ could not be deserialized to the expected data type.</p></div><dl class="paramcm
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a title="Failed HTTP response" href="HttpFailure.html"><span class="name">HttpFailure</span></a><span class="params">(<span name="requestInfo">requestInfo: <a href="K8sRequestInfo.html" class="extype" name="com.coralogix.zio.k8s.client.K8sRequestInfo">K8sRequestInfo</a></span>, <span name="message">message: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="code">code: <a href="https://javadoc.io/page/com.softwaremill.sttp.model/core_2.12/1.4.9/sttp/model/StatusCode.html#sttp.model.StatusCode" class="extype" name="sttp.model.StatusCode">StatusCode</a></span>)</span><span class="result"> extends <a href="K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a title="Failed HTTP response" href="HttpFailure.html"><span class="name">HttpFailure</span></a><span class="params">(<span name="requestInfo">requestInfo: <a href="K8sRequestInfo.html" class="extype" name="com.coralogix.zio.k8s.client.K8sRequestInfo">K8sRequestInfo</a></span>, <span name="message">message: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="code">code: <a href="https://javadoc.io/page/com.softwaremill.sttp.model/core_2.12/1.4.13/sttp/model/StatusCode.html#sttp.model.StatusCode" class="extype" name="sttp.model.StatusCode">StatusCode</a></span>)</span><span class="result"> extends <a href="K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
-      <p class="shortcomment cmt">Failed HTTP response</p><div class="fullcomment"><div class="comment cmt"><p>Failed HTTP response</p><p>Indicates that the response from the Kubernetes API has a non-successful
-status code and it's body did not contain a <a href="../model/pkg/apis/meta/v1/Status.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Status">com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Status</a> value.</p><p>In case the error is a standard Kubernetes error message, the error type
-will be <a href="DecodedFailure.html" class="extype" name="com.coralogix.zio.k8s.client.DecodedFailure">DecodedFailure</a>.</p><p>Note that some specific failure types are encoded by their own failure type.
-See <a href="Unauthorized.html" class="extype" name="com.coralogix.zio.k8s.client.Unauthorized">Unauthorized</a>, <a href="Gone$.html" class="extype" name="com.coralogix.zio.k8s.client.Gone">Gone</a> and <a href="NotFound$.html" class="extype" name="com.coralogix.zio.k8s.client.NotFound">NotFound</a>.
-</p></div><dl class="paramcmts block"><dt class="param">message</dt><dd class="cmt"><p>Response message</p></dd><dt class="param">code</dt><dd class="cmt"><p>Response status code</p></dd></dl></div>
+      <p class="shortcomment cmt">Failed HTTP response</p><div class="fullcomment"><div class="comment cmt"><p>Failed HTTP response</p><p>Indicates that the response from the Kubernetes API has a non-successful status code and it's
+body did not contain a <a href="../model/pkg/apis/meta/v1/Status.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Status">com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Status</a> value.</p><p>In case the error is a standard Kubernetes error message, the error type will be
+<a href="DecodedFailure.html" class="extype" name="com.coralogix.zio.k8s.client.DecodedFailure">DecodedFailure</a>.</p><p>Note that some specific failure types are encoded by their own failure type. See
+<a href="Unauthorized.html" class="extype" name="com.coralogix.zio.k8s.client.Unauthorized">Unauthorized</a>, <a href="Gone$.html" class="extype" name="com.coralogix.zio.k8s.client.Gone">Gone</a> and <a href="NotFound$.html" class="extype" name="com.coralogix.zio.k8s.client.NotFound">NotFound</a>.
+</p></div><dl class="paramcmts block"><dt class="param">message</dt><dd class="cmt"><p>
+  Response message</p></dd><dt class="param">code</dt><dd class="cmt"><p>
+  Response status code</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.client.InvalidEvent" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="InvalidEventextendsK8sFailurewithProductwithSerializable"></a><a id="InvalidEvent:InvalidEvent"></a>
       <span class="permalink">
@@ -888,7 +886,8 @@ See <a href="Unauthorized.html" class="extype" name="com.coralogix.zio.k8s.clien
         <a title="An unsupported event type was sent in a watch stream" href="InvalidEvent.html"><span class="name">InvalidEvent</span></a><span class="params">(<span name="requestInfo">requestInfo: <a href="K8sRequestInfo.html" class="extype" name="com.coralogix.zio.k8s.client.K8sRequestInfo">K8sRequestInfo</a></span>, <span name="eventType">eventType: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result"> extends <a href="K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
-      <p class="shortcomment cmt">An unsupported event type was sent in a watch stream</p><div class="fullcomment"><div class="comment cmt"><p>An unsupported event type was sent in a watch stream</p></div><dl class="paramcmts block"><dt class="param">eventType</dt><dd class="cmt"><p>The unrecognized event type from the server</p></dd></dl></div>
+      <p class="shortcomment cmt">An unsupported event type was sent in a watch stream</p><div class="fullcomment"><div class="comment cmt"><p>An unsupported event type was sent in a watch stream</p></div><dl class="paramcmts block"><dt class="param">eventType</dt><dd class="cmt"><p>
+  The unrecognized event type from the server</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.client.K8sFailure" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
       <a id="K8sFailureextendsAnyRef"></a><a id="K8sFailure:K8sFailure"></a>
       <span class="permalink">
@@ -921,7 +920,9 @@ See <a href="Unauthorized.html" class="extype" name="com.coralogix.zio.k8s.clien
         <a title="K8s API request information to be provided in K8sFailure failures" href="K8sRequestInfo.html"><span class="name">K8sRequestInfo</span></a><span class="params">(<span name="resourceType">resourceType: <a href="model/package$$K8sResourceType.html" class="extype" name="com.coralogix.zio.k8s.client.model.K8sResourceType">K8sResourceType</a></span>, <span name="operation">operation: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
-      <p class="shortcomment cmt">K8s API request information to be provided in <a href="K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a> failures</p><div class="fullcomment"><div class="comment cmt"><p>K8s API request information to be provided in <a href="K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a> failures</p></div><dl class="paramcmts block"><dt class="param">resourceType</dt><dd class="cmt"><p>Resource type</p></dd><dt class="param">operation</dt><dd class="cmt"><p>Operation name</p></dd></dl></div>
+      <p class="shortcomment cmt">K8s API request information to be provided in <a href="K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a> failures</p><div class="fullcomment"><div class="comment cmt"><p>K8s API request information to be provided in <a href="K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a> failures</p></div><dl class="paramcmts block"><dt class="param">resourceType</dt><dd class="cmt"><p>
+  Resource type</p></dd><dt class="param">operation</dt><dd class="cmt"><p>
+  Operation name</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.client.NamespacedResource" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="NamespacedResource[T]extendsAnyRef"></a><a id="NamespacedResource[T]:NamespacedResource[T]"></a>
       <span class="permalink">
@@ -938,7 +939,8 @@ See <a href="Unauthorized.html" class="extype" name="com.coralogix.zio.k8s.clien
       </span>
       
       <p class="shortcomment cmt">Generic interface for working with namespaced Kubernetes resources.</p><div class="fullcomment"><div class="comment cmt"><p>Generic interface for working with namespaced Kubernetes resources.</p><p>More type safe than <a href="Resource.html" class="extype" name="com.coralogix.zio.k8s.client.Resource">Resource</a> as it requires passing a namespace where necessary.
-</p></div><dl class="paramcmts block"><dt class="tparam">T</dt><dd class="cmt"><p>Resource type</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="tparam">T</dt><dd class="cmt"><p>
+  Resource type</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.client.NamespacedResourceDeleteAll" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="NamespacedResourceDeleteAll[T]extendsAnyRef"></a><a id="NamespacedResourceDeleteAll[T]:NamespacedResourceDeleteAll[T]"></a>
       <span class="permalink">
@@ -955,7 +957,8 @@ See <a href="Unauthorized.html" class="extype" name="com.coralogix.zio.k8s.clien
       </span>
       
       <p class="shortcomment cmt">Extra capability for <a href="NamespacedResource.html" class="extype" name="com.coralogix.zio.k8s.client.NamespacedResource">NamespacedResource</a> interfaces providing deleteAll</p><div class="fullcomment"><div class="comment cmt"><p>Extra capability for <a href="NamespacedResource.html" class="extype" name="com.coralogix.zio.k8s.client.NamespacedResource">NamespacedResource</a> interfaces providing deleteAll</p><p>It is separated because it is not supported by all resources.
-</p></div><dl class="paramcmts block"><dt class="tparam">T</dt><dd class="cmt"><p>Resource type</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="tparam">T</dt><dd class="cmt"><p>
+  Resource type</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.client.NamespacedResourceStatus" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="NamespacedResourceStatus[StatusT,T]extendsAnyRef"></a><a id="NamespacedResourceStatus[StatusT,T]:NamespacedResourceStatus[StatusT,T]"></a>
       <span class="permalink">
@@ -971,7 +974,9 @@ See <a href="Unauthorized.html" class="extype" name="com.coralogix.zio.k8s.clien
         <a title="Extra capability for NamespacedResource interfaces to manage status subresources" href="NamespacedResourceStatus.html"><span class="name">NamespacedResourceStatus</span></a><span class="tparams">[<span name="StatusT">StatusT</span>, <span name="T">T</span>]</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       
-      <p class="shortcomment cmt">Extra capability for <a href="NamespacedResource.html" class="extype" name="com.coralogix.zio.k8s.client.NamespacedResource">NamespacedResource</a> interfaces to manage status subresources</p><div class="fullcomment"><div class="comment cmt"><p>Extra capability for <a href="NamespacedResource.html" class="extype" name="com.coralogix.zio.k8s.client.NamespacedResource">NamespacedResource</a> interfaces to manage status subresources</p></div><dl class="paramcmts block"><dt class="tparam">StatusT</dt><dd class="cmt"><p>Status subresource type</p></dd><dt class="tparam">T</dt><dd class="cmt"><p>Resource type</p></dd></dl></div>
+      <p class="shortcomment cmt">Extra capability for <a href="NamespacedResource.html" class="extype" name="com.coralogix.zio.k8s.client.NamespacedResource">NamespacedResource</a> interfaces to manage status subresources</p><div class="fullcomment"><div class="comment cmt"><p>Extra capability for <a href="NamespacedResource.html" class="extype" name="com.coralogix.zio.k8s.client.NamespacedResource">NamespacedResource</a> interfaces to manage status subresources</p></div><dl class="paramcmts block"><dt class="tparam">StatusT</dt><dd class="cmt"><p>
+  Status subresource type</p></dd><dt class="tparam">T</dt><dd class="cmt"><p>
+  Resource type</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.client.RequestFailure" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="RequestFailureextendsK8sFailurewithProductwithSerializable"></a><a id="RequestFailure:RequestFailure"></a>
       <span class="permalink">
@@ -987,7 +992,8 @@ See <a href="Unauthorized.html" class="extype" name="com.coralogix.zio.k8s.clien
         <a title="Failed to send the HTTP request to the Kubernetes API" href="RequestFailure.html"><span class="name">RequestFailure</span></a><span class="params">(<span name="requestInfo">requestInfo: <a href="K8sRequestInfo.html" class="extype" name="com.coralogix.zio.k8s.client.K8sRequestInfo">K8sRequestInfo</a></span>, <span name="reason">reason: <span class="extype" name="scala.Throwable">Throwable</span></span>)</span><span class="result"> extends <a href="K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
-      <p class="shortcomment cmt">Failed to send the HTTP request to the Kubernetes API</p><div class="fullcomment"><div class="comment cmt"><p>Failed to send the HTTP request to the Kubernetes API</p></div><dl class="paramcmts block"><dt class="param">reason</dt><dd class="cmt"><p>The failure reason</p></dd></dl></div>
+      <p class="shortcomment cmt">Failed to send the HTTP request to the Kubernetes API</p><div class="fullcomment"><div class="comment cmt"><p>Failed to send the HTTP request to the Kubernetes API</p></div><dl class="paramcmts block"><dt class="param">reason</dt><dd class="cmt"><p>
+  The failure reason</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.client.Resource" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="Resource[T]extendsAnyRef"></a><a id="Resource[T]:Resource[T]"></a>
       <span class="permalink">
@@ -1003,9 +1009,10 @@ See <a href="Unauthorized.html" class="extype" name="com.coralogix.zio.k8s.clien
         <a title="Generic interface for working with Kubernetes resources" href="Resource.html"><span class="name">Resource</span></a><span class="tparams">[<span name="T">T</span>]</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       
-      <p class="shortcomment cmt">Generic interface for working with Kubernetes resources</p><div class="fullcomment"><div class="comment cmt"><p>Generic interface for working with Kubernetes resources</p><p>This interface supports both namespaced and cluster resources. For more type safe
-variants check <a href="NamespacedResource.html" class="extype" name="com.coralogix.zio.k8s.client.NamespacedResource">NamespacedResource</a> and <a href="ClusterResource.html" class="extype" name="com.coralogix.zio.k8s.client.ClusterResource">ClusterResource</a>.
-</p></div><dl class="paramcmts block"><dt class="tparam">T</dt><dd class="cmt"><p>Resource type</p></dd></dl></div>
+      <p class="shortcomment cmt">Generic interface for working with Kubernetes resources</p><div class="fullcomment"><div class="comment cmt"><p>Generic interface for working with Kubernetes resources</p><p>This interface supports both namespaced and cluster resources. For more type safe variants check
+<a href="NamespacedResource.html" class="extype" name="com.coralogix.zio.k8s.client.NamespacedResource">NamespacedResource</a> and <a href="ClusterResource.html" class="extype" name="com.coralogix.zio.k8s.client.ClusterResource">ClusterResource</a>.
+</p></div><dl class="paramcmts block"><dt class="tparam">T</dt><dd class="cmt"><p>
+  Resource type</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.client.ResourceDeleteAll" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="ResourceDeleteAll[T]extendsAnyRef"></a><a id="ResourceDeleteAll[T]:ResourceDeleteAll[T]"></a>
       <span class="permalink">
@@ -1022,7 +1029,8 @@ variants check <a href="NamespacedResource.html" class="extype" name="com.coralo
       </span>
       
       <p class="shortcomment cmt">Extra capability for <a href="Resource.html" class="extype" name="com.coralogix.zio.k8s.client.Resource">Resource</a> interfaces providing deleteAll</p><div class="fullcomment"><div class="comment cmt"><p>Extra capability for <a href="Resource.html" class="extype" name="com.coralogix.zio.k8s.client.Resource">Resource</a> interfaces providing deleteAll</p><p>It is separated because it is not supported by all resources.
-</p></div><dl class="paramcmts block"><dt class="tparam">T</dt><dd class="cmt"><p>Resource type</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="tparam">T</dt><dd class="cmt"><p>
+  Resource type</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.client.ResourceStatus" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="ResourceStatus[StatusT,T]extendsAnyRef"></a><a id="ResourceStatus[StatusT,T]:ResourceStatus[StatusT,T]"></a>
       <span class="permalink">
@@ -1038,7 +1046,9 @@ variants check <a href="NamespacedResource.html" class="extype" name="com.coralo
         <a title="Extra capability for Resource interfaces to manage status subresources" href="ResourceStatus.html"><span class="name">ResourceStatus</span></a><span class="tparams">[<span name="StatusT">StatusT</span>, <span name="T">T</span>]</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       
-      <p class="shortcomment cmt">Extra capability for <a href="Resource.html" class="extype" name="com.coralogix.zio.k8s.client.Resource">Resource</a> interfaces to manage status subresources</p><div class="fullcomment"><div class="comment cmt"><p>Extra capability for <a href="Resource.html" class="extype" name="com.coralogix.zio.k8s.client.Resource">Resource</a> interfaces to manage status subresources</p></div><dl class="paramcmts block"><dt class="tparam">StatusT</dt><dd class="cmt"><p>Status subresource type</p></dd><dt class="tparam">T</dt><dd class="cmt"><p>Resource type</p></dd></dl></div>
+      <p class="shortcomment cmt">Extra capability for <a href="Resource.html" class="extype" name="com.coralogix.zio.k8s.client.Resource">Resource</a> interfaces to manage status subresources</p><div class="fullcomment"><div class="comment cmt"><p>Extra capability for <a href="Resource.html" class="extype" name="com.coralogix.zio.k8s.client.Resource">Resource</a> interfaces to manage status subresources</p></div><dl class="paramcmts block"><dt class="tparam">StatusT</dt><dd class="cmt"><p>
+  Status subresource type</p></dd><dt class="tparam">T</dt><dd class="cmt"><p>
+  Resource type</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.client.Subresource" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="Subresource[T]extendsAnyRef"></a><a id="Subresource[T]:Subresource[T]"></a>
       <span class="permalink">
@@ -1054,9 +1064,10 @@ variants check <a href="NamespacedResource.html" class="extype" name="com.coralo
         <a title="Generic interface for subresources." href="Subresource.html"><span class="name">Subresource</span></a><span class="tparams">[<span name="T">T</span>]</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       
-      <p class="shortcomment cmt">Generic interface for subresources.</p><div class="fullcomment"><div class="comment cmt"><p>Generic interface for subresources.</p><p>Every subresource supports a different subset of these operations,
-so usually you should use the actual generated subresource interfaces instead.
-</p></div><dl class="paramcmts block"><dt class="tparam">T</dt><dd class="cmt"><p>Subresource type</p></dd></dl></div>
+      <p class="shortcomment cmt">Generic interface for subresources.</p><div class="fullcomment"><div class="comment cmt"><p>Generic interface for subresources.</p><p>Every subresource supports a different subset of these operations, so usually you should use the
+actual generated subresource interfaces instead.
+</p></div><dl class="paramcmts block"><dt class="tparam">T</dt><dd class="cmt"><p>
+  Subresource type</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.client.Unauthorized" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="UnauthorizedextendsK8sFailurewithProductwithSerializable"></a><a id="Unauthorized:Unauthorized"></a>
       <span class="permalink">
@@ -1072,7 +1083,8 @@ so usually you should use the actual generated subresource interfaces instead.
         <a title="Request unauthorized" href="Unauthorized.html"><span class="name">Unauthorized</span></a><span class="params">(<span name="requestInfo">requestInfo: <a href="K8sRequestInfo.html" class="extype" name="com.coralogix.zio.k8s.client.K8sRequestInfo">K8sRequestInfo</a></span>, <span name="message">message: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result"> extends <a href="K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
-      <p class="shortcomment cmt">Request unauthorized</p><div class="fullcomment"><div class="comment cmt"><p>Request unauthorized</p><p>Indicates that the Kubernetes API returned a HTTP 401 response.</p></div><dl class="paramcmts block"><dt class="param">message</dt><dd class="cmt"><p>Message of the response</p></dd></dl></div>
+      <p class="shortcomment cmt">Request unauthorized</p><div class="fullcomment"><div class="comment cmt"><p>Request unauthorized</p><p>Indicates that the Kubernetes API returned a HTTP 401 response.</p></div><dl class="paramcmts block"><dt class="param">message</dt><dd class="cmt"><p>
+  Message of the response</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.client.UndefinedField" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="UndefinedFieldextendsK8sFailurewithProductwithSerializable"></a><a id="UndefinedField:UndefinedField"></a>
       <span class="permalink">
@@ -1089,7 +1101,8 @@ so usually you should use the actual generated subresource interfaces instead.
       </span>
       
       <p class="shortcomment cmt">Error produced by the generated getter methods on Kubernetes data structures.</p><div class="fullcomment"><div class="comment cmt"><p>Error produced by the generated getter methods on Kubernetes data structures.</p><p>Indicates that the requested field is not present.
-</p></div><dl class="paramcmts block"><dt class="param">field</dt><dd class="cmt"><p>Field name</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="param">field</dt><dd class="cmt"><p>
+  Field name</p></dd></dl></div>
     </li></ol>
             </div>
 
@@ -1129,8 +1142,7 @@ so usually you should use the actual generated subresource interfaces instead.
         <a title="The server returned with HTTP 410 (Gone) which has a specific role in handling watch streams." href="Gone$.html"><span class="name">Gone</span></a><span class="result"> extends <a href="K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
-      <p class="shortcomment cmt">The server returned with HTTP 410 (Gone) which has a specific role in
-handling watch streams.</p>
+      <p class="shortcomment cmt">The server returned with HTTP 410 (Gone) which has a specific role in handling watch streams.</p>
     </li><li name="com.coralogix.zio.k8s.client.K8sFailure" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="K8sFailure"></a><a id="K8sFailure:K8sFailure"></a>
       <span class="permalink">

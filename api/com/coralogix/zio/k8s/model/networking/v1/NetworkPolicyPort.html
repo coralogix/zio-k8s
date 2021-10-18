@@ -226,6 +226,14 @@
                         <a class="class" href="IngressClassFields.html" title=""></a>
                         <a href="IngressClassFields.html" title="">IngressClassFields</a>
                       </li><li class="current-entities indented7">
+                        <a class="object" href="IngressClassParametersReference$.html" title=""></a>
+                        <a class="class" href="IngressClassParametersReference.html" title="IngressClassParametersReference identifies an API object."></a>
+                        <a href="IngressClassParametersReference.html" title="IngressClassParametersReference identifies an API object.">IngressClassParametersReference</a>
+                      </li><li class="current-entities indented7">
+                        <span class="separator"></span>
+                        <a class="class" href="IngressClassParametersReferenceFields.html" title=""></a>
+                        <a href="IngressClassParametersReferenceFields.html" title="">IngressClassParametersReferenceFields</a>
+                      </li><li class="current-entities indented7">
                         <a class="object" href="IngressClassSpec$.html" title=""></a>
                         <a class="class" href="IngressClassSpec.html" title="IngressClassSpec provides information about the class of an Ingress."></a>
                         <a href="IngressClassSpec.html" title="IngressClassSpec provides information about the class of an Ingress.">IngressClassSpec</a>
@@ -358,13 +366,20 @@
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <span class="name">NetworkPolicyPort</span><span class="params">(<span name="port">port: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="../../pkg/util/intstr/IntOrString.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.util.intstr.IntOrString">IntOrString</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="protocol">protocol: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <span class="name">NetworkPolicyPort</span><span class="params">(<span name="endPort">endPort: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="port">port: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="../../pkg/util/intstr/IntOrString.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.util.intstr.IntOrString">IntOrString</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="protocol">protocol: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       </h4>
 
       
           <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>NetworkPolicyPort describes a port to allow traffic on
-</p></div><dl class="paramcmts block"><dt class="param">protocol</dt><dd class="cmt"><p>The protocol (TCP, UDP, or SCTP) which traffic must match. If not specified, this field defaults to TCP.</p></dd></dl><div class="toggleContainer block">
+</p></div><dl class="paramcmts block"><dt class="param">endPort</dt><dd class="cmt"><p>
+  If set, indicates that the range of ports from port to endPort, inclusive, should be allowed
+  by the policy. This field cannot be defined if the port field is not defined or if the port
+  field is defined as a named (string) port. The endPort must be equal or greater than port.
+  This feature is in Beta state and is enabled by default. It can be disabled using the Feature
+  Gate &quot;NetworkPolicyEndPort&quot;.</p></dd><dt class="param">protocol</dt><dd class="cmt"><p>
+  The protocol (TCP, UDP, or SCTP) which traffic must match. If not specified, this field
+  defaults to TCP.</p></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -415,9 +430,9 @@
         <div id="constructors" class="members">
               <h3>Instance Constructors</h3>
               <ol><li name="com.coralogix.zio.k8s.model.networking.v1.NetworkPolicyPort#&lt;init&gt;" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="&lt;init&gt;(port:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.pkg.util.intstr.IntOrString],protocol:com.coralogix.zio.k8s.client.model.Optional[String]):com.coralogix.zio.k8s.model.networking.v1.NetworkPolicyPort"></a><a id="&lt;init&gt;:NetworkPolicyPort"></a>
+      <a id="&lt;init&gt;(endPort:com.coralogix.zio.k8s.client.model.Optional[Int],port:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.pkg.util.intstr.IntOrString],protocol:com.coralogix.zio.k8s.client.model.Optional[String]):com.coralogix.zio.k8s.model.networking.v1.NetworkPolicyPort"></a><a id="&lt;init&gt;:NetworkPolicyPort"></a>
       <span class="permalink">
-      <a href="../../../../../../../com/coralogix/zio/k8s/model/networking/v1/NetworkPolicyPort.html#&lt;init&gt;(port:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.pkg.util.intstr.IntOrString],protocol:com.coralogix.zio.k8s.client.model.Optional[String]):com.coralogix.zio.k8s.model.networking.v1.NetworkPolicyPort" title="Permalink">
+      <a href="../../../../../../../com/coralogix/zio/k8s/model/networking/v1/NetworkPolicyPort.html#&lt;init&gt;(endPort:com.coralogix.zio.k8s.client.model.Optional[Int],port:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.pkg.util.intstr.IntOrString],protocol:com.coralogix.zio.k8s.client.model.Optional[String]):com.coralogix.zio.k8s.model.networking.v1.NetworkPolicyPort" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -426,10 +441,17 @@
         <span class="kind">new</span>
       </span>
       <span class="symbol">
-        <span class="name">NetworkPolicyPort</span><span class="params">(<span name="port">port: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="../../pkg/util/intstr/IntOrString.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.util.intstr.IntOrString">IntOrString</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="protocol">protocol: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span>
+        <span class="name">NetworkPolicyPort</span><span class="params">(<span name="endPort">endPort: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="port">port: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="../../pkg/util/intstr/IntOrString.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.util.intstr.IntOrString">IntOrString</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="protocol">protocol: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span>
       </span>
       
-      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">protocol</dt><dd class="cmt"><p>The protocol (TCP, UDP, or SCTP) which traffic must match. If not specified, this field defaults to TCP.</p></dd></dl></div>
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">endPort</dt><dd class="cmt"><p>
+  If set, indicates that the range of ports from port to endPort, inclusive, should be allowed
+  by the policy. This field cannot be defined if the port field is not defined or if the port
+  field is defined as a named (string) port. The endPort must be equal or greater than port.
+  This feature is in Beta state and is enabled by default. It can be disabled using the Feature
+  Gate &quot;NetworkPolicyEndPort&quot;.</p></dd><dt class="param">protocol</dt><dd class="cmt"><p>
+  The protocol (TCP, UDP, or SCTP) which traffic must match. If not specified, this field
+  defaults to TCP.</p></dd></dl></div>
     </li></ol>
             </div>
 
@@ -530,6 +552,22 @@
                 <span class="name">@HotSpotIntrinsicCandidate</span><span class="args">()</span>
               
         </dd></dl></div>
+    </li><li name="com.coralogix.zio.k8s.model.networking.v1.NetworkPolicyPort#endPort" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="endPort:com.coralogix.zio.k8s.client.model.Optional[Int]"></a><a id="endPort:Optional[Int]"></a>
+      <span class="permalink">
+      <a href="../../../../../../../com/coralogix/zio/k8s/model/networking/v1/NetworkPolicyPort.html#endPort:com.coralogix.zio.k8s.client.model.Optional[Int]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">endPort</span><span class="result">: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Int">Int</span>]</span>
+      </span>
+      
+      
     </li><li name="scala.AnyRef#eq" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="eq(x$1:AnyRef):Boolean"></a><a id="eq(AnyRef):Boolean"></a>
       <span class="permalink">
@@ -567,6 +605,28 @@
                 <span class="name">@HotSpotIntrinsicCandidate</span><span class="args">()</span>
               
         </dd></dl></div>
+    </li><li name="com.coralogix.zio.k8s.model.networking.v1.NetworkPolicyPort#getEndPort" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="getEndPort:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Int]"></a><a id="getEndPort:IO[K8sFailure,Int]"></a>
+      <span class="permalink">
+      <a href="../../../../../../../com/coralogix/zio/k8s/model/networking/v1/NetworkPolicyPort.html#getEndPort:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Int]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">getEndPort</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Int">Int</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">If set, indicates that the range of ports from port to endPort, inclusive, should be allowed
+by the policy.</p><div class="fullcomment"><div class="comment cmt"><p>If set, indicates that the range of ports from port to endPort, inclusive, should be allowed
+by the policy. This field cannot be defined if the port field is not defined or if the port
+field is defined as a named (string) port. The endPort must be equal or greater than port.
+This feature is in Beta state and is enabled by default. It can be disabled using the Feature
+Gate &quot;NetworkPolicyEndPort&quot;.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+</p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.networking.v1.NetworkPolicyPort#getPort" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getPort:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.model.pkg.util.intstr.IntOrString]"></a><a id="getPort:IO[K8sFailure,IntOrString]"></a>
       <span class="permalink">
@@ -599,7 +659,8 @@
         <span class="name">getProtocol</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">The protocol (TCP, UDP, or SCTP) which traffic must match.</p><div class="fullcomment"><div class="comment cmt"><p>The protocol (TCP, UDP, or SCTP) which traffic must match. If not specified, this field defaults to TCP.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">The protocol (TCP, UDP, or SCTP) which traffic must match.</p><div class="fullcomment"><div class="comment cmt"><p>The protocol (TCP, UDP, or SCTP) which traffic must match. If not specified, this field
+defaults to TCP.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="scala.Any#isInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isInstanceOf[T0]:Boolean"></a>

@@ -1582,13 +1582,16 @@
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <span class="name">ContainerImage</span><span class="params">(<span name="names">names: <span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]</span>, <span name="sizeBytes">sizeBytes: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Long">Long</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <span class="name">ContainerImage</span><span class="params">(<span name="names">names: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="sizeBytes">sizeBytes: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Long">Long</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       </h4>
 
       
           <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Describe a container image
-</p></div><dl class="paramcmts block"><dt class="param">names</dt><dd class="cmt"><p>Names by which this image is known. e.g. [&quot;k8s.gcr.io/hyperkube:v1.0.7&quot;, &quot;dockerhub.io/google_containers/hyperkube:v1.0.7&quot;]</p></dd><dt class="param">sizeBytes</dt><dd class="cmt"><p>The size of the image in bytes.</p></dd></dl><div class="toggleContainer block">
+</p></div><dl class="paramcmts block"><dt class="param">names</dt><dd class="cmt"><p>
+  Names by which this image is known. e.g. [&quot;k8s.gcr.io/hyperkube:v1.0.7&quot;,
+  &quot;dockerhub.io/google_containers/hyperkube:v1.0.7&quot;]</p></dd><dt class="param">sizeBytes</dt><dd class="cmt"><p>
+  The size of the image in bytes.</p></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -1639,9 +1642,9 @@
         <div id="constructors" class="members">
               <h3>Instance Constructors</h3>
               <ol><li name="com.coralogix.zio.k8s.model.core.v1.ContainerImage#&lt;init&gt;" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="&lt;init&gt;(names:Vector[String],sizeBytes:com.coralogix.zio.k8s.client.model.Optional[Long]):com.coralogix.zio.k8s.model.core.v1.ContainerImage"></a><a id="&lt;init&gt;:ContainerImage"></a>
+      <a id="&lt;init&gt;(names:com.coralogix.zio.k8s.client.model.Optional[Vector[String]],sizeBytes:com.coralogix.zio.k8s.client.model.Optional[Long]):com.coralogix.zio.k8s.model.core.v1.ContainerImage"></a><a id="&lt;init&gt;:ContainerImage"></a>
       <span class="permalink">
-      <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/ContainerImage.html#&lt;init&gt;(names:Vector[String],sizeBytes:com.coralogix.zio.k8s.client.model.Optional[Long]):com.coralogix.zio.k8s.model.core.v1.ContainerImage" title="Permalink">
+      <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/ContainerImage.html#&lt;init&gt;(names:com.coralogix.zio.k8s.client.model.Optional[Vector[String]],sizeBytes:com.coralogix.zio.k8s.client.model.Optional[Long]):com.coralogix.zio.k8s.model.core.v1.ContainerImage" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -1650,10 +1653,13 @@
         <span class="kind">new</span>
       </span>
       <span class="symbol">
-        <span class="name">ContainerImage</span><span class="params">(<span name="names">names: <span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]</span>, <span name="sizeBytes">sizeBytes: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Long">Long</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span>
+        <span class="name">ContainerImage</span><span class="params">(<span name="names">names: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="sizeBytes">sizeBytes: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Long">Long</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span>
       </span>
       
-      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">names</dt><dd class="cmt"><p>Names by which this image is known. e.g. [&quot;k8s.gcr.io/hyperkube:v1.0.7&quot;, &quot;dockerhub.io/google_containers/hyperkube:v1.0.7&quot;]</p></dd><dt class="param">sizeBytes</dt><dd class="cmt"><p>The size of the image in bytes.</p></dd></dl></div>
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">names</dt><dd class="cmt"><p>
+  Names by which this image is known. e.g. [&quot;k8s.gcr.io/hyperkube:v1.0.7&quot;,
+  &quot;dockerhub.io/google_containers/hyperkube:v1.0.7&quot;]</p></dd><dt class="param">sizeBytes</dt><dd class="cmt"><p>
+  The size of the image in bytes.</p></dd></dl></div>
     </li></ol>
             </div>
 
@@ -1806,7 +1812,8 @@
         <span class="name">getNames</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]]</span>
       </span>
       
-      <p class="shortcomment cmt">Names by which this image is known.</p><div class="fullcomment"><div class="comment cmt"><p>Names by which this image is known. e.g. [&quot;k8s.gcr.io/hyperkube:v1.0.7&quot;, &quot;dockerhub.io/google_containers/hyperkube:v1.0.7&quot;]</p><p>This effect always succeeds, it is safe to use the field <a href="#names:Vector[String]" class="extmbr" name="com.coralogix.zio.k8s.model.core.v1.ContainerImage#names">names</a> directly.
+      <p class="shortcomment cmt">Names by which this image is known.</p><div class="fullcomment"><div class="comment cmt"><p>Names by which this image is known. e.g. [&quot;k8s.gcr.io/hyperkube:v1.0.7&quot;,
+&quot;dockerhub.io/google_containers/hyperkube:v1.0.7&quot;]</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.core.v1.ContainerImage#getSizeBytes" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getSizeBytes:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Long]"></a><a id="getSizeBytes:IO[K8sFailure,Long]"></a>
@@ -1842,9 +1849,9 @@
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.core.v1.ContainerImage#names" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="names:Vector[String]"></a>
+      <a id="names:com.coralogix.zio.k8s.client.model.Optional[Vector[String]]"></a><a id="names:Optional[Vector[String]]"></a>
       <span class="permalink">
-      <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/ContainerImage.html#names:Vector[String]" title="Permalink">
+      <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/ContainerImage.html#names:com.coralogix.zio.k8s.client.model.Optional[Vector[String]]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -1853,7 +1860,7 @@
         <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">names</span><span class="result">: <span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]</span>
+        <span class="name">names</span><span class="result">: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]]</span>
       </span>
       
       

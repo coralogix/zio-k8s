@@ -1582,13 +1582,24 @@
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <span class="name">PodAffinityTerm</span><span class="params">(<span name="labelSelector">labelSelector: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="../../pkg/apis/meta/v1/LabelSelector.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.LabelSelector">LabelSelector</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="namespaces">namespaces: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="topologyKey">topologyKey: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <span class="name">PodAffinityTerm</span><span class="params">(<span name="labelSelector">labelSelector: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="../../pkg/apis/meta/v1/LabelSelector.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.LabelSelector">LabelSelector</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="namespaceSelector">namespaceSelector: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="../../pkg/apis/meta/v1/LabelSelector.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.LabelSelector">LabelSelector</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="namespaces">namespaces: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="topologyKey">topologyKey: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Defines a set of pods (namely those matching the labelSelector relative to the given namespace(s)) that this pod should be co-located (affinity) or not co-located (anti-affinity) with, where co-located is defined as running on a node whose value of the label with key &lt;topologyKey&gt; matches that of any node on which a pod of the set of pods is running
-</p></div><dl class="paramcmts block"><dt class="param">namespaces</dt><dd class="cmt"><p>namespaces specifies which namespaces the labelSelector applies to (matches against); null or empty list means &quot;this pod's namespace&quot;</p></dd><dt class="param">topologyKey</dt><dd class="cmt"><p>This pod should be co-located (affinity) or not co-located (anti-affinity) with the pods matching the labelSelector in the specified namespaces, where co-located is defined as running on a node whose value of the label with key topologyKey matches that of any node on which any of the selected pods is running. Empty topologyKey is not allowed.</p></dd></dl><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Defines a set of pods (namely those matching the labelSelector relative to the given
+namespace(s)) that this pod should be co-located (affinity) or not co-located (anti-affinity)
+with, where co-located is defined as running on a node whose value of the label with key
+&lt;topologyKey&gt; matches that of any node on which a pod of the set of pods is running
+</p></div><dl class="paramcmts block"><dt class="param">namespaces</dt><dd class="cmt"><p>
+  namespaces specifies a static list of namespace names that the term applies to. The term is
+  applied to the union of the namespaces listed in this field and the ones selected by
+  namespaceSelector. null or empty namespaces list and null namespaceSelector means &quot;this pod's
+  namespace&quot;</p></dd><dt class="param">topologyKey</dt><dd class="cmt"><p>
+  This pod should be co-located (affinity) or not co-located (anti-affinity) with the pods
+  matching the labelSelector in the specified namespaces, where co-located is defined as running
+  on a node whose value of the label with key topologyKey matches that of any node on which any
+  of the selected pods is running. Empty topologyKey is not allowed.</p></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -1639,9 +1650,9 @@
         <div id="constructors" class="members">
               <h3>Instance Constructors</h3>
               <ol><li name="com.coralogix.zio.k8s.model.core.v1.PodAffinityTerm#&lt;init&gt;" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="&lt;init&gt;(labelSelector:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.pkg.apis.meta.v1.LabelSelector],namespaces:com.coralogix.zio.k8s.client.model.Optional[Vector[String]],topologyKey:String):com.coralogix.zio.k8s.model.core.v1.PodAffinityTerm"></a><a id="&lt;init&gt;:PodAffinityTerm"></a>
+      <a id="&lt;init&gt;(labelSelector:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.pkg.apis.meta.v1.LabelSelector],namespaceSelector:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.pkg.apis.meta.v1.LabelSelector],namespaces:com.coralogix.zio.k8s.client.model.Optional[Vector[String]],topologyKey:String):com.coralogix.zio.k8s.model.core.v1.PodAffinityTerm"></a><a id="&lt;init&gt;:PodAffinityTerm"></a>
       <span class="permalink">
-      <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/PodAffinityTerm.html#&lt;init&gt;(labelSelector:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.pkg.apis.meta.v1.LabelSelector],namespaces:com.coralogix.zio.k8s.client.model.Optional[Vector[String]],topologyKey:String):com.coralogix.zio.k8s.model.core.v1.PodAffinityTerm" title="Permalink">
+      <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/PodAffinityTerm.html#&lt;init&gt;(labelSelector:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.pkg.apis.meta.v1.LabelSelector],namespaceSelector:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.pkg.apis.meta.v1.LabelSelector],namespaces:com.coralogix.zio.k8s.client.model.Optional[Vector[String]],topologyKey:String):com.coralogix.zio.k8s.model.core.v1.PodAffinityTerm" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -1650,10 +1661,18 @@
         <span class="kind">new</span>
       </span>
       <span class="symbol">
-        <span class="name">PodAffinityTerm</span><span class="params">(<span name="labelSelector">labelSelector: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="../../pkg/apis/meta/v1/LabelSelector.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.LabelSelector">LabelSelector</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="namespaces">namespaces: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="topologyKey">topologyKey: <span class="extype" name="scala.Predef.String">String</span></span>)</span>
+        <span class="name">PodAffinityTerm</span><span class="params">(<span name="labelSelector">labelSelector: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="../../pkg/apis/meta/v1/LabelSelector.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.LabelSelector">LabelSelector</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="namespaceSelector">namespaceSelector: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="../../pkg/apis/meta/v1/LabelSelector.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.LabelSelector">LabelSelector</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="namespaces">namespaces: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="topologyKey">topologyKey: <span class="extype" name="scala.Predef.String">String</span></span>)</span>
       </span>
       
-      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">namespaces</dt><dd class="cmt"><p>namespaces specifies which namespaces the labelSelector applies to (matches against); null or empty list means &quot;this pod's namespace&quot;</p></dd><dt class="param">topologyKey</dt><dd class="cmt"><p>This pod should be co-located (affinity) or not co-located (anti-affinity) with the pods matching the labelSelector in the specified namespaces, where co-located is defined as running on a node whose value of the label with key topologyKey matches that of any node on which any of the selected pods is running. Empty topologyKey is not allowed.</p></dd></dl></div>
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">namespaces</dt><dd class="cmt"><p>
+  namespaces specifies a static list of namespace names that the term applies to. The term is
+  applied to the union of the namespaces listed in this field and the ones selected by
+  namespaceSelector. null or empty namespaces list and null namespaceSelector means &quot;this pod's
+  namespace&quot;</p></dd><dt class="param">topologyKey</dt><dd class="cmt"><p>
+  This pod should be co-located (affinity) or not co-located (anti-affinity) with the pods
+  matching the labelSelector in the specified namespaces, where co-located is defined as running
+  on a node whose value of the label with key topologyKey matches that of any node on which any
+  of the selected pods is running. Empty topologyKey is not allowed.</p></dd></dl></div>
     </li></ol>
             </div>
 
@@ -1808,6 +1827,23 @@
       
       <p class="shortcomment cmt">Gets labelSelector.</p><div class="fullcomment"><div class="comment cmt"><p>Gets labelSelector.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.core.v1.PodAffinityTerm#getNamespaceSelector" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="getNamespaceSelector:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.model.pkg.apis.meta.v1.LabelSelector]"></a><a id="getNamespaceSelector:IO[K8sFailure,LabelSelector]"></a>
+      <span class="permalink">
+      <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/PodAffinityTerm.html#getNamespaceSelector:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.model.pkg.apis.meta.v1.LabelSelector]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">getNamespaceSelector</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="../../pkg/apis/meta/v1/LabelSelector.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.LabelSelector">LabelSelector</a>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Gets namespaceSelector.</p><div class="fullcomment"><div class="comment cmt"><p>Gets namespaceSelector.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+</p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.core.v1.PodAffinityTerm#getNamespaces" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getNamespaces:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Vector[String]]"></a><a id="getNamespaces:IO[K8sFailure,Vector[String]]"></a>
       <span class="permalink">
@@ -1823,7 +1859,10 @@
         <span class="name">getNamespaces</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]]</span>
       </span>
       
-      <p class="shortcomment cmt">namespaces specifies which namespaces the labelSelector applies to (matches against); null or empty list means &quot;this pod's namespace&quot;</p><div class="fullcomment"><div class="comment cmt"><p>namespaces specifies which namespaces the labelSelector applies to (matches against); null or empty list means &quot;this pod's namespace&quot;</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">namespaces specifies a static list of namespace names that the term applies to.</p><div class="fullcomment"><div class="comment cmt"><p>namespaces specifies a static list of namespace names that the term applies to. The term is
+applied to the union of the namespaces listed in this field and the ones selected by
+namespaceSelector. null or empty namespaces list and null namespaceSelector means &quot;this pod's
+namespace&quot;</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.core.v1.PodAffinityTerm#getTopologyKey" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getTopologyKey:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]"></a><a id="getTopologyKey:IO[K8sFailure,String]"></a>
@@ -1840,7 +1879,13 @@
         <span class="name">getTopologyKey</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">This pod should be co-located (affinity) or not co-located (anti-affinity) with the pods matching the labelSelector in the specified namespaces, where co-located is defined as running on a node whose value of the label with key topologyKey matches that of any node on which any of the selected pods is running.</p><div class="fullcomment"><div class="comment cmt"><p>This pod should be co-located (affinity) or not co-located (anti-affinity) with the pods matching the labelSelector in the specified namespaces, where co-located is defined as running on a node whose value of the label with key topologyKey matches that of any node on which any of the selected pods is running. Empty topologyKey is not allowed.</p><p>This effect always succeeds, it is safe to use the field <a href="#topologyKey:String" class="extmbr" name="com.coralogix.zio.k8s.model.core.v1.PodAffinityTerm#topologyKey">topologyKey</a> directly.
+      <p class="shortcomment cmt">This pod should be co-located (affinity) or not co-located (anti-affinity) with the pods
+matching the labelSelector in the specified namespaces, where co-located is defined as running
+on a node whose value of the label with key topologyKey matches that of any node on which any
+of the selected pods is running.</p><div class="fullcomment"><div class="comment cmt"><p>This pod should be co-located (affinity) or not co-located (anti-affinity) with the pods
+matching the labelSelector in the specified namespaces, where co-located is defined as running
+on a node whose value of the label with key topologyKey matches that of any node on which any
+of the selected pods is running. Empty topologyKey is not allowed.</p><p>This effect always succeeds, it is safe to use the field <a href="#topologyKey:String" class="extmbr" name="com.coralogix.zio.k8s.model.core.v1.PodAffinityTerm#topologyKey">topologyKey</a> directly.
 </p></div></div>
     </li><li name="scala.Any#isInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isInstanceOf[T0]:Boolean"></a>
@@ -1871,6 +1916,22 @@
       </span>
       <span class="symbol">
         <span class="name">labelSelector</span><span class="result">: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="../../pkg/apis/meta/v1/LabelSelector.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.LabelSelector">LabelSelector</a>]</span>
+      </span>
+      
+      
+    </li><li name="com.coralogix.zio.k8s.model.core.v1.PodAffinityTerm#namespaceSelector" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="namespaceSelector:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.pkg.apis.meta.v1.LabelSelector]"></a><a id="namespaceSelector:Optional[LabelSelector]"></a>
+      <span class="permalink">
+      <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/PodAffinityTerm.html#namespaceSelector:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.pkg.apis.meta.v1.LabelSelector]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">namespaceSelector</span><span class="result">: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="../../pkg/apis/meta/v1/LabelSelector.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.LabelSelector">LabelSelector</a>]</span>
       </span>
       
       

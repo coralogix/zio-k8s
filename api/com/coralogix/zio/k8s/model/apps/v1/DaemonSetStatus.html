@@ -396,7 +396,26 @@
 
       
           <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>DaemonSetStatus represents the current status of a daemon set.
-</p></div><dl class="paramcmts block"><dt class="param">collisionCount</dt><dd class="cmt"><p>Count of hash collisions for the DaemonSet. The DaemonSet controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ControllerRevision.</p></dd><dt class="param">conditions</dt><dd class="cmt"><p>Represents the latest available observations of a DaemonSet's current state.</p></dd><dt class="param">currentNumberScheduled</dt><dd class="cmt"><p>The number of nodes that are running at least 1 daemon pod and are supposed to run the daemon pod. More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/</p></dd><dt class="param">desiredNumberScheduled</dt><dd class="cmt"><p>The total number of nodes that should be running the daemon pod (including nodes correctly running the daemon pod). More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/</p></dd><dt class="param">numberAvailable</dt><dd class="cmt"><p>The number of nodes that should be running the daemon pod and have one or more of the daemon pod running and available (ready for at least spec.minReadySeconds)</p></dd><dt class="param">numberMisscheduled</dt><dd class="cmt"><p>The number of nodes that are running the daemon pod, but are not supposed to run the daemon pod. More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/</p></dd><dt class="param">numberReady</dt><dd class="cmt"><p>The number of nodes that should be running the daemon pod and have one or more of the daemon pod running and ready.</p></dd><dt class="param">numberUnavailable</dt><dd class="cmt"><p>The number of nodes that should be running the daemon pod and have none of the daemon pod running and available (ready for at least spec.minReadySeconds)</p></dd><dt class="param">observedGeneration</dt><dd class="cmt"><p>The most recent generation observed by the daemon set controller.</p></dd><dt class="param">updatedNumberScheduled</dt><dd class="cmt"><p>The total number of nodes that are running updated daemon pod</p></dd></dl><div class="toggleContainer block">
+</p></div><dl class="paramcmts block"><dt class="param">collisionCount</dt><dd class="cmt"><p>
+  Count of hash collisions for the DaemonSet. The DaemonSet controller uses this field as a
+  collision avoidance mechanism when it needs to create the name for the newest
+  ControllerRevision.</p></dd><dt class="param">conditions</dt><dd class="cmt"><p>
+  Represents the latest available observations of a DaemonSet's current state.</p></dd><dt class="param">currentNumberScheduled</dt><dd class="cmt"><p>
+  The number of nodes that are running at least 1 daemon pod and are supposed to run the daemon
+  pod. More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/</p></dd><dt class="param">desiredNumberScheduled</dt><dd class="cmt"><p>
+  The total number of nodes that should be running the daemon pod (including nodes correctly
+  running the daemon pod). More info:
+  https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/</p></dd><dt class="param">numberAvailable</dt><dd class="cmt"><p>
+  The number of nodes that should be running the daemon pod and have one or more of the daemon
+  pod running and available (ready for at least spec.minReadySeconds)</p></dd><dt class="param">numberMisscheduled</dt><dd class="cmt"><p>
+  The number of nodes that are running the daemon pod, but are not supposed to run the daemon
+  pod. More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/</p></dd><dt class="param">numberReady</dt><dd class="cmt"><p>
+  The number of nodes that should be running the daemon pod and have one or more of the daemon
+  pod running and ready.</p></dd><dt class="param">numberUnavailable</dt><dd class="cmt"><p>
+  The number of nodes that should be running the daemon pod and have none of the daemon pod
+  running and available (ready for at least spec.minReadySeconds)</p></dd><dt class="param">observedGeneration</dt><dd class="cmt"><p>
+  The most recent generation observed by the daemon set controller.</p></dd><dt class="param">updatedNumberScheduled</dt><dd class="cmt"><p>
+  The total number of nodes that are running updated daemon pod</p></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -461,7 +480,26 @@
         <span class="name">DaemonSetStatus</span><span class="params">(<span name="collisionCount">collisionCount: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="conditions">conditions: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="DaemonSetCondition.html" class="extype" name="com.coralogix.zio.k8s.model.apps.v1.DaemonSetCondition">DaemonSetCondition</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="currentNumberScheduled">currentNumberScheduled: <span class="extype" name="scala.Int">Int</span></span>, <span name="desiredNumberScheduled">desiredNumberScheduled: <span class="extype" name="scala.Int">Int</span></span>, <span name="numberAvailable">numberAvailable: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="numberMisscheduled">numberMisscheduled: <span class="extype" name="scala.Int">Int</span></span>, <span name="numberReady">numberReady: <span class="extype" name="scala.Int">Int</span></span>, <span name="numberUnavailable">numberUnavailable: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="observedGeneration">observedGeneration: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Long">Long</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="updatedNumberScheduled">updatedNumberScheduled: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span>
       </span>
       
-      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">collisionCount</dt><dd class="cmt"><p>Count of hash collisions for the DaemonSet. The DaemonSet controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ControllerRevision.</p></dd><dt class="param">conditions</dt><dd class="cmt"><p>Represents the latest available observations of a DaemonSet's current state.</p></dd><dt class="param">currentNumberScheduled</dt><dd class="cmt"><p>The number of nodes that are running at least 1 daemon pod and are supposed to run the daemon pod. More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/</p></dd><dt class="param">desiredNumberScheduled</dt><dd class="cmt"><p>The total number of nodes that should be running the daemon pod (including nodes correctly running the daemon pod). More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/</p></dd><dt class="param">numberAvailable</dt><dd class="cmt"><p>The number of nodes that should be running the daemon pod and have one or more of the daemon pod running and available (ready for at least spec.minReadySeconds)</p></dd><dt class="param">numberMisscheduled</dt><dd class="cmt"><p>The number of nodes that are running the daemon pod, but are not supposed to run the daemon pod. More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/</p></dd><dt class="param">numberReady</dt><dd class="cmt"><p>The number of nodes that should be running the daemon pod and have one or more of the daemon pod running and ready.</p></dd><dt class="param">numberUnavailable</dt><dd class="cmt"><p>The number of nodes that should be running the daemon pod and have none of the daemon pod running and available (ready for at least spec.minReadySeconds)</p></dd><dt class="param">observedGeneration</dt><dd class="cmt"><p>The most recent generation observed by the daemon set controller.</p></dd><dt class="param">updatedNumberScheduled</dt><dd class="cmt"><p>The total number of nodes that are running updated daemon pod</p></dd></dl></div>
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">collisionCount</dt><dd class="cmt"><p>
+  Count of hash collisions for the DaemonSet. The DaemonSet controller uses this field as a
+  collision avoidance mechanism when it needs to create the name for the newest
+  ControllerRevision.</p></dd><dt class="param">conditions</dt><dd class="cmt"><p>
+  Represents the latest available observations of a DaemonSet's current state.</p></dd><dt class="param">currentNumberScheduled</dt><dd class="cmt"><p>
+  The number of nodes that are running at least 1 daemon pod and are supposed to run the daemon
+  pod. More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/</p></dd><dt class="param">desiredNumberScheduled</dt><dd class="cmt"><p>
+  The total number of nodes that should be running the daemon pod (including nodes correctly
+  running the daemon pod). More info:
+  https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/</p></dd><dt class="param">numberAvailable</dt><dd class="cmt"><p>
+  The number of nodes that should be running the daemon pod and have one or more of the daemon
+  pod running and available (ready for at least spec.minReadySeconds)</p></dd><dt class="param">numberMisscheduled</dt><dd class="cmt"><p>
+  The number of nodes that are running the daemon pod, but are not supposed to run the daemon
+  pod. More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/</p></dd><dt class="param">numberReady</dt><dd class="cmt"><p>
+  The number of nodes that should be running the daemon pod and have one or more of the daemon
+  pod running and ready.</p></dd><dt class="param">numberUnavailable</dt><dd class="cmt"><p>
+  The number of nodes that should be running the daemon pod and have none of the daemon pod
+  running and available (ready for at least spec.minReadySeconds)</p></dd><dt class="param">observedGeneration</dt><dd class="cmt"><p>
+  The most recent generation observed by the daemon set controller.</p></dd><dt class="param">updatedNumberScheduled</dt><dd class="cmt"><p>
+  The total number of nodes that are running updated daemon pod</p></dd></dl></div>
     </li></ol>
             </div>
 
@@ -678,7 +716,9 @@
         <span class="name">getCollisionCount</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Int">Int</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">Count of hash collisions for the DaemonSet.</p><div class="fullcomment"><div class="comment cmt"><p>Count of hash collisions for the DaemonSet. The DaemonSet controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ControllerRevision.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">Count of hash collisions for the DaemonSet.</p><div class="fullcomment"><div class="comment cmt"><p>Count of hash collisions for the DaemonSet. The DaemonSet controller uses this field as a
+collision avoidance mechanism when it needs to create the name for the newest
+ControllerRevision.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.apps.v1.DaemonSetStatus#getConditions" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getConditions:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Vector[com.coralogix.zio.k8s.model.apps.v1.DaemonSetCondition]]"></a><a id="getConditions:IO[K8sFailure,Vector[DaemonSetCondition]]"></a>
@@ -712,7 +752,9 @@
         <span class="name">getCurrentNumberScheduled</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Int">Int</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">The number of nodes that are running at least 1 daemon pod and are supposed to run the daemon pod.</p><div class="fullcomment"><div class="comment cmt"><p>The number of nodes that are running at least 1 daemon pod and are supposed to run the daemon pod. More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/</p><p>This effect always succeeds, it is safe to use the field <a href="#currentNumberScheduled:Int" class="extmbr" name="com.coralogix.zio.k8s.model.apps.v1.DaemonSetStatus#currentNumberScheduled">currentNumberScheduled</a> directly.
+      <p class="shortcomment cmt">The number of nodes that are running at least 1 daemon pod and are supposed to run the daemon
+pod.</p><div class="fullcomment"><div class="comment cmt"><p>The number of nodes that are running at least 1 daemon pod and are supposed to run the daemon
+pod. More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/</p><p>This effect always succeeds, it is safe to use the field <a href="#currentNumberScheduled:Int" class="extmbr" name="com.coralogix.zio.k8s.model.apps.v1.DaemonSetStatus#currentNumberScheduled">currentNumberScheduled</a> directly.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.apps.v1.DaemonSetStatus#getDesiredNumberScheduled" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getDesiredNumberScheduled:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Int]"></a><a id="getDesiredNumberScheduled:IO[K8sFailure,Int]"></a>
@@ -729,7 +771,10 @@
         <span class="name">getDesiredNumberScheduled</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Int">Int</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">The total number of nodes that should be running the daemon pod (including nodes correctly running the daemon pod).</p><div class="fullcomment"><div class="comment cmt"><p>The total number of nodes that should be running the daemon pod (including nodes correctly running the daemon pod). More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/</p><p>This effect always succeeds, it is safe to use the field <a href="#desiredNumberScheduled:Int" class="extmbr" name="com.coralogix.zio.k8s.model.apps.v1.DaemonSetStatus#desiredNumberScheduled">desiredNumberScheduled</a> directly.
+      <p class="shortcomment cmt">The total number of nodes that should be running the daemon pod (including nodes correctly
+running the daemon pod).</p><div class="fullcomment"><div class="comment cmt"><p>The total number of nodes that should be running the daemon pod (including nodes correctly
+running the daemon pod). More info:
+https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/</p><p>This effect always succeeds, it is safe to use the field <a href="#desiredNumberScheduled:Int" class="extmbr" name="com.coralogix.zio.k8s.model.apps.v1.DaemonSetStatus#desiredNumberScheduled">desiredNumberScheduled</a> directly.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.apps.v1.DaemonSetStatus#getNumberAvailable" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getNumberAvailable:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Int]"></a><a id="getNumberAvailable:IO[K8sFailure,Int]"></a>
@@ -746,7 +791,9 @@
         <span class="name">getNumberAvailable</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Int">Int</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">The number of nodes that should be running the daemon pod and have one or more of the daemon pod running and available (ready for at least spec.minReadySeconds)</p><div class="fullcomment"><div class="comment cmt"><p>The number of nodes that should be running the daemon pod and have one or more of the daemon pod running and available (ready for at least spec.minReadySeconds)</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">The number of nodes that should be running the daemon pod and have one or more of the daemon
+pod running and available (ready for at least spec.minReadySeconds)</p><div class="fullcomment"><div class="comment cmt"><p>The number of nodes that should be running the daemon pod and have one or more of the daemon
+pod running and available (ready for at least spec.minReadySeconds)</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.apps.v1.DaemonSetStatus#getNumberMisscheduled" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getNumberMisscheduled:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Int]"></a><a id="getNumberMisscheduled:IO[K8sFailure,Int]"></a>
@@ -763,7 +810,9 @@
         <span class="name">getNumberMisscheduled</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Int">Int</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">The number of nodes that are running the daemon pod, but are not supposed to run the daemon pod.</p><div class="fullcomment"><div class="comment cmt"><p>The number of nodes that are running the daemon pod, but are not supposed to run the daemon pod. More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/</p><p>This effect always succeeds, it is safe to use the field <a href="#numberMisscheduled:Int" class="extmbr" name="com.coralogix.zio.k8s.model.apps.v1.DaemonSetStatus#numberMisscheduled">numberMisscheduled</a> directly.
+      <p class="shortcomment cmt">The number of nodes that are running the daemon pod, but are not supposed to run the daemon
+pod.</p><div class="fullcomment"><div class="comment cmt"><p>The number of nodes that are running the daemon pod, but are not supposed to run the daemon
+pod. More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/</p><p>This effect always succeeds, it is safe to use the field <a href="#numberMisscheduled:Int" class="extmbr" name="com.coralogix.zio.k8s.model.apps.v1.DaemonSetStatus#numberMisscheduled">numberMisscheduled</a> directly.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.apps.v1.DaemonSetStatus#getNumberReady" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getNumberReady:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Int]"></a><a id="getNumberReady:IO[K8sFailure,Int]"></a>
@@ -780,7 +829,9 @@
         <span class="name">getNumberReady</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Int">Int</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">The number of nodes that should be running the daemon pod and have one or more of the daemon pod running and ready.</p><div class="fullcomment"><div class="comment cmt"><p>The number of nodes that should be running the daemon pod and have one or more of the daemon pod running and ready.</p><p>This effect always succeeds, it is safe to use the field <a href="#numberReady:Int" class="extmbr" name="com.coralogix.zio.k8s.model.apps.v1.DaemonSetStatus#numberReady">numberReady</a> directly.
+      <p class="shortcomment cmt">The number of nodes that should be running the daemon pod and have one or more of the daemon
+pod running and ready.</p><div class="fullcomment"><div class="comment cmt"><p>The number of nodes that should be running the daemon pod and have one or more of the daemon
+pod running and ready.</p><p>This effect always succeeds, it is safe to use the field <a href="#numberReady:Int" class="extmbr" name="com.coralogix.zio.k8s.model.apps.v1.DaemonSetStatus#numberReady">numberReady</a> directly.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.apps.v1.DaemonSetStatus#getNumberUnavailable" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getNumberUnavailable:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Int]"></a><a id="getNumberUnavailable:IO[K8sFailure,Int]"></a>
@@ -797,7 +848,9 @@
         <span class="name">getNumberUnavailable</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Int">Int</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">The number of nodes that should be running the daemon pod and have none of the daemon pod running and available (ready for at least spec.minReadySeconds)</p><div class="fullcomment"><div class="comment cmt"><p>The number of nodes that should be running the daemon pod and have none of the daemon pod running and available (ready for at least spec.minReadySeconds)</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">The number of nodes that should be running the daemon pod and have none of the daemon pod
+running and available (ready for at least spec.minReadySeconds)</p><div class="fullcomment"><div class="comment cmt"><p>The number of nodes that should be running the daemon pod and have none of the daemon pod
+running and available (ready for at least spec.minReadySeconds)</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.apps.v1.DaemonSetStatus#getObservedGeneration" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getObservedGeneration:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Long]"></a><a id="getObservedGeneration:IO[K8sFailure,Long]"></a>

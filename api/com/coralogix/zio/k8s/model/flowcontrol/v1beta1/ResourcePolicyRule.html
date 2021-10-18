@@ -371,8 +371,27 @@
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>ResourcePolicyRule is a predicate that matches some resource requests, testing the request's verb and the target resource. A ResourcePolicyRule matches a resource request if and only if: (a) at least one member of verbs matches the request, (b) at least one member of apiGroups matches the request, (c) at least one member of resources matches the request, and (d) least one member of namespaces matches the request.
-</p></div><dl class="paramcmts block"><dt class="param">apiGroups</dt><dd class="cmt"><p><code>apiGroups</code> is a list of matching API groups and may not be empty. &quot;*&quot; matches all API groups and, if present, must be the only entry. Required.</p></dd><dt class="param">clusterScope</dt><dd class="cmt"><p><code>clusterScope</code> indicates whether to match requests that do not specify a namespace (which happens either because the resource is not namespaced or the request targets all namespaces). If this field is omitted or false then the <code>namespaces</code> field must contain a non-empty list.</p></dd><dt class="param">namespaces</dt><dd class="cmt"><p><code>namespaces</code> is a list of target namespaces that restricts matches.  A request that specifies a target namespace matches only if either (a) this list contains that target namespace or (b) this list contains &quot;*&quot;.  Note that &quot;*&quot; matches any specified namespace but does not match a request that _does not specify_ a namespace (see the <code>clusterScope</code> field for that). This list may be empty, but only if <code>clusterScope</code> is true.</p></dd><dt class="param">resources</dt><dd class="cmt"><p><code>resources</code> is a list of matching resources (i.e., lowercase and plural) with, if desired, subresource.  For example, [ &quot;services&quot;, &quot;nodes/status&quot; ].  This list may not be empty. &quot;*&quot; matches all resources and, if present, must be the only entry. Required.</p></dd><dt class="param">verbs</dt><dd class="cmt"><p><code>verbs</code> is a list of matching verbs and may not be empty. &quot;*&quot; matches all verbs and, if present, must be the only entry. Required.</p></dd></dl><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>ResourcePolicyRule is a predicate that matches some resource requests, testing the request's
+verb and the target resource. A ResourcePolicyRule matches a resource request if and only if:
+(a) at least one member of verbs matches the request, (b) at least one member of apiGroups
+matches the request, (c) at least one member of resources matches the request, and (d) least one
+member of namespaces matches the request.
+</p></div><dl class="paramcmts block"><dt class="param">apiGroups</dt><dd class="cmt"><p>
+  <code>apiGroups</code> is a list of matching API groups and may not be empty. &quot;*&quot; matches all API groups
+  and, if present, must be the only entry. Required.</p></dd><dt class="param">clusterScope</dt><dd class="cmt"><p>
+  <code>clusterScope</code> indicates whether to match requests that do not specify a namespace (which
+  happens either because the resource is not namespaced or the request targets all namespaces).
+  If this field is omitted or false then the <code>namespaces</code> field must contain a non-empty list.</p></dd><dt class="param">namespaces</dt><dd class="cmt"><p>
+  <code>namespaces</code> is a list of target namespaces that restricts matches. A request that specifies a
+  target namespace matches only if either (a) this list contains that target namespace or (b)
+  this list contains &quot;*&quot;. Note that &quot;*&quot; matches any specified namespace but does not match a
+  request that _does not specify_ a namespace (see the <code>clusterScope</code> field for that). This list
+  may be empty, but only if <code>clusterScope</code> is true.</p></dd><dt class="param">resources</dt><dd class="cmt"><p>
+  <code>resources</code> is a list of matching resources (i.e., lowercase and plural) with, if desired,
+  subresource. For example, [ &quot;services&quot;, &quot;nodes/status&quot; ]. This list may not be empty. &quot;*&quot;
+  matches all resources and, if present, must be the only entry. Required.</p></dd><dt class="param">verbs</dt><dd class="cmt"><p>
+  <code>verbs</code> is a list of matching verbs and may not be empty. &quot;*&quot; matches all verbs and, if
+  present, must be the only entry. Required.</p></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -437,7 +456,22 @@
         <span class="name">ResourcePolicyRule</span><span class="params">(<span name="apiGroups">apiGroups: <span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]</span>, <span name="clusterScope">clusterScope: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Boolean">Boolean</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="namespaces">namespaces: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="resources">resources: <span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]</span>, <span name="verbs">verbs: <span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]</span>)</span>
       </span>
       
-      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">apiGroups</dt><dd class="cmt"><p><code>apiGroups</code> is a list of matching API groups and may not be empty. &quot;*&quot; matches all API groups and, if present, must be the only entry. Required.</p></dd><dt class="param">clusterScope</dt><dd class="cmt"><p><code>clusterScope</code> indicates whether to match requests that do not specify a namespace (which happens either because the resource is not namespaced or the request targets all namespaces). If this field is omitted or false then the <code>namespaces</code> field must contain a non-empty list.</p></dd><dt class="param">namespaces</dt><dd class="cmt"><p><code>namespaces</code> is a list of target namespaces that restricts matches.  A request that specifies a target namespace matches only if either (a) this list contains that target namespace or (b) this list contains &quot;*&quot;.  Note that &quot;*&quot; matches any specified namespace but does not match a request that _does not specify_ a namespace (see the <code>clusterScope</code> field for that). This list may be empty, but only if <code>clusterScope</code> is true.</p></dd><dt class="param">resources</dt><dd class="cmt"><p><code>resources</code> is a list of matching resources (i.e., lowercase and plural) with, if desired, subresource.  For example, [ &quot;services&quot;, &quot;nodes/status&quot; ].  This list may not be empty. &quot;*&quot; matches all resources and, if present, must be the only entry. Required.</p></dd><dt class="param">verbs</dt><dd class="cmt"><p><code>verbs</code> is a list of matching verbs and may not be empty. &quot;*&quot; matches all verbs and, if present, must be the only entry. Required.</p></dd></dl></div>
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">apiGroups</dt><dd class="cmt"><p>
+  <code>apiGroups</code> is a list of matching API groups and may not be empty. &quot;*&quot; matches all API groups
+  and, if present, must be the only entry. Required.</p></dd><dt class="param">clusterScope</dt><dd class="cmt"><p>
+  <code>clusterScope</code> indicates whether to match requests that do not specify a namespace (which
+  happens either because the resource is not namespaced or the request targets all namespaces).
+  If this field is omitted or false then the <code>namespaces</code> field must contain a non-empty list.</p></dd><dt class="param">namespaces</dt><dd class="cmt"><p>
+  <code>namespaces</code> is a list of target namespaces that restricts matches. A request that specifies a
+  target namespace matches only if either (a) this list contains that target namespace or (b)
+  this list contains &quot;*&quot;. Note that &quot;*&quot; matches any specified namespace but does not match a
+  request that _does not specify_ a namespace (see the <code>clusterScope</code> field for that). This list
+  may be empty, but only if <code>clusterScope</code> is true.</p></dd><dt class="param">resources</dt><dd class="cmt"><p>
+  <code>resources</code> is a list of matching resources (i.e., lowercase and plural) with, if desired,
+  subresource. For example, [ &quot;services&quot;, &quot;nodes/status&quot; ]. This list may not be empty. &quot;*&quot;
+  matches all resources and, if present, must be the only entry. Required.</p></dd><dt class="param">verbs</dt><dd class="cmt"><p>
+  <code>verbs</code> is a list of matching verbs and may not be empty. &quot;*&quot; matches all verbs and, if
+  present, must be the only entry. Required.</p></dd></dl></div>
     </li></ol>
             </div>
 
@@ -601,7 +635,8 @@
         <span class="name">getApiGroups</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]]</span>
       </span>
       
-      <p class="shortcomment cmt"><code>apiGroups</code> is a list of matching API groups and may not be empty.</p><div class="fullcomment"><div class="comment cmt"><p><code>apiGroups</code> is a list of matching API groups and may not be empty. &quot;*&quot; matches all API groups and, if present, must be the only entry. Required.</p><p>This effect always succeeds, it is safe to use the field <a href="#apiGroups:Vector[String]" class="extmbr" name="com.coralogix.zio.k8s.model.flowcontrol.v1beta1.ResourcePolicyRule#apiGroups">apiGroups</a> directly.
+      <p class="shortcomment cmt"><code>apiGroups</code> is a list of matching API groups and may not be empty.</p><div class="fullcomment"><div class="comment cmt"><p><code>apiGroups</code> is a list of matching API groups and may not be empty. &quot;*&quot; matches all API groups
+and, if present, must be the only entry. Required.</p><p>This effect always succeeds, it is safe to use the field <a href="#apiGroups:Vector[String]" class="extmbr" name="com.coralogix.zio.k8s.model.flowcontrol.v1beta1.ResourcePolicyRule#apiGroups">apiGroups</a> directly.
 </p></div></div>
     </li><li name="scala.AnyRef#getClass" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getClass():Class[_]"></a>
@@ -639,7 +674,10 @@
         <span class="name">getClusterScope</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Boolean">Boolean</span>]</span>
       </span>
       
-      <p class="shortcomment cmt"><code>clusterScope</code> indicates whether to match requests that do not specify a namespace (which happens either because the resource is not namespaced or the request targets all namespaces).</p><div class="fullcomment"><div class="comment cmt"><p><code>clusterScope</code> indicates whether to match requests that do not specify a namespace (which happens either because the resource is not namespaced or the request targets all namespaces). If this field is omitted or false then the <code>namespaces</code> field must contain a non-empty list.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt"><code>clusterScope</code> indicates whether to match requests that do not specify a namespace (which
+happens either because the resource is not namespaced or the request targets all namespaces).</p><div class="fullcomment"><div class="comment cmt"><p><code>clusterScope</code> indicates whether to match requests that do not specify a namespace (which
+happens either because the resource is not namespaced or the request targets all namespaces).
+If this field is omitted or false then the <code>namespaces</code> field must contain a non-empty list.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.flowcontrol.v1beta1.ResourcePolicyRule#getNamespaces" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getNamespaces:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Vector[String]]"></a><a id="getNamespaces:IO[K8sFailure,Vector[String]]"></a>
@@ -656,7 +694,11 @@
         <span class="name">getNamespaces</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]]</span>
       </span>
       
-      <p class="shortcomment cmt"><code>namespaces</code> is a list of target namespaces that restricts matches.</p><div class="fullcomment"><div class="comment cmt"><p><code>namespaces</code> is a list of target namespaces that restricts matches.  A request that specifies a target namespace matches only if either (a) this list contains that target namespace or (b) this list contains &quot;*&quot;.  Note that &quot;*&quot; matches any specified namespace but does not match a request that _does not specify_ a namespace (see the <code>clusterScope</code> field for that). This list may be empty, but only if <code>clusterScope</code> is true.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt"><code>namespaces</code> is a list of target namespaces that restricts matches.</p><div class="fullcomment"><div class="comment cmt"><p><code>namespaces</code> is a list of target namespaces that restricts matches. A request that specifies a
+target namespace matches only if either (a) this list contains that target namespace or (b)
+this list contains &quot;*&quot;. Note that &quot;*&quot; matches any specified namespace but does not match a
+request that _does not specify_ a namespace (see the <code>clusterScope</code> field for that). This list
+may be empty, but only if <code>clusterScope</code> is true.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.flowcontrol.v1beta1.ResourcePolicyRule#getResources" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getResources:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Vector[String]]"></a><a id="getResources:IO[K8sFailure,Vector[String]]"></a>
@@ -673,7 +715,10 @@
         <span class="name">getResources</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]]</span>
       </span>
       
-      <p class="shortcomment cmt"><code>resources</code> is a list of matching resources (i.e., lowercase and plural) with, if desired, subresource.</p><div class="fullcomment"><div class="comment cmt"><p><code>resources</code> is a list of matching resources (i.e., lowercase and plural) with, if desired, subresource.  For example, [ &quot;services&quot;, &quot;nodes/status&quot; ].  This list may not be empty. &quot;*&quot; matches all resources and, if present, must be the only entry. Required.</p><p>This effect always succeeds, it is safe to use the field <a href="#resources:Vector[String]" class="extmbr" name="com.coralogix.zio.k8s.model.flowcontrol.v1beta1.ResourcePolicyRule#resources">resources</a> directly.
+      <p class="shortcomment cmt"><code>resources</code> is a list of matching resources (i.e., lowercase and plural) with, if desired,
+subresource.</p><div class="fullcomment"><div class="comment cmt"><p><code>resources</code> is a list of matching resources (i.e., lowercase and plural) with, if desired,
+subresource. For example, [ &quot;services&quot;, &quot;nodes/status&quot; ]. This list may not be empty. &quot;*&quot;
+matches all resources and, if present, must be the only entry. Required.</p><p>This effect always succeeds, it is safe to use the field <a href="#resources:Vector[String]" class="extmbr" name="com.coralogix.zio.k8s.model.flowcontrol.v1beta1.ResourcePolicyRule#resources">resources</a> directly.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.flowcontrol.v1beta1.ResourcePolicyRule#getVerbs" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getVerbs:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Vector[String]]"></a><a id="getVerbs:IO[K8sFailure,Vector[String]]"></a>
@@ -690,7 +735,8 @@
         <span class="name">getVerbs</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]]</span>
       </span>
       
-      <p class="shortcomment cmt"><code>verbs</code> is a list of matching verbs and may not be empty.</p><div class="fullcomment"><div class="comment cmt"><p><code>verbs</code> is a list of matching verbs and may not be empty. &quot;*&quot; matches all verbs and, if present, must be the only entry. Required.</p><p>This effect always succeeds, it is safe to use the field <a href="#verbs:Vector[String]" class="extmbr" name="com.coralogix.zio.k8s.model.flowcontrol.v1beta1.ResourcePolicyRule#verbs">verbs</a> directly.
+      <p class="shortcomment cmt"><code>verbs</code> is a list of matching verbs and may not be empty.</p><div class="fullcomment"><div class="comment cmt"><p><code>verbs</code> is a list of matching verbs and may not be empty. &quot;*&quot; matches all verbs and, if
+present, must be the only entry. Required.</p><p>This effect always succeeds, it is safe to use the field <a href="#verbs:Vector[String]" class="extmbr" name="com.coralogix.zio.k8s.model.flowcontrol.v1beta1.ResourcePolicyRule#verbs">verbs</a> directly.
 </p></div></div>
     </li><li name="scala.Any#isInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isInstanceOf[T0]:Boolean"></a>

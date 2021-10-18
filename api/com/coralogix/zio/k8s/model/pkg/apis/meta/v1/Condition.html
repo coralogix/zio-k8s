@@ -412,7 +412,19 @@
 
       
           <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Condition contains details for one aspect of the current state of this API Resource.
-</p></div><dl class="paramcmts block"><dt class="param">message</dt><dd class="cmt"><p>message is a human readable message indicating details about the transition. This may be an empty string.</p></dd><dt class="param">observedGeneration</dt><dd class="cmt"><p>observedGeneration represents the .metadata.generation that the condition was set based upon. For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date with respect to the current state of the instance.</p></dd><dt class="param">reason</dt><dd class="cmt"><p>reason contains a programmatic identifier indicating the reason for the condition's last transition. Producers of specific condition types may define expected values and meanings for this field, and whether the values are considered a guaranteed API. The value should be a CamelCase string. This field may not be empty.</p></dd><dt class="param">status</dt><dd class="cmt"><p>status of the condition, one of True, False, Unknown.</p></dd><dt class="param">type</dt><dd class="cmt"><p>type of condition in CamelCase or in foo.example.com/CamelCase.</p></dd></dl><div class="toggleContainer block">
+</p></div><dl class="paramcmts block"><dt class="param">message</dt><dd class="cmt"><p>
+  message is a human readable message indicating details about the transition. This may be an
+  empty string.</p></dd><dt class="param">observedGeneration</dt><dd class="cmt"><p>
+  observedGeneration represents the .metadata.generation that the condition was set based upon.
+  For instance, if .metadata.generation is currently 12, but the
+  .status.conditions[x].observedGeneration is 9, the condition is out of date with respect to
+  the current state of the instance.</p></dd><dt class="param">reason</dt><dd class="cmt"><p>
+  reason contains a programmatic identifier indicating the reason for the condition's last
+  transition. Producers of specific condition types may define expected values and meanings for
+  this field, and whether the values are considered a guaranteed API. The value should be a
+  CamelCase string. This field may not be empty.</p></dd><dt class="param">status</dt><dd class="cmt"><p>
+  status of the condition, one of True, False, Unknown.</p></dd><dt class="param">type</dt><dd class="cmt"><p>
+  type of condition in CamelCase or in foo.example.com/CamelCase.</p></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -477,7 +489,19 @@
         <span class="name">Condition</span><span class="params">(<span name="lastTransitionTime">lastTransitionTime: <a href="Time.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Time">Time</a></span>, <span name="message">message: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="observedGeneration">observedGeneration: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Long">Long</span>] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="reason">reason: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="status">status: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="type">type: <span class="extype" name="scala.Predef.String">String</span></span>)</span>
       </span>
       
-      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">message</dt><dd class="cmt"><p>message is a human readable message indicating details about the transition. This may be an empty string.</p></dd><dt class="param">observedGeneration</dt><dd class="cmt"><p>observedGeneration represents the .metadata.generation that the condition was set based upon. For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date with respect to the current state of the instance.</p></dd><dt class="param">reason</dt><dd class="cmt"><p>reason contains a programmatic identifier indicating the reason for the condition's last transition. Producers of specific condition types may define expected values and meanings for this field, and whether the values are considered a guaranteed API. The value should be a CamelCase string. This field may not be empty.</p></dd><dt class="param">status</dt><dd class="cmt"><p>status of the condition, one of True, False, Unknown.</p></dd><dt class="param">type</dt><dd class="cmt"><p>type of condition in CamelCase or in foo.example.com/CamelCase.</p></dd></dl></div>
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">message</dt><dd class="cmt"><p>
+  message is a human readable message indicating details about the transition. This may be an
+  empty string.</p></dd><dt class="param">observedGeneration</dt><dd class="cmt"><p>
+  observedGeneration represents the .metadata.generation that the condition was set based upon.
+  For instance, if .metadata.generation is currently 12, but the
+  .status.conditions[x].observedGeneration is 9, the condition is out of date with respect to
+  the current state of the instance.</p></dd><dt class="param">reason</dt><dd class="cmt"><p>
+  reason contains a programmatic identifier indicating the reason for the condition's last
+  transition. Producers of specific condition types may define expected values and meanings for
+  this field, and whether the values are considered a guaranteed API. The value should be a
+  CamelCase string. This field may not be empty.</p></dd><dt class="param">status</dt><dd class="cmt"><p>
+  status of the condition, one of True, False, Unknown.</p></dd><dt class="param">type</dt><dd class="cmt"><p>
+  type of condition in CamelCase or in foo.example.com/CamelCase.</p></dd></dl></div>
     </li></ol>
             </div>
 
@@ -647,7 +671,8 @@
         <span class="name">getMessage</span><span class="result">: <a href="../../../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">message is a human readable message indicating details about the transition.</p><div class="fullcomment"><div class="comment cmt"><p>message is a human readable message indicating details about the transition. This may be an empty string.</p><p>This effect always succeeds, it is safe to use the field <a href="#message:String" class="extmbr" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Condition#message">message</a> directly.
+      <p class="shortcomment cmt">message is a human readable message indicating details about the transition.</p><div class="fullcomment"><div class="comment cmt"><p>message is a human readable message indicating details about the transition. This may be an
+empty string.</p><p>This effect always succeeds, it is safe to use the field <a href="#message:String" class="extmbr" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Condition#message">message</a> directly.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Condition#getObservedGeneration" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getObservedGeneration:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Long]"></a><a id="getObservedGeneration:IO[K8sFailure,Long]"></a>
@@ -664,7 +689,10 @@
         <span class="name">getObservedGeneration</span><span class="result">: <a href="../../../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Long">Long</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">observedGeneration represents the .metadata.generation that the condition was set based upon.</p><div class="fullcomment"><div class="comment cmt"><p>observedGeneration represents the .metadata.generation that the condition was set based upon. For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date with respect to the current state of the instance.</p><p>If the field is not present, fails with <a href="../../../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">observedGeneration represents the .metadata.generation that the condition was set based upon.</p><div class="fullcomment"><div class="comment cmt"><p>observedGeneration represents the .metadata.generation that the condition was set based upon.
+For instance, if .metadata.generation is currently 12, but the
+.status.conditions[x].observedGeneration is 9, the condition is out of date with respect to
+the current state of the instance.</p><p>If the field is not present, fails with <a href="../../../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Condition#getReason" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getReason:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]"></a><a id="getReason:IO[K8sFailure,String]"></a>
@@ -681,7 +709,11 @@
         <span class="name">getReason</span><span class="result">: <a href="../../../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">reason contains a programmatic identifier indicating the reason for the condition's last transition.</p><div class="fullcomment"><div class="comment cmt"><p>reason contains a programmatic identifier indicating the reason for the condition's last transition. Producers of specific condition types may define expected values and meanings for this field, and whether the values are considered a guaranteed API. The value should be a CamelCase string. This field may not be empty.</p><p>This effect always succeeds, it is safe to use the field <a href="#reason:String" class="extmbr" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Condition#reason">reason</a> directly.
+      <p class="shortcomment cmt">reason contains a programmatic identifier indicating the reason for the condition's last
+transition.</p><div class="fullcomment"><div class="comment cmt"><p>reason contains a programmatic identifier indicating the reason for the condition's last
+transition. Producers of specific condition types may define expected values and meanings for
+this field, and whether the values are considered a guaranteed API. The value should be a
+CamelCase string. This field may not be empty.</p><p>This effect always succeeds, it is safe to use the field <a href="#reason:String" class="extmbr" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Condition#reason">reason</a> directly.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Condition#getStatus" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getStatus:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]"></a><a id="getStatus:IO[K8sFailure,String]"></a>

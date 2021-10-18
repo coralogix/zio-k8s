@@ -268,7 +268,15 @@
 
       
           <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>specification of a horizontal pod autoscaler.
-</p></div><dl class="paramcmts block"><dt class="param">maxReplicas</dt><dd class="cmt"><p>upper limit for the number of pods that can be set by the autoscaler; cannot be smaller than MinReplicas.</p></dd><dt class="param">minReplicas</dt><dd class="cmt"><p>minReplicas is the lower limit for the number of replicas to which the autoscaler can scale down.  It defaults to 1 pod.  minReplicas is allowed to be 0 if the alpha feature gate HPAScaleToZero is enabled and at least one Object or External metric is configured.  Scaling is active as long as at least one metric value is available.</p></dd><dt class="param">targetCPUUtilizationPercentage</dt><dd class="cmt"><p>target average CPU utilization (represented as a percentage of requested CPU) over all the pods; if not specified the default autoscaling policy will be used.</p></dd></dl><div class="toggleContainer block">
+</p></div><dl class="paramcmts block"><dt class="param">maxReplicas</dt><dd class="cmt"><p>
+  upper limit for the number of pods that can be set by the autoscaler; cannot be smaller than
+  MinReplicas.</p></dd><dt class="param">minReplicas</dt><dd class="cmt"><p>
+  minReplicas is the lower limit for the number of replicas to which the autoscaler can scale
+  down. It defaults to 1 pod. minReplicas is allowed to be 0 if the alpha feature gate
+  HPAScaleToZero is enabled and at least one Object or External metric is configured. Scaling is
+  active as long as at least one metric value is available.</p></dd><dt class="param">targetCPUUtilizationPercentage</dt><dd class="cmt"><p>
+  target average CPU utilization (represented as a percentage of requested CPU) over all the
+  pods; if not specified the default autoscaling policy will be used.</p></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -333,7 +341,15 @@
         <span class="name">HorizontalPodAutoscalerSpec</span><span class="params">(<span name="maxReplicas">maxReplicas: <span class="extype" name="scala.Int">Int</span></span>, <span name="minReplicas">minReplicas: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="scaleTargetRef">scaleTargetRef: <a href="CrossVersionObjectReference.html" class="extype" name="com.coralogix.zio.k8s.model.autoscaling.v1.CrossVersionObjectReference">CrossVersionObjectReference</a></span>, <span name="targetCPUUtilizationPercentage">targetCPUUtilizationPercentage: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span>
       </span>
       
-      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">maxReplicas</dt><dd class="cmt"><p>upper limit for the number of pods that can be set by the autoscaler; cannot be smaller than MinReplicas.</p></dd><dt class="param">minReplicas</dt><dd class="cmt"><p>minReplicas is the lower limit for the number of replicas to which the autoscaler can scale down.  It defaults to 1 pod.  minReplicas is allowed to be 0 if the alpha feature gate HPAScaleToZero is enabled and at least one Object or External metric is configured.  Scaling is active as long as at least one metric value is available.</p></dd><dt class="param">targetCPUUtilizationPercentage</dt><dd class="cmt"><p>target average CPU utilization (represented as a percentage of requested CPU) over all the pods; if not specified the default autoscaling policy will be used.</p></dd></dl></div>
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">maxReplicas</dt><dd class="cmt"><p>
+  upper limit for the number of pods that can be set by the autoscaler; cannot be smaller than
+  MinReplicas.</p></dd><dt class="param">minReplicas</dt><dd class="cmt"><p>
+  minReplicas is the lower limit for the number of replicas to which the autoscaler can scale
+  down. It defaults to 1 pod. minReplicas is allowed to be 0 if the alpha feature gate
+  HPAScaleToZero is enabled and at least one Object or External metric is configured. Scaling is
+  active as long as at least one metric value is available.</p></dd><dt class="param">targetCPUUtilizationPercentage</dt><dd class="cmt"><p>
+  target average CPU utilization (represented as a percentage of requested CPU) over all the
+  pods; if not specified the default autoscaling policy will be used.</p></dd></dl></div>
     </li></ol>
             </div>
 
@@ -486,7 +502,9 @@
         <span class="name">getMaxReplicas</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Int">Int</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">upper limit for the number of pods that can be set by the autoscaler; cannot be smaller than MinReplicas.</p><div class="fullcomment"><div class="comment cmt"><p>upper limit for the number of pods that can be set by the autoscaler; cannot be smaller than MinReplicas.</p><p>This effect always succeeds, it is safe to use the field <a href="#maxReplicas:Int" class="extmbr" name="com.coralogix.zio.k8s.model.autoscaling.v1.HorizontalPodAutoscalerSpec#maxReplicas">maxReplicas</a> directly.
+      <p class="shortcomment cmt">upper limit for the number of pods that can be set by the autoscaler; cannot be smaller than
+MinReplicas.</p><div class="fullcomment"><div class="comment cmt"><p>upper limit for the number of pods that can be set by the autoscaler; cannot be smaller than
+MinReplicas.</p><p>This effect always succeeds, it is safe to use the field <a href="#maxReplicas:Int" class="extmbr" name="com.coralogix.zio.k8s.model.autoscaling.v1.HorizontalPodAutoscalerSpec#maxReplicas">maxReplicas</a> directly.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.autoscaling.v1.HorizontalPodAutoscalerSpec#getMinReplicas" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getMinReplicas:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Int]"></a><a id="getMinReplicas:IO[K8sFailure,Int]"></a>
@@ -503,7 +521,11 @@
         <span class="name">getMinReplicas</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Int">Int</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">minReplicas is the lower limit for the number of replicas to which the autoscaler can scale down.</p><div class="fullcomment"><div class="comment cmt"><p>minReplicas is the lower limit for the number of replicas to which the autoscaler can scale down.  It defaults to 1 pod.  minReplicas is allowed to be 0 if the alpha feature gate HPAScaleToZero is enabled and at least one Object or External metric is configured.  Scaling is active as long as at least one metric value is available.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">minReplicas is the lower limit for the number of replicas to which the autoscaler can scale
+down.</p><div class="fullcomment"><div class="comment cmt"><p>minReplicas is the lower limit for the number of replicas to which the autoscaler can scale
+down. It defaults to 1 pod. minReplicas is allowed to be 0 if the alpha feature gate
+HPAScaleToZero is enabled and at least one Object or External metric is configured. Scaling is
+active as long as at least one metric value is available.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.autoscaling.v1.HorizontalPodAutoscalerSpec#getScaleTargetRef" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getScaleTargetRef:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.model.autoscaling.v1.CrossVersionObjectReference]"></a><a id="getScaleTargetRef:IO[K8sFailure,CrossVersionObjectReference]"></a>
@@ -537,7 +559,9 @@
         <span class="name">getTargetCPUUtilizationPercentage</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Int">Int</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">target average CPU utilization (represented as a percentage of requested CPU) over all the pods; if not specified the default autoscaling policy will be used.</p><div class="fullcomment"><div class="comment cmt"><p>target average CPU utilization (represented as a percentage of requested CPU) over all the pods; if not specified the default autoscaling policy will be used.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">target average CPU utilization (represented as a percentage of requested CPU) over all the
+pods; if not specified the default autoscaling policy will be used.</p><div class="fullcomment"><div class="comment cmt"><p>target average CPU utilization (represented as a percentage of requested CPU) over all the
+pods; if not specified the default autoscaling policy will be used.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="scala.Any#isInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isInstanceOf[T0]:Boolean"></a>

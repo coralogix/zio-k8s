@@ -205,22 +205,6 @@
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="com.coralogix.zio.k8s.model.scheduling">scheduling</a></dd></dl></div>
-    </li><li name="com.coralogix.zio.k8s.model.scheduling.v1beta1" visbl="pub" class="indented7 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="v1beta1"></a><a id="v1beta1:v1beta1"></a>
-      <span class="permalink">
-      <a href="../../../../../../../com/coralogix/zio/k8s/model/scheduling/v1beta1/index.html" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">package</span>
-      </span>
-      <span class="symbol">
-        <a title="" href="../v1beta1/index.html"><span class="name">v1beta1</span></a>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="com.coralogix.zio.k8s.model.scheduling">scheduling</a></dd></dl></div>
     </li>
               </ul>
             </div>
@@ -299,8 +283,21 @@
         <a title="PriorityClass defines mapping from a priority class name to the priority integer value." href="PriorityClass.html"><span class="name">PriorityClass</span></a><span class="params">(<span name="description">description: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="globalDefault">globalDefault: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Boolean">Boolean</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="metadata">metadata: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="../../pkg/apis/meta/v1/ObjectMeta.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.ObjectMeta">ObjectMeta</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="preemptionPolicy">preemptionPolicy: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="value">value: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
-      <p class="shortcomment cmt">PriorityClass defines mapping from a priority class name to the priority integer value.</p><div class="fullcomment"><div class="comment cmt"><p>PriorityClass defines mapping from a priority class name to the priority integer value. The value can be any valid integer.
-</p></div><dl class="paramcmts block"><dt class="param">description</dt><dd class="cmt"><p>description is an arbitrary string that usually provides guidelines on when this priority class should be used.</p></dd><dt class="param">globalDefault</dt><dd class="cmt"><p>globalDefault specifies whether this PriorityClass should be considered as the default priority for pods that do not have any priority class. Only one PriorityClass can be marked as <code>globalDefault</code>. However, if more than one PriorityClasses exists with their <code>globalDefault</code> field set to true, the smallest value of such global default PriorityClasses will be used as the default priority.</p></dd><dt class="param">preemptionPolicy</dt><dd class="cmt"><p>PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset. This field is beta-level, gated by the NonPreemptingPriority feature-gate.</p></dd><dt class="param">value</dt><dd class="cmt"><p>The value of this priority class. This is the actual priority that pods receive when they have the name of this class in their pod spec.</p></dd></dl></div>
+      <p class="shortcomment cmt">PriorityClass defines mapping from a priority class name to the priority integer value.</p><div class="fullcomment"><div class="comment cmt"><p>PriorityClass defines mapping from a priority class name to the priority integer value. The
+value can be any valid integer.
+</p></div><dl class="paramcmts block"><dt class="param">description</dt><dd class="cmt"><p>
+  description is an arbitrary string that usually provides guidelines on when this priority
+  class should be used.</p></dd><dt class="param">globalDefault</dt><dd class="cmt"><p>
+  globalDefault specifies whether this PriorityClass should be considered as the default
+  priority for pods that do not have any priority class. Only one PriorityClass can be marked as
+  <code>globalDefault</code>. However, if more than one PriorityClasses exists with their <code>globalDefault</code>
+  field set to true, the smallest value of such global default PriorityClasses will be used as
+  the default priority.</p></dd><dt class="param">preemptionPolicy</dt><dd class="cmt"><p>
+  PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never,
+  PreemptLowerPriority. Defaults to PreemptLowerPriority if unset. This field is beta-level,
+  gated by the NonPreemptingPriority feature-gate.</p></dd><dt class="param">value</dt><dd class="cmt"><p>
+  The value of this priority class. This is the actual priority that pods receive when they have
+  the name of this class in their pod spec.</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.scheduling.v1.PriorityClassFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="PriorityClassFieldsextendsAnyRef"></a><a id="PriorityClassFields:PriorityClassFields"></a>
       <span class="permalink">

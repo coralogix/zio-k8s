@@ -1588,7 +1588,15 @@
 
       
           <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>EndpointPort is a tuple that describes a single port.
-</p></div><dl class="paramcmts block"><dt class="param">appProtocol</dt><dd class="cmt"><p>The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and http://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol. This is a beta field that is guarded by the ServiceAppProtocol feature gate and enabled by default.</p></dd><dt class="param">name</dt><dd class="cmt"><p>The name of this port.  This must match the 'name' field in the corresponding ServicePort. Must be a DNS_LABEL. Optional only if one port is defined.</p></dd><dt class="param">port</dt><dd class="cmt"><p>The port number of the endpoint.</p></dd><dt class="param">protocol</dt><dd class="cmt"><p>The IP protocol for this port. Must be UDP, TCP, or SCTP. Default is TCP.</p></dd></dl><div class="toggleContainer block">
+</p></div><dl class="paramcmts block"><dt class="param">appProtocol</dt><dd class="cmt"><p>
+  The application protocol for this port. This field follows standard Kubernetes label syntax.
+  Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and
+  http://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed
+  names such as mycompany.com/my-custom-protocol.</p></dd><dt class="param">name</dt><dd class="cmt"><p>
+  The name of this port. This must match the 'name' field in the corresponding ServicePort. Must
+  be a DNS_LABEL. Optional only if one port is defined.</p></dd><dt class="param">port</dt><dd class="cmt"><p>
+  The port number of the endpoint.</p></dd><dt class="param">protocol</dt><dd class="cmt"><p>
+  The IP protocol for this port. Must be UDP, TCP, or SCTP. Default is TCP.</p></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -1653,7 +1661,15 @@
         <span class="name">EndpointPort</span><span class="params">(<span name="appProtocol">appProtocol: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="name">name: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="port">port: <span class="extype" name="scala.Int">Int</span></span>, <span name="protocol">protocol: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span>
       </span>
       
-      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">appProtocol</dt><dd class="cmt"><p>The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and http://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol. This is a beta field that is guarded by the ServiceAppProtocol feature gate and enabled by default.</p></dd><dt class="param">name</dt><dd class="cmt"><p>The name of this port.  This must match the 'name' field in the corresponding ServicePort. Must be a DNS_LABEL. Optional only if one port is defined.</p></dd><dt class="param">port</dt><dd class="cmt"><p>The port number of the endpoint.</p></dd><dt class="param">protocol</dt><dd class="cmt"><p>The IP protocol for this port. Must be UDP, TCP, or SCTP. Default is TCP.</p></dd></dl></div>
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">appProtocol</dt><dd class="cmt"><p>
+  The application protocol for this port. This field follows standard Kubernetes label syntax.
+  Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and
+  http://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed
+  names such as mycompany.com/my-custom-protocol.</p></dd><dt class="param">name</dt><dd class="cmt"><p>
+  The name of this port. This must match the 'name' field in the corresponding ServicePort. Must
+  be a DNS_LABEL. Optional only if one port is defined.</p></dd><dt class="param">port</dt><dd class="cmt"><p>
+  The port number of the endpoint.</p></dd><dt class="param">protocol</dt><dd class="cmt"><p>
+  The IP protocol for this port. Must be UDP, TCP, or SCTP. Default is TCP.</p></dd></dl></div>
     </li></ol>
             </div>
 
@@ -1801,7 +1817,10 @@
         <span class="name">getAppProtocol</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">The application protocol for this port.</p><div class="fullcomment"><div class="comment cmt"><p>The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and http://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol. This is a beta field that is guarded by the ServiceAppProtocol feature gate and enabled by default.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">The application protocol for this port.</p><div class="fullcomment"><div class="comment cmt"><p>The application protocol for this port. This field follows standard Kubernetes label syntax.
+Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and
+http://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed
+names such as mycompany.com/my-custom-protocol.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="scala.AnyRef#getClass" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getClass():Class[_]"></a>
@@ -1839,7 +1858,8 @@
         <span class="name">getName</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">The name of this port.</p><div class="fullcomment"><div class="comment cmt"><p>The name of this port.  This must match the 'name' field in the corresponding ServicePort. Must be a DNS_LABEL. Optional only if one port is defined.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">The name of this port.</p><div class="fullcomment"><div class="comment cmt"><p>The name of this port. This must match the 'name' field in the corresponding ServicePort. Must
+be a DNS_LABEL. Optional only if one port is defined.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.core.v1.EndpointPort#getPort" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getPort:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Int]"></a><a id="getPort:IO[K8sFailure,Int]"></a>

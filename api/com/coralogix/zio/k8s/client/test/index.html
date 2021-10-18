@@ -308,11 +308,15 @@
         <a title="Contains data structures, ZIO layers and zio-config descriptors for configuring the zio-k8s client." href="../config/index.html"><span class="name">config</span></a>
       </span>
       
-      <p class="shortcomment cmt">Contains data structures, ZIO layers and zio-config descriptors for configuring the zio-k8s client.</p><div class="fullcomment"><div class="comment cmt"><p>Contains data structures, ZIO layers and zio-config descriptors for configuring the zio-k8s client.</p><p>Each zio-k8s client module depends on two ZIO modules: <a href="../model/package$$K8sCluster.html" class="extype" name="com.coralogix.zio.k8s.client.model.K8sCluster">com.coralogix.zio.k8s.client.model.K8sCluster</a> and an <a href="https://javadoc.io/page/com.softwaremill.sttp.client3/core_2.12/3.3.13/sttp/client3/SttpBackend.html" class="extype" name="sttp.client3.SttpBackend">sttp.client3.SttpBackend</a>.
-To use the default configuration (use kubeconfig if available, otherwise fallback to service account token),
-use either <code>asynchttpclient.k8sDefault</code> or <code>httpclient.k8sDefault</code> depending on your chosen sttp backend.</p><p>Manual configuration is possible by providing a <a href="../config/package$$K8sClusterConfig.html" class="extype" name="com.coralogix.zio.k8s.client.config.K8sClusterConfig">K8sClusterConfig</a> value to both the <a href="../config/index.html#k8sCluster:zio.ZLayer[zio.blocking.Blockingwithzio.Has[com.coralogix.zio.k8s.client.config.package.K8sClusterConfig],Throwable,zio.Has[com.coralogix.zio.k8s.client.model.K8sCluster]]" class="extmbr" name="com.coralogix.zio.k8s.client.config#k8sCluster">k8sCluster</a> layer
-and either <code>asynchttpclient.k8sSttpClient</code> or <code>httpclient.k8sSttpClient</code>.</p><p>Instead of manually providing the configuration, zio-config descriptors are available to load them from any
-supported source.
+      <p class="shortcomment cmt">Contains data structures, ZIO layers and zio-config descriptors for configuring the zio-k8s
+client.</p><div class="fullcomment"><div class="comment cmt"><p>Contains data structures, ZIO layers and zio-config descriptors for configuring the zio-k8s
+client.</p><p>Each zio-k8s client module depends on two ZIO modules:
+<a href="../model/package$$K8sCluster.html" class="extype" name="com.coralogix.zio.k8s.client.model.K8sCluster">com.coralogix.zio.k8s.client.model.K8sCluster</a> and an <a href="https://javadoc.io/page/com.softwaremill.sttp.client3/core_2.12/3.3.15/sttp/client3/SttpBackend.html" class="extype" name="sttp.client3.SttpBackend">sttp.client3.SttpBackend</a>. To use
+the default configuration (use kubeconfig if available, otherwise fallback to service account
+token), use either <code>asynchttpclient.k8sDefault</code> or <code>httpclient.k8sDefault</code> depending on your
+chosen sttp backend.</p><p>Manual configuration is possible by providing a <a href="../config/package$$K8sClusterConfig.html" class="extype" name="com.coralogix.zio.k8s.client.config.K8sClusterConfig">K8sClusterConfig</a> value to both the
+<a href="../config/index.html#k8sCluster:zio.ZLayer[zio.blocking.Blockingwithzio.Has[com.coralogix.zio.k8s.client.config.package.K8sClusterConfig],Throwable,zio.Has[com.coralogix.zio.k8s.client.model.K8sCluster]]" class="extmbr" name="com.coralogix.zio.k8s.client.config#k8sCluster">k8sCluster</a> layer and either <code>asynchttpclient.k8sSttpClient</code> or <code>httpclient.k8sSttpClient</code>.</p><p>Instead of manually providing the configuration, zio-config descriptors are available to load
+them from any supported source.
 </p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="com.coralogix.zio.k8s.client">client</a></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.client.coordination" visbl="pub" class="indented6 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="coordination"></a><a id="coordination:coordination"></a>
@@ -359,22 +363,6 @@ supported source.
       </span>
       <span class="symbol">
         <a title="" href="../events/index.html"><span class="name">events</span></a>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="com.coralogix.zio.k8s.client">client</a></dd></dl></div>
-    </li><li name="com.coralogix.zio.k8s.client.extensions" visbl="pub" class="indented6 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="extensions"></a><a id="extensions:extensions"></a>
-      <span class="permalink">
-      <a href="../../../../../../com/coralogix/zio/k8s/client/extensions/index.html" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">package</span>
-      </span>
-      <span class="symbol">
-        <a title="" href="../extensions/index.html"><span class="name">extensions</span></a>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="com.coralogix.zio.k8s.client">client</a></dd></dl></div>
@@ -660,7 +648,8 @@ supported source.
         <a title="Implementation of Resource and ResourceDeleteAll to be used from unit tests" href="TestResourceClient.html"><span class="name">TestResourceClient</span></a><span class="tparams">[<span name="T">T</span>]</span><span class="result"> extends <a href="../Resource.html" class="extype" name="com.coralogix.zio.k8s.client.Resource">Resource</a>[<span class="extype" name="com.coralogix.zio.k8s.client.test.TestResourceClient.T">T</span>] with <a href="../ResourceDeleteAll.html" class="extype" name="com.coralogix.zio.k8s.client.ResourceDeleteAll">ResourceDeleteAll</a>[<span class="extype" name="com.coralogix.zio.k8s.client.test.TestResourceClient.T">T</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">Implementation of <a href="../Resource.html" class="extype" name="com.coralogix.zio.k8s.client.Resource">Resource</a> and <a href="../ResourceDeleteAll.html" class="extype" name="com.coralogix.zio.k8s.client.ResourceDeleteAll">ResourceDeleteAll</a> to be used from unit tests</p><div class="fullcomment"><div class="comment cmt"><p>Implementation of <a href="../Resource.html" class="extype" name="com.coralogix.zio.k8s.client.Resource">Resource</a> and <a href="../ResourceDeleteAll.html" class="extype" name="com.coralogix.zio.k8s.client.ResourceDeleteAll">ResourceDeleteAll</a> to be used from unit tests</p></div><dl class="paramcmts block"><dt class="tparam">T</dt><dd class="cmt"><p>Resource type</p></dd></dl></div>
+      <p class="shortcomment cmt">Implementation of <a href="../Resource.html" class="extype" name="com.coralogix.zio.k8s.client.Resource">Resource</a> and <a href="../ResourceDeleteAll.html" class="extype" name="com.coralogix.zio.k8s.client.ResourceDeleteAll">ResourceDeleteAll</a> to be used from unit tests</p><div class="fullcomment"><div class="comment cmt"><p>Implementation of <a href="../Resource.html" class="extype" name="com.coralogix.zio.k8s.client.Resource">Resource</a> and <a href="../ResourceDeleteAll.html" class="extype" name="com.coralogix.zio.k8s.client.ResourceDeleteAll">ResourceDeleteAll</a> to be used from unit tests</p></div><dl class="paramcmts block"><dt class="tparam">T</dt><dd class="cmt"><p>
+  Resource type</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.client.test.TestResourceStatusClient" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="TestResourceStatusClient[StatusT,T]extendsResourceStatus[StatusT,T]"></a><a id="TestResourceStatusClient[StatusT,T]:TestResourceStatusClient[StatusT,T]"></a>
       <span class="permalink">
@@ -676,7 +665,9 @@ supported source.
         <a title="Test implementation of ResourceStatus to be used from unit tests" href="TestResourceStatusClient.html"><span class="name">TestResourceStatusClient</span></a><span class="tparams">[<span name="StatusT">StatusT</span>, <span name="T">T</span>]</span><span class="result"> extends <a href="../ResourceStatus.html" class="extype" name="com.coralogix.zio.k8s.client.ResourceStatus">ResourceStatus</a>[<span class="extype" name="com.coralogix.zio.k8s.client.test.TestResourceStatusClient.StatusT">StatusT</span>, <span class="extype" name="com.coralogix.zio.k8s.client.test.TestResourceStatusClient.T">T</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">Test implementation of <a href="../ResourceStatus.html" class="extype" name="com.coralogix.zio.k8s.client.ResourceStatus">ResourceStatus</a> to be used from unit tests</p><div class="fullcomment"><div class="comment cmt"><p>Test implementation of <a href="../ResourceStatus.html" class="extype" name="com.coralogix.zio.k8s.client.ResourceStatus">ResourceStatus</a> to be used from unit tests</p></div><dl class="paramcmts block"><dt class="tparam">StatusT</dt><dd class="cmt"><p>Status subresource type</p></dd><dt class="tparam">T</dt><dd class="cmt"><p>Resource type</p></dd></dl></div>
+      <p class="shortcomment cmt">Test implementation of <a href="../ResourceStatus.html" class="extype" name="com.coralogix.zio.k8s.client.ResourceStatus">ResourceStatus</a> to be used from unit tests</p><div class="fullcomment"><div class="comment cmt"><p>Test implementation of <a href="../ResourceStatus.html" class="extype" name="com.coralogix.zio.k8s.client.ResourceStatus">ResourceStatus</a> to be used from unit tests</p></div><dl class="paramcmts block"><dt class="tparam">StatusT</dt><dd class="cmt"><p>
+  Status subresource type</p></dd><dt class="tparam">T</dt><dd class="cmt"><p>
+  Resource type</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.client.test.TestSubresourceClient" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="TestSubresourceClient[T]extendsSubresource[T]"></a><a id="TestSubresourceClient[T]:TestSubresourceClient[T]"></a>
       <span class="permalink">
@@ -692,7 +683,8 @@ supported source.
         <a title="Test implementation of Subresource to be used from unit tests" href="TestSubresourceClient.html"><span class="name">TestSubresourceClient</span></a><span class="tparams">[<span name="T">T</span>]</span><span class="result"> extends <a href="../Subresource.html" class="extype" name="com.coralogix.zio.k8s.client.Subresource">Subresource</a>[<span class="extype" name="com.coralogix.zio.k8s.client.test.TestSubresourceClient.T">T</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">Test implementation of <a href="../Subresource.html" class="extype" name="com.coralogix.zio.k8s.client.Subresource">Subresource</a> to be used from unit tests</p><div class="fullcomment"><div class="comment cmt"><p>Test implementation of <a href="../Subresource.html" class="extype" name="com.coralogix.zio.k8s.client.Subresource">Subresource</a> to be used from unit tests</p></div><dl class="paramcmts block"><dt class="tparam">T</dt><dd class="cmt"><p>Subresource type</p></dd></dl></div>
+      <p class="shortcomment cmt">Test implementation of <a href="../Subresource.html" class="extype" name="com.coralogix.zio.k8s.client.Subresource">Subresource</a> to be used from unit tests</p><div class="fullcomment"><div class="comment cmt"><p>Test implementation of <a href="../Subresource.html" class="extype" name="com.coralogix.zio.k8s.client.Subresource">Subresource</a> to be used from unit tests</p></div><dl class="paramcmts block"><dt class="tparam">T</dt><dd class="cmt"><p>
+  Subresource type</p></dd></dl></div>
     </li></ol>
             </div>
 

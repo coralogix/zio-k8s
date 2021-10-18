@@ -226,6 +226,14 @@
                         <a class="class" href="IngressClassFields.html" title=""></a>
                         <a href="IngressClassFields.html" title="">IngressClassFields</a>
                       </li><li class="current-entities indented7">
+                        <a class="object" href="IngressClassParametersReference$.html" title=""></a>
+                        <a class="class" href="IngressClassParametersReference.html" title="IngressClassParametersReference identifies an API object."></a>
+                        <a href="IngressClassParametersReference.html" title="IngressClassParametersReference identifies an API object.">IngressClassParametersReference</a>
+                      </li><li class="current-entities indented7">
+                        <span class="separator"></span>
+                        <a class="class" href="IngressClassParametersReferenceFields.html" title=""></a>
+                        <a href="IngressClassParametersReferenceFields.html" title="">IngressClassParametersReferenceFields</a>
+                      </li><li class="current-entities indented7">
                         <a class="object" href="IngressClassSpec$.html" title=""></a>
                         <a class="class" href="IngressClassSpec.html" title="IngressClassSpec provides information about the class of an Ingress."></a>
                         <a href="IngressClassSpec.html" title="IngressClassSpec provides information about the class of an Ingress.">IngressClassSpec</a>
@@ -364,7 +372,28 @@
 
       
           <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>NetworkPolicySpec provides the specification of a NetworkPolicy
-</p></div><dl class="paramcmts block"><dt class="param">egress</dt><dd class="cmt"><p>List of egress rules to be applied to the selected pods. Outgoing traffic is allowed if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic matches at least one egress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy limits all outgoing traffic (and serves solely to ensure that the pods it selects are isolated by default). This field is beta-level in 1.8</p></dd><dt class="param">ingress</dt><dd class="cmt"><p>List of ingress rules to be applied to the selected pods. Traffic is allowed to a pod if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic source is the pod's local node, OR if the traffic matches at least one ingress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy does not allow any traffic (and serves solely to ensure that the pods it selects are isolated by default)</p></dd><dt class="param">policyTypes</dt><dd class="cmt"><p>List of rule types that the NetworkPolicy relates to. Valid options are &quot;Ingress&quot;, &quot;Egress&quot;, or &quot;Ingress,Egress&quot;. If this field is not specified, it will default based on the existence of Ingress or Egress rules; policies that contain an Egress section are assumed to affect Egress, and all policies (whether or not they contain an Ingress section) are assumed to affect Ingress. If you want to write an egress-only policy, you must explicitly specify policyTypes [ &quot;Egress&quot; ]. Likewise, if you want to write a policy that specifies that no egress is allowed, you must specify a policyTypes value that include &quot;Egress&quot; (since such a policy would not include an Egress section and would otherwise default to just [ &quot;Ingress&quot; ]). This field is beta-level in 1.8</p></dd></dl><div class="toggleContainer block">
+</p></div><dl class="paramcmts block"><dt class="param">egress</dt><dd class="cmt"><p>
+  List of egress rules to be applied to the selected pods. Outgoing traffic is allowed if there
+  are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR
+  if the traffic matches at least one egress rule across all of the NetworkPolicy objects whose
+  podSelector matches the pod. If this field is empty then this NetworkPolicy limits all
+  outgoing traffic (and serves solely to ensure that the pods it selects are isolated by
+  default). This field is beta-level in 1.8</p></dd><dt class="param">ingress</dt><dd class="cmt"><p>
+  List of ingress rules to be applied to the selected pods. Traffic is allowed to a pod if there
+  are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR
+  if the traffic source is the pod's local node, OR if the traffic matches at least one ingress
+  rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field
+  is empty then this NetworkPolicy does not allow any traffic (and serves solely to ensure that
+  the pods it selects are isolated by default)</p></dd><dt class="param">policyTypes</dt><dd class="cmt"><p>
+  List of rule types that the NetworkPolicy relates to. Valid options are [&quot;Ingress&quot;],
+  [&quot;Egress&quot;], or [&quot;Ingress&quot;, &quot;Egress&quot;]. If this field is not specified, it will default based on
+  the existence of Ingress or Egress rules; policies that contain an Egress section are assumed
+  to affect Egress, and all policies (whether or not they contain an Ingress section) are
+  assumed to affect Ingress. If you want to write an egress-only policy, you must explicitly
+  specify policyTypes [ &quot;Egress&quot; ]. Likewise, if you want to write a policy that specifies that
+  no egress is allowed, you must specify a policyTypes value that include &quot;Egress&quot; (since such a
+  policy would not include an Egress section and would otherwise default to just [ &quot;Ingress&quot; ]).
+  This field is beta-level in 1.8</p></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -429,7 +458,28 @@
         <span class="name">NetworkPolicySpec</span><span class="params">(<span name="egress">egress: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="NetworkPolicyEgressRule.html" class="extype" name="com.coralogix.zio.k8s.model.networking.v1.NetworkPolicyEgressRule">NetworkPolicyEgressRule</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="ingress">ingress: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="NetworkPolicyIngressRule.html" class="extype" name="com.coralogix.zio.k8s.model.networking.v1.NetworkPolicyIngressRule">NetworkPolicyIngressRule</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="podSelector">podSelector: <a href="../../pkg/apis/meta/v1/LabelSelector.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.LabelSelector">LabelSelector</a></span>, <span name="policyTypes">policyTypes: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span>
       </span>
       
-      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">egress</dt><dd class="cmt"><p>List of egress rules to be applied to the selected pods. Outgoing traffic is allowed if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic matches at least one egress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy limits all outgoing traffic (and serves solely to ensure that the pods it selects are isolated by default). This field is beta-level in 1.8</p></dd><dt class="param">ingress</dt><dd class="cmt"><p>List of ingress rules to be applied to the selected pods. Traffic is allowed to a pod if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic source is the pod's local node, OR if the traffic matches at least one ingress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy does not allow any traffic (and serves solely to ensure that the pods it selects are isolated by default)</p></dd><dt class="param">policyTypes</dt><dd class="cmt"><p>List of rule types that the NetworkPolicy relates to. Valid options are &quot;Ingress&quot;, &quot;Egress&quot;, or &quot;Ingress,Egress&quot;. If this field is not specified, it will default based on the existence of Ingress or Egress rules; policies that contain an Egress section are assumed to affect Egress, and all policies (whether or not they contain an Ingress section) are assumed to affect Ingress. If you want to write an egress-only policy, you must explicitly specify policyTypes [ &quot;Egress&quot; ]. Likewise, if you want to write a policy that specifies that no egress is allowed, you must specify a policyTypes value that include &quot;Egress&quot; (since such a policy would not include an Egress section and would otherwise default to just [ &quot;Ingress&quot; ]). This field is beta-level in 1.8</p></dd></dl></div>
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">egress</dt><dd class="cmt"><p>
+  List of egress rules to be applied to the selected pods. Outgoing traffic is allowed if there
+  are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR
+  if the traffic matches at least one egress rule across all of the NetworkPolicy objects whose
+  podSelector matches the pod. If this field is empty then this NetworkPolicy limits all
+  outgoing traffic (and serves solely to ensure that the pods it selects are isolated by
+  default). This field is beta-level in 1.8</p></dd><dt class="param">ingress</dt><dd class="cmt"><p>
+  List of ingress rules to be applied to the selected pods. Traffic is allowed to a pod if there
+  are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR
+  if the traffic source is the pod's local node, OR if the traffic matches at least one ingress
+  rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field
+  is empty then this NetworkPolicy does not allow any traffic (and serves solely to ensure that
+  the pods it selects are isolated by default)</p></dd><dt class="param">policyTypes</dt><dd class="cmt"><p>
+  List of rule types that the NetworkPolicy relates to. Valid options are [&quot;Ingress&quot;],
+  [&quot;Egress&quot;], or [&quot;Ingress&quot;, &quot;Egress&quot;]. If this field is not specified, it will default based on
+  the existence of Ingress or Egress rules; policies that contain an Egress section are assumed
+  to affect Egress, and all policies (whether or not they contain an Ingress section) are
+  assumed to affect Ingress. If you want to write an egress-only policy, you must explicitly
+  specify policyTypes [ &quot;Egress&quot; ]. Likewise, if you want to write a policy that specifies that
+  no egress is allowed, you must specify a policyTypes value that include &quot;Egress&quot; (since such a
+  policy would not include an Egress section and would otherwise default to just [ &quot;Ingress&quot; ]).
+  This field is beta-level in 1.8</p></dd></dl></div>
     </li></ol>
             </div>
 
@@ -598,7 +648,12 @@
         <span class="name">getEgress</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Vector">Vector</span>[<a href="NetworkPolicyEgressRule.html" class="extype" name="com.coralogix.zio.k8s.model.networking.v1.NetworkPolicyEgressRule">NetworkPolicyEgressRule</a>]]</span>
       </span>
       
-      <p class="shortcomment cmt">List of egress rules to be applied to the selected pods.</p><div class="fullcomment"><div class="comment cmt"><p>List of egress rules to be applied to the selected pods. Outgoing traffic is allowed if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic matches at least one egress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy limits all outgoing traffic (and serves solely to ensure that the pods it selects are isolated by default). This field is beta-level in 1.8</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">List of egress rules to be applied to the selected pods.</p><div class="fullcomment"><div class="comment cmt"><p>List of egress rules to be applied to the selected pods. Outgoing traffic is allowed if there
+are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR
+if the traffic matches at least one egress rule across all of the NetworkPolicy objects whose
+podSelector matches the pod. If this field is empty then this NetworkPolicy limits all
+outgoing traffic (and serves solely to ensure that the pods it selects are isolated by
+default). This field is beta-level in 1.8</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.networking.v1.NetworkPolicySpec#getIngress" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getIngress:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Vector[com.coralogix.zio.k8s.model.networking.v1.NetworkPolicyIngressRule]]"></a><a id="getIngress:IO[K8sFailure,Vector[NetworkPolicyIngressRule]]"></a>
@@ -615,7 +670,12 @@
         <span class="name">getIngress</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Vector">Vector</span>[<a href="NetworkPolicyIngressRule.html" class="extype" name="com.coralogix.zio.k8s.model.networking.v1.NetworkPolicyIngressRule">NetworkPolicyIngressRule</a>]]</span>
       </span>
       
-      <p class="shortcomment cmt">List of ingress rules to be applied to the selected pods.</p><div class="fullcomment"><div class="comment cmt"><p>List of ingress rules to be applied to the selected pods. Traffic is allowed to a pod if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic source is the pod's local node, OR if the traffic matches at least one ingress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy does not allow any traffic (and serves solely to ensure that the pods it selects are isolated by default)</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">List of ingress rules to be applied to the selected pods.</p><div class="fullcomment"><div class="comment cmt"><p>List of ingress rules to be applied to the selected pods. Traffic is allowed to a pod if there
+are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR
+if the traffic source is the pod's local node, OR if the traffic matches at least one ingress
+rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field
+is empty then this NetworkPolicy does not allow any traffic (and serves solely to ensure that
+the pods it selects are isolated by default)</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.networking.v1.NetworkPolicySpec#getPodSelector" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getPodSelector:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.model.pkg.apis.meta.v1.LabelSelector]"></a><a id="getPodSelector:IO[K8sFailure,LabelSelector]"></a>
@@ -649,7 +709,15 @@
         <span class="name">getPolicyTypes</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]]</span>
       </span>
       
-      <p class="shortcomment cmt">List of rule types that the NetworkPolicy relates to.</p><div class="fullcomment"><div class="comment cmt"><p>List of rule types that the NetworkPolicy relates to. Valid options are &quot;Ingress&quot;, &quot;Egress&quot;, or &quot;Ingress,Egress&quot;. If this field is not specified, it will default based on the existence of Ingress or Egress rules; policies that contain an Egress section are assumed to affect Egress, and all policies (whether or not they contain an Ingress section) are assumed to affect Ingress. If you want to write an egress-only policy, you must explicitly specify policyTypes [ &quot;Egress&quot; ]. Likewise, if you want to write a policy that specifies that no egress is allowed, you must specify a policyTypes value that include &quot;Egress&quot; (since such a policy would not include an Egress section and would otherwise default to just [ &quot;Ingress&quot; ]). This field is beta-level in 1.8</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">List of rule types that the NetworkPolicy relates to.</p><div class="fullcomment"><div class="comment cmt"><p>List of rule types that the NetworkPolicy relates to. Valid options are [&quot;Ingress&quot;],
+[&quot;Egress&quot;], or [&quot;Ingress&quot;, &quot;Egress&quot;]. If this field is not specified, it will default based on
+the existence of Ingress or Egress rules; policies that contain an Egress section are assumed
+to affect Egress, and all policies (whether or not they contain an Ingress section) are
+assumed to affect Ingress. If you want to write an egress-only policy, you must explicitly
+specify policyTypes [ &quot;Egress&quot; ]. Likewise, if you want to write a policy that specifies that
+no egress is allowed, you must specify a policyTypes value that include &quot;Egress&quot; (since such a
+policy would not include an Egress section and would otherwise default to just [ &quot;Ingress&quot; ]).
+This field is beta-level in 1.8</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.networking.v1.NetworkPolicySpec#ingress" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="ingress:com.coralogix.zio.k8s.client.model.Optional[Vector[com.coralogix.zio.k8s.model.networking.v1.NetworkPolicyIngressRule]]"></a><a id="ingress:Optional[Vector[NetworkPolicyIngressRule]]"></a>

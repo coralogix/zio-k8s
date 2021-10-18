@@ -165,6 +165,22 @@
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../index.html" class="extype" name="com.coralogix.zio.k8s.model">model</a></dd></dl></div>
+    </li><li name="com.coralogix.zio.k8s.model.policy.v1" visbl="pub" class="indented7 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="v1"></a><a id="v1:v1"></a>
+      <span class="permalink">
+      <a href="../../../../../../../com/coralogix/zio/k8s/model/policy/v1/index.html" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="../v1/index.html"><span class="name">v1</span></a>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="com.coralogix.zio.k8s.model.policy">policy</a></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.policy.v1beta1" visbl="pub" class="indented7 current" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="v1beta1"></a><a id="v1beta1:v1beta1"></a>
       <span class="permalink">
@@ -205,14 +221,6 @@
                         <span class="separator"></span>
                         <a class="class" href="AllowedHostPathFields.html" title=""></a>
                         <a href="AllowedHostPathFields.html" title="">AllowedHostPathFields</a>
-                      </li><li class="current-entities indented7">
-                        <a class="object" href="Eviction$.html" title=""></a>
-                        <a class="class" href="Eviction.html" title="Eviction evicts a pod from its node subject to certain policies and safety constraints."></a>
-                        <a href="Eviction.html" title="Eviction evicts a pod from its node subject to certain policies and safety constraints.">Eviction</a>
-                      </li><li class="current-entities indented7">
-                        <span class="separator"></span>
-                        <a class="class" href="EvictionFields.html" title=""></a>
-                        <a href="EvictionFields.html" title="">EvictionFields</a>
                       </li><li class="current-entities indented7">
                         <a class="object" href="FSGroupStrategyOptions$.html" title=""></a>
                         <a class="class" href="FSGroupStrategyOptions.html" title="FSGroupStrategyOptions defines the strategy type and options used to create the strategy."></a>
@@ -396,7 +404,8 @@
       </span>
       
       <p class="shortcomment cmt">AllowedCSIDriver represents a single inline CSI Driver that is allowed to be used.</p><div class="fullcomment"><div class="comment cmt"><p>AllowedCSIDriver represents a single inline CSI Driver that is allowed to be used.
-</p></div><dl class="paramcmts block"><dt class="param">name</dt><dd class="cmt"><p>Name is the registered name of the CSI driver</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="param">name</dt><dd class="cmt"><p>
+  Name is the registered name of the CSI driver</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.policy.v1beta1.AllowedCSIDriverFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="AllowedCSIDriverFieldsextendsAnyRef"></a><a id="AllowedCSIDriverFields:AllowedCSIDriverFields"></a>
       <span class="permalink">
@@ -429,7 +438,8 @@
       </span>
       
       <p class="shortcomment cmt">AllowedFlexVolume represents a single Flexvolume that is allowed to be used.</p><div class="fullcomment"><div class="comment cmt"><p>AllowedFlexVolume represents a single Flexvolume that is allowed to be used.
-</p></div><dl class="paramcmts block"><dt class="param">driver</dt><dd class="cmt"><p>driver is the name of the Flexvolume driver.</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="param">driver</dt><dd class="cmt"><p>
+  driver is the name of the Flexvolume driver.</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.policy.v1beta1.AllowedFlexVolumeFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="AllowedFlexVolumeFieldsextendsAnyRef"></a><a id="AllowedFlexVolumeFields:AllowedFlexVolumeFields"></a>
       <span class="permalink">
@@ -461,9 +471,16 @@
         <a title="AllowedHostPath defines the host volume conditions that will be enabled by a policy for pods to use." href="AllowedHostPath.html"><span class="name">AllowedHostPath</span></a><span class="params">(<span name="pathPrefix">pathPrefix: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="readOnly">readOnly: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Boolean">Boolean</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
-      <p class="shortcomment cmt">AllowedHostPath defines the host volume conditions that will be enabled by a policy for pods to use.</p><div class="fullcomment"><div class="comment cmt"><p>AllowedHostPath defines the host volume conditions that will be enabled by a policy for pods to use. It requires the path prefix to be defined.
-</p></div><dl class="paramcmts block"><dt class="param">pathPrefix</dt><dd class="cmt"><p>pathPrefix is the path prefix that the host volume must match. It does not support <code>*</code>. Trailing slashes are trimmed when validating the path prefix with a host path.
-Examples: <code>/foo</code> would allow <code>/foo</code>, <code>/foo/</code> and <code>/foo/bar</code> <code>/foo</code> would not allow <code>/food</code> or <code>/etc/foo</code></p></dd><dt class="param">readOnly</dt><dd class="cmt"><p>when set to true, will allow host volumes matching the pathPrefix only if all volume mounts are readOnly.</p></dd></dl></div>
+      <p class="shortcomment cmt">AllowedHostPath defines the host volume conditions that will be enabled by a policy for pods to
+use.</p><div class="fullcomment"><div class="comment cmt"><p>AllowedHostPath defines the host volume conditions that will be enabled by a policy for pods to
+use. It requires the path prefix to be defined.
+</p></div><dl class="paramcmts block"><dt class="param">pathPrefix</dt><dd class="cmt"><p>
+  pathPrefix is the path prefix that the host volume must match. It does not support <code>*</code>.
+  Trailing slashes are trimmed when validating the path prefix with a host path.
+Examples: <code>/foo</code> would allow <code>/foo</code>, <code>/foo/</code> and <code>/foo/bar</code> <code>/foo</code> would not allow <code>/food</code> or
+<code>/etc/foo</code></p></dd><dt class="param">readOnly</dt><dd class="cmt"><p>
+  when set to true, will allow host volumes matching the pathPrefix only if all volume mounts
+  are readOnly.</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.policy.v1beta1.AllowedHostPathFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="AllowedHostPathFieldsextendsAnyRef"></a><a id="AllowedHostPathFields:AllowedHostPathFields"></a>
       <span class="permalink">
@@ -477,39 +494,6 @@ Examples: <code>/foo</code> would allow <code>/foo</code>, <code>/foo/</code> an
       </span>
       <span class="symbol">
         <a title="" href="AllowedHostPathFields.html"><span class="name">AllowedHostPathFields</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
-      </span>
-      
-      
-    </li><li name="com.coralogix.zio.k8s.model.policy.v1beta1.Eviction" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="EvictionextendsProductwithSerializable"></a><a id="Eviction:Eviction"></a>
-      <span class="permalink">
-      <a href="../../../../../../../com/coralogix/zio/k8s/model/policy/v1beta1/Eviction.html" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">case class</span>
-      </span>
-      <span class="symbol">
-        <a title="Eviction evicts a pod from its node subject to certain policies and safety constraints." href="Eviction.html"><span class="name">Eviction</span></a><span class="params">(<span name="deleteOptions">deleteOptions: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="../../pkg/apis/meta/v1/DeleteOptions.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.DeleteOptions">DeleteOptions</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="metadata">metadata: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="../../pkg/apis/meta/v1/ObjectMeta.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.ObjectMeta">ObjectMeta</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
-      </span>
-      
-      <p class="shortcomment cmt">Eviction evicts a pod from its node subject to certain policies and safety constraints.</p><div class="fullcomment"><div class="comment cmt"><p>Eviction evicts a pod from its node subject to certain policies and safety constraints. This is a subresource of Pod.  A request to cause such an eviction is created by POSTing to .../pods/&lt;pod name&gt;/evictions.
-</p></div></div>
-    </li><li name="com.coralogix.zio.k8s.model.policy.v1beta1.EvictionFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="EvictionFieldsextendsAnyRef"></a><a id="EvictionFields:EvictionFields"></a>
-      <span class="permalink">
-      <a href="../../../../../../../com/coralogix/zio/k8s/model/policy/v1beta1/EvictionFields.html" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">class</span>
-      </span>
-      <span class="symbol">
-        <a title="" href="EvictionFields.html"><span class="name">EvictionFields</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       
       
@@ -529,7 +513,10 @@ Examples: <code>/foo</code> would allow <code>/foo</code>, <code>/foo/</code> an
       </span>
       
       <p class="shortcomment cmt">FSGroupStrategyOptions defines the strategy type and options used to create the strategy.</p><div class="fullcomment"><div class="comment cmt"><p>FSGroupStrategyOptions defines the strategy type and options used to create the strategy.
-</p></div><dl class="paramcmts block"><dt class="param">ranges</dt><dd class="cmt"><p>ranges are the allowed ranges of fs groups.  If you would like to force a single fs group then supply a single range with the same start and end. Required for MustRunAs.</p></dd><dt class="param">rule</dt><dd class="cmt"><p>rule is the strategy that will dictate what FSGroup is used in the SecurityContext.</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="param">ranges</dt><dd class="cmt"><p>
+  ranges are the allowed ranges of fs groups. If you would like to force a single fs group then
+  supply a single range with the same start and end. Required for MustRunAs.</p></dd><dt class="param">rule</dt><dd class="cmt"><p>
+  rule is the strategy that will dictate what FSGroup is used in the SecurityContext.</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.policy.v1beta1.FSGroupStrategyOptionsFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="FSGroupStrategyOptionsFieldsextendsAnyRef"></a><a id="FSGroupStrategyOptionsFields:FSGroupStrategyOptionsFields"></a>
       <span class="permalink">
@@ -561,8 +548,11 @@ Examples: <code>/foo</code> would allow <code>/foo</code>, <code>/foo/</code> an
         <a title="HostPortRange defines a range of host ports that will be enabled by a policy for pods to use." href="HostPortRange.html"><span class="name">HostPortRange</span></a><span class="params">(<span name="max">max: <span class="extype" name="scala.Int">Int</span></span>, <span name="min">min: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
-      <p class="shortcomment cmt">HostPortRange defines a range of host ports that will be enabled by a policy for pods to use.</p><div class="fullcomment"><div class="comment cmt"><p>HostPortRange defines a range of host ports that will be enabled by a policy for pods to use.  It requires both the start and end to be defined.
-</p></div><dl class="paramcmts block"><dt class="param">max</dt><dd class="cmt"><p>max is the end of the range, inclusive.</p></dd><dt class="param">min</dt><dd class="cmt"><p>min is the start of the range, inclusive.</p></dd></dl></div>
+      <p class="shortcomment cmt">HostPortRange defines a range of host ports that will be enabled by a policy for pods to use.</p><div class="fullcomment"><div class="comment cmt"><p>HostPortRange defines a range of host ports that will be enabled by a policy for pods to use. It
+requires both the start and end to be defined.
+</p></div><dl class="paramcmts block"><dt class="param">max</dt><dd class="cmt"><p>
+  max is the end of the range, inclusive.</p></dd><dt class="param">min</dt><dd class="cmt"><p>
+  min is the start of the range, inclusive.</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.policy.v1beta1.HostPortRangeFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="HostPortRangeFieldsextendsAnyRef"></a><a id="HostPortRangeFields:HostPortRangeFields"></a>
       <span class="permalink">
@@ -595,7 +585,9 @@ Examples: <code>/foo</code> would allow <code>/foo</code>, <code>/foo/</code> an
       </span>
       
       <p class="shortcomment cmt">IDRange provides a min/max of an allowed range of IDs.</p><div class="fullcomment"><div class="comment cmt"><p>IDRange provides a min/max of an allowed range of IDs.
-</p></div><dl class="paramcmts block"><dt class="param">max</dt><dd class="cmt"><p>max is the end of the range, inclusive.</p></dd><dt class="param">min</dt><dd class="cmt"><p>min is the start of the range, inclusive.</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="param">max</dt><dd class="cmt"><p>
+  max is the end of the range, inclusive.</p></dd><dt class="param">min</dt><dd class="cmt"><p>
+  min is the start of the range, inclusive.</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.policy.v1beta1.IDRangeFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="IDRangeFieldsextendsAnyRef"></a><a id="IDRangeFields:IDRangeFields"></a>
       <span class="permalink">
@@ -627,7 +619,8 @@ Examples: <code>/foo</code> would allow <code>/foo</code>, <code>/foo/</code> an
         <a title="PodDisruptionBudget is an object to define the max disruption that can be caused to a collection of pods" href="PodDisruptionBudget.html"><span class="name">PodDisruptionBudget</span></a><span class="params">(<span name="metadata">metadata: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="../../pkg/apis/meta/v1/ObjectMeta.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.ObjectMeta">ObjectMeta</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="spec">spec: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="PodDisruptionBudgetSpec.html" class="extype" name="com.coralogix.zio.k8s.model.policy.v1beta1.PodDisruptionBudgetSpec">PodDisruptionBudgetSpec</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="status">status: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="PodDisruptionBudgetStatus.html" class="extype" name="com.coralogix.zio.k8s.model.policy.v1beta1.PodDisruptionBudgetStatus">PodDisruptionBudgetStatus</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
-      <p class="shortcomment cmt">PodDisruptionBudget is an object to define the max disruption that can be caused to a collection of pods
+      <p class="shortcomment cmt">PodDisruptionBudget is an object to define the max disruption that can be caused to a collection
+of pods
 </p>
     </li><li name="com.coralogix.zio.k8s.model.policy.v1beta1.PodDisruptionBudgetFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="PodDisruptionBudgetFieldsextendsAnyRef"></a><a id="PodDisruptionBudgetFields:PodDisruptionBudgetFields"></a>
@@ -689,11 +682,37 @@ Examples: <code>/foo</code> would allow <code>/foo</code>, <code>/foo/</code> an
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a title="PodDisruptionBudgetStatus represents information about the status of a PodDisruptionBudget." href="PodDisruptionBudgetStatus.html"><span class="name">PodDisruptionBudgetStatus</span></a><span class="params">(<span name="currentHealthy">currentHealthy: <span class="extype" name="scala.Int">Int</span></span>, <span name="desiredHealthy">desiredHealthy: <span class="extype" name="scala.Int">Int</span></span>, <span name="disruptedPods">disruptedPods: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <a href="../../pkg/apis/meta/v1/Time.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Time">Time</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="disruptionsAllowed">disruptionsAllowed: <span class="extype" name="scala.Int">Int</span></span>, <span name="expectedPods">expectedPods: <span class="extype" name="scala.Int">Int</span></span>, <span name="observedGeneration">observedGeneration: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Long">Long</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a title="PodDisruptionBudgetStatus represents information about the status of a PodDisruptionBudget." href="PodDisruptionBudgetStatus.html"><span class="name">PodDisruptionBudgetStatus</span></a><span class="params">(<span name="conditions">conditions: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="../../pkg/apis/meta/v1/Condition.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Condition">Condition</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="currentHealthy">currentHealthy: <span class="extype" name="scala.Int">Int</span></span>, <span name="desiredHealthy">desiredHealthy: <span class="extype" name="scala.Int">Int</span></span>, <span name="disruptedPods">disruptedPods: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <a href="../../pkg/apis/meta/v1/Time.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Time">Time</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="disruptionsAllowed">disruptionsAllowed: <span class="extype" name="scala.Int">Int</span></span>, <span name="expectedPods">expectedPods: <span class="extype" name="scala.Int">Int</span></span>, <span name="observedGeneration">observedGeneration: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Long">Long</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
-      <p class="shortcomment cmt">PodDisruptionBudgetStatus represents information about the status of a PodDisruptionBudget.</p><div class="fullcomment"><div class="comment cmt"><p>PodDisruptionBudgetStatus represents information about the status of a PodDisruptionBudget. Status may trail the actual state of a system.
-</p></div><dl class="paramcmts block"><dt class="param">currentHealthy</dt><dd class="cmt"><p>current number of healthy pods</p></dd><dt class="param">desiredHealthy</dt><dd class="cmt"><p>minimum desired number of healthy pods</p></dd><dt class="param">disruptedPods</dt><dd class="cmt"><p>DisruptedPods contains information about pods whose eviction was processed by the API server eviction subresource handler but has not yet been observed by the PodDisruptionBudget controller. A pod will be in this map from the time when the API server processed the eviction request to the time when the pod is seen by PDB controller as having been marked for deletion (or after a timeout). The key in the map is the name of the pod and the value is the time when the API server processed the eviction request. If the deletion didn't occur and a pod is still there it will be removed from the list automatically by PodDisruptionBudget controller after some time. If everything goes smooth this map should be empty for the most of the time. Large number of entries in the map may indicate problems with pod deletions.</p></dd><dt class="param">disruptionsAllowed</dt><dd class="cmt"><p>Number of pod disruptions that are currently allowed.</p></dd><dt class="param">expectedPods</dt><dd class="cmt"><p>total number of pods counted by this disruption budget</p></dd><dt class="param">observedGeneration</dt><dd class="cmt"><p>Most recent generation observed when updating this PDB status. DisruptionsAllowed and other status information is valid only if observedGeneration equals to PDB's object generation.</p></dd></dl></div>
+      <p class="shortcomment cmt">PodDisruptionBudgetStatus represents information about the status of a PodDisruptionBudget.</p><div class="fullcomment"><div class="comment cmt"><p>PodDisruptionBudgetStatus represents information about the status of a PodDisruptionBudget.
+Status may trail the actual state of a system.
+</p></div><dl class="paramcmts block"><dt class="param">conditions</dt><dd class="cmt"><p>
+  Conditions contain conditions for PDB. The disruption controller sets the DisruptionAllowed
+  condition. The following are known values for the reason field (additional reasons could be
+  added in the future): - SyncFailed: The controller encountered an error and wasn't able to
+  compute the number of allowed disruptions. Therefore no disruptions are allowed and the status
+  of the condition will be False.
+- InsufficientPods: The number of pods are either at or below the number required by the
+PodDisruptionBudget. No disruptions are allowed and the status of the condition will be False.
+- SufficientPods: There are more pods than required by the PodDisruptionBudget. The condition
+will be True, and the number of allowed disruptions are provided by the disruptionsAllowed
+property.</p></dd><dt class="param">currentHealthy</dt><dd class="cmt"><p>
+  current number of healthy pods</p></dd><dt class="param">desiredHealthy</dt><dd class="cmt"><p>
+  minimum desired number of healthy pods</p></dd><dt class="param">disruptedPods</dt><dd class="cmt"><p>
+  DisruptedPods contains information about pods whose eviction was processed by the API server
+  eviction subresource handler but has not yet been observed by the PodDisruptionBudget
+  controller. A pod will be in this map from the time when the API server processed the eviction
+  request to the time when the pod is seen by PDB controller as having been marked for deletion
+  (or after a timeout). The key in the map is the name of the pod and the value is the time when
+  the API server processed the eviction request. If the deletion didn't occur and a pod is still
+  there it will be removed from the list automatically by PodDisruptionBudget controller after
+  some time. If everything goes smooth this map should be empty for the most of the time. Large
+  number of entries in the map may indicate problems with pod deletions.</p></dd><dt class="param">disruptionsAllowed</dt><dd class="cmt"><p>
+  Number of pod disruptions that are currently allowed.</p></dd><dt class="param">expectedPods</dt><dd class="cmt"><p>
+  total number of pods counted by this disruption budget</p></dd><dt class="param">observedGeneration</dt><dd class="cmt"><p>
+  Most recent generation observed when updating this PDB status. DisruptionsAllowed and other
+  status information is valid only if observedGeneration equals to PDB's object generation.</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.policy.v1beta1.PodDisruptionBudgetStatusFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="PodDisruptionBudgetStatusFieldsextendsAnyRef"></a><a id="PodDisruptionBudgetStatusFields:PodDisruptionBudgetStatusFields"></a>
       <span class="permalink">
@@ -710,7 +729,7 @@ Examples: <code>/foo</code> would allow <code>/foo</code>, <code>/foo/</code> an
       </span>
       
       
-    </li><li name="com.coralogix.zio.k8s.model.policy.v1beta1.PodSecurityPolicy" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="com.coralogix.zio.k8s.model.policy.v1beta1.PodSecurityPolicy" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="PodSecurityPolicyextendsProductwithSerializable"></a><a id="PodSecurityPolicy:PodSecurityPolicy"></a>
       <span class="permalink">
       <a href="../../../../../../../com/coralogix/zio/k8s/model/policy/v1beta1/PodSecurityPolicy.html" title="Permalink">
@@ -725,7 +744,10 @@ Examples: <code>/foo</code> would allow <code>/foo</code>, <code>/foo/</code> an
         <a title="PodSecurityPolicy governs the ability to make requests that affect the Security Context that will be applied to a pod and container." href="PodSecurityPolicy.html"><span class="name">PodSecurityPolicy</span></a><span class="params">(<span name="metadata">metadata: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="../../pkg/apis/meta/v1/ObjectMeta.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.ObjectMeta">ObjectMeta</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="spec">spec: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="PodSecurityPolicySpec.html" class="extype" name="com.coralogix.zio.k8s.model.policy.v1beta1.PodSecurityPolicySpec">PodSecurityPolicySpec</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
-      <p class="shortcomment cmt">PodSecurityPolicy governs the ability to make requests that affect the Security Context that will be applied to a pod and container.</p>
+      <p class="shortcomment cmt">PodSecurityPolicy governs the ability to make requests that affect the Security Context that
+will be applied to a pod and container.</p><div class="fullcomment"><div class="comment cmt"><p>PodSecurityPolicy governs the ability to make requests that affect the Security Context that
+will be applied to a pod and container. Deprecated in 1.21.
+</p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.policy.v1beta1.PodSecurityPolicyFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="PodSecurityPolicyFieldsextendsAnyRef"></a><a id="PodSecurityPolicyFields:PodSecurityPolicyFields"></a>
       <span class="permalink">
@@ -758,9 +780,54 @@ Examples: <code>/foo</code> would allow <code>/foo</code>, <code>/foo/</code> an
       </span>
       
       <p class="shortcomment cmt">PodSecurityPolicySpec defines the policy enforced.</p><div class="fullcomment"><div class="comment cmt"><p>PodSecurityPolicySpec defines the policy enforced.
-</p></div><dl class="paramcmts block"><dt class="param">allowPrivilegeEscalation</dt><dd class="cmt"><p>allowPrivilegeEscalation determines if a pod can request to allow privilege escalation. If unspecified, defaults to true.</p></dd><dt class="param">allowedCSIDrivers</dt><dd class="cmt"><p>AllowedCSIDrivers is an allowlist of inline CSI drivers that must be explicitly set to be embedded within a pod spec. An empty value indicates that any CSI driver can be used for inline ephemeral volumes. This is a beta field, and is only honored if the API server enables the CSIInlineVolume feature gate.</p></dd><dt class="param">allowedCapabilities</dt><dd class="cmt"><p>allowedCapabilities is a list of capabilities that can be requested to add to the container. Capabilities in this field may be added at the pod author's discretion. You must not list a capability in both allowedCapabilities and requiredDropCapabilities.</p></dd><dt class="param">allowedFlexVolumes</dt><dd class="cmt"><p>allowedFlexVolumes is an allowlist of Flexvolumes.  Empty or nil indicates that all Flexvolumes may be used.  This parameter is effective only when the usage of the Flexvolumes is allowed in the &quot;volumes&quot; field.</p></dd><dt class="param">allowedHostPaths</dt><dd class="cmt"><p>allowedHostPaths is an allowlist of host paths. Empty indicates that all host paths may be used.</p></dd><dt class="param">allowedProcMountTypes</dt><dd class="cmt"><p>AllowedProcMountTypes is an allowlist of allowed ProcMountTypes. Empty or nil indicates that only the DefaultProcMountType may be used. This requires the ProcMountType feature flag to be enabled.</p></dd><dt class="param">allowedUnsafeSysctls</dt><dd class="cmt"><p>allowedUnsafeSysctls is a list of explicitly allowed unsafe sysctls, defaults to none. Each entry is either a plain sysctl name or ends in &quot;*&quot; in which case it is considered as a prefix of allowed sysctls. Single * means all unsafe sysctls are allowed. Kubelet has to allowlist all allowed unsafe sysctls explicitly to avoid rejection.
-Examples: e.g. &quot;foo&#47;*&quot; allows &quot;foo/bar&quot;, &quot;foo/baz&quot;, etc. e.g. &quot;foo.*&quot; allows &quot;foo.bar&quot;, &quot;foo.baz&quot;, etc.</p></dd><dt class="param">defaultAddCapabilities</dt><dd class="cmt"><p>defaultAddCapabilities is the default set of capabilities that will be added to the container unless the pod spec specifically drops the capability.  You may not list a capability in both defaultAddCapabilities and requiredDropCapabilities. Capabilities added here are implicitly allowed, and need not be included in the allowedCapabilities list.</p></dd><dt class="param">defaultAllowPrivilegeEscalation</dt><dd class="cmt"><p>defaultAllowPrivilegeEscalation controls the default setting for whether a process can gain more privileges than its parent process.</p></dd><dt class="param">forbiddenSysctls</dt><dd class="cmt"><p>forbiddenSysctls is a list of explicitly forbidden sysctls, defaults to none. Each entry is either a plain sysctl name or ends in &quot;*&quot; in which case it is considered as a prefix of forbidden sysctls. Single * means all sysctls are forbidden.
-Examples: e.g. &quot;foo&#47;*&quot; forbids &quot;foo/bar&quot;, &quot;foo/baz&quot;, etc. e.g. &quot;foo.*&quot; forbids &quot;foo.bar&quot;, &quot;foo.baz&quot;, etc.</p></dd><dt class="param">hostIPC</dt><dd class="cmt"><p>hostIPC determines if the policy allows the use of HostIPC in the pod spec.</p></dd><dt class="param">hostNetwork</dt><dd class="cmt"><p>hostNetwork determines if the policy allows the use of HostNetwork in the pod spec.</p></dd><dt class="param">hostPID</dt><dd class="cmt"><p>hostPID determines if the policy allows the use of HostPID in the pod spec.</p></dd><dt class="param">hostPorts</dt><dd class="cmt"><p>hostPorts determines which host port ranges are allowed to be exposed.</p></dd><dt class="param">privileged</dt><dd class="cmt"><p>privileged determines if a pod can request to be run as privileged.</p></dd><dt class="param">readOnlyRootFilesystem</dt><dd class="cmt"><p>readOnlyRootFilesystem when set to true will force containers to run with a read only root file system.  If the container specifically requests to run with a non-read only root file system the PSP should deny the pod. If set to false the container may run with a read only root file system if it wishes but it will not be forced to.</p></dd><dt class="param">requiredDropCapabilities</dt><dd class="cmt"><p>requiredDropCapabilities are the capabilities that will be dropped from the container.  These are required to be dropped and cannot be added.</p></dd><dt class="param">volumes</dt><dd class="cmt"><p>volumes is an allowlist of volume plugins. Empty indicates that no volumes may be used. To allow all volumes you may use '*'.</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="param">allowPrivilegeEscalation</dt><dd class="cmt"><p>
+  allowPrivilegeEscalation determines if a pod can request to allow privilege escalation. If
+  unspecified, defaults to true.</p></dd><dt class="param">allowedCSIDrivers</dt><dd class="cmt"><p>
+  AllowedCSIDrivers is an allowlist of inline CSI drivers that must be explicitly set to be
+  embedded within a pod spec. An empty value indicates that any CSI driver can be used for
+  inline ephemeral volumes. This is a beta field, and is only honored if the API server enables
+  the CSIInlineVolume feature gate.</p></dd><dt class="param">allowedCapabilities</dt><dd class="cmt"><p>
+  allowedCapabilities is a list of capabilities that can be requested to add to the container.
+  Capabilities in this field may be added at the pod author's discretion. You must not list a
+  capability in both allowedCapabilities and requiredDropCapabilities.</p></dd><dt class="param">allowedFlexVolumes</dt><dd class="cmt"><p>
+  allowedFlexVolumes is an allowlist of Flexvolumes. Empty or nil indicates that all Flexvolumes
+  may be used. This parameter is effective only when the usage of the Flexvolumes is allowed in
+  the &quot;volumes&quot; field.</p></dd><dt class="param">allowedHostPaths</dt><dd class="cmt"><p>
+  allowedHostPaths is an allowlist of host paths. Empty indicates that all host paths may be
+  used.</p></dd><dt class="param">allowedProcMountTypes</dt><dd class="cmt"><p>
+  AllowedProcMountTypes is an allowlist of allowed ProcMountTypes. Empty or nil indicates that
+  only the DefaultProcMountType may be used. This requires the ProcMountType feature flag to be
+  enabled.</p></dd><dt class="param">allowedUnsafeSysctls</dt><dd class="cmt"><p>
+  allowedUnsafeSysctls is a list of explicitly allowed unsafe sysctls, defaults to none. Each
+  entry is either a plain sysctl name or ends in &quot;*&quot; in which case it is considered as a prefix
+  of allowed sysctls. Single * means all unsafe sysctls are allowed. Kubelet has to allowlist
+  all allowed unsafe sysctls explicitly to avoid rejection.
+Examples: e.g. &quot;foo&#47;*&quot; allows &quot;foo/bar&quot;, &quot;foo/baz&quot;, etc. e.g. &quot;foo.*&quot; allows &quot;foo.bar&quot;,
+&quot;foo.baz&quot;, etc.</p></dd><dt class="param">defaultAddCapabilities</dt><dd class="cmt"><p>
+  defaultAddCapabilities is the default set of capabilities that will be added to the container
+  unless the pod spec specifically drops the capability. You may not list a capability in both
+  defaultAddCapabilities and requiredDropCapabilities. Capabilities added here are implicitly
+  allowed, and need not be included in the allowedCapabilities list.</p></dd><dt class="param">defaultAllowPrivilegeEscalation</dt><dd class="cmt"><p>
+  defaultAllowPrivilegeEscalation controls the default setting for whether a process can gain
+  more privileges than its parent process.</p></dd><dt class="param">forbiddenSysctls</dt><dd class="cmt"><p>
+  forbiddenSysctls is a list of explicitly forbidden sysctls, defaults to none. Each entry is
+  either a plain sysctl name or ends in &quot;*&quot; in which case it is considered as a prefix of
+  forbidden sysctls. Single * means all sysctls are forbidden.
+Examples: e.g. &quot;foo&#47;*&quot; forbids &quot;foo/bar&quot;, &quot;foo/baz&quot;, etc. e.g. &quot;foo.*&quot; forbids &quot;foo.bar&quot;,
+&quot;foo.baz&quot;, etc.</p></dd><dt class="param">hostIPC</dt><dd class="cmt"><p>
+  hostIPC determines if the policy allows the use of HostIPC in the pod spec.</p></dd><dt class="param">hostNetwork</dt><dd class="cmt"><p>
+  hostNetwork determines if the policy allows the use of HostNetwork in the pod spec.</p></dd><dt class="param">hostPID</dt><dd class="cmt"><p>
+  hostPID determines if the policy allows the use of HostPID in the pod spec.</p></dd><dt class="param">hostPorts</dt><dd class="cmt"><p>
+  hostPorts determines which host port ranges are allowed to be exposed.</p></dd><dt class="param">privileged</dt><dd class="cmt"><p>
+  privileged determines if a pod can request to be run as privileged.</p></dd><dt class="param">readOnlyRootFilesystem</dt><dd class="cmt"><p>
+  readOnlyRootFilesystem when set to true will force containers to run with a read only root
+  file system. If the container specifically requests to run with a non-read only root file
+  system the PSP should deny the pod. If set to false the container may run with a read only
+  root file system if it wishes but it will not be forced to.</p></dd><dt class="param">requiredDropCapabilities</dt><dd class="cmt"><p>
+  requiredDropCapabilities are the capabilities that will be dropped from the container. These
+  are required to be dropped and cannot be added.</p></dd><dt class="param">volumes</dt><dd class="cmt"><p>
+  volumes is an allowlist of volume plugins. Empty indicates that no volumes may be used. To
+  allow all volumes you may use '*'.</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.policy.v1beta1.PodSecurityPolicySpecFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="PodSecurityPolicySpecFieldsextendsAnyRef"></a><a id="PodSecurityPolicySpecFields:PodSecurityPolicySpecFields"></a>
       <span class="permalink">
@@ -793,7 +860,10 @@ Examples: e.g. &quot;foo&#47;*&quot; forbids &quot;foo/bar&quot;, &quot;foo/baz&
       </span>
       
       <p class="shortcomment cmt">RunAsGroupStrategyOptions defines the strategy type and any options used to create the strategy.</p><div class="fullcomment"><div class="comment cmt"><p>RunAsGroupStrategyOptions defines the strategy type and any options used to create the strategy.
-</p></div><dl class="paramcmts block"><dt class="param">ranges</dt><dd class="cmt"><p>ranges are the allowed ranges of gids that may be used. If you would like to force a single gid then supply a single range with the same start and end. Required for MustRunAs.</p></dd><dt class="param">rule</dt><dd class="cmt"><p>rule is the strategy that will dictate the allowable RunAsGroup values that may be set.</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="param">ranges</dt><dd class="cmt"><p>
+  ranges are the allowed ranges of gids that may be used. If you would like to force a single
+  gid then supply a single range with the same start and end. Required for MustRunAs.</p></dd><dt class="param">rule</dt><dd class="cmt"><p>
+  rule is the strategy that will dictate the allowable RunAsGroup values that may be set.</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.policy.v1beta1.RunAsGroupStrategyOptionsFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="RunAsGroupStrategyOptionsFieldsextendsAnyRef"></a><a id="RunAsGroupStrategyOptionsFields:RunAsGroupStrategyOptionsFields"></a>
       <span class="permalink">
@@ -826,7 +896,10 @@ Examples: e.g. &quot;foo&#47;*&quot; forbids &quot;foo/bar&quot;, &quot;foo/baz&
       </span>
       
       <p class="shortcomment cmt">RunAsUserStrategyOptions defines the strategy type and any options used to create the strategy.</p><div class="fullcomment"><div class="comment cmt"><p>RunAsUserStrategyOptions defines the strategy type and any options used to create the strategy.
-</p></div><dl class="paramcmts block"><dt class="param">ranges</dt><dd class="cmt"><p>ranges are the allowed ranges of uids that may be used. If you would like to force a single uid then supply a single range with the same start and end. Required for MustRunAs.</p></dd><dt class="param">rule</dt><dd class="cmt"><p>rule is the strategy that will dictate the allowable RunAsUser values that may be set.</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="param">ranges</dt><dd class="cmt"><p>
+  ranges are the allowed ranges of uids that may be used. If you would like to force a single
+  uid then supply a single range with the same start and end. Required for MustRunAs.</p></dd><dt class="param">rule</dt><dd class="cmt"><p>
+  rule is the strategy that will dictate the allowable RunAsUser values that may be set.</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.policy.v1beta1.RunAsUserStrategyOptionsFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="RunAsUserStrategyOptionsFieldsextendsAnyRef"></a><a id="RunAsUserStrategyOptionsFields:RunAsUserStrategyOptionsFields"></a>
       <span class="permalink">
@@ -858,8 +931,15 @@ Examples: e.g. &quot;foo&#47;*&quot; forbids &quot;foo/bar&quot;, &quot;foo/baz&
         <a title="RuntimeClassStrategyOptions define the strategy that will dictate the allowable RuntimeClasses for a pod." href="RuntimeClassStrategyOptions.html"><span class="name">RuntimeClassStrategyOptions</span></a><span class="params">(<span name="allowedRuntimeClassNames">allowedRuntimeClassNames: <span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]</span>, <span name="defaultRuntimeClassName">defaultRuntimeClassName: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
-      <p class="shortcomment cmt">RuntimeClassStrategyOptions define the strategy that will dictate the allowable RuntimeClasses for a pod.</p><div class="fullcomment"><div class="comment cmt"><p>RuntimeClassStrategyOptions define the strategy that will dictate the allowable RuntimeClasses for a pod.
-</p></div><dl class="paramcmts block"><dt class="param">allowedRuntimeClassNames</dt><dd class="cmt"><p>allowedRuntimeClassNames is an allowlist of RuntimeClass names that may be specified on a pod. A value of &quot;*&quot; means that any RuntimeClass name is allowed, and must be the only item in the list. An empty list requires the RuntimeClassName field to be unset.</p></dd><dt class="param">defaultRuntimeClassName</dt><dd class="cmt"><p>defaultRuntimeClassName is the default RuntimeClassName to set on the pod. The default MUST be allowed by the allowedRuntimeClassNames list. A value of nil does not mutate the Pod.</p></dd></dl></div>
+      <p class="shortcomment cmt">RuntimeClassStrategyOptions define the strategy that will dictate the allowable RuntimeClasses
+for a pod.</p><div class="fullcomment"><div class="comment cmt"><p>RuntimeClassStrategyOptions define the strategy that will dictate the allowable RuntimeClasses
+for a pod.
+</p></div><dl class="paramcmts block"><dt class="param">allowedRuntimeClassNames</dt><dd class="cmt"><p>
+  allowedRuntimeClassNames is an allowlist of RuntimeClass names that may be specified on a pod.
+  A value of &quot;*&quot; means that any RuntimeClass name is allowed, and must be the only item in the
+  list. An empty list requires the RuntimeClassName field to be unset.</p></dd><dt class="param">defaultRuntimeClassName</dt><dd class="cmt"><p>
+  defaultRuntimeClassName is the default RuntimeClassName to set on the pod. The default MUST be
+  allowed by the allowedRuntimeClassNames list. A value of nil does not mutate the Pod.</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.policy.v1beta1.RuntimeClassStrategyOptionsFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="RuntimeClassStrategyOptionsFieldsextendsAnyRef"></a><a id="RuntimeClassStrategyOptionsFields:RuntimeClassStrategyOptionsFields"></a>
       <span class="permalink">
@@ -892,7 +972,8 @@ Examples: e.g. &quot;foo&#47;*&quot; forbids &quot;foo/bar&quot;, &quot;foo/baz&
       </span>
       
       <p class="shortcomment cmt">SELinuxStrategyOptions defines the strategy type and any options used to create the strategy.</p><div class="fullcomment"><div class="comment cmt"><p>SELinuxStrategyOptions defines the strategy type and any options used to create the strategy.
-</p></div><dl class="paramcmts block"><dt class="param">rule</dt><dd class="cmt"><p>rule is the strategy that will dictate the allowable labels that may be set.</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="param">rule</dt><dd class="cmt"><p>
+  rule is the strategy that will dictate the allowable labels that may be set.</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.policy.v1beta1.SELinuxStrategyOptionsFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="SELinuxStrategyOptionsFieldsextendsAnyRef"></a><a id="SELinuxStrategyOptionsFields:SELinuxStrategyOptionsFields"></a>
       <span class="permalink">
@@ -924,8 +1005,15 @@ Examples: e.g. &quot;foo&#47;*&quot; forbids &quot;foo/bar&quot;, &quot;foo/baz&
         <a title="SupplementalGroupsStrategyOptions defines the strategy type and options used to create the strategy." href="SupplementalGroupsStrategyOptions.html"><span class="name">SupplementalGroupsStrategyOptions</span></a><span class="params">(<span name="ranges">ranges: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="IDRange.html" class="extype" name="com.coralogix.zio.k8s.model.policy.v1beta1.IDRange">IDRange</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="rule">rule: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
-      <p class="shortcomment cmt">SupplementalGroupsStrategyOptions defines the strategy type and options used to create the strategy.</p><div class="fullcomment"><div class="comment cmt"><p>SupplementalGroupsStrategyOptions defines the strategy type and options used to create the strategy.
-</p></div><dl class="paramcmts block"><dt class="param">ranges</dt><dd class="cmt"><p>ranges are the allowed ranges of supplemental groups.  If you would like to force a single supplemental group then supply a single range with the same start and end. Required for MustRunAs.</p></dd><dt class="param">rule</dt><dd class="cmt"><p>rule is the strategy that will dictate what supplemental groups is used in the SecurityContext.</p></dd></dl></div>
+      <p class="shortcomment cmt">SupplementalGroupsStrategyOptions defines the strategy type and options used to create the
+strategy.</p><div class="fullcomment"><div class="comment cmt"><p>SupplementalGroupsStrategyOptions defines the strategy type and options used to create the
+strategy.
+</p></div><dl class="paramcmts block"><dt class="param">ranges</dt><dd class="cmt"><p>
+  ranges are the allowed ranges of supplemental groups. If you would like to force a single
+  supplemental group then supply a single range with the same start and end. Required for
+  MustRunAs.</p></dd><dt class="param">rule</dt><dd class="cmt"><p>
+  rule is the strategy that will dictate what supplemental groups is used in the
+  SecurityContext.</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.policy.v1beta1.SupplementalGroupsStrategyOptionsFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="SupplementalGroupsStrategyOptionsFieldsextendsAnyRef"></a><a id="SupplementalGroupsStrategyOptionsFields:SupplementalGroupsStrategyOptionsFields"></a>
       <span class="permalink">
@@ -995,22 +1083,6 @@ Examples: e.g. &quot;foo&#47;*&quot; forbids &quot;foo/bar&quot;, &quot;foo/baz&
       </span>
       <span class="symbol">
         <a title="" href="AllowedHostPath$.html"><span class="name">AllowedHostPath</span></a><span class="result"> extends <a href="AllowedHostPathFields.html" class="extype" name="com.coralogix.zio.k8s.model.policy.v1beta1.AllowedHostPathFields">AllowedHostPathFields</a> with <span class="extype" name="scala.Serializable">Serializable</span></span>
-      </span>
-      
-      
-    </li><li name="com.coralogix.zio.k8s.model.policy.v1beta1.Eviction" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="Eviction"></a><a id="Eviction:Eviction"></a>
-      <span class="permalink">
-      <a href="../../../../../../../com/coralogix/zio/k8s/model/policy/v1beta1/Eviction$.html" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">object</span>
-      </span>
-      <span class="symbol">
-        <a title="" href="Eviction$.html"><span class="name">Eviction</span></a><span class="result"> extends <a href="EvictionFields.html" class="extype" name="com.coralogix.zio.k8s.model.policy.v1beta1.EvictionFields">EvictionFields</a> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       

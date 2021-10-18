@@ -1587,8 +1587,23 @@
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>The pod this Toleration is attached to tolerates any taint that matches the triple &lt;key,value,effect&gt; using the matching operator &lt;operator&gt;.
-</p></div><dl class="paramcmts block"><dt class="param">effect</dt><dd class="cmt"><p>Effect indicates the taint effect to match. Empty means match all taint effects. When specified, allowed values are NoSchedule, PreferNoSchedule and NoExecute.</p></dd><dt class="param">key</dt><dd class="cmt"><p>Key is the taint key that the toleration applies to. Empty means match all taint keys. If the key is empty, operator must be Exists; this combination means to match all values and all keys.</p></dd><dt class="param">operator</dt><dd class="cmt"><p>Operator represents a key's relationship to the value. Valid operators are Exists and Equal. Defaults to Equal. Exists is equivalent to wildcard for value, so that a pod can tolerate all taints of a particular category.</p></dd><dt class="param">tolerationSeconds</dt><dd class="cmt"><p>TolerationSeconds represents the period of time the toleration (which must be of effect NoExecute, otherwise this field is ignored) tolerates the taint. By default, it is not set, which means tolerate the taint forever (do not evict). Zero and negative values will be treated as 0 (evict immediately) by the system.</p></dd><dt class="param">value</dt><dd class="cmt"><p>Value is the taint value the toleration matches to. If the operator is Exists, the value should be empty, otherwise just a regular string.</p></dd></dl><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>The pod this Toleration is attached to tolerates any taint that matches the triple
+&lt;key,value,effect&gt; using the matching operator &lt;operator&gt;.
+</p></div><dl class="paramcmts block"><dt class="param">effect</dt><dd class="cmt"><p>
+  Effect indicates the taint effect to match. Empty means match all taint effects. When
+  specified, allowed values are NoSchedule, PreferNoSchedule and NoExecute.</p></dd><dt class="param">key</dt><dd class="cmt"><p>
+  Key is the taint key that the toleration applies to. Empty means match all taint keys. If the
+  key is empty, operator must be Exists; this combination means to match all values and all
+  keys.</p></dd><dt class="param">operator</dt><dd class="cmt"><p>
+  Operator represents a key's relationship to the value. Valid operators are Exists and Equal.
+  Defaults to Equal. Exists is equivalent to wildcard for value, so that a pod can tolerate all
+  taints of a particular category.</p></dd><dt class="param">tolerationSeconds</dt><dd class="cmt"><p>
+  TolerationSeconds represents the period of time the toleration (which must be of effect
+  NoExecute, otherwise this field is ignored) tolerates the taint. By default, it is not set,
+  which means tolerate the taint forever (do not evict). Zero and negative values will be
+  treated as 0 (evict immediately) by the system.</p></dd><dt class="param">value</dt><dd class="cmt"><p>
+  Value is the taint value the toleration matches to. If the operator is Exists, the value
+  should be empty, otherwise just a regular string.</p></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -1653,7 +1668,21 @@
         <span class="name">Toleration</span><span class="params">(<span name="effect">effect: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="key">key: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="operator">operator: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="tolerationSeconds">tolerationSeconds: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Long">Long</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="value">value: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span>
       </span>
       
-      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">effect</dt><dd class="cmt"><p>Effect indicates the taint effect to match. Empty means match all taint effects. When specified, allowed values are NoSchedule, PreferNoSchedule and NoExecute.</p></dd><dt class="param">key</dt><dd class="cmt"><p>Key is the taint key that the toleration applies to. Empty means match all taint keys. If the key is empty, operator must be Exists; this combination means to match all values and all keys.</p></dd><dt class="param">operator</dt><dd class="cmt"><p>Operator represents a key's relationship to the value. Valid operators are Exists and Equal. Defaults to Equal. Exists is equivalent to wildcard for value, so that a pod can tolerate all taints of a particular category.</p></dd><dt class="param">tolerationSeconds</dt><dd class="cmt"><p>TolerationSeconds represents the period of time the toleration (which must be of effect NoExecute, otherwise this field is ignored) tolerates the taint. By default, it is not set, which means tolerate the taint forever (do not evict). Zero and negative values will be treated as 0 (evict immediately) by the system.</p></dd><dt class="param">value</dt><dd class="cmt"><p>Value is the taint value the toleration matches to. If the operator is Exists, the value should be empty, otherwise just a regular string.</p></dd></dl></div>
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">effect</dt><dd class="cmt"><p>
+  Effect indicates the taint effect to match. Empty means match all taint effects. When
+  specified, allowed values are NoSchedule, PreferNoSchedule and NoExecute.</p></dd><dt class="param">key</dt><dd class="cmt"><p>
+  Key is the taint key that the toleration applies to. Empty means match all taint keys. If the
+  key is empty, operator must be Exists; this combination means to match all values and all
+  keys.</p></dd><dt class="param">operator</dt><dd class="cmt"><p>
+  Operator represents a key's relationship to the value. Valid operators are Exists and Equal.
+  Defaults to Equal. Exists is equivalent to wildcard for value, so that a pod can tolerate all
+  taints of a particular category.</p></dd><dt class="param">tolerationSeconds</dt><dd class="cmt"><p>
+  TolerationSeconds represents the period of time the toleration (which must be of effect
+  NoExecute, otherwise this field is ignored) tolerates the taint. By default, it is not set,
+  which means tolerate the taint forever (do not evict). Zero and negative values will be
+  treated as 0 (evict immediately) by the system.</p></dd><dt class="param">value</dt><dd class="cmt"><p>
+  Value is the taint value the toleration matches to. If the operator is Exists, the value
+  should be empty, otherwise just a regular string.</p></dd></dl></div>
     </li></ol>
             </div>
 
@@ -1822,7 +1851,8 @@
         <span class="name">getEffect</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">Effect indicates the taint effect to match.</p><div class="fullcomment"><div class="comment cmt"><p>Effect indicates the taint effect to match. Empty means match all taint effects. When specified, allowed values are NoSchedule, PreferNoSchedule and NoExecute.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">Effect indicates the taint effect to match.</p><div class="fullcomment"><div class="comment cmt"><p>Effect indicates the taint effect to match. Empty means match all taint effects. When
+specified, allowed values are NoSchedule, PreferNoSchedule and NoExecute.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.core.v1.Toleration#getKey" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getKey:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]"></a><a id="getKey:IO[K8sFailure,String]"></a>
@@ -1839,7 +1869,9 @@
         <span class="name">getKey</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">Key is the taint key that the toleration applies to.</p><div class="fullcomment"><div class="comment cmt"><p>Key is the taint key that the toleration applies to. Empty means match all taint keys. If the key is empty, operator must be Exists; this combination means to match all values and all keys.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">Key is the taint key that the toleration applies to.</p><div class="fullcomment"><div class="comment cmt"><p>Key is the taint key that the toleration applies to. Empty means match all taint keys. If the
+key is empty, operator must be Exists; this combination means to match all values and all
+keys.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.core.v1.Toleration#getOperator" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getOperator:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]"></a><a id="getOperator:IO[K8sFailure,String]"></a>
@@ -1856,7 +1888,9 @@
         <span class="name">getOperator</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">Operator represents a key's relationship to the value.</p><div class="fullcomment"><div class="comment cmt"><p>Operator represents a key's relationship to the value. Valid operators are Exists and Equal. Defaults to Equal. Exists is equivalent to wildcard for value, so that a pod can tolerate all taints of a particular category.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">Operator represents a key's relationship to the value.</p><div class="fullcomment"><div class="comment cmt"><p>Operator represents a key's relationship to the value. Valid operators are Exists and Equal.
+Defaults to Equal. Exists is equivalent to wildcard for value, so that a pod can tolerate all
+taints of a particular category.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.core.v1.Toleration#getTolerationSeconds" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getTolerationSeconds:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Long]"></a><a id="getTolerationSeconds:IO[K8sFailure,Long]"></a>
@@ -1873,7 +1907,11 @@
         <span class="name">getTolerationSeconds</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Long">Long</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">TolerationSeconds represents the period of time the toleration (which must be of effect NoExecute, otherwise this field is ignored) tolerates the taint.</p><div class="fullcomment"><div class="comment cmt"><p>TolerationSeconds represents the period of time the toleration (which must be of effect NoExecute, otherwise this field is ignored) tolerates the taint. By default, it is not set, which means tolerate the taint forever (do not evict). Zero and negative values will be treated as 0 (evict immediately) by the system.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">TolerationSeconds represents the period of time the toleration (which must be of effect
+NoExecute, otherwise this field is ignored) tolerates the taint.</p><div class="fullcomment"><div class="comment cmt"><p>TolerationSeconds represents the period of time the toleration (which must be of effect
+NoExecute, otherwise this field is ignored) tolerates the taint. By default, it is not set,
+which means tolerate the taint forever (do not evict). Zero and negative values will be
+treated as 0 (evict immediately) by the system.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.core.v1.Toleration#getValue" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getValue:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]"></a><a id="getValue:IO[K8sFailure,String]"></a>
@@ -1890,7 +1928,8 @@
         <span class="name">getValue</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">Value is the taint value the toleration matches to.</p><div class="fullcomment"><div class="comment cmt"><p>Value is the taint value the toleration matches to. If the operator is Exists, the value should be empty, otherwise just a regular string.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">Value is the taint value the toleration matches to.</p><div class="fullcomment"><div class="comment cmt"><p>Value is the taint value the toleration matches to. If the operator is Exists, the value
+should be empty, otherwise just a regular string.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="scala.Any#isInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isInstanceOf[T0]:Boolean"></a>

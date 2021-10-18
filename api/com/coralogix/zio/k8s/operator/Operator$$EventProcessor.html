@@ -209,7 +209,10 @@
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Operator event processor</p><p>This is the type to be implemented when writing operators using the zio-k8s-operator library.</p></div><dl class="paramcmts block"><dt class="tparam">R</dt><dd class="cmt"><p>Operator environment</p></dd><dt class="tparam">E</dt><dd class="cmt"><p>Operator-specific error type</p></dd><dt class="tparam">T</dt><dd class="cmt"><p>Resource type</p></dd></dl><dl class="attributes block"> <dt>Self Type</dt><dd><a href="" class="extype" name="com.coralogix.zio.k8s.operator.Operator.EventProcessor">EventProcessor</a>[<span class="extype" name="com.coralogix.zio.k8s.operator.Operator.EventProcessor.R">R</span>, <span class="extype" name="com.coralogix.zio.k8s.operator.Operator.EventProcessor.E">E</span>, <span class="extype" name="com.coralogix.zio.k8s.operator.Operator.EventProcessor.T">T</span>]</dd></dl><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Operator event processor</p><p>This is the type to be implemented when writing operators using the zio-k8s-operator library.</p></div><dl class="paramcmts block"><dt class="tparam">R</dt><dd class="cmt"><p>
+  Operator environment</p></dd><dt class="tparam">E</dt><dd class="cmt"><p>
+  Operator-specific error type</p></dd><dt class="tparam">T</dt><dd class="cmt"><p>
+  Resource type</p></dd></dl><dl class="attributes block"> <dt>Self Type</dt><dd><a href="" class="extype" name="com.coralogix.zio.k8s.operator.Operator.EventProcessor">EventProcessor</a>[<span class="extype" name="com.coralogix.zio.k8s.operator.Operator.EventProcessor.R">R</span>, <span class="extype" name="com.coralogix.zio.k8s.operator.Operator.EventProcessor.E">E</span>, <span class="extype" name="com.coralogix.zio.k8s.operator.Operator.EventProcessor.T">T</span>]</dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -275,10 +278,12 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">apply</span><span class="params">(<span name="context">context: <a href="Operator$$OperatorContext.html" class="extype" name="com.coralogix.zio.k8s.operator.Operator.OperatorContext">OperatorContext</a></span>, <span name="event">event: <a href="../client/model/TypedWatchEvent.html" class="extype" name="com.coralogix.zio.k8s.client.model.TypedWatchEvent">TypedWatchEvent</a>[<span class="extype" name="com.coralogix.zio.k8s.operator.Operator.EventProcessor.T">T</span>]</span>)</span><span class="result">: <a href="https://javadoc.io/page/dev.zio/zio_2.12/1.0.10/zio/ZIO.html#zio.ZIO" class="extype" name="zio.ZIO">ZIO</a>[<span class="extype" name="com.coralogix.zio.k8s.operator.Operator.EventProcessor.R">R</span>, <a href="OperatorFailure.html" class="extype" name="com.coralogix.zio.k8s.operator.OperatorFailure">OperatorFailure</a>[<span class="extype" name="com.coralogix.zio.k8s.operator.Operator.EventProcessor.E">E</span>], <span class="extype" name="scala.Unit">Unit</span>]</span>
+        <span class="name">apply</span><span class="params">(<span name="context">context: <a href="Operator$$OperatorContext.html" class="extype" name="com.coralogix.zio.k8s.operator.Operator.OperatorContext">OperatorContext</a></span>, <span name="event">event: <a href="../client/model/TypedWatchEvent.html" class="extype" name="com.coralogix.zio.k8s.client.model.TypedWatchEvent">TypedWatchEvent</a>[<span class="extype" name="com.coralogix.zio.k8s.operator.Operator.EventProcessor.T">T</span>]</span>)</span><span class="result">: <a href="https://javadoc.io/page/dev.zio/zio_2.12/1.0.12/zio/ZIO.html#zio.ZIO" class="extype" name="zio.ZIO">ZIO</a>[<span class="extype" name="com.coralogix.zio.k8s.operator.Operator.EventProcessor.R">R</span>, <a href="OperatorFailure.html" class="extype" name="com.coralogix.zio.k8s.operator.OperatorFailure">OperatorFailure</a>[<span class="extype" name="com.coralogix.zio.k8s.operator.Operator.EventProcessor.E">E</span>], <span class="extype" name="scala.Unit">Unit</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">Process an incoming event</p><div class="fullcomment"><div class="comment cmt"><p>Process an incoming event</p></div><dl class="paramcmts block"><dt class="param">context</dt><dd class="cmt"><p>Information about the operator</p></dd><dt class="param">event</dt><dd class="cmt"><p>Event to be processed</p></dd></dl></div>
+      <p class="shortcomment cmt">Process an incoming event</p><div class="fullcomment"><div class="comment cmt"><p>Process an incoming event</p></div><dl class="paramcmts block"><dt class="param">context</dt><dd class="cmt"><p>
+  Information about the operator</p></dd><dt class="param">event</dt><dd class="cmt"><p>
+  Event to be processed</p></dd></dl></div>
     </li></ol>
             </div>
 

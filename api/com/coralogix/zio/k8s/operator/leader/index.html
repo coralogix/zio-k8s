@@ -384,7 +384,7 @@
         <span class="kind">type</span>
       </span>
       <span class="symbol">
-        <span class="name">LeaderElection</span><span class="result alias"> = <a href="https://javadoc.io/page/dev.zio/zio_2.12/1.0.10/zio/Has.html#zio.Has" class="extype" name="zio.Has">Has</a>[<a href="package$$LeaderElection$$Service.html" class="extype" name="com.coralogix.zio.k8s.operator.leader.LeaderElection.Service">Service</a>]</span>
+        <span class="name">LeaderElection</span><span class="result alias"> = <a href="https://javadoc.io/page/dev.zio/zio_2.12/1.0.12/zio/Has.html#zio.Has" class="extype" name="zio.Has">Has</a>[<a href="package$$LeaderElection$$Service.html" class="extype" name="com.coralogix.zio.k8s.operator.leader.LeaderElection.Service">Service</a>]</span>
       </span>
       
       
@@ -403,7 +403,8 @@
         <a title="Possible failures of the leader election algorithm" href="package$$LeaderElectionFailure.html"><span class="name">LeaderElectionFailure</span></a><span class="tparams">[<span name="E">+E</span>]</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       
-      <p class="shortcomment cmt">Possible failures of the leader election algorithm</p><div class="fullcomment"><div class="comment cmt"><p>Possible failures of the leader election algorithm</p></div><dl class="paramcmts block"><dt class="tparam">E</dt><dd class="cmt"><p>Failure type of the inner effect</p></dd></dl></div>
+      <p class="shortcomment cmt">Possible failures of the leader election algorithm</p><div class="fullcomment"><div class="comment cmt"><p>Possible failures of the leader election algorithm</p></div><dl class="paramcmts block"><dt class="tparam">E</dt><dd class="cmt"><p>
+  Failure type of the inner effect</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.operator.leader.LeaderLock" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
       <a id="LeaderLockextendsAnyRef"></a><a id="LeaderLock:LeaderLock"></a>
       <span class="permalink">
@@ -419,8 +420,7 @@
         <a title="Common interface for different lock implementations used for leader election." href="LeaderLock.html"><span class="name">LeaderLock</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       
-      <p class="shortcomment cmt">Common interface for different lock implementations used for
-leader election.</p>
+      <p class="shortcomment cmt">Common interface for different lock implementations used for leader election.</p>
     </li></ol>
             </div>
 
@@ -441,7 +441,7 @@ leader election.</p>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">lease</span><span class="result">: <a href="https://javadoc.io/page/dev.zio/zio_2.12/1.0.10/zio/ZManaged.html#zio.ZManaged" class="extype" name="zio.ZManaged">ZManaged</a>[<a href="#LeaderElection=zio.Has[com.coralogix.zio.k8s.operator.leader.package.LeaderElection.Service]" class="extmbr" name="com.coralogix.zio.k8s.operator.leader.LeaderElection">LeaderElection</a> with <span class="extype" name="zio.clock.Clock">Clock</span> with <span class="extype" name="zio.logging.Logging">Logging</span>, <a href="package$$LeaderElectionFailure.html" class="extype" name="com.coralogix.zio.k8s.operator.leader.LeaderElectionFailure">LeaderElectionFailure</a>[<span class="extype" name="scala.Nothing">Nothing</span>], <span class="extype" name="scala.Unit">Unit</span>]</span>
+        <span class="name">lease</span><span class="result">: <a href="https://javadoc.io/page/dev.zio/zio_2.12/1.0.12/zio/ZManaged.html#zio.ZManaged" class="extype" name="zio.ZManaged">ZManaged</a>[<a href="#LeaderElection=zio.Has[com.coralogix.zio.k8s.operator.leader.package.LeaderElection.Service]" class="extmbr" name="com.coralogix.zio.k8s.operator.leader.LeaderElection">LeaderElection</a> with <span class="extype" name="zio.clock.Clock">Clock</span> with <span class="extype" name="zio.logging.Logging">Logging</span>, <a href="package$$LeaderElectionFailure.html" class="extype" name="com.coralogix.zio.k8s.operator.leader.LeaderElectionFailure">LeaderElectionFailure</a>[<span class="extype" name="scala.Nothing">Nothing</span>], <span class="extype" name="scala.Unit">Unit</span>]</span>
       </span>
       
       <p class="shortcomment cmt">Creates a managed lock implementing the leader election algorithm
@@ -458,13 +458,14 @@ leader election.</p>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">runAsLeader</span><span class="tparams">[<span name="R">R</span>, <span name="E">E</span>, <span name="A">A</span>]</span><span class="params">(<span name="f">f: <a href="https://javadoc.io/page/dev.zio/zio_2.12/1.0.10/zio/ZIO.html#zio.ZIO" class="extype" name="zio.ZIO">ZIO</a>[<span class="extype" name="com.coralogix.zio.k8s.operator.leader.runAsLeader.R">R</span>, <span class="extype" name="com.coralogix.zio.k8s.operator.leader.runAsLeader.E">E</span>, <span class="extype" name="com.coralogix.zio.k8s.operator.leader.runAsLeader.A">A</span>]</span>)</span><span class="result">: <a href="https://javadoc.io/page/dev.zio/zio_2.12/1.0.10/zio/ZIO.html#zio.ZIO" class="extype" name="zio.ZIO">ZIO</a>[<span class="extype" name="com.coralogix.zio.k8s.operator.leader.runAsLeader.R">R</span> with <a href="#LeaderElection=zio.Has[com.coralogix.zio.k8s.operator.leader.package.LeaderElection.Service]" class="extmbr" name="com.coralogix.zio.k8s.operator.leader.LeaderElection">LeaderElection</a> with <span class="extype" name="zio.clock.Clock">Clock</span> with <span class="extype" name="zio.logging.Logging">Logging</span>, <span class="extype" name="com.coralogix.zio.k8s.operator.leader.runAsLeader.E">E</span>, <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="com.coralogix.zio.k8s.operator.leader.runAsLeader.A">A</span>]]</span>
+        <span class="name">runAsLeader</span><span class="tparams">[<span name="R">R</span>, <span name="E">E</span>, <span name="A">A</span>]</span><span class="params">(<span name="f">f: <a href="https://javadoc.io/page/dev.zio/zio_2.12/1.0.12/zio/ZIO.html#zio.ZIO" class="extype" name="zio.ZIO">ZIO</a>[<span class="extype" name="com.coralogix.zio.k8s.operator.leader.runAsLeader.R">R</span>, <span class="extype" name="com.coralogix.zio.k8s.operator.leader.runAsLeader.E">E</span>, <span class="extype" name="com.coralogix.zio.k8s.operator.leader.runAsLeader.A">A</span>]</span>)</span><span class="result">: <a href="https://javadoc.io/page/dev.zio/zio_2.12/1.0.12/zio/ZIO.html#zio.ZIO" class="extype" name="zio.ZIO">ZIO</a>[<span class="extype" name="com.coralogix.zio.k8s.operator.leader.runAsLeader.R">R</span> with <a href="#LeaderElection=zio.Has[com.coralogix.zio.k8s.operator.leader.package.LeaderElection.Service]" class="extmbr" name="com.coralogix.zio.k8s.operator.leader.LeaderElection">LeaderElection</a> with <span class="extype" name="zio.clock.Clock">Clock</span> with <span class="extype" name="zio.logging.Logging">Logging</span>, <span class="extype" name="com.coralogix.zio.k8s.operator.leader.runAsLeader.E">E</span>, <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="com.coralogix.zio.k8s.operator.leader.runAsLeader.A">A</span>]]</span>
       </span>
       
-      <p class="shortcomment cmt">Runs the given effect by applying the leader election algorithm, with the guarantee that
-the inner effect will only run at once in the Kubernetes cluster.</p><div class="fullcomment"><div class="comment cmt"><p>Runs the given effect by applying the leader election algorithm, with the guarantee that
-the inner effect will only run at once in the Kubernetes cluster.</p><p>If you want to manage the lock as a ZManaged use <span class="extype" name="lease()">lease()</span>
-</p></div><dl class="paramcmts block"><dt class="param">f</dt><dd class="cmt"><p>Inner effect to protect</p></dd></dl></div>
+      <p class="shortcomment cmt">Runs the given effect by applying the leader election algorithm, with the guarantee that the
+inner effect will only run at once in the Kubernetes cluster.</p><div class="fullcomment"><div class="comment cmt"><p>Runs the given effect by applying the leader election algorithm, with the guarantee that the
+inner effect will only run at once in the Kubernetes cluster.</p><p>If you want to manage the lock as a ZManaged use <span class="extype" name="lease()">lease()</span>
+</p></div><dl class="paramcmts block"><dt class="param">f</dt><dd class="cmt"><p>
+  Inner effect to protect</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.operator.leader.LeaderElection" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="LeaderElection"></a><a id="LeaderElection:LeaderElection"></a>
       <span class="permalink">

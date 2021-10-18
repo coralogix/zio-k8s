@@ -165,22 +165,6 @@
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../index.html" class="extype" name="com.coralogix.zio.k8s.model">model</a></dd></dl></div>
-    </li><li name="com.coralogix.zio.k8s.model.flowcontrol.v1alpha1" visbl="pub" class="indented7 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="v1alpha1"></a><a id="v1alpha1:v1alpha1"></a>
-      <span class="permalink">
-      <a href="../../../../../../../com/coralogix/zio/k8s/model/flowcontrol/v1alpha1/index.html" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">package</span>
-      </span>
-      <span class="symbol">
-        <a title="" href="../v1alpha1/index.html"><span class="name">v1alpha1</span></a>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="com.coralogix.zio.k8s.model.flowcontrol">flowcontrol</a></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.flowcontrol.v1beta1" visbl="pub" class="indented7 current" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="v1beta1"></a><a id="v1beta1:v1beta1"></a>
       <span class="permalink">
@@ -436,7 +420,9 @@
       </span>
       
       <p class="shortcomment cmt">FlowDistinguisherMethod specifies the method of a flow distinguisher.</p><div class="fullcomment"><div class="comment cmt"><p>FlowDistinguisherMethod specifies the method of a flow distinguisher.
-</p></div><dl class="paramcmts block"><dt class="param">type</dt><dd class="cmt"><p><code>type</code> is the type of flow distinguisher method The supported types are &quot;ByUser&quot; and &quot;ByNamespace&quot;. Required.</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="param">type</dt><dd class="cmt"><p>
+  <code>type</code> is the type of flow distinguisher method The supported types are &quot;ByUser&quot; and
+  &quot;ByNamespace&quot;. Required.</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.flowcontrol.v1beta1.FlowDistinguisherMethodFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="FlowDistinguisherMethodFieldsextendsAnyRef"></a><a id="FlowDistinguisherMethodFields:FlowDistinguisherMethodFields"></a>
       <span class="permalink">
@@ -468,7 +454,9 @@
         <a title="FlowSchema defines the schema of a group of flows." href="FlowSchema.html"><span class="name">FlowSchema</span></a><span class="params">(<span name="metadata">metadata: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="../../pkg/apis/meta/v1/ObjectMeta.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.ObjectMeta">ObjectMeta</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="spec">spec: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="FlowSchemaSpec.html" class="extype" name="com.coralogix.zio.k8s.model.flowcontrol.v1beta1.FlowSchemaSpec">FlowSchemaSpec</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="status">status: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="FlowSchemaStatus.html" class="extype" name="com.coralogix.zio.k8s.model.flowcontrol.v1beta1.FlowSchemaStatus">FlowSchemaStatus</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
-      <p class="shortcomment cmt">FlowSchema defines the schema of a group of flows.</p><div class="fullcomment"><div class="comment cmt"><p>FlowSchema defines the schema of a group of flows. Note that a flow is made up of a set of inbound API requests with similar attributes and is identified by a pair of strings: the name of the FlowSchema and a &quot;flow distinguisher&quot;.
+      <p class="shortcomment cmt">FlowSchema defines the schema of a group of flows.</p><div class="fullcomment"><div class="comment cmt"><p>FlowSchema defines the schema of a group of flows. Note that a flow is made up of a set of
+inbound API requests with similar attributes and is identified by a pair of strings: the name of
+the FlowSchema and a &quot;flow distinguisher&quot;.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.flowcontrol.v1beta1.FlowSchemaCondition" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="FlowSchemaConditionextendsProductwithSerializable"></a><a id="FlowSchemaCondition:FlowSchemaCondition"></a>
@@ -486,7 +474,11 @@
       </span>
       
       <p class="shortcomment cmt">FlowSchemaCondition describes conditions for a FlowSchema.</p><div class="fullcomment"><div class="comment cmt"><p>FlowSchemaCondition describes conditions for a FlowSchema.
-</p></div><dl class="paramcmts block"><dt class="param">message</dt><dd class="cmt"><p><code>message</code> is a human-readable message indicating details about last transition.</p></dd><dt class="param">reason</dt><dd class="cmt"><p><code>reason</code> is a unique, one-word, CamelCase reason for the condition's last transition.</p></dd><dt class="param">status</dt><dd class="cmt"><p><code>status</code> is the status of the condition. Can be True, False, Unknown. Required.</p></dd><dt class="param">type</dt><dd class="cmt"><p><code>type</code> is the type of the condition. Required.</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="param">message</dt><dd class="cmt"><p>
+  <code>message</code> is a human-readable message indicating details about last transition.</p></dd><dt class="param">reason</dt><dd class="cmt"><p>
+  <code>reason</code> is a unique, one-word, CamelCase reason for the condition's last transition.</p></dd><dt class="param">status</dt><dd class="cmt"><p>
+  <code>status</code> is the status of the condition. Can be True, False, Unknown. Required.</p></dd><dt class="param">type</dt><dd class="cmt"><p>
+  <code>type</code> is the type of the condition. Required.</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.flowcontrol.v1beta1.FlowSchemaConditionFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="FlowSchemaConditionFieldsextendsAnyRef"></a><a id="FlowSchemaConditionFields:FlowSchemaConditionFields"></a>
       <span class="permalink">
@@ -535,7 +527,14 @@
       </span>
       
       <p class="shortcomment cmt">FlowSchemaSpec describes how the FlowSchema's specification looks like.</p><div class="fullcomment"><div class="comment cmt"><p>FlowSchemaSpec describes how the FlowSchema's specification looks like.
-</p></div><dl class="paramcmts block"><dt class="param">matchingPrecedence</dt><dd class="cmt"><p><code>matchingPrecedence</code> is used to choose among the FlowSchemas that match a given request. The chosen FlowSchema is among those with the numerically lowest (which we take to be logically highest) MatchingPrecedence.  Each MatchingPrecedence value must be ranged in [1,10000]. Note that if the precedence is not specified, it will be set to 1000 as default.</p></dd><dt class="param">rules</dt><dd class="cmt"><p><code>rules</code> describes which requests will match this flow schema. This FlowSchema matches a request if and only if at least one member of rules matches the request. if it is an empty slice, there will be no requests matching the FlowSchema.</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="param">matchingPrecedence</dt><dd class="cmt"><p>
+  <code>matchingPrecedence</code> is used to choose among the FlowSchemas that match a given request. The
+  chosen FlowSchema is among those with the numerically lowest (which we take to be logically
+  highest) MatchingPrecedence. Each MatchingPrecedence value must be ranged in [1,10000]. Note
+  that if the precedence is not specified, it will be set to 1000 as default.</p></dd><dt class="param">rules</dt><dd class="cmt"><p>
+  <code>rules</code> describes which requests will match this flow schema. This FlowSchema matches a
+  request if and only if at least one member of rules matches the request. if it is an empty
+  slice, there will be no requests matching the FlowSchema.</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.flowcontrol.v1beta1.FlowSchemaSpecFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="FlowSchemaSpecFieldsextendsAnyRef"></a><a id="FlowSchemaSpecFields:FlowSchemaSpecFields"></a>
       <span class="permalink">
@@ -568,7 +567,8 @@
       </span>
       
       <p class="shortcomment cmt">FlowSchemaStatus represents the current state of a FlowSchema.</p><div class="fullcomment"><div class="comment cmt"><p>FlowSchemaStatus represents the current state of a FlowSchema.
-</p></div><dl class="paramcmts block"><dt class="param">conditions</dt><dd class="cmt"><p><code>conditions</code> is a list of the current states of FlowSchema.</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="param">conditions</dt><dd class="cmt"><p>
+  <code>conditions</code> is a list of the current states of FlowSchema.</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.flowcontrol.v1beta1.FlowSchemaStatusFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="FlowSchemaStatusFieldsextendsAnyRef"></a><a id="FlowSchemaStatusFields:FlowSchemaStatusFields"></a>
       <span class="permalink">
@@ -601,7 +601,10 @@
       </span>
       
       <p class="shortcomment cmt">GroupSubject holds detailed information for group-kind subject.</p><div class="fullcomment"><div class="comment cmt"><p>GroupSubject holds detailed information for group-kind subject.
-</p></div><dl class="paramcmts block"><dt class="param">name</dt><dd class="cmt"><p>name is the user group that matches, or &quot;*&quot; to match all user groups. See https://github.com/kubernetes/apiserver/blob/master/pkg/authentication/user/user.go for some well-known group names. Required.</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="param">name</dt><dd class="cmt"><p>
+  name is the user group that matches, or &quot;*&quot; to match all user groups. See
+  https://github.com/kubernetes/apiserver/blob/master/pkg/authentication/user/user.go for some
+  well-known group names. Required.</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.flowcontrol.v1beta1.GroupSubjectFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="GroupSubjectFieldsextendsAnyRef"></a><a id="GroupSubjectFields:GroupSubjectFields"></a>
       <span class="permalink">
@@ -634,7 +637,10 @@
       </span>
       
       <p class="shortcomment cmt">LimitResponse defines how to handle requests that can not be executed right now.</p><div class="fullcomment"><div class="comment cmt"><p>LimitResponse defines how to handle requests that can not be executed right now.
-</p></div><dl class="paramcmts block"><dt class="param">type</dt><dd class="cmt"><p><code>type</code> is &quot;Queue&quot; or &quot;Reject&quot;. &quot;Queue&quot; means that requests that can not be executed upon arrival are held in a queue until they can be executed or a queuing limit is reached. &quot;Reject&quot; means that requests that can not be executed upon arrival are rejected. Required.</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="param">type</dt><dd class="cmt"><p>
+  <code>type</code> is &quot;Queue&quot; or &quot;Reject&quot;. &quot;Queue&quot; means that requests that can not be executed upon
+  arrival are held in a queue until they can be executed or a queuing limit is reached. &quot;Reject&quot;
+  means that requests that can not be executed upon arrival are rejected. Required.</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.flowcontrol.v1beta1.LimitResponseFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="LimitResponseFieldsextendsAnyRef"></a><a id="LimitResponseFields:LimitResponseFields"></a>
       <span class="permalink">
@@ -666,12 +672,19 @@
         <a title="LimitedPriorityLevelConfiguration specifies how to handle requests that are subject to limits." href="LimitedPriorityLevelConfiguration.html"><span class="name">LimitedPriorityLevelConfiguration</span></a><span class="params">(<span name="assuredConcurrencyShares">assuredConcurrencyShares: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="limitResponse">limitResponse: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="LimitResponse.html" class="extype" name="com.coralogix.zio.k8s.model.flowcontrol.v1beta1.LimitResponse">LimitResponse</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
-      <p class="shortcomment cmt">LimitedPriorityLevelConfiguration specifies how to handle requests that are subject to limits.</p><div class="fullcomment"><div class="comment cmt"><p>LimitedPriorityLevelConfiguration specifies how to handle requests that are subject to limits. It addresses two issues:
-How are requests for this priority level limited?
-What should be done with requests that exceed the limit?
-</p></div><dl class="paramcmts block"><dt class="param">assuredConcurrencyShares</dt><dd class="cmt"><p><code>assuredConcurrencyShares</code> (ACS) configures the execution limit, which is a limit on the number of requests of this priority level that may be exeucting at a given time.  ACS must be a positive number. The server's concurrency limit (SCL) is divided among the concurrency-controlled priority levels in proportion to their assured concurrency shares. This produces the assured concurrency value (ACV) --- the number of requests that may be executing at a time --- for each such priority level:
-           ACV(l) = ceil( SCL * ACS(l) / ( sum[priority levels k] ACS(k) ) )
-bigger numbers of ACS mean more reserved concurrent requests (at the expense of every other PL). This field has a default value of 30.</p></dd></dl></div>
+      <p class="shortcomment cmt">LimitedPriorityLevelConfiguration specifies how to handle requests that are subject to limits.</p><div class="fullcomment"><div class="comment cmt"><p>LimitedPriorityLevelConfiguration specifies how to handle requests that are subject to limits.
+It addresses two issues: How are requests for this priority level limited? What should be done
+with requests that exceed the limit?
+</p></div><dl class="paramcmts block"><dt class="param">assuredConcurrencyShares</dt><dd class="cmt"><p>
+  <code>assuredConcurrencyShares</code> (ACS) configures the execution limit, which is a limit on the
+  number of requests of this priority level that may be exeucting at a given time. ACS must be a
+  positive number. The server's concurrency limit (SCL) is divided among the
+  concurrency-controlled priority levels in proportion to their assured concurrency shares. This
+  produces the assured concurrency value (ACV) --- the number of requests that may be executing
+  at a time --- for each such priority level:
+ACV(l) = ceil( SCL * ACS(l) / ( sum[priority levels k] ACS(k) ) )
+bigger numbers of ACS mean more reserved concurrent requests (at the expense of every other PL).
+This field has a default value of 30.</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.flowcontrol.v1beta1.LimitedPriorityLevelConfigurationFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="LimitedPriorityLevelConfigurationFieldsextendsAnyRef"></a><a id="LimitedPriorityLevelConfigurationFields:LimitedPriorityLevelConfigurationFields"></a>
       <span class="permalink">
@@ -703,9 +716,22 @@ bigger numbers of ACS mean more reserved concurrent requests (at the expense of 
         <a title="NonResourcePolicyRule is a predicate that matches non-resource requests according to their verb and the target non-resource URL." href="NonResourcePolicyRule.html"><span class="name">NonResourcePolicyRule</span></a><span class="params">(<span name="nonResourceURLs">nonResourceURLs: <span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]</span>, <span name="verbs">verbs: <span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]</span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
-      <p class="shortcomment cmt">NonResourcePolicyRule is a predicate that matches non-resource requests according to their verb and the target non-resource URL.</p><div class="fullcomment"><div class="comment cmt"><p>NonResourcePolicyRule is a predicate that matches non-resource requests according to their verb and the target non-resource URL. A NonResourcePolicyRule matches a request if and only if both (a) at least one member of verbs matches the request and (b) at least one member of nonResourceURLs matches the request.
-</p></div><dl class="paramcmts block"><dt class="param">nonResourceURLs</dt><dd class="cmt"><p><code>nonResourceURLs</code> is a set of url prefixes that a user should have access to and may not be empty. For example:</p><ul><li>&quot;/healthz&quot; is legal</li><li>&quot;/hea*&quot; is illegal</li><li>&quot;/hea&quot; is legal but matches nothing</li><li>&quot;/hea&#47;*&quot; also matches nothing</li><li>&quot;/healthz&#47;*&quot; matches all per-component health checks.
-&quot;*&quot; matches all non-resource urls. if it is present, it must be the only entry. Required.</li></ul></dd><dt class="param">verbs</dt><dd class="cmt"><p><code>verbs</code> is a list of matching verbs and may not be empty. &quot;*&quot; matches all verbs. If it is present, it must be the only entry. Required.</p></dd></dl></div>
+      <p class="shortcomment cmt">NonResourcePolicyRule is a predicate that matches non-resource requests according to their verb
+and the target non-resource URL.</p><div class="fullcomment"><div class="comment cmt"><p>NonResourcePolicyRule is a predicate that matches non-resource requests according to their verb
+and the target non-resource URL. A NonResourcePolicyRule matches a request if and only if both
+(a) at least one member of verbs matches the request and (b) at least one member of
+nonResourceURLs matches the request.
+</p></div><dl class="paramcmts block"><dt class="param">nonResourceURLs</dt><dd class="cmt"><p>
+  <code>nonResourceURLs</code> is a set of url prefixes that a user should have access to and may not be
+  empty. For example:
+- &quot;/healthz&quot; is legal
+- &quot;/hea*&quot; is illegal
+- &quot;/hea&quot; is legal but matches nothing
+- &quot;/hea&#47;*&quot; also matches nothing
+- &quot;/healthz&#47;*&quot; matches all per-component health checks. &quot;*&quot; matches all non-resource urls.
+if it is present, it must be the only entry. Required.</p></dd><dt class="param">verbs</dt><dd class="cmt"><p>
+  <code>verbs</code> is a list of matching verbs and may not be empty. &quot;*&quot; matches all verbs. If it is
+  present, it must be the only entry. Required.</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.flowcontrol.v1beta1.NonResourcePolicyRuleFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="NonResourcePolicyRuleFieldsextendsAnyRef"></a><a id="NonResourcePolicyRuleFields:NonResourcePolicyRuleFields"></a>
       <span class="permalink">
@@ -737,8 +763,20 @@ bigger numbers of ACS mean more reserved concurrent requests (at the expense of 
         <a title="PolicyRulesWithSubjects prescribes a test that applies to a request to an apiserver." href="PolicyRulesWithSubjects.html"><span class="name">PolicyRulesWithSubjects</span></a><span class="params">(<span name="nonResourceRules">nonResourceRules: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="NonResourcePolicyRule.html" class="extype" name="com.coralogix.zio.k8s.model.flowcontrol.v1beta1.NonResourcePolicyRule">NonResourcePolicyRule</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="resourceRules">resourceRules: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="ResourcePolicyRule.html" class="extype" name="com.coralogix.zio.k8s.model.flowcontrol.v1beta1.ResourcePolicyRule">ResourcePolicyRule</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="subjects">subjects: <span class="extype" name="scala.Vector">Vector</span>[<a href="Subject.html" class="extype" name="com.coralogix.zio.k8s.model.flowcontrol.v1beta1.Subject">Subject</a>]</span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
-      <p class="shortcomment cmt">PolicyRulesWithSubjects prescribes a test that applies to a request to an apiserver.</p><div class="fullcomment"><div class="comment cmt"><p>PolicyRulesWithSubjects prescribes a test that applies to a request to an apiserver. The test considers the subject making the request, the verb being requested, and the resource to be acted upon. This PolicyRulesWithSubjects matches a request if and only if both (a) at least one member of subjects matches the request and (b) at least one member of resourceRules or nonResourceRules matches the request.
-</p></div><dl class="paramcmts block"><dt class="param">nonResourceRules</dt><dd class="cmt"><p><code>nonResourceRules</code> is a list of NonResourcePolicyRules that identify matching requests according to their verb and the target non-resource URL.</p></dd><dt class="param">resourceRules</dt><dd class="cmt"><p><code>resourceRules</code> is a slice of ResourcePolicyRules that identify matching requests according to their verb and the target resource. At least one of <code>resourceRules</code> and <code>nonResourceRules</code> has to be non-empty.</p></dd><dt class="param">subjects</dt><dd class="cmt"><p>subjects is the list of normal user, serviceaccount, or group that this rule cares about. There must be at least one member in this slice. A slice that includes both the system:authenticated and system:unauthenticated user groups matches every request. Required.</p></dd></dl></div>
+      <p class="shortcomment cmt">PolicyRulesWithSubjects prescribes a test that applies to a request to an apiserver.</p><div class="fullcomment"><div class="comment cmt"><p>PolicyRulesWithSubjects prescribes a test that applies to a request to an apiserver. The test
+considers the subject making the request, the verb being requested, and the resource to be acted
+upon. This PolicyRulesWithSubjects matches a request if and only if both (a) at least one member
+of subjects matches the request and (b) at least one member of resourceRules or nonResourceRules
+matches the request.
+</p></div><dl class="paramcmts block"><dt class="param">nonResourceRules</dt><dd class="cmt"><p>
+  <code>nonResourceRules</code> is a list of NonResourcePolicyRules that identify matching requests
+  according to their verb and the target non-resource URL.</p></dd><dt class="param">resourceRules</dt><dd class="cmt"><p>
+  <code>resourceRules</code> is a slice of ResourcePolicyRules that identify matching requests according to
+  their verb and the target resource. At least one of <code>resourceRules</code> and <code>nonResourceRules</code> has
+  to be non-empty.</p></dd><dt class="param">subjects</dt><dd class="cmt"><p>
+  subjects is the list of normal user, serviceaccount, or group that this rule cares about.
+  There must be at least one member in this slice. A slice that includes both the
+  system:authenticated and system:unauthenticated user groups matches every request. Required.</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.flowcontrol.v1beta1.PolicyRulesWithSubjectsFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="PolicyRulesWithSubjectsFieldsextendsAnyRef"></a><a id="PolicyRulesWithSubjectsFields:PolicyRulesWithSubjectsFields"></a>
       <span class="permalink">
@@ -787,7 +825,11 @@ bigger numbers of ACS mean more reserved concurrent requests (at the expense of 
       </span>
       
       <p class="shortcomment cmt">PriorityLevelConfigurationCondition defines the condition of priority level.</p><div class="fullcomment"><div class="comment cmt"><p>PriorityLevelConfigurationCondition defines the condition of priority level.
-</p></div><dl class="paramcmts block"><dt class="param">message</dt><dd class="cmt"><p><code>message</code> is a human-readable message indicating details about last transition.</p></dd><dt class="param">reason</dt><dd class="cmt"><p><code>reason</code> is a unique, one-word, CamelCase reason for the condition's last transition.</p></dd><dt class="param">status</dt><dd class="cmt"><p><code>status</code> is the status of the condition. Can be True, False, Unknown. Required.</p></dd><dt class="param">type</dt><dd class="cmt"><p><code>type</code> is the type of the condition. Required.</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="param">message</dt><dd class="cmt"><p>
+  <code>message</code> is a human-readable message indicating details about last transition.</p></dd><dt class="param">reason</dt><dd class="cmt"><p>
+  <code>reason</code> is a unique, one-word, CamelCase reason for the condition's last transition.</p></dd><dt class="param">status</dt><dd class="cmt"><p>
+  <code>status</code> is the status of the condition. Can be True, False, Unknown. Required.</p></dd><dt class="param">type</dt><dd class="cmt"><p>
+  <code>type</code> is the type of the condition. Required.</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.flowcontrol.v1beta1.PriorityLevelConfigurationConditionFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="PriorityLevelConfigurationConditionFieldsextendsAnyRef"></a><a id="PriorityLevelConfigurationConditionFields:PriorityLevelConfigurationConditionFields"></a>
       <span class="permalink">
@@ -835,8 +877,11 @@ bigger numbers of ACS mean more reserved concurrent requests (at the expense of 
         <a title="PriorityLevelConfigurationReference contains information that points to the &quot;request-priority&quot; being used." href="PriorityLevelConfigurationReference.html"><span class="name">PriorityLevelConfigurationReference</span></a><span class="params">(<span name="name">name: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
-      <p class="shortcomment cmt">PriorityLevelConfigurationReference contains information that points to the &quot;request-priority&quot; being used.</p><div class="fullcomment"><div class="comment cmt"><p>PriorityLevelConfigurationReference contains information that points to the &quot;request-priority&quot; being used.
-</p></div><dl class="paramcmts block"><dt class="param">name</dt><dd class="cmt"><p><code>name</code> is the name of the priority level configuration being referenced Required.</p></dd></dl></div>
+      <p class="shortcomment cmt">PriorityLevelConfigurationReference contains information that points to the &quot;request-priority&quot;
+being used.</p><div class="fullcomment"><div class="comment cmt"><p>PriorityLevelConfigurationReference contains information that points to the &quot;request-priority&quot;
+being used.
+</p></div><dl class="paramcmts block"><dt class="param">name</dt><dd class="cmt"><p>
+  <code>name</code> is the name of the priority level configuration being referenced Required.</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.flowcontrol.v1beta1.PriorityLevelConfigurationReferenceFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="PriorityLevelConfigurationReferenceFieldsextendsAnyRef"></a><a id="PriorityLevelConfigurationReferenceFields:PriorityLevelConfigurationReferenceFields"></a>
       <span class="permalink">
@@ -869,7 +914,13 @@ bigger numbers of ACS mean more reserved concurrent requests (at the expense of 
       </span>
       
       <p class="shortcomment cmt">PriorityLevelConfigurationSpec specifies the configuration of a priority level.</p><div class="fullcomment"><div class="comment cmt"><p>PriorityLevelConfigurationSpec specifies the configuration of a priority level.
-</p></div><dl class="paramcmts block"><dt class="param">type</dt><dd class="cmt"><p><code>type</code> indicates whether this priority level is subject to limitation on request execution.  A value of <code>&quot;Exempt&quot;</code> means that requests of this priority level are not subject to a limit (and thus are never queued) and do not detract from the capacity made available to other priority levels.  A value of <code>&quot;Limited&quot;</code> means that (a) requests of this priority level _are_ subject to limits and (b) some of the server's limited capacity is made available exclusively to this priority level. Required.</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="param">type</dt><dd class="cmt"><p>
+  <code>type</code> indicates whether this priority level is subject to limitation on request execution. A
+  value of <code>&quot;Exempt&quot;</code> means that requests of this priority level are not subject to a limit (and
+  thus are never queued) and do not detract from the capacity made available to other priority
+  levels. A value of <code>&quot;Limited&quot;</code> means that (a) requests of this priority level _are_ subject to
+  limits and (b) some of the server's limited capacity is made available exclusively to this
+  priority level. Required.</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.flowcontrol.v1beta1.PriorityLevelConfigurationSpecFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="PriorityLevelConfigurationSpecFieldsextendsAnyRef"></a><a id="PriorityLevelConfigurationSpecFields:PriorityLevelConfigurationSpecFields"></a>
       <span class="permalink">
@@ -902,7 +953,8 @@ bigger numbers of ACS mean more reserved concurrent requests (at the expense of 
       </span>
       
       <p class="shortcomment cmt">PriorityLevelConfigurationStatus represents the current state of a &quot;request-priority&quot;.</p><div class="fullcomment"><div class="comment cmt"><p>PriorityLevelConfigurationStatus represents the current state of a &quot;request-priority&quot;.
-</p></div><dl class="paramcmts block"><dt class="param">conditions</dt><dd class="cmt"><p><code>conditions</code> is the current state of &quot;request-priority&quot;.</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="param">conditions</dt><dd class="cmt"><p>
+  <code>conditions</code> is the current state of &quot;request-priority&quot;.</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.flowcontrol.v1beta1.PriorityLevelConfigurationStatusFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="PriorityLevelConfigurationStatusFieldsextendsAnyRef"></a><a id="PriorityLevelConfigurationStatusFields:PriorityLevelConfigurationStatusFields"></a>
       <span class="permalink">
@@ -936,7 +988,21 @@ bigger numbers of ACS mean more reserved concurrent requests (at the expense of 
       
       <p class="shortcomment cmt">QueuingConfiguration holds the configuration parameters for queuing
 </p><div class="fullcomment"><div class="comment cmt"><p>QueuingConfiguration holds the configuration parameters for queuing
-</p></div><dl class="paramcmts block"><dt class="param">handSize</dt><dd class="cmt"><p><code>handSize</code> is a small positive number that configures the shuffle sharding of requests into queues.  When enqueuing a request at this priority level the request's flow identifier (a string pair) is hashed and the hash value is used to shuffle the list of queues and deal a hand of the size specified here.  The request is put into one of the shortest queues in that hand. <code>handSize</code> must be no larger than <code>queues</code>, and should be significantly smaller (so that a few heavy flows do not saturate most of the queues).  See the user-facing documentation for more extensive guidance on setting this field.  This field has a default value of 8.</p></dd><dt class="param">queueLengthLimit</dt><dd class="cmt"><p><code>queueLengthLimit</code> is the maximum number of requests allowed to be waiting in a given queue of this priority level at a time; excess requests are rejected.  This value must be positive.  If not specified, it will be defaulted to 50.</p></dd><dt class="param">queues</dt><dd class="cmt"><p><code>queues</code> is the number of queues for this priority level. The queues exist independently at each apiserver. The value must be positive.  Setting it to 1 effectively precludes shufflesharding and thus makes the distinguisher method of associated flow schemas irrelevant.  This field has a default value of 64.</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="param">handSize</dt><dd class="cmt"><p>
+  <code>handSize</code> is a small positive number that configures the shuffle sharding of requests into
+  queues. When enqueuing a request at this priority level the request's flow identifier (a
+  string pair) is hashed and the hash value is used to shuffle the list of queues and deal a
+  hand of the size specified here. The request is put into one of the shortest queues in that
+  hand. <code>handSize</code> must be no larger than <code>queues</code>, and should be significantly smaller (so that
+  a few heavy flows do not saturate most of the queues). See the user-facing documentation for
+  more extensive guidance on setting this field. This field has a default value of 8.</p></dd><dt class="param">queueLengthLimit</dt><dd class="cmt"><p>
+  <code>queueLengthLimit</code> is the maximum number of requests allowed to be waiting in a given queue of
+  this priority level at a time; excess requests are rejected. This value must be positive. If
+  not specified, it will be defaulted to 50.</p></dd><dt class="param">queues</dt><dd class="cmt"><p>
+  <code>queues</code> is the number of queues for this priority level. The queues exist independently at
+  each apiserver. The value must be positive. Setting it to 1 effectively precludes
+  shufflesharding and thus makes the distinguisher method of associated flow schemas irrelevant.
+  This field has a default value of 64.</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.flowcontrol.v1beta1.QueuingConfigurationFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="QueuingConfigurationFieldsextendsAnyRef"></a><a id="QueuingConfigurationFields:QueuingConfigurationFields"></a>
       <span class="permalink">
@@ -968,8 +1034,28 @@ bigger numbers of ACS mean more reserved concurrent requests (at the expense of 
         <a title="ResourcePolicyRule is a predicate that matches some resource requests, testing the request's verb and the target resource." href="ResourcePolicyRule.html"><span class="name">ResourcePolicyRule</span></a><span class="params">(<span name="apiGroups">apiGroups: <span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]</span>, <span name="clusterScope">clusterScope: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Boolean">Boolean</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="namespaces">namespaces: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="resources">resources: <span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]</span>, <span name="verbs">verbs: <span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]</span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
-      <p class="shortcomment cmt">ResourcePolicyRule is a predicate that matches some resource requests, testing the request's verb and the target resource.</p><div class="fullcomment"><div class="comment cmt"><p>ResourcePolicyRule is a predicate that matches some resource requests, testing the request's verb and the target resource. A ResourcePolicyRule matches a resource request if and only if: (a) at least one member of verbs matches the request, (b) at least one member of apiGroups matches the request, (c) at least one member of resources matches the request, and (d) least one member of namespaces matches the request.
-</p></div><dl class="paramcmts block"><dt class="param">apiGroups</dt><dd class="cmt"><p><code>apiGroups</code> is a list of matching API groups and may not be empty. &quot;*&quot; matches all API groups and, if present, must be the only entry. Required.</p></dd><dt class="param">clusterScope</dt><dd class="cmt"><p><code>clusterScope</code> indicates whether to match requests that do not specify a namespace (which happens either because the resource is not namespaced or the request targets all namespaces). If this field is omitted or false then the <code>namespaces</code> field must contain a non-empty list.</p></dd><dt class="param">namespaces</dt><dd class="cmt"><p><code>namespaces</code> is a list of target namespaces that restricts matches.  A request that specifies a target namespace matches only if either (a) this list contains that target namespace or (b) this list contains &quot;*&quot;.  Note that &quot;*&quot; matches any specified namespace but does not match a request that _does not specify_ a namespace (see the <code>clusterScope</code> field for that). This list may be empty, but only if <code>clusterScope</code> is true.</p></dd><dt class="param">resources</dt><dd class="cmt"><p><code>resources</code> is a list of matching resources (i.e., lowercase and plural) with, if desired, subresource.  For example, [ &quot;services&quot;, &quot;nodes/status&quot; ].  This list may not be empty. &quot;*&quot; matches all resources and, if present, must be the only entry. Required.</p></dd><dt class="param">verbs</dt><dd class="cmt"><p><code>verbs</code> is a list of matching verbs and may not be empty. &quot;*&quot; matches all verbs and, if present, must be the only entry. Required.</p></dd></dl></div>
+      <p class="shortcomment cmt">ResourcePolicyRule is a predicate that matches some resource requests, testing the request's
+verb and the target resource.</p><div class="fullcomment"><div class="comment cmt"><p>ResourcePolicyRule is a predicate that matches some resource requests, testing the request's
+verb and the target resource. A ResourcePolicyRule matches a resource request if and only if:
+(a) at least one member of verbs matches the request, (b) at least one member of apiGroups
+matches the request, (c) at least one member of resources matches the request, and (d) least one
+member of namespaces matches the request.
+</p></div><dl class="paramcmts block"><dt class="param">apiGroups</dt><dd class="cmt"><p>
+  <code>apiGroups</code> is a list of matching API groups and may not be empty. &quot;*&quot; matches all API groups
+  and, if present, must be the only entry. Required.</p></dd><dt class="param">clusterScope</dt><dd class="cmt"><p>
+  <code>clusterScope</code> indicates whether to match requests that do not specify a namespace (which
+  happens either because the resource is not namespaced or the request targets all namespaces).
+  If this field is omitted or false then the <code>namespaces</code> field must contain a non-empty list.</p></dd><dt class="param">namespaces</dt><dd class="cmt"><p>
+  <code>namespaces</code> is a list of target namespaces that restricts matches. A request that specifies a
+  target namespace matches only if either (a) this list contains that target namespace or (b)
+  this list contains &quot;*&quot;. Note that &quot;*&quot; matches any specified namespace but does not match a
+  request that _does not specify_ a namespace (see the <code>clusterScope</code> field for that). This list
+  may be empty, but only if <code>clusterScope</code> is true.</p></dd><dt class="param">resources</dt><dd class="cmt"><p>
+  <code>resources</code> is a list of matching resources (i.e., lowercase and plural) with, if desired,
+  subresource. For example, [ &quot;services&quot;, &quot;nodes/status&quot; ]. This list may not be empty. &quot;*&quot;
+  matches all resources and, if present, must be the only entry. Required.</p></dd><dt class="param">verbs</dt><dd class="cmt"><p>
+  <code>verbs</code> is a list of matching verbs and may not be empty. &quot;*&quot; matches all verbs and, if
+  present, must be the only entry. Required.</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.flowcontrol.v1beta1.ResourcePolicyRuleFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="ResourcePolicyRuleFieldsextendsAnyRef"></a><a id="ResourcePolicyRuleFields:ResourcePolicyRuleFields"></a>
       <span class="permalink">
@@ -1002,7 +1088,10 @@ bigger numbers of ACS mean more reserved concurrent requests (at the expense of 
       </span>
       
       <p class="shortcomment cmt">ServiceAccountSubject holds detailed information for service-account-kind subject.</p><div class="fullcomment"><div class="comment cmt"><p>ServiceAccountSubject holds detailed information for service-account-kind subject.
-</p></div><dl class="paramcmts block"><dt class="param">name</dt><dd class="cmt"><p><code>name</code> is the name of matching ServiceAccount objects, or &quot;*&quot; to match regardless of name. Required.</p></dd><dt class="param">namespace</dt><dd class="cmt"><p><code>namespace</code> is the namespace of matching ServiceAccount objects. Required.</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="param">name</dt><dd class="cmt"><p>
+  <code>name</code> is the name of matching ServiceAccount objects, or &quot;*&quot; to match regardless of name.
+  Required.</p></dd><dt class="param">namespace</dt><dd class="cmt"><p>
+  <code>namespace</code> is the namespace of matching ServiceAccount objects. Required.</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.flowcontrol.v1beta1.ServiceAccountSubjectFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="ServiceAccountSubjectFieldsextendsAnyRef"></a><a id="ServiceAccountSubjectFields:ServiceAccountSubjectFields"></a>
       <span class="permalink">
@@ -1034,8 +1123,10 @@ bigger numbers of ACS mean more reserved concurrent requests (at the expense of 
         <a title="Subject matches the originator of a request, as identified by the request authentication system." href="Subject.html"><span class="name">Subject</span></a><span class="params">(<span name="group">group: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="GroupSubject.html" class="extype" name="com.coralogix.zio.k8s.model.flowcontrol.v1beta1.GroupSubject">GroupSubject</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="kind">kind: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="serviceAccount">serviceAccount: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="ServiceAccountSubject.html" class="extype" name="com.coralogix.zio.k8s.model.flowcontrol.v1beta1.ServiceAccountSubject">ServiceAccountSubject</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="user">user: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="UserSubject.html" class="extype" name="com.coralogix.zio.k8s.model.flowcontrol.v1beta1.UserSubject">UserSubject</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
-      <p class="shortcomment cmt">Subject matches the originator of a request, as identified by the request authentication system.</p><div class="fullcomment"><div class="comment cmt"><p>Subject matches the originator of a request, as identified by the request authentication system. There are three ways of matching an originator; by user, group, or service account.
-</p></div><dl class="paramcmts block"><dt class="param">kind</dt><dd class="cmt"><p>Required</p></dd></dl></div>
+      <p class="shortcomment cmt">Subject matches the originator of a request, as identified by the request authentication system.</p><div class="fullcomment"><div class="comment cmt"><p>Subject matches the originator of a request, as identified by the request authentication system.
+There are three ways of matching an originator; by user, group, or service account.
+</p></div><dl class="paramcmts block"><dt class="param">kind</dt><dd class="cmt"><p>
+  <code>kind</code> indicates which one of the other fields is non-empty. Required</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.flowcontrol.v1beta1.SubjectFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="SubjectFieldsextendsAnyRef"></a><a id="SubjectFields:SubjectFields"></a>
       <span class="permalink">
@@ -1068,7 +1159,8 @@ bigger numbers of ACS mean more reserved concurrent requests (at the expense of 
       </span>
       
       <p class="shortcomment cmt">UserSubject holds detailed information for user-kind subject.</p><div class="fullcomment"><div class="comment cmt"><p>UserSubject holds detailed information for user-kind subject.
-</p></div><dl class="paramcmts block"><dt class="param">name</dt><dd class="cmt"><p><code>name</code> is the username that matches, or &quot;*&quot; to match all usernames. Required.</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="param">name</dt><dd class="cmt"><p>
+  <code>name</code> is the username that matches, or &quot;*&quot; to match all usernames. Required.</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.flowcontrol.v1beta1.UserSubjectFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="UserSubjectFieldsextendsAnyRef"></a><a id="UserSubjectFields:UserSubjectFields"></a>
       <span class="permalink">

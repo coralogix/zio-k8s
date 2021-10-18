@@ -406,13 +406,14 @@
         <a title="Return data at the exact resource version provided." href="ListResourceVersion$$Exact.html"><span class="name">Exact</span></a><span class="params">(<span name="version">version: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result"> extends <a href="ListResourceVersion.html" class="extype" name="com.coralogix.zio.k8s.client.model.ListResourceVersion">ListResourceVersion</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
-      <p class="shortcomment cmt">Return data at the exact resource version provided.</p><div class="fullcomment"><div class="comment cmt"><p>Return data at the exact resource version provided.</p><p>If the provided resourceVersion is unavailable, the server responds with HTTP 410 &quot;Gone&quot;.
-For list requests to servers that honor the resourceVersionMatch parameter,
-this guarantees that resourceVersion in the ListMeta is the same as the requested resourceVersion,
-but does not make any guarantee about the resourceVersion in the ObjectMeta of the list items
-since ObjectMeta.resourceVersion tracks when an object was last updated,
-not how up-to-date the object is when served.
-</p></div><dl class="paramcmts block"><dt class="param">version</dt><dd class="cmt"><p>the exact resource version</p></dd></dl></div>
+      <p class="shortcomment cmt">Return data at the exact resource version provided.</p><div class="fullcomment"><div class="comment cmt"><p>Return data at the exact resource version provided.</p><p>If the provided resourceVersion is unavailable, the server responds with HTTP 410 &quot;Gone&quot;. For
+list requests to servers that honor the resourceVersionMatch parameter, this guarantees that
+resourceVersion in the ListMeta is the same as the requested resourceVersion, but does not
+make any guarantee about the resourceVersion in the ObjectMeta of the list items since
+ObjectMeta.resourceVersion tracks when an object was last updated, not how up-to-date the
+object is when served.
+</p></div><dl class="paramcmts block"><dt class="param">version</dt><dd class="cmt"><p>
+  the exact resource version</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.client.model.ListResourceVersion.NotOlderThan" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="NotOlderThanextendsListResourceVersionwithProductwithSerializable"></a><a id="NotOlderThan:NotOlderThan"></a>
       <span class="permalink">
@@ -428,13 +429,14 @@ not how up-to-date the object is when served.
         <a title="Return data at least as new as the provided resourceVersion." href="ListResourceVersion$$NotOlderThan.html"><span class="name">NotOlderThan</span></a><span class="params">(<span name="version">version: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result"> extends <a href="ListResourceVersion.html" class="extype" name="com.coralogix.zio.k8s.client.model.ListResourceVersion">ListResourceVersion</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
-      <p class="shortcomment cmt">Return data at least as new as the provided resourceVersion.</p><div class="fullcomment"><div class="comment cmt"><p>Return data at least as new as the provided resourceVersion.</p><p>The newest available data is preferred, but any data not older than the provided resourceVersion may be served.
-For list requests to servers that honor the resourceVersionMatch parameter,
-this guarantees that resourceVersion in the ListMeta is not older than the requested resourceVersion,
-but does not make any guarantee about the resourceVersion in the ObjectMeta of the list items
-since ObjectMeta.resourceVersion tracks when an object was last updated,
-not how up-to-date the object is when served.
-</p></div><dl class="paramcmts block"><dt class="param">version</dt><dd class="cmt"><p>the provided resource version</p></dd></dl></div>
+      <p class="shortcomment cmt">Return data at least as new as the provided resourceVersion.</p><div class="fullcomment"><div class="comment cmt"><p>Return data at least as new as the provided resourceVersion.</p><p>The newest available data is preferred, but any data not older than the provided
+resourceVersion may be served. For list requests to servers that honor the
+resourceVersionMatch parameter, this guarantees that resourceVersion in the ListMeta is not
+older than the requested resourceVersion, but does not make any guarantee about the
+resourceVersion in the ObjectMeta of the list items since ObjectMeta.resourceVersion tracks
+when an object was last updated, not how up-to-date the object is when served.
+</p></div><dl class="paramcmts block"><dt class="param">version</dt><dd class="cmt"><p>
+  the provided resource version</p></dd></dl></div>
     </li></ol>
             </div>
 
@@ -797,9 +799,9 @@ not how up-to-date the object is when served.
       </span>
       
       <p class="shortcomment cmt">Return data at any resource version.</p><div class="fullcomment"><div class="comment cmt"><p>Return data at any resource version.</p><p>The newest available resource version is preferred, but strong consistency is not required;
-data at any resource version may be served.</p><p>It is possible for the request to return data at a much older resource version that the client has previously observed,
-particularly in high availability configurations, due to partitions or stale caches.
-Clients that cannot tolerate this should not use this semantic.
+data at any resource version may be served.</p><p>It is possible for the request to return data at a much older resource version that the client
+has previously observed, particularly in high availability configurations, due to partitions
+or stale caches. Clients that cannot tolerate this should not use this semantic.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.client.model.ListResourceVersion.MostRecent" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="MostRecent"></a><a id="MostRecent:MostRecent"></a>
@@ -816,7 +818,7 @@ Clients that cannot tolerate this should not use this semantic.
         <a title="Return data at the most recent resource version." href="ListResourceVersion$$MostRecent$.html"><span class="name">MostRecent</span></a><span class="result"> extends <a href="ListResourceVersion.html" class="extype" name="com.coralogix.zio.k8s.client.model.ListResourceVersion">ListResourceVersion</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
-      <p class="shortcomment cmt"> Return data at the most recent resource version.</p><div class="fullcomment"><div class="comment cmt"><p> Return data at the most recent resource version.</p><p> The returned data must be consistent (i.e. served from etcd via a quorum read).
+      <p class="shortcomment cmt">Return data at the most recent resource version.</p><div class="fullcomment"><div class="comment cmt"><p>Return data at the most recent resource version.</p><p>The returned data must be consistent (i.e. served from etcd via a quorum read).
 </p></div></div>
     </li>
               </ol>

@@ -268,7 +268,12 @@
 
       
           <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>current status of a horizontal pod autoscaler
-</p></div><dl class="paramcmts block"><dt class="param">currentCPUUtilizationPercentage</dt><dd class="cmt"><p>current average CPU utilization over all pods, represented as a percentage of requested CPU, e.g. 70 means that an average pod is using now 70% of its requested CPU.</p></dd><dt class="param">currentReplicas</dt><dd class="cmt"><p>current number of replicas of pods managed by this autoscaler.</p></dd><dt class="param">desiredReplicas</dt><dd class="cmt"><p>desired number of replicas of pods managed by this autoscaler.</p></dd><dt class="param">observedGeneration</dt><dd class="cmt"><p>most recent generation observed by this autoscaler.</p></dd></dl><div class="toggleContainer block">
+</p></div><dl class="paramcmts block"><dt class="param">currentCPUUtilizationPercentage</dt><dd class="cmt"><p>
+  current average CPU utilization over all pods, represented as a percentage of requested CPU,
+  e.g. 70 means that an average pod is using now 70% of its requested CPU.</p></dd><dt class="param">currentReplicas</dt><dd class="cmt"><p>
+  current number of replicas of pods managed by this autoscaler.</p></dd><dt class="param">desiredReplicas</dt><dd class="cmt"><p>
+  desired number of replicas of pods managed by this autoscaler.</p></dd><dt class="param">observedGeneration</dt><dd class="cmt"><p>
+  most recent generation observed by this autoscaler.</p></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -333,7 +338,12 @@
         <span class="name">HorizontalPodAutoscalerStatus</span><span class="params">(<span name="currentCPUUtilizationPercentage">currentCPUUtilizationPercentage: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="currentReplicas">currentReplicas: <span class="extype" name="scala.Int">Int</span></span>, <span name="desiredReplicas">desiredReplicas: <span class="extype" name="scala.Int">Int</span></span>, <span name="lastScaleTime">lastScaleTime: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="../../pkg/apis/meta/v1/Time.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Time">Time</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="observedGeneration">observedGeneration: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Long">Long</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span>
       </span>
       
-      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">currentCPUUtilizationPercentage</dt><dd class="cmt"><p>current average CPU utilization over all pods, represented as a percentage of requested CPU, e.g. 70 means that an average pod is using now 70% of its requested CPU.</p></dd><dt class="param">currentReplicas</dt><dd class="cmt"><p>current number of replicas of pods managed by this autoscaler.</p></dd><dt class="param">desiredReplicas</dt><dd class="cmt"><p>desired number of replicas of pods managed by this autoscaler.</p></dd><dt class="param">observedGeneration</dt><dd class="cmt"><p>most recent generation observed by this autoscaler.</p></dd></dl></div>
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">currentCPUUtilizationPercentage</dt><dd class="cmt"><p>
+  current average CPU utilization over all pods, represented as a percentage of requested CPU,
+  e.g. 70 means that an average pod is using now 70% of its requested CPU.</p></dd><dt class="param">currentReplicas</dt><dd class="cmt"><p>
+  current number of replicas of pods managed by this autoscaler.</p></dd><dt class="param">desiredReplicas</dt><dd class="cmt"><p>
+  desired number of replicas of pods managed by this autoscaler.</p></dd><dt class="param">observedGeneration</dt><dd class="cmt"><p>
+  most recent generation observed by this autoscaler.</p></dd></dl></div>
     </li></ol>
             </div>
 
@@ -534,7 +544,9 @@
         <span class="name">getCurrentCPUUtilizationPercentage</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Int">Int</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">current average CPU utilization over all pods, represented as a percentage of requested CPU, e.g.</p><div class="fullcomment"><div class="comment cmt"><p>current average CPU utilization over all pods, represented as a percentage of requested CPU, e.g. 70 means that an average pod is using now 70% of its requested CPU.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">current average CPU utilization over all pods, represented as a percentage of requested CPU,
+e.g.</p><div class="fullcomment"><div class="comment cmt"><p>current average CPU utilization over all pods, represented as a percentage of requested CPU,
+e.g. 70 means that an average pod is using now 70% of its requested CPU.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.autoscaling.v1.HorizontalPodAutoscalerStatus#getCurrentReplicas" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getCurrentReplicas:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Int]"></a><a id="getCurrentReplicas:IO[K8sFailure,Int]"></a>

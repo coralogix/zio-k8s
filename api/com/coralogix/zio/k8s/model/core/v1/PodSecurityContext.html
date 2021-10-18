@@ -1587,10 +1587,36 @@
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>PodSecurityContext holds pod-level security attributes and common container settings. Some fields are also present in container.securityContext.  Field values of container.securityContext take precedence over field values of PodSecurityContext.
-</p></div><dl class="paramcmts block"><dt class="param">fsGroup</dt><dd class="cmt"><p>A special supplemental group that applies to all containers in a pod. Some volume types allow the Kubelet to change the ownership of that volume to be owned by the pod:
-1. The owning GID will be the FSGroup 2. The setgid bit is set (new files created in the volume will be owned by FSGroup) 3. The permission bits are OR'd with rw-rw----
-If unset, the Kubelet will not modify the ownership and permissions of any volume.</p></dd><dt class="param">fsGroupChangePolicy</dt><dd class="cmt"><p>fsGroupChangePolicy defines behavior of changing ownership and permission of the volume before being exposed inside Pod. This field will only apply to volume types which support fsGroup based ownership(and permissions). It will have no effect on ephemeral volume types such as: secret, configmaps and emptydir. Valid values are &quot;OnRootMismatch&quot; and &quot;Always&quot;. If not specified, &quot;Always&quot; is used.</p></dd><dt class="param">runAsGroup</dt><dd class="cmt"><p>The GID to run the entrypoint of the container process. Uses runtime default if unset. May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container.</p></dd><dt class="param">runAsNonRoot</dt><dd class="cmt"><p>Indicates that the container must run as a non-root user. If true, the Kubelet will validate the image at runtime to ensure that it does not run as UID 0 (root) and fail to start the container if it does. If unset or false, no such validation will be performed. May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.</p></dd><dt class="param">runAsUser</dt><dd class="cmt"><p>The UID to run the entrypoint of the container process. Defaults to user specified in image metadata if unspecified. May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container.</p></dd><dt class="param">supplementalGroups</dt><dd class="cmt"><p>A list of groups applied to the first process run in each container, in addition to the container's primary GID.  If unspecified, no groups will be added to any container.</p></dd><dt class="param">sysctls</dt><dd class="cmt"><p>Sysctls hold a list of namespaced sysctls used for the pod. Pods with unsupported sysctls (by the container runtime) might fail to launch.</p></dd></dl><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>PodSecurityContext holds pod-level security attributes and common container settings. Some
+fields are also present in container.securityContext. Field values of container.securityContext
+take precedence over field values of PodSecurityContext.
+</p></div><dl class="paramcmts block"><dt class="param">fsGroup</dt><dd class="cmt"><p>
+  A special supplemental group that applies to all containers in a pod. Some volume types allow
+  the Kubelet to change the ownership of that volume to be owned by the pod:
+1. The owning GID will be the FSGroup 2. The setgid bit is set (new files created in the volume
+will be owned by FSGroup) 3. The permission bits are OR'd with rw-rw----
+If unset, the Kubelet will not modify the ownership and permissions of any volume.</p></dd><dt class="param">fsGroupChangePolicy</dt><dd class="cmt"><p>
+  fsGroupChangePolicy defines behavior of changing ownership and permission of the volume before
+  being exposed inside Pod. This field will only apply to volume types which support fsGroup
+  based ownership(and permissions). It will have no effect on ephemeral volume types such as:
+  secret, configmaps and emptydir. Valid values are &quot;OnRootMismatch&quot; and &quot;Always&quot;. If not
+  specified, &quot;Always&quot; is used.</p></dd><dt class="param">runAsGroup</dt><dd class="cmt"><p>
+  The GID to run the entrypoint of the container process. Uses runtime default if unset. May
+  also be set in SecurityContext. If set in both SecurityContext and PodSecurityContext, the
+  value specified in SecurityContext takes precedence for that container.</p></dd><dt class="param">runAsNonRoot</dt><dd class="cmt"><p>
+  Indicates that the container must run as a non-root user. If true, the Kubelet will validate
+  the image at runtime to ensure that it does not run as UID 0 (root) and fail to start the
+  container if it does. If unset or false, no such validation will be performed. May also be set
+  in SecurityContext. If set in both SecurityContext and PodSecurityContext, the value specified
+  in SecurityContext takes precedence.</p></dd><dt class="param">runAsUser</dt><dd class="cmt"><p>
+  The UID to run the entrypoint of the container process. Defaults to user specified in image
+  metadata if unspecified. May also be set in SecurityContext. If set in both SecurityContext
+  and PodSecurityContext, the value specified in SecurityContext takes precedence for that
+  container.</p></dd><dt class="param">supplementalGroups</dt><dd class="cmt"><p>
+  A list of groups applied to the first process run in each container, in addition to the
+  container's primary GID. If unspecified, no groups will be added to any container.</p></dd><dt class="param">sysctls</dt><dd class="cmt"><p>
+  Sysctls hold a list of namespaced sysctls used for the pod. Pods with unsupported sysctls (by
+  the container runtime) might fail to launch.</p></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -1655,9 +1681,33 @@ If unset, the Kubelet will not modify the ownership and permissions of any volum
         <span class="name">PodSecurityContext</span><span class="params">(<span name="fsGroup">fsGroup: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Long">Long</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="fsGroupChangePolicy">fsGroupChangePolicy: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="runAsGroup">runAsGroup: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Long">Long</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="runAsNonRoot">runAsNonRoot: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Boolean">Boolean</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="runAsUser">runAsUser: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Long">Long</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="seLinuxOptions">seLinuxOptions: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="SELinuxOptions.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.SELinuxOptions">SELinuxOptions</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="seccompProfile">seccompProfile: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="SeccompProfile.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.SeccompProfile">SeccompProfile</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="supplementalGroups">supplementalGroups: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Long">Long</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="sysctls">sysctls: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="Sysctl.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.Sysctl">Sysctl</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="windowsOptions">windowsOptions: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="WindowsSecurityContextOptions.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.WindowsSecurityContextOptions">WindowsSecurityContextOptions</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span>
       </span>
       
-      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">fsGroup</dt><dd class="cmt"><p>A special supplemental group that applies to all containers in a pod. Some volume types allow the Kubelet to change the ownership of that volume to be owned by the pod:
-1. The owning GID will be the FSGroup 2. The setgid bit is set (new files created in the volume will be owned by FSGroup) 3. The permission bits are OR'd with rw-rw----
-If unset, the Kubelet will not modify the ownership and permissions of any volume.</p></dd><dt class="param">fsGroupChangePolicy</dt><dd class="cmt"><p>fsGroupChangePolicy defines behavior of changing ownership and permission of the volume before being exposed inside Pod. This field will only apply to volume types which support fsGroup based ownership(and permissions). It will have no effect on ephemeral volume types such as: secret, configmaps and emptydir. Valid values are &quot;OnRootMismatch&quot; and &quot;Always&quot;. If not specified, &quot;Always&quot; is used.</p></dd><dt class="param">runAsGroup</dt><dd class="cmt"><p>The GID to run the entrypoint of the container process. Uses runtime default if unset. May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container.</p></dd><dt class="param">runAsNonRoot</dt><dd class="cmt"><p>Indicates that the container must run as a non-root user. If true, the Kubelet will validate the image at runtime to ensure that it does not run as UID 0 (root) and fail to start the container if it does. If unset or false, no such validation will be performed. May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.</p></dd><dt class="param">runAsUser</dt><dd class="cmt"><p>The UID to run the entrypoint of the container process. Defaults to user specified in image metadata if unspecified. May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container.</p></dd><dt class="param">supplementalGroups</dt><dd class="cmt"><p>A list of groups applied to the first process run in each container, in addition to the container's primary GID.  If unspecified, no groups will be added to any container.</p></dd><dt class="param">sysctls</dt><dd class="cmt"><p>Sysctls hold a list of namespaced sysctls used for the pod. Pods with unsupported sysctls (by the container runtime) might fail to launch.</p></dd></dl></div>
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">fsGroup</dt><dd class="cmt"><p>
+  A special supplemental group that applies to all containers in a pod. Some volume types allow
+  the Kubelet to change the ownership of that volume to be owned by the pod:
+1. The owning GID will be the FSGroup 2. The setgid bit is set (new files created in the volume
+will be owned by FSGroup) 3. The permission bits are OR'd with rw-rw----
+If unset, the Kubelet will not modify the ownership and permissions of any volume.</p></dd><dt class="param">fsGroupChangePolicy</dt><dd class="cmt"><p>
+  fsGroupChangePolicy defines behavior of changing ownership and permission of the volume before
+  being exposed inside Pod. This field will only apply to volume types which support fsGroup
+  based ownership(and permissions). It will have no effect on ephemeral volume types such as:
+  secret, configmaps and emptydir. Valid values are &quot;OnRootMismatch&quot; and &quot;Always&quot;. If not
+  specified, &quot;Always&quot; is used.</p></dd><dt class="param">runAsGroup</dt><dd class="cmt"><p>
+  The GID to run the entrypoint of the container process. Uses runtime default if unset. May
+  also be set in SecurityContext. If set in both SecurityContext and PodSecurityContext, the
+  value specified in SecurityContext takes precedence for that container.</p></dd><dt class="param">runAsNonRoot</dt><dd class="cmt"><p>
+  Indicates that the container must run as a non-root user. If true, the Kubelet will validate
+  the image at runtime to ensure that it does not run as UID 0 (root) and fail to start the
+  container if it does. If unset or false, no such validation will be performed. May also be set
+  in SecurityContext. If set in both SecurityContext and PodSecurityContext, the value specified
+  in SecurityContext takes precedence.</p></dd><dt class="param">runAsUser</dt><dd class="cmt"><p>
+  The UID to run the entrypoint of the container process. Defaults to user specified in image
+  metadata if unspecified. May also be set in SecurityContext. If set in both SecurityContext
+  and PodSecurityContext, the value specified in SecurityContext takes precedence for that
+  container.</p></dd><dt class="param">supplementalGroups</dt><dd class="cmt"><p>
+  A list of groups applied to the first process run in each container, in addition to the
+  container's primary GID. If unspecified, no groups will be added to any container.</p></dd><dt class="param">sysctls</dt><dd class="cmt"><p>
+  Sysctls hold a list of namespaced sysctls used for the pod. Pods with unsupported sysctls (by
+  the container runtime) might fail to launch.</p></dd></dl></div>
     </li></ol>
             </div>
 
@@ -1842,7 +1892,9 @@ If unset, the Kubelet will not modify the ownership and permissions of any volum
         <span class="name">getFsGroup</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Long">Long</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">A special supplemental group that applies to all containers in a pod.</p><div class="fullcomment"><div class="comment cmt"><p>A special supplemental group that applies to all containers in a pod. Some volume types allow the Kubelet to change the ownership of that volume to be owned by the pod:</p><p>1. The owning GID will be the FSGroup 2. The setgid bit is set (new files created in the volume will be owned by FSGroup) 3. The permission bits are OR'd with rw-rw----</p><p>If unset, the Kubelet will not modify the ownership and permissions of any volume.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">A special supplemental group that applies to all containers in a pod.</p><div class="fullcomment"><div class="comment cmt"><p>A special supplemental group that applies to all containers in a pod. Some volume types allow
+the Kubelet to change the ownership of that volume to be owned by the pod:</p><p>1. The owning GID will be the FSGroup 2. The setgid bit is set (new files created in the
+volume will be owned by FSGroup) 3. The permission bits are OR'd with rw-rw----</p><p>If unset, the Kubelet will not modify the ownership and permissions of any volume.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.core.v1.PodSecurityContext#getFsGroupChangePolicy" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getFsGroupChangePolicy:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]"></a><a id="getFsGroupChangePolicy:IO[K8sFailure,String]"></a>
@@ -1859,7 +1911,12 @@ If unset, the Kubelet will not modify the ownership and permissions of any volum
         <span class="name">getFsGroupChangePolicy</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">fsGroupChangePolicy defines behavior of changing ownership and permission of the volume before being exposed inside Pod.</p><div class="fullcomment"><div class="comment cmt"><p>fsGroupChangePolicy defines behavior of changing ownership and permission of the volume before being exposed inside Pod. This field will only apply to volume types which support fsGroup based ownership(and permissions). It will have no effect on ephemeral volume types such as: secret, configmaps and emptydir. Valid values are &quot;OnRootMismatch&quot; and &quot;Always&quot;. If not specified, &quot;Always&quot; is used.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">fsGroupChangePolicy defines behavior of changing ownership and permission of the volume before
+being exposed inside Pod.</p><div class="fullcomment"><div class="comment cmt"><p>fsGroupChangePolicy defines behavior of changing ownership and permission of the volume before
+being exposed inside Pod. This field will only apply to volume types which support fsGroup
+based ownership(and permissions). It will have no effect on ephemeral volume types such as:
+secret, configmaps and emptydir. Valid values are &quot;OnRootMismatch&quot; and &quot;Always&quot;. If not
+specified, &quot;Always&quot; is used.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.core.v1.PodSecurityContext#getRunAsGroup" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getRunAsGroup:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Long]"></a><a id="getRunAsGroup:IO[K8sFailure,Long]"></a>
@@ -1876,7 +1933,9 @@ If unset, the Kubelet will not modify the ownership and permissions of any volum
         <span class="name">getRunAsGroup</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Long">Long</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">The GID to run the entrypoint of the container process.</p><div class="fullcomment"><div class="comment cmt"><p>The GID to run the entrypoint of the container process. Uses runtime default if unset. May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">The GID to run the entrypoint of the container process.</p><div class="fullcomment"><div class="comment cmt"><p>The GID to run the entrypoint of the container process. Uses runtime default if unset. May
+also be set in SecurityContext. If set in both SecurityContext and PodSecurityContext, the
+value specified in SecurityContext takes precedence for that container.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.core.v1.PodSecurityContext#getRunAsNonRoot" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getRunAsNonRoot:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Boolean]"></a><a id="getRunAsNonRoot:IO[K8sFailure,Boolean]"></a>
@@ -1893,7 +1952,11 @@ If unset, the Kubelet will not modify the ownership and permissions of any volum
         <span class="name">getRunAsNonRoot</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Boolean">Boolean</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">Indicates that the container must run as a non-root user.</p><div class="fullcomment"><div class="comment cmt"><p>Indicates that the container must run as a non-root user. If true, the Kubelet will validate the image at runtime to ensure that it does not run as UID 0 (root) and fail to start the container if it does. If unset or false, no such validation will be performed. May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">Indicates that the container must run as a non-root user.</p><div class="fullcomment"><div class="comment cmt"><p>Indicates that the container must run as a non-root user. If true, the Kubelet will validate
+the image at runtime to ensure that it does not run as UID 0 (root) and fail to start the
+container if it does. If unset or false, no such validation will be performed. May also be set
+in SecurityContext. If set in both SecurityContext and PodSecurityContext, the value specified
+in SecurityContext takes precedence.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.core.v1.PodSecurityContext#getRunAsUser" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getRunAsUser:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Long]"></a><a id="getRunAsUser:IO[K8sFailure,Long]"></a>
@@ -1910,7 +1973,10 @@ If unset, the Kubelet will not modify the ownership and permissions of any volum
         <span class="name">getRunAsUser</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Long">Long</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">The UID to run the entrypoint of the container process.</p><div class="fullcomment"><div class="comment cmt"><p>The UID to run the entrypoint of the container process. Defaults to user specified in image metadata if unspecified. May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">The UID to run the entrypoint of the container process.</p><div class="fullcomment"><div class="comment cmt"><p>The UID to run the entrypoint of the container process. Defaults to user specified in image
+metadata if unspecified. May also be set in SecurityContext. If set in both SecurityContext
+and PodSecurityContext, the value specified in SecurityContext takes precedence for that
+container.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.core.v1.PodSecurityContext#getSeLinuxOptions" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getSeLinuxOptions:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.model.core.v1.SELinuxOptions]"></a><a id="getSeLinuxOptions:IO[K8sFailure,SELinuxOptions]"></a>
@@ -1961,7 +2027,9 @@ If unset, the Kubelet will not modify the ownership and permissions of any volum
         <span class="name">getSupplementalGroups</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Long">Long</span>]]</span>
       </span>
       
-      <p class="shortcomment cmt">A list of groups applied to the first process run in each container, in addition to the container's primary GID.</p><div class="fullcomment"><div class="comment cmt"><p>A list of groups applied to the first process run in each container, in addition to the container's primary GID.  If unspecified, no groups will be added to any container.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">A list of groups applied to the first process run in each container, in addition to the
+container's primary GID.</p><div class="fullcomment"><div class="comment cmt"><p>A list of groups applied to the first process run in each container, in addition to the
+container's primary GID. If unspecified, no groups will be added to any container.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.core.v1.PodSecurityContext#getSysctls" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getSysctls:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Vector[com.coralogix.zio.k8s.model.core.v1.Sysctl]]"></a><a id="getSysctls:IO[K8sFailure,Vector[Sysctl]]"></a>
@@ -1978,7 +2046,8 @@ If unset, the Kubelet will not modify the ownership and permissions of any volum
         <span class="name">getSysctls</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Vector">Vector</span>[<a href="Sysctl.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.Sysctl">Sysctl</a>]]</span>
       </span>
       
-      <p class="shortcomment cmt">Sysctls hold a list of namespaced sysctls used for the pod.</p><div class="fullcomment"><div class="comment cmt"><p>Sysctls hold a list of namespaced sysctls used for the pod. Pods with unsupported sysctls (by the container runtime) might fail to launch.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">Sysctls hold a list of namespaced sysctls used for the pod.</p><div class="fullcomment"><div class="comment cmt"><p>Sysctls hold a list of namespaced sysctls used for the pod. Pods with unsupported sysctls (by
+the container runtime) might fail to launch.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.core.v1.PodSecurityContext#getWindowsOptions" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getWindowsOptions:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.model.core.v1.WindowsSecurityContextOptions]"></a><a id="getWindowsOptions:IO[K8sFailure,WindowsSecurityContextOptions]"></a>

@@ -180,8 +180,8 @@
         <a title="Provides support for Monocle for the Kubernetes data models" href="../monocle/index.html"><span class="name">monocle</span></a>
       </span>
       
-      <p class="shortcomment cmt">Provides support for Monocle for the Kubernetes data models</p><div class="fullcomment"><div class="comment cmt"><p>Provides support for Monocle for the Kubernetes data models</p><p>This package contains objects for all Kubernetes resource data models with
-<span class="extype" name="Lens">Lens</span> and <span class="extype" name="Optional">Optional</span> optics for all their fields.
+      <p class="shortcomment cmt">Provides support for Monocle for the Kubernetes data models</p><div class="fullcomment"><div class="comment cmt"><p>Provides support for Monocle for the Kubernetes data models</p><p>This package contains objects for all Kubernetes resource data models with <span class="extype" name="Lens">Lens</span> and
+<span class="extype" name="Optional">Optional</span> optics for all their fields.
 </p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="com.coralogix.zio.k8s">k8s</a></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.operator" visbl="pub" class="indented5 current" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="operator"></a><a id="operator:operator"></a>
@@ -390,8 +390,7 @@
         <a title="Core implementation of the operator logic." href="Operator.html"><span class="name">Operator</span></a><span class="tparams">[<span name="R">R</span>, <span name="E">E</span>, <span name="T">T</span>]</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       
-      <p class="shortcomment cmt">Core implementation of the operator logic.</p><div class="fullcomment"><div class="comment cmt"><p>Core implementation of the operator logic.
-Watches a stream and calls an event processor.</p><p>An instance of this is tied to one particular resource type in one namespace.</p><p>Create an instance using either <span class="extype" name="Operator.namespaced()">Operator.namespaced()</span> or <span class="extype" name="Operator.cluster()">Operator.cluster()</span>
+      <p class="shortcomment cmt">Core implementation of the operator logic.</p><div class="fullcomment"><div class="comment cmt"><p>Core implementation of the operator logic. Watches a stream and calls an event processor.</p><p>An instance of this is tied to one particular resource type in one namespace.</p><p>Create an instance using either <span class="extype" name="Operator.namespaced()">Operator.namespaced()</span> or <span class="extype" name="Operator.cluster()">Operator.cluster()</span>
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.operator.OperatorError" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="OperatorError[E]extendsOperatorFailure[E]withProductwithSerializable"></a><a id="OperatorError[E]:OperatorError[E]"></a>
@@ -408,7 +407,8 @@ Watches a stream and calls an event processor.</p><p>An instance of this is tied
         <a title="Operator failed with an application-specific error" href="OperatorError.html"><span class="name">OperatorError</span></a><span class="tparams">[<span name="E">E</span>]</span><span class="params">(<span name="error">error: <span class="extype" name="com.coralogix.zio.k8s.operator.OperatorError.E">E</span></span>)</span><span class="result"> extends <a href="OperatorFailure.html" class="extype" name="com.coralogix.zio.k8s.operator.OperatorFailure">OperatorFailure</a>[<span class="extype" name="com.coralogix.zio.k8s.operator.OperatorError.E">E</span>] with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
-      <p class="shortcomment cmt">Operator failed with an application-specific error</p><div class="fullcomment"><div class="comment cmt"><p>Operator failed with an application-specific error</p></div><dl class="paramcmts block"><dt class="tparam">E</dt><dd class="cmt"><p>Operator-specific error type</p></dd></dl></div>
+      <p class="shortcomment cmt">Operator failed with an application-specific error</p><div class="fullcomment"><div class="comment cmt"><p>Operator failed with an application-specific error</p></div><dl class="paramcmts block"><dt class="tparam">E</dt><dd class="cmt"><p>
+  Operator-specific error type</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.operator.OperatorFailure" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="OperatorFailure[+E]extendsAnyRef"></a><a id="OperatorFailure[+E]:OperatorFailure[E]"></a>
       <span class="permalink">
@@ -424,7 +424,8 @@ Watches a stream and calls an event processor.</p><p>An instance of this is tied
         <a title="Operator failure type" href="OperatorFailure.html"><span class="name">OperatorFailure</span></a><span class="tparams">[<span name="E">+E</span>]</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       
-      <p class="shortcomment cmt">Operator failure type</p><div class="fullcomment"><div class="comment cmt"><p>Operator failure type</p></div><dl class="paramcmts block"><dt class="tparam">E</dt><dd class="cmt"><p>Operator-specific error type</p></dd></dl></div>
+      <p class="shortcomment cmt">Operator failure type</p><div class="fullcomment"><div class="comment cmt"><p>Operator failure type</p></div><dl class="paramcmts block"><dt class="tparam">E</dt><dd class="cmt"><p>
+  Operator-specific error type</p></dd></dl></div>
     </li></ol>
             </div>
 

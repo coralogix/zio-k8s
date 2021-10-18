@@ -1588,7 +1588,18 @@
 
       
           <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>ReplicationControllerSpec is the specification of a replication controller.
-</p></div><dl class="paramcmts block"><dt class="param">minReadySeconds</dt><dd class="cmt"><p>Minimum number of seconds for which a newly created pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)</p></dd><dt class="param">replicas</dt><dd class="cmt"><p>Replicas is the number of desired replicas. This is a pointer to distinguish between explicit zero and unspecified. Defaults to 1. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#what-is-a-replicationcontroller</p></dd><dt class="param">selector</dt><dd class="cmt"><p>Selector is a label query over pods that should match the Replicas count. If Selector is empty, it is defaulted to the labels present on the Pod template. Label keys and values that must match in order to be controlled by this replication controller, if empty defaulted to labels on Pod template. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors</p></dd></dl><div class="toggleContainer block">
+</p></div><dl class="paramcmts block"><dt class="param">minReadySeconds</dt><dd class="cmt"><p>
+  Minimum number of seconds for which a newly created pod should be ready without any of its
+  container crashing, for it to be considered available. Defaults to 0 (pod will be considered
+  available as soon as it is ready)</p></dd><dt class="param">replicas</dt><dd class="cmt"><p>
+  Replicas is the number of desired replicas. This is a pointer to distinguish between explicit
+  zero and unspecified. Defaults to 1. More info:
+  https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#what-is-a-replicationcontroller</p></dd><dt class="param">selector</dt><dd class="cmt"><p>
+  Selector is a label query over pods that should match the Replicas count. If Selector is
+  empty, it is defaulted to the labels present on the Pod template. Label keys and values that
+  must match in order to be controlled by this replication controller, if empty defaulted to
+  labels on Pod template. More info:
+  https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors</p></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -1653,7 +1664,18 @@
         <span class="name">ReplicationControllerSpec</span><span class="params">(<span name="minReadySeconds">minReadySeconds: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="replicas">replicas: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="selector">selector: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="template">template: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="PodTemplateSpec.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.PodTemplateSpec">PodTemplateSpec</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span>
       </span>
       
-      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">minReadySeconds</dt><dd class="cmt"><p>Minimum number of seconds for which a newly created pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)</p></dd><dt class="param">replicas</dt><dd class="cmt"><p>Replicas is the number of desired replicas. This is a pointer to distinguish between explicit zero and unspecified. Defaults to 1. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#what-is-a-replicationcontroller</p></dd><dt class="param">selector</dt><dd class="cmt"><p>Selector is a label query over pods that should match the Replicas count. If Selector is empty, it is defaulted to the labels present on the Pod template. Label keys and values that must match in order to be controlled by this replication controller, if empty defaulted to labels on Pod template. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors</p></dd></dl></div>
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">minReadySeconds</dt><dd class="cmt"><p>
+  Minimum number of seconds for which a newly created pod should be ready without any of its
+  container crashing, for it to be considered available. Defaults to 0 (pod will be considered
+  available as soon as it is ready)</p></dd><dt class="param">replicas</dt><dd class="cmt"><p>
+  Replicas is the number of desired replicas. This is a pointer to distinguish between explicit
+  zero and unspecified. Defaults to 1. More info:
+  https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#what-is-a-replicationcontroller</p></dd><dt class="param">selector</dt><dd class="cmt"><p>
+  Selector is a label query over pods that should match the Replicas count. If Selector is
+  empty, it is defaulted to the labels present on the Pod template. Label keys and values that
+  must match in order to be controlled by this replication controller, if empty defaulted to
+  labels on Pod template. More info:
+  https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors</p></dd></dl></div>
     </li></ol>
             </div>
 
@@ -1806,7 +1828,10 @@
         <span class="name">getMinReadySeconds</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Int">Int</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">Minimum number of seconds for which a newly created pod should be ready without any of its container crashing, for it to be considered available.</p><div class="fullcomment"><div class="comment cmt"><p>Minimum number of seconds for which a newly created pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">Minimum number of seconds for which a newly created pod should be ready without any of its
+container crashing, for it to be considered available.</p><div class="fullcomment"><div class="comment cmt"><p>Minimum number of seconds for which a newly created pod should be ready without any of its
+container crashing, for it to be considered available. Defaults to 0 (pod will be considered
+available as soon as it is ready)</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.core.v1.ReplicationControllerSpec#getReplicas" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getReplicas:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Int]"></a><a id="getReplicas:IO[K8sFailure,Int]"></a>
@@ -1823,7 +1848,9 @@
         <span class="name">getReplicas</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Int">Int</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">Replicas is the number of desired replicas.</p><div class="fullcomment"><div class="comment cmt"><p>Replicas is the number of desired replicas. This is a pointer to distinguish between explicit zero and unspecified. Defaults to 1. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#what-is-a-replicationcontroller</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">Replicas is the number of desired replicas.</p><div class="fullcomment"><div class="comment cmt"><p>Replicas is the number of desired replicas. This is a pointer to distinguish between explicit
+zero and unspecified. Defaults to 1. More info:
+https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#what-is-a-replicationcontroller</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.core.v1.ReplicationControllerSpec#getSelector" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getSelector:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Map[String,String]]"></a><a id="getSelector:IO[K8sFailure,Map[String,String]]"></a>
@@ -1840,7 +1867,11 @@
         <span class="name">getSelector</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.Predef.String">String</span>]]</span>
       </span>
       
-      <p class="shortcomment cmt">Selector is a label query over pods that should match the Replicas count.</p><div class="fullcomment"><div class="comment cmt"><p>Selector is a label query over pods that should match the Replicas count. If Selector is empty, it is defaulted to the labels present on the Pod template. Label keys and values that must match in order to be controlled by this replication controller, if empty defaulted to labels on Pod template. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">Selector is a label query over pods that should match the Replicas count.</p><div class="fullcomment"><div class="comment cmt"><p>Selector is a label query over pods that should match the Replicas count. If Selector is
+empty, it is defaulted to the labels present on the Pod template. Label keys and values that
+must match in order to be controlled by this replication controller, if empty defaulted to
+labels on Pod template. More info:
+https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.core.v1.ReplicationControllerSpec#getTemplate" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getTemplate:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.model.core.v1.PodTemplateSpec]"></a><a id="getTemplate:IO[K8sFailure,PodTemplateSpec]"></a>

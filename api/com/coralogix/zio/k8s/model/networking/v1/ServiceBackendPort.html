@@ -226,6 +226,14 @@
                         <a class="class" href="IngressClassFields.html" title=""></a>
                         <a href="IngressClassFields.html" title="">IngressClassFields</a>
                       </li><li class="current-entities indented7">
+                        <a class="object" href="IngressClassParametersReference$.html" title=""></a>
+                        <a class="class" href="IngressClassParametersReference.html" title="IngressClassParametersReference identifies an API object."></a>
+                        <a href="IngressClassParametersReference.html" title="IngressClassParametersReference identifies an API object.">IngressClassParametersReference</a>
+                      </li><li class="current-entities indented7">
+                        <span class="separator"></span>
+                        <a class="class" href="IngressClassParametersReferenceFields.html" title=""></a>
+                        <a href="IngressClassParametersReferenceFields.html" title="">IngressClassParametersReferenceFields</a>
+                      </li><li class="current-entities indented7">
                         <a class="object" href="IngressClassSpec$.html" title=""></a>
                         <a class="class" href="IngressClassSpec.html" title="IngressClassSpec provides information about the class of an Ingress."></a>
                         <a href="IngressClassSpec.html" title="IngressClassSpec provides information about the class of an Ingress.">IngressClassSpec</a>
@@ -364,7 +372,11 @@
 
       
           <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>ServiceBackendPort is the service port being referenced.
-</p></div><dl class="paramcmts block"><dt class="param">name</dt><dd class="cmt"><p>Name is the name of the port on the Service. This is a mutually exclusive setting with &quot;Number&quot;.</p></dd><dt class="param">number</dt><dd class="cmt"><p>Number is the numerical port number (e.g. 80) on the Service. This is a mutually exclusive setting with &quot;Name&quot;.</p></dd></dl><div class="toggleContainer block">
+</p></div><dl class="paramcmts block"><dt class="param">name</dt><dd class="cmt"><p>
+  Name is the name of the port on the Service. This is a mutually exclusive setting with
+  &quot;Number&quot;.</p></dd><dt class="param">number</dt><dd class="cmt"><p>
+  Number is the numerical port number (e.g. 80) on the Service. This is a mutually exclusive
+  setting with &quot;Name&quot;.</p></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -429,7 +441,11 @@
         <span class="name">ServiceBackendPort</span><span class="params">(<span name="name">name: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="number">number: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span>
       </span>
       
-      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">name</dt><dd class="cmt"><p>Name is the name of the port on the Service. This is a mutually exclusive setting with &quot;Number&quot;.</p></dd><dt class="param">number</dt><dd class="cmt"><p>Number is the numerical port number (e.g. 80) on the Service. This is a mutually exclusive setting with &quot;Name&quot;.</p></dd></dl></div>
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">name</dt><dd class="cmt"><p>
+  Name is the name of the port on the Service. This is a mutually exclusive setting with
+  &quot;Number&quot;.</p></dd><dt class="param">number</dt><dd class="cmt"><p>
+  Number is the numerical port number (e.g. 80) on the Service. This is a mutually exclusive
+  setting with &quot;Name&quot;.</p></dd></dl></div>
     </li></ol>
             </div>
 
@@ -582,7 +598,8 @@
         <span class="name">getName</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">Name is the name of the port on the Service.</p><div class="fullcomment"><div class="comment cmt"><p>Name is the name of the port on the Service. This is a mutually exclusive setting with &quot;Number&quot;.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">Name is the name of the port on the Service.</p><div class="fullcomment"><div class="comment cmt"><p>Name is the name of the port on the Service. This is a mutually exclusive setting with
+&quot;Number&quot;.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.networking.v1.ServiceBackendPort#getNumber" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getNumber:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Int]"></a><a id="getNumber:IO[K8sFailure,Int]"></a>
@@ -599,7 +616,8 @@
         <span class="name">getNumber</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Int">Int</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">Number is the numerical port number (e.g.</p><div class="fullcomment"><div class="comment cmt"><p>Number is the numerical port number (e.g. 80) on the Service. This is a mutually exclusive setting with &quot;Name&quot;.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">Number is the numerical port number (e.g.</p><div class="fullcomment"><div class="comment cmt"><p>Number is the numerical port number (e.g. 80) on the Service. This is a mutually exclusive
+setting with &quot;Name&quot;.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="scala.Any#isInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isInstanceOf[T0]:Boolean"></a>

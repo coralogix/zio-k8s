@@ -244,11 +244,20 @@
 
       
           <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>CertificateSigningRequestCondition describes a condition of a CertificateSigningRequest object
-</p></div><dl class="paramcmts block"><dt class="param">message</dt><dd class="cmt"><p>message contains a human readable message with details about the request state</p></dd><dt class="param">reason</dt><dd class="cmt"><p>reason indicates a brief reason for the request state</p></dd><dt class="param">status</dt><dd class="cmt"><p>status of the condition, one of True, False, Unknown. Approved, Denied, and Failed conditions may not be &quot;False&quot; or &quot;Unknown&quot;.</p></dd><dt class="param">type</dt><dd class="cmt"><p>type of the condition. Known conditions are &quot;Approved&quot;, &quot;Denied&quot;, and &quot;Failed&quot;.
-An &quot;Approved&quot; condition is added via the /approval subresource, indicating the request was approved and should be issued by the signer.
-A &quot;Denied&quot; condition is added via the /approval subresource, indicating the request was denied and should not be issued by the signer.
-A &quot;Failed&quot; condition is added via the /status subresource, indicating the signer failed to issue the certificate.
-Approved and Denied conditions are mutually exclusive. Approved, Denied, and Failed conditions cannot be removed once added.
+</p></div><dl class="paramcmts block"><dt class="param">message</dt><dd class="cmt"><p>
+  message contains a human readable message with details about the request state</p></dd><dt class="param">reason</dt><dd class="cmt"><p>
+  reason indicates a brief reason for the request state</p></dd><dt class="param">status</dt><dd class="cmt"><p>
+  status of the condition, one of True, False, Unknown. Approved, Denied, and Failed conditions
+  may not be &quot;False&quot; or &quot;Unknown&quot;.</p></dd><dt class="param">type</dt><dd class="cmt"><p>
+  type of the condition. Known conditions are &quot;Approved&quot;, &quot;Denied&quot;, and &quot;Failed&quot;.
+An &quot;Approved&quot; condition is added via the /approval subresource, indicating the request was
+approved and should be issued by the signer.
+A &quot;Denied&quot; condition is added via the /approval subresource, indicating the request was denied
+and should not be issued by the signer.
+A &quot;Failed&quot; condition is added via the /status subresource, indicating the signer failed to issue
+the certificate.
+Approved and Denied conditions are mutually exclusive. Approved, Denied, and Failed conditions
+cannot be removed once added.
 Only one condition of a given type is allowed.</p></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
@@ -314,11 +323,20 @@ Only one condition of a given type is allowed.</p></dd></dl><div class="toggleCo
         <span class="name">CertificateSigningRequestCondition</span><span class="params">(<span name="lastTransitionTime">lastTransitionTime: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="../../pkg/apis/meta/v1/Time.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Time">Time</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="lastUpdateTime">lastUpdateTime: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="../../pkg/apis/meta/v1/Time.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Time">Time</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="message">message: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="reason">reason: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="status">status: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="type">type: <span class="extype" name="scala.Predef.String">String</span></span>)</span>
       </span>
       
-      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">message</dt><dd class="cmt"><p>message contains a human readable message with details about the request state</p></dd><dt class="param">reason</dt><dd class="cmt"><p>reason indicates a brief reason for the request state</p></dd><dt class="param">status</dt><dd class="cmt"><p>status of the condition, one of True, False, Unknown. Approved, Denied, and Failed conditions may not be &quot;False&quot; or &quot;Unknown&quot;.</p></dd><dt class="param">type</dt><dd class="cmt"><p>type of the condition. Known conditions are &quot;Approved&quot;, &quot;Denied&quot;, and &quot;Failed&quot;.
-An &quot;Approved&quot; condition is added via the /approval subresource, indicating the request was approved and should be issued by the signer.
-A &quot;Denied&quot; condition is added via the /approval subresource, indicating the request was denied and should not be issued by the signer.
-A &quot;Failed&quot; condition is added via the /status subresource, indicating the signer failed to issue the certificate.
-Approved and Denied conditions are mutually exclusive. Approved, Denied, and Failed conditions cannot be removed once added.
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">message</dt><dd class="cmt"><p>
+  message contains a human readable message with details about the request state</p></dd><dt class="param">reason</dt><dd class="cmt"><p>
+  reason indicates a brief reason for the request state</p></dd><dt class="param">status</dt><dd class="cmt"><p>
+  status of the condition, one of True, False, Unknown. Approved, Denied, and Failed conditions
+  may not be &quot;False&quot; or &quot;Unknown&quot;.</p></dd><dt class="param">type</dt><dd class="cmt"><p>
+  type of the condition. Known conditions are &quot;Approved&quot;, &quot;Denied&quot;, and &quot;Failed&quot;.
+An &quot;Approved&quot; condition is added via the /approval subresource, indicating the request was
+approved and should be issued by the signer.
+A &quot;Denied&quot; condition is added via the /approval subresource, indicating the request was denied
+and should not be issued by the signer.
+A &quot;Failed&quot; condition is added via the /status subresource, indicating the signer failed to issue
+the certificate.
+Approved and Denied conditions are mutually exclusive. Approved, Denied, and Failed conditions
+cannot be removed once added.
 Only one condition of a given type is allowed.</p></dd></dl></div>
     </li></ol>
             </div>
@@ -540,7 +558,8 @@ Only one condition of a given type is allowed.</p></dd></dl></div>
         <span class="name">getStatus</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">status of the condition, one of True, False, Unknown.</p><div class="fullcomment"><div class="comment cmt"><p>status of the condition, one of True, False, Unknown. Approved, Denied, and Failed conditions may not be &quot;False&quot; or &quot;Unknown&quot;.</p><p>This effect always succeeds, it is safe to use the field <a href="#status:String" class="extmbr" name="com.coralogix.zio.k8s.model.certificates.v1.CertificateSigningRequestCondition#status">status</a> directly.
+      <p class="shortcomment cmt">status of the condition, one of True, False, Unknown.</p><div class="fullcomment"><div class="comment cmt"><p>status of the condition, one of True, False, Unknown. Approved, Denied, and Failed conditions
+may not be &quot;False&quot; or &quot;Unknown&quot;.</p><p>This effect always succeeds, it is safe to use the field <a href="#status:String" class="extmbr" name="com.coralogix.zio.k8s.model.certificates.v1.CertificateSigningRequestCondition#status">status</a> directly.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.certificates.v1.CertificateSigningRequestCondition#getType" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getType:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]"></a><a id="getType:IO[K8sFailure,String]"></a>
@@ -557,7 +576,11 @@ Only one condition of a given type is allowed.</p></dd></dl></div>
         <span class="name">getType</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">type of the condition.</p><div class="fullcomment"><div class="comment cmt"><p>type of the condition. Known conditions are &quot;Approved&quot;, &quot;Denied&quot;, and &quot;Failed&quot;.</p><p>An &quot;Approved&quot; condition is added via the /approval subresource, indicating the request was approved and should be issued by the signer.</p><p>A &quot;Denied&quot; condition is added via the /approval subresource, indicating the request was denied and should not be issued by the signer.</p><p>A &quot;Failed&quot; condition is added via the /status subresource, indicating the signer failed to issue the certificate.</p><p>Approved and Denied conditions are mutually exclusive. Approved, Denied, and Failed conditions cannot be removed once added.</p><p>Only one condition of a given type is allowed.</p><p>This effect always succeeds, it is safe to use the field <a href="#type:String" class="extmbr" name="com.coralogix.zio.k8s.model.certificates.v1.CertificateSigningRequestCondition#type">type</a> directly.
+      <p class="shortcomment cmt">type of the condition.</p><div class="fullcomment"><div class="comment cmt"><p>type of the condition. Known conditions are &quot;Approved&quot;, &quot;Denied&quot;, and &quot;Failed&quot;.</p><p>An &quot;Approved&quot; condition is added via the /approval subresource, indicating the request was
+approved and should be issued by the signer.</p><p>A &quot;Denied&quot; condition is added via the /approval subresource, indicating the request was denied
+and should not be issued by the signer.</p><p>A &quot;Failed&quot; condition is added via the /status subresource, indicating the signer failed to
+issue the certificate.</p><p>Approved and Denied conditions are mutually exclusive. Approved, Denied, and Failed conditions
+cannot be removed once added.</p><p>Only one condition of a given type is allowed.</p><p>This effect always succeeds, it is safe to use the field <a href="#type:String" class="extmbr" name="com.coralogix.zio.k8s.model.certificates.v1.CertificateSigningRequestCondition#type">type</a> directly.
 </p></div></div>
     </li><li name="scala.Any#isInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isInstanceOf[T0]:Boolean"></a>

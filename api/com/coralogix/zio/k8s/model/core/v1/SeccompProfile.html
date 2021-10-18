@@ -1587,9 +1587,15 @@
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>SeccompProfile defines a pod/container's seccomp profile settings. Only one profile source may be set.
-</p></div><dl class="paramcmts block"><dt class="param">localhostProfile</dt><dd class="cmt"><p>localhostProfile indicates a profile defined in a file on the node should be used. The profile must be preconfigured on the node to work. Must be a descending path, relative to the kubelet's configured seccomp profile location. Must only be set if type is &quot;Localhost&quot;.</p></dd><dt class="param">type</dt><dd class="cmt"><p>type indicates which kind of seccomp profile will be applied. Valid options are:
-Localhost - a profile defined in a file on the node should be used. RuntimeDefault - the container runtime default profile should be used. Unconfined - no profile should be applied.</p></dd></dl><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>SeccompProfile defines a pod/container's seccomp profile settings. Only one profile source may
+be set.
+</p></div><dl class="paramcmts block"><dt class="param">localhostProfile</dt><dd class="cmt"><p>
+  localhostProfile indicates a profile defined in a file on the node should be used. The profile
+  must be preconfigured on the node to work. Must be a descending path, relative to the
+  kubelet's configured seccomp profile location. Must only be set if type is &quot;Localhost&quot;.</p></dd><dt class="param">type</dt><dd class="cmt"><p>
+  type indicates which kind of seccomp profile will be applied. Valid options are:
+Localhost - a profile defined in a file on the node should be used. RuntimeDefault - the
+container runtime default profile should be used. Unconfined - no profile should be applied.</p></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -1654,8 +1660,13 @@ Localhost - a profile defined in a file on the node should be used. RuntimeDefau
         <span class="name">SeccompProfile</span><span class="params">(<span name="localhostProfile">localhostProfile: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="type">type: <span class="extype" name="scala.Predef.String">String</span></span>)</span>
       </span>
       
-      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">localhostProfile</dt><dd class="cmt"><p>localhostProfile indicates a profile defined in a file on the node should be used. The profile must be preconfigured on the node to work. Must be a descending path, relative to the kubelet's configured seccomp profile location. Must only be set if type is &quot;Localhost&quot;.</p></dd><dt class="param">type</dt><dd class="cmt"><p>type indicates which kind of seccomp profile will be applied. Valid options are:
-Localhost - a profile defined in a file on the node should be used. RuntimeDefault - the container runtime default profile should be used. Unconfined - no profile should be applied.</p></dd></dl></div>
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">localhostProfile</dt><dd class="cmt"><p>
+  localhostProfile indicates a profile defined in a file on the node should be used. The profile
+  must be preconfigured on the node to work. Must be a descending path, relative to the
+  kubelet's configured seccomp profile location. Must only be set if type is &quot;Localhost&quot;.</p></dd><dt class="param">type</dt><dd class="cmt"><p>
+  type indicates which kind of seccomp profile will be applied. Valid options are:
+Localhost - a profile defined in a file on the node should be used. RuntimeDefault - the
+container runtime default profile should be used. Unconfined - no profile should be applied.</p></dd></dl></div>
     </li></ol>
             </div>
 
@@ -1808,7 +1819,9 @@ Localhost - a profile defined in a file on the node should be used. RuntimeDefau
         <span class="name">getLocalhostProfile</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">localhostProfile indicates a profile defined in a file on the node should be used.</p><div class="fullcomment"><div class="comment cmt"><p>localhostProfile indicates a profile defined in a file on the node should be used. The profile must be preconfigured on the node to work. Must be a descending path, relative to the kubelet's configured seccomp profile location. Must only be set if type is &quot;Localhost&quot;.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">localhostProfile indicates a profile defined in a file on the node should be used.</p><div class="fullcomment"><div class="comment cmt"><p>localhostProfile indicates a profile defined in a file on the node should be used. The profile
+must be preconfigured on the node to work. Must be a descending path, relative to the
+kubelet's configured seccomp profile location. Must only be set if type is &quot;Localhost&quot;.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.core.v1.SeccompProfile#getType" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getType:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]"></a><a id="getType:IO[K8sFailure,String]"></a>
@@ -1825,7 +1838,8 @@ Localhost - a profile defined in a file on the node should be used. RuntimeDefau
         <span class="name">getType</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">type indicates which kind of seccomp profile will be applied.</p><div class="fullcomment"><div class="comment cmt"><p>type indicates which kind of seccomp profile will be applied. Valid options are:</p><p>Localhost - a profile defined in a file on the node should be used. RuntimeDefault - the container runtime default profile should be used. Unconfined - no profile should be applied.</p><p>This effect always succeeds, it is safe to use the field <a href="#type:String" class="extmbr" name="com.coralogix.zio.k8s.model.core.v1.SeccompProfile#type">type</a> directly.
+      <p class="shortcomment cmt">type indicates which kind of seccomp profile will be applied.</p><div class="fullcomment"><div class="comment cmt"><p>type indicates which kind of seccomp profile will be applied. Valid options are:</p><p>Localhost - a profile defined in a file on the node should be used. RuntimeDefault - the
+container runtime default profile should be used. Unconfined - no profile should be applied.</p><p>This effect always succeeds, it is safe to use the field <a href="#type:String" class="extmbr" name="com.coralogix.zio.k8s.model.core.v1.SeccompProfile#type">type</a> directly.
 </p></div></div>
     </li><li name="scala.Any#isInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isInstanceOf[T0]:Boolean"></a>

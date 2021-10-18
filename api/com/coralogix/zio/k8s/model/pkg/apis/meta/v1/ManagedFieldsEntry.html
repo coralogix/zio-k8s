@@ -406,13 +406,28 @@
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <span class="name">ManagedFieldsEntry</span><span class="params">(<span name="apiVersion">apiVersion: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="fieldsType">fieldsType: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="fieldsV1">fieldsV1: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="FieldsV1.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.FieldsV1">FieldsV1</a>] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="manager">manager: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="operation">operation: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="time">time: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="Time.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Time">Time</a>] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <span class="name">ManagedFieldsEntry</span><span class="params">(<span name="apiVersion">apiVersion: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="fieldsType">fieldsType: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="fieldsV1">fieldsV1: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="FieldsV1.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.FieldsV1">FieldsV1</a>] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="manager">manager: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="operation">operation: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="subresource">subresource: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="time">time: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="Time.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Time">Time</a>] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>ManagedFieldsEntry is a workflow-id, a FieldSet and the group version of the resource that the fieldset applies to.
-</p></div><dl class="paramcmts block"><dt class="param">apiVersion</dt><dd class="cmt"><p>APIVersion defines the version of this resource that this field set applies to. The format is &quot;group/version&quot; just like the top-level APIVersion field. It is necessary to track the version of a field set because it cannot be automatically converted.</p></dd><dt class="param">fieldsType</dt><dd class="cmt"><p>FieldsType is the discriminator for the different fields format and version. There is currently only one possible value: &quot;FieldsV1&quot;</p></dd><dt class="param">manager</dt><dd class="cmt"><p>Manager is an identifier of the workflow managing these fields.</p></dd><dt class="param">operation</dt><dd class="cmt"><p>Operation is the type of operation which lead to this ManagedFieldsEntry being created. The only valid values for this field are 'Apply' and 'Update'.</p></dd></dl><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>ManagedFieldsEntry is a workflow-id, a FieldSet and the group version of the resource that the
+fieldset applies to.
+</p></div><dl class="paramcmts block"><dt class="param">apiVersion</dt><dd class="cmt"><p>
+  APIVersion defines the version of this resource that this field set applies to. The format is
+  &quot;group/version&quot; just like the top-level APIVersion field. It is necessary to track the version
+  of a field set because it cannot be automatically converted.</p></dd><dt class="param">fieldsType</dt><dd class="cmt"><p>
+  FieldsType is the discriminator for the different fields format and version. There is
+  currently only one possible value: &quot;FieldsV1&quot;</p></dd><dt class="param">manager</dt><dd class="cmt"><p>
+  Manager is an identifier of the workflow managing these fields.</p></dd><dt class="param">operation</dt><dd class="cmt"><p>
+  Operation is the type of operation which lead to this ManagedFieldsEntry being created. The
+  only valid values for this field are 'Apply' and 'Update'.</p></dd><dt class="param">subresource</dt><dd class="cmt"><p>
+  Subresource is the name of the subresource used to update that object, or empty string if the
+  object was updated through the main resource. The value of this field is used to distinguish
+  between managers, even if they share the same name. For example, a status update will be
+  distinct from a regular update using the same manager name. Note that the APIVersion field is
+  not related to the Subresource field and it always corresponds to the version of the main
+  resource.</p></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -463,9 +478,9 @@
         <div id="constructors" class="members">
               <h3>Instance Constructors</h3>
               <ol><li name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.ManagedFieldsEntry#&lt;init&gt;" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="&lt;init&gt;(apiVersion:com.coralogix.zio.k8s.client.model.Optional[String],fieldsType:com.coralogix.zio.k8s.client.model.Optional[String],fieldsV1:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.pkg.apis.meta.v1.FieldsV1],manager:com.coralogix.zio.k8s.client.model.Optional[String],operation:com.coralogix.zio.k8s.client.model.Optional[String],time:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Time]):com.coralogix.zio.k8s.model.pkg.apis.meta.v1.ManagedFieldsEntry"></a><a id="&lt;init&gt;:ManagedFieldsEntry"></a>
+      <a id="&lt;init&gt;(apiVersion:com.coralogix.zio.k8s.client.model.Optional[String],fieldsType:com.coralogix.zio.k8s.client.model.Optional[String],fieldsV1:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.pkg.apis.meta.v1.FieldsV1],manager:com.coralogix.zio.k8s.client.model.Optional[String],operation:com.coralogix.zio.k8s.client.model.Optional[String],subresource:com.coralogix.zio.k8s.client.model.Optional[String],time:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Time]):com.coralogix.zio.k8s.model.pkg.apis.meta.v1.ManagedFieldsEntry"></a><a id="&lt;init&gt;:ManagedFieldsEntry"></a>
       <span class="permalink">
-      <a href="../../../../../../../../../com/coralogix/zio/k8s/model/pkg/apis/meta/v1/ManagedFieldsEntry.html#&lt;init&gt;(apiVersion:com.coralogix.zio.k8s.client.model.Optional[String],fieldsType:com.coralogix.zio.k8s.client.model.Optional[String],fieldsV1:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.pkg.apis.meta.v1.FieldsV1],manager:com.coralogix.zio.k8s.client.model.Optional[String],operation:com.coralogix.zio.k8s.client.model.Optional[String],time:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Time]):com.coralogix.zio.k8s.model.pkg.apis.meta.v1.ManagedFieldsEntry" title="Permalink">
+      <a href="../../../../../../../../../com/coralogix/zio/k8s/model/pkg/apis/meta/v1/ManagedFieldsEntry.html#&lt;init&gt;(apiVersion:com.coralogix.zio.k8s.client.model.Optional[String],fieldsType:com.coralogix.zio.k8s.client.model.Optional[String],fieldsV1:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.pkg.apis.meta.v1.FieldsV1],manager:com.coralogix.zio.k8s.client.model.Optional[String],operation:com.coralogix.zio.k8s.client.model.Optional[String],subresource:com.coralogix.zio.k8s.client.model.Optional[String],time:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Time]):com.coralogix.zio.k8s.model.pkg.apis.meta.v1.ManagedFieldsEntry" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -474,10 +489,24 @@
         <span class="kind">new</span>
       </span>
       <span class="symbol">
-        <span class="name">ManagedFieldsEntry</span><span class="params">(<span name="apiVersion">apiVersion: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="fieldsType">fieldsType: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="fieldsV1">fieldsV1: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="FieldsV1.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.FieldsV1">FieldsV1</a>] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="manager">manager: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="operation">operation: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="time">time: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="Time.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Time">Time</a>] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>)</span>
+        <span class="name">ManagedFieldsEntry</span><span class="params">(<span name="apiVersion">apiVersion: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="fieldsType">fieldsType: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="fieldsV1">fieldsV1: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="FieldsV1.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.FieldsV1">FieldsV1</a>] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="manager">manager: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="operation">operation: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="subresource">subresource: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="time">time: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="Time.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Time">Time</a>] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>)</span>
       </span>
       
-      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">apiVersion</dt><dd class="cmt"><p>APIVersion defines the version of this resource that this field set applies to. The format is &quot;group/version&quot; just like the top-level APIVersion field. It is necessary to track the version of a field set because it cannot be automatically converted.</p></dd><dt class="param">fieldsType</dt><dd class="cmt"><p>FieldsType is the discriminator for the different fields format and version. There is currently only one possible value: &quot;FieldsV1&quot;</p></dd><dt class="param">manager</dt><dd class="cmt"><p>Manager is an identifier of the workflow managing these fields.</p></dd><dt class="param">operation</dt><dd class="cmt"><p>Operation is the type of operation which lead to this ManagedFieldsEntry being created. The only valid values for this field are 'Apply' and 'Update'.</p></dd></dl></div>
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">apiVersion</dt><dd class="cmt"><p>
+  APIVersion defines the version of this resource that this field set applies to. The format is
+  &quot;group/version&quot; just like the top-level APIVersion field. It is necessary to track the version
+  of a field set because it cannot be automatically converted.</p></dd><dt class="param">fieldsType</dt><dd class="cmt"><p>
+  FieldsType is the discriminator for the different fields format and version. There is
+  currently only one possible value: &quot;FieldsV1&quot;</p></dd><dt class="param">manager</dt><dd class="cmt"><p>
+  Manager is an identifier of the workflow managing these fields.</p></dd><dt class="param">operation</dt><dd class="cmt"><p>
+  Operation is the type of operation which lead to this ManagedFieldsEntry being created. The
+  only valid values for this field are 'Apply' and 'Update'.</p></dd><dt class="param">subresource</dt><dd class="cmt"><p>
+  Subresource is the name of the subresource used to update that object, or empty string if the
+  object was updated through the main resource. The value of this field is used to distinguish
+  between managers, even if they share the same name. For example, a status update will be
+  distinct from a regular update using the same manager name. Note that the APIVersion field is
+  not related to the Subresource field and it always corresponds to the version of the main
+  resource.</p></dd></dl></div>
     </li></ol>
             </div>
 
@@ -657,7 +686,9 @@
         <span class="name">getApiVersion</span><span class="result">: <a href="../../../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">APIVersion defines the version of this resource that this field set applies to.</p><div class="fullcomment"><div class="comment cmt"><p>APIVersion defines the version of this resource that this field set applies to. The format is &quot;group/version&quot; just like the top-level APIVersion field. It is necessary to track the version of a field set because it cannot be automatically converted.</p><p>If the field is not present, fails with <a href="../../../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">APIVersion defines the version of this resource that this field set applies to.</p><div class="fullcomment"><div class="comment cmt"><p>APIVersion defines the version of this resource that this field set applies to. The format is
+&quot;group/version&quot; just like the top-level APIVersion field. It is necessary to track the version
+of a field set because it cannot be automatically converted.</p><p>If the field is not present, fails with <a href="../../../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="scala.AnyRef#getClass" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getClass():Class[_]"></a>
@@ -695,7 +726,8 @@
         <span class="name">getFieldsType</span><span class="result">: <a href="../../../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">FieldsType is the discriminator for the different fields format and version.</p><div class="fullcomment"><div class="comment cmt"><p>FieldsType is the discriminator for the different fields format and version. There is currently only one possible value: &quot;FieldsV1&quot;</p><p>If the field is not present, fails with <a href="../../../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">FieldsType is the discriminator for the different fields format and version.</p><div class="fullcomment"><div class="comment cmt"><p>FieldsType is the discriminator for the different fields format and version. There is
+currently only one possible value: &quot;FieldsV1&quot;</p><p>If the field is not present, fails with <a href="../../../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.ManagedFieldsEntry#getFieldsV1" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getFieldsV1:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.model.pkg.apis.meta.v1.FieldsV1]"></a><a id="getFieldsV1:IO[K8sFailure,FieldsV1]"></a>
@@ -746,7 +778,31 @@
         <span class="name">getOperation</span><span class="result">: <a href="../../../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">Operation is the type of operation which lead to this ManagedFieldsEntry being created.</p><div class="fullcomment"><div class="comment cmt"><p>Operation is the type of operation which lead to this ManagedFieldsEntry being created. The only valid values for this field are 'Apply' and 'Update'.</p><p>If the field is not present, fails with <a href="../../../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">Operation is the type of operation which lead to this ManagedFieldsEntry being created.</p><div class="fullcomment"><div class="comment cmt"><p>Operation is the type of operation which lead to this ManagedFieldsEntry being created. The
+only valid values for this field are 'Apply' and 'Update'.</p><p>If the field is not present, fails with <a href="../../../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.ManagedFieldsEntry#getSubresource" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="getSubresource:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]"></a><a id="getSubresource:IO[K8sFailure,String]"></a>
+      <span class="permalink">
+      <a href="../../../../../../../../../com/coralogix/zio/k8s/model/pkg/apis/meta/v1/ManagedFieldsEntry.html#getSubresource:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">getSubresource</span><span class="result">: <a href="../../../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Subresource is the name of the subresource used to update that object, or empty string if the
+object was updated through the main resource.</p><div class="fullcomment"><div class="comment cmt"><p>Subresource is the name of the subresource used to update that object, or empty string if the
+object was updated through the main resource. The value of this field is used to distinguish
+between managers, even if they share the same name. For example, a status update will be
+distinct from a regular update using the same manager name. Note that the APIVersion field is
+not related to the Subresource field and it always corresponds to the version of the main
+resource.</p><p>If the field is not present, fails with <a href="../../../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.ManagedFieldsEntry#getTime" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getTime:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Time]"></a><a id="getTime:IO[K8sFailure,Time]"></a>
@@ -868,6 +924,22 @@
       </span>
       <span class="symbol">
         <span class="name">operation</span><span class="result">: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>]</span>
+      </span>
+      
+      
+    </li><li name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.ManagedFieldsEntry#subresource" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="subresource:com.coralogix.zio.k8s.client.model.Optional[String]"></a><a id="subresource:Optional[String]"></a>
+      <span class="permalink">
+      <a href="../../../../../../../../../com/coralogix/zio/k8s/model/pkg/apis/meta/v1/ManagedFieldsEntry.html#subresource:com.coralogix.zio.k8s.client.model.Optional[String]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">subresource</span><span class="result">: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
       

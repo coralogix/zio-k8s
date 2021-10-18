@@ -1587,8 +1587,24 @@
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Represents a Rados Block Device mount that lasts the lifetime of a pod. RBD volumes support ownership management and SELinux relabeling.
-</p></div><dl class="paramcmts block"><dt class="param">fsType</dt><dd class="cmt"><p>Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: &quot;ext4&quot;, &quot;xfs&quot;, &quot;ntfs&quot;. Implicitly inferred to be &quot;ext4&quot; if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#rbd</p></dd><dt class="param">image</dt><dd class="cmt"><p>The rados image name. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it</p></dd><dt class="param">keyring</dt><dd class="cmt"><p>Keyring is the path to key ring for RBDUser. Default is /etc/ceph/keyring. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it</p></dd><dt class="param">monitors</dt><dd class="cmt"><p>A collection of Ceph monitors. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it</p></dd><dt class="param">pool</dt><dd class="cmt"><p>The rados pool name. Default is rbd. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it</p></dd><dt class="param">readOnly</dt><dd class="cmt"><p>ReadOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it</p></dd><dt class="param">user</dt><dd class="cmt"><p>The rados user name. Default is admin. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it</p></dd></dl><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Represents a Rados Block Device mount that lasts the lifetime of a pod. RBD volumes support
+ownership management and SELinux relabeling.
+</p></div><dl class="paramcmts block"><dt class="param">fsType</dt><dd class="cmt"><p>
+  Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is
+  supported by the host operating system. Examples: &quot;ext4&quot;, &quot;xfs&quot;, &quot;ntfs&quot;. Implicitly inferred
+  to be &quot;ext4&quot; if unspecified. More info:
+  https://kubernetes.io/docs/concepts/storage/volumes#rbd</p></dd><dt class="param">image</dt><dd class="cmt"><p>
+  The rados image name. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it</p></dd><dt class="param">keyring</dt><dd class="cmt"><p>
+  Keyring is the path to key ring for RBDUser. Default is /etc/ceph/keyring. More info:
+  https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it</p></dd><dt class="param">monitors</dt><dd class="cmt"><p>
+  A collection of Ceph monitors. More info:
+  https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it</p></dd><dt class="param">pool</dt><dd class="cmt"><p>
+  The rados pool name. Default is rbd. More info:
+  https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it</p></dd><dt class="param">readOnly</dt><dd class="cmt"><p>
+  ReadOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false. More info:
+  https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it</p></dd><dt class="param">user</dt><dd class="cmt"><p>
+  The rados user name. Default is admin. More info:
+  https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it</p></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -1653,7 +1669,22 @@
         <span class="name">RBDPersistentVolumeSource</span><span class="params">(<span name="fsType">fsType: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="image">image: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="keyring">keyring: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="monitors">monitors: <span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]</span>, <span name="pool">pool: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="readOnly">readOnly: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Boolean">Boolean</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="secretRef">secretRef: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="SecretReference.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.SecretReference">SecretReference</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="user">user: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span>
       </span>
       
-      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">fsType</dt><dd class="cmt"><p>Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: &quot;ext4&quot;, &quot;xfs&quot;, &quot;ntfs&quot;. Implicitly inferred to be &quot;ext4&quot; if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#rbd</p></dd><dt class="param">image</dt><dd class="cmt"><p>The rados image name. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it</p></dd><dt class="param">keyring</dt><dd class="cmt"><p>Keyring is the path to key ring for RBDUser. Default is /etc/ceph/keyring. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it</p></dd><dt class="param">monitors</dt><dd class="cmt"><p>A collection of Ceph monitors. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it</p></dd><dt class="param">pool</dt><dd class="cmt"><p>The rados pool name. Default is rbd. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it</p></dd><dt class="param">readOnly</dt><dd class="cmt"><p>ReadOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it</p></dd><dt class="param">user</dt><dd class="cmt"><p>The rados user name. Default is admin. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it</p></dd></dl></div>
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">fsType</dt><dd class="cmt"><p>
+  Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is
+  supported by the host operating system. Examples: &quot;ext4&quot;, &quot;xfs&quot;, &quot;ntfs&quot;. Implicitly inferred
+  to be &quot;ext4&quot; if unspecified. More info:
+  https://kubernetes.io/docs/concepts/storage/volumes#rbd</p></dd><dt class="param">image</dt><dd class="cmt"><p>
+  The rados image name. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it</p></dd><dt class="param">keyring</dt><dd class="cmt"><p>
+  Keyring is the path to key ring for RBDUser. Default is /etc/ceph/keyring. More info:
+  https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it</p></dd><dt class="param">monitors</dt><dd class="cmt"><p>
+  A collection of Ceph monitors. More info:
+  https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it</p></dd><dt class="param">pool</dt><dd class="cmt"><p>
+  The rados pool name. Default is rbd. More info:
+  https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it</p></dd><dt class="param">readOnly</dt><dd class="cmt"><p>
+  ReadOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false. More info:
+  https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it</p></dd><dt class="param">user</dt><dd class="cmt"><p>
+  The rados user name. Default is admin. More info:
+  https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it</p></dd></dl></div>
     </li></ol>
             </div>
 
@@ -1822,7 +1853,10 @@
         <span class="name">getFsType</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">Filesystem type of the volume that you want to mount.</p><div class="fullcomment"><div class="comment cmt"><p>Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: &quot;ext4&quot;, &quot;xfs&quot;, &quot;ntfs&quot;. Implicitly inferred to be &quot;ext4&quot; if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#rbd</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">Filesystem type of the volume that you want to mount.</p><div class="fullcomment"><div class="comment cmt"><p>Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is
+supported by the host operating system. Examples: &quot;ext4&quot;, &quot;xfs&quot;, &quot;ntfs&quot;. Implicitly inferred
+to be &quot;ext4&quot; if unspecified. More info:
+https://kubernetes.io/docs/concepts/storage/volumes#rbd</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.core.v1.RBDPersistentVolumeSource#getImage" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getImage:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]"></a><a id="getImage:IO[K8sFailure,String]"></a>
@@ -1856,7 +1890,8 @@
         <span class="name">getKeyring</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">Keyring is the path to key ring for RBDUser.</p><div class="fullcomment"><div class="comment cmt"><p>Keyring is the path to key ring for RBDUser. Default is /etc/ceph/keyring. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">Keyring is the path to key ring for RBDUser.</p><div class="fullcomment"><div class="comment cmt"><p>Keyring is the path to key ring for RBDUser. Default is /etc/ceph/keyring. More info:
+https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.core.v1.RBDPersistentVolumeSource#getMonitors" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getMonitors:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Vector[String]]"></a><a id="getMonitors:IO[K8sFailure,Vector[String]]"></a>
@@ -1873,7 +1908,8 @@
         <span class="name">getMonitors</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]]</span>
       </span>
       
-      <p class="shortcomment cmt">A collection of Ceph monitors.</p><div class="fullcomment"><div class="comment cmt"><p>A collection of Ceph monitors. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it</p><p>This effect always succeeds, it is safe to use the field <a href="#monitors:Vector[String]" class="extmbr" name="com.coralogix.zio.k8s.model.core.v1.RBDPersistentVolumeSource#monitors">monitors</a> directly.
+      <p class="shortcomment cmt">A collection of Ceph monitors.</p><div class="fullcomment"><div class="comment cmt"><p>A collection of Ceph monitors. More info:
+https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it</p><p>This effect always succeeds, it is safe to use the field <a href="#monitors:Vector[String]" class="extmbr" name="com.coralogix.zio.k8s.model.core.v1.RBDPersistentVolumeSource#monitors">monitors</a> directly.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.core.v1.RBDPersistentVolumeSource#getPool" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getPool:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]"></a><a id="getPool:IO[K8sFailure,String]"></a>
@@ -1890,7 +1926,8 @@
         <span class="name">getPool</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">The rados pool name.</p><div class="fullcomment"><div class="comment cmt"><p>The rados pool name. Default is rbd. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">The rados pool name.</p><div class="fullcomment"><div class="comment cmt"><p>The rados pool name. Default is rbd. More info:
+https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.core.v1.RBDPersistentVolumeSource#getReadOnly" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getReadOnly:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Boolean]"></a><a id="getReadOnly:IO[K8sFailure,Boolean]"></a>
@@ -1907,7 +1944,8 @@
         <span class="name">getReadOnly</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Boolean">Boolean</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">ReadOnly here will force the ReadOnly setting in VolumeMounts.</p><div class="fullcomment"><div class="comment cmt"><p>ReadOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">ReadOnly here will force the ReadOnly setting in VolumeMounts.</p><div class="fullcomment"><div class="comment cmt"><p>ReadOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false. More info:
+https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.core.v1.RBDPersistentVolumeSource#getSecretRef" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getSecretRef:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.model.core.v1.SecretReference]"></a><a id="getSecretRef:IO[K8sFailure,SecretReference]"></a>
@@ -1941,7 +1979,8 @@
         <span class="name">getUser</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">The rados user name.</p><div class="fullcomment"><div class="comment cmt"><p>The rados user name. Default is admin. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">The rados user name.</p><div class="fullcomment"><div class="comment cmt"><p>The rados user name. Default is admin. More info:
+https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.core.v1.RBDPersistentVolumeSource#image" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="image:String"></a>

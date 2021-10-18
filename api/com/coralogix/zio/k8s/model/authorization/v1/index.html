@@ -247,8 +247,8 @@
                         <a href="SelfSubjectRulesReviewFields.html" title="">SelfSubjectRulesReviewFields</a>
                       </li><li class="current-entities indented7">
                         <a class="object" href="SelfSubjectRulesReviewSpec$.html" title=""></a>
-                        <a class="class" href="SelfSubjectRulesReviewSpec.html" title=""></a>
-                        <a href="SelfSubjectRulesReviewSpec.html" title="">SelfSubjectRulesReviewSpec</a>
+                        <a class="class" href="SelfSubjectRulesReviewSpec.html" title="SelfSubjectRulesReviewSpec defines the specification for SelfSubjectRulesReview."></a>
+                        <a href="SelfSubjectRulesReviewSpec.html" title="SelfSubjectRulesReviewSpec defines the specification for SelfSubjectRulesReview.">SelfSubjectRulesReviewSpec</a>
                       </li><li class="current-entities indented7">
                         <span class="separator"></span>
                         <a class="class" href="SelfSubjectRulesReviewSpecFields.html" title=""></a>
@@ -285,23 +285,7 @@
                         <span class="separator"></span>
                         <a class="class" href="SubjectRulesReviewStatusFields.html" title=""></a>
                         <a href="SubjectRulesReviewStatusFields.html" title="">SubjectRulesReviewStatusFields</a>
-                      </li><li name="com.coralogix.zio.k8s.model.authorization.v1beta1" visbl="pub" class="indented7 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="v1beta1"></a><a id="v1beta1:v1beta1"></a>
-      <span class="permalink">
-      <a href="../../../../../../../com/coralogix/zio/k8s/model/authorization/v1beta1/index.html" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">package</span>
-      </span>
-      <span class="symbol">
-        <a title="" href="../v1beta1/index.html"><span class="name">v1beta1</span></a>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="com.coralogix.zio.k8s.model.authorization">authorization</a></dd></dl></div>
-    </li>
+                      </li>
               </ul>
             </div>
           </div>
@@ -379,7 +363,10 @@
         <a title="LocalSubjectAccessReview checks whether or not a user or group can perform an action in a given namespace." href="LocalSubjectAccessReview.html"><span class="name">LocalSubjectAccessReview</span></a><span class="params">(<span name="metadata">metadata: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="../../pkg/apis/meta/v1/ObjectMeta.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.ObjectMeta">ObjectMeta</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="spec">spec: <a href="SubjectAccessReviewSpec.html" class="extype" name="com.coralogix.zio.k8s.model.authorization.v1.SubjectAccessReviewSpec">SubjectAccessReviewSpec</a></span>, <span name="status">status: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="SubjectAccessReviewStatus.html" class="extype" name="com.coralogix.zio.k8s.model.authorization.v1.SubjectAccessReviewStatus">SubjectAccessReviewStatus</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
-      <p class="shortcomment cmt">LocalSubjectAccessReview checks whether or not a user or group can perform an action in a given namespace.</p><div class="fullcomment"><div class="comment cmt"><p>LocalSubjectAccessReview checks whether or not a user or group can perform an action in a given namespace. Having a namespace scoped resource makes it much easier to grant namespace scoped policy that includes permissions checking.
+      <p class="shortcomment cmt">LocalSubjectAccessReview checks whether or not a user or group can perform an action in a given
+namespace.</p><div class="fullcomment"><div class="comment cmt"><p>LocalSubjectAccessReview checks whether or not a user or group can perform an action in a given
+namespace. Having a namespace scoped resource makes it much easier to grant namespace scoped
+policy that includes permissions checking.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.authorization.v1.LocalSubjectAccessReviewFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="LocalSubjectAccessReviewFieldsextendsAnyRef"></a><a id="LocalSubjectAccessReviewFields:LocalSubjectAccessReviewFields"></a>
@@ -412,9 +399,13 @@
         <a title="NonResourceAttributes includes the authorization attributes available for non-resource requests to the Authorizer interface" href="NonResourceAttributes.html"><span class="name">NonResourceAttributes</span></a><span class="params">(<span name="path">path: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="verb">verb: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
-      <p class="shortcomment cmt">NonResourceAttributes includes the authorization attributes available for non-resource requests to the Authorizer interface
-</p><div class="fullcomment"><div class="comment cmt"><p>NonResourceAttributes includes the authorization attributes available for non-resource requests to the Authorizer interface
-</p></div><dl class="paramcmts block"><dt class="param">path</dt><dd class="cmt"><p>Path is the URL path of the request</p></dd><dt class="param">verb</dt><dd class="cmt"><p>Verb is the standard HTTP verb</p></dd></dl></div>
+      <p class="shortcomment cmt">NonResourceAttributes includes the authorization attributes available for non-resource requests
+to the Authorizer interface
+</p><div class="fullcomment"><div class="comment cmt"><p>NonResourceAttributes includes the authorization attributes available for non-resource requests
+to the Authorizer interface
+</p></div><dl class="paramcmts block"><dt class="param">path</dt><dd class="cmt"><p>
+  Path is the URL path of the request</p></dd><dt class="param">verb</dt><dd class="cmt"><p>
+  Verb is the standard HTTP verb</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.authorization.v1.NonResourceAttributesFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="NonResourceAttributesFieldsextendsAnyRef"></a><a id="NonResourceAttributesFields:NonResourceAttributesFields"></a>
       <span class="permalink">
@@ -448,7 +439,11 @@
       
       <p class="shortcomment cmt">NonResourceRule holds information that describes a rule for the non-resource
 </p><div class="fullcomment"><div class="comment cmt"><p>NonResourceRule holds information that describes a rule for the non-resource
-</p></div><dl class="paramcmts block"><dt class="param">nonResourceURLs</dt><dd class="cmt"><p>NonResourceURLs is a set of partial urls that a user should have access to.  *s are allowed, but only as the full, final step in the path.  &quot;*&quot; means all.</p></dd><dt class="param">verbs</dt><dd class="cmt"><p>Verb is a list of kubernetes non-resource API verbs, like: get, post, put, delete, patch, head, options.  &quot;*&quot; means all.</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="param">nonResourceURLs</dt><dd class="cmt"><p>
+  NonResourceURLs is a set of partial urls that a user should have access to. *s are allowed,
+  but only as the full, final step in the path. &quot;*&quot; means all.</p></dd><dt class="param">verbs</dt><dd class="cmt"><p>
+  Verb is a list of kubernetes non-resource API verbs, like: get, post, put, delete, patch,
+  head, options. &quot;*&quot; means all.</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.authorization.v1.NonResourceRuleFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="NonResourceRuleFieldsextendsAnyRef"></a><a id="NonResourceRuleFields:NonResourceRuleFields"></a>
       <span class="permalink">
@@ -480,9 +475,23 @@
         <a title="ResourceAttributes includes the authorization attributes available for resource requests to the Authorizer interface" href="ResourceAttributes.html"><span class="name">ResourceAttributes</span></a><span class="params">(<span name="group">group: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="name">name: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="namespace">namespace: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="resource">resource: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="subresource">subresource: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="verb">verb: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="version">version: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
-      <p class="shortcomment cmt">ResourceAttributes includes the authorization attributes available for resource requests to the Authorizer interface
-</p><div class="fullcomment"><div class="comment cmt"><p>ResourceAttributes includes the authorization attributes available for resource requests to the Authorizer interface
-</p></div><dl class="paramcmts block"><dt class="param">group</dt><dd class="cmt"><p>Group is the API Group of the Resource.  &quot;*&quot; means all.</p></dd><dt class="param">name</dt><dd class="cmt"><p>Name is the name of the resource being requested for a &quot;get&quot; or deleted for a &quot;delete&quot;. &quot;&quot; (empty) means all.</p></dd><dt class="param">namespace</dt><dd class="cmt"><p>Namespace is the namespace of the action being requested.  Currently, there is no distinction between no namespace and all namespaces &quot;&quot; (empty) is defaulted for LocalSubjectAccessReviews &quot;&quot; (empty) is empty for cluster-scoped resources &quot;&quot; (empty) means &quot;all&quot; for namespace scoped resources from a SubjectAccessReview or SelfSubjectAccessReview</p></dd><dt class="param">resource</dt><dd class="cmt"><p>Resource is one of the existing resource types.  &quot;*&quot; means all.</p></dd><dt class="param">subresource</dt><dd class="cmt"><p>Subresource is one of the existing resource types.  &quot;&quot; means none.</p></dd><dt class="param">verb</dt><dd class="cmt"><p>Verb is a kubernetes resource API verb, like: get, list, watch, create, update, delete, proxy.  &quot;*&quot; means all.</p></dd><dt class="param">version</dt><dd class="cmt"><p>Version is the API Version of the Resource.  &quot;*&quot; means all.</p></dd></dl></div>
+      <p class="shortcomment cmt">ResourceAttributes includes the authorization attributes available for resource requests to the
+Authorizer interface
+</p><div class="fullcomment"><div class="comment cmt"><p>ResourceAttributes includes the authorization attributes available for resource requests to the
+Authorizer interface
+</p></div><dl class="paramcmts block"><dt class="param">group</dt><dd class="cmt"><p>
+  Group is the API Group of the Resource. &quot;*&quot; means all.</p></dd><dt class="param">name</dt><dd class="cmt"><p>
+  Name is the name of the resource being requested for a &quot;get&quot; or deleted for a &quot;delete&quot;. &quot;&quot;
+  (empty) means all.</p></dd><dt class="param">namespace</dt><dd class="cmt"><p>
+  Namespace is the namespace of the action being requested. Currently, there is no distinction
+  between no namespace and all namespaces &quot;&quot; (empty) is defaulted for LocalSubjectAccessReviews
+  &quot;&quot; (empty) is empty for cluster-scoped resources &quot;&quot; (empty) means &quot;all&quot; for namespace scoped
+  resources from a SubjectAccessReview or SelfSubjectAccessReview</p></dd><dt class="param">resource</dt><dd class="cmt"><p>
+  Resource is one of the existing resource types. &quot;*&quot; means all.</p></dd><dt class="param">subresource</dt><dd class="cmt"><p>
+  Subresource is one of the existing resource types. &quot;&quot; means none.</p></dd><dt class="param">verb</dt><dd class="cmt"><p>
+  Verb is a kubernetes resource API verb, like: get, list, watch, create, update, delete, proxy.
+  &quot;*&quot; means all.</p></dd><dt class="param">version</dt><dd class="cmt"><p>
+  Version is the API Version of the Resource. &quot;*&quot; means all.</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.authorization.v1.ResourceAttributesFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="ResourceAttributesFieldsextendsAnyRef"></a><a id="ResourceAttributesFields:ResourceAttributesFields"></a>
       <span class="permalink">
@@ -514,9 +523,19 @@
         <a title="ResourceRule is the list of actions the subject is allowed to perform on resources." href="ResourceRule.html"><span class="name">ResourceRule</span></a><span class="params">(<span name="apiGroups">apiGroups: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="resourceNames">resourceNames: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="resources">resources: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="verbs">verbs: <span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]</span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
-      <p class="shortcomment cmt">ResourceRule is the list of actions the subject is allowed to perform on resources.</p><div class="fullcomment"><div class="comment cmt"><p>ResourceRule is the list of actions the subject is allowed to perform on resources. The list ordering isn't significant, may contain duplicates, and possibly be incomplete.
-</p></div><dl class="paramcmts block"><dt class="param">apiGroups</dt><dd class="cmt"><p>APIGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed.  &quot;*&quot; means all.</p></dd><dt class="param">resourceNames</dt><dd class="cmt"><p>ResourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.  &quot;*&quot; means all.</p></dd><dt class="param">resources</dt><dd class="cmt"><p>Resources is a list of resources this rule applies to.  &quot;*&quot; means all in the specified apiGroups.
-&quot;*&#47;foo&quot; represents the subresource 'foo' for all resources in the specified apiGroups.</p></dd><dt class="param">verbs</dt><dd class="cmt"><p>Verb is a list of kubernetes resource API verbs, like: get, list, watch, create, update, delete, proxy.  &quot;*&quot; means all.</p></dd></dl></div>
+      <p class="shortcomment cmt">ResourceRule is the list of actions the subject is allowed to perform on resources.</p><div class="fullcomment"><div class="comment cmt"><p>ResourceRule is the list of actions the subject is allowed to perform on resources. The list
+ordering isn't significant, may contain duplicates, and possibly be incomplete.
+</p></div><dl class="paramcmts block"><dt class="param">apiGroups</dt><dd class="cmt"><p>
+  APIGroups is the name of the APIGroup that contains the resources. If multiple API groups are
+  specified, any action requested against one of the enumerated resources in any API group will
+  be allowed. &quot;*&quot; means all.</p></dd><dt class="param">resourceNames</dt><dd class="cmt"><p>
+  ResourceNames is an optional white list of names that the rule applies to. An empty set means
+  that everything is allowed. &quot;*&quot; means all.</p></dd><dt class="param">resources</dt><dd class="cmt"><p>
+  Resources is a list of resources this rule applies to. &quot;*&quot; means all in the specified
+  apiGroups. &quot;*&#47;foo&quot; represents the subresource 'foo' for all resources in the specified
+  apiGroups.</p></dd><dt class="param">verbs</dt><dd class="cmt"><p>
+  Verb is a list of kubernetes resource API verbs, like: get, list, watch, create, update,
+  delete, proxy. &quot;*&quot; means all.</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.authorization.v1.ResourceRuleFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="ResourceRuleFieldsextendsAnyRef"></a><a id="ResourceRuleFields:ResourceRuleFields"></a>
       <span class="permalink">
@@ -548,7 +567,9 @@
         <a title="SelfSubjectAccessReview checks whether or the current user can perform an action." href="SelfSubjectAccessReview.html"><span class="name">SelfSubjectAccessReview</span></a><span class="params">(<span name="metadata">metadata: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="../../pkg/apis/meta/v1/ObjectMeta.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.ObjectMeta">ObjectMeta</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="spec">spec: <a href="SelfSubjectAccessReviewSpec.html" class="extype" name="com.coralogix.zio.k8s.model.authorization.v1.SelfSubjectAccessReviewSpec">SelfSubjectAccessReviewSpec</a></span>, <span name="status">status: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="SubjectAccessReviewStatus.html" class="extype" name="com.coralogix.zio.k8s.model.authorization.v1.SubjectAccessReviewStatus">SubjectAccessReviewStatus</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
-      <p class="shortcomment cmt">SelfSubjectAccessReview checks whether or the current user can perform an action.</p><div class="fullcomment"><div class="comment cmt"><p>SelfSubjectAccessReview checks whether or the current user can perform an action.  Not filling in a spec.namespace means &quot;in all namespaces&quot;.  Self is a special case, because users should always be able to check whether they can perform an action
+      <p class="shortcomment cmt">SelfSubjectAccessReview checks whether or the current user can perform an action.</p><div class="fullcomment"><div class="comment cmt"><p>SelfSubjectAccessReview checks whether or the current user can perform an action. Not filling in
+a spec.namespace means &quot;in all namespaces&quot;. Self is a special case, because users should always
+be able to check whether they can perform an action
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.authorization.v1.SelfSubjectAccessReviewFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="SelfSubjectAccessReviewFieldsextendsAnyRef"></a><a id="SelfSubjectAccessReviewFields:SelfSubjectAccessReviewFields"></a>
@@ -581,7 +602,8 @@
         <a title="SelfSubjectAccessReviewSpec is a description of the access request." href="SelfSubjectAccessReviewSpec.html"><span class="name">SelfSubjectAccessReviewSpec</span></a><span class="params">(<span name="nonResourceAttributes">nonResourceAttributes: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="NonResourceAttributes.html" class="extype" name="com.coralogix.zio.k8s.model.authorization.v1.NonResourceAttributes">NonResourceAttributes</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="resourceAttributes">resourceAttributes: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="ResourceAttributes.html" class="extype" name="com.coralogix.zio.k8s.model.authorization.v1.ResourceAttributes">ResourceAttributes</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
-      <p class="shortcomment cmt">SelfSubjectAccessReviewSpec is a description of the access request.</p><div class="fullcomment"><div class="comment cmt"><p>SelfSubjectAccessReviewSpec is a description of the access request.  Exactly one of ResourceAuthorizationAttributes and NonResourceAuthorizationAttributes must be set
+      <p class="shortcomment cmt">SelfSubjectAccessReviewSpec is a description of the access request.</p><div class="fullcomment"><div class="comment cmt"><p>SelfSubjectAccessReviewSpec is a description of the access request. Exactly one of
+ResourceAuthorizationAttributes and NonResourceAuthorizationAttributes must be set
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.authorization.v1.SelfSubjectAccessReviewSpecFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="SelfSubjectAccessReviewSpecFieldsextendsAnyRef"></a><a id="SelfSubjectAccessReviewSpecFields:SelfSubjectAccessReviewSpecFields"></a>
@@ -614,7 +636,15 @@
         <a title="SelfSubjectRulesReview enumerates the set of actions the current user can perform within a namespace." href="SelfSubjectRulesReview.html"><span class="name">SelfSubjectRulesReview</span></a><span class="params">(<span name="metadata">metadata: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="../../pkg/apis/meta/v1/ObjectMeta.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.ObjectMeta">ObjectMeta</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="spec">spec: <a href="SelfSubjectRulesReviewSpec.html" class="extype" name="com.coralogix.zio.k8s.model.authorization.v1.SelfSubjectRulesReviewSpec">SelfSubjectRulesReviewSpec</a></span>, <span name="status">status: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="SubjectRulesReviewStatus.html" class="extype" name="com.coralogix.zio.k8s.model.authorization.v1.SubjectRulesReviewStatus">SubjectRulesReviewStatus</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
-      <p class="shortcomment cmt">SelfSubjectRulesReview enumerates the set of actions the current user can perform within a namespace.</p><div class="fullcomment"><div class="comment cmt"><p>SelfSubjectRulesReview enumerates the set of actions the current user can perform within a namespace. The returned list of actions may be incomplete depending on the server's authorization mode, and any errors experienced during the evaluation. SelfSubjectRulesReview should be used by UIs to show/hide actions, or to quickly let an end user reason about their permissions. It should NOT Be used by external systems to drive authorization decisions as this raises confused deputy, cache lifetime/revocation, and correctness concerns. SubjectAccessReview, and LocalAccessReview are the correct way to defer authorization decisions to the API server.
+      <p class="shortcomment cmt">SelfSubjectRulesReview enumerates the set of actions the current user can perform within a
+namespace.</p><div class="fullcomment"><div class="comment cmt"><p>SelfSubjectRulesReview enumerates the set of actions the current user can perform within a
+namespace. The returned list of actions may be incomplete depending on the server's
+authorization mode, and any errors experienced during the evaluation. SelfSubjectRulesReview
+should be used by UIs to show/hide actions, or to quickly let an end user reason about their
+permissions. It should NOT Be used by external systems to drive authorization decisions as this
+raises confused deputy, cache lifetime/revocation, and correctness concerns.
+SubjectAccessReview, and LocalAccessReview are the correct way to defer authorization decisions
+to the API server.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.authorization.v1.SelfSubjectRulesReviewFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="SelfSubjectRulesReviewFieldsextendsAnyRef"></a><a id="SelfSubjectRulesReviewFields:SelfSubjectRulesReviewFields"></a>
@@ -644,10 +674,12 @@
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a title="" href="SelfSubjectRulesReviewSpec.html"><span class="name">SelfSubjectRulesReviewSpec</span></a><span class="params">(<span name="namespace">namespace: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a title="SelfSubjectRulesReviewSpec defines the specification for SelfSubjectRulesReview." href="SelfSubjectRulesReviewSpec.html"><span class="name">SelfSubjectRulesReviewSpec</span></a><span class="params">(<span name="namespace">namespace: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
-      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">namespace</dt><dd class="cmt"><p>Namespace to evaluate rules for. Required.</p></dd></dl></div>
+      <p class="shortcomment cmt">SelfSubjectRulesReviewSpec defines the specification for SelfSubjectRulesReview.</p><div class="fullcomment"><div class="comment cmt"><p>SelfSubjectRulesReviewSpec defines the specification for SelfSubjectRulesReview.
+</p></div><dl class="paramcmts block"><dt class="param">namespace</dt><dd class="cmt"><p>
+  Namespace to evaluate rules for. Required.</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.authorization.v1.SelfSubjectRulesReviewSpecFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="SelfSubjectRulesReviewSpecFieldsextendsAnyRef"></a><a id="SelfSubjectRulesReviewSpecFields:SelfSubjectRulesReviewSpecFields"></a>
       <span class="permalink">
@@ -711,8 +743,15 @@
         <a title="SubjectAccessReviewSpec is a description of the access request." href="SubjectAccessReviewSpec.html"><span class="name">SubjectAccessReviewSpec</span></a><span class="params">(<span name="extra">extra: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="groups">groups: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="nonResourceAttributes">nonResourceAttributes: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="NonResourceAttributes.html" class="extype" name="com.coralogix.zio.k8s.model.authorization.v1.NonResourceAttributes">NonResourceAttributes</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="resourceAttributes">resourceAttributes: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="ResourceAttributes.html" class="extype" name="com.coralogix.zio.k8s.model.authorization.v1.ResourceAttributes">ResourceAttributes</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="uid">uid: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="user">user: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
-      <p class="shortcomment cmt">SubjectAccessReviewSpec is a description of the access request.</p><div class="fullcomment"><div class="comment cmt"><p>SubjectAccessReviewSpec is a description of the access request.  Exactly one of ResourceAuthorizationAttributes and NonResourceAuthorizationAttributes must be set
-</p></div><dl class="paramcmts block"><dt class="param">extra</dt><dd class="cmt"><p>Extra corresponds to the user.Info.GetExtra() method from the authenticator.  Since that is input to the authorizer it needs a reflection here.</p></dd><dt class="param">groups</dt><dd class="cmt"><p>Groups is the groups you're testing for.</p></dd><dt class="param">uid</dt><dd class="cmt"><p>UID information about the requesting user.</p></dd><dt class="param">user</dt><dd class="cmt"><p>User is the user you're testing for. If you specify &quot;User&quot; but not &quot;Groups&quot;, then is it interpreted as &quot;What if User were not a member of any groups</p></dd></dl></div>
+      <p class="shortcomment cmt">SubjectAccessReviewSpec is a description of the access request.</p><div class="fullcomment"><div class="comment cmt"><p>SubjectAccessReviewSpec is a description of the access request. Exactly one of
+ResourceAuthorizationAttributes and NonResourceAuthorizationAttributes must be set
+</p></div><dl class="paramcmts block"><dt class="param">extra</dt><dd class="cmt"><p>
+  Extra corresponds to the user.Info.GetExtra() method from the authenticator. Since that is
+  input to the authorizer it needs a reflection here.</p></dd><dt class="param">groups</dt><dd class="cmt"><p>
+  Groups is the groups you're testing for.</p></dd><dt class="param">uid</dt><dd class="cmt"><p>
+  UID information about the requesting user.</p></dd><dt class="param">user</dt><dd class="cmt"><p>
+  User is the user you're testing for. If you specify &quot;User&quot; but not &quot;Groups&quot;, then is it
+  interpreted as &quot;What if User were not a member of any groups</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.authorization.v1.SubjectAccessReviewSpecFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="SubjectAccessReviewSpecFieldsextendsAnyRef"></a><a id="SubjectAccessReviewSpecFields:SubjectAccessReviewSpecFields"></a>
       <span class="permalink">
@@ -746,7 +785,16 @@
       
       <p class="shortcomment cmt">SubjectAccessReviewStatus
 </p><div class="fullcomment"><div class="comment cmt"><p>SubjectAccessReviewStatus
-</p></div><dl class="paramcmts block"><dt class="param">allowed</dt><dd class="cmt"><p>Allowed is required. True if the action would be allowed, false otherwise.</p></dd><dt class="param">denied</dt><dd class="cmt"><p>Denied is optional. True if the action would be denied, otherwise false. If both allowed is false and denied is false, then the authorizer has no opinion on whether to authorize the action. Denied may not be true if Allowed is true.</p></dd><dt class="param">evaluationError</dt><dd class="cmt"><p>EvaluationError is an indication that some error occurred during the authorization check. It is entirely possible to get an error and be able to continue determine authorization status in spite of it. For instance, RBAC can be missing a role, but enough roles are still present and bound to reason about the request.</p></dd><dt class="param">reason</dt><dd class="cmt"><p>Reason is optional.  It indicates why a request was allowed or denied.</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="param">allowed</dt><dd class="cmt"><p>
+  Allowed is required. True if the action would be allowed, false otherwise.</p></dd><dt class="param">denied</dt><dd class="cmt"><p>
+  Denied is optional. True if the action would be denied, otherwise false. If both allowed is
+  false and denied is false, then the authorizer has no opinion on whether to authorize the
+  action. Denied may not be true if Allowed is true.</p></dd><dt class="param">evaluationError</dt><dd class="cmt"><p>
+  EvaluationError is an indication that some error occurred during the authorization check. It
+  is entirely possible to get an error and be able to continue determine authorization status in
+  spite of it. For instance, RBAC can be missing a role, but enough roles are still present and
+  bound to reason about the request.</p></dd><dt class="param">reason</dt><dd class="cmt"><p>
+  Reason is optional. It indicates why a request was allowed or denied.</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.authorization.v1.SubjectAccessReviewStatusFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="SubjectAccessReviewStatusFieldsextendsAnyRef"></a><a id="SubjectAccessReviewStatusFields:SubjectAccessReviewStatusFields"></a>
       <span class="permalink">
@@ -778,8 +826,21 @@
         <a title="SubjectRulesReviewStatus contains the result of a rules check." href="SubjectRulesReviewStatus.html"><span class="name">SubjectRulesReviewStatus</span></a><span class="params">(<span name="evaluationError">evaluationError: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="incomplete">incomplete: <span class="extype" name="scala.Boolean">Boolean</span></span>, <span name="nonResourceRules">nonResourceRules: <span class="extype" name="scala.Vector">Vector</span>[<a href="NonResourceRule.html" class="extype" name="com.coralogix.zio.k8s.model.authorization.v1.NonResourceRule">NonResourceRule</a>]</span>, <span name="resourceRules">resourceRules: <span class="extype" name="scala.Vector">Vector</span>[<a href="ResourceRule.html" class="extype" name="com.coralogix.zio.k8s.model.authorization.v1.ResourceRule">ResourceRule</a>]</span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
-      <p class="shortcomment cmt">SubjectRulesReviewStatus contains the result of a rules check.</p><div class="fullcomment"><div class="comment cmt"><p>SubjectRulesReviewStatus contains the result of a rules check. This check can be incomplete depending on the set of authorizers the server is configured with and any errors experienced during evaluation. Because authorization rules are additive, if a rule appears in a list it's safe to assume the subject has that permission, even if that list is incomplete.
-</p></div><dl class="paramcmts block"><dt class="param">evaluationError</dt><dd class="cmt"><p>EvaluationError can appear in combination with Rules. It indicates an error occurred during rule evaluation, such as an authorizer that doesn't support rule evaluation, and that ResourceRules and/or NonResourceRules may be incomplete.</p></dd><dt class="param">incomplete</dt><dd class="cmt"><p>Incomplete is true when the rules returned by this call are incomplete. This is most commonly encountered when an authorizer, such as an external authorizer, doesn't support rules evaluation.</p></dd><dt class="param">nonResourceRules</dt><dd class="cmt"><p>NonResourceRules is the list of actions the subject is allowed to perform on non-resources. The list ordering isn't significant, may contain duplicates, and possibly be incomplete.</p></dd><dt class="param">resourceRules</dt><dd class="cmt"><p>ResourceRules is the list of actions the subject is allowed to perform on resources. The list ordering isn't significant, may contain duplicates, and possibly be incomplete.</p></dd></dl></div>
+      <p class="shortcomment cmt">SubjectRulesReviewStatus contains the result of a rules check.</p><div class="fullcomment"><div class="comment cmt"><p>SubjectRulesReviewStatus contains the result of a rules check. This check can be incomplete
+depending on the set of authorizers the server is configured with and any errors experienced
+during evaluation. Because authorization rules are additive, if a rule appears in a list it's
+safe to assume the subject has that permission, even if that list is incomplete.
+</p></div><dl class="paramcmts block"><dt class="param">evaluationError</dt><dd class="cmt"><p>
+  EvaluationError can appear in combination with Rules. It indicates an error occurred during
+  rule evaluation, such as an authorizer that doesn't support rule evaluation, and that
+  ResourceRules and/or NonResourceRules may be incomplete.</p></dd><dt class="param">incomplete</dt><dd class="cmt"><p>
+  Incomplete is true when the rules returned by this call are incomplete. This is most commonly
+  encountered when an authorizer, such as an external authorizer, doesn't support rules
+  evaluation.</p></dd><dt class="param">nonResourceRules</dt><dd class="cmt"><p>
+  NonResourceRules is the list of actions the subject is allowed to perform on non-resources.
+  The list ordering isn't significant, may contain duplicates, and possibly be incomplete.</p></dd><dt class="param">resourceRules</dt><dd class="cmt"><p>
+  ResourceRules is the list of actions the subject is allowed to perform on resources. The list
+  ordering isn't significant, may contain duplicates, and possibly be incomplete.</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.authorization.v1.SubjectRulesReviewStatusFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="SubjectRulesReviewStatusFieldsextendsAnyRef"></a><a id="SubjectRulesReviewStatusFields:SubjectRulesReviewStatusFields"></a>
       <span class="permalink">

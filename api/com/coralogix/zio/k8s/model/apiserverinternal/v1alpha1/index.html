@@ -299,8 +299,15 @@
         <a title="An API server instance reports the version it can decode and the version it encodes objects to when persisting objects in the backend." href="ServerStorageVersion.html"><span class="name">ServerStorageVersion</span></a><span class="params">(<span name="apiServerID">apiServerID: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="decodableVersions">decodableVersions: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="encodingVersion">encodingVersion: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
-      <p class="shortcomment cmt">An API server instance reports the version it can decode and the version it encodes objects to when persisting objects in the backend.</p><div class="fullcomment"><div class="comment cmt"><p>An API server instance reports the version it can decode and the version it encodes objects to when persisting objects in the backend.
-</p></div><dl class="paramcmts block"><dt class="param">apiServerID</dt><dd class="cmt"><p>The ID of the reporting API server.</p></dd><dt class="param">decodableVersions</dt><dd class="cmt"><p>The API server can decode objects encoded in these versions. The encodingVersion must be included in the decodableVersions.</p></dd><dt class="param">encodingVersion</dt><dd class="cmt"><p>The API server encodes the object to this version when persisting it in the backend (e.g., etcd).</p></dd></dl></div>
+      <p class="shortcomment cmt">An API server instance reports the version it can decode and the version it encodes objects to
+when persisting objects in the backend.</p><div class="fullcomment"><div class="comment cmt"><p>An API server instance reports the version it can decode and the version it encodes objects to
+when persisting objects in the backend.
+</p></div><dl class="paramcmts block"><dt class="param">apiServerID</dt><dd class="cmt"><p>
+  The ID of the reporting API server.</p></dd><dt class="param">decodableVersions</dt><dd class="cmt"><p>
+  The API server can decode objects encoded in these versions. The encodingVersion must be
+  included in the decodableVersions.</p></dd><dt class="param">encodingVersion</dt><dd class="cmt"><p>
+  The API server encodes the object to this version when persisting it in the backend (e.g.,
+  etcd).</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.apiserverinternal.v1alpha1.ServerStorageVersionFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="ServerStorageVersionFieldsextendsAnyRef"></a><a id="ServerStorageVersionFields:ServerStorageVersionFields"></a>
       <span class="permalink">
@@ -349,7 +356,12 @@
       </span>
       
       <p class="shortcomment cmt">Describes the state of the storageVersion at a certain point.</p><div class="fullcomment"><div class="comment cmt"><p>Describes the state of the storageVersion at a certain point.
-</p></div><dl class="paramcmts block"><dt class="param">message</dt><dd class="cmt"><p>A human readable message indicating details about the transition.</p></dd><dt class="param">observedGeneration</dt><dd class="cmt"><p>If set, this represents the .metadata.generation that the condition was set based upon.</p></dd><dt class="param">reason</dt><dd class="cmt"><p>The reason for the condition's last transition.</p></dd><dt class="param">status</dt><dd class="cmt"><p>Status of the condition, one of True, False, Unknown.</p></dd><dt class="param">type</dt><dd class="cmt"><p>Type of the condition.</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="param">message</dt><dd class="cmt"><p>
+  A human readable message indicating details about the transition.</p></dd><dt class="param">observedGeneration</dt><dd class="cmt"><p>
+  If set, this represents the .metadata.generation that the condition was set based upon.</p></dd><dt class="param">reason</dt><dd class="cmt"><p>
+  The reason for the condition's last transition.</p></dd><dt class="param">status</dt><dd class="cmt"><p>
+  Status of the condition, one of True, False, Unknown.</p></dd><dt class="param">type</dt><dd class="cmt"><p>
+  Type of the condition.</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.apiserverinternal.v1alpha1.StorageVersionConditionFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="StorageVersionConditionFieldsextendsAnyRef"></a><a id="StorageVersionConditionFields:StorageVersionConditionFields"></a>
       <span class="permalink">
@@ -429,8 +441,16 @@
         <a title="API server instances report the versions they can decode and the version they encode objects to when persisting objects in the backend." href="StorageVersionStatus.html"><span class="name">StorageVersionStatus</span></a><span class="params">(<span name="commonEncodingVersion">commonEncodingVersion: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="conditions">conditions: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="StorageVersionCondition.html" class="extype" name="com.coralogix.zio.k8s.model.apiserverinternal.v1alpha1.StorageVersionCondition">StorageVersionCondition</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="storageVersions">storageVersions: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="ServerStorageVersion.html" class="extype" name="com.coralogix.zio.k8s.model.apiserverinternal.v1alpha1.ServerStorageVersion">ServerStorageVersion</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
-      <p class="shortcomment cmt">API server instances report the versions they can decode and the version they encode objects to when persisting objects in the backend.</p><div class="fullcomment"><div class="comment cmt"><p>API server instances report the versions they can decode and the version they encode objects to when persisting objects in the backend.
-</p></div><dl class="paramcmts block"><dt class="param">commonEncodingVersion</dt><dd class="cmt"><p>If all API server instances agree on the same encoding storage version, then this field is set to that version. Otherwise this field is left empty. API servers should finish updating its storageVersionStatus entry before serving write operations, so that this field will be in sync with the reality.</p></dd><dt class="param">conditions</dt><dd class="cmt"><p>The latest available observations of the storageVersion's state.</p></dd><dt class="param">storageVersions</dt><dd class="cmt"><p>The reported versions per API server instance.</p></dd></dl></div>
+      <p class="shortcomment cmt">API server instances report the versions they can decode and the version they encode objects to
+when persisting objects in the backend.</p><div class="fullcomment"><div class="comment cmt"><p>API server instances report the versions they can decode and the version they encode objects to
+when persisting objects in the backend.
+</p></div><dl class="paramcmts block"><dt class="param">commonEncodingVersion</dt><dd class="cmt"><p>
+  If all API server instances agree on the same encoding storage version, then this field is set
+  to that version. Otherwise this field is left empty. API servers should finish updating its
+  storageVersionStatus entry before serving write operations, so that this field will be in sync
+  with the reality.</p></dd><dt class="param">conditions</dt><dd class="cmt"><p>
+  The latest available observations of the storageVersion's state.</p></dd><dt class="param">storageVersions</dt><dd class="cmt"><p>
+  The reported versions per API server instance.</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.apiserverinternal.v1alpha1.StorageVersionStatusFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="StorageVersionStatusFieldsextendsAnyRef"></a><a id="StorageVersionStatusFields:StorageVersionStatusFields"></a>
       <span class="permalink">

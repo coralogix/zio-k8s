@@ -1588,7 +1588,20 @@
 
       
           <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>ContainerStatus contains details for the current status of this container.
-</p></div><dl class="paramcmts block"><dt class="param">containerID</dt><dd class="cmt"><p>Container's ID in the format 'docker://&lt;container_id&gt;'.</p></dd><dt class="param">image</dt><dd class="cmt"><p>The image the container is running. More info: https://kubernetes.io/docs/concepts/containers/images</p></dd><dt class="param">imageID</dt><dd class="cmt"><p>ImageID of the container's image.</p></dd><dt class="param">name</dt><dd class="cmt"><p>This must be a DNS_LABEL. Each container in a pod must have a unique name. Cannot be updated.</p></dd><dt class="param">ready</dt><dd class="cmt"><p>Specifies whether the container has passed its readiness probe.</p></dd><dt class="param">restartCount</dt><dd class="cmt"><p>The number of times the container has been restarted, currently based on the number of dead containers that have not yet been removed. Note that this is calculated from dead containers. But those containers are subject to garbage collection. This value will get capped at 5 by GC.</p></dd><dt class="param">started</dt><dd class="cmt"><p>Specifies whether the container has passed its startup probe. Initialized as false, becomes true after startupProbe is considered successful. Resets to false when the container is restarted, or if kubelet loses state temporarily. Is always true when no startupProbe is defined.</p></dd></dl><div class="toggleContainer block">
+</p></div><dl class="paramcmts block"><dt class="param">containerID</dt><dd class="cmt"><p>
+  Container's ID in the format 'docker://&lt;container_id&gt;'.</p></dd><dt class="param">image</dt><dd class="cmt"><p>
+  The image the container is running. More info:
+  https://kubernetes.io/docs/concepts/containers/images</p></dd><dt class="param">imageID</dt><dd class="cmt"><p>
+  ImageID of the container's image.</p></dd><dt class="param">name</dt><dd class="cmt"><p>
+  This must be a DNS_LABEL. Each container in a pod must have a unique name. Cannot be updated.</p></dd><dt class="param">ready</dt><dd class="cmt"><p>
+  Specifies whether the container has passed its readiness probe.</p></dd><dt class="param">restartCount</dt><dd class="cmt"><p>
+  The number of times the container has been restarted, currently based on the number of dead
+  containers that have not yet been removed. Note that this is calculated from dead containers.
+  But those containers are subject to garbage collection. This value will get capped at 5 by GC.</p></dd><dt class="param">started</dt><dd class="cmt"><p>
+  Specifies whether the container has passed its startup probe. Initialized as false, becomes
+  true after startupProbe is considered successful. Resets to false when the container is
+  restarted, or if kubelet loses state temporarily. Is always true when no startupProbe is
+  defined.</p></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -1653,7 +1666,20 @@
         <span class="name">ContainerStatus</span><span class="params">(<span name="containerID">containerID: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="image">image: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="imageID">imageID: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="lastState">lastState: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="ContainerState.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.ContainerState">ContainerState</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="name">name: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="ready">ready: <span class="extype" name="scala.Boolean">Boolean</span></span>, <span name="restartCount">restartCount: <span class="extype" name="scala.Int">Int</span></span>, <span name="started">started: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Boolean">Boolean</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="state">state: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="ContainerState.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.ContainerState">ContainerState</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span>
       </span>
       
-      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">containerID</dt><dd class="cmt"><p>Container's ID in the format 'docker://&lt;container_id&gt;'.</p></dd><dt class="param">image</dt><dd class="cmt"><p>The image the container is running. More info: https://kubernetes.io/docs/concepts/containers/images</p></dd><dt class="param">imageID</dt><dd class="cmt"><p>ImageID of the container's image.</p></dd><dt class="param">name</dt><dd class="cmt"><p>This must be a DNS_LABEL. Each container in a pod must have a unique name. Cannot be updated.</p></dd><dt class="param">ready</dt><dd class="cmt"><p>Specifies whether the container has passed its readiness probe.</p></dd><dt class="param">restartCount</dt><dd class="cmt"><p>The number of times the container has been restarted, currently based on the number of dead containers that have not yet been removed. Note that this is calculated from dead containers. But those containers are subject to garbage collection. This value will get capped at 5 by GC.</p></dd><dt class="param">started</dt><dd class="cmt"><p>Specifies whether the container has passed its startup probe. Initialized as false, becomes true after startupProbe is considered successful. Resets to false when the container is restarted, or if kubelet loses state temporarily. Is always true when no startupProbe is defined.</p></dd></dl></div>
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">containerID</dt><dd class="cmt"><p>
+  Container's ID in the format 'docker://&lt;container_id&gt;'.</p></dd><dt class="param">image</dt><dd class="cmt"><p>
+  The image the container is running. More info:
+  https://kubernetes.io/docs/concepts/containers/images</p></dd><dt class="param">imageID</dt><dd class="cmt"><p>
+  ImageID of the container's image.</p></dd><dt class="param">name</dt><dd class="cmt"><p>
+  This must be a DNS_LABEL. Each container in a pod must have a unique name. Cannot be updated.</p></dd><dt class="param">ready</dt><dd class="cmt"><p>
+  Specifies whether the container has passed its readiness probe.</p></dd><dt class="param">restartCount</dt><dd class="cmt"><p>
+  The number of times the container has been restarted, currently based on the number of dead
+  containers that have not yet been removed. Note that this is calculated from dead containers.
+  But those containers are subject to garbage collection. This value will get capped at 5 by GC.</p></dd><dt class="param">started</dt><dd class="cmt"><p>
+  Specifies whether the container has passed its startup probe. Initialized as false, becomes
+  true after startupProbe is considered successful. Resets to false when the container is
+  restarted, or if kubelet loses state temporarily. Is always true when no startupProbe is
+  defined.</p></dd></dl></div>
     </li></ol>
             </div>
 
@@ -1839,7 +1865,8 @@
         <span class="name">getImage</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">The image the container is running.</p><div class="fullcomment"><div class="comment cmt"><p>The image the container is running. More info: https://kubernetes.io/docs/concepts/containers/images</p><p>This effect always succeeds, it is safe to use the field <a href="#image:String" class="extmbr" name="com.coralogix.zio.k8s.model.core.v1.ContainerStatus#image">image</a> directly.
+      <p class="shortcomment cmt">The image the container is running.</p><div class="fullcomment"><div class="comment cmt"><p>The image the container is running. More info:
+https://kubernetes.io/docs/concepts/containers/images</p><p>This effect always succeeds, it is safe to use the field <a href="#image:String" class="extmbr" name="com.coralogix.zio.k8s.model.core.v1.ContainerStatus#image">image</a> directly.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.core.v1.ContainerStatus#getImageID" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getImageID:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]"></a><a id="getImageID:IO[K8sFailure,String]"></a>
@@ -1924,7 +1951,10 @@
         <span class="name">getRestartCount</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Int">Int</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">The number of times the container has been restarted, currently based on the number of dead containers that have not yet been removed.</p><div class="fullcomment"><div class="comment cmt"><p>The number of times the container has been restarted, currently based on the number of dead containers that have not yet been removed. Note that this is calculated from dead containers. But those containers are subject to garbage collection. This value will get capped at 5 by GC.</p><p>This effect always succeeds, it is safe to use the field <a href="#restartCount:Int" class="extmbr" name="com.coralogix.zio.k8s.model.core.v1.ContainerStatus#restartCount">restartCount</a> directly.
+      <p class="shortcomment cmt">The number of times the container has been restarted, currently based on the number of dead
+containers that have not yet been removed.</p><div class="fullcomment"><div class="comment cmt"><p>The number of times the container has been restarted, currently based on the number of dead
+containers that have not yet been removed. Note that this is calculated from dead containers.
+But those containers are subject to garbage collection. This value will get capped at 5 by GC.</p><p>This effect always succeeds, it is safe to use the field <a href="#restartCount:Int" class="extmbr" name="com.coralogix.zio.k8s.model.core.v1.ContainerStatus#restartCount">restartCount</a> directly.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.core.v1.ContainerStatus#getStarted" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getStarted:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Boolean]"></a><a id="getStarted:IO[K8sFailure,Boolean]"></a>
@@ -1941,7 +1971,10 @@
         <span class="name">getStarted</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Boolean">Boolean</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">Specifies whether the container has passed its startup probe.</p><div class="fullcomment"><div class="comment cmt"><p>Specifies whether the container has passed its startup probe. Initialized as false, becomes true after startupProbe is considered successful. Resets to false when the container is restarted, or if kubelet loses state temporarily. Is always true when no startupProbe is defined.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">Specifies whether the container has passed its startup probe.</p><div class="fullcomment"><div class="comment cmt"><p>Specifies whether the container has passed its startup probe. Initialized as false, becomes
+true after startupProbe is considered successful. Resets to false when the container is
+restarted, or if kubelet loses state temporarily. Is always true when no startupProbe is
+defined.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.core.v1.ContainerStatus#getState" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getState:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.model.core.v1.ContainerState]"></a><a id="getState:IO[K8sFailure,ContainerState]"></a>

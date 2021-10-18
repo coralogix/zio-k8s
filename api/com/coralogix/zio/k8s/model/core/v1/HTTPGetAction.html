@@ -1588,7 +1588,12 @@
 
       
           <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>HTTPGetAction describes an action based on HTTP Get requests.
-</p></div><dl class="paramcmts block"><dt class="param">host</dt><dd class="cmt"><p>Host name to connect to, defaults to the pod IP. You probably want to set &quot;Host&quot; in httpHeaders instead.</p></dd><dt class="param">httpHeaders</dt><dd class="cmt"><p>Custom headers to set in the request. HTTP allows repeated headers.</p></dd><dt class="param">path</dt><dd class="cmt"><p>Path to access on the HTTP server.</p></dd><dt class="param">scheme</dt><dd class="cmt"><p>Scheme to use for connecting to the host. Defaults to HTTP.</p></dd></dl><div class="toggleContainer block">
+</p></div><dl class="paramcmts block"><dt class="param">host</dt><dd class="cmt"><p>
+  Host name to connect to, defaults to the pod IP. You probably want to set &quot;Host&quot; in
+  httpHeaders instead.</p></dd><dt class="param">httpHeaders</dt><dd class="cmt"><p>
+  Custom headers to set in the request. HTTP allows repeated headers.</p></dd><dt class="param">path</dt><dd class="cmt"><p>
+  Path to access on the HTTP server.</p></dd><dt class="param">scheme</dt><dd class="cmt"><p>
+  Scheme to use for connecting to the host. Defaults to HTTP.</p></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -1653,7 +1658,12 @@
         <span class="name">HTTPGetAction</span><span class="params">(<span name="host">host: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="httpHeaders">httpHeaders: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="HTTPHeader.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.HTTPHeader">HTTPHeader</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="path">path: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="port">port: <a href="../../pkg/util/intstr/IntOrString.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.util.intstr.IntOrString">IntOrString</a></span>, <span name="scheme">scheme: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span>
       </span>
       
-      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">host</dt><dd class="cmt"><p>Host name to connect to, defaults to the pod IP. You probably want to set &quot;Host&quot; in httpHeaders instead.</p></dd><dt class="param">httpHeaders</dt><dd class="cmt"><p>Custom headers to set in the request. HTTP allows repeated headers.</p></dd><dt class="param">path</dt><dd class="cmt"><p>Path to access on the HTTP server.</p></dd><dt class="param">scheme</dt><dd class="cmt"><p>Scheme to use for connecting to the host. Defaults to HTTP.</p></dd></dl></div>
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">host</dt><dd class="cmt"><p>
+  Host name to connect to, defaults to the pod IP. You probably want to set &quot;Host&quot; in
+  httpHeaders instead.</p></dd><dt class="param">httpHeaders</dt><dd class="cmt"><p>
+  Custom headers to set in the request. HTTP allows repeated headers.</p></dd><dt class="param">path</dt><dd class="cmt"><p>
+  Path to access on the HTTP server.</p></dd><dt class="param">scheme</dt><dd class="cmt"><p>
+  Scheme to use for connecting to the host. Defaults to HTTP.</p></dd></dl></div>
     </li></ol>
             </div>
 
@@ -1806,7 +1816,8 @@
         <span class="name">getHost</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">Host name to connect to, defaults to the pod IP.</p><div class="fullcomment"><div class="comment cmt"><p>Host name to connect to, defaults to the pod IP. You probably want to set &quot;Host&quot; in httpHeaders instead.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">Host name to connect to, defaults to the pod IP.</p><div class="fullcomment"><div class="comment cmt"><p>Host name to connect to, defaults to the pod IP. You probably want to set &quot;Host&quot; in
+httpHeaders instead.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.core.v1.HTTPGetAction#getHttpHeaders" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getHttpHeaders:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Vector[com.coralogix.zio.k8s.model.core.v1.HTTPHeader]]"></a><a id="getHttpHeaders:IO[K8sFailure,Vector[HTTPHeader]]"></a>

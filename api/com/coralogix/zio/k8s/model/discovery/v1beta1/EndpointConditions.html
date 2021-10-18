@@ -198,6 +198,14 @@
                         <a class="class" href="EndpointFields.html" title=""></a>
                         <a href="EndpointFields.html" title="">EndpointFields</a>
                       </li><li class="current-entities indented7">
+                        <a class="object" href="EndpointHints$.html" title=""></a>
+                        <a class="class" href="EndpointHints.html" title="EndpointHints provides hints describing how an endpoint should be consumed."></a>
+                        <a href="EndpointHints.html" title="EndpointHints provides hints describing how an endpoint should be consumed.">EndpointHints</a>
+                      </li><li class="current-entities indented7">
+                        <span class="separator"></span>
+                        <a class="class" href="EndpointHintsFields.html" title=""></a>
+                        <a href="EndpointHintsFields.html" title="">EndpointHintsFields</a>
+                      </li><li class="current-entities indented7">
                         <a class="object" href="EndpointPort$.html" title=""></a>
                         <a class="class" href="EndpointPort.html" title="EndpointPort represents a Port used by an EndpointSlice"></a>
                         <a href="EndpointPort.html" title="EndpointPort represents a Port used by an EndpointSlice">EndpointPort</a>
@@ -213,6 +221,14 @@
                         <span class="separator"></span>
                         <a class="class" href="EndpointSliceFields.html" title=""></a>
                         <a href="EndpointSliceFields.html" title="">EndpointSliceFields</a>
+                      </li><li class="current-entities indented7">
+                        <a class="object" href="ForZone$.html" title=""></a>
+                        <a class="class" href="ForZone.html" title="ForZone provides information about which zones should consume this endpoint."></a>
+                        <a href="ForZone.html" title="ForZone provides information about which zones should consume this endpoint.">ForZone</a>
+                      </li><li class="current-entities indented7">
+                        <span class="separator"></span>
+                        <a class="class" href="ForZoneFields.html" title=""></a>
+                        <a href="ForZoneFields.html" title="">ForZoneFields</a>
                       </li>
               </ul>
             </div>
@@ -244,7 +260,19 @@
 
       
           <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>EndpointConditions represents the current condition of an endpoint.
-</p></div><dl class="paramcmts block"><dt class="param">ready</dt><dd class="cmt"><p>ready indicates that this endpoint is prepared to receive traffic, according to whatever system is managing the endpoint. A nil value indicates an unknown state. In most cases consumers should interpret this unknown state as ready. For compatibility reasons, ready should never be &quot;true&quot; for terminating endpoints.</p></dd><dt class="param">serving</dt><dd class="cmt"><p>serving is identical to ready except that it is set regardless of the terminating state of endpoints. This condition should be set to true for a ready endpoint that is terminating. If nil, consumers should defer to the ready condition. This field can be enabled with the EndpointSliceTerminatingCondition feature gate.</p></dd><dt class="param">terminating</dt><dd class="cmt"><p>terminating indicates that this endpoint is terminating. A nil value indicates an unknown state. Consumers should interpret this unknown state to mean that the endpoint is not terminating. This field can be enabled with the EndpointSliceTerminatingCondition feature gate.</p></dd></dl><div class="toggleContainer block">
+</p></div><dl class="paramcmts block"><dt class="param">ready</dt><dd class="cmt"><p>
+  ready indicates that this endpoint is prepared to receive traffic, according to whatever
+  system is managing the endpoint. A nil value indicates an unknown state. In most cases
+  consumers should interpret this unknown state as ready. For compatibility reasons, ready
+  should never be &quot;true&quot; for terminating endpoints.</p></dd><dt class="param">serving</dt><dd class="cmt"><p>
+  serving is identical to ready except that it is set regardless of the terminating state of
+  endpoints. This condition should be set to true for a ready endpoint that is terminating. If
+  nil, consumers should defer to the ready condition. This field can be enabled with the
+  EndpointSliceTerminatingCondition feature gate.</p></dd><dt class="param">terminating</dt><dd class="cmt"><p>
+  terminating indicates that this endpoint is terminating. A nil value indicates an unknown
+  state. Consumers should interpret this unknown state to mean that the endpoint is not
+  terminating. This field can be enabled with the EndpointSliceTerminatingCondition feature
+  gate.</p></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -309,7 +337,19 @@
         <span class="name">EndpointConditions</span><span class="params">(<span name="ready">ready: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Boolean">Boolean</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="serving">serving: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Boolean">Boolean</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="terminating">terminating: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Boolean">Boolean</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span>
       </span>
       
-      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">ready</dt><dd class="cmt"><p>ready indicates that this endpoint is prepared to receive traffic, according to whatever system is managing the endpoint. A nil value indicates an unknown state. In most cases consumers should interpret this unknown state as ready. For compatibility reasons, ready should never be &quot;true&quot; for terminating endpoints.</p></dd><dt class="param">serving</dt><dd class="cmt"><p>serving is identical to ready except that it is set regardless of the terminating state of endpoints. This condition should be set to true for a ready endpoint that is terminating. If nil, consumers should defer to the ready condition. This field can be enabled with the EndpointSliceTerminatingCondition feature gate.</p></dd><dt class="param">terminating</dt><dd class="cmt"><p>terminating indicates that this endpoint is terminating. A nil value indicates an unknown state. Consumers should interpret this unknown state to mean that the endpoint is not terminating. This field can be enabled with the EndpointSliceTerminatingCondition feature gate.</p></dd></dl></div>
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">ready</dt><dd class="cmt"><p>
+  ready indicates that this endpoint is prepared to receive traffic, according to whatever
+  system is managing the endpoint. A nil value indicates an unknown state. In most cases
+  consumers should interpret this unknown state as ready. For compatibility reasons, ready
+  should never be &quot;true&quot; for terminating endpoints.</p></dd><dt class="param">serving</dt><dd class="cmt"><p>
+  serving is identical to ready except that it is set regardless of the terminating state of
+  endpoints. This condition should be set to true for a ready endpoint that is terminating. If
+  nil, consumers should defer to the ready condition. This field can be enabled with the
+  EndpointSliceTerminatingCondition feature gate.</p></dd><dt class="param">terminating</dt><dd class="cmt"><p>
+  terminating indicates that this endpoint is terminating. A nil value indicates an unknown
+  state. Consumers should interpret this unknown state to mean that the endpoint is not
+  terminating. This field can be enabled with the EndpointSliceTerminatingCondition feature
+  gate.</p></dd></dl></div>
     </li></ol>
             </div>
 
@@ -462,7 +502,11 @@
         <span class="name">getReady</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Boolean">Boolean</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">ready indicates that this endpoint is prepared to receive traffic, according to whatever system is managing the endpoint.</p><div class="fullcomment"><div class="comment cmt"><p>ready indicates that this endpoint is prepared to receive traffic, according to whatever system is managing the endpoint. A nil value indicates an unknown state. In most cases consumers should interpret this unknown state as ready. For compatibility reasons, ready should never be &quot;true&quot; for terminating endpoints.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">ready indicates that this endpoint is prepared to receive traffic, according to whatever
+system is managing the endpoint.</p><div class="fullcomment"><div class="comment cmt"><p>ready indicates that this endpoint is prepared to receive traffic, according to whatever
+system is managing the endpoint. A nil value indicates an unknown state. In most cases
+consumers should interpret this unknown state as ready. For compatibility reasons, ready
+should never be &quot;true&quot; for terminating endpoints.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.discovery.v1beta1.EndpointConditions#getServing" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getServing:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Boolean]"></a><a id="getServing:IO[K8sFailure,Boolean]"></a>
@@ -479,7 +523,11 @@
         <span class="name">getServing</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Boolean">Boolean</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">serving is identical to ready except that it is set regardless of the terminating state of endpoints.</p><div class="fullcomment"><div class="comment cmt"><p>serving is identical to ready except that it is set regardless of the terminating state of endpoints. This condition should be set to true for a ready endpoint that is terminating. If nil, consumers should defer to the ready condition. This field can be enabled with the EndpointSliceTerminatingCondition feature gate.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">serving is identical to ready except that it is set regardless of the terminating state of
+endpoints.</p><div class="fullcomment"><div class="comment cmt"><p>serving is identical to ready except that it is set regardless of the terminating state of
+endpoints. This condition should be set to true for a ready endpoint that is terminating. If
+nil, consumers should defer to the ready condition. This field can be enabled with the
+EndpointSliceTerminatingCondition feature gate.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.discovery.v1beta1.EndpointConditions#getTerminating" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getTerminating:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Boolean]"></a><a id="getTerminating:IO[K8sFailure,Boolean]"></a>
@@ -496,7 +544,10 @@
         <span class="name">getTerminating</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Boolean">Boolean</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">terminating indicates that this endpoint is terminating.</p><div class="fullcomment"><div class="comment cmt"><p>terminating indicates that this endpoint is terminating. A nil value indicates an unknown state. Consumers should interpret this unknown state to mean that the endpoint is not terminating. This field can be enabled with the EndpointSliceTerminatingCondition feature gate.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">terminating indicates that this endpoint is terminating.</p><div class="fullcomment"><div class="comment cmt"><p>terminating indicates that this endpoint is terminating. A nil value indicates an unknown
+state. Consumers should interpret this unknown state to mean that the endpoint is not
+terminating. This field can be enabled with the EndpointSliceTerminatingCondition feature
+gate.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="scala.Any#isInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isInstanceOf[T0]:Boolean"></a>

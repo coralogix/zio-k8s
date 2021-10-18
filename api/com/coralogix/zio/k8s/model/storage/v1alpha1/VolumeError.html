@@ -182,6 +182,14 @@
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="com.coralogix.zio.k8s.model.storage">storage</a></dd></dl></div>
     </li><li class="current-entities indented7">
+                        <a class="object" href="CSIStorageCapacity$.html" title=""></a>
+                        <a class="class" href="CSIStorageCapacity.html" title="CSIStorageCapacity stores the result of one CSI GetCapacity call."></a>
+                        <a href="CSIStorageCapacity.html" title="CSIStorageCapacity stores the result of one CSI GetCapacity call.">CSIStorageCapacity</a>
+                      </li><li class="current-entities indented7">
+                        <span class="separator"></span>
+                        <a class="class" href="CSIStorageCapacityFields.html" title=""></a>
+                        <a href="CSIStorageCapacityFields.html" title="">CSIStorageCapacityFields</a>
+                      </li><li class="current-entities indented7">
                         <a class="object" href="VolumeAttachment$.html" title=""></a>
                         <a class="class" href="VolumeAttachment.html" title="VolumeAttachment captures the intent to attach or detach the specified volume to/from the specified node."></a>
                         <a href="VolumeAttachment.html" title="VolumeAttachment captures the intent to attach or detach the specified volume to/from the specified node.">VolumeAttachment</a>
@@ -252,7 +260,9 @@
 
       
           <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>VolumeError captures an error encountered during a volume operation.
-</p></div><dl class="paramcmts block"><dt class="param">message</dt><dd class="cmt"><p>String detailing the error encountered during Attach or Detach operation. This string maybe logged, so it should not contain sensitive information.</p></dd></dl><div class="toggleContainer block">
+</p></div><dl class="paramcmts block"><dt class="param">message</dt><dd class="cmt"><p>
+  String detailing the error encountered during Attach or Detach operation. This string maybe
+  logged, so it should not contain sensitive information.</p></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -317,7 +327,9 @@
         <span class="name">VolumeError</span><span class="params">(<span name="message">message: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="time">time: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="../../pkg/apis/meta/v1/Time.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Time">Time</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span>
       </span>
       
-      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">message</dt><dd class="cmt"><p>String detailing the error encountered during Attach or Detach operation. This string maybe logged, so it should not contain sensitive information.</p></dd></dl></div>
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">message</dt><dd class="cmt"><p>
+  String detailing the error encountered during Attach or Detach operation. This string maybe
+  logged, so it should not contain sensitive information.</p></dd></dl></div>
     </li></ol>
             </div>
 
@@ -470,7 +482,8 @@
         <span class="name">getMessage</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">String detailing the error encountered during Attach or Detach operation.</p><div class="fullcomment"><div class="comment cmt"><p>String detailing the error encountered during Attach or Detach operation. This string maybe logged, so it should not contain sensitive information.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">String detailing the error encountered during Attach or Detach operation.</p><div class="fullcomment"><div class="comment cmt"><p>String detailing the error encountered during Attach or Detach operation. This string maybe
+logged, so it should not contain sensitive information.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.storage.v1alpha1.VolumeError#getTime" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getTime:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Time]"></a><a id="getTime:IO[K8sFailure,Time]"></a>

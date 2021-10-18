@@ -206,14 +206,6 @@
                         <a class="class" href="AllowedHostPathFields.html" title=""></a>
                         <a href="AllowedHostPathFields.html" title="">AllowedHostPathFields</a>
                       </li><li class="current-entities indented7">
-                        <a class="object" href="Eviction$.html" title=""></a>
-                        <a class="class" href="Eviction.html" title="Eviction evicts a pod from its node subject to certain policies and safety constraints."></a>
-                        <a href="Eviction.html" title="Eviction evicts a pod from its node subject to certain policies and safety constraints.">Eviction</a>
-                      </li><li class="current-entities indented7">
-                        <span class="separator"></span>
-                        <a class="class" href="EvictionFields.html" title=""></a>
-                        <a href="EvictionFields.html" title="">EvictionFields</a>
-                      </li><li class="current-entities indented7">
                         <a class="object" href="FSGroupStrategyOptions$.html" title=""></a>
                         <a class="class" href="FSGroupStrategyOptions.html" title="FSGroupStrategyOptions defines the strategy type and options used to create the strategy."></a>
                         <a href="FSGroupStrategyOptions.html" title="FSGroupStrategyOptions defines the strategy type and options used to create the strategy.">FSGroupStrategyOptions</a>
@@ -342,13 +334,39 @@
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <span class="name">PodDisruptionBudgetStatus</span><span class="params">(<span name="currentHealthy">currentHealthy: <span class="extype" name="scala.Int">Int</span></span>, <span name="desiredHealthy">desiredHealthy: <span class="extype" name="scala.Int">Int</span></span>, <span name="disruptedPods">disruptedPods: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <a href="../../pkg/apis/meta/v1/Time.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Time">Time</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="disruptionsAllowed">disruptionsAllowed: <span class="extype" name="scala.Int">Int</span></span>, <span name="expectedPods">expectedPods: <span class="extype" name="scala.Int">Int</span></span>, <span name="observedGeneration">observedGeneration: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Long">Long</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <span class="name">PodDisruptionBudgetStatus</span><span class="params">(<span name="conditions">conditions: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="../../pkg/apis/meta/v1/Condition.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Condition">Condition</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="currentHealthy">currentHealthy: <span class="extype" name="scala.Int">Int</span></span>, <span name="desiredHealthy">desiredHealthy: <span class="extype" name="scala.Int">Int</span></span>, <span name="disruptedPods">disruptedPods: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <a href="../../pkg/apis/meta/v1/Time.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Time">Time</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="disruptionsAllowed">disruptionsAllowed: <span class="extype" name="scala.Int">Int</span></span>, <span name="expectedPods">expectedPods: <span class="extype" name="scala.Int">Int</span></span>, <span name="observedGeneration">observedGeneration: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Long">Long</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>PodDisruptionBudgetStatus represents information about the status of a PodDisruptionBudget. Status may trail the actual state of a system.
-</p></div><dl class="paramcmts block"><dt class="param">currentHealthy</dt><dd class="cmt"><p>current number of healthy pods</p></dd><dt class="param">desiredHealthy</dt><dd class="cmt"><p>minimum desired number of healthy pods</p></dd><dt class="param">disruptedPods</dt><dd class="cmt"><p>DisruptedPods contains information about pods whose eviction was processed by the API server eviction subresource handler but has not yet been observed by the PodDisruptionBudget controller. A pod will be in this map from the time when the API server processed the eviction request to the time when the pod is seen by PDB controller as having been marked for deletion (or after a timeout). The key in the map is the name of the pod and the value is the time when the API server processed the eviction request. If the deletion didn't occur and a pod is still there it will be removed from the list automatically by PodDisruptionBudget controller after some time. If everything goes smooth this map should be empty for the most of the time. Large number of entries in the map may indicate problems with pod deletions.</p></dd><dt class="param">disruptionsAllowed</dt><dd class="cmt"><p>Number of pod disruptions that are currently allowed.</p></dd><dt class="param">expectedPods</dt><dd class="cmt"><p>total number of pods counted by this disruption budget</p></dd><dt class="param">observedGeneration</dt><dd class="cmt"><p>Most recent generation observed when updating this PDB status. DisruptionsAllowed and other status information is valid only if observedGeneration equals to PDB's object generation.</p></dd></dl><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>PodDisruptionBudgetStatus represents information about the status of a PodDisruptionBudget.
+Status may trail the actual state of a system.
+</p></div><dl class="paramcmts block"><dt class="param">conditions</dt><dd class="cmt"><p>
+  Conditions contain conditions for PDB. The disruption controller sets the DisruptionAllowed
+  condition. The following are known values for the reason field (additional reasons could be
+  added in the future): - SyncFailed: The controller encountered an error and wasn't able to
+  compute the number of allowed disruptions. Therefore no disruptions are allowed and the status
+  of the condition will be False.
+- InsufficientPods: The number of pods are either at or below the number required by the
+PodDisruptionBudget. No disruptions are allowed and the status of the condition will be False.
+- SufficientPods: There are more pods than required by the PodDisruptionBudget. The condition
+will be True, and the number of allowed disruptions are provided by the disruptionsAllowed
+property.</p></dd><dt class="param">currentHealthy</dt><dd class="cmt"><p>
+  current number of healthy pods</p></dd><dt class="param">desiredHealthy</dt><dd class="cmt"><p>
+  minimum desired number of healthy pods</p></dd><dt class="param">disruptedPods</dt><dd class="cmt"><p>
+  DisruptedPods contains information about pods whose eviction was processed by the API server
+  eviction subresource handler but has not yet been observed by the PodDisruptionBudget
+  controller. A pod will be in this map from the time when the API server processed the eviction
+  request to the time when the pod is seen by PDB controller as having been marked for deletion
+  (or after a timeout). The key in the map is the name of the pod and the value is the time when
+  the API server processed the eviction request. If the deletion didn't occur and a pod is still
+  there it will be removed from the list automatically by PodDisruptionBudget controller after
+  some time. If everything goes smooth this map should be empty for the most of the time. Large
+  number of entries in the map may indicate problems with pod deletions.</p></dd><dt class="param">disruptionsAllowed</dt><dd class="cmt"><p>
+  Number of pod disruptions that are currently allowed.</p></dd><dt class="param">expectedPods</dt><dd class="cmt"><p>
+  total number of pods counted by this disruption budget</p></dd><dt class="param">observedGeneration</dt><dd class="cmt"><p>
+  Most recent generation observed when updating this PDB status. DisruptionsAllowed and other
+  status information is valid only if observedGeneration equals to PDB's object generation.</p></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -399,9 +417,9 @@
         <div id="constructors" class="members">
               <h3>Instance Constructors</h3>
               <ol><li name="com.coralogix.zio.k8s.model.policy.v1beta1.PodDisruptionBudgetStatus#&lt;init&gt;" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="&lt;init&gt;(currentHealthy:Int,desiredHealthy:Int,disruptedPods:com.coralogix.zio.k8s.client.model.Optional[Map[String,com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Time]],disruptionsAllowed:Int,expectedPods:Int,observedGeneration:com.coralogix.zio.k8s.client.model.Optional[Long]):com.coralogix.zio.k8s.model.policy.v1beta1.PodDisruptionBudgetStatus"></a><a id="&lt;init&gt;:PodDisruptionBudgetStatus"></a>
+      <a id="&lt;init&gt;(conditions:com.coralogix.zio.k8s.client.model.Optional[Vector[com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Condition]],currentHealthy:Int,desiredHealthy:Int,disruptedPods:com.coralogix.zio.k8s.client.model.Optional[Map[String,com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Time]],disruptionsAllowed:Int,expectedPods:Int,observedGeneration:com.coralogix.zio.k8s.client.model.Optional[Long]):com.coralogix.zio.k8s.model.policy.v1beta1.PodDisruptionBudgetStatus"></a><a id="&lt;init&gt;:PodDisruptionBudgetStatus"></a>
       <span class="permalink">
-      <a href="../../../../../../../com/coralogix/zio/k8s/model/policy/v1beta1/PodDisruptionBudgetStatus.html#&lt;init&gt;(currentHealthy:Int,desiredHealthy:Int,disruptedPods:com.coralogix.zio.k8s.client.model.Optional[Map[String,com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Time]],disruptionsAllowed:Int,expectedPods:Int,observedGeneration:com.coralogix.zio.k8s.client.model.Optional[Long]):com.coralogix.zio.k8s.model.policy.v1beta1.PodDisruptionBudgetStatus" title="Permalink">
+      <a href="../../../../../../../com/coralogix/zio/k8s/model/policy/v1beta1/PodDisruptionBudgetStatus.html#&lt;init&gt;(conditions:com.coralogix.zio.k8s.client.model.Optional[Vector[com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Condition]],currentHealthy:Int,desiredHealthy:Int,disruptedPods:com.coralogix.zio.k8s.client.model.Optional[Map[String,com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Time]],disruptionsAllowed:Int,expectedPods:Int,observedGeneration:com.coralogix.zio.k8s.client.model.Optional[Long]):com.coralogix.zio.k8s.model.policy.v1beta1.PodDisruptionBudgetStatus" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -410,10 +428,35 @@
         <span class="kind">new</span>
       </span>
       <span class="symbol">
-        <span class="name">PodDisruptionBudgetStatus</span><span class="params">(<span name="currentHealthy">currentHealthy: <span class="extype" name="scala.Int">Int</span></span>, <span name="desiredHealthy">desiredHealthy: <span class="extype" name="scala.Int">Int</span></span>, <span name="disruptedPods">disruptedPods: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <a href="../../pkg/apis/meta/v1/Time.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Time">Time</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="disruptionsAllowed">disruptionsAllowed: <span class="extype" name="scala.Int">Int</span></span>, <span name="expectedPods">expectedPods: <span class="extype" name="scala.Int">Int</span></span>, <span name="observedGeneration">observedGeneration: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Long">Long</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span>
+        <span class="name">PodDisruptionBudgetStatus</span><span class="params">(<span name="conditions">conditions: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="../../pkg/apis/meta/v1/Condition.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Condition">Condition</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="currentHealthy">currentHealthy: <span class="extype" name="scala.Int">Int</span></span>, <span name="desiredHealthy">desiredHealthy: <span class="extype" name="scala.Int">Int</span></span>, <span name="disruptedPods">disruptedPods: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <a href="../../pkg/apis/meta/v1/Time.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Time">Time</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="disruptionsAllowed">disruptionsAllowed: <span class="extype" name="scala.Int">Int</span></span>, <span name="expectedPods">expectedPods: <span class="extype" name="scala.Int">Int</span></span>, <span name="observedGeneration">observedGeneration: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Long">Long</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span>
       </span>
       
-      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">currentHealthy</dt><dd class="cmt"><p>current number of healthy pods</p></dd><dt class="param">desiredHealthy</dt><dd class="cmt"><p>minimum desired number of healthy pods</p></dd><dt class="param">disruptedPods</dt><dd class="cmt"><p>DisruptedPods contains information about pods whose eviction was processed by the API server eviction subresource handler but has not yet been observed by the PodDisruptionBudget controller. A pod will be in this map from the time when the API server processed the eviction request to the time when the pod is seen by PDB controller as having been marked for deletion (or after a timeout). The key in the map is the name of the pod and the value is the time when the API server processed the eviction request. If the deletion didn't occur and a pod is still there it will be removed from the list automatically by PodDisruptionBudget controller after some time. If everything goes smooth this map should be empty for the most of the time. Large number of entries in the map may indicate problems with pod deletions.</p></dd><dt class="param">disruptionsAllowed</dt><dd class="cmt"><p>Number of pod disruptions that are currently allowed.</p></dd><dt class="param">expectedPods</dt><dd class="cmt"><p>total number of pods counted by this disruption budget</p></dd><dt class="param">observedGeneration</dt><dd class="cmt"><p>Most recent generation observed when updating this PDB status. DisruptionsAllowed and other status information is valid only if observedGeneration equals to PDB's object generation.</p></dd></dl></div>
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">conditions</dt><dd class="cmt"><p>
+  Conditions contain conditions for PDB. The disruption controller sets the DisruptionAllowed
+  condition. The following are known values for the reason field (additional reasons could be
+  added in the future): - SyncFailed: The controller encountered an error and wasn't able to
+  compute the number of allowed disruptions. Therefore no disruptions are allowed and the status
+  of the condition will be False.
+- InsufficientPods: The number of pods are either at or below the number required by the
+PodDisruptionBudget. No disruptions are allowed and the status of the condition will be False.
+- SufficientPods: There are more pods than required by the PodDisruptionBudget. The condition
+will be True, and the number of allowed disruptions are provided by the disruptionsAllowed
+property.</p></dd><dt class="param">currentHealthy</dt><dd class="cmt"><p>
+  current number of healthy pods</p></dd><dt class="param">desiredHealthy</dt><dd class="cmt"><p>
+  minimum desired number of healthy pods</p></dd><dt class="param">disruptedPods</dt><dd class="cmt"><p>
+  DisruptedPods contains information about pods whose eviction was processed by the API server
+  eviction subresource handler but has not yet been observed by the PodDisruptionBudget
+  controller. A pod will be in this map from the time when the API server processed the eviction
+  request to the time when the pod is seen by PDB controller as having been marked for deletion
+  (or after a timeout). The key in the map is the name of the pod and the value is the time when
+  the API server processed the eviction request. If the deletion didn't occur and a pod is still
+  there it will be removed from the list automatically by PodDisruptionBudget controller after
+  some time. If everything goes smooth this map should be empty for the most of the time. Large
+  number of entries in the map may indicate problems with pod deletions.</p></dd><dt class="param">disruptionsAllowed</dt><dd class="cmt"><p>
+  Number of pod disruptions that are currently allowed.</p></dd><dt class="param">expectedPods</dt><dd class="cmt"><p>
+  total number of pods counted by this disruption budget</p></dd><dt class="param">observedGeneration</dt><dd class="cmt"><p>
+  Most recent generation observed when updating this PDB status. DisruptionsAllowed and other
+  status information is valid only if observedGeneration equals to PDB's object generation.</p></dd></dl></div>
     </li></ol>
             </div>
 
@@ -514,6 +557,22 @@
                 <span class="name">@HotSpotIntrinsicCandidate</span><span class="args">()</span>
               
         </dd></dl></div>
+    </li><li name="com.coralogix.zio.k8s.model.policy.v1beta1.PodDisruptionBudgetStatus#conditions" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="conditions:com.coralogix.zio.k8s.client.model.Optional[Vector[com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Condition]]"></a><a id="conditions:Optional[Vector[Condition]]"></a>
+      <span class="permalink">
+      <a href="../../../../../../../com/coralogix/zio/k8s/model/policy/v1beta1/PodDisruptionBudgetStatus.html#conditions:com.coralogix.zio.k8s.client.model.Optional[Vector[com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Condition]]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">conditions</span><span class="result">: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="../../pkg/apis/meta/v1/Condition.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Condition">Condition</a>]]</span>
+      </span>
+      
+      
     </li><li name="com.coralogix.zio.k8s.model.policy.v1beta1.PodDisruptionBudgetStatus#currentHealthy" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="currentHealthy:Int"></a>
       <span class="permalink">
@@ -631,6 +690,32 @@
                 <span class="name">@HotSpotIntrinsicCandidate</span><span class="args">()</span>
               
         </dd></dl></div>
+    </li><li name="com.coralogix.zio.k8s.model.policy.v1beta1.PodDisruptionBudgetStatus#getConditions" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="getConditions:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Vector[com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Condition]]"></a><a id="getConditions:IO[K8sFailure,Vector[Condition]]"></a>
+      <span class="permalink">
+      <a href="../../../../../../../com/coralogix/zio/k8s/model/policy/v1beta1/PodDisruptionBudgetStatus.html#getConditions:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Vector[com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Condition]]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">getConditions</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Vector">Vector</span>[<a href="../../pkg/apis/meta/v1/Condition.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Condition">Condition</a>]]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Conditions contain conditions for PDB.</p><div class="fullcomment"><div class="comment cmt"><p>Conditions contain conditions for PDB. The disruption controller sets the DisruptionAllowed
+condition. The following are known values for the reason field (additional reasons could be
+added in the future): - SyncFailed: The controller encountered an error and wasn't able to
+compute the number of allowed disruptions. Therefore no disruptions are allowed and the status
+of the condition will be False.
+- InsufficientPods: The number of pods are either at or below the number required by the
+PodDisruptionBudget. No disruptions are allowed and the status of the condition will be False.
+- SufficientPods: There are more pods than required by the PodDisruptionBudget. The condition
+will be True, and the number of allowed disruptions are provided by the disruptionsAllowed
+property.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+</p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.policy.v1beta1.PodDisruptionBudgetStatus#getCurrentHealthy" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getCurrentHealthy:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Int]"></a><a id="getCurrentHealthy:IO[K8sFailure,Int]"></a>
       <span class="permalink">
@@ -680,7 +765,17 @@
         <span class="name">getDisruptedPods</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <a href="../../pkg/apis/meta/v1/Time.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Time">Time</a>]]</span>
       </span>
       
-      <p class="shortcomment cmt">DisruptedPods contains information about pods whose eviction was processed by the API server eviction subresource handler but has not yet been observed by the PodDisruptionBudget controller.</p><div class="fullcomment"><div class="comment cmt"><p>DisruptedPods contains information about pods whose eviction was processed by the API server eviction subresource handler but has not yet been observed by the PodDisruptionBudget controller. A pod will be in this map from the time when the API server processed the eviction request to the time when the pod is seen by PDB controller as having been marked for deletion (or after a timeout). The key in the map is the name of the pod and the value is the time when the API server processed the eviction request. If the deletion didn't occur and a pod is still there it will be removed from the list automatically by PodDisruptionBudget controller after some time. If everything goes smooth this map should be empty for the most of the time. Large number of entries in the map may indicate problems with pod deletions.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">DisruptedPods contains information about pods whose eviction was processed by the API server
+eviction subresource handler but has not yet been observed by the PodDisruptionBudget
+controller.</p><div class="fullcomment"><div class="comment cmt"><p>DisruptedPods contains information about pods whose eviction was processed by the API server
+eviction subresource handler but has not yet been observed by the PodDisruptionBudget
+controller. A pod will be in this map from the time when the API server processed the eviction
+request to the time when the pod is seen by PDB controller as having been marked for deletion
+(or after a timeout). The key in the map is the name of the pod and the value is the time when
+the API server processed the eviction request. If the deletion didn't occur and a pod is still
+there it will be removed from the list automatically by PodDisruptionBudget controller after
+some time. If everything goes smooth this map should be empty for the most of the time. Large
+number of entries in the map may indicate problems with pod deletions.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.policy.v1beta1.PodDisruptionBudgetStatus#getDisruptionsAllowed" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getDisruptionsAllowed:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Int]"></a><a id="getDisruptionsAllowed:IO[K8sFailure,Int]"></a>
@@ -731,7 +826,8 @@
         <span class="name">getObservedGeneration</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Long">Long</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">Most recent generation observed when updating this PDB status.</p><div class="fullcomment"><div class="comment cmt"><p>Most recent generation observed when updating this PDB status. DisruptionsAllowed and other status information is valid only if observedGeneration equals to PDB's object generation.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">Most recent generation observed when updating this PDB status.</p><div class="fullcomment"><div class="comment cmt"><p>Most recent generation observed when updating this PDB status. DisruptionsAllowed and other
+status information is valid only if observedGeneration equals to PDB's object generation.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="scala.Any#isInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isInstanceOf[T0]:Boolean"></a>

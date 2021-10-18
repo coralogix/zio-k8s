@@ -443,8 +443,16 @@
         <a title="ControllerRevision implements an immutable snapshot of state data." href="ControllerRevision.html"><span class="name">ControllerRevision</span></a><span class="params">(<span name="data">data: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="../../pkg/runtime/RawExtension.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.runtime.RawExtension">RawExtension</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="metadata">metadata: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="../../pkg/apis/meta/v1/ObjectMeta.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.ObjectMeta">ObjectMeta</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="revision">revision: <span class="extype" name="scala.Long">Long</span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
-      <p class="shortcomment cmt">ControllerRevision implements an immutable snapshot of state data.</p><div class="fullcomment"><div class="comment cmt"><p>ControllerRevision implements an immutable snapshot of state data. Clients are responsible for serializing and deserializing the objects that contain their internal state. Once a ControllerRevision has been successfully created, it can not be updated. The API Server will fail validation of all requests that attempt to mutate the Data field. ControllerRevisions may, however, be deleted. Note that, due to its use by both the DaemonSet and StatefulSet controllers for update and rollback, this object is beta. However, it may be subject to name and representation changes in future releases, and clients should not depend on its stability. It is primarily for internal use by controllers.
-</p></div><dl class="paramcmts block"><dt class="param">revision</dt><dd class="cmt"><p>Revision indicates the revision of the state represented by Data.</p></dd></dl></div>
+      <p class="shortcomment cmt">ControllerRevision implements an immutable snapshot of state data.</p><div class="fullcomment"><div class="comment cmt"><p>ControllerRevision implements an immutable snapshot of state data. Clients are responsible for
+serializing and deserializing the objects that contain their internal state. Once a
+ControllerRevision has been successfully created, it can not be updated. The API Server will
+fail validation of all requests that attempt to mutate the Data field. ControllerRevisions may,
+however, be deleted. Note that, due to its use by both the DaemonSet and StatefulSet controllers
+for update and rollback, this object is beta. However, it may be subject to name and
+representation changes in future releases, and clients should not depend on its stability. It is
+primarily for internal use by controllers.
+</p></div><dl class="paramcmts block"><dt class="param">revision</dt><dd class="cmt"><p>
+  Revision indicates the revision of the state represented by Data.</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.apps.v1.ControllerRevisionFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="ControllerRevisionFieldsextendsAnyRef"></a><a id="ControllerRevisionFields:ControllerRevisionFields"></a>
       <span class="permalink">
@@ -493,7 +501,11 @@
       </span>
       
       <p class="shortcomment cmt">DaemonSetCondition describes the state of a DaemonSet at a certain point.</p><div class="fullcomment"><div class="comment cmt"><p>DaemonSetCondition describes the state of a DaemonSet at a certain point.
-</p></div><dl class="paramcmts block"><dt class="param">message</dt><dd class="cmt"><p>A human readable message indicating details about the transition.</p></dd><dt class="param">reason</dt><dd class="cmt"><p>The reason for the condition's last transition.</p></dd><dt class="param">status</dt><dd class="cmt"><p>Status of the condition, one of True, False, Unknown.</p></dd><dt class="param">type</dt><dd class="cmt"><p>Type of DaemonSet condition.</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="param">message</dt><dd class="cmt"><p>
+  A human readable message indicating details about the transition.</p></dd><dt class="param">reason</dt><dd class="cmt"><p>
+  The reason for the condition's last transition.</p></dd><dt class="param">status</dt><dd class="cmt"><p>
+  Status of the condition, one of True, False, Unknown.</p></dd><dt class="param">type</dt><dd class="cmt"><p>
+  Type of DaemonSet condition.</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.apps.v1.DaemonSetConditionFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="DaemonSetConditionFieldsextendsAnyRef"></a><a id="DaemonSetConditionFields:DaemonSetConditionFields"></a>
       <span class="permalink">
@@ -542,7 +554,12 @@
       </span>
       
       <p class="shortcomment cmt">DaemonSetSpec is the specification of a daemon set.</p><div class="fullcomment"><div class="comment cmt"><p>DaemonSetSpec is the specification of a daemon set.
-</p></div><dl class="paramcmts block"><dt class="param">minReadySeconds</dt><dd class="cmt"><p>The minimum number of seconds for which a newly created DaemonSet pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready).</p></dd><dt class="param">revisionHistoryLimit</dt><dd class="cmt"><p>The number of old history to retain to allow rollback. This is a pointer to distinguish between explicit zero and not specified. Defaults to 10.</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="param">minReadySeconds</dt><dd class="cmt"><p>
+  The minimum number of seconds for which a newly created DaemonSet pod should be ready without
+  any of its container crashing, for it to be considered available. Defaults to 0 (pod will be
+  considered available as soon as it is ready).</p></dd><dt class="param">revisionHistoryLimit</dt><dd class="cmt"><p>
+  The number of old history to retain to allow rollback. This is a pointer to distinguish
+  between explicit zero and not specified. Defaults to 10.</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.apps.v1.DaemonSetSpecFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="DaemonSetSpecFieldsextendsAnyRef"></a><a id="DaemonSetSpecFields:DaemonSetSpecFields"></a>
       <span class="permalink">
@@ -575,7 +592,26 @@
       </span>
       
       <p class="shortcomment cmt">DaemonSetStatus represents the current status of a daemon set.</p><div class="fullcomment"><div class="comment cmt"><p>DaemonSetStatus represents the current status of a daemon set.
-</p></div><dl class="paramcmts block"><dt class="param">collisionCount</dt><dd class="cmt"><p>Count of hash collisions for the DaemonSet. The DaemonSet controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ControllerRevision.</p></dd><dt class="param">conditions</dt><dd class="cmt"><p>Represents the latest available observations of a DaemonSet's current state.</p></dd><dt class="param">currentNumberScheduled</dt><dd class="cmt"><p>The number of nodes that are running at least 1 daemon pod and are supposed to run the daemon pod. More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/</p></dd><dt class="param">desiredNumberScheduled</dt><dd class="cmt"><p>The total number of nodes that should be running the daemon pod (including nodes correctly running the daemon pod). More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/</p></dd><dt class="param">numberAvailable</dt><dd class="cmt"><p>The number of nodes that should be running the daemon pod and have one or more of the daemon pod running and available (ready for at least spec.minReadySeconds)</p></dd><dt class="param">numberMisscheduled</dt><dd class="cmt"><p>The number of nodes that are running the daemon pod, but are not supposed to run the daemon pod. More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/</p></dd><dt class="param">numberReady</dt><dd class="cmt"><p>The number of nodes that should be running the daemon pod and have one or more of the daemon pod running and ready.</p></dd><dt class="param">numberUnavailable</dt><dd class="cmt"><p>The number of nodes that should be running the daemon pod and have none of the daemon pod running and available (ready for at least spec.minReadySeconds)</p></dd><dt class="param">observedGeneration</dt><dd class="cmt"><p>The most recent generation observed by the daemon set controller.</p></dd><dt class="param">updatedNumberScheduled</dt><dd class="cmt"><p>The total number of nodes that are running updated daemon pod</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="param">collisionCount</dt><dd class="cmt"><p>
+  Count of hash collisions for the DaemonSet. The DaemonSet controller uses this field as a
+  collision avoidance mechanism when it needs to create the name for the newest
+  ControllerRevision.</p></dd><dt class="param">conditions</dt><dd class="cmt"><p>
+  Represents the latest available observations of a DaemonSet's current state.</p></dd><dt class="param">currentNumberScheduled</dt><dd class="cmt"><p>
+  The number of nodes that are running at least 1 daemon pod and are supposed to run the daemon
+  pod. More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/</p></dd><dt class="param">desiredNumberScheduled</dt><dd class="cmt"><p>
+  The total number of nodes that should be running the daemon pod (including nodes correctly
+  running the daemon pod). More info:
+  https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/</p></dd><dt class="param">numberAvailable</dt><dd class="cmt"><p>
+  The number of nodes that should be running the daemon pod and have one or more of the daemon
+  pod running and available (ready for at least spec.minReadySeconds)</p></dd><dt class="param">numberMisscheduled</dt><dd class="cmt"><p>
+  The number of nodes that are running the daemon pod, but are not supposed to run the daemon
+  pod. More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/</p></dd><dt class="param">numberReady</dt><dd class="cmt"><p>
+  The number of nodes that should be running the daemon pod and have one or more of the daemon
+  pod running and ready.</p></dd><dt class="param">numberUnavailable</dt><dd class="cmt"><p>
+  The number of nodes that should be running the daemon pod and have none of the daemon pod
+  running and available (ready for at least spec.minReadySeconds)</p></dd><dt class="param">observedGeneration</dt><dd class="cmt"><p>
+  The most recent generation observed by the daemon set controller.</p></dd><dt class="param">updatedNumberScheduled</dt><dd class="cmt"><p>
+  The total number of nodes that are running updated daemon pod</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.apps.v1.DaemonSetStatusFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="DaemonSetStatusFieldsextendsAnyRef"></a><a id="DaemonSetStatusFields:DaemonSetStatusFields"></a>
       <span class="permalink">
@@ -608,7 +644,8 @@
       </span>
       
       <p class="shortcomment cmt">DaemonSetUpdateStrategy is a struct used to control the update strategy for a DaemonSet.</p><div class="fullcomment"><div class="comment cmt"><p>DaemonSetUpdateStrategy is a struct used to control the update strategy for a DaemonSet.
-</p></div><dl class="paramcmts block"><dt class="param">type</dt><dd class="cmt"><p>Type of daemon set update. Can be &quot;RollingUpdate&quot; or &quot;OnDelete&quot;. Default is RollingUpdate.</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="param">type</dt><dd class="cmt"><p>
+  Type of daemon set update. Can be &quot;RollingUpdate&quot; or &quot;OnDelete&quot;. Default is RollingUpdate.</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.apps.v1.DaemonSetUpdateStrategyFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="DaemonSetUpdateStrategyFieldsextendsAnyRef"></a><a id="DaemonSetUpdateStrategyFields:DaemonSetUpdateStrategyFields"></a>
       <span class="permalink">
@@ -657,7 +694,11 @@
       </span>
       
       <p class="shortcomment cmt">DeploymentCondition describes the state of a deployment at a certain point.</p><div class="fullcomment"><div class="comment cmt"><p>DeploymentCondition describes the state of a deployment at a certain point.
-</p></div><dl class="paramcmts block"><dt class="param">message</dt><dd class="cmt"><p>A human readable message indicating details about the transition.</p></dd><dt class="param">reason</dt><dd class="cmt"><p>The reason for the condition's last transition.</p></dd><dt class="param">status</dt><dd class="cmt"><p>Status of the condition, one of True, False, Unknown.</p></dd><dt class="param">type</dt><dd class="cmt"><p>Type of deployment condition.</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="param">message</dt><dd class="cmt"><p>
+  A human readable message indicating details about the transition.</p></dd><dt class="param">reason</dt><dd class="cmt"><p>
+  The reason for the condition's last transition.</p></dd><dt class="param">status</dt><dd class="cmt"><p>
+  Status of the condition, one of True, False, Unknown.</p></dd><dt class="param">type</dt><dd class="cmt"><p>
+  Type of deployment condition.</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.apps.v1.DeploymentConditionFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="DeploymentConditionFieldsextendsAnyRef"></a><a id="DeploymentConditionFields:DeploymentConditionFields"></a>
       <span class="permalink">
@@ -706,7 +747,19 @@
       </span>
       
       <p class="shortcomment cmt">DeploymentSpec is the specification of the desired behavior of the Deployment.</p><div class="fullcomment"><div class="comment cmt"><p>DeploymentSpec is the specification of the desired behavior of the Deployment.
-</p></div><dl class="paramcmts block"><dt class="param">minReadySeconds</dt><dd class="cmt"><p>Minimum number of seconds for which a newly created pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)</p></dd><dt class="param">paused</dt><dd class="cmt"><p>Indicates that the deployment is paused.</p></dd><dt class="param">progressDeadlineSeconds</dt><dd class="cmt"><p>The maximum time in seconds for a deployment to make progress before it is considered to be failed. The deployment controller will continue to process failed deployments and a condition with a ProgressDeadlineExceeded reason will be surfaced in the deployment status. Note that progress will not be estimated during the time a deployment is paused. Defaults to 600s.</p></dd><dt class="param">replicas</dt><dd class="cmt"><p>Number of desired pods. This is a pointer to distinguish between explicit zero and not specified. Defaults to 1.</p></dd><dt class="param">revisionHistoryLimit</dt><dd class="cmt"><p>The number of old ReplicaSets to retain to allow rollback. This is a pointer to distinguish between explicit zero and not specified. Defaults to 10.</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="param">minReadySeconds</dt><dd class="cmt"><p>
+  Minimum number of seconds for which a newly created pod should be ready without any of its
+  container crashing, for it to be considered available. Defaults to 0 (pod will be considered
+  available as soon as it is ready)</p></dd><dt class="param">paused</dt><dd class="cmt"><p>
+  Indicates that the deployment is paused.</p></dd><dt class="param">progressDeadlineSeconds</dt><dd class="cmt"><p>
+  The maximum time in seconds for a deployment to make progress before it is considered to be
+  failed. The deployment controller will continue to process failed deployments and a condition
+  with a ProgressDeadlineExceeded reason will be surfaced in the deployment status. Note that
+  progress will not be estimated during the time a deployment is paused. Defaults to 600s.</p></dd><dt class="param">replicas</dt><dd class="cmt"><p>
+  Number of desired pods. This is a pointer to distinguish between explicit zero and not
+  specified. Defaults to 1.</p></dd><dt class="param">revisionHistoryLimit</dt><dd class="cmt"><p>
+  The number of old ReplicaSets to retain to allow rollback. This is a pointer to distinguish
+  between explicit zero and not specified. Defaults to 10.</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.apps.v1.DeploymentSpecFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="DeploymentSpecFieldsextendsAnyRef"></a><a id="DeploymentSpecFields:DeploymentSpecFields"></a>
       <span class="permalink">
@@ -739,7 +792,21 @@
       </span>
       
       <p class="shortcomment cmt">DeploymentStatus is the most recently observed status of the Deployment.</p><div class="fullcomment"><div class="comment cmt"><p>DeploymentStatus is the most recently observed status of the Deployment.
-</p></div><dl class="paramcmts block"><dt class="param">availableReplicas</dt><dd class="cmt"><p>Total number of available pods (ready for at least minReadySeconds) targeted by this deployment.</p></dd><dt class="param">collisionCount</dt><dd class="cmt"><p>Count of hash collisions for the Deployment. The Deployment controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ReplicaSet.</p></dd><dt class="param">conditions</dt><dd class="cmt"><p>Represents the latest available observations of a deployment's current state.</p></dd><dt class="param">observedGeneration</dt><dd class="cmt"><p>The generation observed by the deployment controller.</p></dd><dt class="param">readyReplicas</dt><dd class="cmt"><p>Total number of ready pods targeted by this deployment.</p></dd><dt class="param">replicas</dt><dd class="cmt"><p>Total number of non-terminated pods targeted by this deployment (their labels match the selector).</p></dd><dt class="param">unavailableReplicas</dt><dd class="cmt"><p>Total number of unavailable pods targeted by this deployment. This is the total number of pods that are still required for the deployment to have 100% available capacity. They may either be pods that are running but not yet available or pods that still have not been created.</p></dd><dt class="param">updatedReplicas</dt><dd class="cmt"><p>Total number of non-terminated pods targeted by this deployment that have the desired template spec.</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="param">availableReplicas</dt><dd class="cmt"><p>
+  Total number of available pods (ready for at least minReadySeconds) targeted by this
+  deployment.</p></dd><dt class="param">collisionCount</dt><dd class="cmt"><p>
+  Count of hash collisions for the Deployment. The Deployment controller uses this field as a
+  collision avoidance mechanism when it needs to create the name for the newest ReplicaSet.</p></dd><dt class="param">conditions</dt><dd class="cmt"><p>
+  Represents the latest available observations of a deployment's current state.</p></dd><dt class="param">observedGeneration</dt><dd class="cmt"><p>
+  The generation observed by the deployment controller.</p></dd><dt class="param">readyReplicas</dt><dd class="cmt"><p>
+  Total number of ready pods targeted by this deployment.</p></dd><dt class="param">replicas</dt><dd class="cmt"><p>
+  Total number of non-terminated pods targeted by this deployment (their labels match the
+  selector).</p></dd><dt class="param">unavailableReplicas</dt><dd class="cmt"><p>
+  Total number of unavailable pods targeted by this deployment. This is the total number of pods
+  that are still required for the deployment to have 100% available capacity. They may either be
+  pods that are running but not yet available or pods that still have not been created.</p></dd><dt class="param">updatedReplicas</dt><dd class="cmt"><p>
+  Total number of non-terminated pods targeted by this deployment that have the desired template
+  spec.</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.apps.v1.DeploymentStatusFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="DeploymentStatusFieldsextendsAnyRef"></a><a id="DeploymentStatusFields:DeploymentStatusFields"></a>
       <span class="permalink">
@@ -772,7 +839,8 @@
       </span>
       
       <p class="shortcomment cmt">DeploymentStrategy describes how to replace existing pods with new ones.</p><div class="fullcomment"><div class="comment cmt"><p>DeploymentStrategy describes how to replace existing pods with new ones.
-</p></div><dl class="paramcmts block"><dt class="param">type</dt><dd class="cmt"><p>Type of deployment. Can be &quot;Recreate&quot; or &quot;RollingUpdate&quot;. Default is RollingUpdate.</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="param">type</dt><dd class="cmt"><p>
+  Type of deployment. Can be &quot;Recreate&quot; or &quot;RollingUpdate&quot;. Default is RollingUpdate.</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.apps.v1.DeploymentStrategyFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="DeploymentStrategyFieldsextendsAnyRef"></a><a id="DeploymentStrategyFields:DeploymentStrategyFields"></a>
       <span class="permalink">
@@ -821,7 +889,11 @@
       </span>
       
       <p class="shortcomment cmt">ReplicaSetCondition describes the state of a replica set at a certain point.</p><div class="fullcomment"><div class="comment cmt"><p>ReplicaSetCondition describes the state of a replica set at a certain point.
-</p></div><dl class="paramcmts block"><dt class="param">message</dt><dd class="cmt"><p>A human readable message indicating details about the transition.</p></dd><dt class="param">reason</dt><dd class="cmt"><p>The reason for the condition's last transition.</p></dd><dt class="param">status</dt><dd class="cmt"><p>Status of the condition, one of True, False, Unknown.</p></dd><dt class="param">type</dt><dd class="cmt"><p>Type of replica set condition.</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="param">message</dt><dd class="cmt"><p>
+  A human readable message indicating details about the transition.</p></dd><dt class="param">reason</dt><dd class="cmt"><p>
+  The reason for the condition's last transition.</p></dd><dt class="param">status</dt><dd class="cmt"><p>
+  Status of the condition, one of True, False, Unknown.</p></dd><dt class="param">type</dt><dd class="cmt"><p>
+  Type of replica set condition.</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.apps.v1.ReplicaSetConditionFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="ReplicaSetConditionFieldsextendsAnyRef"></a><a id="ReplicaSetConditionFields:ReplicaSetConditionFields"></a>
       <span class="permalink">
@@ -870,7 +942,13 @@
       </span>
       
       <p class="shortcomment cmt">ReplicaSetSpec is the specification of a ReplicaSet.</p><div class="fullcomment"><div class="comment cmt"><p>ReplicaSetSpec is the specification of a ReplicaSet.
-</p></div><dl class="paramcmts block"><dt class="param">minReadySeconds</dt><dd class="cmt"><p>Minimum number of seconds for which a newly created pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)</p></dd><dt class="param">replicas</dt><dd class="cmt"><p>Replicas is the number of desired replicas. This is a pointer to distinguish between explicit zero and unspecified. Defaults to 1. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="param">minReadySeconds</dt><dd class="cmt"><p>
+  Minimum number of seconds for which a newly created pod should be ready without any of its
+  container crashing, for it to be considered available. Defaults to 0 (pod will be considered
+  available as soon as it is ready)</p></dd><dt class="param">replicas</dt><dd class="cmt"><p>
+  Replicas is the number of desired replicas. This is a pointer to distinguish between explicit
+  zero and unspecified. Defaults to 1. More info:
+  https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.apps.v1.ReplicaSetSpecFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="ReplicaSetSpecFieldsextendsAnyRef"></a><a id="ReplicaSetSpecFields:ReplicaSetSpecFields"></a>
       <span class="permalink">
@@ -903,7 +981,14 @@
       </span>
       
       <p class="shortcomment cmt">ReplicaSetStatus represents the current status of a ReplicaSet.</p><div class="fullcomment"><div class="comment cmt"><p>ReplicaSetStatus represents the current status of a ReplicaSet.
-</p></div><dl class="paramcmts block"><dt class="param">availableReplicas</dt><dd class="cmt"><p>The number of available replicas (ready for at least minReadySeconds) for this replica set.</p></dd><dt class="param">conditions</dt><dd class="cmt"><p>Represents the latest available observations of a replica set's current state.</p></dd><dt class="param">fullyLabeledReplicas</dt><dd class="cmt"><p>The number of pods that have labels matching the labels of the pod template of the replicaset.</p></dd><dt class="param">observedGeneration</dt><dd class="cmt"><p>ObservedGeneration reflects the generation of the most recently observed ReplicaSet.</p></dd><dt class="param">readyReplicas</dt><dd class="cmt"><p>The number of ready replicas for this replica set.</p></dd><dt class="param">replicas</dt><dd class="cmt"><p>Replicas is the most recently oberved number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="param">availableReplicas</dt><dd class="cmt"><p>
+  The number of available replicas (ready for at least minReadySeconds) for this replica set.</p></dd><dt class="param">conditions</dt><dd class="cmt"><p>
+  Represents the latest available observations of a replica set's current state.</p></dd><dt class="param">fullyLabeledReplicas</dt><dd class="cmt"><p>
+  The number of pods that have labels matching the labels of the pod template of the replicaset.</p></dd><dt class="param">observedGeneration</dt><dd class="cmt"><p>
+  ObservedGeneration reflects the generation of the most recently observed ReplicaSet.</p></dd><dt class="param">readyReplicas</dt><dd class="cmt"><p>
+  The number of ready replicas for this replica set.</p></dd><dt class="param">replicas</dt><dd class="cmt"><p>
+  Replicas is the most recently oberved number of replicas. More info:
+  https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.apps.v1.ReplicaSetStatusFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="ReplicaSetStatusFieldsextendsAnyRef"></a><a id="ReplicaSetStatusFields:ReplicaSetStatusFields"></a>
       <span class="permalink">
@@ -932,7 +1017,7 @@
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a title="Spec to control the desired behavior of daemon set rolling update." href="RollingUpdateDaemonSet.html"><span class="name">RollingUpdateDaemonSet</span></a><span class="params">(<span name="maxUnavailable">maxUnavailable: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="../../pkg/util/intstr/IntOrString.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.util.intstr.IntOrString">IntOrString</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a title="Spec to control the desired behavior of daemon set rolling update." href="RollingUpdateDaemonSet.html"><span class="name">RollingUpdateDaemonSet</span></a><span class="params">(<span name="maxSurge">maxSurge: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="../../pkg/util/intstr/IntOrString.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.util.intstr.IntOrString">IntOrString</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="maxUnavailable">maxUnavailable: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="../../pkg/util/intstr/IntOrString.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.util.intstr.IntOrString">IntOrString</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       <p class="shortcomment cmt">Spec to control the desired behavior of daemon set rolling update.</p>
@@ -999,8 +1084,12 @@
         <a title="RollingUpdateStatefulSetStrategy is used to communicate parameter for RollingUpdateStatefulSetStrategyType." href="RollingUpdateStatefulSetStrategy.html"><span class="name">RollingUpdateStatefulSetStrategy</span></a><span class="params">(<span name="partition">partition: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
-      <p class="shortcomment cmt">RollingUpdateStatefulSetStrategy is used to communicate parameter for RollingUpdateStatefulSetStrategyType.</p><div class="fullcomment"><div class="comment cmt"><p>RollingUpdateStatefulSetStrategy is used to communicate parameter for RollingUpdateStatefulSetStrategyType.
-</p></div><dl class="paramcmts block"><dt class="param">partition</dt><dd class="cmt"><p>Partition indicates the ordinal at which the StatefulSet should be partitioned. Default value is 0.</p></dd></dl></div>
+      <p class="shortcomment cmt">RollingUpdateStatefulSetStrategy is used to communicate parameter for
+RollingUpdateStatefulSetStrategyType.</p><div class="fullcomment"><div class="comment cmt"><p>RollingUpdateStatefulSetStrategy is used to communicate parameter for
+RollingUpdateStatefulSetStrategyType.
+</p></div><dl class="paramcmts block"><dt class="param">partition</dt><dd class="cmt"><p>
+  Partition indicates the ordinal at which the StatefulSet should be partitioned. Default value
+  is 0.</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.apps.v1.RollingUpdateStatefulSetStrategyFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="RollingUpdateStatefulSetStrategyFieldsextendsAnyRef"></a><a id="RollingUpdateStatefulSetStrategyFields:RollingUpdateStatefulSetStrategyFields"></a>
       <span class="permalink">
@@ -1034,8 +1123,8 @@
       
       <p class="shortcomment cmt">StatefulSet represents a set of pods with consistent identities.</p><div class="fullcomment"><div class="comment cmt"><p>StatefulSet represents a set of pods with consistent identities. Identities are defined as:
 - Network: A single stable DNS and hostname.
-- Storage: As many VolumeClaims as requested.
-The StatefulSet guarantees that a given network identity will always map to the same storage identity.
+- Storage: As many VolumeClaims as requested. The StatefulSet guarantees that a given network
+identity will always map to the same storage identity.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.apps.v1.StatefulSetCondition" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="StatefulSetConditionextendsProductwithSerializable"></a><a id="StatefulSetCondition:StatefulSetCondition"></a>
@@ -1053,7 +1142,11 @@ The StatefulSet guarantees that a given network identity will always map to the 
       </span>
       
       <p class="shortcomment cmt">StatefulSetCondition describes the state of a statefulset at a certain point.</p><div class="fullcomment"><div class="comment cmt"><p>StatefulSetCondition describes the state of a statefulset at a certain point.
-</p></div><dl class="paramcmts block"><dt class="param">message</dt><dd class="cmt"><p>A human readable message indicating details about the transition.</p></dd><dt class="param">reason</dt><dd class="cmt"><p>The reason for the condition's last transition.</p></dd><dt class="param">status</dt><dd class="cmt"><p>Status of the condition, one of True, False, Unknown.</p></dd><dt class="param">type</dt><dd class="cmt"><p>Type of statefulset condition.</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="param">message</dt><dd class="cmt"><p>
+  A human readable message indicating details about the transition.</p></dd><dt class="param">reason</dt><dd class="cmt"><p>
+  The reason for the condition's last transition.</p></dd><dt class="param">status</dt><dd class="cmt"><p>
+  Status of the condition, one of True, False, Unknown.</p></dd><dt class="param">type</dt><dd class="cmt"><p>
+  Type of statefulset condition.</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.apps.v1.StatefulSetConditionFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="StatefulSetConditionFieldsextendsAnyRef"></a><a id="StatefulSetConditionFields:StatefulSetConditionFields"></a>
       <span class="permalink">
@@ -1098,11 +1191,37 @@ The StatefulSet guarantees that a given network identity will always map to the 
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a title="A StatefulSetSpec is the specification of a StatefulSet." href="StatefulSetSpec.html"><span class="name">StatefulSetSpec</span></a><span class="params">(<span name="podManagementPolicy">podManagementPolicy: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="replicas">replicas: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="revisionHistoryLimit">revisionHistoryLimit: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="selector">selector: <a href="../../pkg/apis/meta/v1/LabelSelector.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.LabelSelector">LabelSelector</a></span>, <span name="serviceName">serviceName: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="template">template: <a href="../../core/v1/PodTemplateSpec.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.PodTemplateSpec">PodTemplateSpec</a></span>, <span name="updateStrategy">updateStrategy: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="StatefulSetUpdateStrategy.html" class="extype" name="com.coralogix.zio.k8s.model.apps.v1.StatefulSetUpdateStrategy">StatefulSetUpdateStrategy</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="volumeClaimTemplates">volumeClaimTemplates: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="../../core/v1/PersistentVolumeClaim.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.PersistentVolumeClaim">PersistentVolumeClaim</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a title="A StatefulSetSpec is the specification of a StatefulSet." href="StatefulSetSpec.html"><span class="name">StatefulSetSpec</span></a><span class="params">(<span name="minReadySeconds">minReadySeconds: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="podManagementPolicy">podManagementPolicy: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="replicas">replicas: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="revisionHistoryLimit">revisionHistoryLimit: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="selector">selector: <a href="../../pkg/apis/meta/v1/LabelSelector.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.LabelSelector">LabelSelector</a></span>, <span name="serviceName">serviceName: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="template">template: <a href="../../core/v1/PodTemplateSpec.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.PodTemplateSpec">PodTemplateSpec</a></span>, <span name="updateStrategy">updateStrategy: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="StatefulSetUpdateStrategy.html" class="extype" name="com.coralogix.zio.k8s.model.apps.v1.StatefulSetUpdateStrategy">StatefulSetUpdateStrategy</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="volumeClaimTemplates">volumeClaimTemplates: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="../../core/v1/PersistentVolumeClaim.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.PersistentVolumeClaim">PersistentVolumeClaim</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       <p class="shortcomment cmt">A StatefulSetSpec is the specification of a StatefulSet.</p><div class="fullcomment"><div class="comment cmt"><p>A StatefulSetSpec is the specification of a StatefulSet.
-</p></div><dl class="paramcmts block"><dt class="param">podManagementPolicy</dt><dd class="cmt"><p>podManagementPolicy controls how pods are created during initial scale up, when replacing pods on nodes, or when scaling down. The default policy is <code>OrderedReady</code>, where pods are created in increasing order (pod-0, then pod-1, etc) and the controller will wait until each pod is ready before continuing. When scaling down, the pods are removed in the opposite order. The alternative policy is <code>Parallel</code> which will create pods in parallel to match the desired scale without waiting, and on scale down will delete all pods at once.</p></dd><dt class="param">replicas</dt><dd class="cmt"><p>replicas is the desired number of replicas of the given Template. These are replicas in the sense that they are instantiations of the same Template, but individual replicas also have a consistent identity. If unspecified, defaults to 1.</p></dd><dt class="param">revisionHistoryLimit</dt><dd class="cmt"><p>revisionHistoryLimit is the maximum number of revisions that will be maintained in the StatefulSet's revision history. The revision history consists of all revisions not represented by a currently applied StatefulSetSpec version. The default value is 10.</p></dd><dt class="param">serviceName</dt><dd class="cmt"><p>serviceName is the name of the service that governs this StatefulSet. This service must exist before the StatefulSet, and is responsible for the network identity of the set. Pods get DNS/hostnames that follow the pattern: pod-specific-string.serviceName.default.svc.cluster.local where &quot;pod-specific-string&quot; is managed by the StatefulSet controller.</p></dd><dt class="param">volumeClaimTemplates</dt><dd class="cmt"><p>volumeClaimTemplates is a list of claims that pods are allowed to reference. The StatefulSet controller is responsible for mapping network identities to claims in a way that maintains the identity of a pod. Every claim in this list must have at least one matching (by name) volumeMount in one container in the template. A claim in this list takes precedence over any volumes in the template, with the same name.</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="param">minReadySeconds</dt><dd class="cmt"><p>
+  Minimum number of seconds for which a newly created pod should be ready without any of its
+  container crashing for it to be considered available. Defaults to 0 (pod will be considered
+  available as soon as it is ready) This is an alpha field and requires enabling
+  StatefulSetMinReadySeconds feature gate.</p></dd><dt class="param">podManagementPolicy</dt><dd class="cmt"><p>
+  podManagementPolicy controls how pods are created during initial scale up, when replacing pods
+  on nodes, or when scaling down. The default policy is <code>OrderedReady</code>, where pods are created
+  in increasing order (pod-0, then pod-1, etc) and the controller will wait until each pod is
+  ready before continuing. When scaling down, the pods are removed in the opposite order. The
+  alternative policy is <code>Parallel</code> which will create pods in parallel to match the desired scale
+  without waiting, and on scale down will delete all pods at once.</p></dd><dt class="param">replicas</dt><dd class="cmt"><p>
+  replicas is the desired number of replicas of the given Template. These are replicas in the
+  sense that they are instantiations of the same Template, but individual replicas also have a
+  consistent identity. If unspecified, defaults to 1.</p></dd><dt class="param">revisionHistoryLimit</dt><dd class="cmt"><p>
+  revisionHistoryLimit is the maximum number of revisions that will be maintained in the
+  StatefulSet's revision history. The revision history consists of all revisions not represented
+  by a currently applied StatefulSetSpec version. The default value is 10.</p></dd><dt class="param">serviceName</dt><dd class="cmt"><p>
+  serviceName is the name of the service that governs this StatefulSet. This service must exist
+  before the StatefulSet, and is responsible for the network identity of the set. Pods get
+  DNS/hostnames that follow the pattern:
+  pod-specific-string.serviceName.default.svc.cluster.local where &quot;pod-specific-string&quot; is
+  managed by the StatefulSet controller.</p></dd><dt class="param">volumeClaimTemplates</dt><dd class="cmt"><p>
+  volumeClaimTemplates is a list of claims that pods are allowed to reference. The StatefulSet
+  controller is responsible for mapping network identities to claims in a way that maintains the
+  identity of a pod. Every claim in this list must have at least one matching (by name)
+  volumeMount in one container in the template. A claim in this list takes precedence over any
+  volumes in the template, with the same name.</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.apps.v1.StatefulSetSpecFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="StatefulSetSpecFieldsextendsAnyRef"></a><a id="StatefulSetSpecFields:StatefulSetSpecFields"></a>
       <span class="permalink">
@@ -1131,11 +1250,31 @@ The StatefulSet guarantees that a given network identity will always map to the 
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a title="StatefulSetStatus represents the current state of a StatefulSet." href="StatefulSetStatus.html"><span class="name">StatefulSetStatus</span></a><span class="params">(<span name="collisionCount">collisionCount: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="conditions">conditions: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="StatefulSetCondition.html" class="extype" name="com.coralogix.zio.k8s.model.apps.v1.StatefulSetCondition">StatefulSetCondition</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="currentReplicas">currentReplicas: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="currentRevision">currentRevision: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="observedGeneration">observedGeneration: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Long">Long</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="readyReplicas">readyReplicas: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="replicas">replicas: <span class="extype" name="scala.Int">Int</span></span>, <span name="updateRevision">updateRevision: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="updatedReplicas">updatedReplicas: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a title="StatefulSetStatus represents the current state of a StatefulSet." href="StatefulSetStatus.html"><span class="name">StatefulSetStatus</span></a><span class="params">(<span name="availableReplicas">availableReplicas: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="collisionCount">collisionCount: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="conditions">conditions: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="StatefulSetCondition.html" class="extype" name="com.coralogix.zio.k8s.model.apps.v1.StatefulSetCondition">StatefulSetCondition</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="currentReplicas">currentReplicas: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="currentRevision">currentRevision: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="observedGeneration">observedGeneration: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Long">Long</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="readyReplicas">readyReplicas: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="replicas">replicas: <span class="extype" name="scala.Int">Int</span></span>, <span name="updateRevision">updateRevision: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="updatedReplicas">updatedReplicas: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       <p class="shortcomment cmt">StatefulSetStatus represents the current state of a StatefulSet.</p><div class="fullcomment"><div class="comment cmt"><p>StatefulSetStatus represents the current state of a StatefulSet.
-</p></div><dl class="paramcmts block"><dt class="param">collisionCount</dt><dd class="cmt"><p>collisionCount is the count of hash collisions for the StatefulSet. The StatefulSet controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ControllerRevision.</p></dd><dt class="param">conditions</dt><dd class="cmt"><p>Represents the latest available observations of a statefulset's current state.</p></dd><dt class="param">currentReplicas</dt><dd class="cmt"><p>currentReplicas is the number of Pods created by the StatefulSet controller from the StatefulSet version indicated by currentRevision.</p></dd><dt class="param">currentRevision</dt><dd class="cmt"><p>currentRevision, if not empty, indicates the version of the StatefulSet used to generate Pods in the sequence [0,currentReplicas).</p></dd><dt class="param">observedGeneration</dt><dd class="cmt"><p>observedGeneration is the most recent generation observed for this StatefulSet. It corresponds to the StatefulSet's generation, which is updated on mutation by the API Server.</p></dd><dt class="param">readyReplicas</dt><dd class="cmt"><p>readyReplicas is the number of Pods created by the StatefulSet controller that have a Ready Condition.</p></dd><dt class="param">replicas</dt><dd class="cmt"><p>replicas is the number of Pods created by the StatefulSet controller.</p></dd><dt class="param">updateRevision</dt><dd class="cmt"><p>updateRevision, if not empty, indicates the version of the StatefulSet used to generate Pods in the sequence [replicas-updatedReplicas,replicas)</p></dd><dt class="param">updatedReplicas</dt><dd class="cmt"><p>updatedReplicas is the number of Pods created by the StatefulSet controller from the StatefulSet version indicated by updateRevision.</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="param">availableReplicas</dt><dd class="cmt"><p>
+  Total number of available pods (ready for at least minReadySeconds) targeted by this
+  statefulset. This is an alpha field and requires enabling StatefulSetMinReadySeconds feature
+  gate. Remove omitempty when graduating to beta</p></dd><dt class="param">collisionCount</dt><dd class="cmt"><p>
+  collisionCount is the count of hash collisions for the StatefulSet. The StatefulSet controller
+  uses this field as a collision avoidance mechanism when it needs to create the name for the
+  newest ControllerRevision.</p></dd><dt class="param">conditions</dt><dd class="cmt"><p>
+  Represents the latest available observations of a statefulset's current state.</p></dd><dt class="param">currentReplicas</dt><dd class="cmt"><p>
+  currentReplicas is the number of Pods created by the StatefulSet controller from the
+  StatefulSet version indicated by currentRevision.</p></dd><dt class="param">currentRevision</dt><dd class="cmt"><p>
+  currentRevision, if not empty, indicates the version of the StatefulSet used to generate Pods
+  in the sequence [0,currentReplicas).</p></dd><dt class="param">observedGeneration</dt><dd class="cmt"><p>
+  observedGeneration is the most recent generation observed for this StatefulSet. It corresponds
+  to the StatefulSet's generation, which is updated on mutation by the API Server.</p></dd><dt class="param">readyReplicas</dt><dd class="cmt"><p>
+  readyReplicas is the number of Pods created by the StatefulSet controller that have a Ready
+  Condition.</p></dd><dt class="param">replicas</dt><dd class="cmt"><p>
+  replicas is the number of Pods created by the StatefulSet controller.</p></dd><dt class="param">updateRevision</dt><dd class="cmt"><p>
+  updateRevision, if not empty, indicates the version of the StatefulSet used to generate Pods
+  in the sequence [replicas-updatedReplicas,replicas)</p></dd><dt class="param">updatedReplicas</dt><dd class="cmt"><p>
+  updatedReplicas is the number of Pods created by the StatefulSet controller from the
+  StatefulSet version indicated by updateRevision.</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.apps.v1.StatefulSetStatusFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="StatefulSetStatusFieldsextendsAnyRef"></a><a id="StatefulSetStatusFields:StatefulSetStatusFields"></a>
       <span class="permalink">
@@ -1167,8 +1306,12 @@ The StatefulSet guarantees that a given network identity will always map to the 
         <a title="StatefulSetUpdateStrategy indicates the strategy that the StatefulSet controller will use to perform updates." href="StatefulSetUpdateStrategy.html"><span class="name">StatefulSetUpdateStrategy</span></a><span class="params">(<span name="rollingUpdate">rollingUpdate: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="RollingUpdateStatefulSetStrategy.html" class="extype" name="com.coralogix.zio.k8s.model.apps.v1.RollingUpdateStatefulSetStrategy">RollingUpdateStatefulSetStrategy</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="type">type: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
-      <p class="shortcomment cmt">StatefulSetUpdateStrategy indicates the strategy that the StatefulSet controller will use to perform updates.</p><div class="fullcomment"><div class="comment cmt"><p>StatefulSetUpdateStrategy indicates the strategy that the StatefulSet controller will use to perform updates. It includes any additional parameters necessary to perform the update for the indicated strategy.
-</p></div><dl class="paramcmts block"><dt class="param">type</dt><dd class="cmt"><p>Type indicates the type of the StatefulSetUpdateStrategy. Default is RollingUpdate.</p></dd></dl></div>
+      <p class="shortcomment cmt">StatefulSetUpdateStrategy indicates the strategy that the StatefulSet controller will use to
+perform updates.</p><div class="fullcomment"><div class="comment cmt"><p>StatefulSetUpdateStrategy indicates the strategy that the StatefulSet controller will use to
+perform updates. It includes any additional parameters necessary to perform the update for the
+indicated strategy.
+</p></div><dl class="paramcmts block"><dt class="param">type</dt><dd class="cmt"><p>
+  Type indicates the type of the StatefulSetUpdateStrategy. Default is RollingUpdate.</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.apps.v1.StatefulSetUpdateStrategyFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="StatefulSetUpdateStrategyFieldsextendsAnyRef"></a><a id="StatefulSetUpdateStrategyFields:StatefulSetUpdateStrategyFields"></a>
       <span class="permalink">

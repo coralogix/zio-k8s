@@ -225,13 +225,14 @@
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Return data at least as new as the provided resourceVersion.</p><p>The newest available data is preferred, but any data not older than the provided resourceVersion may be served.
-For list requests to servers that honor the resourceVersionMatch parameter,
-this guarantees that resourceVersion in the ListMeta is not older than the requested resourceVersion,
-but does not make any guarantee about the resourceVersion in the ObjectMeta of the list items
-since ObjectMeta.resourceVersion tracks when an object was last updated,
-not how up-to-date the object is when served.
-</p></div><dl class="paramcmts block"><dt class="param">version</dt><dd class="cmt"><p>the provided resource version</p></dd></dl><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Return data at least as new as the provided resourceVersion.</p><p>The newest available data is preferred, but any data not older than the provided
+resourceVersion may be served. For list requests to servers that honor the
+resourceVersionMatch parameter, this guarantees that resourceVersion in the ListMeta is not
+older than the requested resourceVersion, but does not make any guarantee about the
+resourceVersion in the ObjectMeta of the list items since ObjectMeta.resourceVersion tracks
+when an object was last updated, not how up-to-date the object is when served.
+</p></div><dl class="paramcmts block"><dt class="param">version</dt><dd class="cmt"><p>
+  the provided resource version</p></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -296,7 +297,8 @@ not how up-to-date the object is when served.
         <span class="name">NotOlderThan</span><span class="params">(<span name="version">version: <span class="extype" name="scala.Predef.String">String</span></span>)</span>
       </span>
       
-      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">version</dt><dd class="cmt"><p>the provided resource version</p></dd></dl></div>
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">version</dt><dd class="cmt"><p>
+  the provided resource version</p></dd></dl></div>
     </li></ol>
             </div>
 

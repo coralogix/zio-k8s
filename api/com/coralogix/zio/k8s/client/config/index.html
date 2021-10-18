@@ -308,16 +308,36 @@
         <span class="name">config</span>
       </span>
       
-      <p class="shortcomment cmt">Contains data structures, ZIO layers and zio-config descriptors for configuring the zio-k8s client.</p><div class="fullcomment"><div class="comment cmt"><p>Contains data structures, ZIO layers and zio-config descriptors for configuring the zio-k8s client.</p><p>Each zio-k8s client module depends on two ZIO modules: <a href="../model/package$$K8sCluster.html" class="extype" name="com.coralogix.zio.k8s.client.model.K8sCluster">com.coralogix.zio.k8s.client.model.K8sCluster</a> and an <a href="https://javadoc.io/page/com.softwaremill.sttp.client3/core_2.12/3.3.13/sttp/client3/SttpBackend.html" class="extype" name="sttp.client3.SttpBackend">sttp.client3.SttpBackend</a>.
-To use the default configuration (use kubeconfig if available, otherwise fallback to service account token),
-use either <code>asynchttpclient.k8sDefault</code> or <code>httpclient.k8sDefault</code> depending on your chosen sttp backend.</p><p>Manual configuration is possible by providing a <a href="package$$K8sClusterConfig.html" class="extype" name="com.coralogix.zio.k8s.client.config.K8sClusterConfig">K8sClusterConfig</a> value to both the <a href="#k8sCluster:zio.ZLayer[zio.blocking.Blockingwithzio.Has[com.coralogix.zio.k8s.client.config.package.K8sClusterConfig],Throwable,zio.Has[com.coralogix.zio.k8s.client.model.K8sCluster]]" class="extmbr" name="com.coralogix.zio.k8s.client.config#k8sCluster">k8sCluster</a> layer
-and either <code>asynchttpclient.k8sSttpClient</code> or <code>httpclient.k8sSttpClient</code>.</p><p>Instead of manually providing the configuration, zio-config descriptors are available to load them from any
-supported source.
+      <p class="shortcomment cmt">Contains data structures, ZIO layers and zio-config descriptors for configuring the zio-k8s
+client.</p><div class="fullcomment"><div class="comment cmt"><p>Contains data structures, ZIO layers and zio-config descriptors for configuring the zio-k8s
+client.</p><p>Each zio-k8s client module depends on two ZIO modules:
+<a href="../model/package$$K8sCluster.html" class="extype" name="com.coralogix.zio.k8s.client.model.K8sCluster">com.coralogix.zio.k8s.client.model.K8sCluster</a> and an <a href="https://javadoc.io/page/com.softwaremill.sttp.client3/core_2.12/3.3.15/sttp/client3/SttpBackend.html" class="extype" name="sttp.client3.SttpBackend">sttp.client3.SttpBackend</a>. To use
+the default configuration (use kubeconfig if available, otherwise fallback to service account
+token), use either <code>asynchttpclient.k8sDefault</code> or <code>httpclient.k8sDefault</code> depending on your
+chosen sttp backend.</p><p>Manual configuration is possible by providing a <a href="package$$K8sClusterConfig.html" class="extype" name="com.coralogix.zio.k8s.client.config.K8sClusterConfig">K8sClusterConfig</a> value to both the
+<a href="#k8sCluster:zio.ZLayer[zio.blocking.Blockingwithzio.Has[com.coralogix.zio.k8s.client.config.package.K8sClusterConfig],Throwable,zio.Has[com.coralogix.zio.k8s.client.model.K8sCluster]]" class="extmbr" name="com.coralogix.zio.k8s.client.config#k8sCluster">k8sCluster</a> layer and either <code>asynchttpclient.k8sSttpClient</code> or <code>httpclient.k8sSttpClient</code>.</p><p>Instead of manually providing the configuration, zio-config descriptors are available to load
+them from any supported source.
 </p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="com.coralogix.zio.k8s.client">client</a></dd></dl></div>
     </li><li class="current-entities indented6">
                         <span class="separator"></span>
                         <a class="trait" href="Descriptors.html" title="Defines ZIO Config descriptors for all the configuration data types of zio-k8s"></a>
                         <a href="Descriptors.html" title="Defines ZIO Config descriptors for all the configuration data types of zio-k8s">Descriptors</a>
+                      </li><li class="current-entities indented6">
+                        <a class="object" href="ExecConfig$.html" title=""></a>
+                        <a class="class" href="ExecConfig.html" title=""></a>
+                        <a href="ExecConfig.html" title="">ExecConfig</a>
+                      </li><li class="current-entities indented6">
+                        <span class="separator"></span>
+                        <a class="class" href="package$$ExecCredentialStatus.html" title=""></a>
+                        <a href="package$$ExecCredentialStatus.html" title="">ExecCredentialStatus</a>
+                      </li><li class="current-entities indented6">
+                        <a class="object" href="package$$ExecCredentials$.html" title=""></a>
+                        <a class="class" href="package$$ExecCredentials.html" title=""></a>
+                        <a href="package$$ExecCredentials.html" title="">ExecCredentials</a>
+                      </li><li class="current-entities indented6">
+                        <a class="object" href="ExecEnv$.html" title=""></a>
+                        <a class="class" href="ExecEnv.html" title=""></a>
+                        <a href="ExecEnv.html" title="">ExecEnv</a>
                       </li><li class="current-entities indented6">
                         <a class="object" href="package$$K8sAuthentication$.html" title=""></a>
                         <a class="trait" href="package$$K8sAuthentication.html" title="Type of authentication to use with the Kubernetes cluster"></a>
@@ -411,22 +431,6 @@ supported source.
       </span>
       <span class="symbol">
         <a title="" href="../events/index.html"><span class="name">events</span></a>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="com.coralogix.zio.k8s.client">client</a></dd></dl></div>
-    </li><li name="com.coralogix.zio.k8s.client.extensions" visbl="pub" class="indented6 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="extensions"></a><a id="extensions:extensions"></a>
-      <span class="permalink">
-      <a href="../../../../../../com/coralogix/zio/k8s/client/extensions/index.html" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">package</span>
-      </span>
-      <span class="symbol">
-        <a title="" href="../extensions/index.html"><span class="name">extensions</span></a>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="com.coralogix.zio.k8s.client">client</a></dd></dl></div>
@@ -650,11 +654,14 @@ supported source.
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Contains data structures, ZIO layers and zio-config descriptors for configuring the zio-k8s client.</p><p>Each zio-k8s client module depends on two ZIO modules: <a href="../model/package$$K8sCluster.html" class="extype" name="com.coralogix.zio.k8s.client.model.K8sCluster">com.coralogix.zio.k8s.client.model.K8sCluster</a> and an <a href="https://javadoc.io/page/com.softwaremill.sttp.client3/core_2.12/3.3.13/sttp/client3/SttpBackend.html" class="extype" name="sttp.client3.SttpBackend">sttp.client3.SttpBackend</a>.
-To use the default configuration (use kubeconfig if available, otherwise fallback to service account token),
-use either <code>asynchttpclient.k8sDefault</code> or <code>httpclient.k8sDefault</code> depending on your chosen sttp backend.</p><p>Manual configuration is possible by providing a <a href="package$$K8sClusterConfig.html" class="extype" name="com.coralogix.zio.k8s.client.config.K8sClusterConfig">K8sClusterConfig</a> value to both the <a href="#k8sCluster:zio.ZLayer[zio.blocking.Blockingwithzio.Has[com.coralogix.zio.k8s.client.config.package.K8sClusterConfig],Throwable,zio.Has[com.coralogix.zio.k8s.client.model.K8sCluster]]" class="extmbr" name="com.coralogix.zio.k8s.client.config#k8sCluster">k8sCluster</a> layer
-and either <code>asynchttpclient.k8sSttpClient</code> or <code>httpclient.k8sSttpClient</code>.</p><p>Instead of manually providing the configuration, zio-config descriptors are available to load them from any
-supported source.
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Contains data structures, ZIO layers and zio-config descriptors for configuring the zio-k8s
+client.</p><p>Each zio-k8s client module depends on two ZIO modules:
+<a href="../model/package$$K8sCluster.html" class="extype" name="com.coralogix.zio.k8s.client.model.K8sCluster">com.coralogix.zio.k8s.client.model.K8sCluster</a> and an <a href="https://javadoc.io/page/com.softwaremill.sttp.client3/core_2.12/3.3.15/sttp/client3/SttpBackend.html" class="extype" name="sttp.client3.SttpBackend">sttp.client3.SttpBackend</a>. To use
+the default configuration (use kubeconfig if available, otherwise fallback to service account
+token), use either <code>asynchttpclient.k8sDefault</code> or <code>httpclient.k8sDefault</code> depending on your
+chosen sttp backend.</p><p>Manual configuration is possible by providing a <a href="package$$K8sClusterConfig.html" class="extype" name="com.coralogix.zio.k8s.client.config.K8sClusterConfig">K8sClusterConfig</a> value to both the
+<a href="#k8sCluster:zio.ZLayer[zio.blocking.Blockingwithzio.Has[com.coralogix.zio.k8s.client.config.package.K8sClusterConfig],Throwable,zio.Has[com.coralogix.zio.k8s.client.model.K8sCluster]]" class="extmbr" name="com.coralogix.zio.k8s.client.config#k8sCluster">k8sCluster</a> layer and either <code>asynchttpclient.k8sSttpClient</code> or <code>httpclient.k8sSttpClient</code>.</p><p>Instead of manually providing the configuration, zio-config descriptors are available to load
+them from any supported source.
 </p></div><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
@@ -724,6 +731,70 @@ supported source.
       
       <p class="shortcomment cmt">Defines ZIO Config descriptors for all the configuration data types of zio-k8s
 </p>
+    </li><li name="com.coralogix.zio.k8s.client.config.ExecConfig" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="ExecConfigextendsProductwithSerializable"></a><a id="ExecConfig:ExecConfig"></a>
+      <span class="permalink">
+      <a href="../../../../../../com/coralogix/zio/k8s/client/config/ExecConfig.html" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="ExecConfig.html"><span class="name">ExecConfig</span></a><span class="params">(<span name="apiVersion">apiVersion: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="command">command: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="env">env: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Predef.Set">Set</span>[<a href="ExecEnv.html" class="extype" name="com.coralogix.zio.k8s.client.config.ExecEnv">ExecEnv</a>]]</span>, <span name="args">args: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.List">List</span>[<span class="extype" name="scala.Predef.String">String</span>]]</span>, <span name="installHint">installHint: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Predef.String">String</span>]</span>, <span name="provideClusterInfo">provideClusterInfo: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Boolean">Boolean</span>]</span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      
+      
+    </li><li name="com.coralogix.zio.k8s.client.config.ExecCredentialStatus" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="ExecCredentialStatusextendsProductwithSerializable"></a><a id="ExecCredentialStatus:ExecCredentialStatus"></a>
+      <span class="permalink">
+      <a href="../../../../../../com/coralogix/zio/k8s/client/config/package$$ExecCredentialStatus.html" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="package$$ExecCredentialStatus.html"><span class="name">ExecCredentialStatus</span></a><span class="params">(<span name="token">token: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      
+      
+    </li><li name="com.coralogix.zio.k8s.client.config.ExecCredentials" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="ExecCredentialsextendsProductwithSerializable"></a><a id="ExecCredentials:ExecCredentials"></a>
+      <span class="permalink">
+      <a href="../../../../../../com/coralogix/zio/k8s/client/config/package$$ExecCredentials.html" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="package$$ExecCredentials.html"><span class="name">ExecCredentials</span></a><span class="params">(<span name="kind">kind: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="apiVersion">apiVersion: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="status">status: <a href="package$$ExecCredentialStatus.html" class="extype" name="com.coralogix.zio.k8s.client.config.ExecCredentialStatus">ExecCredentialStatus</a></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      
+      
+    </li><li name="com.coralogix.zio.k8s.client.config.ExecEnv" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="ExecEnvextendsProductwithSerializable"></a><a id="ExecEnv:ExecEnv"></a>
+      <span class="permalink">
+      <a href="../../../../../../com/coralogix/zio/k8s/client/config/ExecEnv.html" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="ExecEnv.html"><span class="name">ExecEnv</span></a><span class="params">(<span name="name">name: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="value">value: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      
+      
     </li><li name="com.coralogix.zio.k8s.client.config.K8sAuthentication" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
       <a id="K8sAuthenticationextendsAnyRef"></a><a id="K8sAuthentication:K8sAuthentication"></a>
       <span class="permalink">
@@ -756,7 +827,9 @@ supported source.
         <a title="Configuration for the HTTP connection towards the Kubernetes API" href="package$$K8sClientConfig.html"><span class="name">K8sClientConfig</span></a><span class="params">(<span name="debug">debug: <span class="extype" name="scala.Boolean">Boolean</span></span>, <span name="serverCertificate">serverCertificate: <a href="package$$K8sServerCertificate.html" class="extype" name="com.coralogix.zio.k8s.client.config.K8sServerCertificate">K8sServerCertificate</a></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
-      <p class="shortcomment cmt">Configuration for the HTTP connection towards the Kubernetes API</p><div class="fullcomment"><div class="comment cmt"><p>Configuration for the HTTP connection towards the Kubernetes API</p></div><dl class="paramcmts block"><dt class="param">debug</dt><dd class="cmt"><p>Enables detailed debug logging</p></dd><dt class="param">serverCertificate</dt><dd class="cmt"><p>The server certificate to use</p></dd></dl></div>
+      <p class="shortcomment cmt">Configuration for the HTTP connection towards the Kubernetes API</p><div class="fullcomment"><div class="comment cmt"><p>Configuration for the HTTP connection towards the Kubernetes API</p></div><dl class="paramcmts block"><dt class="param">debug</dt><dd class="cmt"><p>
+  Enables detailed debug logging</p></dd><dt class="param">serverCertificate</dt><dd class="cmt"><p>
+  The server certificate to use</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.client.config.K8sClusterConfig" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="K8sClusterConfigextendsProductwithSerializable"></a><a id="K8sClusterConfig:K8sClusterConfig"></a>
       <span class="permalink">
@@ -769,11 +842,14 @@ supported source.
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a title="Configures the zio-k8s client" href="package$$K8sClusterConfig.html"><span class="name">K8sClusterConfig</span></a><span class="params">(<span name="host">host: <a href="https://javadoc.io/page/com.softwaremill.sttp.model/core_2.12/1.4.9/sttp/model/Uri.html#sttp.model.Uri" class="extype" name="sttp.model.Uri">Uri</a></span>, <span name="authentication">authentication: <a href="package$$K8sAuthentication.html" class="extype" name="com.coralogix.zio.k8s.client.config.K8sAuthentication">K8sAuthentication</a></span>, <span name="client">client: <a href="package$$K8sClientConfig.html" class="extype" name="com.coralogix.zio.k8s.client.config.K8sClientConfig">K8sClientConfig</a></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a title="Configures the zio-k8s client" href="package$$K8sClusterConfig.html"><span class="name">K8sClusterConfig</span></a><span class="params">(<span name="host">host: <a href="https://javadoc.io/page/com.softwaremill.sttp.model/core_2.12/1.4.13/sttp/model/Uri.html#sttp.model.Uri" class="extype" name="sttp.model.Uri">Uri</a></span>, <span name="authentication">authentication: <a href="package$$K8sAuthentication.html" class="extype" name="com.coralogix.zio.k8s.client.config.K8sAuthentication">K8sAuthentication</a></span>, <span name="client">client: <a href="package$$K8sClientConfig.html" class="extype" name="com.coralogix.zio.k8s.client.config.K8sClientConfig">K8sClientConfig</a></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       <p class="shortcomment cmt">Configures the zio-k8s client</p><div class="fullcomment"><div class="comment cmt"><p>Configures the zio-k8s client</p><p>This is the top level configuration class.
-</p></div><dl class="paramcmts block"><dt class="param">host</dt><dd class="cmt"><p>URL of the Kubernetes API</p></dd><dt class="param">authentication</dt><dd class="cmt"><p>Authentication method to use</p></dd><dt class="param">client</dt><dd class="cmt"><p>HTTP client configuration</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="param">host</dt><dd class="cmt"><p>
+  URL of the Kubernetes API</p></dd><dt class="param">authentication</dt><dd class="cmt"><p>
+  Authentication method to use</p></dd><dt class="param">client</dt><dd class="cmt"><p>
+  HTTP client configuration</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.client.config.K8sServerCertificate" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="K8sServerCertificateextendsAnyRef"></a><a id="K8sServerCertificate:K8sServerCertificate"></a>
       <span class="permalink">
@@ -916,7 +992,7 @@ supported source.
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a title="" href="KubeconfigUserInfo.html"><span class="name">KubeconfigUserInfo</span></a><span class="params">(<span name="client-certificate">client-certificate: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Predef.String">String</span>]</span>, <span name="client-certificate-data">client-certificate-data: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Predef.String">String</span>]</span>, <span name="client-key">client-key: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Predef.String">String</span>]</span>, <span name="client-key-data">client-key-data: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Predef.String">String</span>]</span>, <span name="token">token: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Predef.String">String</span>]</span>, <span name="username">username: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Predef.String">String</span>]</span>, <span name="password">password: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Predef.String">String</span>]</span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a title="" href="KubeconfigUserInfo.html"><span class="name">KubeconfigUserInfo</span></a><span class="params">(<span name="client-certificate">client-certificate: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Predef.String">String</span>]</span>, <span name="client-certificate-data">client-certificate-data: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Predef.String">String</span>]</span>, <span name="client-key">client-key: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Predef.String">String</span>]</span>, <span name="client-key-data">client-key-data: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Predef.String">String</span>]</span>, <span name="token">token: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Predef.String">String</span>]</span>, <span name="username">username: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Predef.String">String</span>]</span>, <span name="password">password: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Predef.String">String</span>]</span>, <span name="exec">exec: <span class="extype" name="scala.Option">Option</span>[<a href="ExecConfig.html" class="extype" name="com.coralogix.zio.k8s.client.config.ExecConfig">ExecConfig</a>]</span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       
@@ -958,13 +1034,13 @@ supported source.
         <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">defaultConfigChain</span><span class="result">: <a href="https://javadoc.io/page/dev.zio/zio_2.12/1.0.10/zio/ZLayer.html#zio.ZLayer" class="extype" name="zio.ZLayer">ZLayer</a>[<span class="extype" name="zio.system.System">System</span> with <span class="extype" name="zio.blocking.Blocking">Blocking</span>, <span class="extype" name="scala.Throwable">Throwable</span>, <a href="https://javadoc.io/page/dev.zio/zio_2.12/1.0.10/zio/Has.html#zio.Has" class="extype" name="zio.Has">Has</a>[<a href="package$$K8sClusterConfig.html" class="extype" name="com.coralogix.zio.k8s.client.config.K8sClusterConfig">K8sClusterConfig</a>]]</span>
+        <span class="name">defaultConfigChain</span><span class="result">: <a href="https://javadoc.io/page/dev.zio/zio_2.12/1.0.12/zio/ZLayer.html#zio.ZLayer" class="extype" name="zio.ZLayer">ZLayer</a>[<span class="extype" name="zio.system.System">System</span> with <span class="extype" name="zio.blocking.Blocking">Blocking</span>, <span class="extype" name="scala.Throwable">Throwable</span>, <a href="https://javadoc.io/page/dev.zio/zio_2.12/1.0.12/zio/Has.html#zio.Has" class="extype" name="zio.Has">Has</a>[<a href="package$$K8sClusterConfig.html" class="extype" name="com.coralogix.zio.k8s.client.config.K8sClusterConfig">K8sClusterConfig</a>]]</span>
       </span>
       
-      <p class="shortcomment cmt"> Layer producing a <a href="package$$K8sClusterConfig.html" class="extype" name="com.coralogix.zio.k8s.client.config.K8sClusterConfig">K8sClusterConfig</a> that first tries to load a kubeconfig and
-if it cannot find one fallbacks to using the default service account token.</p><div class="fullcomment"><div class="comment cmt"><p> Layer producing a <a href="package$$K8sClusterConfig.html" class="extype" name="com.coralogix.zio.k8s.client.config.K8sClusterConfig">K8sClusterConfig</a> that first tries to load a kubeconfig and
-if it cannot find one fallbacks to using the default service account token.</p><p>For more customization see <a href="#kubeconfig(context:Option[String],debug:Boolean,disableHostnameVerification:Boolean):zio.ZLayer[zio.blocking.Blockingwithzio.system.System,Throwable,zio.Has[com.coralogix.zio.k8s.client.config.package.K8sClusterConfig]]" class="extmbr" name="com.coralogix.zio.k8s.client.config#kubeconfig">kubeconfig</a> and <a href="#serviceAccount(debug:Boolean):zio.ZLayer[Any,Nothing,zio.Has[com.coralogix.zio.k8s.client.config.package.K8sClusterConfig]]" class="extmbr" name="com.coralogix.zio.k8s.client.config#serviceAccount">serviceAccount</a> or provide
-a <a href="package$$K8sClusterConfig.html" class="extype" name="com.coralogix.zio.k8s.client.config.K8sClusterConfig">K8sClusterConfig</a> manually.
+      <p class="shortcomment cmt">Layer producing a <a href="package$$K8sClusterConfig.html" class="extype" name="com.coralogix.zio.k8s.client.config.K8sClusterConfig">K8sClusterConfig</a> that first tries to load a kubeconfig and if it cannot
+find one fallbacks to using the default service account token.</p><div class="fullcomment"><div class="comment cmt"><p>Layer producing a <a href="package$$K8sClusterConfig.html" class="extype" name="com.coralogix.zio.k8s.client.config.K8sClusterConfig">K8sClusterConfig</a> that first tries to load a kubeconfig and if it cannot
+find one fallbacks to using the default service account token.</p><p>For more customization see <a href="#kubeconfig(context:Option[String],debug:Boolean,disableHostnameVerification:Boolean):zio.ZLayer[zio.blocking.Blockingwithzio.system.System,Throwable,zio.Has[com.coralogix.zio.k8s.client.config.package.K8sClusterConfig]]" class="extmbr" name="com.coralogix.zio.k8s.client.config#kubeconfig">kubeconfig</a> and <a href="#serviceAccount(debug:Boolean):zio.ZLayer[Any,Nothing,zio.Has[com.coralogix.zio.k8s.client.config.package.K8sClusterConfig]]" class="extmbr" name="com.coralogix.zio.k8s.client.config#serviceAccount">serviceAccount</a> or provide a
+<a href="package$$K8sClusterConfig.html" class="extype" name="com.coralogix.zio.k8s.client.config.K8sClusterConfig">K8sClusterConfig</a> manually.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.client.config#k8sCluster" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="k8sCluster:zio.ZLayer[zio.blocking.Blockingwithzio.Has[com.coralogix.zio.k8s.client.config.package.K8sClusterConfig],Throwable,zio.Has[com.coralogix.zio.k8s.client.model.K8sCluster]]"></a><a id="k8sCluster:ZLayer[BlockingwithHas[K8sClusterConfig],Throwable,Has[K8sCluster]]"></a>
@@ -978,11 +1054,13 @@ a <a href="package$$K8sClusterConfig.html" class="extype" name="com.coralogix.zi
         <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">k8sCluster</span><span class="result">: <a href="https://javadoc.io/page/dev.zio/zio_2.12/1.0.10/zio/ZLayer.html#zio.ZLayer" class="extype" name="zio.ZLayer">ZLayer</a>[<span class="extype" name="zio.blocking.Blocking">Blocking</span> with <a href="https://javadoc.io/page/dev.zio/zio_2.12/1.0.10/zio/Has.html#zio.Has" class="extype" name="zio.Has">Has</a>[<a href="package$$K8sClusterConfig.html" class="extype" name="com.coralogix.zio.k8s.client.config.K8sClusterConfig">K8sClusterConfig</a>], <span class="extype" name="scala.Throwable">Throwable</span>, <a href="https://javadoc.io/page/dev.zio/zio_2.12/1.0.10/zio/Has.html#zio.Has" class="extype" name="zio.Has">Has</a>[<a href="../model/package$$K8sCluster.html" class="extype" name="com.coralogix.zio.k8s.client.model.K8sCluster">K8sCluster</a>]]</span>
+        <span class="name">k8sCluster</span><span class="result">: <a href="https://javadoc.io/page/dev.zio/zio_2.12/1.0.12/zio/ZLayer.html#zio.ZLayer" class="extype" name="zio.ZLayer">ZLayer</a>[<span class="extype" name="zio.blocking.Blocking">Blocking</span> with <a href="https://javadoc.io/page/dev.zio/zio_2.12/1.0.12/zio/Has.html#zio.Has" class="extype" name="zio.Has">Has</a>[<a href="package$$K8sClusterConfig.html" class="extype" name="com.coralogix.zio.k8s.client.config.K8sClusterConfig">K8sClusterConfig</a>], <span class="extype" name="scala.Throwable">Throwable</span>, <a href="https://javadoc.io/page/dev.zio/zio_2.12/1.0.12/zio/Has.html#zio.Has" class="extype" name="zio.Has">Has</a>[<a href="../model/package$$K8sCluster.html" class="extype" name="com.coralogix.zio.k8s.client.model.K8sCluster">K8sCluster</a>]]</span>
       </span>
       
-      <p class="shortcomment cmt">Layer producing a <a href="../model/package$$K8sCluster.html" class="extype" name="com.coralogix.zio.k8s.client.model.K8sCluster">com.coralogix.zio.k8s.client.model.K8sCluster</a> from a provided K8sClusterConfig</p><div class="fullcomment"><div class="comment cmt"><p>Layer producing a <a href="../model/package$$K8sCluster.html" class="extype" name="com.coralogix.zio.k8s.client.model.K8sCluster">com.coralogix.zio.k8s.client.model.K8sCluster</a> from a provided K8sClusterConfig</p><p>This can be used to either set up from a configuration source with zio-config or
-provide the hostname and token programmatically for the Kubernetes client.
+      <p class="shortcomment cmt">Layer producing a <a href="../model/package$$K8sCluster.html" class="extype" name="com.coralogix.zio.k8s.client.model.K8sCluster">com.coralogix.zio.k8s.client.model.K8sCluster</a> from a provided
+K8sClusterConfig</p><div class="fullcomment"><div class="comment cmt"><p>Layer producing a <a href="../model/package$$K8sCluster.html" class="extype" name="com.coralogix.zio.k8s.client.model.K8sCluster">com.coralogix.zio.k8s.client.model.K8sCluster</a> from a provided
+K8sClusterConfig</p><p>This can be used to either set up from a configuration source with zio-config or provide the
+hostname and token programmatically for the Kubernetes client.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.client.config#kubeconfig" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="kubeconfig(context:Option[String],debug:Boolean,disableHostnameVerification:Boolean):zio.ZLayer[zio.blocking.Blockingwithzio.system.System,Throwable,zio.Has[com.coralogix.zio.k8s.client.config.package.K8sClusterConfig]]"></a><a id="kubeconfig(Option[String],Boolean,Boolean):ZLayer[BlockingwithSystem,Throwable,Has[K8sClusterConfig]]"></a>
@@ -996,12 +1074,15 @@ provide the hostname and token programmatically for the Kubernetes client.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">kubeconfig</span><span class="params">(<span name="context">context: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol">None</span></span>, <span name="debug">debug: <span class="extype" name="scala.Boolean">Boolean</span> = <span class="symbol">false</span></span>, <span name="disableHostnameVerification">disableHostnameVerification: <span class="extype" name="scala.Boolean">Boolean</span> = <span class="symbol">false</span></span>)</span><span class="result">: <a href="https://javadoc.io/page/dev.zio/zio_2.12/1.0.10/zio/ZLayer.html#zio.ZLayer" class="extype" name="zio.ZLayer">ZLayer</a>[<span class="extype" name="zio.blocking.Blocking">Blocking</span> with <span class="extype" name="zio.system.System">System</span>, <span class="extype" name="scala.Throwable">Throwable</span>, <a href="https://javadoc.io/page/dev.zio/zio_2.12/1.0.10/zio/Has.html#zio.Has" class="extype" name="zio.Has">Has</a>[<a href="package$$K8sClusterConfig.html" class="extype" name="com.coralogix.zio.k8s.client.config.K8sClusterConfig">K8sClusterConfig</a>]]</span>
+        <span class="name">kubeconfig</span><span class="params">(<span name="context">context: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol">None</span></span>, <span name="debug">debug: <span class="extype" name="scala.Boolean">Boolean</span> = <span class="symbol">false</span></span>, <span name="disableHostnameVerification">disableHostnameVerification: <span class="extype" name="scala.Boolean">Boolean</span> = <span class="symbol">false</span></span>)</span><span class="result">: <a href="https://javadoc.io/page/dev.zio/zio_2.12/1.0.12/zio/ZLayer.html#zio.ZLayer" class="extype" name="zio.ZLayer">ZLayer</a>[<span class="extype" name="zio.blocking.Blocking">Blocking</span> with <span class="extype" name="zio.system.System">System</span>, <span class="extype" name="scala.Throwable">Throwable</span>, <a href="https://javadoc.io/page/dev.zio/zio_2.12/1.0.12/zio/Has.html#zio.Has" class="extype" name="zio.Has">Has</a>[<a href="package$$K8sClusterConfig.html" class="extype" name="com.coralogix.zio.k8s.client.config.K8sClusterConfig">K8sClusterConfig</a>]]</span>
       </span>
       
-      <p class="shortcomment cmt"> Layer producing a <a href="package$$K8sClusterConfig.html" class="extype" name="com.coralogix.zio.k8s.client.config.K8sClusterConfig">K8sClusterConfig</a> by loading a kubeconfig file</p><div class="fullcomment"><div class="comment cmt"><p> Layer producing a <a href="package$$K8sClusterConfig.html" class="extype" name="com.coralogix.zio.k8s.client.config.K8sClusterConfig">K8sClusterConfig</a> by loading a kubeconfig file</p><p>If the KUBECONFIG environment variable is set, that will be used as the kubeconfig file's path,
-otherwise ~/.kube/config based on the current user's home directory.</p><p>To use a specific kubeconfig file path, use <a href="#kubeconfigFile(configPath:zio.nio.core.file.Path,context:Option[String],debug:Boolean,disableHostnameVerification:Boolean):zio.ZLayer[zio.blocking.Blocking,Throwable,zio.Has[com.coralogix.zio.k8s.client.config.package.K8sClusterConfig]]" class="extmbr" name="com.coralogix.zio.k8s.client.config#kubeconfigFile">kubeconfigFile</a>.
-</p></div><dl class="paramcmts block"><dt class="param">context</dt><dd class="cmt"><p>Override the current context in the configuration file and use another one</p></dd><dt class="param">debug</dt><dd class="cmt"><p>Enable debug request/response logging</p></dd><dt class="param">disableHostnameVerification</dt><dd class="cmt"><p>Disables hostname verification on the SSL connection</p></dd></dl></div>
+      <p class="shortcomment cmt">Layer producing a <a href="package$$K8sClusterConfig.html" class="extype" name="com.coralogix.zio.k8s.client.config.K8sClusterConfig">K8sClusterConfig</a> by loading a kubeconfig file</p><div class="fullcomment"><div class="comment cmt"><p>Layer producing a <a href="package$$K8sClusterConfig.html" class="extype" name="com.coralogix.zio.k8s.client.config.K8sClusterConfig">K8sClusterConfig</a> by loading a kubeconfig file</p><p>If the KUBECONFIG environment variable is set, that will be used as the kubeconfig file's
+path, otherwise ~/.kube/config based on the current user's home directory.</p><p>To use a specific kubeconfig file path, use <a href="#kubeconfigFile(configPath:zio.nio.core.file.Path,context:Option[String],debug:Boolean,disableHostnameVerification:Boolean):zio.ZLayer[zio.blocking.Blocking,Throwable,zio.Has[com.coralogix.zio.k8s.client.config.package.K8sClusterConfig]]" class="extmbr" name="com.coralogix.zio.k8s.client.config#kubeconfigFile">kubeconfigFile</a>.
+</p></div><dl class="paramcmts block"><dt class="param">context</dt><dd class="cmt"><p>
+  Override the current context in the configuration file and use another one</p></dd><dt class="param">debug</dt><dd class="cmt"><p>
+  Enable debug request/response logging</p></dd><dt class="param">disableHostnameVerification</dt><dd class="cmt"><p>
+  Disables hostname verification on the SSL connection</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.client.config#kubeconfigFile" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="kubeconfigFile(configPath:zio.nio.core.file.Path,context:Option[String],debug:Boolean,disableHostnameVerification:Boolean):zio.ZLayer[zio.blocking.Blocking,Throwable,zio.Has[com.coralogix.zio.k8s.client.config.package.K8sClusterConfig]]"></a><a id="kubeconfigFile(Path,Option[String],Boolean,Boolean):ZLayer[Blocking,Throwable,Has[K8sClusterConfig]]"></a>
       <span class="permalink">
@@ -1014,10 +1095,16 @@ otherwise ~/.kube/config based on the current user's home directory.</p><p>To us
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">kubeconfigFile</span><span class="params">(<span name="configPath">configPath: <a href="https://javadoc.io/page/dev.zio/zio-nio-core_2.12/1.0.0-RC11/zio/nio/core/file/Path.html#zio.nio.core.file.Path" class="extype" name="zio.nio.core.file.Path">Path</a></span>, <span name="context">context: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol">None</span></span>, <span name="debug">debug: <span class="extype" name="scala.Boolean">Boolean</span> = <span class="symbol">false</span></span>, <span name="disableHostnameVerification">disableHostnameVerification: <span class="extype" name="scala.Boolean">Boolean</span> = <span class="symbol">false</span></span>)</span><span class="result">: <a href="https://javadoc.io/page/dev.zio/zio_2.12/1.0.10/zio/ZLayer.html#zio.ZLayer" class="extype" name="zio.ZLayer">ZLayer</a>[<span class="extype" name="zio.blocking.Blocking">Blocking</span>, <span class="extype" name="scala.Throwable">Throwable</span>, <a href="https://javadoc.io/page/dev.zio/zio_2.12/1.0.10/zio/Has.html#zio.Has" class="extype" name="zio.Has">Has</a>[<a href="package$$K8sClusterConfig.html" class="extype" name="com.coralogix.zio.k8s.client.config.K8sClusterConfig">K8sClusterConfig</a>]]</span>
+        <span class="name">kubeconfigFile</span><span class="params">(<span name="configPath">configPath: <a href="https://javadoc.io/page/dev.zio/zio-nio-core_2.12/1.0.0-RC11/zio/nio/core/file/Path.html#zio.nio.core.file.Path" class="extype" name="zio.nio.core.file.Path">Path</a></span>, <span name="context">context: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol">None</span></span>, <span name="debug">debug: <span class="extype" name="scala.Boolean">Boolean</span> = <span class="symbol">false</span></span>, <span name="disableHostnameVerification">disableHostnameVerification: <span class="extype" name="scala.Boolean">Boolean</span> = <span class="symbol">false</span></span>)</span><span class="result">: <a href="https://javadoc.io/page/dev.zio/zio_2.12/1.0.12/zio/ZLayer.html#zio.ZLayer" class="extype" name="zio.ZLayer">ZLayer</a>[<span class="extype" name="zio.blocking.Blocking">Blocking</span>, <span class="extype" name="scala.Throwable">Throwable</span>, <a href="https://javadoc.io/page/dev.zio/zio_2.12/1.0.12/zio/Has.html#zio.Has" class="extype" name="zio.Has">Has</a>[<a href="package$$K8sClusterConfig.html" class="extype" name="com.coralogix.zio.k8s.client.config.K8sClusterConfig">K8sClusterConfig</a>]]</span>
       </span>
       
-      <p class="shortcomment cmt">Layer setting up a <a href="../model/package$$K8sCluster.html" class="extype" name="com.coralogix.zio.k8s.client.model.K8sCluster">com.coralogix.zio.k8s.client.model.K8sCluster</a> by loading a specific kubeconfig file</p><div class="fullcomment"><div class="comment cmt"><p>Layer setting up a <a href="../model/package$$K8sCluster.html" class="extype" name="com.coralogix.zio.k8s.client.model.K8sCluster">com.coralogix.zio.k8s.client.model.K8sCluster</a> by loading a specific kubeconfig file</p></div><dl class="paramcmts block"><dt class="param">configPath</dt><dd class="cmt"><p>Path to the kubeconfig file to load</p></dd><dt class="param">context</dt><dd class="cmt"><p>Override the current context in the configuration file and use another one</p></dd><dt class="param">debug</dt><dd class="cmt"><p>Enable debug request/response logging</p></dd><dt class="param">disableHostnameVerification</dt><dd class="cmt"><p>Disables hostname verification on the SSL connection</p></dd></dl></div>
+      <p class="shortcomment cmt">Layer setting up a <a href="../model/package$$K8sCluster.html" class="extype" name="com.coralogix.zio.k8s.client.model.K8sCluster">com.coralogix.zio.k8s.client.model.K8sCluster</a> by loading a specific
+kubeconfig file</p><div class="fullcomment"><div class="comment cmt"><p>Layer setting up a <a href="../model/package$$K8sCluster.html" class="extype" name="com.coralogix.zio.k8s.client.model.K8sCluster">com.coralogix.zio.k8s.client.model.K8sCluster</a> by loading a specific
+kubeconfig file</p></div><dl class="paramcmts block"><dt class="param">configPath</dt><dd class="cmt"><p>
+  Path to the kubeconfig file to load</p></dd><dt class="param">context</dt><dd class="cmt"><p>
+  Override the current context in the configuration file and use another one</p></dd><dt class="param">debug</dt><dd class="cmt"><p>
+  Enable debug request/response logging</p></dd><dt class="param">disableHostnameVerification</dt><dd class="cmt"><p>
+  Disables hostname verification on the SSL connection</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.client.config#serviceAccount" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="serviceAccount(debug:Boolean):zio.ZLayer[Any,Nothing,zio.Has[com.coralogix.zio.k8s.client.config.package.K8sClusterConfig]]"></a><a id="serviceAccount(Boolean):ZLayer[Any,Nothing,Has[K8sClusterConfig]]"></a>
       <span class="permalink">
@@ -1030,13 +1117,62 @@ otherwise ~/.kube/config based on the current user's home directory.</p><p>To us
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">serviceAccount</span><span class="params">(<span name="debug">debug: <span class="extype" name="scala.Boolean">Boolean</span> = <span class="symbol">false</span></span>)</span><span class="result">: <a href="https://javadoc.io/page/dev.zio/zio_2.12/1.0.10/zio/ZLayer.html#zio.ZLayer" class="extype" name="zio.ZLayer">ZLayer</a>[<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Nothing">Nothing</span>, <a href="https://javadoc.io/page/dev.zio/zio_2.12/1.0.10/zio/Has.html#zio.Has" class="extype" name="zio.Has">Has</a>[<a href="package$$K8sClusterConfig.html" class="extype" name="com.coralogix.zio.k8s.client.config.K8sClusterConfig">K8sClusterConfig</a>]]</span>
+        <span class="name">serviceAccount</span><span class="params">(<span name="debug">debug: <span class="extype" name="scala.Boolean">Boolean</span> = <span class="symbol">false</span></span>)</span><span class="result">: <a href="https://javadoc.io/page/dev.zio/zio_2.12/1.0.12/zio/ZLayer.html#zio.ZLayer" class="extype" name="zio.ZLayer">ZLayer</a>[<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Nothing">Nothing</span>, <a href="https://javadoc.io/page/dev.zio/zio_2.12/1.0.12/zio/Has.html#zio.Has" class="extype" name="zio.Has">Has</a>[<a href="package$$K8sClusterConfig.html" class="extype" name="com.coralogix.zio.k8s.client.config.K8sClusterConfig">K8sClusterConfig</a>]]</span>
       </span>
       
-      <p class="shortcomment cmt">Layer producing a <a href="package$$K8sClusterConfig.html" class="extype" name="com.coralogix.zio.k8s.client.config.K8sClusterConfig">K8sClusterConfig</a> using the default service account when running
-from inside a pod.</p><div class="fullcomment"><div class="comment cmt"><p>Layer producing a <a href="package$$K8sClusterConfig.html" class="extype" name="com.coralogix.zio.k8s.client.config.K8sClusterConfig">K8sClusterConfig</a> using the default service account when running
-from inside a pod.
-</p></div><dl class="paramcmts block"><dt class="param">debug</dt><dd class="cmt"><p>Enable debug request/response logging</p></dd></dl></div>
+      <p class="shortcomment cmt">Layer producing a <a href="package$$K8sClusterConfig.html" class="extype" name="com.coralogix.zio.k8s.client.config.K8sClusterConfig">K8sClusterConfig</a> using the default service account when running from
+inside a pod.</p><div class="fullcomment"><div class="comment cmt"><p>Layer producing a <a href="package$$K8sClusterConfig.html" class="extype" name="com.coralogix.zio.k8s.client.config.K8sClusterConfig">K8sClusterConfig</a> using the default service account when running from
+inside a pod.
+</p></div><dl class="paramcmts block"><dt class="param">debug</dt><dd class="cmt"><p>
+  Enable debug request/response logging</p></dd></dl></div>
+    </li><li name="com.coralogix.zio.k8s.client.config.ExecConfig" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="ExecConfig"></a><a id="ExecConfig:ExecConfig"></a>
+      <span class="permalink">
+      <a href="../../../../../../com/coralogix/zio/k8s/client/config/ExecConfig$.html" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="ExecConfig$.html"><span class="name">ExecConfig</span></a><span class="result"> extends <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      
+      
+    </li><li name="com.coralogix.zio.k8s.client.config.ExecCredentials" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="ExecCredentials"></a><a id="ExecCredentials:ExecCredentials"></a>
+      <span class="permalink">
+      <a href="../../../../../../com/coralogix/zio/k8s/client/config/package$$ExecCredentials$.html" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="package$$ExecCredentials$.html"><span class="name">ExecCredentials</span></a><span class="result"> extends <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      
+      
+    </li><li name="com.coralogix.zio.k8s.client.config.ExecEnv" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="ExecEnv"></a><a id="ExecEnv:ExecEnv"></a>
+      <span class="permalink">
+      <a href="../../../../../../com/coralogix/zio/k8s/client/config/ExecEnv$.html" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="ExecEnv$.html"><span class="name">ExecEnv</span></a><span class="result"> extends <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      
+      
     </li><li name="com.coralogix.zio.k8s.client.config.K8sAuthentication" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="K8sAuthentication"></a><a id="K8sAuthentication:K8sAuthentication"></a>
       <span class="permalink">

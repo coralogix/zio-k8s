@@ -198,6 +198,14 @@
                         <a class="class" href="EndpointFields.html" title=""></a>
                         <a href="EndpointFields.html" title="">EndpointFields</a>
                       </li><li class="current-entities indented7">
+                        <a class="object" href="EndpointHints$.html" title=""></a>
+                        <a class="class" href="EndpointHints.html" title="EndpointHints provides hints describing how an endpoint should be consumed."></a>
+                        <a href="EndpointHints.html" title="EndpointHints provides hints describing how an endpoint should be consumed.">EndpointHints</a>
+                      </li><li class="current-entities indented7">
+                        <span class="separator"></span>
+                        <a class="class" href="EndpointHintsFields.html" title=""></a>
+                        <a href="EndpointHintsFields.html" title="">EndpointHintsFields</a>
+                      </li><li class="current-entities indented7">
                         <a class="object" href="EndpointPort$.html" title=""></a>
                         <a class="class" href="EndpointPort.html" title="EndpointPort represents a Port used by an EndpointSlice"></a>
                         <a href="EndpointPort.html" title="EndpointPort represents a Port used by an EndpointSlice">EndpointPort</a>
@@ -213,6 +221,14 @@
                         <span class="separator"></span>
                         <a class="class" href="EndpointSliceFields.html" title=""></a>
                         <a href="EndpointSliceFields.html" title="">EndpointSliceFields</a>
+                      </li><li class="current-entities indented7">
+                        <a class="object" href="ForZone$.html" title=""></a>
+                        <a class="class" href="ForZone.html" title="ForZone provides information about which zones should consume this endpoint."></a>
+                        <a href="ForZone.html" title="ForZone provides information about which zones should consume this endpoint.">ForZone</a>
+                      </li><li class="current-entities indented7">
+                        <span class="separator"></span>
+                        <a class="class" href="ForZoneFields.html" title=""></a>
+                        <a href="ForZoneFields.html" title="">ForZoneFields</a>
                       </li>
               </ul>
             </div>
@@ -238,20 +254,34 @@
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <span class="name">Endpoint</span><span class="params">(<span name="addresses">addresses: <span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]</span>, <span name="conditions">conditions: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="EndpointConditions.html" class="extype" name="com.coralogix.zio.k8s.model.discovery.v1beta1.EndpointConditions">EndpointConditions</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="hostname">hostname: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="nodeName">nodeName: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="targetRef">targetRef: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="../../core/v1/ObjectReference.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.ObjectReference">ObjectReference</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="topology">topology: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <span class="name">Endpoint</span><span class="params">(<span name="addresses">addresses: <span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]</span>, <span name="conditions">conditions: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="EndpointConditions.html" class="extype" name="com.coralogix.zio.k8s.model.discovery.v1beta1.EndpointConditions">EndpointConditions</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="hints">hints: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="EndpointHints.html" class="extype" name="com.coralogix.zio.k8s.model.discovery.v1beta1.EndpointHints">EndpointHints</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="hostname">hostname: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="nodeName">nodeName: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="targetRef">targetRef: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="../../core/v1/ObjectReference.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.ObjectReference">ObjectReference</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="topology">topology: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       </h4>
 
       
           <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Endpoint represents a single logical &quot;backend&quot; implementing a service.
-</p></div><dl class="paramcmts block"><dt class="param">addresses</dt><dd class="cmt"><p>addresses of this endpoint. The contents of this field are interpreted according to the corresponding EndpointSlice addressType field. Consumers must handle different types of addresses in the context of their own capabilities. This must contain at least one address but no more than 100.</p></dd><dt class="param">hostname</dt><dd class="cmt"><p>hostname of this endpoint. This field may be used by consumers of endpoints to distinguish endpoints from each other (e.g. in DNS names). Multiple endpoints which use the same hostname should be considered fungible (e.g. multiple A values in DNS). Must be lowercase and pass DNS Label (RFC 1123) validation.</p></dd><dt class="param">nodeName</dt><dd class="cmt"><p>nodeName represents the name of the Node hosting this endpoint. This can be used to determine endpoints local to a Node. This field can be enabled with the EndpointSliceNodeName feature gate.</p></dd><dt class="param">topology</dt><dd class="cmt"><p>topology contains arbitrary topology information associated with the endpoint. These key/value pairs must conform with the label format. https://kubernetes.io/docs/concepts/overview/working-with-objects/labels Topology may include a maximum of 16 key/value pairs. This includes, but is not limited to the following well known keys: * kubernetes.io/hostname: the value indicates the hostname of the node
- where the endpoint is located. This should match the corresponding
- node label.
-topology.kubernetes.io/zone: the value indicates the zone where the
- endpoint is located. This should match the corresponding node label.
-topology.kubernetes.io/region: the value indicates the region where the
- endpoint is located. This should match the corresponding node label.
-This field is deprecated and will be removed in future api versions.</p></dd></dl><div class="toggleContainer block">
+</p></div><dl class="paramcmts block"><dt class="param">addresses</dt><dd class="cmt"><p>
+  addresses of this endpoint. The contents of this field are interpreted according to the
+  corresponding EndpointSlice addressType field. Consumers must handle different types of
+  addresses in the context of their own capabilities. This must contain at least one address but
+  no more than 100.</p></dd><dt class="param">hostname</dt><dd class="cmt"><p>
+  hostname of this endpoint. This field may be used by consumers of endpoints to distinguish
+  endpoints from each other (e.g. in DNS names). Multiple endpoints which use the same hostname
+  should be considered fungible (e.g. multiple A values in DNS). Must be lowercase and pass DNS
+  Label (RFC 1123) validation.</p></dd><dt class="param">nodeName</dt><dd class="cmt"><p>
+  nodeName represents the name of the Node hosting this endpoint. This can be used to determine
+  endpoints local to a Node. This field can be enabled with the EndpointSliceNodeName feature
+  gate.</p></dd><dt class="param">topology</dt><dd class="cmt"><p>
+  topology contains arbitrary topology information associated with the endpoint. These key/value
+  pairs must conform with the label format.
+  https://kubernetes.io/docs/concepts/overview/working-with-objects/labels Topology may include
+  a maximum of 16 key/value pairs. This includes, but is not limited to the following well known
+  keys: * kubernetes.io/hostname: the value indicates the hostname of the node where the
+  endpoint is located. This should match the corresponding node label.
+  topology.kubernetes.io/zone: the value indicates the zone where the endpoint is located. This
+  should match the corresponding node label. topology.kubernetes.io/region: the value indicates
+  the region where the endpoint is located. This should match the corresponding node label. This
+  field is deprecated and will be removed in future api versions.</p></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -302,9 +332,9 @@ This field is deprecated and will be removed in future api versions.</p></dd></d
         <div id="constructors" class="members">
               <h3>Instance Constructors</h3>
               <ol><li name="com.coralogix.zio.k8s.model.discovery.v1beta1.Endpoint#&lt;init&gt;" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="&lt;init&gt;(addresses:Vector[String],conditions:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.discovery.v1beta1.EndpointConditions],hostname:com.coralogix.zio.k8s.client.model.Optional[String],nodeName:com.coralogix.zio.k8s.client.model.Optional[String],targetRef:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.ObjectReference],topology:com.coralogix.zio.k8s.client.model.Optional[Map[String,String]]):com.coralogix.zio.k8s.model.discovery.v1beta1.Endpoint"></a><a id="&lt;init&gt;:Endpoint"></a>
+      <a id="&lt;init&gt;(addresses:Vector[String],conditions:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.discovery.v1beta1.EndpointConditions],hints:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.discovery.v1beta1.EndpointHints],hostname:com.coralogix.zio.k8s.client.model.Optional[String],nodeName:com.coralogix.zio.k8s.client.model.Optional[String],targetRef:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.ObjectReference],topology:com.coralogix.zio.k8s.client.model.Optional[Map[String,String]]):com.coralogix.zio.k8s.model.discovery.v1beta1.Endpoint"></a><a id="&lt;init&gt;:Endpoint"></a>
       <span class="permalink">
-      <a href="../../../../../../../com/coralogix/zio/k8s/model/discovery/v1beta1/Endpoint.html#&lt;init&gt;(addresses:Vector[String],conditions:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.discovery.v1beta1.EndpointConditions],hostname:com.coralogix.zio.k8s.client.model.Optional[String],nodeName:com.coralogix.zio.k8s.client.model.Optional[String],targetRef:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.ObjectReference],topology:com.coralogix.zio.k8s.client.model.Optional[Map[String,String]]):com.coralogix.zio.k8s.model.discovery.v1beta1.Endpoint" title="Permalink">
+      <a href="../../../../../../../com/coralogix/zio/k8s/model/discovery/v1beta1/Endpoint.html#&lt;init&gt;(addresses:Vector[String],conditions:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.discovery.v1beta1.EndpointConditions],hints:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.discovery.v1beta1.EndpointHints],hostname:com.coralogix.zio.k8s.client.model.Optional[String],nodeName:com.coralogix.zio.k8s.client.model.Optional[String],targetRef:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.ObjectReference],topology:com.coralogix.zio.k8s.client.model.Optional[Map[String,String]]):com.coralogix.zio.k8s.model.discovery.v1beta1.Endpoint" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -313,17 +343,31 @@ This field is deprecated and will be removed in future api versions.</p></dd></d
         <span class="kind">new</span>
       </span>
       <span class="symbol">
-        <span class="name">Endpoint</span><span class="params">(<span name="addresses">addresses: <span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]</span>, <span name="conditions">conditions: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="EndpointConditions.html" class="extype" name="com.coralogix.zio.k8s.model.discovery.v1beta1.EndpointConditions">EndpointConditions</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="hostname">hostname: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="nodeName">nodeName: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="targetRef">targetRef: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="../../core/v1/ObjectReference.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.ObjectReference">ObjectReference</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="topology">topology: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span>
+        <span class="name">Endpoint</span><span class="params">(<span name="addresses">addresses: <span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]</span>, <span name="conditions">conditions: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="EndpointConditions.html" class="extype" name="com.coralogix.zio.k8s.model.discovery.v1beta1.EndpointConditions">EndpointConditions</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="hints">hints: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="EndpointHints.html" class="extype" name="com.coralogix.zio.k8s.model.discovery.v1beta1.EndpointHints">EndpointHints</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="hostname">hostname: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="nodeName">nodeName: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="targetRef">targetRef: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="../../core/v1/ObjectReference.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.ObjectReference">ObjectReference</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="topology">topology: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span>
       </span>
       
-      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">addresses</dt><dd class="cmt"><p>addresses of this endpoint. The contents of this field are interpreted according to the corresponding EndpointSlice addressType field. Consumers must handle different types of addresses in the context of their own capabilities. This must contain at least one address but no more than 100.</p></dd><dt class="param">hostname</dt><dd class="cmt"><p>hostname of this endpoint. This field may be used by consumers of endpoints to distinguish endpoints from each other (e.g. in DNS names). Multiple endpoints which use the same hostname should be considered fungible (e.g. multiple A values in DNS). Must be lowercase and pass DNS Label (RFC 1123) validation.</p></dd><dt class="param">nodeName</dt><dd class="cmt"><p>nodeName represents the name of the Node hosting this endpoint. This can be used to determine endpoints local to a Node. This field can be enabled with the EndpointSliceNodeName feature gate.</p></dd><dt class="param">topology</dt><dd class="cmt"><p>topology contains arbitrary topology information associated with the endpoint. These key/value pairs must conform with the label format. https://kubernetes.io/docs/concepts/overview/working-with-objects/labels Topology may include a maximum of 16 key/value pairs. This includes, but is not limited to the following well known keys: * kubernetes.io/hostname: the value indicates the hostname of the node
- where the endpoint is located. This should match the corresponding
- node label.
-topology.kubernetes.io/zone: the value indicates the zone where the
- endpoint is located. This should match the corresponding node label.
-topology.kubernetes.io/region: the value indicates the region where the
- endpoint is located. This should match the corresponding node label.
-This field is deprecated and will be removed in future api versions.</p></dd></dl></div>
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">addresses</dt><dd class="cmt"><p>
+  addresses of this endpoint. The contents of this field are interpreted according to the
+  corresponding EndpointSlice addressType field. Consumers must handle different types of
+  addresses in the context of their own capabilities. This must contain at least one address but
+  no more than 100.</p></dd><dt class="param">hostname</dt><dd class="cmt"><p>
+  hostname of this endpoint. This field may be used by consumers of endpoints to distinguish
+  endpoints from each other (e.g. in DNS names). Multiple endpoints which use the same hostname
+  should be considered fungible (e.g. multiple A values in DNS). Must be lowercase and pass DNS
+  Label (RFC 1123) validation.</p></dd><dt class="param">nodeName</dt><dd class="cmt"><p>
+  nodeName represents the name of the Node hosting this endpoint. This can be used to determine
+  endpoints local to a Node. This field can be enabled with the EndpointSliceNodeName feature
+  gate.</p></dd><dt class="param">topology</dt><dd class="cmt"><p>
+  topology contains arbitrary topology information associated with the endpoint. These key/value
+  pairs must conform with the label format.
+  https://kubernetes.io/docs/concepts/overview/working-with-objects/labels Topology may include
+  a maximum of 16 key/value pairs. This includes, but is not limited to the following well known
+  keys: * kubernetes.io/hostname: the value indicates the hostname of the node where the
+  endpoint is located. This should match the corresponding node label.
+  topology.kubernetes.io/zone: the value indicates the zone where the endpoint is located. This
+  should match the corresponding node label. topology.kubernetes.io/region: the value indicates
+  the region where the endpoint is located. This should match the corresponding node label. This
+  field is deprecated and will be removed in future api versions.</p></dd></dl></div>
     </li></ol>
             </div>
 
@@ -487,7 +531,10 @@ This field is deprecated and will be removed in future api versions.</p></dd></d
         <span class="name">getAddresses</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]]</span>
       </span>
       
-      <p class="shortcomment cmt">addresses of this endpoint.</p><div class="fullcomment"><div class="comment cmt"><p>addresses of this endpoint. The contents of this field are interpreted according to the corresponding EndpointSlice addressType field. Consumers must handle different types of addresses in the context of their own capabilities. This must contain at least one address but no more than 100.</p><p>This effect always succeeds, it is safe to use the field <a href="#addresses:Vector[String]" class="extmbr" name="com.coralogix.zio.k8s.model.discovery.v1beta1.Endpoint#addresses">addresses</a> directly.
+      <p class="shortcomment cmt">addresses of this endpoint.</p><div class="fullcomment"><div class="comment cmt"><p>addresses of this endpoint. The contents of this field are interpreted according to the
+corresponding EndpointSlice addressType field. Consumers must handle different types of
+addresses in the context of their own capabilities. This must contain at least one address but
+no more than 100.</p><p>This effect always succeeds, it is safe to use the field <a href="#addresses:Vector[String]" class="extmbr" name="com.coralogix.zio.k8s.model.discovery.v1beta1.Endpoint#addresses">addresses</a> directly.
 </p></div></div>
     </li><li name="scala.AnyRef#getClass" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getClass():Class[_]"></a>
@@ -527,6 +574,23 @@ This field is deprecated and will be removed in future api versions.</p></dd></d
       
       <p class="shortcomment cmt">Gets conditions.</p><div class="fullcomment"><div class="comment cmt"><p>Gets conditions.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.discovery.v1beta1.Endpoint#getHints" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="getHints:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.model.discovery.v1beta1.EndpointHints]"></a><a id="getHints:IO[K8sFailure,EndpointHints]"></a>
+      <span class="permalink">
+      <a href="../../../../../../../com/coralogix/zio/k8s/model/discovery/v1beta1/Endpoint.html#getHints:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.model.discovery.v1beta1.EndpointHints]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">getHints</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="EndpointHints.html" class="extype" name="com.coralogix.zio.k8s.model.discovery.v1beta1.EndpointHints">EndpointHints</a>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Gets hints.</p><div class="fullcomment"><div class="comment cmt"><p>Gets hints.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+</p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.discovery.v1beta1.Endpoint#getHostname" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getHostname:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]"></a><a id="getHostname:IO[K8sFailure,String]"></a>
       <span class="permalink">
@@ -542,7 +606,10 @@ This field is deprecated and will be removed in future api versions.</p></dd></d
         <span class="name">getHostname</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">hostname of this endpoint.</p><div class="fullcomment"><div class="comment cmt"><p>hostname of this endpoint. This field may be used by consumers of endpoints to distinguish endpoints from each other (e.g. in DNS names). Multiple endpoints which use the same hostname should be considered fungible (e.g. multiple A values in DNS). Must be lowercase and pass DNS Label (RFC 1123) validation.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">hostname of this endpoint.</p><div class="fullcomment"><div class="comment cmt"><p>hostname of this endpoint. This field may be used by consumers of endpoints to distinguish
+endpoints from each other (e.g. in DNS names). Multiple endpoints which use the same hostname
+should be considered fungible (e.g. multiple A values in DNS). Must be lowercase and pass DNS
+Label (RFC 1123) validation.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.discovery.v1beta1.Endpoint#getNodeName" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getNodeName:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]"></a><a id="getNodeName:IO[K8sFailure,String]"></a>
@@ -559,7 +626,9 @@ This field is deprecated and will be removed in future api versions.</p></dd></d
         <span class="name">getNodeName</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">nodeName represents the name of the Node hosting this endpoint.</p><div class="fullcomment"><div class="comment cmt"><p>nodeName represents the name of the Node hosting this endpoint. This can be used to determine endpoints local to a Node. This field can be enabled with the EndpointSliceNodeName feature gate.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">nodeName represents the name of the Node hosting this endpoint.</p><div class="fullcomment"><div class="comment cmt"><p>nodeName represents the name of the Node hosting this endpoint. This can be used to determine
+endpoints local to a Node. This field can be enabled with the EndpointSliceNodeName feature
+gate.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.discovery.v1beta1.Endpoint#getTargetRef" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getTargetRef:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.model.core.v1.ObjectReference]"></a><a id="getTargetRef:IO[K8sFailure,ObjectReference]"></a>
@@ -593,15 +662,33 @@ This field is deprecated and will be removed in future api versions.</p></dd></d
         <span class="name">getTopology</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.Predef.String">String</span>]]</span>
       </span>
       
-      <p class="shortcomment cmt">topology contains arbitrary topology information associated with the endpoint.</p><div class="fullcomment"><div class="comment cmt"><p>topology contains arbitrary topology information associated with the endpoint. These key/value pairs must conform with the label format. https://kubernetes.io/docs/concepts/overview/working-with-objects/labels Topology may include a maximum of 16 key/value pairs. This includes, but is not limited to the following well known keys: * kubernetes.io/hostname: the value indicates the hostname of the node
- where the endpoint is located. This should match the corresponding
- node label.
-topology.kubernetes.io/zone: the value indicates the zone where the
- endpoint is located. This should match the corresponding node label.
-topology.kubernetes.io/region: the value indicates the region where the
- endpoint is located. This should match the corresponding node label.
-This field is deprecated and will be removed in future api versions.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">topology contains arbitrary topology information associated with the endpoint.</p><div class="fullcomment"><div class="comment cmt"><p>topology contains arbitrary topology information associated with the endpoint. These key/value
+pairs must conform with the label format.
+https://kubernetes.io/docs/concepts/overview/working-with-objects/labels Topology may include
+a maximum of 16 key/value pairs. This includes, but is not limited to the following well known
+keys: * kubernetes.io/hostname: the value indicates the hostname of the node where the
+endpoint is located. This should match the corresponding node label.
+topology.kubernetes.io/zone: the value indicates the zone where the endpoint is located. This
+should match the corresponding node label. topology.kubernetes.io/region: the value indicates
+the region where the endpoint is located. This should match the corresponding node label. This
+field is deprecated and will be removed in future api versions.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.discovery.v1beta1.Endpoint#hints" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="hints:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.discovery.v1beta1.EndpointHints]"></a><a id="hints:Optional[EndpointHints]"></a>
+      <span class="permalink">
+      <a href="../../../../../../../com/coralogix/zio/k8s/model/discovery/v1beta1/Endpoint.html#hints:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.discovery.v1beta1.EndpointHints]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">hints</span><span class="result">: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="EndpointHints.html" class="extype" name="com.coralogix.zio.k8s.model.discovery.v1beta1.EndpointHints">EndpointHints</a>]</span>
+      </span>
+      
+      
     </li><li name="com.coralogix.zio.k8s.model.discovery.v1beta1.Endpoint#hostname" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="hostname:com.coralogix.zio.k8s.client.model.Optional[String]"></a><a id="hostname:Optional[String]"></a>
       <span class="permalink">

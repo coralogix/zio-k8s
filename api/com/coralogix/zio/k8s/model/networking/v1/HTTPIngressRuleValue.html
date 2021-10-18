@@ -226,6 +226,14 @@
                         <a class="class" href="IngressClassFields.html" title=""></a>
                         <a href="IngressClassFields.html" title="">IngressClassFields</a>
                       </li><li class="current-entities indented7">
+                        <a class="object" href="IngressClassParametersReference$.html" title=""></a>
+                        <a class="class" href="IngressClassParametersReference.html" title="IngressClassParametersReference identifies an API object."></a>
+                        <a href="IngressClassParametersReference.html" title="IngressClassParametersReference identifies an API object.">IngressClassParametersReference</a>
+                      </li><li class="current-entities indented7">
+                        <span class="separator"></span>
+                        <a class="class" href="IngressClassParametersReferenceFields.html" title=""></a>
+                        <a href="IngressClassParametersReferenceFields.html" title="">IngressClassParametersReferenceFields</a>
+                      </li><li class="current-entities indented7">
                         <a class="object" href="IngressClassSpec$.html" title=""></a>
                         <a class="class" href="IngressClassSpec.html" title="IngressClassSpec provides information about the class of an Ingress."></a>
                         <a href="IngressClassSpec.html" title="IngressClassSpec provides information about the class of an Ingress.">IngressClassSpec</a>
@@ -363,8 +371,12 @@
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>HTTPIngressRuleValue is a list of http selectors pointing to backends. In the example: http://&lt;host&gt;/&lt;path&gt;?&lt;searchpart&gt; -&gt; backend where where parts of the url correspond to RFC 3986, this resource will be used to match against everything after the last '/' and before the first '?' or '#'.
-</p></div><dl class="paramcmts block"><dt class="param">paths</dt><dd class="cmt"><p>A collection of paths that map requests to backends.</p></dd></dl><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>HTTPIngressRuleValue is a list of http selectors pointing to backends. In the example:
+http://&lt;host&gt;/&lt;path&gt;?&lt;searchpart&gt; -&gt; backend where where parts of the url correspond to RFC
+3986, this resource will be used to match against everything after the last '/' and before the
+first '?' or '#'.
+</p></div><dl class="paramcmts block"><dt class="param">paths</dt><dd class="cmt"><p>
+  A collection of paths that map requests to backends.</p></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -429,7 +441,8 @@
         <span class="name">HTTPIngressRuleValue</span><span class="params">(<span name="paths">paths: <span class="extype" name="scala.Vector">Vector</span>[<a href="HTTPIngressPath.html" class="extype" name="com.coralogix.zio.k8s.model.networking.v1.HTTPIngressPath">HTTPIngressPath</a>]</span>)</span>
       </span>
       
-      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">paths</dt><dd class="cmt"><p>A collection of paths that map requests to backends.</p></dd></dl></div>
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">paths</dt><dd class="cmt"><p>
+  A collection of paths that map requests to backends.</p></dd></dl></div>
     </li></ol>
             </div>
 

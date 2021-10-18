@@ -308,11 +308,15 @@
         <a title="Contains data structures, ZIO layers and zio-config descriptors for configuring the zio-k8s client." href="config/index.html"><span class="name">config</span></a>
       </span>
       
-      <p class="shortcomment cmt">Contains data structures, ZIO layers and zio-config descriptors for configuring the zio-k8s client.</p><div class="fullcomment"><div class="comment cmt"><p>Contains data structures, ZIO layers and zio-config descriptors for configuring the zio-k8s client.</p><p>Each zio-k8s client module depends on two ZIO modules: <a href="model/package$$K8sCluster.html" class="extype" name="com.coralogix.zio.k8s.client.model.K8sCluster">com.coralogix.zio.k8s.client.model.K8sCluster</a> and an <a href="https://javadoc.io/page/com.softwaremill.sttp.client3/core_2.12/3.3.13/sttp/client3/SttpBackend.html" class="extype" name="sttp.client3.SttpBackend">sttp.client3.SttpBackend</a>.
-To use the default configuration (use kubeconfig if available, otherwise fallback to service account token),
-use either <code>asynchttpclient.k8sDefault</code> or <code>httpclient.k8sDefault</code> depending on your chosen sttp backend.</p><p>Manual configuration is possible by providing a <a href="config/package$$K8sClusterConfig.html" class="extype" name="com.coralogix.zio.k8s.client.config.K8sClusterConfig">K8sClusterConfig</a> value to both the <a href="config/index.html#k8sCluster:zio.ZLayer[zio.blocking.Blockingwithzio.Has[com.coralogix.zio.k8s.client.config.package.K8sClusterConfig],Throwable,zio.Has[com.coralogix.zio.k8s.client.model.K8sCluster]]" class="extmbr" name="com.coralogix.zio.k8s.client.config#k8sCluster">k8sCluster</a> layer
-and either <code>asynchttpclient.k8sSttpClient</code> or <code>httpclient.k8sSttpClient</code>.</p><p>Instead of manually providing the configuration, zio-config descriptors are available to load them from any
-supported source.
+      <p class="shortcomment cmt">Contains data structures, ZIO layers and zio-config descriptors for configuring the zio-k8s
+client.</p><div class="fullcomment"><div class="comment cmt"><p>Contains data structures, ZIO layers and zio-config descriptors for configuring the zio-k8s
+client.</p><p>Each zio-k8s client module depends on two ZIO modules:
+<a href="model/package$$K8sCluster.html" class="extype" name="com.coralogix.zio.k8s.client.model.K8sCluster">com.coralogix.zio.k8s.client.model.K8sCluster</a> and an <a href="https://javadoc.io/page/com.softwaremill.sttp.client3/core_2.12/3.3.15/sttp/client3/SttpBackend.html" class="extype" name="sttp.client3.SttpBackend">sttp.client3.SttpBackend</a>. To use
+the default configuration (use kubeconfig if available, otherwise fallback to service account
+token), use either <code>asynchttpclient.k8sDefault</code> or <code>httpclient.k8sDefault</code> depending on your
+chosen sttp backend.</p><p>Manual configuration is possible by providing a <a href="config/package$$K8sClusterConfig.html" class="extype" name="com.coralogix.zio.k8s.client.config.K8sClusterConfig">K8sClusterConfig</a> value to both the
+<a href="config/index.html#k8sCluster:zio.ZLayer[zio.blocking.Blockingwithzio.Has[com.coralogix.zio.k8s.client.config.package.K8sClusterConfig],Throwable,zio.Has[com.coralogix.zio.k8s.client.model.K8sCluster]]" class="extmbr" name="com.coralogix.zio.k8s.client.config#k8sCluster">k8sCluster</a> layer and either <code>asynchttpclient.k8sSttpClient</code> or <code>httpclient.k8sSttpClient</code>.</p><p>Instead of manually providing the configuration, zio-config descriptors are available to load
+them from any supported source.
 </p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="com.coralogix.zio.k8s.client">client</a></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.client.coordination" visbl="pub" class="indented6 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="coordination"></a><a id="coordination:coordination"></a>
@@ -359,22 +363,6 @@ supported source.
       </span>
       <span class="symbol">
         <a title="" href="events/index.html"><span class="name">events</span></a>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="com.coralogix.zio.k8s.client">client</a></dd></dl></div>
-    </li><li name="com.coralogix.zio.k8s.client.extensions" visbl="pub" class="indented6 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="extensions"></a><a id="extensions:extensions"></a>
-      <span class="permalink">
-      <a href="../../../../../com/coralogix/zio/k8s/client/extensions/index.html" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">package</span>
-      </span>
-      <span class="symbol">
-        <a title="" href="extensions/index.html"><span class="name">extensions</span></a>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="com.coralogix.zio.k8s.client">client</a></dd></dl></div>
@@ -683,7 +671,8 @@ supported source.
 
       
           <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Extra capability for <a href="Resource.html" class="extype" name="com.coralogix.zio.k8s.client.Resource">Resource</a> interfaces providing deleteAll</p><p>It is separated because it is not supported by all resources.
-</p></div><dl class="paramcmts block"><dt class="tparam">T</dt><dd class="cmt"><p>Resource type</p></dd></dl><div class="toggleContainer block">
+</p></div><dl class="paramcmts block"><dt class="tparam">T</dt><dd class="cmt"><p>
+  Resource type</p></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -759,7 +748,24 @@ supported source.
       
       <p class="shortcomment cmt">Delete all resources matching the provided constraints
 </p><div class="fullcomment"><div class="comment cmt"><p>Delete all resources matching the provided constraints
-</p></div><dl class="paramcmts block"><dt class="param">deleteOptions</dt><dd class="cmt"><p>Delete options</p></dd><dt class="param">namespace</dt><dd class="cmt"><p>Namespace. For namespaced resources it must be Some. For cluster resources, it must be None.</p></dd><dt class="param">dryRun</dt><dd class="cmt"><p>If true, the request is sent to the server but it will not create the resource.</p></dd><dt class="param">gracePeriod</dt><dd class="cmt"><p>The duration in seconds before the object should be deleted. Value must be non-negative integer. The value zero indicates delete immediately. If this value is nil, the default grace period for the specified type will be used. Defaults to a per object value if not specified. zero means delete immediately.</p></dd><dt class="param">propagationPolicy</dt><dd class="cmt"><p>Whether and how garbage collection will be performed. Either this field or OrphanDependents may be set, but not both. The default policy is decided by the existing finalizer set in the metadata.finalizers and the resource-specific default policy. Acceptable values are: 'Orphan' - orphan the dependents; 'Background' - allow the garbage collector to delete the dependents in the background; 'Foreground' - a cascading policy that deletes all dependents in the foreground.</p></dd><dt class="param">fieldSelector</dt><dd class="cmt"><p>Select the items to be deleted by field selectors. Not all fields are supported by the server.</p></dd><dt class="param">labelSelector</dt><dd class="cmt"><p>Select the items to be deleted by label selectors.</p></dd><dt>returns</dt><dd class="cmt"><p>Status returned by the Kubernetes API</p></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="param">deleteOptions</dt><dd class="cmt"><p>
+  Delete options</p></dd><dt class="param">namespace</dt><dd class="cmt"><p>
+  Namespace. For namespaced resources it must be Some. For cluster resources, it must be None.</p></dd><dt class="param">dryRun</dt><dd class="cmt"><p>
+  If true, the request is sent to the server but it will not create the resource.</p></dd><dt class="param">gracePeriod</dt><dd class="cmt"><p>
+  The duration in seconds before the object should be deleted. Value must be non-negative
+  integer. The value zero indicates delete immediately. If this value is nil, the default
+  grace period for the specified type will be used. Defaults to a per object value if not
+  specified. zero means delete immediately.</p></dd><dt class="param">propagationPolicy</dt><dd class="cmt"><p>
+  Whether and how garbage collection will be performed. Either this field or OrphanDependents
+  may be set, but not both. The default policy is decided by the existing finalizer set in the
+  metadata.finalizers and the resource-specific default policy. Acceptable values are:
+  'Orphan' - orphan the dependents; 'Background' - allow the garbage collector to delete the
+  dependents in the background; 'Foreground' - a cascading policy that deletes all dependents
+  in the foreground.</p></dd><dt class="param">fieldSelector</dt><dd class="cmt"><p>
+  Select the items to be deleted by field selectors. Not all fields are supported by the
+  server.</p></dd><dt class="param">labelSelector</dt><dd class="cmt"><p>
+  Select the items to be deleted by label selectors.</p></dd><dt>returns</dt><dd class="cmt"><p>
+  Status returned by the Kubernetes API</p></dd></dl></div>
     </li></ol>
             </div>
 

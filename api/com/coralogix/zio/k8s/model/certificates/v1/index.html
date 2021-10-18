@@ -213,23 +213,7 @@
                         <span class="separator"></span>
                         <a class="class" href="CertificateSigningRequestStatusFields.html" title=""></a>
                         <a href="CertificateSigningRequestStatusFields.html" title="">CertificateSigningRequestStatusFields</a>
-                      </li><li name="com.coralogix.zio.k8s.model.certificates.v1beta1" visbl="pub" class="indented7 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="v1beta1"></a><a id="v1beta1:v1beta1"></a>
-      <span class="permalink">
-      <a href="../../../../../../../com/coralogix/zio/k8s/model/certificates/v1beta1/index.html" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">package</span>
-      </span>
-      <span class="symbol">
-        <a title="" href="../v1beta1/index.html"><span class="name">v1beta1</span></a>
-      </span>
-      
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="com.coralogix.zio.k8s.model.certificates">certificates</a></dd></dl></div>
-    </li>
+                      </li>
               </ul>
             </div>
           </div>
@@ -307,9 +291,15 @@
         <a title="CertificateSigningRequest objects provide a mechanism to obtain x509 certificates by submitting a certificate signing request, and having it asynchronously approved and issued." href="CertificateSigningRequest.html"><span class="name">CertificateSigningRequest</span></a><span class="params">(<span name="metadata">metadata: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="../../pkg/apis/meta/v1/ObjectMeta.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.ObjectMeta">ObjectMeta</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="spec">spec: <a href="CertificateSigningRequestSpec.html" class="extype" name="com.coralogix.zio.k8s.model.certificates.v1.CertificateSigningRequestSpec">CertificateSigningRequestSpec</a></span>, <span name="status">status: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="CertificateSigningRequestStatus.html" class="extype" name="com.coralogix.zio.k8s.model.certificates.v1.CertificateSigningRequestStatus">CertificateSigningRequestStatus</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
-      <p class="shortcomment cmt">CertificateSigningRequest objects provide a mechanism to obtain x509 certificates by submitting a certificate signing request, and having it asynchronously approved and issued.</p><div class="fullcomment"><div class="comment cmt"><p>CertificateSigningRequest objects provide a mechanism to obtain x509 certificates by submitting a certificate signing request, and having it asynchronously approved and issued.</p><p>Kubelets use this API to obtain:
-1. client certificates to authenticate to kube-apiserver (with the &quot;kubernetes.io/kube-apiserver-client-kubelet&quot; signerName).
-2. serving certificates for TLS endpoints kube-apiserver can connect to securely (with the &quot;kubernetes.io/kubelet-serving&quot; signerName).</p><p>This API can be used to request client certificates to authenticate to kube-apiserver (with the &quot;kubernetes.io/kube-apiserver-client&quot; signerName), or to obtain certificates from custom non-Kubernetes signers.
+      <p class="shortcomment cmt">CertificateSigningRequest objects provide a mechanism to obtain x509 certificates by submitting
+a certificate signing request, and having it asynchronously approved and issued.</p><div class="fullcomment"><div class="comment cmt"><p>CertificateSigningRequest objects provide a mechanism to obtain x509 certificates by submitting
+a certificate signing request, and having it asynchronously approved and issued.</p><p>Kubelets use this API to obtain:
+1. client certificates to authenticate to kube-apiserver (with the
+&quot;kubernetes.io/kube-apiserver-client-kubelet&quot; signerName). 2. serving certificates for TLS
+endpoints kube-apiserver can connect to securely (with the &quot;kubernetes.io/kubelet-serving&quot;
+signerName).</p><p>This API can be used to request client certificates to authenticate to kube-apiserver (with the
+&quot;kubernetes.io/kube-apiserver-client&quot; signerName), or to obtain certificates from custom
+non-Kubernetes signers.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.certificates.v1.CertificateSigningRequestCondition" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="CertificateSigningRequestConditionextendsProductwithSerializable"></a><a id="CertificateSigningRequestCondition:CertificateSigningRequestCondition"></a>
@@ -328,11 +318,20 @@
       
       <p class="shortcomment cmt">CertificateSigningRequestCondition describes a condition of a CertificateSigningRequest object
 </p><div class="fullcomment"><div class="comment cmt"><p>CertificateSigningRequestCondition describes a condition of a CertificateSigningRequest object
-</p></div><dl class="paramcmts block"><dt class="param">message</dt><dd class="cmt"><p>message contains a human readable message with details about the request state</p></dd><dt class="param">reason</dt><dd class="cmt"><p>reason indicates a brief reason for the request state</p></dd><dt class="param">status</dt><dd class="cmt"><p>status of the condition, one of True, False, Unknown. Approved, Denied, and Failed conditions may not be &quot;False&quot; or &quot;Unknown&quot;.</p></dd><dt class="param">type</dt><dd class="cmt"><p>type of the condition. Known conditions are &quot;Approved&quot;, &quot;Denied&quot;, and &quot;Failed&quot;.
-An &quot;Approved&quot; condition is added via the /approval subresource, indicating the request was approved and should be issued by the signer.
-A &quot;Denied&quot; condition is added via the /approval subresource, indicating the request was denied and should not be issued by the signer.
-A &quot;Failed&quot; condition is added via the /status subresource, indicating the signer failed to issue the certificate.
-Approved and Denied conditions are mutually exclusive. Approved, Denied, and Failed conditions cannot be removed once added.
+</p></div><dl class="paramcmts block"><dt class="param">message</dt><dd class="cmt"><p>
+  message contains a human readable message with details about the request state</p></dd><dt class="param">reason</dt><dd class="cmt"><p>
+  reason indicates a brief reason for the request state</p></dd><dt class="param">status</dt><dd class="cmt"><p>
+  status of the condition, one of True, False, Unknown. Approved, Denied, and Failed conditions
+  may not be &quot;False&quot; or &quot;Unknown&quot;.</p></dd><dt class="param">type</dt><dd class="cmt"><p>
+  type of the condition. Known conditions are &quot;Approved&quot;, &quot;Denied&quot;, and &quot;Failed&quot;.
+An &quot;Approved&quot; condition is added via the /approval subresource, indicating the request was
+approved and should be issued by the signer.
+A &quot;Denied&quot; condition is added via the /approval subresource, indicating the request was denied
+and should not be issued by the signer.
+A &quot;Failed&quot; condition is added via the /status subresource, indicating the signer failed to issue
+the certificate.
+Approved and Denied conditions are mutually exclusive. Approved, Denied, and Failed conditions
+cannot be removed once added.
 Only one condition of a given type is allowed.</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.certificates.v1.CertificateSigningRequestConditionFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="CertificateSigningRequestConditionFieldsextendsAnyRef"></a><a id="CertificateSigningRequestConditionFields:CertificateSigningRequestConditionFields"></a>
@@ -378,37 +377,69 @@ Only one condition of a given type is allowed.</p></dd></dl></div>
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a title="CertificateSigningRequestSpec contains the certificate request." href="CertificateSigningRequestSpec.html"><span class="name">CertificateSigningRequestSpec</span></a><span class="params">(<span name="extra">extra: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="groups">groups: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="request">request: <a href="https://javadoc.io/page/dev.zio/zio_2.12/1.0.10/zio/Chunk.html#zio.Chunk" class="extype" name="zio.Chunk">Chunk</a>[<span class="extype" name="scala.Byte">Byte</span>]</span>, <span name="signerName">signerName: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="uid">uid: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="usages">usages: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="username">username: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a title="CertificateSigningRequestSpec contains the certificate request." href="CertificateSigningRequestSpec.html"><span class="name">CertificateSigningRequestSpec</span></a><span class="params">(<span name="expirationSeconds">expirationSeconds: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="extra">extra: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="groups">groups: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="request">request: <a href="https://javadoc.io/page/dev.zio/zio_2.12/1.0.12/zio/Chunk.html#zio.Chunk" class="extype" name="zio.Chunk">Chunk</a>[<span class="extype" name="scala.Byte">Byte</span>]</span>, <span name="signerName">signerName: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="uid">uid: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="usages">usages: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="username">username: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       <p class="shortcomment cmt">CertificateSigningRequestSpec contains the certificate request.</p><div class="fullcomment"><div class="comment cmt"><p>CertificateSigningRequestSpec contains the certificate request.
-</p></div><dl class="paramcmts block"><dt class="param">extra</dt><dd class="cmt"><p>extra contains extra attributes of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.</p></dd><dt class="param">groups</dt><dd class="cmt"><p>groups contains group membership of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.</p></dd><dt class="param">request</dt><dd class="cmt"><p>request contains an x509 certificate signing request encoded in a &quot;CERTIFICATE REQUEST&quot; PEM block. When serialized as JSON or YAML, the data is additionally base64-encoded.</p></dd><dt class="param">signerName</dt><dd class="cmt"><p>signerName indicates the requested signer, and is a qualified name.
-List/watch requests for CertificateSigningRequests can filter on this field using a &quot;spec.signerName=NAME&quot; fieldSelector.
+</p></div><dl class="paramcmts block"><dt class="param">expirationSeconds</dt><dd class="cmt"><p>
+  expirationSeconds is the requested duration of validity of the issued certificate. The
+  certificate signer may issue a certificate with a different validity duration so a client must
+  check the delta between the notBefore and and notAfter fields in the issued certificate to
+  determine the actual duration.
+The v1.22+ in-tree implementations of the well-known Kubernetes signers will honor this field as
+long as the requested duration is not greater than the maximum duration they will honor per the
+--cluster-signing-duration CLI flag to the Kubernetes controller manager.
+Certificate signers may not honor this field for various reasons:
+1. Old signer that is unaware of the field (such as the in-tree implementations prior to v1.22)
+2. Signer whose configured maximum is shorter than the requested duration 3. Signer whose
+configured minimum is longer than the requested duration
+The minimum valid value for expirationSeconds is 600, i.e. 10 minutes.
+As of v1.22, this field is beta and is controlled via the CSRDuration feature gate.</p></dd><dt class="param">extra</dt><dd class="cmt"><p>
+  extra contains extra attributes of the user that created the CertificateSigningRequest.
+  Populated by the API server on creation and immutable.</p></dd><dt class="param">groups</dt><dd class="cmt"><p>
+  groups contains group membership of the user that created the CertificateSigningRequest.
+  Populated by the API server on creation and immutable.</p></dd><dt class="param">request</dt><dd class="cmt"><p>
+  request contains an x509 certificate signing request encoded in a &quot;CERTIFICATE REQUEST&quot; PEM
+  block. When serialized as JSON or YAML, the data is additionally base64-encoded.</p></dd><dt class="param">signerName</dt><dd class="cmt"><p>
+  signerName indicates the requested signer, and is a qualified name.
+List/watch requests for CertificateSigningRequests can filter on this field using a
+&quot;spec.signerName=NAME&quot; fieldSelector.
 Well-known Kubernetes signers are:
-1. &quot;kubernetes.io/kube-apiserver-client&quot;: issues client certificates that can be used to authenticate to kube-apiserver.
- Requests for this signer are never auto-approved by kube-controller-manager, can be issued by the &quot;csrsigning&quot; controller in kube-controller-manager.
-2. &quot;kubernetes.io/kube-apiserver-client-kubelet&quot;: issues client certificates that kubelets use to authenticate to kube-apiserver.
- Requests for this signer can be auto-approved by the &quot;csrapproving&quot; controller in kube-controller-manager, and can be issued by the &quot;csrsigning&quot; controller in kube-controller-manager.
-3. &quot;kubernetes.io/kubelet-serving&quot; issues serving certificates that kubelets use to serve TLS endpoints, which kube-apiserver can connect to securely.
- Requests for this signer are never auto-approved by kube-controller-manager, and can be issued by the &quot;csrsigning&quot; controller in kube-controller-manager.
-More details are available at https://k8s.io/docs/reference/access-authn-authz/certificate-signing-requests/#kubernetes-signers
+1. &quot;kubernetes.io/kube-apiserver-client&quot;: issues client certificates that can be used to
+authenticate to kube-apiserver. Requests for this signer are never auto-approved by
+kube-controller-manager, can be issued by the &quot;csrsigning&quot; controller in
+kube-controller-manager. 2. &quot;kubernetes.io/kube-apiserver-client-kubelet&quot;: issues client
+certificates that kubelets use to authenticate to kube-apiserver. Requests for this signer can
+be auto-approved by the &quot;csrapproving&quot; controller in kube-controller-manager, and can be issued
+by the &quot;csrsigning&quot; controller in kube-controller-manager. 3. &quot;kubernetes.io/kubelet-serving&quot;
+issues serving certificates that kubelets use to serve TLS endpoints, which kube-apiserver can
+connect to securely. Requests for this signer are never auto-approved by
+kube-controller-manager, and can be issued by the &quot;csrsigning&quot; controller in
+kube-controller-manager.
+More details are available at
+https://k8s.io/docs/reference/access-authn-authz/certificate-signing-requests/#kubernetes-signers
 Custom signerNames can also be specified. The signer defines:
-1. Trust distribution: how trust (CA bundles) are distributed.
-2. Permitted subjects: and behavior when a disallowed subject is requested.
-3. Required, permitted, or forbidden x509 extensions in the request (including whether subjectAltNames are allowed, which types, restrictions on allowed values) and behavior when a disallowed extension is requested.
-4. Required, permitted, or forbidden key usages / extended key usages.
-5. Expiration/certificate lifetime: whether it is fixed by the signer, configurable by the admin.
-6. Whether or not requests for CA certificates are allowed.</p></dd><dt class="param">uid</dt><dd class="cmt"><p>uid contains the uid of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.</p></dd><dt class="param">usages</dt><dd class="cmt"><p>usages specifies a set of key usages requested in the issued certificate.
-Requests for TLS client certificates typically request: &quot;digital signature&quot;, &quot;key encipherment&quot;, &quot;client auth&quot;.
-Requests for TLS serving certificates typically request: &quot;key encipherment&quot;, &quot;digital signature&quot;, &quot;server auth&quot;.
-Valid values are:
-&quot;signing&quot;, &quot;digital signature&quot;, &quot;content commitment&quot;,
-&quot;key encipherment&quot;, &quot;key agreement&quot;, &quot;data encipherment&quot;,
-&quot;cert sign&quot;, &quot;crl sign&quot;, &quot;encipher only&quot;, &quot;decipher only&quot;, &quot;any&quot;,
-&quot;server auth&quot;, &quot;client auth&quot;,
-&quot;code signing&quot;, &quot;email protection&quot;, &quot;s/mime&quot;,
-&quot;ipsec end system&quot;, &quot;ipsec tunnel&quot;, &quot;ipsec user&quot;,
-&quot;timestamping&quot;, &quot;ocsp signing&quot;, &quot;microsoft sgc&quot;, &quot;netscape sgc&quot;</p></dd><dt class="param">username</dt><dd class="cmt"><p>username contains the name of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.</p></dd></dl></div>
+1. Trust distribution: how trust (CA bundles) are distributed. 2. Permitted subjects: and
+behavior when a disallowed subject is requested. 3. Required, permitted, or forbidden x509
+extensions in the request (including whether subjectAltNames are allowed, which types,
+restrictions on allowed values) and behavior when a disallowed extension is requested. 4.
+Required, permitted, or forbidden key usages / extended key usages. 5. Expiration/certificate
+lifetime: whether it is fixed by the signer, configurable by the admin. 6. Whether or not
+requests for CA certificates are allowed.</p></dd><dt class="param">uid</dt><dd class="cmt"><p>
+  uid contains the uid of the user that created the CertificateSigningRequest. Populated by the
+  API server on creation and immutable.</p></dd><dt class="param">usages</dt><dd class="cmt"><p>
+  usages specifies a set of key usages requested in the issued certificate.
+Requests for TLS client certificates typically request: &quot;digital signature&quot;, &quot;key encipherment&quot;,
+&quot;client auth&quot;.
+Requests for TLS serving certificates typically request: &quot;key encipherment&quot;, &quot;digital
+signature&quot;, &quot;server auth&quot;.
+Valid values are: &quot;signing&quot;, &quot;digital signature&quot;, &quot;content commitment&quot;, &quot;key encipherment&quot;, &quot;key
+agreement&quot;, &quot;data encipherment&quot;, &quot;cert sign&quot;, &quot;crl sign&quot;, &quot;encipher only&quot;, &quot;decipher only&quot;,
+&quot;any&quot;, &quot;server auth&quot;, &quot;client auth&quot;, &quot;code signing&quot;, &quot;email protection&quot;, &quot;s/mime&quot;, &quot;ipsec end
+system&quot;, &quot;ipsec tunnel&quot;, &quot;ipsec user&quot;, &quot;timestamping&quot;, &quot;ocsp signing&quot;, &quot;microsoft sgc&quot;,
+&quot;netscape sgc&quot;</p></dd><dt class="param">username</dt><dd class="cmt"><p>
+  username contains the name of the user that created the CertificateSigningRequest. Populated
+  by the API server on creation and immutable.</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.certificates.v1.CertificateSigningRequestSpecFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="CertificateSigningRequestSpecFieldsextendsAnyRef"></a><a id="CertificateSigningRequestSpecFields:CertificateSigningRequestSpecFields"></a>
       <span class="permalink">
@@ -437,26 +468,34 @@ Valid values are:
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a title="CertificateSigningRequestStatus contains conditions used to indicate approved/denied/failed status of the request, and the issued certificate." href="CertificateSigningRequestStatus.html"><span class="name">CertificateSigningRequestStatus</span></a><span class="params">(<span name="certificate">certificate: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="https://javadoc.io/page/dev.zio/zio_2.12/1.0.10/zio/Chunk.html#zio.Chunk" class="extype" name="zio.Chunk">Chunk</a>[<span class="extype" name="scala.Byte">Byte</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="conditions">conditions: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="CertificateSigningRequestCondition.html" class="extype" name="com.coralogix.zio.k8s.model.certificates.v1.CertificateSigningRequestCondition">CertificateSigningRequestCondition</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a title="CertificateSigningRequestStatus contains conditions used to indicate approved/denied/failed status of the request, and the issued certificate." href="CertificateSigningRequestStatus.html"><span class="name">CertificateSigningRequestStatus</span></a><span class="params">(<span name="certificate">certificate: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="https://javadoc.io/page/dev.zio/zio_2.12/1.0.12/zio/Chunk.html#zio.Chunk" class="extype" name="zio.Chunk">Chunk</a>[<span class="extype" name="scala.Byte">Byte</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="conditions">conditions: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="CertificateSigningRequestCondition.html" class="extype" name="com.coralogix.zio.k8s.model.certificates.v1.CertificateSigningRequestCondition">CertificateSigningRequestCondition</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
-      <p class="shortcomment cmt">CertificateSigningRequestStatus contains conditions used to indicate approved/denied/failed status of the request, and the issued certificate.</p><div class="fullcomment"><div class="comment cmt"><p>CertificateSigningRequestStatus contains conditions used to indicate approved/denied/failed status of the request, and the issued certificate.
-</p></div><dl class="paramcmts block"><dt class="param">certificate</dt><dd class="cmt"><p>certificate is populated with an issued certificate by the signer after an Approved condition is present. This field is set via the /status subresource. Once populated, this field is immutable.
-If the certificate signing request is denied, a condition of type &quot;Denied&quot; is added and this field remains empty. If the signer cannot issue the certificate, a condition of type &quot;Failed&quot; is added and this field remains empty.
+      <p class="shortcomment cmt">CertificateSigningRequestStatus contains conditions used to indicate approved/denied/failed
+status of the request, and the issued certificate.</p><div class="fullcomment"><div class="comment cmt"><p>CertificateSigningRequestStatus contains conditions used to indicate approved/denied/failed
+status of the request, and the issued certificate.
+</p></div><dl class="paramcmts block"><dt class="param">certificate</dt><dd class="cmt"><p>
+  certificate is populated with an issued certificate by the signer after an Approved condition
+  is present. This field is set via the /status subresource. Once populated, this field is
+  immutable.
+If the certificate signing request is denied, a condition of type &quot;Denied&quot; is added and this
+field remains empty. If the signer cannot issue the certificate, a condition of type &quot;Failed&quot; is
+added and this field remains empty.
 Validation requirements:
-1. certificate must contain one or more PEM blocks.
-2. All PEM blocks must have the &quot;CERTIFICATE&quot; label, contain no headers, and the encoded data
- must be a BER-encoded ASN.1 Certificate structure as described in section 4 of RFC5280.
-3. Non-PEM content may appear before or after the &quot;CERTIFICATE&quot; PEM blocks and is unvalidated,
- to allow for explanatory text as described in section 5.2 of RFC7468.
-If more than one PEM block is present, and the definition of the requested spec.signerName does not indicate otherwise, the first block is the issued certificate, and subsequent blocks should be treated as intermediate certificates and presented in TLS handshakes.
+1. certificate must contain one or more PEM blocks. 2. All PEM blocks must have the
+&quot;CERTIFICATE&quot; label, contain no headers, and the encoded data must be a BER-encoded ASN.1
+Certificate structure as described in section 4 of RFC5280. 3. Non-PEM content may appear before
+or after the &quot;CERTIFICATE&quot; PEM blocks and is unvalidated, to allow for explanatory text as
+described in section 5.2 of RFC7468.
+If more than one PEM block is present, and the definition of the requested spec.signerName does
+not indicate otherwise, the first block is the issued certificate, and subsequent blocks should
+be treated as intermediate certificates and presented in TLS handshakes.
 The certificate is encoded in PEM format.
 When serialized as JSON or YAML, the data is additionally base64-encoded, so it consists of:
-   base64(
-   -----BEGIN CERTIFICATE-----
-   ...
-   -----END CERTIFICATE-----
-   )</p></dd><dt class="param">conditions</dt><dd class="cmt"><p>conditions applied to the request. Known conditions are &quot;Approved&quot;, &quot;Denied&quot;, and &quot;Failed&quot;.</p></dd></dl></div>
+base64(
+-----BEGIN CERTIFICATE----- ...
+-----END CERTIFICATE----- )</p></dd><dt class="param">conditions</dt><dd class="cmt"><p>
+  conditions applied to the request. Known conditions are &quot;Approved&quot;, &quot;Denied&quot;, and &quot;Failed&quot;.</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.certificates.v1.CertificateSigningRequestStatusFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="CertificateSigningRequestStatusFieldsextendsAnyRef"></a><a id="CertificateSigningRequestStatusFields:CertificateSigningRequestStatusFields"></a>
       <span class="permalink">
