@@ -264,6 +264,8 @@ trait UnifiedClientModuleGenerator {
     )
     val entityT = Type.Select(dtoPackage, Type.Name(entity))
     val statusT = statusEntity.map(s => s.parse[Type].get).getOrElse(t"Nothing")
+    val deleteResultT = t"com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Status" // TODO
+    val deleteResultTerm = q"com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Status" // TODO
 
     val obj = Term.Select(pkg, Term.Name(resource.pluralEntityName))
     val serviceT = Type.Select(obj, Type.Name("Service"))
@@ -275,6 +277,8 @@ trait UnifiedClientModuleGenerator {
         resource.subresources.map(_.id),
         entityT,
         statusT,
+        deleteResultT,
+        deleteResultTerm,
         fullyQualifiedSubresourceModels = true
       )
 
@@ -299,6 +303,7 @@ trait UnifiedClientModuleGenerator {
           resource.subresources.map(_.id),
           entityT,
           statusT,
+          deleteResultT,
           fullyQualifiedSubresourceModels = true
         )
 
