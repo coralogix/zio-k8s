@@ -3,9 +3,9 @@ package com.coralogix.zio.k8s.operator.leader.locks
 import com.coralogix.zio.k8s.client.K8sFailure.syntax.K8sZIOSyntax
 import com.coralogix.zio.k8s.client.model.K8sObject._
 import com.coralogix.zio.k8s.client.model.{ K8sNamespace, K8sObject }
-import com.coralogix.zio.k8s.client.{ DecodedFailure, K8sFailure, Resource }
+import com.coralogix.zio.k8s.client.{ DecodedFailure, K8sFailure, Resource, ResourceDelete }
 import com.coralogix.zio.k8s.model.core.v1.Pod
-import com.coralogix.zio.k8s.model.pkg.apis.meta.v1.DeleteOptions
+import com.coralogix.zio.k8s.model.pkg.apis.meta.v1.{ DeleteOptions, Status }
 import com.coralogix.zio.k8s.operator.OperatorFailure.k8sFailureToThrowable
 import com.coralogix.zio.k8s.operator.OperatorLogging.logFailure
 import com.coralogix.zio.k8s.operator.leader.{ KubernetesError, LeaderElectionFailure, LeaderLock }
@@ -19,8 +19,11 @@ abstract class LeaderForLifeLock[T: K8sObject](
   deleteOnRelease: Boolean = true
 ) extends LeaderLock {
 
-  /** Resource client to get/create/delete lock resources */
+  /** Resource client to get/create lock resources */
   protected def client: Resource[T]
+
+  /** Resource client to delete lock resources */
+  protected def clientDelete: ResourceDelete[T, Status]
 
   /** Creates a lock resource.
     *
@@ -113,7 +116,7 @@ abstract class LeaderForLifeLock[T: K8sObject](
     log.locally(LogAnnotation.Name("Leader" :: Nil)) {
       if (deleteOnRelease) {
         log.info(s"Releasing lock '$lockName' in namespace '${namespace.value}'") *>
-          client
+          clientDelete
             .delete(lockName, DeleteOptions(), Some(namespace))
             .unit
             .catchAll { (failure: K8sFailure) =>
