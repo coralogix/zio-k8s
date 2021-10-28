@@ -1,10 +1,10 @@
 val scala212Version = "2.12.15"
 val scala213Version = "2.13.6"
-val scala3Version = "3.0.2"
+val scala3Version = "3.1.0"
 
 val zioVersion = "1.0.12"
-val zioConfigVersion = "1.0.10"
-val sttpVersion = "3.3.15"
+val zioConfigVersion = "1.0.6"
+val sttpVersion = "3.3.16"
 
 inThisBuild(
   List(
@@ -52,6 +52,7 @@ lazy val client = Project("zio-k8s-client", file("zio-k8s-client"))
       "dev.zio"                       %% "zio-config"                    % zioConfigVersion,
       "dev.zio"                       %% "zio-logging"                   % "0.5.11",
       "dev.zio"                       %% "zio-nio"                       % "1.0.0-RC11",
+      "dev.zio"                       %% "zio-process"                   % "0.5.0" exclude ("org.scala-lang.modules", "scala-collection-compat_3"),
       "com.softwaremill.sttp.client3" %% "core"                          % sttpVersion,
       "com.softwaremill.sttp.client3" %% "zio"                           % sttpVersion,
       "com.softwaremill.sttp.client3" %% "circe"                         % sttpVersion,
@@ -89,7 +90,7 @@ lazy val clientQuicklens = Project("zio-k8s-client-quicklens", file("zio-k8s-cli
   .settings(commonSettings)
   .settings(
     libraryDependencies ++= Seq(
-      "com.softwaremill.quicklens" %% "quicklens"    % "1.7.4",
+      "com.softwaremill.quicklens" %% "quicklens"    % "1.7.5",
       "dev.zio"                    %% "zio-test"     % zioVersion % Test,
       "dev.zio"                    %% "zio-test-sbt" % zioVersion % Test
     ),

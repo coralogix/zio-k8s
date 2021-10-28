@@ -1,15 +1,20 @@
 package com.coralogix.zio.k8s.client
 
 import com.coralogix.zio.k8s.client.model.K8sCluster
+import io.circe.Decoder
+import io.circe.generic.semiauto.deriveDecoder
+import io.circe.parser
 import sttp.client3.UriContext
 import sttp.model.Uri
 import zio.blocking.Blocking
 import zio.config._
 import zio.nio.core.file.Path
+import zio.process.Command
 import zio.system.System
-import zio.{ system, Has, Task, ZIO, ZLayer, ZManaged }
+import zio.{ system, Has, RIO, Task, ZIO, ZLayer, ZManaged }
+import cats.implicits._
 
-import java.io.{ ByteArrayInputStream, FileInputStream, InputStream }
+import java.io.{ ByteArrayInputStream, File, FileInputStream, InputStream }
 import java.nio.charset.StandardCharsets
 import java.util.Base64
 
@@ -348,7 +353,7 @@ package object config extends Descriptors {
       host            <- ZIO
                            .fromEither(Uri.parse(cluster.server))
                            .mapError(s => new RuntimeException(s"Failed to parse host URL: $s"))
-      authentication  <- userInfoToAuthentication(user)
+      authentication  <- userInfoToAuthentication(user, configPath)
       serverCert      <-
         ZIO
           .fromEither(
@@ -363,30 +368,141 @@ package object config extends Descriptors {
       client
     )
 
-  private def userInfoToAuthentication(user: KubeconfigUserInfo): Task[K8sAuthentication] =
-    (user.token, user.username) match {
-      case (Some(token), None)    =>
-        ZIO.succeed(K8sAuthentication.ServiceAccountToken(KeySource.FromString(token)))
-      case (None, Some(username)) =>
-        user.password match {
-          case Some(password) =>
-            ZIO.succeed(K8sAuthentication.BasicAuth(username, password))
-          case None           =>
-            ZIO.fail(new RuntimeException("Username without password in kubeconfig"))
-        }
-      case (Some(_), Some(_))     =>
-        ZIO.fail(new RuntimeException("Both token and username is provided in kubeconfig"))
-      case (None, None)           =>
-        for {
-          clientCert <-
-            ZIO
-              .fromEither(KeySource.from(user.`client-certificate`, user.`client-certificate-data`))
-              .mapError(new RuntimeException(_))
-          clientKey  <- ZIO
-                          .fromEither(KeySource.from(user.`client-key`, user.`client-key-data`))
-                          .mapError(new RuntimeException(_))
-        } yield K8sAuthentication.ClientCertificates(clientCert, clientKey, None)
+  final case class ExecCredentials(
+    kind: String,
+    apiVersion: String,
+    status: ExecCredentialStatus
+  )
+
+  final case class ExecCredentialStatus(token: String)
+
+  object ExecCredentials {
+    implicit val execCredentialStatusDecoder: Decoder[ExecCredentialStatus] = deriveDecoder
+    implicit val execCredentialsDecoder: Decoder[ExecCredentials] = deriveDecoder
+  }
+
+  private[config] val supportedClientAuthAPIVersions = Set(
+    "client.authentication.k8s.io/v1alpha1",
+    "client.authentication.k8s.io/v1beta1",
+    "client.authentication.k8s.io/v1"
+  )
+
+  /** Execute a command to exchange credentials with an external serivce for a token this token is
+    * then used as a bearer token against the API server
+    * @param execConfig
+    *   a command with optional arguments, optional env vars, command hint
+    * @param configPath
+    *   The kubeconfig path. Relative command paths are interpreted as relative to the directory of
+    *   the config file. For example, If KUBECONFIG is set to /home/danny/kubeconfig and the exec
+    *   command is ./bin/exec-plugin the binary /home/danny/bin/exec-plugin is executed.
+    * @return
+    */
+  private def runUserExecConfig(execConfig: ExecConfig, configPath: Path): RIO[Blocking, String] = {
+    val prepareCommand = ZIO
+      .ifM(
+        ZIO.effectTotal(
+          execConfig.command.contains(File.separator) && !Path(
+            execConfig.command
+          ).isAbsolute
+        )
+      )(
+        onTrue = configPath.toAbsolutePath.map(
+          _.resolveSibling(Path(execConfig.command)).normalize.toString
+        ),
+        onFalse = Task.effect(execConfig.command)
+      )
+
+    def runCommand(command: String) =
+      Command(
+        processName = command,
+        execConfig.args.getOrElse(List.empty[String]): _*
+      )
+        .env(execConfig.env.getOrElse(Set.empty[ExecEnv]).map(x => x.name -> x.value).toMap)
+        .string
+        .mapError(error =>
+          new RuntimeException(execConfig.installHint.getOrElse(""), error.getCause)
+        )
+
+    def decodeCommandResult(execResult: String) =
+      ZIO
+        .fromEither(parser.decode[ExecCredentials](execResult))
+        .mapError(_.getCause)
+
+    def validateCredsApiVersionSupported(execCredentials: ExecCredentials) =
+      ZIO.when(!supportedClientAuthAPIVersions.contains(execCredentials.apiVersion))(
+        ZIO.fail(
+          new RuntimeException(
+            s"Unsupported client.authentication api version: ${execCredentials.apiVersion}"
+          )
+        )
+      )
+
+    def validateCredentialsApi(execCredentials: ExecCredentials, execConfig: ExecConfig) =
+      ZIO.when(execCredentials.apiVersion != execConfig.apiVersion) {
+        ZIO.fail(
+          new RuntimeException(
+            s"Credentials api version: ${execCredentials.apiVersion} doesn't match exec config api version: ${execConfig.apiVersion}"
+          )
+        )
+      }
+
+    for {
+      command         <- prepareCommand
+      commandResult   <- runCommand(command)
+      execCredentials <- decodeCommandResult(commandResult)
+      _               <- validateCredsApiVersionSupported(execCredentials)
+      _               <- validateCredentialsApi(execCredentials, execConfig)
+    } yield execCredentials.status.token
+  }
+
+  private def getUserToken(
+    user: KubeconfigUserInfo,
+    configPath: Path
+  ): RIO[Blocking, Option[String]] =
+    user.exec match {
+      case Some(exec) => runUserExecConfig(exec, configPath).map(_.some)
+      case _          => ZIO.effectTotal(user.token)
     }
+
+  private def userInfoToAuthentication(
+    user: KubeconfigUserInfo,
+    configPath: Path
+  ): RIO[Blocking, K8sAuthentication] = {
+    def getAuthentication(
+      maybeToken: Option[String],
+      maybeUsername: Option[String]
+    ): ZIO[Any, RuntimeException, K8sAuthentication] =
+      (maybeToken, maybeUsername) match {
+        case (Some(token), None)    =>
+          ZIO.succeed(K8sAuthentication.ServiceAccountToken(KeySource.FromString(token)))
+        case (None, Some(username)) =>
+          user.password match {
+            case Some(password) =>
+              ZIO.succeed(K8sAuthentication.BasicAuth(username, password))
+            case None           =>
+              ZIO.fail(new RuntimeException("Username without password in kubeconfig"))
+          }
+        case (Some(_), Some(_))     =>
+          ZIO.fail(new RuntimeException("Both token and username is provided in kubeconfig"))
+        case (None, None)           =>
+          for {
+            clientCert <-
+              ZIO
+                .fromEither(
+                  KeySource.from(user.`client-certificate`, user.`client-certificate-data`)
+                )
+                .mapError(new RuntimeException(_))
+            clientKey  <- ZIO
+                            .fromEither(KeySource.from(user.`client-key`, user.`client-key-data`))
+                            .mapError(new RuntimeException(_))
+          } yield K8sAuthentication.ClientCertificates(clientCert, clientKey, None)
+      }
+
+    for {
+      token          <- getUserToken(user, configPath)
+      authentication <- getAuthentication(token, user.username)
+    } yield authentication
+  }
 
   private[config] def loadKeyStream(source: KeySource): ZManaged[Any, Throwable, InputStream] =
     ZManaged.fromAutoCloseable {
