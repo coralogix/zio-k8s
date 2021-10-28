@@ -1,5 +1,6 @@
 package com.coralogix.zio.k8s.codegen.internal
 
+import com.coralogix.zio.k8s.codegen.internal.Conversions.splitName
 import com.coralogix.zio.k8s.codegen.internal.EndpointType.SubresourceEndpoint
 import io.swagger.v3.oas.models.media.{ ArraySchema, Schema }
 import io.swagger.v3.oas.models.parameters.Parameter
@@ -162,6 +163,17 @@ case class IdentifiedAction(
 
   lazy val allParameters: Map[String, Parameter] =
     (outerParameters ++ innerParameters).map(p => p.getName -> p).toMap
+
+  lazy val responseTypeRef: Option[String] =
+    for {
+      responses    <- Option(op.getResponses)
+      okResponse   <- Option(responses.get("200"))
+      content      <- Option(okResponse.getContent)
+      firstContent <- content.asScala.values.headOption
+      schema       <- Option(firstContent.getSchema)
+      ref          <- Option(schema.get$ref())
+      (pkg, name)   = splitName(ref.drop("#/components/schemas/".length))
+    } yield pkg.mkString(".") + "." + name
 }
 
 object IdentifiedPath {

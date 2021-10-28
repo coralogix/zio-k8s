@@ -22,6 +22,7 @@ trait ClientModuleGenerator {
     name: String,
     entity: String,
     statusEntity: Option[String],
+    deleteResponse: String,
     gvk: GroupVersionKind,
     isNamespaced: Boolean,
     subresources: Set[SubresourceId],
@@ -64,8 +65,13 @@ trait ClientModuleGenerator {
       val typeAliasTerm = Term.Name(pluralEntity)
       val typeAliasGenericT = Type.Select(typeAliasTerm, Type.Name("Generic"))
 
-      val deleteResultT = Type.Name("Status") // TODO
-      val deleteResultTerm = Term.Name("Status") // TODO
+      val deleteResultT = deleteResponse.parse[Type].get
+      val isStandardDelete = deleteResponse == "com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Status"
+      val deleteResultTerm =
+        if (isStandardDelete)
+          q"() => com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Status()"
+        else
+          q"createDeleteResult"
 
       val customResourceDefinition: List[Defn] =
         crdYaml match {
@@ -158,13 +164,23 @@ trait ClientModuleGenerator {
         q"""val any: ZLayer[$typeAliasT, Nothing, $typeAliasT] = ZLayer.requires[$typeAliasT]"""
 
       val test =
-        q"""val test: ZLayer[Any, Nothing, $typeAliasT] =
+        if (isStandardDelete) {
+          q"""val test: ZLayer[Any, Nothing, $typeAliasT] =
               ZLayer.fromEffect {
                 for {
                   ..${testClientConstruction.map(_._2)}
                 } yield new Live(..${testClientConstruction.map(_._1)})
               }
          """
+        } else {
+          q"""def test(createDeleteResult: () => $deleteResultT): ZLayer[Any, Nothing, $typeAliasT] =
+              ZLayer.fromEffect {
+                for {
+                  ..${testClientConstruction.map(_._2)}
+                } yield new Live(..${testClientConstruction.map(_._1)})
+              }
+          """
+        }
 
       val code =
         if (isNamespaced) {
@@ -705,7 +721,7 @@ trait ClientModuleGenerator {
 
     createM(
       "client",
-      q"TestResourceClient.make[$entityT, $deleteResultT](() => $deleteResultTerm())"
+      q"TestResourceClient.make[$entityT, $deleteResultT]($deleteResultTerm)"
     ) ::
       (((if (statusEntity.isDefined)
            List(
