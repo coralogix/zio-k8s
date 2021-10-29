@@ -21,6 +21,7 @@ import com.coralogix.zio.k8s.client.{
   K8sRequestInfo,
   NotFound,
   Resource,
+  ResourceDelete,
   ResourceDeleteAll
 }
 import com.coralogix.zio.k8s.model.pkg.apis.meta.v1.{ DeleteOptions, Status }
@@ -37,11 +38,14 @@ import zio.{ IO, ZIO }
   *   Watch event queue
   * @tparam T
   *   Resource type
+  * @tparam DeleteResult
+  *   Result of the delete operation
   */
-final class TestResourceClient[T: K8sObject] private (
+final class TestResourceClient[T: K8sObject, DeleteResult] private (
   store: TMap[String, T],
-  events: TQueue[TypedWatchEvent[T]]
-) extends Resource[T] with ResourceDeleteAll[T] {
+  events: TQueue[TypedWatchEvent[T]],
+  createDeleteResult: () => DeleteResult
+) extends Resource[T] with ResourceDelete[T, DeleteResult] with ResourceDeleteAll[T] {
 
   override def getAll(
     namespace: Option[K8sNamespace],
@@ -163,7 +167,7 @@ final class TestResourceClient[T: K8sObject] private (
     dryRun: Boolean,
     gracePeriod: Option[Duration],
     propagationPolicy: Option[PropagationPolicy]
-  ): IO[K8sFailure, Status] = {
+  ): IO[K8sFailure, DeleteResult] = {
     val prefix = keyPrefix(namespace)
     if (!dryRun) {
       val stm = for {
@@ -174,10 +178,10 @@ final class TestResourceClient[T: K8sObject] private (
                     _ <- events.offer(Deleted(item))
                   } yield ()
                 }
-      } yield Status()
+      } yield createDeleteResult()
       stm.commit
     } else {
-      ZIO.succeed(Status())
+      ZIO.succeed(createDeleteResult())
     }
   }
 
@@ -224,12 +228,16 @@ object TestResourceClient {
     * tests
     * @tparam T
     *   Resource type
+    * @tparam DeleteResult
+    *   Result type of the delete operation
     * @return
     *   Test client
     */
-  def make[T: K8sObject]: ZIO[Any, Nothing, TestResourceClient[T]] =
+  def make[T: K8sObject, DeleteResult](
+    createDeleteResult: () => DeleteResult
+  ): ZIO[Any, Nothing, TestResourceClient[T, DeleteResult]] =
     for {
       store  <- TMap.empty[String, T].commit
       events <- TQueue.unbounded[TypedWatchEvent[T]].commit
-    } yield new TestResourceClient[T](store, events)
+    } yield new TestResourceClient[T, DeleteResult](store, events, createDeleteResult)
 }

@@ -15,7 +15,7 @@ import zio.clock.Clock
 import zio.duration._
 import zio.stream._
 
-/** Generic implementation of [[Resource]] and [[ResourceDeleteAll]]
+/** Generic implementation of [[Resource]], [[ResourceDelete]] and [[ResourceDeleteAll]]
   *
   * See https://kubernetes.io/docs/reference/using-api/api-concepts/
   *
@@ -26,16 +26,22 @@ import zio.stream._
   * @param backend
   *   Configured HTTP client
   * @tparam T
-  *   Resource type, must have JSON encoder and decoder and an implemententation of
+  *   Resource type, must have JSON encoder and decoder and an implementation of
   *   [[com.coralogix.zio.k8s.client.model.K8sObject]]
+  * @tparam DeleteResult
+  *   Result type of the delete operation. Usually
+  *   [[com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Status]] but for some resources it can be
+  *   custom.
   */
 final class ResourceClient[
-  T: K8sObject: Encoder: Decoder
+  T: K8sObject: Encoder: Decoder,
+  DeleteResult: Encoder: Decoder
 ](
   override protected val resourceType: K8sResourceType,
   override protected val cluster: K8sCluster,
   override protected val backend: SttpBackend[Task, ZioStreams with WebSockets]
-) extends Resource[T] with ResourceDeleteAll[T] with ResourceClientBase {
+) extends Resource[T] with ResourceDelete[T, DeleteResult] with ResourceDeleteAll[T]
+    with ResourceClientBase {
 
   def getAll(
     namespace: Option[K8sNamespace],
@@ -197,7 +203,7 @@ final class ResourceClient[
     dryRun: Boolean,
     gracePeriod: Option[Duration] = None,
     propagationPolicy: Option[PropagationPolicy] = None
-  ): IO[K8sFailure, Status] =
+  ): IO[K8sFailure, DeleteResult] =
     handleFailures("delete") {
       k8sRequest
         .delete(
@@ -211,7 +217,7 @@ final class ResourceClient[
           )
         )
         .body(deleteOptions)
-        .response(asJsonAccumulating[Status])
+        .response(asJsonAccumulating[DeleteResult])
         .send(backend)
     }
 
@@ -441,14 +447,14 @@ object ResourceClient {
       * @return
       *   Response from the Kubernetes API
       */
-    def delete[T: Tag](
+    def delete[T: Tag, DeleteResult: Tag](
       name: String,
       deleteOptions: DeleteOptions,
       namespace: K8sNamespace,
       dryRun: Boolean = false,
       gracePeriod: Option[Duration] = None,
       propagationPolicy: Option[PropagationPolicy] = None
-    ): ZIO[Has[NamespacedResource[T]], K8sFailure, Status] =
+    ): ZIO[Has[NamespacedResourceDelete[T, DeleteResult]], K8sFailure, DeleteResult] =
       ZIO.accessM(
         _.get.delete(name, deleteOptions, namespace, dryRun, gracePeriod, propagationPolicy)
       )
@@ -668,13 +674,13 @@ object ResourceClient {
       * @return
       *   Response from the Kubernetes API
       */
-    def delete[T: Tag](
+    def delete[T: Tag, DeleteResult: Tag](
       name: String,
       deleteOptions: DeleteOptions,
       dryRun: Boolean = false,
       gracePeriod: Option[Duration] = None,
       propagationPolicy: Option[PropagationPolicy] = None
-    ): ZIO[Has[ClusterResource[T]], K8sFailure, Status] =
+    ): ZIO[Has[ClusterResourceDelete[T, DeleteResult]], K8sFailure, DeleteResult] =
       ZIO.accessM(_.get.delete(name, deleteOptions, dryRun, gracePeriod, propagationPolicy))
 
     /** Delete all resources matching the provided constraints

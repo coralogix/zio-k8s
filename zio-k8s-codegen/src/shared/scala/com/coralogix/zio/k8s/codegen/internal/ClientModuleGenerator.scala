@@ -22,6 +22,7 @@ trait ClientModuleGenerator {
     name: String,
     entity: String,
     statusEntity: Option[String],
+    deleteResponse: String,
     gvk: GroupVersionKind,
     isNamespaced: Boolean,
     subresources: Set[SubresourceId],
@@ -64,6 +65,14 @@ trait ClientModuleGenerator {
       val typeAliasTerm = Term.Name(pluralEntity)
       val typeAliasGenericT = Type.Select(typeAliasTerm, Type.Name("Generic"))
 
+      val deleteResultT = deleteResponse.parse[Type].get
+      val isStandardDelete = deleteResponse == "com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Status"
+      val deleteResultTerm =
+        if (isStandardDelete)
+          q"() => com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Status()"
+        else
+          q"createDeleteResult"
+
       val customResourceDefinition: List[Defn] =
         crdYaml match {
           case Some(yamlPath) =>
@@ -84,13 +93,16 @@ trait ClientModuleGenerator {
 
       val clientList =
         ((if (supportsDeleteMany)
-            param"client: Resource[$entityT] with ResourceDeleteAll[$entityT]"
+            param"client: Resource[$entityT] with ResourceDelete[$entityT, $deleteResultT] with ResourceDeleteAll[$entityT]"
           else
-            param"client: Resource[$entityT]") :: ((if (statusEntity.isDefined)
-                                                      List[Term.Param](
-                                                        param"statusClient: ResourceStatus[$statusT, $entityT]"
-                                                      )
-                                                    else Nil) ::
+            param"client: Resource[$entityT] with ResourceDelete[$entityT, $deleteResultT]") :: ((if (
+                                                                                                    statusEntity.isDefined
+                                                                                                  )
+                                                                                                    List[Term.Param](
+                                                                                                      param"statusClient: ResourceStatus[$statusT, $entityT]"
+                                                                                                    )
+                                                                                                  else
+                                                                                                    Nil) ::
           subresources.toList.map { subresource =>
             val clientName = Term.Name(subresource.name + "Client")
             val modelT = getSubresourceModelType(modelPackageName, subresource)
@@ -99,6 +111,7 @@ trait ClientModuleGenerator {
 
       val clientExposure =
         q"override val asGenericResource: Resource[$entityT] = client" ::
+          q"override val asGenericResourceDelete: ResourceDelete[$entityT, $deleteResultT] = client" ::
           (((if (supportsDeleteMany)
                List(
                  q"override val asGenericResourceDeleteAll: ResourceDeleteAll[$entityT] = client"
@@ -118,9 +131,24 @@ trait ClientModuleGenerator {
             }).flatten)
 
       val clientConstruction: List[Term] =
-        getClientConstruction(modelPackageName, statusEntity, subresources, entityT, statusT)
+        getClientConstruction(
+          modelPackageName,
+          statusEntity,
+          subresources,
+          entityT,
+          statusT,
+          deleteResultT
+        )
       val testClientConstruction: List[(Term, Enumerator)] =
-        getTestClientConstruction(modelPackageName, statusEntity, subresources, entityT, statusT)
+        getTestClientConstruction(
+          modelPackageName,
+          statusEntity,
+          subresources,
+          entityT,
+          statusT,
+          deleteResultT,
+          deleteResultTerm
+        )
 
       val live =
         q"""val live: ZLayer[Has[SttpBackend[Task, ZioStreams with WebSockets]] with Has[K8sCluster], Nothing, $typeAliasT] =
@@ -136,13 +164,23 @@ trait ClientModuleGenerator {
         q"""val any: ZLayer[$typeAliasT, Nothing, $typeAliasT] = ZLayer.requires[$typeAliasT]"""
 
       val test =
-        q"""val test: ZLayer[Any, Nothing, $typeAliasT] =
+        if (isStandardDelete) {
+          q"""val test: ZLayer[Any, Nothing, $typeAliasT] =
               ZLayer.fromEffect {
                 for {
                   ..${testClientConstruction.map(_._2)}
                 } yield new Live(..${testClientConstruction.map(_._1)})
               }
          """
+        } else {
+          q"""def test(createDeleteResult: () => $deleteResultT): ZLayer[Any, Nothing, $typeAliasT] =
+              ZLayer.fromEffect {
+                for {
+                  ..${testClientConstruction.map(_._2)}
+                } yield new Live(..${testClientConstruction.map(_._1)})
+              }
+          """
+        }
 
       val code =
         if (isNamespaced) {
@@ -257,15 +295,16 @@ trait ClientModuleGenerator {
 
           val mainInterface = t"NamespacedResource[$entityT]"
           val extraInterfaces =
-            ((if (supportsDeleteMany)
-                List[Type](t"NamespacedResourceDeleteAll[$entityT]")
-              else Nil) ::
-              (if (statusEntity.isDefined)
-                 List[Type](t"NamespacedResourceStatus[$statusT, $entityT]")
-               else Nil) ::
-              subresources.toList.map { subresource =>
-                List(getNamespacedSubresourceWrapperType(subresource, entityT))
-              }).flatten
+            t"NamespacedResourceDelete[$entityT, $deleteResultT]" ::
+              ((if (supportsDeleteMany)
+                  List[Type](t"NamespacedResourceDeleteAll[$entityT]")
+                else Nil) ::
+                (if (statusEntity.isDefined)
+                   List[Type](t"NamespacedResourceStatus[$statusT, $entityT]")
+                 else Nil) ::
+                subresources.toList.map { subresource =>
+                  List(getNamespacedSubresourceWrapperType(subresource, entityT))
+                }).flatten
 
           val typeAliasRhs: Type = extraInterfaces.foldLeft[Type](t"Has[$mainInterface]") {
             case (l, r) =>
@@ -288,7 +327,7 @@ trait ClientModuleGenerator {
           $entityImport
           import com.coralogix.zio.k8s.model.pkg.apis.meta.v1._
           import com.coralogix.zio.k8s.model._
-          import com.coralogix.zio.k8s.client.{Resource, ResourceDeleteAll, ResourceStatus, Subresource, NamespacedResource, NamespacedResourceDeleteAll, NamespacedResourceStatus, K8sFailure}
+          import com.coralogix.zio.k8s.client.{Resource, ResourceDelete, ResourceDeleteAll, ResourceStatus, Subresource, NamespacedResource, NamespacedResourceDelete, NamespacedResourceDeleteAll, NamespacedResourceStatus, K8sFailure}
           import com.coralogix.zio.k8s.client.impl.{ResourceClient, ResourceStatusClient, SubresourceClient}
           import com.coralogix.zio.k8s.client.test.{TestResourceClient, TestResourceStatusClient, TestSubresourceClient}
           import com.coralogix.zio.k8s.client.model.{
@@ -384,7 +423,7 @@ trait ClientModuleGenerator {
               dryRun: Boolean = false,
               gracePeriod: Option[Duration] = None,
               propagationPolicy: Option[PropagationPolicy] = None
-            ): ZIO[$typeAliasT, K8sFailure, Status] =
+            ): ZIO[$typeAliasT, K8sFailure, $deleteResultT] =
               ZIO.accessM(_.get.delete(name, deleteOptions, namespace, dryRun, gracePeriod, propagationPolicy))
 
             ..$deleteManyAccessors
@@ -503,15 +542,16 @@ trait ClientModuleGenerator {
 
           val mainInterface = t"ClusterResource[$entityT]"
           val extraInterfaces =
-            ((if (supportsDeleteMany)
-                List[Type](t"ClusterResourceDeleteAll[$entityT]")
-              else Nil) ::
-              (if (statusEntity.isDefined)
-                 List[Type](t"ClusterResourceStatus[$statusT, $entityT]")
-               else Nil) ::
-              subresources.toList.map { subresource =>
-                List(getClusterSubresourceWrapperType(subresource, entityT))
-              }).flatten
+            t"ClusterResourceDelete[$entityT, $deleteResultT]" ::
+              ((if (supportsDeleteMany)
+                  List[Type](t"ClusterResourceDeleteAll[$entityT]")
+                else Nil) ::
+                (if (statusEntity.isDefined)
+                   List[Type](t"ClusterResourceStatus[$statusT, $entityT]")
+                 else Nil) ::
+                subresources.toList.map { subresource =>
+                  List(getClusterSubresourceWrapperType(subresource, entityT))
+                }).flatten
 
           val typeAliasRhs: Type = extraInterfaces.foldLeft[Type](t"Has[$mainInterface]") {
             case (l, r) =>
@@ -534,7 +574,7 @@ trait ClientModuleGenerator {
           $entityImport
           import com.coralogix.zio.k8s.model.pkg.apis.meta.v1._
           import com.coralogix.zio.k8s.model._
-          import com.coralogix.zio.k8s.client.{Resource, ResourceDeleteAll, ResourceStatus, Subresource, ClusterResource, ClusterResourceDeleteAll, ClusterResourceStatus, K8sFailure}
+          import com.coralogix.zio.k8s.client.{Resource, ResourceDelete, ResourceDeleteAll, ResourceStatus, Subresource, ClusterResource, ClusterResourceDelete, ClusterResourceDeleteAll, ClusterResourceStatus, K8sFailure}
           import com.coralogix.zio.k8s.client.impl.{ResourceClient, ResourceStatusClient, SubresourceClient}
           import com.coralogix.zio.k8s.client.test.{TestResourceClient, TestResourceStatusClient, TestSubresourceClient}
           import com.coralogix.zio.k8s.client.model.{
@@ -623,7 +663,7 @@ trait ClientModuleGenerator {
               dryRun: Boolean = false,
               gracePeriod: Option[Duration] = None,
               propagationPolicy: Option[PropagationPolicy] = None
-            ): ZIO[$typeAliasT, K8sFailure, Status] =
+            ): ZIO[$typeAliasT, K8sFailure, $deleteResultT] =
               ZIO.accessM(_.get.delete(name, deleteOptions, dryRun, gracePeriod, propagationPolicy))
 
             ..$deleteManyAccessors
@@ -648,9 +688,10 @@ trait ClientModuleGenerator {
     subresources: Set[SubresourceId],
     entityT: Type,
     statusT: Type,
+    deleteResultT: Type,
     fullyQualifiedSubresourceModels: Boolean = false
   ): List[Term] =
-    q"new ResourceClient[$entityT](resourceType, cluster, backend)" ::
+    q"new ResourceClient[$entityT, $deleteResultT](resourceType, cluster, backend)" ::
       (((if (statusEntity.isDefined)
            List(
              q"new ResourceStatusClient[$statusT, $entityT](resourceType, cluster, backend)"
@@ -669,6 +710,8 @@ trait ClientModuleGenerator {
     subresources: Set[SubresourceId],
     entityT: Type,
     statusT: Type,
+    deleteResultT: Type,
+    deleteResultTerm: Term,
     fullyQualifiedSubresourceModels: Boolean = false
   ): List[(Term, Enumerator)] = {
     def create(name: String, expr: Term) =
@@ -676,7 +719,10 @@ trait ClientModuleGenerator {
     def createM(name: String, expr: Term) =
       Term.Name(name) -> Enumerator.Generator(Pat.Var(Term.Name(name)), expr)
 
-    createM("client", q"TestResourceClient.make[$entityT]") ::
+    createM(
+      "client",
+      q"TestResourceClient.make[$entityT, $deleteResultT]($deleteResultTerm)"
+    ) ::
       (((if (statusEntity.isDefined)
            List(
              create("statusClient", q"new TestResourceStatusClient(client)")

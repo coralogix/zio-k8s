@@ -7,6 +7,7 @@ import com.coralogix.zio.k8s.client.{
   NotFound,
   RequestFailure,
   Resource,
+  ResourceDelete,
   ResourceDeleteAll
 }
 import com.coralogix.zio.k8s.client.coordination.v1.leases
@@ -79,7 +80,7 @@ object LeaseLockSpec extends DefaultRunnableSpec {
               failSwitch.set(false)
           }
           val leases = new Leases.Live(
-            new Resource[Lease] with ResourceDeleteAll[Lease] {
+            new Resource[Lease] with ResourceDelete[Lease, Status] with ResourceDeleteAll[Lease] {
               override def getAll(
                 namespace: Option[K8sNamespace],
                 chunkSize: Int,

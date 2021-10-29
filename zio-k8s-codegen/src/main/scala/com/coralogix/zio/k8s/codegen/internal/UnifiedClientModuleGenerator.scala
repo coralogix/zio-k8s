@@ -257,13 +257,27 @@ trait UnifiedClientModuleGenerator {
       .get
       .asInstanceOf[Term.Ref]
 
-    val namePat = Pat.Var(Term.Name(name))
+    val nameTerm = Term.Name(name)
+    val namePat = Pat.Var(nameTerm)
 
     val statusEntity = findStatusEntity(definitionMap, resource.modelName).map(s =>
       s"com.coralogix.zio.k8s.model.$s"
     )
     val entityT = Type.Select(dtoPackage, Type.Name(entity))
     val statusT = statusEntity.map(s => s.parse[Type].get).getOrElse(t"Nothing")
+    val deleteResponse = resource.actions
+      .map(_.endpointType)
+      .collectFirst { case EndpointType.Delete(_, _, responseTypeRef) =>
+        s"com.coralogix.zio.k8s.model.$responseTypeRef"
+      }
+      .getOrElse("com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Status")
+    val deleteResultT = deleteResponse.parse[Type].get
+    val isStandardDelete = deleteResponse == "com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Status"
+    val deleteResultTerm =
+      if (isStandardDelete)
+        q"() => com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Status()"
+      else
+        q"() => ???"
 
     val obj = Term.Select(pkg, Term.Name(resource.pluralEntityName))
     val serviceT = Type.Select(obj, Type.Name("Service"))
@@ -275,6 +289,8 @@ trait UnifiedClientModuleGenerator {
         resource.subresources.map(_.id),
         entityT,
         statusT,
+        deleteResultT,
+        deleteResultTerm,
         fullyQualifiedSubresourceModels = true
       )
 
@@ -299,6 +315,7 @@ trait UnifiedClientModuleGenerator {
           resource.subresources.map(_.id),
           entityT,
           statusT,
+          deleteResultT,
           fullyQualifiedSubresourceModels = true
         )
 

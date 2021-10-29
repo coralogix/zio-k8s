@@ -1,9 +1,9 @@
 package com.coralogix.zio.k8s.client.test
 
-import com.coralogix.zio.k8s.client.{ K8sFailure, ResourceStatus }
-import com.coralogix.zio.k8s.client.model.{ K8sNamespace, K8sObject, K8sObjectStatus }
 import com.coralogix.zio.k8s.client.model.K8sObject._
 import com.coralogix.zio.k8s.client.model.K8sObjectStatus._
+import com.coralogix.zio.k8s.client.model.{ K8sNamespace, K8sObject, K8sObjectStatus }
+import com.coralogix.zio.k8s.client.{ K8sFailure, Resource, ResourceStatus }
 import zio.IO
 
 /** Test implementation of [[ResourceStatus]] to be used from unit tests
@@ -14,7 +14,7 @@ import zio.IO
   * @tparam T
   *   Resource type
   */
-final class TestResourceStatusClient[StatusT, T](client: TestResourceClient[T])(implicit
+final class TestResourceStatusClient[StatusT, T](client: Resource[T])(implicit
   r: K8sObject[T],
   rs: K8sObjectStatus[T, StatusT]
 ) extends ResourceStatus[StatusT, T] {
