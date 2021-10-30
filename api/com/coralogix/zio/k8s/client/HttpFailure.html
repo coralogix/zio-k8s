@@ -311,7 +311,7 @@
       <p class="shortcomment cmt">Contains data structures, ZIO layers and zio-config descriptors for configuring the zio-k8s
 client.</p><div class="fullcomment"><div class="comment cmt"><p>Contains data structures, ZIO layers and zio-config descriptors for configuring the zio-k8s
 client.</p><p>Each zio-k8s client module depends on two ZIO modules:
-<a href="model/package$$K8sCluster.html" class="extype" name="com.coralogix.zio.k8s.client.model.K8sCluster">com.coralogix.zio.k8s.client.model.K8sCluster</a> and an <a href="https://javadoc.io/page/com.softwaremill.sttp.client3/core_2.12/3.3.15/sttp/client3/SttpBackend.html" class="extype" name="sttp.client3.SttpBackend">sttp.client3.SttpBackend</a>. To use
+<a href="model/package$$K8sCluster.html" class="extype" name="com.coralogix.zio.k8s.client.model.K8sCluster">com.coralogix.zio.k8s.client.model.K8sCluster</a> and an <a href="https://javadoc.io/page/com.softwaremill.sttp.client3/core_2.12/3.3.16/sttp/client3/SttpBackend.html" class="extype" name="sttp.client3.SttpBackend">sttp.client3.SttpBackend</a>. To use
 the default configuration (use kubeconfig if available, otherwise fallback to service account
 token), use either <code>asynchttpclient.k8sDefault</code> or <code>httpclient.k8sDefault</code> depending on your
 chosen sttp backend.</p><p>Manual configuration is possible by providing a <a href="config/package$$K8sClusterConfig.html" class="extype" name="com.coralogix.zio.k8s.client.config.K8sClusterConfig">K8sClusterConfig</a> value to both the
@@ -564,6 +564,10 @@ them from any supported source.
                         <a href="ClusterResource.html" title="Generic interface for working with Kubernetes cluster resources.">ClusterResource</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
+                        <a class="trait" href="ClusterResourceDelete.html" title=""></a>
+                        <a href="ClusterResourceDelete.html" title="">ClusterResourceDelete</a>
+                      </li><li class="current-entities indented5">
+                        <span class="separator"></span>
                         <a class="trait" href="ClusterResourceDeleteAll.html" title="Extra capability for ClusterResource interfaces providing deleteAll"></a>
                         <a href="ClusterResourceDeleteAll.html" title="Extra capability for ClusterResource interfaces providing deleteAll">ClusterResourceDeleteAll</a>
                       </li><li class="current-entities indented5">
@@ -604,6 +608,10 @@ them from any supported source.
                         <a href="NamespacedResource.html" title="Generic interface for working with namespaced Kubernetes resources.">NamespacedResource</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
+                        <a class="trait" href="NamespacedResourceDelete.html" title=""></a>
+                        <a href="NamespacedResourceDelete.html" title="">NamespacedResourceDelete</a>
+                      </li><li class="current-entities indented5">
+                        <span class="separator"></span>
                         <a class="trait" href="NamespacedResourceDeleteAll.html" title="Extra capability for NamespacedResource interfaces providing deleteAll"></a>
                         <a href="NamespacedResourceDeleteAll.html" title="Extra capability for NamespacedResource interfaces providing deleteAll">NamespacedResourceDeleteAll</a>
                       </li><li class="current-entities indented5">
@@ -622,6 +630,10 @@ them from any supported source.
                         <span class="separator"></span>
                         <a class="trait" href="Resource.html" title="Generic interface for working with Kubernetes resources"></a>
                         <a href="Resource.html" title="Generic interface for working with Kubernetes resources">Resource</a>
+                      </li><li class="current-entities indented5">
+                        <span class="separator"></span>
+                        <a class="trait" href="ResourceDelete.html" title="Extra capability for Resource interfaces providing delete"></a>
+                        <a href="ResourceDelete.html" title="Extra capability for Resource interfaces providing delete">ResourceDelete</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
                         <a class="trait" href="ResourceDeleteAll.html" title="Extra capability for Resource interfaces providing deleteAll"></a>
@@ -665,7 +677,7 @@ them from any supported source.
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <span class="name">HttpFailure</span><span class="params">(<span name="requestInfo">requestInfo: <a href="K8sRequestInfo.html" class="extype" name="com.coralogix.zio.k8s.client.K8sRequestInfo">K8sRequestInfo</a></span>, <span name="message">message: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="code">code: <a href="https://javadoc.io/page/com.softwaremill.sttp.model/core_2.12/1.4.13/sttp/model/StatusCode.html#sttp.model.StatusCode" class="extype" name="sttp.model.StatusCode">StatusCode</a></span>)</span><span class="result"> extends <a href="K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <span class="name">HttpFailure</span><span class="params">(<span name="requestInfo">requestInfo: <a href="K8sRequestInfo.html" class="extype" name="com.coralogix.zio.k8s.client.K8sRequestInfo">K8sRequestInfo</a></span>, <span name="message">message: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="code">code: <a href="https://javadoc.io/page/com.softwaremill.sttp.model/core_2.12/1.4.16/sttp/model/StatusCode.html#sttp.model.StatusCode" class="extype" name="sttp.model.StatusCode">StatusCode</a></span>)</span><span class="result"> extends <a href="K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       </h4>
 
@@ -738,7 +750,7 @@ body did not contain a <a href="../model/pkg/apis/meta/v1/Status.html" class="ex
         <span class="kind">new</span>
       </span>
       <span class="symbol">
-        <span class="name">HttpFailure</span><span class="params">(<span name="requestInfo">requestInfo: <a href="K8sRequestInfo.html" class="extype" name="com.coralogix.zio.k8s.client.K8sRequestInfo">K8sRequestInfo</a></span>, <span name="message">message: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="code">code: <a href="https://javadoc.io/page/com.softwaremill.sttp.model/core_2.12/1.4.13/sttp/model/StatusCode.html#sttp.model.StatusCode" class="extype" name="sttp.model.StatusCode">StatusCode</a></span>)</span>
+        <span class="name">HttpFailure</span><span class="params">(<span name="requestInfo">requestInfo: <a href="K8sRequestInfo.html" class="extype" name="com.coralogix.zio.k8s.client.K8sRequestInfo">K8sRequestInfo</a></span>, <span name="message">message: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="code">code: <a href="https://javadoc.io/page/com.softwaremill.sttp.model/core_2.12/1.4.16/sttp/model/StatusCode.html#sttp.model.StatusCode" class="extype" name="sttp.model.StatusCode">StatusCode</a></span>)</span>
       </span>
       
       <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">message</dt><dd class="cmt"><p>
@@ -856,7 +868,7 @@ body did not contain a <a href="../model/pkg/apis/meta/v1/Status.html" class="ex
         <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">code</span><span class="result">: <a href="https://javadoc.io/page/com.softwaremill.sttp.model/core_2.12/1.4.13/sttp/model/StatusCode.html#sttp.model.StatusCode" class="extype" name="sttp.model.StatusCode">StatusCode</a></span>
+        <span class="name">code</span><span class="result">: <a href="https://javadoc.io/page/com.softwaremill.sttp.model/core_2.12/1.4.16/sttp/model/StatusCode.html#sttp.model.StatusCode" class="extype" name="sttp.model.StatusCode">StatusCode</a></span>
       </span>
       
       

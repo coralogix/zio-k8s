@@ -326,6 +326,22 @@
       <p class="shortcomment cmt">A more generic interface for the same resource
 </p><div class="fullcomment"><div class="comment cmt"><p>A more generic interface for the same resource
 </p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../../../client/NamespacedResource.html" class="extype" name="com.coralogix.zio.k8s.client.NamespacedResource">NamespacedResource</a></dd></dl></div>
+    </li><li name="com.coralogix.zio.k8s.operator.leader.locks.leaderlockresources.LeaderLockResources.Service#asGenericResourceDelete" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="asGenericResourceDelete:com.coralogix.zio.k8s.client.ResourceDelete[com.coralogix.zio.k8s.operator.leader.locks.LeaderLockResource,com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Status]"></a><a id="asGenericResourceDelete:ResourceDelete[LeaderLockResource,Status]"></a>
+      <span class="permalink">
+      <a href="../../../../../../../../com/coralogix/zio/k8s/operator/leader/locks/leaderlockresources/package$$LeaderLockResources$$Service.html#asGenericResourceDelete:com.coralogix.zio.k8s.client.ResourceDelete[com.coralogix.zio.k8s.operator.leader.locks.LeaderLockResource,com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Status]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">abstract </span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">asGenericResourceDelete</span><span class="result">: <a href="../../../../client/ResourceDelete.html" class="extype" name="com.coralogix.zio.k8s.client.ResourceDelete">ResourceDelete</a>[<a href="../LeaderLockResource.html" class="extype" name="com.coralogix.zio.k8s.operator.leader.locks.LeaderLockResource">LeaderLockResource</a>, <a href="../../../../model/pkg/apis/meta/v1/Status.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Status">Status</a>]</span>
+      </span>
+      
+      
     </li></ol>
             </div>
 
@@ -458,67 +474,6 @@
   Namespace of the resource.</p></dd><dt class="param">dryRun</dt><dd class="cmt"><p>
   If true, the request is sent to the server but it will not create the resource.</p></dd><dt>returns</dt><dd class="cmt"><p>
   Returns the created resource as it was returned from Kubernetes</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../../../client/NamespacedResource.html" class="extype" name="com.coralogix.zio.k8s.client.NamespacedResource">NamespacedResource</a></dd></dl></div>
-    </li><li name="com.coralogix.zio.k8s.client.NamespacedResource#delete" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="delete(name:String,deleteOptions:com.coralogix.zio.k8s.model.pkg.apis.meta.v1.DeleteOptions,namespace:com.coralogix.zio.k8s.client.model.K8sNamespace,dryRun:Boolean,gracePeriod:Option[zio.duration.Duration],propagationPolicy:Option[com.coralogix.zio.k8s.client.model.PropagationPolicy]):zio.IO[com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Status]"></a><a id="delete(String,DeleteOptions,K8sNamespace,Boolean,Option[Duration],Option[PropagationPolicy]):IO[K8sFailure,Status]"></a>
-      <span class="permalink">
-      <a href="../../../../../../../../com/coralogix/zio/k8s/operator/leader/locks/leaderlockresources/package$$LeaderLockResources$$Service.html#delete(name:String,deleteOptions:com.coralogix.zio.k8s.model.pkg.apis.meta.v1.DeleteOptions,namespace:com.coralogix.zio.k8s.client.model.K8sNamespace,dryRun:Boolean,gracePeriod:Option[zio.duration.Duration],propagationPolicy:Option[com.coralogix.zio.k8s.client.model.PropagationPolicy]):zio.IO[com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Status]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">delete</span><span class="params">(<span name="name">name: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="deleteOptions">deleteOptions: <a href="../../../../model/pkg/apis/meta/v1/DeleteOptions.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.DeleteOptions">DeleteOptions</a></span>, <span name="namespace">namespace: <a href="../../../../client/model/package$$K8sNamespace.html" class="extype" name="com.coralogix.zio.k8s.client.model.K8sNamespace">K8sNamespace</a></span>, <span name="dryRun">dryRun: <span class="extype" name="scala.Boolean">Boolean</span> = <span class="symbol">false</span></span>, <span name="gracePeriod">gracePeriod: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="zio.duration.Duration">Duration</span>] = <span class="symbol">None</span></span>, <span name="propagationPolicy">propagationPolicy: <span class="extype" name="scala.Option">Option</span>[<a href="../../../../client/model/PropagationPolicy.html" class="extype" name="com.coralogix.zio.k8s.client.model.PropagationPolicy">PropagationPolicy</a>] = <span class="symbol">None</span></span>)</span><span class="result">: <a href="../../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="../../../../model/pkg/apis/meta/v1/Status.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Status">Status</a>]</span>
-      </span>
-      
-      <p class="shortcomment cmt">Deletes an existing resource selected by its name</p><div class="fullcomment"><div class="comment cmt"><p>Deletes an existing resource selected by its name</p></div><dl class="paramcmts block"><dt class="param">name</dt><dd class="cmt"><p>
-  Name of the resource</p></dd><dt class="param">deleteOptions</dt><dd class="cmt"><p>
-  Delete options</p></dd><dt class="param">namespace</dt><dd class="cmt"><p>
-  Namespace of the resource</p></dd><dt class="param">dryRun</dt><dd class="cmt"><p>
-  If true, the request is sent to the server but it will not create the resource.</p></dd><dt class="param">gracePeriod</dt><dd class="cmt"><p>
-  The duration in seconds before the object should be deleted. Value must be non-negative
-  integer. The value zero indicates delete immediately. If this value is nil, the default
-  grace period for the specified type will be used. Defaults to a per object value if not
-  specified. zero means delete immediately.</p></dd><dt class="param">propagationPolicy</dt><dd class="cmt"><p>
-  Whether and how garbage collection will be performed. Either this field or OrphanDependents
-  may be set, but not both. The default policy is decided by the existing finalizer set in the
-  metadata.finalizers and the resource-specific default policy. Acceptable values are:
-  'Orphan' - orphan the dependents; 'Background' - allow the garbage collector to delete the
-  dependents in the background; 'Foreground' - a cascading policy that deletes all dependents
-  in the foreground.</p></dd><dt>returns</dt><dd class="cmt"><p>
-  Response from the Kubernetes API</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../../../client/NamespacedResource.html" class="extype" name="com.coralogix.zio.k8s.client.NamespacedResource">NamespacedResource</a></dd></dl></div>
-    </li><li name="com.coralogix.zio.k8s.client.NamespacedResource#deleteAndWait" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="deleteAndWait(name:String,deleteOptions:com.coralogix.zio.k8s.model.pkg.apis.meta.v1.DeleteOptions,namespace:com.coralogix.zio.k8s.client.model.K8sNamespace,dryRun:Boolean,gracePeriod:Option[zio.duration.Duration],propagationPolicy:Option[com.coralogix.zio.k8s.client.model.PropagationPolicy]):zio.ZIO[zio.clock.Clock,com.coralogix.zio.k8s.client.K8sFailure,Unit]"></a><a id="deleteAndWait(String,DeleteOptions,K8sNamespace,Boolean,Option[Duration],Option[PropagationPolicy]):ZIO[Clock,K8sFailure,Unit]"></a>
-      <span class="permalink">
-      <a href="../../../../../../../../com/coralogix/zio/k8s/operator/leader/locks/leaderlockresources/package$$LeaderLockResources$$Service.html#deleteAndWait(name:String,deleteOptions:com.coralogix.zio.k8s.model.pkg.apis.meta.v1.DeleteOptions,namespace:com.coralogix.zio.k8s.client.model.K8sNamespace,dryRun:Boolean,gracePeriod:Option[zio.duration.Duration],propagationPolicy:Option[com.coralogix.zio.k8s.client.model.PropagationPolicy]):zio.ZIO[zio.clock.Clock,com.coralogix.zio.k8s.client.K8sFailure,Unit]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">deleteAndWait</span><span class="params">(<span name="name">name: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="deleteOptions">deleteOptions: <a href="../../../../model/pkg/apis/meta/v1/DeleteOptions.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.DeleteOptions">DeleteOptions</a></span>, <span name="namespace">namespace: <a href="../../../../client/model/package$$K8sNamespace.html" class="extype" name="com.coralogix.zio.k8s.client.model.K8sNamespace">K8sNamespace</a></span>, <span name="dryRun">dryRun: <span class="extype" name="scala.Boolean">Boolean</span> = <span class="symbol">false</span></span>, <span name="gracePeriod">gracePeriod: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="zio.duration.Duration">Duration</span>] = <span class="symbol">None</span></span>, <span name="propagationPolicy">propagationPolicy: <span class="extype" name="scala.Option">Option</span>[<a href="../../../../client/model/PropagationPolicy.html" class="extype" name="com.coralogix.zio.k8s.client.model.PropagationPolicy">PropagationPolicy</a>] = <span class="symbol">None</span></span>)</span><span class="result">: <a href="https://javadoc.io/page/dev.zio/zio_2.12/1.0.12/zio/ZIO.html#zio.ZIO" class="extype" name="zio.ZIO">ZIO</a>[<span class="extype" name="zio.clock.Clock">Clock</span>, <a href="../../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Unit">Unit</span>]</span>
-      </span>
-      
-      <p class="shortcomment cmt">Deletes an existing resource selected by its name and waits until it has gone</p><div class="fullcomment"><div class="comment cmt"><p>Deletes an existing resource selected by its name and waits until it has gone</p></div><dl class="paramcmts block"><dt class="param">name</dt><dd class="cmt"><p>
-  Name of the resource</p></dd><dt class="param">deleteOptions</dt><dd class="cmt"><p>
-  Delete options</p></dd><dt class="param">namespace</dt><dd class="cmt"><p>
-  Namespace of the resource</p></dd><dt class="param">dryRun</dt><dd class="cmt"><p>
-  If true, the request is sent to the server but it will not create the resource.</p></dd><dt class="param">gracePeriod</dt><dd class="cmt"><p>
-  The duration in seconds before the object should be deleted. Value must be non-negative
-  integer. The value zero indicates delete immediately. If this value is nil, the default
-  grace period for the specified type will be used. Defaults to a per object value if not
-  specified. zero means delete immediately.</p></dd><dt class="param">propagationPolicy</dt><dd class="cmt"><p>
-  Whether and how garbage collection will be performed. Either this field or OrphanDependents
-  may be set, but not both. The default policy is decided by the existing finalizer set in the
-  metadata.finalizers and the resource-specific default policy. Acceptable values are:
-  'Orphan' - orphan the dependents; 'Background' - allow the garbage collector to delete the
-  dependents in the background; 'Foreground' - a cascading policy that deletes all dependents
-  in the foreground.</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../../../client/NamespacedResource.html" class="extype" name="com.coralogix.zio.k8s.client.NamespacedResource">NamespacedResource</a></dd></dl></div>
     </li><li name="scala.AnyRef#eq" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="eq(x$1:AnyRef):Boolean"></a><a id="eq(AnyRef):Boolean"></a>
       <span class="permalink">

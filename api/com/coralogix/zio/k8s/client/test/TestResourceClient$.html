@@ -445,9 +445,9 @@
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.client.test.TestResourceClient#make" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="make[T](implicitevidence$2:com.coralogix.zio.k8s.client.model.K8sObject[T]):zio.ZIO[Any,Nothing,com.coralogix.zio.k8s.client.test.TestResourceClient[T]]"></a><a id="make[T](K8sObject[T]):ZIO[Any,Nothing,TestResourceClient[T]]"></a>
+      <a id="make[T,DeleteResult](createDeleteResult:()=&gt;DeleteResult)(implicitevidence$2:com.coralogix.zio.k8s.client.model.K8sObject[T]):zio.ZIO[Any,Nothing,com.coralogix.zio.k8s.client.test.TestResourceClient[T,DeleteResult]]"></a><a id="make[T,DeleteResult](()⇒DeleteResult)(K8sObject[T]):ZIO[Any,Nothing,TestResourceClient[T,DeleteResult]]"></a>
       <span class="permalink">
-      <a href="../../../../../../com/coralogix/zio/k8s/client/test/TestResourceClient$.html#make[T](implicitevidence$2:com.coralogix.zio.k8s.client.model.K8sObject[T]):zio.ZIO[Any,Nothing,com.coralogix.zio.k8s.client.test.TestResourceClient[T]]" title="Permalink">
+      <a href="../../../../../../com/coralogix/zio/k8s/client/test/TestResourceClient$.html#make[T,DeleteResult](createDeleteResult:()=&gt;DeleteResult)(implicitevidence$2:com.coralogix.zio.k8s.client.model.K8sObject[T]):zio.ZIO[Any,Nothing,com.coralogix.zio.k8s.client.test.TestResourceClient[T,DeleteResult]]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -456,13 +456,14 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">make</span><span class="tparams">[<span name="T">T</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="../model/K8sObject.html" class="extype" name="com.coralogix.zio.k8s.client.model.K8sObject">K8sObject</a>[<span class="extype" name="com.coralogix.zio.k8s.client.test.TestResourceClient.make.T">T</span>]</span>)</span><span class="result">: <a href="https://javadoc.io/page/dev.zio/zio_2.12/1.0.12/zio/ZIO.html#zio.ZIO" class="extype" name="zio.ZIO">ZIO</a>[<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Nothing">Nothing</span>, <a href="TestResourceClient.html" class="extype" name="com.coralogix.zio.k8s.client.test.TestResourceClient">TestResourceClient</a>[<span class="extype" name="com.coralogix.zio.k8s.client.test.TestResourceClient.make.T">T</span>]]</span>
+        <span class="name">make</span><span class="tparams">[<span name="T">T</span>, <span name="DeleteResult">DeleteResult</span>]</span><span class="params">(<span name="createDeleteResult">createDeleteResult: () ⇒ <span class="extype" name="com.coralogix.zio.k8s.client.test.TestResourceClient.make.DeleteResult">DeleteResult</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="../model/K8sObject.html" class="extype" name="com.coralogix.zio.k8s.client.model.K8sObject">K8sObject</a>[<span class="extype" name="com.coralogix.zio.k8s.client.test.TestResourceClient.make.T">T</span>]</span>)</span><span class="result">: <a href="https://javadoc.io/page/dev.zio/zio_2.12/1.0.12/zio/ZIO.html#zio.ZIO" class="extype" name="zio.ZIO">ZIO</a>[<span class="extype" name="scala.Any">Any</span>, <span class="extype" name="scala.Nothing">Nothing</span>, <a href="TestResourceClient.html" class="extype" name="com.coralogix.zio.k8s.client.test.TestResourceClient">TestResourceClient</a>[<span class="extype" name="com.coralogix.zio.k8s.client.test.TestResourceClient.make.T">T</span>, <span class="extype" name="com.coralogix.zio.k8s.client.test.TestResourceClient.make.DeleteResult">DeleteResult</span>]]</span>
       </span>
       
       <p class="shortcomment cmt">Creates a test implementation of <a href="../Resource.html" class="extype" name="com.coralogix.zio.k8s.client.Resource">Resource</a> and <a href="../ResourceDeleteAll.html" class="extype" name="com.coralogix.zio.k8s.client.ResourceDeleteAll">ResourceDeleteAll</a> to be used from unit
 tests</p><div class="fullcomment"><div class="comment cmt"><p>Creates a test implementation of <a href="../Resource.html" class="extype" name="com.coralogix.zio.k8s.client.Resource">Resource</a> and <a href="../ResourceDeleteAll.html" class="extype" name="com.coralogix.zio.k8s.client.ResourceDeleteAll">ResourceDeleteAll</a> to be used from unit
 tests</p></div><dl class="paramcmts block"><dt class="tparam">T</dt><dd class="cmt"><p>
-  Resource type</p></dd><dt>returns</dt><dd class="cmt"><p>
+  Resource type</p></dd><dt class="tparam">DeleteResult</dt><dd class="cmt"><p>
+  Result type of the delete operation</p></dd><dt>returns</dt><dd class="cmt"><p>
   Test client</p></dd></dl></div>
     </li><li name="scala.AnyRef#ne" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="ne(x$1:AnyRef):Boolean"></a><a id="ne(AnyRef):Boolean"></a>
