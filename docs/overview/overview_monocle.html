@@ -63,7 +63,7 @@
         </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">Monocle support</h1></header><article><div><span><p><a href="https://www.optics.dev/Monocle/">Moncole</a> is an <em>optics library</em> that helps writing code that modifies deeply nested data structures. This fits well some of the <em>Kubernetes resources</em> that can consists of many layers of data structures, including
 optional fields, lists and maps in the middle.</p>
 <p>To enable the <em>Monocle support</em> of <code>zio-k8s</code> an additional dependency has to be imported:</p>
-<pre><code class="hljs css language-scala">libraryDependencies += <span class="hljs-string">"com.coralogix"</span> %% <span class="hljs-string">"zio-k8s-client-monocle"</span> % <span class="hljs-string">"1.4.0"</span>
+<pre><code class="hljs css language-scala">libraryDependencies += <span class="hljs-string">"com.coralogix"</span> %% <span class="hljs-string">"zio-k8s-client-monocle"</span> % <span class="hljs-string">"1.4.1"</span>
 </code></pre>
 <p>This library defines a hierarchy of <strong>optics</strong> defined for the <em>Kubernetes resource types</em>.
 The following example demonstrates how to create a lens that can set the namespace inside the metadata section of a <em>pod</em>:</p>
