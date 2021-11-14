@@ -314,6 +314,18 @@ package object config extends Descriptors {
                 }
     } yield path
 
+  def kubeconfigFromString(
+    configString: String,
+    context: Option[String] = None,
+    debug: Boolean = false,
+    disableHostnameVerification: Boolean = false
+  ): ZIO[Blocking, Throwable, K8sClusterConfig] =
+    for {
+      kubeconfig       <- Kubeconfig.loadFromString(configString)
+      k8sClusterConfig <-
+        fromKubeconfig(kubeconfig, None, context, debug, disableHostnameVerification)
+    } yield k8sClusterConfig
+
   private def fromKubeconfigFile(
     configPath: Path,
     context: Option[String],
@@ -321,52 +333,63 @@ package object config extends Descriptors {
     disableHostnameVerification: Boolean
   ): ZIO[Blocking, Throwable, K8sClusterConfig] =
     for {
-      kubeconfig      <- Kubeconfig.load(configPath)
-      maybeContextInfo = context match {
-                           case Some(forcedContext) =>
-                             kubeconfig.contextMap.get(forcedContext)
-                           case None                =>
-                             kubeconfig.currentContext
-                         }
-      contextInfo     <-
+      kubeconfig       <- Kubeconfig.load(configPath)
+      k8sClusterConfig <-
+        fromKubeconfig(kubeconfig, Some(configPath), context, debug, disableHostnameVerification)
+    } yield k8sClusterConfig
+
+  def fromKubeconfig(
+    kubeconfig: Kubeconfig,
+    configPath: Option[Path],
+    context: Option[String],
+    debug: Boolean,
+    disableHostnameVerification: Boolean
+  ): ZIO[Blocking, Throwable, K8sClusterConfig] = {
+
+    val maybeContextInfo = context match {
+      case Some(forcedContext) =>
+        kubeconfig.contextMap.get(forcedContext)
+      case None                =>
+        kubeconfig.currentContext
+    }
+
+    for {
+      contextInfo    <-
         ZIO
           .fromOption(maybeContextInfo)
           .orElseFail(
             new RuntimeException(
-              s"Could not find context ${context.getOrElse(kubeconfig.`current-context`)} in kubeconfig $configPath"
+              s"Could not find context ${context.getOrElse(kubeconfig.`current-context`)} in kubeconfig"
             )
           )
-      cluster         <- ZIO
-                           .fromOption(kubeconfig.clusterMap.get(contextInfo.cluster))
-                           .orElseFail(
-                             new RuntimeException(
-                               s"Could not find cluster ${contextInfo.cluster} in kubeconfig $configPath"
-                             )
-                           )
-      user            <- ZIO
-                           .fromOption(kubeconfig.userMap.get(contextInfo.user))
-                           .orElseFail(
-                             new RuntimeException(
-                               s"Could not find user ${contextInfo.user} in kubeconfig $configPath"
-                             )
-                           )
-      host            <- ZIO
-                           .fromEither(Uri.parse(cluster.server))
-                           .mapError(s => new RuntimeException(s"Failed to parse host URL: $s"))
-      authentication  <- userInfoToAuthentication(user, configPath)
-      serverCert      <-
+      cluster        <- ZIO
+                          .fromOption(kubeconfig.clusterMap.get(contextInfo.cluster))
+                          .orElseFail(
+                            new RuntimeException(
+                              s"Could not find cluster ${contextInfo.cluster} in kubeconfig"
+                            )
+                          )
+      user           <- ZIO
+                          .fromOption(kubeconfig.userMap.get(contextInfo.user))
+                          .orElseFail(
+                            new RuntimeException(
+                              s"Could not find user ${contextInfo.user} in kubeconfig"
+                            )
+                          )
+      host           <- ZIO
+                          .fromEither(Uri.parse(cluster.server))
+                          .mapError(s => new RuntimeException(s"Failed to parse host URL: $s"))
+      authentication <- userInfoToAuthentication(user, configPath)
+      serverCert     <-
         ZIO
           .fromEither(
             KeySource.from(cluster.`certificate-authority`, cluster.`certificate-authority-data`)
           )
           .mapError(new RuntimeException(_))
-      client           =
+      client          =
         K8sClientConfig(debug, K8sServerCertificate.Secure(serverCert, disableHostnameVerification))
-    } yield K8sClusterConfig(
-      host,
-      authentication,
-      client
-    )
+    } yield K8sClusterConfig(host, authentication, client)
+  }
 
   final case class ExecCredentials(
     kind: String,
@@ -395,22 +418,25 @@ package object config extends Descriptors {
     *   The kubeconfig path. Relative command paths are interpreted as relative to the directory of
     *   the config file. For example, If KUBECONFIG is set to /home/danny/kubeconfig and the exec
     *   command is ./bin/exec-plugin the binary /home/danny/bin/exec-plugin is executed.
+    *
+    * The configPath is optional because the config itself might not have been loaded from the
+    * filesystem if Kubeconfig.loadFromString or kubeConfigFromString functions were called.
     * @return
     */
-  private def runUserExecConfig(execConfig: ExecConfig, configPath: Path): RIO[Blocking, String] = {
-    val prepareCommand = ZIO
-      .ifM(
-        ZIO.effectTotal(
-          execConfig.command.contains(File.separator) && !Path(
-            execConfig.command
-          ).isAbsolute
-        )
-      )(
-        onTrue = configPath.toAbsolutePath.map(
-          _.resolveSibling(Path(execConfig.command)).normalize.toString
-        ),
-        onFalse = Task.effect(execConfig.command)
-      )
+  private def runUserExecConfig(
+    execConfig: ExecConfig,
+    configPath: Option[Path]
+  ): RIO[Blocking, String] = {
+    val prepareCommand = {
+      val useRelativeCmdPath =
+        execConfig.command.contains(File.separator) && !Path(execConfig.command).isAbsolute
+
+      configPath match {
+        case Some(configPath) if useRelativeCmdPath =>
+          Task.effect(configPath.resolveSibling(Path(execConfig.command)).normalize.toString)
+        case _                                      => Task.effect(execConfig.command)
+      }
+    }
 
     def runCommand(command: String) =
       Command(
@@ -457,7 +483,7 @@ package object config extends Descriptors {
 
   private def getUserToken(
     user: KubeconfigUserInfo,
-    configPath: Path
+    configPath: Option[Path]
   ): RIO[Blocking, Option[String]] =
     user.exec match {
       case Some(exec) => runUserExecConfig(exec, configPath).map(_.some)
@@ -466,7 +492,7 @@ package object config extends Descriptors {
 
   private def userInfoToAuthentication(
     user: KubeconfigUserInfo,
-    configPath: Path
+    configPath: Option[Path]
   ): RIO[Blocking, K8sAuthentication] = {
     def getAuthentication(
       maybeToken: Option[String],

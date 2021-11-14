@@ -7,7 +7,7 @@ import zio.config._
 import zio.config.typesafe.TypesafeConfig
 import zio.nio.core.file.Path
 import zio.test.environment.TestEnvironment
-import zio.test.{ assertM, Assertion, DefaultRunnableSpec, ZSpec }
+import zio.test.{ assertCompletes, assertM, Assertion, DefaultRunnableSpec, ZSpec }
 import cats.implicits._
 import com.coralogix.zio.k8s.client.config.K8sAuthentication.ServiceAccountToken
 import com.coralogix.zio.k8s.client.config.KeySource.FromString
@@ -18,6 +18,9 @@ import java.nio.charset.StandardCharsets
 object ConfigSpec extends DefaultRunnableSpec {
   override def spec: ZSpec[TestEnvironment, Any] =
     suite("K8sClusterConfig descriptors")(
+      testM("load config from string") {
+        kubeconfigFromString(example2).as(assertCompletes)
+      },
       testM("load client config") {
         // Loading config from HOCON
         val loadConfig =
