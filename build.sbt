@@ -50,7 +50,7 @@ lazy val client = Project("zio-k8s-client", file("zio-k8s-client"))
       "dev.zio"                       %% "zio"                           % zioVersion,
       "dev.zio"                       %% "zio-streams"                   % zioVersion,
       "dev.zio"                       %% "zio-config"                    % zioConfigVersion,
-      "dev.zio"                       %% "zio-logging"                   % "0.5.11",
+      "dev.zio"                       %% "zio-logging"                   % "0.5.14",
       "dev.zio"                       %% "zio-nio"                       % "1.0.0-RC11",
       "dev.zio"                       %% "zio-process"                   % "0.5.0" exclude ("org.scala-lang.modules", "scala-collection-compat_3"),
       "com.softwaremill.sttp.client3" %% "core"                          % sttpVersion,
