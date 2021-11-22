@@ -1,11 +1,15 @@
 package com.coralogix.zio.k8s.client
 
+import io.circe.{ Decoder, Encoder, HCursor }
 import sttp.client3.{ Empty, RequestT, UriContext }
 import sttp.model._
+import zio.Chunk
 import zio.duration._
 
 import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
+import java.util.Base64
+import scala.util.Try
 
 package object model extends LabelSelector.Syntax with FieldSelector.Syntax {
 
@@ -188,4 +192,10 @@ package object model extends LabelSelector.Syntax with FieldSelector.Syntax {
   val k8sDateTimeFormatter: DateTimeFormatter = DateTimeFormatter
     .ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'")
     .withZone(ZoneOffset.UTC)
+
+  implicit val chunkByteDecoder: Decoder[Chunk[Byte]] =
+    Decoder.decodeString.emapTry(str => Try(Base64.getDecoder.decode(str)).map(Chunk.fromArray))
+
+  implicit val chunkByteEncoder: Encoder[Chunk[Byte]] =
+    Encoder.encodeString.contramap(bytes => Base64.getEncoder.encodeToString(bytes.toArray))
 }
