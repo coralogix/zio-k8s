@@ -6,7 +6,7 @@ import io.circe.yaml.parser._
 import zio.blocking.Blocking
 import zio.nio.core.file.Path
 import zio.nio.file.Files
-import zio.{ Task, ZIO }
+import zio.{ IO, Task, ZIO }
 
 import java.nio.charset.StandardCharsets
 
@@ -102,7 +102,18 @@ object Kubeconfig {
     for {
       yamlBytes  <- Files.readAllBytes(configPath)
       yamlString <- Task(new String(yamlBytes.toArray, StandardCharsets.UTF_8))
-      yaml       <- ZIO.fromEither(parse(yamlString))
+      kubeconfig <- loadFromString(yamlString)
+    } yield kubeconfig
+
+  /** Supply the contents of the kubeconfig directly as a String. The contents of the `configString`
+    * can be either yaml or json.
+    * @param configString
+    *   yaml/json kubeconfig file contents
+    * @return
+    */
+  def loadFromString(configString: String): IO[Throwable, Kubeconfig] =
+    for {
+      yaml       <- ZIO.fromEither(parse(configString))
       kubeconfig <- ZIO.fromEither(yaml.as[Kubeconfig])
     } yield kubeconfig
 }

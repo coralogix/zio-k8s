@@ -1,11 +1,15 @@
 package com.coralogix.zio.k8s.client
 
+import io.circe.{ Decoder, Encoder, HCursor }
 import sttp.client3.{ Empty, RequestT, UriContext }
 import sttp.model._
+import zio.Chunk
 import zio.duration._
 
 import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
+import java.util.Base64
+import scala.util.Try
 
 package object model extends LabelSelector.Syntax with FieldSelector.Syntax {
 

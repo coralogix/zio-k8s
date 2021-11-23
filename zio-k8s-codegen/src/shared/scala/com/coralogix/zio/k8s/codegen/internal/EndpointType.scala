@@ -17,7 +17,8 @@ object EndpointType {
       extends EndpointType
   case class Patch(namespaced: Boolean, detectedPlural: String, modelName: String)
       extends EndpointType
-  case class Delete(namespaced: Boolean, detectedPlural: String) extends EndpointType
+  case class Delete(namespaced: Boolean, detectedPlural: String, resultTypeRef: String)
+      extends EndpointType
   case class DeleteMany(namespaced: Boolean, detectedPlural: String) extends EndpointType
 
   trait SubresourceEndpoint extends EndpointType {
@@ -315,13 +316,17 @@ object EndpointType {
               case clusterPattern(_, _, group, version, plural)    =>
                 guards.mustHaveSame(group, version) {
                   guards.mustHaveNotHaveParameter("namespace") {
-                    EndpointType.Delete(namespaced = false, plural)
+                    guards.mustHaveResponseTypeRef { responseTypeRef =>
+                      EndpointType.Delete(namespaced = false, plural, responseTypeRef)
+                    }
                   }
                 }
               case namespacedPattern(_, _, group, version, plural) =>
                 guards.mustHaveSame(group, version) {
                   guards.mustHaveParameters("namespace") {
-                    EndpointType.Delete(namespaced = true, plural)
+                    guards.mustHaveResponseTypeRef { responseTypeRef =>
+                      EndpointType.Delete(namespaced = true, plural, responseTypeRef)
+                    }
                   }
                 }
               case _                                               =>
@@ -448,6 +453,12 @@ object EndpointType {
         f
       else
         EndpointType.Unsupported("Group/version mismatch")
+
+    def mustHaveResponseTypeRef(f: String => EndpointType): EndpointType =
+      endpoint.responseTypeRef match {
+        case Some(ref) => f(ref)
+        case None      => EndpointType.Unsupported("Does not have a response type")
+      }
 
     private def getBodyType =
       for {

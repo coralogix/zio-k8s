@@ -43,6 +43,7 @@ class K8sCustomResourceCodegen(val scalaVersion: String) extends Common with Cli
         .find(_.name == version)
         .flatMap(_.subresources.flatMap(_.status).toOption)
         .map(_ => entityName.toPascalCase + ".Status"),
+      "com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Status",
       GroupVersionKind(
         crd.spec.group,
         version,

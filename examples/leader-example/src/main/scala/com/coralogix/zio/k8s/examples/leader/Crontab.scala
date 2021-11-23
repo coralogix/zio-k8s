@@ -10,7 +10,7 @@ import com.coralogix.zio.k8s.client.model.{
   ResourceMetadata
 }
 import com.coralogix.zio.k8s.client._
-import com.coralogix.zio.k8s.model.pkg.apis.meta.v1.ObjectMeta
+import com.coralogix.zio.k8s.model.pkg.apis.meta.v1.{ ObjectMeta, Status }
 import io.circe.Codec
 import io.circe.generic.semiauto._
 import sttp.capabilities.WebSockets
@@ -76,7 +76,7 @@ package object crontabs {
     }
 
     class Live(
-      override val asGenericResource: ResourceClient[Crontab],
+      override val asGenericResource: ResourceClient[Crontab, Status],
       override val asGenericResourceStatus: ResourceStatusClient[CrontabStatus, Crontab]
     ) extends Service
 
@@ -85,7 +85,8 @@ package object crontabs {
     ], Nothing, Crontabs] =
       ZLayer.fromServices[SttpBackend[Task, ZioStreams with WebSockets], K8sCluster, Service] {
         (backend: SttpBackend[Task, ZioStreams with WebSockets], cluster: K8sCluster) =>
-          val client = new ResourceClient[Crontab](Crontab.metadata.resourceType, cluster, backend)
+          val client =
+            new ResourceClient[Crontab, Status](Crontab.metadata.resourceType, cluster, backend)
           val statusClient = new ResourceStatusClient[CrontabStatus, Crontab](
             Crontab.metadata.resourceType,
             cluster,
