@@ -2,7 +2,7 @@ package com.coralogix.zio.k8s.codegen
 
 import sbt.Keys._
 import sbt._
-import zio.nio.core.file.{ Path => ZPath }
+import zio.nio.file.{ Path => ZPath }
 import K8sSwaggerPlugin.autoImport._
 
 object K8sMonocleCodegenPlugin extends AutoPlugin {

@@ -5,7 +5,7 @@ import sttp.client3._
 import zio.{ Chunk, Has, ZIO }
 import zio.config._
 import zio.config.typesafe.TypesafeConfig
-import zio.nio.core.file.Path
+import zio.nio.file.Path
 import zio.test.environment.TestEnvironment
 import zio.test.{ assertCompletes, assertM, Assertion, DefaultRunnableSpec, ZSpec }
 import cats.implicits._

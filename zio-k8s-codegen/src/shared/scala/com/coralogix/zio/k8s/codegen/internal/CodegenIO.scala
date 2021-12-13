@@ -1,7 +1,7 @@
 package com.coralogix.zio.k8s.codegen.internal
 
 import zio.blocking.Blocking
-import zio.nio.core.file.Path
+import zio.nio.file.Path
 import zio.nio.file.Files
 import zio.stream.{ Transducer, ZStream }
 import zio.{ Chunk, ZIO }

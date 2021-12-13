@@ -5,6 +5,7 @@ val scala3Version = "3.1.0"
 val zioVersion = "1.0.12"
 val zioConfigVersion = "1.0.10"
 val sttpVersion = "3.3.18"
+val zioNioVersion = "1.0.0-RC12"
 
 inThisBuild(
   List(
@@ -51,7 +52,7 @@ lazy val client = Project("zio-k8s-client", file("zio-k8s-client"))
       "dev.zio"                       %% "zio-streams"                   % zioVersion,
       "dev.zio"                       %% "zio-config"                    % zioConfigVersion,
       "dev.zio"                       %% "zio-logging"                   % "0.5.14",
-      "dev.zio"                       %% "zio-nio"                       % "1.0.0-RC12",
+      "dev.zio"                       %% "zio-nio"                       % zioNioVersion,
       "dev.zio"                       %% "zio-process"                   % "0.5.0",
       "com.softwaremill.sttp.client3" %% "core"                          % sttpVersion,
       "com.softwaremill.sttp.client3" %% "zio"                           % sttpVersion,
@@ -172,7 +173,7 @@ lazy val crd = Project("zio-k8s-crd", file("zio-k8s-crd"))
     libraryDependencies ++= Seq(
       "dev.zio"       %% "zio"              % zioVersion,
       "dev.zio"       %% "zio-streams"      % zioVersion,
-      "dev.zio"       %% "zio-nio"          % "1.0.0-RC11",
+      "dev.zio"       %% "zio-nio"          % zioNioVersion,
       "com.twilio"    %% "guardrail"        % "0.64.1",
       "org.scalameta" %% "scalafmt-dynamic" % "2.7.5",
       "org.atteo"      % "evo-inflector"    % "1.3",
@@ -208,7 +209,7 @@ lazy val operator = Project("zio-k8s-operator", file("zio-k8s-operator"))
     libraryDependencies ++= Seq(
       "dev.zio" %% "zio"          % zioVersion,
       "dev.zio" %% "zio-streams"  % zioVersion,
-      "dev.zio" %% "zio-nio"      % "1.0.0-RC11",
+      "dev.zio" %% "zio-nio"      % zioNioVersion,
       "dev.zio" %% "zio-test"     % zioVersion % Test,
       "dev.zio" %% "zio-test-sbt" % zioVersion % Test
     ),

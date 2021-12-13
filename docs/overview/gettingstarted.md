@@ -95,7 +95,7 @@ import sttp.client3._
 import sttp.model._
 import zio.ZLayer
 import zio.blocking.Blocking
-import zio.nio.core.file.Path
+import zio.nio.file.Path
 
 // Configuration
 val config = ZLayer.succeed(
