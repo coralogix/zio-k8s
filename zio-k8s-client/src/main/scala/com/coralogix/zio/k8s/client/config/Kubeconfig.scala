@@ -4,7 +4,7 @@ import io.circe._
 import io.circe.generic.semiauto._
 import io.circe.yaml.parser._
 import zio.blocking.Blocking
-import zio.nio.core.file.Path
+import zio.nio.file.Path
 import zio.nio.file.Files
 import zio.{ IO, Task, ZIO }
 

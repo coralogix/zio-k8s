@@ -21,7 +21,7 @@ import io.circe.yaml.parser._
 import org.scalafmt.interfaces.Scalafmt
 import zio.{ Chunk, ZIO }
 import zio.blocking.Blocking
-import zio.nio.core.file.Path
+import zio.nio.file.Path
 import zio.nio.file.Files
 import zio.stream.{ Transducer, ZStream }
 

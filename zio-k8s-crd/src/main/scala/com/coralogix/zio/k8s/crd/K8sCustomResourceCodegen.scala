@@ -13,7 +13,7 @@ import sbt._
 import sbt.util.Logger
 import org.scalafmt.interfaces.Scalafmt
 import zio.blocking.Blocking
-import zio.nio.core.file.Path
+import zio.nio.file.Path
 import zio.nio.file.Files
 import zio.stream.ZStream
 import zio.{ Chunk, Task, ZIO }

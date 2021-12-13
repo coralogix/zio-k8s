@@ -39,7 +39,7 @@ import sttp.client3._
 import sttp.model._
 import zio._
 import zio.blocking.Blocking
-import zio.nio.core.file.Path
+import zio.nio.file.Path
 import zio.system.System
 ```
 

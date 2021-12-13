@@ -8,7 +8,7 @@ import org.scalafmt.interfaces.Scalafmt
 import scala.meta._
 import zio.ZIO
 import zio.blocking.Blocking
-import zio.nio.core.file.Path
+import zio.nio.file.Path
 import zio.nio.file.Files
 
 import scala.collection.immutable

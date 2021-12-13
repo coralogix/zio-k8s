@@ -6,7 +6,7 @@ import io.swagger.v3.oas.models.media.ObjectSchema
 import org.scalafmt.interfaces.Scalafmt
 import zio.ZIO
 import zio.blocking.Blocking
-import zio.nio.core.file.Path
+import zio.nio.file.Path
 
 import java.nio.file.{ Path => JPath, Paths => JPaths }
 

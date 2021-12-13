@@ -2,7 +2,7 @@ package com.coralogix.zio.k8s.crd
 
 import sbt._
 import sbt.Keys._
-import zio.nio.core.file.{ Path => ZPath }
+import zio.nio.file.{ Path => ZPath }
 
 object K8sCustomResourceCodegenPlugin extends AutoPlugin {
 

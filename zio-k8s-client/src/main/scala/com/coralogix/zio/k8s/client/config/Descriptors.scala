@@ -3,7 +3,7 @@ package com.coralogix.zio.k8s.client.config
 import sttp.model.Uri
 import zio.config.ConfigDescriptor._
 import zio.config._
-import zio.nio.core.file.Path
+import zio.nio.file.Path
 
 /** Defines ZIO Config descriptors for all the configuration data types of zio-k8s
   */

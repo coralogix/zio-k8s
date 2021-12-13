@@ -7,7 +7,7 @@ import com.coralogix.zio.k8s.model.core.v1.Pod
 import com.coralogix.zio.k8s.operator.OperatorFailure.k8sFailureToThrowable
 import com.coralogix.zio.k8s.operator.OperatorLogging.ConvertableToThrowable
 import zio.blocking.Blocking
-import zio.nio.core.file.Path
+import zio.nio.file.Path
 import zio.nio.file.Files
 import zio.system.System
 import zio.{ Has, IO, ULayer, ZIO, ZLayer }
