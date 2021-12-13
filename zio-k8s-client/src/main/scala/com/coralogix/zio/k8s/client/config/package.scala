@@ -8,7 +8,7 @@ import sttp.client3.UriContext
 import sttp.model.Uri
 import zio.blocking.Blocking
 import zio.config._
-import zio.nio.core.file.Path
+import zio.nio.file.Path
 import zio.process.Command
 import zio.system.System
 import zio.{ system, Has, RIO, Task, ZIO, ZLayer, ZManaged }
