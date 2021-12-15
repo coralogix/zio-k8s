@@ -17,6 +17,7 @@ import cats.implicits._
 import java.io.{ ByteArrayInputStream, File, FileInputStream, InputStream }
 import java.nio.charset.StandardCharsets
 import java.util.Base64
+import javax.net.ssl.KeyManager
 
 /** Contains data structures, ZIO layers and zio-config descriptors for configuring the zio-k8s
   * client.
@@ -397,10 +398,31 @@ package object config extends Descriptors {
     status: ExecCredentialStatus
   )
 
-  final case class ExecCredentialStatus(token: String)
+  final case class ExecCredentialStatus(
+    token: Option[String],
+    certificate: Option[K8sAuthentication.ClientCertificates]
+  )
 
   object ExecCredentials {
-    implicit val execCredentialStatusDecoder: Decoder[ExecCredentialStatus] = deriveDecoder
+    private implicit val keyManagerDecoder: Decoder[Option[K8sAuthentication.ClientCertificates]] =
+      Decoder.instance { c =>
+        for {
+          maybeCert <-
+            c.get[Option[String]]("clientCertificateData").map(_.map(KeySource.FromString))
+          maybeKey  <- c.get[Option[String]]("clientKeyData").map(_.map(KeySource.FromString))
+        } yield (maybeCert, maybeKey) match {
+          case (Some(cert), Some(key)) =>
+            K8sAuthentication.ClientCertificates(cert, key, password = None).some
+          case _                       => None
+        }
+      }
+    implicit val execCredentialStatusDecoder: Decoder[ExecCredentialStatus] = Decoder.instance {
+      c =>
+        for {
+          token <- c.get[Option[String]]("token")
+          cert  <- c.as[Option[K8sAuthentication.ClientCertificates]]
+        } yield ExecCredentialStatus(token, cert)
+    }
     implicit val execCredentialsDecoder: Decoder[ExecCredentials] = deriveDecoder
   }
 
@@ -426,7 +448,7 @@ package object config extends Descriptors {
   private def runUserExecConfig(
     execConfig: ExecConfig,
     configPath: Option[Path]
-  ): RIO[Blocking, String] = {
+  ): RIO[Blocking, K8sAuthentication] = {
     val prepareCommand = {
       val useRelativeCmdPath =
         execConfig.command.contains(File.separator) && !Path(execConfig.command).isAbsolute
@@ -478,56 +500,59 @@ package object config extends Descriptors {
       execCredentials <- decodeCommandResult(commandResult)
       _               <- validateCredsApiVersionSupported(execCredentials)
       _               <- validateCredentialsApi(execCredentials, execConfig)
-    } yield execCredentials.status.token
+      auth            <-
+        execCredentials.status.token
+          .map(x => K8sAuthentication.ServiceAccountToken(KeySource.FromString(x)))
+          .orElse(execCredentials.status.certificate)
+          .fold[Task[K8sAuthentication]](
+            ZIO.fail(new RuntimeException("Neither token nor certificate returned by command"))
+          )(ZIO.succeed(_))
+    } yield auth
   }
 
-  private def getUserToken(
+  private def authenticationFromPlugin(
     user: KubeconfigUserInfo,
     configPath: Option[Path]
-  ): RIO[Blocking, Option[String]] =
+  ): RIO[Blocking, Option[K8sAuthentication]] =
     user.exec match {
       case Some(exec) => runUserExecConfig(exec, configPath).map(_.some)
-      case _          => ZIO.effectTotal(user.token)
+      case _          => ZIO.none
     }
 
   private def userInfoToAuthentication(
     user: KubeconfigUserInfo,
     configPath: Option[Path]
   ): RIO[Blocking, K8sAuthentication] = {
-    def getAuthentication(
-      maybeToken: Option[String],
-      maybeUsername: Option[String]
-    ): ZIO[Any, RuntimeException, K8sAuthentication] =
-      (maybeToken, maybeUsername) match {
-        case (Some(token), None)    =>
-          ZIO.succeed(K8sAuthentication.ServiceAccountToken(KeySource.FromString(token)))
-        case (None, Some(username)) =>
-          user.password match {
-            case Some(password) =>
-              ZIO.succeed(K8sAuthentication.BasicAuth(username, password))
-            case None           =>
-              ZIO.fail(new RuntimeException("Username without password in kubeconfig"))
-          }
-        case (Some(_), Some(_))     =>
-          ZIO.fail(new RuntimeException("Both token and username is provided in kubeconfig"))
-        case (None, None)           =>
-          for {
-            clientCert <-
-              ZIO
-                .fromEither(
-                  KeySource.from(user.`client-certificate`, user.`client-certificate-data`)
-                )
-                .mapError(new RuntimeException(_))
-            clientKey  <- ZIO
-                            .fromEither(KeySource.from(user.`client-key`, user.`client-key-data`))
-                            .mapError(new RuntimeException(_))
-          } yield K8sAuthentication.ClientCertificates(clientCert, clientKey, None)
+    val token =
+      user.token.map(token => K8sAuthentication.ServiceAccountToken(KeySource.FromString(token)))
+    val usernamePassword: ZIO[Any, Throwable, Option[K8sAuthentication.BasicAuth]] =
+      (user.username, user.password) match {
+        case (Some(username), Some(password)) =>
+          ZIO.some(K8sAuthentication.BasicAuth(username, password))
+
+        case (None, None) =>
+          ZIO.none
+
+        case _ =>
+          ZIO.fail(new RuntimeException("Both username and password should be provided"))
       }
+    val clientCertificate = (for {
+      cert <- KeySource.from(user.`client-certificate`, user.`client-certificate-data`)
+      key  <- KeySource.from(user.`client-key`, user.`client-key-data`)
+    } yield K8sAuthentication.ClientCertificates(cert, key, None)).toOption
 
     for {
-      token          <- getUserToken(user, configPath)
-      authentication <- getAuthentication(token, user.username)
-    } yield authentication
+      authFromPlugin <- authenticationFromPlugin(user, configPath)
+      basicAuth      <- usernamePassword
+      auth           <- List(authFromPlugin, token, basicAuth, clientCertificate).filter(_.isDefined) match {
+                          case Nil            =>
+                            ZIO.fail(new RuntimeException("No valid authentication is configured"))
+                          case Some(x) :: Nil =>
+                            ZIO.succeed(x)
+                          case xs             =>
+                            ZIO.fail(new RuntimeException("More than one authentication method found"))
+                        }
+    } yield auth
   }
 
   private[config] def loadKeyStream(source: KeySource): ZManaged[Any, Throwable, InputStream] =
