@@ -1,5 +1,6 @@
 package com.coralogix.zio.k8s.codegen.internal
 
+import io.github.vigoo.metagen.core.ScalaType
 import io.swagger.v3.oas.models.PathItem
 import io.swagger.v3.oas.models.parameters.Parameter
 
@@ -17,7 +18,7 @@ object EndpointType {
       extends EndpointType
   case class Patch(namespaced: Boolean, detectedPlural: String, modelName: String)
       extends EndpointType
-  case class Delete(namespaced: Boolean, detectedPlural: String, resultTypeRef: String)
+  case class Delete(namespaced: Boolean, detectedPlural: String, resultType: ScalaType)
       extends EndpointType
   case class DeleteMany(namespaced: Boolean, detectedPlural: String) extends EndpointType
 
@@ -454,7 +455,7 @@ object EndpointType {
       else
         EndpointType.Unsupported("Group/version mismatch")
 
-    def mustHaveResponseTypeRef(f: String => EndpointType): EndpointType =
+    def mustHaveResponseTypeRef(f: ScalaType => EndpointType): EndpointType =
       endpoint.responseTypeRef match {
         case Some(ref) => f(ref)
         case None      => EndpointType.Unsupported("Does not have a response type")

@@ -1,12 +1,13 @@
 package com.coralogix.zio.k8s.codegen.internal
 
+import io.github.vigoo.metagen.core.ScalaType
 import scala.meta._
 
 case class SubresourceId(
-  name: String,
-  modelName: String,
-  actionVerbs: Set[String],
-  customParameters: Map[String, Type]
+                          name: String,
+                          model: ScalaType,
+                          actionVerbs: Set[String],
+                          customParameters: Map[String, Type]
 ) {
   def toMethodParameters: List[Term.Param] =
     customParameters.toList
@@ -35,13 +36,13 @@ case class SubresourceId(
       q"List(..$pairs).flatten.toMap"
     }
 
-  def hasStreamingGet: Boolean = modelName == "String"
+  def hasStreamingGet: Boolean = model == ScalaType.string
 
   def streamingGetTransducer: Term =
-    modelName match {
-      case "String" =>
-        q"zio.stream.ZTransducer.utf8Decode >>> zio.stream.ZTransducer.splitLines"
-      case _        => q"???"
+    if (model == ScalaType.string) {
+      q"zio.stream.ZTransducer.utf8Decode >>> zio.stream.ZTransducer.splitLines"
+    } else {
+      q"???"
     }
 
   private def valueToString(typ: Type, name: String): Term = {

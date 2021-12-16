@@ -3,24 +3,25 @@ package com.coralogix.zio.k8s.codegen.internal
 import com.coralogix.zio.k8s.codegen.internal.Conversions.splitName
 import com.coralogix.zio.k8s.codegen.internal.EndpointType.SubresourceEndpoint
 import com.coralogix.zio.k8s.codegen.internal.Whitelist.IssueReference
+import io.github.vigoo.metagen.core._
 import org.atteo.evo.inflector.English
 import zio.Task
 
 import scala.meta._
-import _root_.io.swagger.v3.oas.models.parameters.QueryParameter
 
 sealed trait ClassifiedResource {
   val unsupportedEndpoints: Set[IdentifiedAction]
 }
 case class SupportedResource(
-  namespaced: Boolean,
-  hasStatus: Boolean,
-  gvk: GroupVersionKind,
-  modelName: String,
-  plural: String,
-  modelReferences: Set[String],
-  actions: Set[IdentifiedAction],
-  unsupportedEndpoints: Set[IdentifiedAction]
+    schemaName: String,
+                              namespaced: Boolean,
+                              hasStatus: Boolean,
+                              gvk: GroupVersionKind,
+                              model: ScalaType,
+                              plural: String,
+                              modelReferences: Set[String],
+                              actions: Set[IdentifiedAction],
+                              unsupportedEndpoints: Set[IdentifiedAction]
 ) extends ClassifiedResource {
   def id: String = gvk.toString
 
@@ -60,17 +61,16 @@ case class SupportedResource(
 
         Subresource(
           name = subresourceName,
-          modelName = modelName,
+          model = splitName(modelName),
           actions.map(_._1)
         )
       }
       .toSet
 
-  def pluralEntityName: String = {
-    val (_, entity) = splitName(modelName)
-    English.plural(entity)
-  }
+  def pluralEntityName: String =
+    English.plural(model.name)
 }
+
 case class UnsupportedResource(
   gvk: GroupVersionKind,
   actions: Set[IdentifiedAction],
@@ -102,10 +102,10 @@ case class UnsupportedResource(
 
 case class Subresource(
   name: String,
-  modelName: String,
+  model: ScalaType,
   actions: Set[IdentifiedAction]
 ) {
-  def describe: String = s"$name ($modelName) [${actions.map(_.action).mkString(", ")}]"
+  def describe: String = s"$name (${model.name}) [${actions.map(_.action).mkString(", ")}]"
 
   def id: SubresourceId = {
     val customParameters: Map[String, Type] =
@@ -131,7 +131,7 @@ case class Subresource(
 
         case None => Map.empty
       }
-    SubresourceId(name, modelName, actions.map(_.action), customParameters)
+    SubresourceId(name, model, actions.map(_.action), customParameters)
   }
 }
 
@@ -278,10 +278,11 @@ object ClassifiedResource {
           plural    <- pluralOpt
           modelName <- modelNameOpt
         } yield SupportedResource(
+          modelName,
           namespaced,
           hasStatus,
           gvk,
-          modelName,
+          splitName(modelName),
           plural,
           modelReferences = refs,
           actions,

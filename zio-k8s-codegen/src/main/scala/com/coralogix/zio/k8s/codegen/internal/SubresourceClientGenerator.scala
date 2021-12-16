@@ -1,12 +1,14 @@
 package com.coralogix.zio.k8s.codegen.internal
 
 import com.coralogix.zio.k8s.codegen.internal.CodegenIO.writeTextFile
-import com.coralogix.zio.k8s.codegen.internal.Conversions.splitName
+import com.coralogix.zio.k8s.codegen.internal.Conversions.{modelRoot, splitName}
+import io.github.vigoo.metagen.core._
 import org.scalafmt.interfaces.Scalafmt
 import zio.ZIO
 import zio.blocking.Blocking
 import zio.nio.file.Path
 import zio.nio.file.Files
+import zio.prelude.NonEmptyList
 
 import scala.meta._
 
@@ -20,9 +22,8 @@ trait SubresourceClientGenerator {
   ): ZIO[Blocking, Throwable, Set[Path]] = {
     val targetDir = targetRoot / "com" / "coralogix" / "zio" / "k8s" / "client" / "subresources"
     ZIO.foreach(subresources) { subid =>
-      val (modelPkg, modelName) = splitName(subid.modelName)
-      val src = subresourceSource(subid, modelPkg, modelName)
-      val targetPkgDir = modelPkg.foldLeft(targetDir)(_ / _)
+      val src = subresourceSource(subid)
+      val targetPkgDir = targetDir / subid.model.pkg.asPath
       val targetPath = targetPkgDir / (subid.name + ".scala")
       for {
         _ <- Files.createDirectories(targetPkgDir)
@@ -32,16 +33,9 @@ trait SubresourceClientGenerator {
     }
   }
 
-  def subresourceSource(
-    subresource: SubresourceId,
-    pkg: Vector[String],
-    modelName: String
-  ): String = {
-    val packageTerm = (Vector("com", "coralogix", "zio", "k8s", "client", "subresources") ++ pkg)
-      .mkString(".")
-      .parse[Term]
-      .get
-      .asInstanceOf[Term.Ref]
+  def subresourceSource(subresource: SubresourceId): String = {
+    val pkg = Package(NonEmptyList("com", "coralogix", "zio", "k8s", "client", "subresources") ++ subresource.model.pkg.dropPrefix(modelRoot))
+
     val capName = subresource.name.capitalize
     val namespacedT = Type.Name(s"Namespaced${capName}Subresource")
     val namespacedTerm = Term.Name(s"Namespaced${capName}Subresource")

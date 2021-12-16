@@ -142,22 +142,18 @@ class K8sResourceCodegen(val logger: sbt.Logger, val scalaVersion: String)
       groupName = groupNameToPackageName(resource.gvk.group)
       pkg       = (clientRoot ++ groupName) :+ resource.gvk.version :+ resource.plural
 
-      (entityPkg, entity) = splitName(resource.modelName)
       deleteResponse      = resource.actions
                               .map(_.endpointType)
                               .collectFirst { case EndpointType.Delete(_, _, responseTypeRef) =>
-                                s"com.coralogix.zio.k8s.model.$responseTypeRef"
+                                responseTypeRef
                               }
-                              .getOrElse("com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Status")
+                              .getOrElse(Types.status)
 
       src       <- generateModuleCode(
                      basePackageName = clientRoot.mkString("."),
-                     modelPackageName = "com.coralogix.zio.k8s.model." + entityPkg.mkString("."),
                      name = resource.plural,
-                     entity = entity,
-                     statusEntity = findStatusEntity(definitionMap, resource.modelName).map(s =>
-                       s"com.coralogix.zio.k8s.model.$s"
-                     ),
+                     entity = resource.model,
+                     statusEntity = findStatusEntity(Packages.k8sModel, definitionMap, resource.schemaName),
                      deleteResponse = deleteResponse,
                      gvk = resource.gvk,
                      isNamespaced = resource.namespaced,
