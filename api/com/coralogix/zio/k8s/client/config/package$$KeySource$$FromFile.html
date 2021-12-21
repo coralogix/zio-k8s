@@ -167,7 +167,7 @@
       <p class="shortcomment cmt">Contains data structures, ZIO layers and zio-config descriptors for configuring the zio-k8s
 client.</p><div class="fullcomment"><div class="comment cmt"><p>Contains data structures, ZIO layers and zio-config descriptors for configuring the zio-k8s
 client.</p><p>Each zio-k8s client module depends on two ZIO modules:
-<a href="../model/package$$K8sCluster.html" class="extype" name="com.coralogix.zio.k8s.client.model.K8sCluster">com.coralogix.zio.k8s.client.model.K8sCluster</a> and an <a href="https://javadoc.io/page/com.softwaremill.sttp.client3/core_2.12/3.3.17/sttp/client3/SttpBackend.html" class="extype" name="sttp.client3.SttpBackend">sttp.client3.SttpBackend</a>. To use
+<a href="../model/package$$K8sCluster.html" class="extype" name="com.coralogix.zio.k8s.client.model.K8sCluster">com.coralogix.zio.k8s.client.model.K8sCluster</a> and an <a href="https://javadoc.io/page/com.softwaremill.sttp.client3/core_2.12/3.3.18/sttp/client3/SttpBackend.html" class="extype" name="sttp.client3.SttpBackend">sttp.client3.SttpBackend</a>. To use
 the default configuration (use kubeconfig if available, otherwise fallback to service account
 token), use either <code>asynchttpclient.k8sDefault</code> or <code>httpclient.k8sDefault</code> depending on your
 chosen sttp backend.</p><p>Manual configuration is possible by providing a <a href="package$$K8sClusterConfig.html" class="extype" name="com.coralogix.zio.k8s.client.config.K8sClusterConfig">K8sClusterConfig</a> value to both the
@@ -225,7 +225,7 @@ them from any supported source.
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <span class="name">FromFile</span><span class="params">(<span name="path">path: <a href="https://javadoc.io/page/dev.zio/zio-nio-core_2.12/1.0.0-RC11/zio/nio/core/file/Path.html#zio.nio.core.file.Path" class="extype" name="zio.nio.core.file.Path">Path</a></span>)</span><span class="result"> extends <a href="package$$KeySource.html" class="extype" name="com.coralogix.zio.k8s.client.config.KeySource">KeySource</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <span class="name">FromFile</span><span class="params">(<span name="path">path: <a href="https://javadoc.io/page/dev.zio/zio-nio_2.12/1.0.0-RC12/zio/nio/file/Path.html#zio.nio.file.Path" class="extype" name="zio.nio.file.Path">Path</a></span>)</span><span class="result"> extends <a href="package$$KeySource.html" class="extype" name="com.coralogix.zio.k8s.client.config.KeySource">KeySource</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       </h4>
 
@@ -282,9 +282,9 @@ them from any supported source.
         <div id="constructors" class="members">
               <h3>Instance Constructors</h3>
               <ol><li name="com.coralogix.zio.k8s.client.config.KeySource.FromFile#&lt;init&gt;" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="&lt;init&gt;(path:zio.nio.core.file.Path):com.coralogix.zio.k8s.client.config.KeySource.FromFile"></a><a id="&lt;init&gt;:FromFile"></a>
+      <a id="&lt;init&gt;(path:zio.nio.file.Path):com.coralogix.zio.k8s.client.config.KeySource.FromFile"></a><a id="&lt;init&gt;:FromFile"></a>
       <span class="permalink">
-      <a href="../../../../../../com/coralogix/zio/k8s/client/config/package$$KeySource$$FromFile.html#&lt;init&gt;(path:zio.nio.core.file.Path):com.coralogix.zio.k8s.client.config.KeySource.FromFile" title="Permalink">
+      <a href="../../../../../../com/coralogix/zio/k8s/client/config/package$$KeySource$$FromFile.html#&lt;init&gt;(path:zio.nio.file.Path):com.coralogix.zio.k8s.client.config.KeySource.FromFile" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -293,7 +293,7 @@ them from any supported source.
         <span class="kind">new</span>
       </span>
       <span class="symbol">
-        <span class="name">FromFile</span><span class="params">(<span name="path">path: <a href="https://javadoc.io/page/dev.zio/zio-nio-core_2.12/1.0.0-RC11/zio/nio/core/file/Path.html#zio.nio.core.file.Path" class="extype" name="zio.nio.core.file.Path">Path</a></span>)</span>
+        <span class="name">FromFile</span><span class="params">(<span name="path">path: <a href="https://javadoc.io/page/dev.zio/zio-nio_2.12/1.0.0-RC12/zio/nio/file/Path.html#zio.nio.file.Path" class="extype" name="zio.nio.file.Path">Path</a></span>)</span>
       </span>
       
       <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">path</dt><dd class="cmt"><p>
@@ -510,9 +510,9 @@ them from any supported source.
               
         </dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.client.config.KeySource.FromFile#path" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="path:zio.nio.core.file.Path"></a><a id="path:Path"></a>
+      <a id="path:zio.nio.file.Path"></a><a id="path:Path"></a>
       <span class="permalink">
-      <a href="../../../../../../com/coralogix/zio/k8s/client/config/package$$KeySource$$FromFile.html#path:zio.nio.core.file.Path" title="Permalink">
+      <a href="../../../../../../com/coralogix/zio/k8s/client/config/package$$KeySource$$FromFile.html#path:zio.nio.file.Path" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -521,7 +521,7 @@ them from any supported source.
         <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">path</span><span class="result">: <a href="https://javadoc.io/page/dev.zio/zio-nio-core_2.12/1.0.0-RC11/zio/nio/core/file/Path.html#zio.nio.core.file.Path" class="extype" name="zio.nio.core.file.Path">Path</a></span>
+        <span class="name">path</span><span class="result">: <a href="https://javadoc.io/page/dev.zio/zio-nio_2.12/1.0.0-RC12/zio/nio/file/Path.html#zio.nio.file.Path" class="extype" name="zio.nio.file.Path">Path</a></span>
       </span>
       
       
