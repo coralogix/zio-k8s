@@ -1,7 +1,7 @@
 package com.coralogix.zio.k8s.codegen.internal
 
 import com.coralogix.zio.k8s.codegen.internal.CodegenIO.writeTextFile
-import com.coralogix.zio.k8s.codegen.internal.Conversions.{modelRoot, splitName}
+import com.coralogix.zio.k8s.codegen.internal.Conversions.{ modelRoot, splitName }
 import io.github.vigoo.metagen.core._
 import io.swagger.v3.oas.models.media.ObjectSchema
 import org.scalafmt.interfaces.Scalafmt
@@ -34,7 +34,8 @@ trait MonocleOpticsGenerator {
                  val monocle = splitName(model.name, monocleRoot)
 
                  for {
-                   _         <- ZIO.effect(logger.info(s"Generating '${model.name}' to ${monocle.pkg.show}"))
+                   _         <-
+                     ZIO.effect(logger.info(s"Generating '${model.name}' to ${monocle.pkg.show}"))
                    src        =
                      generateMonocleOptics(monocle.pkg, model, d)
                    targetDir  = targetRoot / monocle.pkg.asPath
@@ -83,7 +84,9 @@ trait MonocleOpticsGenerator {
                   )
                 else
                   List(
-                    q"""val $nameLP: Lens[${model.typ}, ${Types.optional(prop).typ}] = GenLens[${model.typ}](_.$nameN)""",
+                    q"""val $nameLP: Lens[${model.typ}, ${Types
+                      .optional(prop)
+                      .typ}] = GenLens[${model.typ}](_.$nameN)""",
                     q"""val $nameOP: MonocleOptional[${model.typ}, ${prop.typ}] = optional($nameLN)"""
                   )
               }

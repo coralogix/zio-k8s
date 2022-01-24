@@ -9,7 +9,10 @@ object Types {
   def chunk(a: ScalaType): ScalaType =
     ScalaType(Packages.zio, "Chunk", a)
 
-  val status: ScalaType = ScalaType(Package("com", "coralogix", "zio", "k8s", "model", "pkg", "apis", "meta", "v1"), "Status")
+  val status: ScalaType = ScalaType(
+    Package("com", "coralogix", "zio", "k8s", "model", "pkg", "apis", "meta", "v1"),
+    "Status"
+  )
 
   def optional(a: ScalaType): ScalaType =
     ScalaType(Packages.k8sClientModel, "Optional", a)

@@ -4,10 +4,10 @@ import io.github.vigoo.metagen.core.ScalaType
 import scala.meta._
 
 case class SubresourceId(
-                          name: String,
-                          model: ScalaType,
-                          actionVerbs: Set[String],
-                          customParameters: Map[String, Type]
+  name: String,
+  model: ScalaType,
+  actionVerbs: Set[String],
+  customParameters: Map[String, Type]
 ) {
   def toMethodParameters: List[Term.Param] =
     customParameters.toList

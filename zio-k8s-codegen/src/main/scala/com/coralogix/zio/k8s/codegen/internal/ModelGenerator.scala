@@ -1,13 +1,13 @@
 package com.coralogix.zio.k8s.codegen.internal
 
 import io.github.vigoo.metagen.core._
-import io.swagger.v3.oas.models.media.{ArraySchema, ObjectSchema, Schema}
+import io.swagger.v3.oas.models.media.{ ArraySchema, ObjectSchema, Schema }
 import org.scalafmt.interfaces.Scalafmt
 import sbt.util.Logger
 import zio.ZIO
 import zio.blocking.Blocking
 import com.coralogix.zio.k8s.codegen.internal.CodegenIO.writeTextFile
-import com.coralogix.zio.k8s.codegen.internal.Conversions.{modelRoot, splitName}
+import com.coralogix.zio.k8s.codegen.internal.Conversions.{ modelRoot, splitName }
 import zio.nio.file.Path
 import zio.nio.file.Files
 
@@ -32,7 +32,8 @@ trait ModelGenerator {
                  val entity = splitName(d.name)
 
                  for {
-                   _         <- ZIO.effect(logger.info(s"Generating '${entity.name}' to ${entity.pkg.show}"))
+                   _         <-
+                     ZIO.effect(logger.info(s"Generating '${entity.name}' to ${entity.pkg.show}"))
                    src        = generateModel(modelRoot, entity, d, resources, definitionMap)
                    targetDir  = targetRoot / entity.pkg.asPath
                    _         <- Files.createDirectories(targetDir)
