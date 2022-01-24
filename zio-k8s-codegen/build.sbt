@@ -17,5 +17,5 @@ libraryDependencies ++= Seq(
   "io.circe"            %% "circe-parser"     % "0.14.1",
   "io.circe"            %% "circe-yaml"       % "0.14.1",
   "org.atteo"            % "evo-inflector"    % "1.3",
-  "io.github.vigoo"     %% "metagen-core"     % "0.0.9"
+  "io.github.vigoo"     %% "metagen-core"     % "0.0.12"
 )

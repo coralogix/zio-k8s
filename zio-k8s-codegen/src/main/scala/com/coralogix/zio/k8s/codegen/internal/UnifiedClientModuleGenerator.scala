@@ -1,5 +1,7 @@
 package com.coralogix.zio.k8s.codegen.internal
 
+import io.github.vigoo.metagen.core._
+
 import com.coralogix.zio.k8s.codegen.internal.CodegenIO.writeTextFile
 import com.coralogix.zio.k8s.codegen.internal.Conversions.{ groupNameToPackageName, splitName }
 import com.coralogix.zio.k8s.codegen.internal.UnifiedClientModuleGenerator._
@@ -251,47 +253,32 @@ trait UnifiedClientModuleGenerator {
           .get
           .asInstanceOf[Term.Ref]
 
-    val (entityPkg, entity) = splitName(resource.modelName)
-    val dtoPackage = ("com.coralogix.zio.k8s.model." + entityPkg.mkString("."))
-      .parse[Term]
-      .get
-      .asInstanceOf[Term.Ref]
+    val entity = splitName(resource.schemaName)
 
     val nameTerm = Term.Name(name)
     val namePat = Pat.Var(nameTerm)
 
-    val statusEntity = findStatusEntity(definitionMap, resource.modelName).map(s =>
-      s"com.coralogix.zio.k8s.model.$s"
-    )
-    val entityT = Type.Select(dtoPackage, Type.Name(entity))
-    val statusT = statusEntity.map(s => s.parse[Type].get).getOrElse(t"Nothing")
+    val statusEntity = findStatusEntity(Packages.k8sModel, definitionMap, resource.schemaName)
+
+    val status = statusEntity.getOrElse(ScalaType.nothing)
+
     val deleteResponse = resource.actions
       .map(_.endpointType)
-      .collectFirst { case EndpointType.Delete(_, _, responseTypeRef) =>
-        s"com.coralogix.zio.k8s.model.$responseTypeRef"
-      }
-      .getOrElse("com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Status")
-    val deleteResultT = deleteResponse.parse[Type].get
-    val isStandardDelete = deleteResponse == "com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Status"
-    val deleteResultTerm =
-      if (isStandardDelete)
-        q"() => com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Status()"
-      else
-        q"() => ???"
+      .collectFirst { case EndpointType.Delete(_, _, responseTypeRef) => responseTypeRef }
+      .getOrElse(Types.status)
+
+    val isStandardDelete = deleteResponse == Types.status
 
     val obj = Term.Select(pkg, Term.Name(resource.pluralEntityName))
     val serviceT = Type.Select(obj, Type.Name("Service"))
 
     if (isTest) {
       val testClientConstruction: List[(Term, Enumerator)] = getTestClientConstruction(
-        "com.coralogix.zio.k8s.model",
-        statusEntity,
+        statusEntity.isDefined,
         resource.subresources.map(_.id),
-        entityT,
-        statusT,
-        deleteResultT,
-        deleteResultTerm,
-        fullyQualifiedSubresourceModels = true
+        entity,
+        status,
+        deleteResponse
       )
 
       val liveInit = Init(
@@ -310,13 +297,11 @@ trait UnifiedClientModuleGenerator {
     } else {
       val cons =
         getClientConstruction(
-          "com.coralogix.zio.k8s.model",
-          statusEntity,
+          statusEntity.isDefined,
           resource.subresources.map(_.id),
-          entityT,
-          statusT,
-          deleteResultT,
-          fullyQualifiedSubresourceModels = true
+          entity,
+          status,
+          deleteResponse
         )
 
       val liveInit = Init(
@@ -325,7 +310,7 @@ trait UnifiedClientModuleGenerator {
         List(cons)
       )
       q"""lazy val $namePat: $serviceT = {
-            val resourceType = implicitly[ResourceMetadata[$entityT]].resourceType
+            val resourceType = implicitly[ResourceMetadata[${entity.typ}]].resourceType
             new $liveInit
           }"""
     }

@@ -13,15 +13,15 @@ sealed trait ClassifiedResource {
   val unsupportedEndpoints: Set[IdentifiedAction]
 }
 case class SupportedResource(
-    schemaName: String,
-                              namespaced: Boolean,
-                              hasStatus: Boolean,
-                              gvk: GroupVersionKind,
-                              model: ScalaType,
-                              plural: String,
-                              modelReferences: Set[String],
-                              actions: Set[IdentifiedAction],
-                              unsupportedEndpoints: Set[IdentifiedAction]
+  schemaName: String,
+  namespaced: Boolean,
+  hasStatus: Boolean,
+  gvk: GroupVersionKind,
+  model: ScalaType,
+  plural: String,
+  modelReferences: Set[String],
+  actions: Set[IdentifiedAction],
+  unsupportedEndpoints: Set[IdentifiedAction]
 ) extends ClassifiedResource {
   def id: String = gvk.toString
 

@@ -4,8 +4,12 @@ import io.swagger.v3.oas.models.media.ObjectSchema
 import org.scalafmt.interfaces.Scalafmt
 import sbt.util.Logger
 import zio.blocking.Blocking
-import zio.{Task, ZIO}
-import com.coralogix.zio.k8s.codegen.internal.Conversions.{groupNameToPackageName, modelRoot, splitName}
+import zio.{ Task, ZIO }
+import com.coralogix.zio.k8s.codegen.internal.Conversions.{
+  groupNameToPackageName,
+  modelRoot,
+  splitName
+}
 import com.coralogix.zio.k8s.codegen.internal.CodegenIO._
 import org.atteo.evo.inflector.English
 import zio.nio.file.Path
@@ -19,16 +23,16 @@ trait ClientModuleGenerator {
   this: Common =>
 
   def generateModuleCode(
-                          basePackageName: String,
-                          name: String,
-                          entity: ScalaType,
-                          statusEntity: Option[ScalaType],
-                          deleteResponse: ScalaType,
-                          gvk: GroupVersionKind,
-                          isNamespaced: Boolean,
-                          subresources: Set[SubresourceId],
-                          crdYaml: Option[Path],
-                          supportsDeleteMany: Boolean
+    basePackageName: String,
+    name: String,
+    entity: ScalaType,
+    statusEntity: Option[ScalaType],
+    deleteResponse: ScalaType,
+    gvk: GroupVersionKind,
+    isNamespaced: Boolean,
+    subresources: Set[SubresourceId],
+    crdYaml: Option[Path],
+    supportsDeleteMany: Boolean
   ): Task[String] =
     ZIO.effect {
       val basePackage =
@@ -50,7 +54,7 @@ trait ClientModuleGenerator {
 
       val status = statusEntity.getOrElse(ScalaType.nothing)
 
-      val isStandardDelete = deleteResponse == "com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Status"
+      val isStandardDelete = deleteResponse == Types.status
 
       val deleteResultTerm =
         if (isStandardDelete)
@@ -81,13 +85,13 @@ trait ClientModuleGenerator {
             param"client: Resource[${entity.typ}] with ResourceDelete[${entity.typ}, ${deleteResponse.typ}] with ResourceDeleteAll[${entity.typ}]"
           else
             param"client: Resource[${entity.typ}] with ResourceDelete[${entity.typ}, ${deleteResponse.typ}]") :: ((if (
-                                                                                                    statusEntity.isDefined
-                                                                                                  )
-                                                                                                    List[Term.Param](
-                                                                                                      param"statusClient: ResourceStatus[${status.typ}, ${entity.typ}]"
-                                                                                                    )
-                                                                                                  else
-                                                                                                    Nil) ::
+                                                                                                                     statusEntity.isDefined
+                                                                                                                   )
+                                                                                                                     List[Term.Param](
+                                                                                                                       param"statusClient: ResourceStatus[${status.typ}, ${entity.typ}]"
+                                                                                                                     )
+                                                                                                                   else
+                                                                                                                     Nil) ::
           subresources.toList.map { subresource =>
             val clientName = Term.Name(subresource.name + "Client")
             List(param"$clientName: Subresource[${subresource.model.typ}]")
@@ -110,7 +114,9 @@ trait ClientModuleGenerator {
               val capName = subresource.name.capitalize
               val clientName = Term.Name(subresource.name + "Client")
               val asGenericTerm = Pat.Var(Term.Name(s"asGeneric${capName}Subresource"))
-              List(q"override val $asGenericTerm: Subresource[${subresource.model.typ}] = $clientName")
+              List(
+                q"override val $asGenericTerm: Subresource[${subresource.model.typ}] = $clientName"
+              )
             }).flatten)
 
       val clientConstruction: List[Term] =
@@ -127,7 +133,7 @@ trait ClientModuleGenerator {
           subresources,
           entity,
           status,
-          deleteResponse,
+          deleteResponse
         )
 
       val live =
@@ -153,7 +159,7 @@ trait ClientModuleGenerator {
               }
          """
         } else {
-          q"""def test(createDeleteResult: () => $deleteResultT): ZLayer[Any, Nothing, ${typeAlias.typ}] =
+          q"""def test(createDeleteResult: () => ${deleteResponse.typ}): ZLayer[Any, Nothing, ${typeAlias.typ}] =
               ZLayer.fromEffect {
                 for {
                   ..${testClientConstruction.map(_._2)}
@@ -191,7 +197,7 @@ trait ClientModuleGenerator {
                 q"""
                def replaceStatus(
                 of: ${entity.typ},
-                updatedStatus: $statusT,
+                updatedStatus: ${status.typ},
                 namespace: K8sNamespace,
                 dryRun: Boolean = false
               ): ZIO[${typeAlias.typ}, K8sFailure, ${entity.typ}] = {
@@ -217,8 +223,7 @@ trait ClientModuleGenerator {
                 val getTerm = Term.Name(s"get$capName")
                 val putTerm = Term.Name(s"replace$capName")
                 val postTerm = Term.Name(s"create$capName")
-
-                val modelT: Type.Ref = getSubresourceModelType(modelPackageName, subresource)
+                val model = subresource.model
 
                 subresource.actionVerbs.flatMap {
                   case "get" if subresource.hasStreamingGet =>
@@ -229,7 +234,7 @@ trait ClientModuleGenerator {
                       q"""
                         def $getTerm(
                           ..$paramDefs
-                        ): ZStream[${typeAlias.typ}, K8sFailure, $modelT] =
+                        ): ZStream[${typeAlias.typ}, K8sFailure, ${model.typ}] =
                           ZStream.accessStream(_.get.$getTerm(..$params))
                         """
                     )
@@ -241,7 +246,7 @@ trait ClientModuleGenerator {
                       q"""
                         def $getTerm(
                           ..$paramDefs
-                        ): ZIO[${typeAlias.typ}, K8sFailure, $modelT] =
+                        ): ZIO[${typeAlias.typ}, K8sFailure, ${model.typ}] =
                           ZIO.accessM(_.get.$getTerm(..$params))
                         """
                     )
@@ -250,10 +255,10 @@ trait ClientModuleGenerator {
                       q"""
                           def $putTerm(
                             name: String,
-                            updatedValue: $modelT,
+                            updatedValue: ${model.typ},
                             namespace: K8sNamespace,
                             dryRun: Boolean = false
-                          ): ZIO[${typeAlias.typ}, K8sFailure, $modelT] =
+                          ): ZIO[${typeAlias.typ}, K8sFailure, ${model.typ}] =
                             ZIO.accessM(_.get.$putTerm(name, updatedValue, namespace, dryRun))
                         """
                     )
@@ -262,10 +267,10 @@ trait ClientModuleGenerator {
                       q"""
                           def $postTerm(
                             name: String,
-                            value: $modelT,
+                            value: ${model.typ},
                             namespace: K8sNamespace,
                             dryRun: Boolean = false
-                          ): ZIO[${typeAlias.typ}, K8sFailure, $modelT] =
+                          ): ZIO[${typeAlias.typ}, K8sFailure, ${model.typ}] =
                             ZIO.accessM(_.get.$postTerm(name, value, namespace, dryRun))
                         """
                     )
@@ -275,24 +280,24 @@ trait ClientModuleGenerator {
 
           val mainInterface = t"NamespacedResource[${entity.typ}]"
           val extraInterfaces =
-            t"NamespacedResourceDelete[${entity.typ}, $deleteResultT]" ::
+            t"NamespacedResourceDelete[${entity.typ}, ${deleteResponse.typ}]" ::
               ((if (supportsDeleteMany)
                   List[Type](t"NamespacedResourceDeleteAll[${entity.typ}]")
                 else Nil) ::
                 (if (statusEntity.isDefined)
-                   List[Type](t"NamespacedResourceStatus[$statusT, ${entity.typ}]")
+                   List[Type](t"NamespacedResourceStatus[${status.typ}, ${entity.typ}]")
                  else Nil) ::
                 subresources.toList.map { subresource =>
-                  List(getNamespacedSubresourceWrapperType(subresource, entityT))
+                  List(getNamespacedSubresourceWrapperType(subresource, entity).typ)
                 }).flatten
 
           val typeAliasRhs: Type = extraInterfaces.foldLeft[Type](t"Has[$mainInterface]") {
             case (l, r) =>
               Type.With(l, t"Has[$r]")
           }
-          val serviceT = Type.Select(typeAliasTerm, Type.Name("Service"))
-          val typeAlias = q"""type ${typeAlias.typ = ${t"Has[$serviceT]"}"""
-          val typeAliasGeneric = q"""type Generic = $typeAliasRhs"""
+          val serviceT = Type.Select(typeAlias.term, Type.Name("Service"))
+          val typeAliasQ = q"""type ${typeAlias.typName} = ${t"Has[$serviceT]"}"""
+          val typeAliasGenericQ = q"""type Generic = $typeAliasRhs"""
 
           val mainInterfaceI = Init(mainInterface, Name.Anonymous(), List.empty)
           val extraInterfaceIs = extraInterfaces.map(t => Init(t, Name.Anonymous(), List.empty))
@@ -305,15 +310,15 @@ trait ClientModuleGenerator {
           q"""package $basePackage.$ver {
 
           package object $moduleName {
-            $typeAlias
+            $typeAliasQ
 
-            object ${typeAlias.term} {
-              $typeAliasGeneric
+            object ${typeAlias.termName} {
+              $typeAliasGenericQ
 
               trait Service
                 extends $mainInterfaceI with ..$extraInterfaceIs {
 
-                val asGeneric: $typeAliasGenericT = $interfacesWrappedInHas
+                val asGeneric: ${typeAliasGeneric.typ} = $interfacesWrappedInHas
               }
 
               final class Live(..$clientList) extends Service {
@@ -377,7 +382,7 @@ trait ClientModuleGenerator {
               dryRun: Boolean = false,
               gracePeriod: Option[Duration] = None,
               propagationPolicy: Option[PropagationPolicy] = None
-            ): ZIO[${typeAlias.typ}, K8sFailure, $deleteResultT] =
+            ): ZIO[${typeAlias.typ}, K8sFailure, ${deleteResponse.typ}] =
               ZIO.accessM(_.get.delete(name, deleteOptions, namespace, dryRun, gracePeriod, propagationPolicy))
 
             ..$deleteManyAccessors
@@ -419,7 +424,7 @@ trait ClientModuleGenerator {
                 q"""
                def replaceStatus(
                 of: ${entity.typ},
-                updatedStatus: $statusT,
+                updatedStatus: ${status.typ},
                 dryRun: Boolean = false
               ): ZIO[${typeAlias.typ}, K8sFailure, ${entity.typ}] = {
                   ZIO.accessM(_.get.replaceStatus(of, updatedStatus, dryRun))
@@ -443,8 +448,7 @@ trait ClientModuleGenerator {
                 val getTerm = Term.Name(s"get$capName")
                 val putTerm = Term.Name(s"replace$capName")
                 val postTerm = Term.Name(s"create$capName")
-
-                val modelT: Type.Ref = getSubresourceModelType(modelPackageName, subresource)
+                val model = subresource.model
 
                 subresource.actionVerbs.flatMap {
                   case "get" if subresource.hasStreamingGet =>
@@ -454,7 +458,7 @@ trait ClientModuleGenerator {
                       q"""
                         def $getTerm(
                           ..$paramDefs
-                        ): ZStream[${typeAlias.typ}, K8sFailure, $modelT] =
+                        ): ZStream[${typeAlias.typ}, K8sFailure, ${model.typ}] =
                           ZStream.accessStream(_.get.$getTerm(..$params))
                         """
                     )
@@ -465,7 +469,7 @@ trait ClientModuleGenerator {
                       q"""
                         def $getTerm(
                           ..$paramDefs
-                        ): ZIO[${typeAlias.typ}, K8sFailure, $modelT] =
+                        ): ZIO[${typeAlias.typ}, K8sFailure, ${model.typ}] =
                           ZIO.accessM(_.get.$getTerm(..$params))
                         """
                     )
@@ -474,9 +478,9 @@ trait ClientModuleGenerator {
                       q"""
                           def $putTerm(
                             name: String,
-                            updatedValue: $modelT,
+                            updatedValue: ${model.typ},
                             dryRun: Boolean = false
-                          ): ZIO[${typeAlias.typ}, K8sFailure, $modelT] =
+                          ): ZIO[${typeAlias.typ}, K8sFailure, ${model.typ}] =
                             ZIO.accessM(_.get.$putTerm(name, updatedValue, dryRun))
                         """
                     )
@@ -484,9 +488,9 @@ trait ClientModuleGenerator {
                     List(
                       q"""
                           def $postTerm(
-                            value: $modelT,
+                            value: ${model.typ},
                             dryRun: Boolean = false
-                          ): ZIO[${typeAlias.typ}, K8sFailure, $modelT] =
+                          ): ZIO[${typeAlias.typ}, K8sFailure, ${model.typ}] =
                             ZIO.accessM(_.get.$postTerm(value, dryRun))
                         """
                     )
@@ -496,24 +500,24 @@ trait ClientModuleGenerator {
 
           val mainInterface = t"ClusterResource[${entity.typ}]"
           val extraInterfaces =
-            t"ClusterResourceDelete[${entity.typ}, $deleteResultT]" ::
+            t"ClusterResourceDelete[${entity.typ}, ${deleteResponse.typ}]" ::
               ((if (supportsDeleteMany)
                   List[Type](t"ClusterResourceDeleteAll[${entity.typ}]")
                 else Nil) ::
                 (if (statusEntity.isDefined)
-                   List[Type](t"ClusterResourceStatus[$statusT, ${entity.typ}]")
+                   List[Type](t"ClusterResourceStatus[${status.typ}, ${entity.typ}]")
                  else Nil) ::
                 subresources.toList.map { subresource =>
-                  List(getClusterSubresourceWrapperType(subresource, entityT))
+                  List(getClusterSubresourceWrapperType(subresource, entity).typ)
                 }).flatten
 
           val typeAliasRhs: Type = extraInterfaces.foldLeft[Type](t"Has[$mainInterface]") {
             case (l, r) =>
               Type.With(l, t"Has[$r]")
           }
-          val serviceT = Type.Select(typeAliasTerm, Type.Name("Service"))
-          val typeAlias = q"""type ${typeAlias.typ} = ${t"Has[$serviceT]"}"""
-          val typeAliasGeneric = q"""type Generic = $typeAliasRhs"""
+          val serviceT = Type.Select(typeAlias.term, Type.Name("Service"))
+          val typeAliasQ = q"""type ${typeAlias.typName} = ${t"Has[$serviceT]"}"""
+          val typeAliasGenericQ = q"""type Generic = $typeAliasRhs"""
 
           val mainInterfaceI = Init(mainInterface, Name.Anonymous(), List.empty)
           val extraInterfaceIs = extraInterfaces.map(t => Init(t, Name.Anonymous(), List.empty))
@@ -526,15 +530,15 @@ trait ClientModuleGenerator {
           q"""package $basePackage.$ver {
 
           package object $moduleName {
-            $typeAlias
+            $typeAliasQ
 
             object ${typeAlias.termName} {
-              $typeAliasGeneric
+              $typeAliasGenericQ
 
               trait Service
                 extends $mainInterfaceI with ..$extraInterfaceIs {
 
-                val asGeneric: $typeAliasGenericT = $interfacesWrappedInHas
+                val asGeneric: ${typeAliasGeneric.typ} = $interfacesWrappedInHas
               }
 
               final class Live(..$clientList) extends Service {
@@ -591,7 +595,7 @@ trait ClientModuleGenerator {
               dryRun: Boolean = false,
               gracePeriod: Option[Duration] = None,
               propagationPolicy: Option[PropagationPolicy] = None
-            ): ZIO[${typeAlias.typ}, K8sFailure, $deleteResultT] =
+            ): ZIO[${typeAlias.typ}, K8sFailure, ${deleteResponse.typ}] =
               ZIO.accessM(_.get.delete(name, deleteOptions, dryRun, gracePeriod, propagationPolicy))
 
             ..$deleteManyAccessors
@@ -625,7 +629,9 @@ trait ClientModuleGenerator {
          else Nil) ::
         subresources.toList.map { subresource =>
           val nameLit = Lit.String(subresource.name)
-          List(q"new SubresourceClient[${subresource.model.typ}](resourceType, cluster, backend, $nameLit)")
+          List(
+            q"new SubresourceClient[${subresource.model.typ}](resourceType, cluster, backend, $nameLit)"
+          )
         }).flatten)
 
   protected def getTestClientConstruction(
@@ -633,7 +639,7 @@ trait ClientModuleGenerator {
     subresources: Set[SubresourceId],
     entity: ScalaType,
     status: ScalaType,
-    deleteResult: ScalaType,
+    deleteResult: ScalaType
   ): List[(Term, Enumerator)] = {
     def create(name: String, expr: Term) =
       Term.Name(name) -> Enumerator.Val(Pat.Var(Term.Name(name)), expr)
@@ -659,7 +665,11 @@ trait ClientModuleGenerator {
     subresource: SubresourceId,
     wrapperName: String,
     entity: ScalaType
-  ): Type = ScalaType(Packages.k8sSubresources / subresource.model.pkg.dropPrefix(modelRoot), wrapperName, entity)
+  ): ScalaType = ScalaType(
+    Packages.k8sSubresources / subresource.model.pkg.dropPrefix(modelRoot),
+    wrapperName,
+    entity
+  )
 
   private def getNamespacedSubresourceWrapperType(
     subresource: SubresourceId,
@@ -667,12 +677,15 @@ trait ClientModuleGenerator {
   ): ScalaType = {
     val capName = subresource.name.capitalize
     val wrapperName = s"Namespaced${capName}Subresource"
-    getSubresourceWrapperType(subresource, wrapperName, entityT)
+    getSubresourceWrapperType(subresource, wrapperName, entity)
   }
 
-  private def getClusterSubresourceWrapperType(subresource: SubresourceId, entity: ScalaType): ScalaType = {
+  private def getClusterSubresourceWrapperType(
+    subresource: SubresourceId,
+    entity: ScalaType
+  ): ScalaType = {
     val capName = subresource.name.capitalize
     val wrapperName = s"Cluster${capName}Subresource"
-    getSubresourceWrapperType(subresource, wrapperName, entityT)
+    getSubresourceWrapperType(subresource, wrapperName, entity)
   }
 }

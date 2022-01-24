@@ -1,7 +1,7 @@
 package com.coralogix.zio.k8s.codegen.internal
 
 import com.coralogix.zio.k8s.codegen.internal.CodegenIO.writeTextFile
-import com.coralogix.zio.k8s.codegen.internal.Conversions.{modelRoot, splitName}
+import com.coralogix.zio.k8s.codegen.internal.Conversions.{ modelRoot, splitName }
 import io.github.vigoo.metagen.core._
 import org.scalafmt.interfaces.Scalafmt
 import zio.ZIO
@@ -34,20 +34,23 @@ trait SubresourceClientGenerator {
   }
 
   def subresourceSource(subresource: SubresourceId): String = {
-    val pkg = Package(NonEmptyList("com", "coralogix", "zio", "k8s", "client", "subresources") ++ subresource.model.pkg.dropPrefix(modelRoot))
+    val pkg = new Package(
+      NonEmptyList(
+        "com",
+        "coralogix",
+        "zio",
+        "k8s",
+        "client",
+        "subresources"
+      ) ++ subresource.model.pkg.dropPrefix(modelRoot).path
+    )
 
     val capName = subresource.name.capitalize
     val namespacedT = Type.Name(s"Namespaced${capName}Subresource")
     val namespacedTerm = Term.Name(s"Namespaced${capName}Subresource")
     val clusterT = Type.Name(s"Cluster${capName}Subresource")
     val clusterTerm = Term.Name(s"Cluster${capName}Subresource")
-    val modelT =
-      if (pkg.nonEmpty) {
-        val modelNs = pkg.mkString(".").parse[Term].get.asInstanceOf[Term.Ref]
-        Type.Select(modelNs, Type.Name(modelName))
-      } else {
-        Type.Name(modelName)
-      }
+    val model = subresource.model
 
     val getTerm = Term.Name(s"get$capName")
     val putTerm = Term.Name(s"replace$capName")
@@ -61,29 +64,29 @@ trait SubresourceClientGenerator {
         val params = param"name: String" :: subresource.toMethodParameters
         val customParamsMap = subresource.toMapFromParameters
         List(q"""
-          def $getTerm(..$params): ZStream[Any, K8sFailure, $modelT] =
+          def $getTerm(..$params): ZStream[Any, K8sFailure, ${model.typ}] =
             $asGenericTerm.streamingGet(name, None, ${subresource.streamingGetTransducer}, $customParamsMap)
           """)
       case "get"                                =>
         val params = param"name: String" :: subresource.toMethodParameters
         val customParamsMap = subresource.toMapFromParameters
         List(q"""
-          def $getTerm(..$params): ZIO[Any, K8sFailure, $modelT] =
+          def $getTerm(..$params): ZIO[Any, K8sFailure, ${model.typ}] =
             $asGenericTerm.get(name, None, $customParamsMap)
           """)
       case "put"                                =>
         List(q"""
           def $putTerm(name: String,
-                             updatedValue: $modelT,
+                             updatedValue: ${model.typ},
                              dryRun: Boolean = false
-                            ): IO[K8sFailure, $modelT] =
+                            ): IO[K8sFailure, ${model.typ}] =
             $asGenericTerm.replace(name, updatedValue, None, dryRun)
            """)
       case "post"                               =>
         List(q"""
            def $postTerm(name: String,
-                         value: $modelT,
-                         dryRun: Boolean = false): IO[K8sFailure, $modelT] =
+                         value: ${model.typ},
+                         dryRun: Boolean = false): IO[K8sFailure, ${model.typ}] =
              $asGenericTerm.create(name, value, None, dryRun)
          """)
       case _                                    => List.empty
@@ -95,7 +98,7 @@ trait SubresourceClientGenerator {
           param"name: String" :: param"namespace: K8sNamespace" :: subresource.toMethodParameters
         val customParamsMap = subresource.toMapFromParameters
         List(q"""
-          def $getTerm(..$params): ZStream[Any, K8sFailure, $modelT] =
+          def $getTerm(..$params): ZStream[Any, K8sFailure, ${model.typ}] =
             $asGenericTerm.streamingGet(name, Some(namespace), ${subresource.streamingGetTransducer}, $customParamsMap)
           """)
       case "get"                                =>
@@ -103,30 +106,30 @@ trait SubresourceClientGenerator {
           param"name: String" :: param"namespace: K8sNamespace" :: subresource.toMethodParameters
         val customParamsMap = subresource.toMapFromParameters
         List(q"""
-          def $getTerm(..$params): ZIO[Any, K8sFailure, $modelT] =
+          def $getTerm(..$params): ZIO[Any, K8sFailure, ${model.typ}] =
             $asGenericTerm.get(name, Some(namespace), $customParamsMap)
           """)
       case "put"                                =>
         List(q"""
           def $putTerm(name: String,
-                             updatedValue: $modelT,
+                             updatedValue: ${model.typ},
                              namespace: K8sNamespace,
                              dryRun: Boolean = false
-                            ): IO[K8sFailure, $modelT] =
+                            ): IO[K8sFailure, ${model.typ}] =
              $asGenericTerm.replace(name, updatedValue, Some(namespace), dryRun)
            """)
       case "post"                               =>
         List(q"""
            def $postTerm(name: String,
-                         value: $modelT,
+                         value: ${model.typ},
                          namespace: K8sNamespace,
-                         dryRun: Boolean = false): IO[K8sFailure, $modelT] =
+                         dryRun: Boolean = false): IO[K8sFailure, ${model.typ}] =
              $asGenericTerm.create(name, value, Some(namespace), dryRun)
          """)
       case _                                    => List.empty
     }
 
-    prettyPrint(q"""package $packageTerm {
+    prettyPrint(q"""package ${pkg.term} {
 
         import com.coralogix.zio.k8s.model._
         import com.coralogix.zio.k8s.client.K8sFailure
@@ -140,25 +143,25 @@ trait SubresourceClientGenerator {
         import zio.stream._
 
         trait $namespacedT[T] {
-          val $asGenericTerm: Subresource[$modelT]
+          val $asGenericTerm: Subresource[${model.typ}]
 
           ..$namespacedDefs
         }
 
         object $namespacedTerm {
-          def makeClient[T : Tag : ResourceMetadata](backend: SttpBackend[Task, ZioStreams with WebSockets], cluster: K8sCluster): SubresourceClient[$modelT] =
-            new SubresourceClient[$modelT](implicitly[ResourceMetadata[T]].resourceType, cluster, backend, $nameLit)
+          def makeClient[T : Tag : ResourceMetadata](backend: SttpBackend[Task, ZioStreams with WebSockets], cluster: K8sCluster): SubresourceClient[${model.typ}] =
+            new SubresourceClient[${model.typ}](implicitly[ResourceMetadata[T]].resourceType, cluster, backend, $nameLit)
         }
 
         trait $clusterT[T] {
-          val $asGenericTerm: Subresource[$modelT]
+          val $asGenericTerm: Subresource[${model.typ}]
 
           ..$clusterDefs
         }
 
         object $clusterTerm {
-          def makeClient[T : Tag : ResourceMetadata](backend: SttpBackend[Task, ZioStreams with WebSockets], cluster: K8sCluster): SubresourceClient[$modelT] =
-            new SubresourceClient[$modelT](implicitly[ResourceMetadata[T]].resourceType, cluster, backend, $nameLit)
+          def makeClient[T : Tag : ResourceMetadata](backend: SttpBackend[Task, ZioStreams with WebSockets], cluster: K8sCluster): SubresourceClient[${model.typ}] =
+            new SubresourceClient[${model.typ}](implicitly[ResourceMetadata[T]].resourceType, cluster, backend, $nameLit)
         }
         }
      """)
