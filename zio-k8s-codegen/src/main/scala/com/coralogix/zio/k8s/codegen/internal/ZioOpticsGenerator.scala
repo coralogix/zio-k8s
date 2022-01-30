@@ -5,12 +5,13 @@ import com.coralogix.zio.k8s.codegen.internal.Conversions.{ modelRoot, splitName
 import io.github.vigoo.metagen.core._
 import io.swagger.v3.oas.models.media.ObjectSchema
 import org.scalafmt.interfaces.Scalafmt
-import zio.ZIO
+import zio.{ Has, ZIO }
 import zio.blocking.Blocking
 import zio.nio.file.Path
 import zio.nio.file.Files
 
 import scala.collection.JavaConverters._
+import scala.meta.Term
 
 trait ZioOpticsGenerator {
   this: Common with ModelGenerator =>
@@ -18,14 +19,12 @@ trait ZioOpticsGenerator {
   private val opticsRoot = Package("com", "coralogix", "zio", "k8s", "optics")
 
   protected def generateAllZioOptics(
-    scalafmt: Scalafmt,
-    targetRoot: Path,
     definitions: Set[IdentifiedSchema]
-  ): ZIO[Blocking, Throwable, Set[Path]] = {
+  ): ZIO[Has[Generator] with Blocking, GeneratorFailure[Nothing], Set[Path]] = {
     val filteredDefinitions = definitions.filter(d => !isListModel(d))
     for {
       _     <-
-        ZIO.effect(
+        ZIO.effectTotal(
           logger.info(s"Generating ZIO Optics for ${filteredDefinitions.size} models...")
         )
       paths <- ZIO.foreach(filteredDefinitions) { d =>
@@ -33,17 +32,17 @@ trait ZioOpticsGenerator {
                  val opticsEntity = splitName(d.name, opticsRoot)
 
                  for {
-                   _         <-
-                     ZIO.effect(
+                   _          <-
+                     ZIO.effectTotal(
                        logger.info(s"Generating '${opticsEntity.name}' to ${opticsEntity.pkg.show}")
                      )
-                   src        =
-                     generateZioOptics(modelEntity, opticsEntity, d)
-                   targetDir  = opticsEntity.pkg.asPath
-                   _         <- Files.createDirectories(targetDir)
-                   targetPath = targetDir / s"${opticsEntity.name}.scala"
-                   _         <- writeTextFile(targetPath, src)
-                   _         <- format(scalafmt, targetPath)
+                   targetPath <-
+                     Generator.generateScalaPackage[Any, Nothing](
+                       opticsEntity.pkg,
+                       opticsEntity.name
+                     ) {
+                       generateZioOptics(modelEntity, opticsEntity, d)
+                     }
                  } yield targetPath
                }
     } yield paths
@@ -53,7 +52,7 @@ trait ZioOpticsGenerator {
     modelEntity: ScalaType,
     opticsEntity: ScalaType,
     d: IdentifiedSchema
-  ): String = {
+  ): ZIO[Has[CodeFileGenerator], Nothing, Term.Block] = {
     import scala.meta._
 
     val optics = Option(d.schema.getType) match {
@@ -93,12 +92,12 @@ trait ZioOpticsGenerator {
       case _              => List.empty
     }
 
-    val tree =
-      q"""
+    ZIO.succeed {
+      Term.Block(List(q"""
           object ${opticsEntity.termName} {
             ..$optics
           }          
-      """
-    prettyPrint(tree)
+      """))
+    }
   }
 }

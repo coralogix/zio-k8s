@@ -2,16 +2,18 @@ package com.coralogix.zio.k8s.codegen.internal
 
 import com.coralogix.zio.k8s.codegen.internal.CodegenIO.writeTextFile
 import com.coralogix.zio.k8s.codegen.internal.Conversions.{ modelRoot, splitName }
+import io.github.vigoo.metagen.core
 import io.github.vigoo.metagen.core._
 import io.swagger.v3.oas.models.media.ObjectSchema
 import org.scalafmt.interfaces.Scalafmt
 import sbt.util.Logger
-import zio.ZIO
+import zio.{ Has, ZIO }
 import zio.blocking.Blocking
 import zio.nio.file.Path
 import zio.nio.file.Files
 
 import scala.collection.JavaConverters._
+import scala.meta.Term
 
 trait MonocleOpticsGenerator {
   this: Common with ModelGenerator =>
@@ -19,14 +21,12 @@ trait MonocleOpticsGenerator {
   private val monocleRoot = Package("com", "coralogix", "zio", "k8s", "monocle")
 
   protected def generateAllMonocleOptics(
-    scalafmt: Scalafmt,
-    targetRoot: Path,
     definitions: Set[IdentifiedSchema]
-  ): ZIO[Blocking, Throwable, Set[Path]] = {
+  ): ZIO[Has[Generator] with Blocking, GeneratorFailure[Nothing], Set[Path]] = {
     val filteredDefinitions = definitions.filter(d => !isListModel(d))
     for {
       _     <-
-        ZIO.effect(
+        ZIO.effectTotal(
           logger.info(s"Generating Monocle optics for ${filteredDefinitions.size} models...")
         )
       paths <- ZIO.foreach(filteredDefinitions) { d =>
@@ -34,15 +34,14 @@ trait MonocleOpticsGenerator {
                  val monocle = splitName(model.name, monocleRoot)
 
                  for {
-                   _         <-
-                     ZIO.effect(logger.info(s"Generating '${model.name}' to ${monocle.pkg.show}"))
-                   src        =
-                     generateMonocleOptics(monocle.pkg, model, d)
-                   targetDir  = targetRoot / monocle.pkg.asPath
-                   _         <- Files.createDirectories(targetDir)
-                   targetPath = targetDir / s"${model.name}.scala"
-                   _         <- writeTextFile(targetPath, src)
-                   _         <- format(scalafmt, targetPath)
+                   _          <-
+                     ZIO.effectTotal(
+                       logger.info(s"Generating '${model.name}' to ${monocle.pkg.show}")
+                     )
+                   targetPath <-
+                     Generator.generateScalaPackage[Any, Nothing](monocle.pkg, model.name)(
+                       generateMonocleOptics(monocle.pkg, model, d)
+                     )
                  } yield targetPath
                }
     } yield paths
@@ -52,7 +51,7 @@ trait MonocleOpticsGenerator {
     pkg: Package,
     model: ScalaType,
     d: IdentifiedSchema
-  ): String = {
+  ): ZIO[Has[CodeFileGenerator], Nothing, Term.Block] = {
     import scala.meta._
 
     val opticsModel = ScalaType(pkg, model.name + "O")
@@ -95,14 +94,11 @@ trait MonocleOpticsGenerator {
       case _              => List.empty
     }
 
-    val tree =
-      q"""package ${pkg.term} {
-
-          object ${opticsModel.termName} {
+    ZIO.succeed {
+      Term.Block(List(q"""object ${opticsModel.termName} {
             ..$optics
           }
-          }
-      """
-    prettyPrint(tree)
+      """))
+    }
   }
 }

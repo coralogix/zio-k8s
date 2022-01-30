@@ -34,6 +34,7 @@ trait Common {
 
   def scalaVersion: String
 
+  // TODO: delete
   protected def prettyPrint(tree: Tree): String = {
     val dialect =
       if (scalaVersion.startsWith("3.")) scala.meta.dialects.Scala3
@@ -43,6 +44,7 @@ trait Common {
     prettyprinter(tree).toString
   }
 
+  // TODO: delete
   protected def format(scalafmt: Scalafmt, path: Path): ZIO[Blocking, Throwable, Path] =
     if (scalaVersion.startsWith("3."))
       ZIO.succeed(path) // NOTE: no formatting for scala 3 yet

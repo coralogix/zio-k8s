@@ -1,5 +1,6 @@
 package com.coralogix.zio.k8s.codegen
 
+import io.github.vigoo.metagen.core._
 import sbt.Keys._
 import sbt._
 import zio.nio.file.{ Path => ZPath }
@@ -22,12 +23,16 @@ object K8sMonocleCodegenPlugin extends AutoPlugin {
           FileInfo.hash
         ) { input: Set[File] =>
           input.foldLeft(Set.empty[File]) { (result, k8sSwagger) =>
-            val fs = runtime.unsafeRunTask(
-              codegen.generateAllMonocle(
-                ZPath.fromJava(k8sSwagger.toPath),
-                ZPath.fromJava(sourcesDir.toPath)
-              )
-            )
+            val fs = runtime.unsafeRun {
+              (for {
+                _      <- Generator.setRoot(ZPath.fromJava(sourcesDir.toPath))
+                _      <- Generator.setScalaVersion(scalaVer)
+                _      <- Generator.enableFormatting()
+                result <- codegen.generateAllMonocle(
+                            ZPath.fromJava(k8sSwagger.toPath)
+                          )
+              } yield result).provideCustomLayer(Generator.live)
+            }
             result union fs.toSet
           }
         }

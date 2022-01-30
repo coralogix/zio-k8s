@@ -1,14 +1,13 @@
 package com.coralogix.zio.k8s.codegen.internal
 
 import io.github.vigoo.metagen.core._
-
 import com.coralogix.zio.k8s.codegen.internal.CodegenIO.writeTextFile
 import com.coralogix.zio.k8s.codegen.internal.Conversions.{ groupNameToPackageName, splitName }
 import com.coralogix.zio.k8s.codegen.internal.UnifiedClientModuleGenerator._
 import org.scalafmt.interfaces.Scalafmt
 
 import scala.meta._
-import zio.ZIO
+import zio.{ Has, ZIO }
 import zio.blocking.Blocking
 import zio.nio.file.Path
 import zio.nio.file.Files
@@ -19,30 +18,25 @@ trait UnifiedClientModuleGenerator {
   this: Common with ClientModuleGenerator =>
 
   def generateUnifiedClientModule(
-    scalafmt: Scalafmt,
-    targetRoot: Path,
     basePackageName: String,
     definitionMap: Map[String, IdentifiedSchema],
     resources: Set[SupportedResource]
-  ): ZIO[Blocking, Throwable, Set[Path]] = {
+  ): ZIO[Has[Generator] with Blocking, GeneratorFailure[Nothing], Set[Path]] = {
     val gvkTree = toTree(resources)
-    val source = generateUnifiedClientModuleSource(gvkTree, basePackageName, definitionMap)
-
-    val pkg = basePackageName.split('.')
-    val targetDir = pkg.foldLeft(targetRoot)(_ / _) / "kubernetes"
+    val parts = basePackageName.split('.')
+    val pkg = Package(parts.head, parts.tail: _*)
     for {
-      _         <- Files.createDirectories(targetDir)
-      targetPath = targetDir / "package.scala"
-      _         <- writeTextFile(targetPath, source)
-      _         <- format(scalafmt, targetPath)
+      targetPath <- Generator.generateScalaPackageObject[Any, Nothing](pkg, "kubernetes") {
+                      generateUnifiedClientModuleCode(gvkTree, basePackageName, definitionMap)
+                    }
     } yield Set(targetPath)
   }
 
-  private def generateUnifiedClientModuleSource(
+  private def generateUnifiedClientModuleCode(
     gvkTree: PackageNode,
     basePackageName: String,
     definitionMap: Map[String, IdentifiedSchema]
-  ): String = {
+  ): ZIO[Has[CodeFileGenerator], Nothing, Term.Block] = {
     val interfaces =
       pkgNodeToInterfaces(definitionMap, basePackageName, "Service", gvkTree)
     val liveClass =
@@ -73,25 +67,14 @@ trait UnifiedClientModuleGenerator {
 
     val defs = interfaces ++ List(liveClass, testClass, liveLayer, anyLayer, testLayer)
 
-    prettyPrint(q"""package $pkg {
-
-        import com.coralogix.zio.k8s.client.model.{K8sCluster, ResourceMetadata}
-        import com.coralogix.zio.k8s.client.impl.{ResourceClient, ResourceStatusClient, SubresourceClient}
-        import com.coralogix.zio.k8s.client.test.{TestResourceClient, TestResourceStatusClient, TestSubresourceClient}
-        import sttp.capabilities.WebSockets
-        import sttp.capabilities.zio.ZioStreams
-        import sttp.client3.SttpBackend
-        import zio.{ Has, Runtime, Task, ZIO, ZLayer }
-
-        package object kubernetes {
-
+    ZIO.succeed {
+      q"""
           type Kubernetes = Has[Kubernetes.Service]
           object Kubernetes {
             ..$defs
           }
-        }
-        }
-     """)
+     """
+    }
   }
 
   private def toInterfaceName(name: String): String =

@@ -4,7 +4,7 @@ import io.github.vigoo.metagen.core._
 import io.swagger.v3.oas.models.media.{ ArraySchema, ObjectSchema, Schema }
 import org.scalafmt.interfaces.Scalafmt
 import sbt.util.Logger
-import zio.ZIO
+import zio.{ Has, ZIO }
 import zio.blocking.Blocking
 import com.coralogix.zio.k8s.codegen.internal.CodegenIO.writeTextFile
 import com.coralogix.zio.k8s.codegen.internal.Conversions.{ modelRoot, splitName }
@@ -20,26 +20,25 @@ trait ModelGenerator {
   def logger: sbt.Logger
 
   protected def generateAllModels(
-    scalafmt: Scalafmt,
-    targetRoot: Path,
     definitionMap: Map[String, IdentifiedSchema],
     resources: Set[SupportedResource]
-  ): ZIO[Blocking, Throwable, Set[Path]] = {
+  ): ZIO[Has[Generator] with Blocking, GeneratorFailure[Nothing], Set[Path]] = {
     val filteredDefinitions = definitionMap.values.filter(d => !isListModel(d)).toSet
     for {
-      _     <- ZIO.effect(logger.info(s"Generating code for ${filteredDefinitions.size} models..."))
+      _     <-
+        ZIO.effectTotal(logger.info(s"Generating code for ${filteredDefinitions.size} models..."))
       paths <- ZIO.foreach(filteredDefinitions) { d =>
                  val entity = splitName(d.name)
 
                  for {
-                   _         <-
-                     ZIO.effect(logger.info(s"Generating '${entity.name}' to ${entity.pkg.show}"))
-                   src        = generateModel(modelRoot, entity, d, resources, definitionMap)
-                   targetDir  = targetRoot / entity.pkg.asPath
-                   _         <- Files.createDirectories(targetDir)
-                   targetPath = targetDir / s"${entity.name}.scala"
-                   _         <- writeTextFile(targetPath, src)
-                   _         <- format(scalafmt, targetPath)
+                   _          <-
+                     ZIO.effectTotal(
+                       logger.info(s"Generating '${entity.name}' to ${entity.pkg.show}")
+                     )
+                   targetPath <-
+                     Generator.generateScalaPackage[Any, Nothing](entity.pkg, entity.name) {
+                       generateModel(modelRoot, entity, d, resources, definitionMap)
+                     }
                  } yield targetPath
                }
     } yield paths
@@ -63,7 +62,7 @@ trait ModelGenerator {
     d: IdentifiedSchema,
     resources: Set[SupportedResource],
     definitionMap: Map[String, IdentifiedSchema]
-  ): String = {
+  ): ZIO[Has[CodeFileGenerator], Nothing, Term.Block] = {
     import scala.meta._
 
     val encoderName = Pat.Var(Term.Name(entityName.name + "Encoder"))
@@ -107,9 +106,9 @@ trait ModelGenerator {
                     val getterName = Term.Name(s"get${name.capitalize}")
 
                     if (isRequired)
-                      q"""def $getterName: IO[K8sFailure, ${propT.typ}] = ZIO.succeed($valueName)"""
+                      q"""def $getterName: ${Types.k8sIO(propT).typ} = ${Types.zio_.term}.succeed($valueName)"""
                     else
-                      q"""def $getterName: IO[K8sFailure, ${propT.typ}] = ZIO.fromEither($valueName.toRight(UndefinedField($valueLit)))"""
+                      q"""def $getterName: ${Types.k8sIO(propT).typ} = ${Types.zio_.term}.fromEither($valueName.toRight(${Types.undefinedField.term}($valueLit)))"""
                   }
 
               val classDef =
@@ -139,8 +138,8 @@ trait ModelGenerator {
                       baseJsonFields
                 }
 
-                q"""implicit val $encoderName: Encoder[${entityName.typ}] =
-                      (value: ${entityName.typ}) => Json.obj(
+                q"""implicit val $encoderName: ${Types.jsonEncoder(entityName).typ} =
+                      (value: ${entityName.typ}) => ${Types.json.term}.obj(
                         ..$jsonFields
                       )
                  """
@@ -164,8 +163,8 @@ trait ModelGenerator {
                 val propTerms = properties.map { case (k, _) => Term.Name(k) }.toList
 
                 q"""
-                   implicit val $decoderName: Decoder[${entityName.typ}] =
-                     (cursor: HCursor) =>
+                   implicit val $decoderName: ${Types.jsonDecoder(entityName).typ} =
+                     (cursor: io.circe.HCursor) =>
                       for { ..$propDecoders }
                       yield ${entityName.termName}(..$propTerms)
                  """
@@ -177,8 +176,8 @@ trait ModelGenerator {
                   .toList
 
                 q"""
-                implicit val $decoderName: Decoder[${entityName.typ}] =
-                  Decoder.$forProductN(..$propNameLits)(${entityName.termName}.apply)
+                implicit val $decoderName: ${Types.jsonDecoder(entityName).typ} =
+                  io.circe.Decoder.$forProductN(..$propNameLits)(${entityName.termName}.apply)
                 """
               }
 
@@ -238,13 +237,13 @@ trait ModelGenerator {
                       }
 
                     statusOps ++ ((metadataT, metadataIsRequired) match {
-                      case (Some(t), false) if t.toString == "pkg.apis.meta.v1.ObjectMeta" =>
+                      case (Some(t), false) if t.toString == s"${Types.objectMeta.typ}" =>
                         List(
                           q"""implicit val k8sObject: com.coralogix.zio.k8s.client.model.K8sObject[${entityName.typ}] =
                               new com.coralogix.zio.k8s.client.model.K8sObject[${entityName.typ}] {
-                                def metadata(obj: ${entityName.typ}): Optional[pkg.apis.meta.v1.ObjectMeta] =
+                                def metadata(obj: ${entityName.typ}): ${Types.optional(Types.objectMeta).typ} =
                                   obj.metadata
-                                def mapMetadata(f: pkg.apis.meta.v1.ObjectMeta => pkg.apis.meta.v1.ObjectMeta)(obj: ${entityName.typ}): ${entityName.typ} =
+                                def mapMetadata(f: ${Types.objectMeta.typ} => ${Types.objectMeta.typ})(obj: ${entityName.typ}): ${entityName.typ} =
                                   obj.copy(metadata = obj.metadata.map(f))
                               }
                         """,
@@ -253,7 +252,7 @@ trait ModelGenerator {
                                 protected override val impl: com.coralogix.zio.k8s.client.model.K8sObject[${entityName.typ}] = k8sObject
                               }
                            """,
-                          q"""implicit val resourceMetadata: ResourceMetadata[${entityName.typ}] =
+                          q"""implicit val resourceMetadata: ${Types.resourceMetadata(entityName).typ} =
                                 new ResourceMetadata[${entityName.typ}] {
                                   override val kind: String = $kindLit
                                   override val apiVersion: String = $apiVersionLit
@@ -261,13 +260,13 @@ trait ModelGenerator {
                                 }
                            """
                         )
-                      case (Some(t), true) if t.toString == "pkg.apis.meta.v1.ObjectMeta"  =>
+                      case (Some(t), true) if t.toString == s"${Types.objectMeta.typ}"  =>
                         List(
                           q"""implicit val k8sObject: com.coralogix.zio.k8s.client.model.K8sObject[${entityName.typ}] =
                               new com.coralogix.zio.k8s.client.model.K8sObject[${entityName.typ}] {
-                                def metadata(obj: ${entityName.typ}): Optional[pkg.apis.meta.v1.ObjectMeta] =
+                                def metadata(obj: ${entityName.typ}): ${Types.optional(Types.objectMeta).typ} =
                                   Some(obj.metadata)
-                                def mapMetadata(f: pkg.apis.meta.v1.ObjectMeta => pkg.apis.meta.v1.ObjectMeta)(obj: ${entityName.typ}): ${entityName.typ} =
+                                def mapMetadata(f: ${Types.objectMeta.typ} => ${Types.objectMeta.typ})(obj: ${entityName.typ}): ${entityName.typ} =
                                   obj.copy(metadata = f(obj.metadata))
                               }
                         """,
@@ -280,7 +279,7 @@ trait ModelGenerator {
                                 new ResourceMetadata[${entityName.typ}] {
                                   override val kind: String = $kindLit
                                   override val apiVersion: String = $apiVersionLit
-                                  override val resourceType: K8sResourceType = K8sResourceType($pluralLit, $groupLit, $versionLit)
+                                  override val resourceType: ${Types.k8sResourceType.typ} = ${Types.k8sResourceType.term}($pluralLit, $groupLit, $versionLit)
                                 }
                            """
                         )
@@ -327,16 +326,16 @@ trait ModelGenerator {
               )
             case None             =>
               q"""
-                case class ${entityName.typName}(value: Json)
+                case class ${entityName.typName}(value: ${Types.json.typ})
                 object ${entityName.termName} {
-                  implicit val $encoderName: Encoder[${entityName.typ}] = (v: ${entityName.typ}) => v.value
-                  implicit val $decoderName: Decoder[${entityName.typ}] = (cursor: HCursor) => Right(${entityName.termName}(cursor.value))
+                  implicit val $encoderName: ${Types.jsonEncoder(entityName).typ} = (v: ${entityName.typ}) => v.value
+                  implicit val $decoderName: ${Types.jsonDecoder(entityName).typ} = (cursor: io.circe.HCursor) => Right(${entityName.termName}(cursor.value))
 
-                  def nestedField(prefix: Chunk[String]): $entityFieldsT = new $entityFieldsT(prefix)
+                  def nestedField(prefix: ${Types.chunk(ScalaType.string).typ}): $entityFieldsT = new $entityFieldsT(prefix)
                 }
 
-                class $entityFieldsT(_prefix: Chunk[String]) {
-                  def field(subPath: String): Field = com.coralogix.zio.k8s.client.model.field(_prefix ++ Chunk.fromArray(subPath.split('.')))
+                class $entityFieldsT(_prefix: ${Types.chunk(ScalaType.string).typ}) {
+                  def field(subPath: String): Field = com.coralogix.zio.k8s.client.model.field(_prefix ++ ${Types.chunk_.term}.fromArray(subPath.split('.')))
                 }
                """.stats
           }
@@ -345,8 +344,8 @@ trait ModelGenerator {
             case None                  =>
               q"""case class ${entityName.typName}(value: String) extends AnyVal
                   object ${entityName.termName} {
-                    implicit val $encoderName: Encoder[${entityName.typ}] = Encoder.encodeString.contramap(_.value)
-                    implicit val $decoderName: Decoder[${entityName.typ}] = Decoder.decodeString.map(${entityName.termName}.apply)
+                    implicit val $encoderName: ${Types.jsonEncoder(entityName).typ} = io.circe.Encoder.encodeString.contramap(_.value)
+                    implicit val $decoderName: ${Types.jsonDecoder(entityName).typ} = io.circe.Decoder.decodeString.map(${entityName.termName}.apply)
                   }
                """.stats
             case Some("int-or-string") =>
@@ -356,14 +355,14 @@ trait ModelGenerator {
                     def fromInt(value: Int): ${entityName.typ} = ${entityName.termName}(Left(value))
                     def fromString(value: String): ${entityName.typ} = ${entityName.termName}(Right(value))
 
-                    implicit val $encoderName: Encoder[${entityName.typ}] =
+                    implicit val $encoderName: ${Types.jsonEncoder(entityName).typ} =
                       (value: ${entityName.typ}) => value.value match {
-                        case Left(int) => Json.fromInt(int)
-                        case Right(str) => Json.fromString(str)
+                        case Left(int) => ${Types.json.term}.fromInt(int)
+                        case Right(str) => ${Types.json.term}.fromString(str)
                       }
-                    implicit val $decoderName: Decoder[${entityName.typ}] =
+                    implicit val $decoderName: ${Types.jsonDecoder(entityName).typ} =
 
-                      (cursor: HCursor) => cursor.as[Int].map(v => ${entityName.termName}(Left(v))) match {
+                      (cursor: io.circe.HCursor) => cursor.as[Int].map(v => ${entityName.termName}(Left(v))) match {
                         case Left(_) =>
                           cursor
                             .as[String]
@@ -375,9 +374,9 @@ trait ModelGenerator {
             case Some("date-time")     =>
               q"""case class ${entityName.typName}(value: OffsetDateTime) extends AnyVal
                   object ${entityName.termName} {
-                    implicit val $encoderName: Encoder[${entityName.typ}] =
+                    implicit val $encoderName: ${Types.jsonEncoder(entityName).typ} =
                       Encoder.encodeString.contramap(_.value.format(com.coralogix.zio.k8s.client.model.k8sDateTimeFormatter))
-                    implicit val $decoderName: Decoder[${entityName.typ}] =
+                    implicit val $decoderName: ${Types.jsonDecoder(entityName).typ} =
                       Decoder.decodeString.emapTry(str => Try(OffsetDateTime.parse(str, java.time.format.DateTimeFormatter.ISO_OFFSET_DATE_TIME)).map(${entityName.termName}.apply))
                   }
                """.stats
@@ -390,12 +389,7 @@ trait ModelGenerator {
           List.empty
       }
 
-    val tree =
-      q"""package ${entityName.pkg.term} {
-
-          ..$defs
-          }
-      """
+    val tree = Term.Block(defs)
 
     val paramDescs =
       (Option(d.schema.getType).getOrElse("object")) match {
@@ -450,10 +444,13 @@ trait ModelGenerator {
         case _        => Map.empty
       }
 
-    getterDocs.foldLeft(
-      prettyPrint(tree)
-        .replace("case class", classDesc + "\ncase class")
-    ) { case (code, (from, to)) => code.replace(from, to) }
+    ZIO.succeed(tree)
+
+    // TODO: docs support
+//    getterDocs.foldLeft(
+//      prettyPrint(tree)
+//        .replace("case class", classDesc + "\ncase class")
+//    ) { case (code, (from, to)) => code.replace(from, to) }
   }
 
   private def escapeDocString(s: String): String =
