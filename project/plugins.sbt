@@ -1,7 +1,7 @@
 addSbtPlugin("org.scalameta"                     % "sbt-scalafmt"        % "2.4.6")
 addSbtPlugin("com.github.sbt"                    % "sbt-ci-release"      % "1.5.10")
 addSbtPlugin("com.github.sbt"                    % "sbt-native-packager" % "1.9.7")
-addSbtPlugin("org.scalameta"                     % "sbt-mdoc"            % "2.2.24")
+addSbtPlugin("org.scalameta"                     % "sbt-mdoc"            % "2.3.0")
 addSbtPlugin("com.github.sbt"                    % "sbt-unidoc"          % "0.5.0")
 addSbtPlugin("com.eed3si9n"                      % "sbt-buildinfo"       % "0.10.0")
 addSbtPlugin("com.thoughtworks.sbt-api-mappings" % "sbt-api-mappings"    % "3.0.0")
