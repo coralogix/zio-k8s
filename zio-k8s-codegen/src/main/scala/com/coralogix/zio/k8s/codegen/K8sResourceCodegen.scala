@@ -144,7 +144,7 @@ class K8sResourceCodegen(val logger: sbt.Logger, val scalaVersion: String)
 
       targetPath <- Generator.generateScalaPackageObject[Any, Throwable](pkg, resource.plural) {
                       generateModuleCode(
-                        basePackageName = clientRoot.asString,
+                        pkg = pkg,
                         name = resource.plural,
                         entity = resource.model,
                         statusEntity =

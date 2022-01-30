@@ -68,6 +68,10 @@ object Types {
   def namespacedResource(a: ScalaType): ScalaType =
     ScalaType(Packages.k8sClient, "NamespacedResource", a)
   def clusterResource(a: ScalaType): ScalaType = ScalaType(Packages.k8sClient, "ClusterResource", a)
+  def resourceClient(a: ScalaType, b: ScalaType) =
+    ScalaType(Packages.k8sClientImpl, "ResourceClient", a, b)
+  def testResourceClient: ScalaType =
+    ScalaType(Packages.k8sClientTest, "TestResourceClient")
 
   def resourceStatus(a: ScalaType, b: ScalaType): ScalaType =
     ScalaType(Packages.k8sClient, "ResourceStatus", a, b)
@@ -77,11 +81,15 @@ object Types {
     ScalaType(Packages.k8sClient, "ClusterResourceStatus", a, b)
   def resourceStatusClient(a: ScalaType, b: ScalaType): ScalaType =
     ScalaType(Packages.k8sClientImpl, "ResourceStatusClient", a, b)
+  def testResourceStatusClient: ScalaType =
+    ScalaType(Packages.k8sClientTest, "TestResourceStatusClient")
 
   def subresource(a: ScalaType): ScalaType =
     ScalaType(Packages.k8sClient, "Subresource", a)
   def subresourceClient(a: ScalaType): ScalaType =
     ScalaType(Packages.k8sClientImpl, "SubresourceClient", a)
+  def testSubresourceClient: ScalaType =
+    ScalaType(Packages.k8sClientTest, "TestSubresourceClient")
 
   def resourceDelete(a: ScalaType, b: ScalaType): ScalaType =
     ScalaType(Packages.k8sClient, "ResourceDelete", a, b)

@@ -1,7 +1,7 @@
 package com.coralogix.zio.k8s.codegen.internal
 
 import com.coralogix.zio.k8s.codegen.internal.Conversions.{ groupNameToPackageName, modelRoot }
-import _root_.io.github.vigoo.metagen.core.{ CodeFileGenerator, ScalaType }
+import _root_.io.github.vigoo.metagen.core.{ CodeFileGenerator, Package, ScalaType }
 import org.atteo.evo.inflector.English
 import zio.nio.file.Path
 import zio.{ Has, ZIO }
@@ -12,7 +12,7 @@ trait ClientModuleGenerator {
   this: Common =>
 
   def generateModuleCode(
-    basePackageName: String,
+    pkg: Package,
     name: String,
     entity: ScalaType,
     statusEntity: Option[ScalaType],
@@ -24,32 +24,12 @@ trait ClientModuleGenerator {
     supportsDeleteMany: Boolean
   ): ZIO[Has[CodeFileGenerator], Throwable, Term.Block] =
     ZIO.effect {
-      val basePackage =
-        if (gvk.group.nonEmpty)
-          s"$basePackageName.${groupNameToPackageName(gvk.group).mkString(".")}"
-            .parse[Term]
-            .get
-            .asInstanceOf[Term.Ref]
-        else
-          basePackageName.parse[Term].get.asInstanceOf[Term.Ref]
-      val moduleName = Term.Name(name)
-
-      val typeAlias = ScalaType(entity.pkg, English.plural(entity.name))
+      val typeAlias = ScalaType(pkg / name, English.plural(entity.name))
       val typeAliasGeneric = typeAlias / "Generic"
-
-      val ver = Term.Name(gvk.version)
-
-      val dtoPackage = entity.pkg.term
 
       val status = statusEntity.getOrElse(ScalaType.nothing)
 
       val isStandardDelete = deleteResponse == Types.status
-
-      val deleteResultTerm =
-        if (isStandardDelete)
-          q"() => com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Status()"
-        else
-          q"createDeleteResult"
 
       val customResourceDefinition: List[Defn] =
         crdYaml match {
@@ -549,7 +529,7 @@ trait ClientModuleGenerator {
             q"""def watchForever(
               fieldSelector: ${ScalaType.option(Types.fieldSelector).typ} = None,
               labelSelector: ${ScalaType.option(Types.labelSelector).typ} = None,
-            ): zio.stream.ZStream[${typeAlias.typ} with Clock, ${Types.k8sFailure.typ}, ${Types
+            ): zio.stream.ZStream[${typeAlias.typ} with zio.clock.Clock, ${Types.k8sFailure.typ}, ${Types
               .typedWatchEvent(entity)
               .typ}] =
               ${Types.zstream_.term}.accessStream(_.get.watchForever(fieldSelector, labelSelector))""",
@@ -595,7 +575,7 @@ trait ClientModuleGenerator {
     status: ScalaType,
     deleteResult: ScalaType
   ): List[Term] =
-    q"new ResourceClient[${entity.typ}, ${deleteResult.typ}](resourceType, cluster, backend)" ::
+    q"new ${Types.resourceClient(entity, deleteResult).typ}(resourceType, cluster, backend)" ::
       (((if (hasStatus)
            List(
              q"new ${Types.resourceStatusClient(status, entity).typ}(resourceType, cluster, backend)"
@@ -622,16 +602,16 @@ trait ClientModuleGenerator {
 
     createM(
       "client",
-      q"TestResourceClient.make[${entity.typ}, ${deleteResult.typ}](${deleteResult.term})"
+      q"${Types.testResourceClient.term}.make[${entity.typ}, ${deleteResult.typ}](() => ${deleteResult.term}())"
     ) ::
       (((if (hasStatus)
            List(
-             create("statusClient", q"new TestResourceStatusClient(client)")
+             create("statusClient", q"new ${Types.testResourceStatusClient.typ}(client)")
            )
          else Nil) ::
         subresources.toList.map { subresource =>
           val name = subresource.name + "Client"
-          List(createM(name, q"TestSubresourceClient.make[${subresource.model.typ}]"))
+          List(createM(name, q"${Types.testSubresourceClient.term}.make[${subresource.model.typ}]"))
         }).flatten)
   }
 

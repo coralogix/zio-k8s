@@ -7,7 +7,8 @@ object Packages {
 
   val k8sModel: Package = Package("com", "coralogix", "zio", "k8s", "model")
   val k8sClient: Package = Package("com", "coralogix", "zio", "k8s", "client")
-  val k8sClientImpl: Package = Package("com", "coralogix", "zio", "k8s", "client", "impl")
+  val k8sClientImpl: Package = k8sClient / "impl"
+  val k8sClientTest: Package = k8sClient / "test"
   val k8sClientModel: Package = k8sClient / "model"
   val k8sSubresources: Package = k8sClient / "subresources"
 

@@ -237,7 +237,7 @@ trait ModelGenerator {
                       }
 
                     statusOps ++ ((metadataT, metadataIsRequired) match {
-                      case (Some(t), false) if t.toString == s"${Types.objectMeta.typ}" =>
+                      case (Some(t), false) if t == Types.objectMeta =>
                         List(
                           q"""implicit val k8sObject: com.coralogix.zio.k8s.client.model.K8sObject[${entityName.typ}] =
                               new com.coralogix.zio.k8s.client.model.K8sObject[${entityName.typ}] {
@@ -260,7 +260,7 @@ trait ModelGenerator {
                                 }
                            """
                         )
-                      case (Some(t), true) if t.toString == s"${Types.objectMeta.typ}"  =>
+                      case (Some(t), true) if t == Types.objectMeta  =>
                         List(
                           q"""implicit val k8sObject: com.coralogix.zio.k8s.client.model.K8sObject[${entityName.typ}] =
                               new com.coralogix.zio.k8s.client.model.K8sObject[${entityName.typ}] {
