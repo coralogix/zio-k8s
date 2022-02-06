@@ -293,7 +293,7 @@ trait UnifiedClientModuleGenerator {
         List(cons)
       )
       q"""lazy val $namePat: $serviceT = {
-            val resourceType = implicitly[ResourceMetadata[${entity.typ}]].resourceType
+            val resourceType = implicitly[${Types.resourceMetadata(entity).typ}].resourceType
             new $liveInit
           }"""
     }

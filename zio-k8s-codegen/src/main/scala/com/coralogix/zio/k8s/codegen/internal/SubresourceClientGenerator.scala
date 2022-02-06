@@ -137,8 +137,8 @@ trait SubresourceClientGenerator {
         }
 
         object $namespacedTerm {
-          def makeClient[T : Tag : ResourceMetadata](backend: SttpBackend[Task, ZioStreams with WebSockets], cluster: K8sCluster): SubresourceClient[${model.typ}] =
-            new SubresourceClient[${model.typ}](implicitly[ResourceMetadata[T]].resourceType, cluster, backend, $nameLit)
+          def makeClient[T : zio.Tag : ${Types.resourceMetadata_.typ}](backend: sttp.client3.SttpBackend[zio.Task, sttp.capabilities.zio.ZioStreams with sttp.capabilities.WebSockets], cluster: ${Types.k8sCluster.typ}): ${Types.subresourceClient(model).typ} =
+            new SubresourceClient[${model.typ}](implicitly[${Types.resourceMetadata_.typ}[T]].resourceType, cluster, backend, $nameLit)
         }
 
         trait $clusterT[T] {
@@ -148,8 +148,8 @@ trait SubresourceClientGenerator {
         }
 
         object $clusterTerm {
-          def makeClient[T : Tag : ResourceMetadata](backend: SttpBackend[Task, ZioStreams with WebSockets], cluster: K8sCluster): SubresourceClient[${model.typ}] =
-            new SubresourceClient[${model.typ}](implicitly[ResourceMetadata[T]].resourceType, cluster, backend, $nameLit)
+          def makeClient[T : Tag : ${Types.resourceMetadata_.typ}](backend: sttp.client3.SttpBackend[zio.Task, sttp.capabilities.zio.ZioStreams with sttp.capabilities.WebSockets], cluster: ${Types.k8sCluster.typ}): ${Types.subresourceClient(model).typ} =
+            new SubresourceClient[${model.typ}](implicitly[${Types.resourceMetadata_.typ}[T]].resourceType, cluster, backend, $nameLit)
         }
      """
     }

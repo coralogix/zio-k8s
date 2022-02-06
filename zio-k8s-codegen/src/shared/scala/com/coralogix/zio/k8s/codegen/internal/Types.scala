@@ -52,6 +52,8 @@ object Types {
   def resourceMetadata(a: ScalaType): ScalaType =
     ScalaType(Packages.k8sClientModel, "ResourceMetadata", a)
 
+  val resourceMetadata_ : ScalaType = ScalaType(Packages.k8sClientModel, "ResourceMetadata")
+
   val k8sResourceType: ScalaType =
     ScalaType(Packages.k8sClientModel, "K8sResourceType")
 

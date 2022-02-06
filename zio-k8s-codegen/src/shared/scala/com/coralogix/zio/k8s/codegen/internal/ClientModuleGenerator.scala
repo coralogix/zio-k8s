@@ -261,7 +261,7 @@ trait ClientModuleGenerator {
                 List[Type](Types.namespacedResourceDeleteAll(entity).typ)
               else Nil) ::
               (if (statusEntity.isDefined)
-                 List[Type](Types.clusterResourceStatus(status, entity).typ)
+                 List[Type](Types.namespacedResourceStatus(status, entity).typ)
                else Nil) ::
               subresources.toList.map { subresource =>
                 List(getNamespacedSubresourceWrapperType(subresource, entity).typ)
