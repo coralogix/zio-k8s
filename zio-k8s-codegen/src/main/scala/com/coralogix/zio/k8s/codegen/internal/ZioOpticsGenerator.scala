@@ -5,7 +5,7 @@ import com.coralogix.zio.k8s.codegen.internal.Conversions.splitName
 import io.swagger.v3.oas.models.media.ObjectSchema
 import org.scalafmt.interfaces.Scalafmt
 import zio.ZIO
-import zio.blocking.Blocking
+import zio.ZIO._
 import zio.nio.file.Path
 import zio.nio.file.Files
 
@@ -20,11 +20,11 @@ trait ZioOpticsGenerator {
     scalafmt: Scalafmt,
     targetRoot: Path,
     definitions: Set[IdentifiedSchema]
-  ): ZIO[Blocking, Throwable, Set[Path]] = {
+  ): ZIO[Any, Throwable, Set[Path]] = {
     val filteredDefinitions = definitions.filter(d => !isListModel(d))
     for {
       _     <-
-        ZIO.effect(
+        ZIO.attempt(
           logger.info(s"Generating ZIO Optics for ${filteredDefinitions.size} models...")
         )
       paths <- ZIO.foreach(filteredDefinitions) { d =>
@@ -33,7 +33,7 @@ trait ZioOpticsGenerator {
                  val modelPkg = (modelRoot ++ groupName)
 
                  for {
-                   _         <- ZIO.effect(logger.info(s"Generating '$entityName' to ${pkg.mkString(".")}"))
+                   _         <- ZIO.attempt(logger.info(s"Generating '$entityName' to ${pkg.mkString(".")}"))
                    src        =
                      generateZioOptics(modelRoot, pkg, modelPkg, entityName, d)
                    targetDir  = pkg.foldLeft(targetRoot)(_ / _)

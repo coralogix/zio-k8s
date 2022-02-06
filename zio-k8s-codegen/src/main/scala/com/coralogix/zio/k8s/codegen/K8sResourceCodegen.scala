@@ -7,11 +7,10 @@ import io.swagger.parser.OpenAPIParser
 import io.swagger.v3.oas.models.OpenAPI
 import io.swagger.v3.parser.core.models.ParseOptions
 import org.scalafmt.interfaces.Scalafmt
-import zio.blocking.Blocking
 import zio.nio.file.Path
 import zio.nio.file.Files
 import zio.{ Task, ZIO }
-
+import zio.ZIO._
 import java.io.File
 import java.nio.charset.StandardCharsets
 import scala.collection.JavaConverters._
@@ -20,11 +19,11 @@ class K8sResourceCodegen(val logger: sbt.Logger, val scalaVersion: String)
     extends Common with ModelGenerator with ClientModuleGenerator with MonocleOpticsGenerator
     with SubresourceClientGenerator with UnifiedClientModuleGenerator with ZioOpticsGenerator {
 
-  def generateAll(from: Path, targetDir: Path): ZIO[Blocking, Throwable, Seq[File]] =
+  def generateAll(from: Path, targetDir: Path): ZIO[Any, Throwable, Seq[File]] =
     for {
       // Loading
       spec     <- loadK8sSwagger(from)
-      scalafmt <- ZIO.effect(Scalafmt.create(this.getClass.getClassLoader))
+      scalafmt <- ZIO.attempt(Scalafmt.create(this.getClass.getClassLoader))
 
       // Identifying
       definitions   = spec.getComponents.getSchemas.asScala
@@ -63,11 +62,11 @@ class K8sResourceCodegen(val logger: sbt.Logger, val scalaVersion: String)
   def generateAllMonocle(
     from: Path,
     targetDir: Path
-  ): ZIO[Blocking, Throwable, Seq[File]] =
+  ): ZIO[Any, Throwable, Seq[File]] =
     for {
       // Loading
       spec     <- loadK8sSwagger(from)
-      scalafmt <- ZIO.effect(Scalafmt.create(this.getClass.getClassLoader))
+      scalafmt <- ZIO.attempt(Scalafmt.create(this.getClass.getClassLoader))
 
       // Identifying
       definitions  = spec.getComponents.getSchemas.asScala
@@ -81,11 +80,11 @@ class K8sResourceCodegen(val logger: sbt.Logger, val scalaVersion: String)
   def generateAllOptics(
     from: Path,
     targetDir: Path
-  ): ZIO[Blocking, Throwable, Seq[File]] =
+  ): ZIO[Any, Throwable, Seq[File]] =
     for {
       // Loading
       spec     <- loadK8sSwagger(from)
-      scalafmt <- ZIO.effect(Scalafmt.create(this.getClass.getClassLoader))
+      scalafmt <- ZIO.attempt(Scalafmt.create(this.getClass.getClassLoader))
 
       // Identifying
       definitions  = spec.getComponents.getSchemas.asScala
@@ -96,10 +95,10 @@ class K8sResourceCodegen(val logger: sbt.Logger, val scalaVersion: String)
       opticsPaths <- generateAllZioOptics(scalafmt, targetDir, definitions)
     } yield opticsPaths.map(_.toFile).toSeq
 
-  private def loadK8sSwagger(from: Path): ZIO[Blocking, Throwable, OpenAPI] =
-    Task.effect(logger.info("Loading k8s-swagger.json")) *>
+  private def loadK8sSwagger(from: Path): ZIO[Any, Throwable, OpenAPI] =
+    Task.attempt(logger.info("Loading k8s-swagger.json")) *>
       Files.readAllBytes(from).flatMap { bytes =>
-        Task.effect {
+        Task.attempt {
           val rawJson = new String(bytes.toArray[Byte], StandardCharsets.UTF_8)
 
           val parser = new OpenAPIParser
@@ -125,7 +124,7 @@ class K8sResourceCodegen(val logger: sbt.Logger, val scalaVersion: String)
     targetRoot: Path,
     definitionMap: Map[String, IdentifiedSchema],
     resources: Set[SupportedResource]
-  ): ZIO[Blocking, Throwable, Set[Path]] =
+  ): ZIO[Any, Throwable, Set[Path]] =
     ZIO.foreach(resources) { resource =>
       generatePackage(scalafmt, targetRoot, definitionMap, resource)
     }
@@ -135,9 +134,9 @@ class K8sResourceCodegen(val logger: sbt.Logger, val scalaVersion: String)
     targetRoot: Path,
     definitionMap: Map[String, IdentifiedSchema],
     resource: SupportedResource
-  ): ZIO[Blocking, Throwable, Path] =
+  ): ZIO[Any, Throwable, Path] =
     for {
-      _ <- ZIO.effect(logger.info(s"Generating package code for ${resource.id}"))
+      _ <- ZIO.attempt(logger.info(s"Generating package code for ${resource.id}"))
 
       groupName = groupNameToPackageName(resource.gvk.group)
       pkg       = (clientRoot ++ groupName) :+ resource.gvk.version :+ resource.plural
@@ -179,7 +178,7 @@ class K8sResourceCodegen(val logger: sbt.Logger, val scalaVersion: String)
                            case s @ Some(_) => ZIO.succeed(s)
                            case None        =>
                              ZIO
-                               .effect(
+                               .attempt(
                                  logger.error(s"Unsupported, non-whitelisted path: ${path.name}")
                                )
                                .as(None)
@@ -193,9 +192,9 @@ class K8sResourceCodegen(val logger: sbt.Logger, val scalaVersion: String)
                            )
                          )
                          .when(whitelistInfo.contains(None))
-      _             <- ZIO.effect(logger.info(s"Issues for currently unsupported paths:"))
-      _             <- ZIO.foreach_(issues) { issue =>
-                         ZIO.effect(logger.info(s" - ${issue.url}"))
+      _             <- ZIO.attempt(logger.info(s"Issues for currently unsupported paths:"))
+      _             <- ZIO.foreachDiscard(issues) { issue =>
+                         ZIO.attempt(logger.info(s" - ${issue.url}"))
                        }
     } yield ()
 }

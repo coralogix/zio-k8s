@@ -1,23 +1,22 @@
 package com.coralogix.zio.k8s.codegen.internal
 
-import zio.blocking.Blocking
-import zio.nio.file.Path
-import zio.nio.file.Files
-import zio.stream.{ Transducer, ZStream }
-import zio.{ Chunk, ZIO }
+
+import zio.nio.file.{Files, Path}
+import zio.stream.{ZPipeline, ZStream}
+import zio.{Chunk, ZIO}
 
 import java.io.IOException
 import java.nio.charset.StandardCharsets
 
 object CodegenIO {
 
-  def readTextFile(path: Path): ZIO[Blocking, Throwable, String] =
+  def readTextFile(path: Path): ZIO[Any, Throwable, String] =
     ZStream
-      .fromFile(path.toFile.toPath)
-      .transduce(Transducer.utf8Decode)
-      .fold("")(_ ++ _)
+      .fromFile(path.toFile)
+      .via(ZPipeline.utf8Decode)
+      .runFold("")(_ ++ _)
 
-  def writeTextFile(path: Path, contents: String): ZIO[Blocking, IOException, Unit] =
+  def writeTextFile(path: Path, contents: String): ZIO[Any, IOException, Unit] =
     Files.writeBytes(
       path,
       Chunk.fromArray(contents.getBytes(StandardCharsets.UTF_8))

@@ -6,17 +6,17 @@ import com.coralogix.zio.k8s.client.v1.pods.Pods
 import com.coralogix.zio.k8s.model.core.v1.Pod
 import com.coralogix.zio.k8s.operator.OperatorFailure.k8sFailureToThrowable
 import com.coralogix.zio.k8s.operator.OperatorLogging.ConvertableToThrowable
-import zio.blocking.Blocking
+
 import zio.nio.file.Path
 import zio.nio.file.Files
-import zio.system.System
-import zio.{ Has, IO, ULayer, ZIO, ZLayer }
+import zio.{ IO, ULayer, ZIO, ZLayer }
 
 import java.io.IOException
+import zio.System
 
 package object contextinfo {
 
-  type ContextInfo = Has[ContextInfo.Service]
+  type ContextInfo = ContextInfo.Service
 
   object ContextInfo {
     trait Service {
@@ -25,7 +25,7 @@ package object contextinfo {
       def pod: IO[ContextInfoFailure, Pod]
     }
 
-    abstract class LiveBase(system: System.Service, pods: Pods.Service) extends Service {
+    abstract class LiveBase(system: System, pods: Pods.Service) extends Service {
       override def pod: IO[ContextInfoFailure, Pod] =
         for {
           ns           <- namespace
@@ -43,29 +43,29 @@ package object contextinfo {
         } yield result
     }
 
-    class Live(system: System.Service, pods: Pods.Service, blocking: Blocking.Service)
+    class Live(system: System, pods: Pods.Service, blocking: Blocking.Service)
         extends LiveBase(system, pods) {
       override def namespace: IO[ContextInfoFailure, K8sNamespace] =
         Files
           .readAllLines(Path("/var/run/secrets/kubernetes.io/serviceaccount/namespace"))
-          .provide(Has(blocking))
-          .bimap(error => ContextInfoFailure.UnknownNamespace(Some(error)), _.headOption)
+          .provideService(Has(blocking))
+          .mapBoth(error => ContextInfoFailure.UnknownNamespace(Some(error)), _.headOption)
           .flatMap {
             case Some(line) => ZIO.succeed(K8sNamespace(line.trim))
             case None       => ZIO.fail(ContextInfoFailure.UnknownNamespace(None))
           }
     }
 
-    class LiveForcedNamespace(system: System.Service, pods: Pods.Service, ns: K8sNamespace)
+    class LiveForcedNamespace(system: System, pods: Pods.Service, ns: K8sNamespace)
         extends LiveBase(system, pods) {
       override def namespace: IO[ContextInfoFailure, K8sNamespace] = ZIO.succeed(ns)
     }
 
     val any: ZLayer[ContextInfo, Nothing, ContextInfo] = ZLayer.requires[ContextInfo]
 
-    val live: ZLayer[Blocking with Pods with System, ContextInfoFailure, ContextInfo] =
+    val live: ZLayer[Any with Pods with System, ContextInfoFailure, ContextInfo] =
       (for {
-        system   <- ZIO.service[System.Service]
+        system   <- ZIO.service[System]
         pods     <- ZIO.service[Pods.Service]
         blocking <- ZIO.service[Blocking.Service]
       } yield new Live(system, pods, blocking)).toLayer
@@ -74,7 +74,7 @@ package object contextinfo {
       namespace: K8sNamespace
     ): ZLayer[Pods with System, ContextInfoFailure, ContextInfo] =
       (for {
-        system <- ZIO.service[System.Service]
+        system <- ZIO.service[System]
         pods   <- ZIO.service[Pods.Service]
       } yield new LiveForcedNamespace(system, pods, namespace)).toLayer
 

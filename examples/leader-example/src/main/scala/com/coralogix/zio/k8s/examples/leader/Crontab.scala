@@ -9,14 +9,14 @@ import com.coralogix.zio.k8s.client.model.{
   Optional,
   ResourceMetadata
 }
-import com.coralogix.zio.k8s.client._
+import com.coralogix.zio.k8s.client.{ NamespacedResource, _ }
 import com.coralogix.zio.k8s.model.pkg.apis.meta.v1.{ ObjectMeta, Status }
 import io.circe.Codec
 import io.circe.generic.semiauto._
 import sttp.capabilities.WebSockets
 import sttp.capabilities.zio.ZioStreams
 import sttp.client3.SttpBackend
-import zio.{ Has, Task, ZLayer }
+import zio.{ Task, ZEnvironment, ZLayer }
 
 // Example of defining a custom resource client without using zio-k8s-crd
 
@@ -62,17 +62,16 @@ object CrontabStatus {
 }
 
 package object crontabs {
-  type Crontabs = Has[Crontabs.Service]
+  type Crontabs = Crontabs.Service
 
   object Crontabs {
-    type Generic = Has[NamespacedResource[Crontab]]
-      with Has[NamespacedResourceStatus[CrontabStatus, Crontab]]
+    type Generic = NamespacedResource[Crontab] with NamespacedResourceStatus[CrontabStatus, Crontab]
 
     trait Service
         extends NamespacedResource[Crontab] with NamespacedResourceStatus[CrontabStatus, Crontab] {
-      val asGeneric: Generic = Has[NamespacedResource[Crontab]](this) ++ Has[
+      val asGeneric: Generic = (ZEnvironment[NamespacedResource[Crontab]](this) ++ ZEnvironment[
         NamespacedResourceStatus[CrontabStatus, Crontab]
-      ](this)
+      ](this)).get
     }
 
     class Live(
@@ -80,19 +79,17 @@ package object crontabs {
       override val asGenericResourceStatus: ResourceStatusClient[CrontabStatus, Crontab]
     ) extends Service
 
-    val live: ZLayer[Has[K8sCluster] with Has[
-      SttpBackend[Task, ZioStreams with WebSockets]
-    ], Nothing, Crontabs] =
-      ZLayer.fromServices[SttpBackend[Task, ZioStreams with WebSockets], K8sCluster, Service] {
-        (backend: SttpBackend[Task, ZioStreams with WebSockets], cluster: K8sCluster) =>
-          val client =
-            new ResourceClient[Crontab, Status](Crontab.metadata.resourceType, cluster, backend)
-          val statusClient = new ResourceStatusClient[CrontabStatus, Crontab](
-            Crontab.metadata.resourceType,
-            cluster,
-            backend
-          )
-          new Live(client, statusClient)
-      }
+    val live
+      : ZLayer[K8sCluster with SttpBackend[Task, ZioStreams with WebSockets], Nothing, Crontabs] = {
+      (backend: SttpBackend[Task, ZioStreams with WebSockets], cluster: K8sCluster) =>
+        val client =
+          new ResourceClient[Crontab, Status](Crontab.metadata.resourceType, cluster, backend)
+        val statusClient = new ResourceStatusClient[CrontabStatus, Crontab](
+          Crontab.metadata.resourceType,
+          cluster,
+          backend
+        )
+        new Live(client, statusClient)
+    }.toLayer
   }
 }

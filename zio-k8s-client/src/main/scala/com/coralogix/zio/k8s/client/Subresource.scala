@@ -2,7 +2,7 @@ package com.coralogix.zio.k8s.client
 
 import com.coralogix.zio.k8s.client.model.K8sNamespace
 import zio.IO
-import zio.stream.{ ZStream, ZTransducer }
+import zio.stream.{ ZPipeline, ZStream }
 
 /** Generic interface for subresources.
   *
@@ -45,7 +45,7 @@ trait Subresource[T] {
   def streamingGet(
     name: String,
     namespace: Option[K8sNamespace],
-    transducer: ZTransducer[Any, K8sFailure, Byte, T],
+    transducer: ZPipeline[Any, K8sFailure, Byte, T],
     customParameters: Map[String, String] = Map.empty
   ): ZStream[Any, K8sFailure, T]
 

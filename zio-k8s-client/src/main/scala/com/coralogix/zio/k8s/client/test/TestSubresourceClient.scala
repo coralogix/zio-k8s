@@ -3,7 +3,7 @@ package com.coralogix.zio.k8s.client.test
 import com.coralogix.zio.k8s.client.model.K8sNamespace
 import com.coralogix.zio.k8s.client.{ K8sFailure, NotFound, Subresource }
 import zio.stm.TMap
-import zio.stream.{ ZStream, ZTransducer }
+import zio.stream.{ ZPipeline, ZStream }
 import zio.{ IO, ZIO }
 
 /** Test implementation of [[Subresource]] to be used from unit tests
@@ -28,10 +28,10 @@ final class TestSubresourceClient[T] private (store: TMap[String, T]) extends Su
   override def streamingGet(
     name: String,
     namespace: Option[K8sNamespace],
-    transducer: ZTransducer[Any, K8sFailure, Byte, T],
+    pipeline: ZPipeline[Any, K8sFailure, Byte, T],
     customParameters: Map[String, String]
   ): ZStream[Any, K8sFailure, T] =
-    ZStream.fromEffect(get(name, namespace, customParameters))
+    ZStream.fromZIO(get(name, namespace, customParameters))
 
   override def replace(
     name: String,

@@ -3,8 +3,9 @@ package com.coralogix.zio.k8s.client.model
 import zio.test.Assertion.equalTo
 import zio.test._
 import zio.test.environment.TestEnvironment
+import zio.test.ZIOSpecDefault
 
-object LabelSelectorSpec extends DefaultRunnableSpec {
+object LabelSelectorSpec extends ZIOSpecDefault {
   override def spec: ZSpec[TestEnvironment, Any] =
     suite("LabelSelector")(
       test("equals")(

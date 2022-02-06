@@ -10,8 +10,8 @@ Compile / unmanagedSourceDirectories += baseDirectory.value / "src/shared/scala"
 scalacOptions ++= Seq("-feature", "-deprecation")
 
 libraryDependencies ++= Seq(
-  "dev.zio"             %% "zio"              % "1.0.13",
-  "dev.zio"             %% "zio-nio"          % "1.0.0-RC12",
+  "dev.zio"             %% "zio"              % "2.0.0-RC2",
+  "dev.zio"             %% "zio-nio"          % "2.0.0-RC1",
   "io.swagger.parser.v3" % "swagger-parser"   % "2.0.24",
   "io.circe"            %% "circe-core"       % "0.14.1",
   "io.circe"            %% "circe-parser"     % "0.14.1",

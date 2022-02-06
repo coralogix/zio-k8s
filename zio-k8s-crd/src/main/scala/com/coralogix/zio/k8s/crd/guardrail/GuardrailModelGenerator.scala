@@ -20,7 +20,7 @@ import io.circe.syntax._
 import io.circe.yaml.parser._
 import org.scalafmt.interfaces.Scalafmt
 import zio.{ Chunk, ZIO }
-import zio.blocking.Blocking
+
 import zio.nio.file.Path
 import zio.nio.file.Files
 import zio.stream.{ Transducer, ZStream }
@@ -59,7 +59,7 @@ object GuardrailModelGenerator {
     outputRoot: Path,
     name: String,
     schemaFragments: (String, Json)*
-  ): ZIO[Blocking, Throwable, List[Path]] = {
+  ): ZIO[Any, Throwable, List[Path]] = {
     val fullSchema = Json.obj(
       "swagger"     := "2.0",
       "info"        := Json.obj(
@@ -112,10 +112,10 @@ object GuardrailModelGenerator {
     } yield generatedFiles
   }
 
-  private def postProcessOptionals(files: List[Path]): ZIO[Blocking, Throwable, Unit] =
-    ZIO.foreach_(files)(postProcessOptionalsIn)
+  private def postProcessOptionals(files: List[Path]): ZIO[Any, Throwable, Unit] =
+    ZIO.foreachDiscard(files)(postProcessOptionalsIn)
 
-  private def postProcessOptionalsIn(file: Path): ZIO[Blocking, Throwable, Unit] =
+  private def postProcessOptionalsIn(file: Path): ZIO[Any, Throwable, Unit] =
     for {
       rawSource    <- readTextFile(file)
       ast          <- ZIO.fromEither(rawSource.parse[Source].toEither).mapError(_.details)

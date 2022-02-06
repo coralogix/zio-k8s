@@ -26,7 +26,7 @@ import com.coralogix.zio.k8s.client.{
 }
 import com.coralogix.zio.k8s.model.pkg.apis.meta.v1.{ DeleteOptions, Status }
 import sttp.model.StatusCode
-import zio.duration.Duration
+import zio.Duration
 import zio.stm.{ TMap, TQueue, ZSTM }
 import zio.stream._
 import zio.{ IO, ZIO }
@@ -63,7 +63,7 @@ final class TestResourceClient[T: K8sObject, DeleteResult] private (
           .fromIterable(items)
           .filter { case (key, _) => if (namespace.isDefined) key.startsWith(prefix) else true }
           .map { case (_, value) => value }
-          .chunkN(chunkSize)
+          .rechunk(chunkSize)
       }
     }
   }
@@ -172,7 +172,7 @@ final class TestResourceClient[T: K8sObject, DeleteResult] private (
     if (!dryRun) {
       val stm = for {
         item <- store.get(prefix + name)
-        _    <- ZSTM.foreach_(item) { item =>
+        _    <- ZSTM.foreachDiscard(item) { item =>
                   for {
                     _ <- store.delete(prefix + name)
                     _ <- events.offer(Deleted(item))
@@ -200,10 +200,10 @@ final class TestResourceClient[T: K8sObject, DeleteResult] private (
       val stm = for {
         keys        <- store.keys
         filteredKeys = keys.filter(_.startsWith(prefix))
-        _           <- ZSTM.foreach_(filteredKeys) { key =>
+        _           <- ZSTM.foreachDiscard(filteredKeys) { key =>
                          for {
                            item <- store.get(key)
-                           _    <- ZSTM.foreach_(item) { item =>
+                           _    <- ZSTM.foreachDiscard(item) { item =>
                                      for {
                                        _ <- store.delete(key)
                                        _ <- events.offer(Deleted(item))

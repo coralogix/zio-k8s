@@ -2,26 +2,27 @@ package com.coralogix.zio.k8s.client.config
 
 import io.circe.yaml.parser.parse
 import sttp.client3._
-import zio.{ Chunk, Has, ZIO }
+import zio.{ Chunk, ZIO }
 import zio.config._
 import zio.config.typesafe.TypesafeConfig
 import zio.nio.file.Path
 import zio.test.environment.TestEnvironment
-import zio.test.{ assertCompletes, assertM, Assertion, DefaultRunnableSpec, ZSpec }
+import zio.test.{ assertCompletes, assertM, Assertion, ZSpec }
 import cats.implicits._
 import com.coralogix.zio.k8s.client.config.K8sAuthentication.ServiceAccountToken
 import com.coralogix.zio.k8s.client.config.KeySource.FromString
 import zio.nio.file.Files
 
 import java.nio.charset.StandardCharsets
+import zio.test.ZIOSpecDefault
 
-object ConfigSpec extends DefaultRunnableSpec {
+object ConfigSpec extends ZIOSpecDefault {
   override def spec: ZSpec[TestEnvironment, Any] =
     suite("K8sClusterConfig descriptors")(
-      testM("load config from string") {
+      test("load config from string") {
         kubeconfigFromString(example2).as(assertCompletes)
       },
-      testM("load client config") {
+      test("load client config") {
         // Loading config from HOCON
         val loadConfig =
           TypesafeConfig.fromHoconString[Config](example1, configDesc).build.useNow.map(_.get)
@@ -49,7 +50,7 @@ object ConfigSpec extends DefaultRunnableSpec {
           )
         )
       },
-      testM("parse kube config") {
+      test("parse kube config") {
         val kubeConfig = parseKubeConfigYaml(example2)
 
         assertM(kubeConfig)(
@@ -101,7 +102,7 @@ object ConfigSpec extends DefaultRunnableSpec {
           )
         )
       },
-      testM("run local config loading") {
+      test("run local config loading") {
         def createTempKubeConfigFile =
           for {
             path <- Files
@@ -111,13 +112,13 @@ object ConfigSpec extends DefaultRunnableSpec {
                         path,
                         Chunk.fromArray(example2.getBytes(StandardCharsets.UTF_8))
                       )
-                      .toManaged_
+                      .toManaged
           } yield path
 
-        def loadTokenByCommand: ZIO[Has[K8sClusterConfig], Throwable, Option[String]] =
+        def loadTokenByCommand: ZIO[K8sClusterConfig, Throwable, Option[String]] =
           for {
             authentication <-
-              ZIO.access[Has[K8sClusterConfig]](_.get[K8sClusterConfig].authentication)
+              ZIO.environment[K8sClusterConfig](_.get[K8sClusterConfig].authentication)
             result         <- authentication match {
                                 case ServiceAccountToken(FromString(token)) =>
                                   ZIO.succeed(token.some)
@@ -128,7 +129,7 @@ object ConfigSpec extends DefaultRunnableSpec {
 
         createTempKubeConfigFile.use(path =>
           assertM(for {
-            configLayer <- ZIO.effect(kubeconfigFile(path))
+            configLayer <- ZIO.attempt(kubeconfigFile(path))
             maybeToken  <- loadTokenByCommand.provideLayer(configLayer)
           } yield maybeToken)(Assertion.equalTo(Some("bearer-token")))
         )

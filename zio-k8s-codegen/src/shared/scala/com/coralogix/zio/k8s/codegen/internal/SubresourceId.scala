@@ -40,7 +40,7 @@ case class SubresourceId(
   def streamingGetTransducer: Term =
     modelName match {
       case "String" =>
-        q"zio.stream.ZTransducer.utf8Decode >>> zio.stream.ZTransducer.splitLines"
+        q"zio.stream.ZPipeline.utf8Decode >>> zio.stream.ZPipeline.splitLines"
       case _        => q"???"
     }
 

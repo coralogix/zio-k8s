@@ -1,18 +1,18 @@
 package com.coralogix.zio.k8s.client.config
 
 import zio.{ Task, ZIO }
-import zio.blocking.Blocking
-import zio.system.System
+
 
 import java.security.SecureRandom
 import java.security.cert.X509Certificate
 import javax.net.ssl.{ KeyManager, SSLContext, TrustManager, X509TrustManager }
+import zio.System
 
 private object SSL {
   def apply(
     serverCertificate: K8sServerCertificate,
     authentication: K8sAuthentication
-  ): ZIO[System with Blocking, Throwable, SSLContext] =
+  ): ZIO[System with Any, Throwable, SSLContext] =
     serverCertificate match {
       case K8sServerCertificate.Insecure               =>
         insecureSSLContext()
@@ -26,7 +26,7 @@ private object SSL {
       override def checkServerTrusted(chain: Array[X509Certificate], authType: String): Unit = {}
       override def getAcceptedIssuers: Array[X509Certificate] = null
     })
-    Task.effect {
+    Task.attempt {
       val sslContext: SSLContext = SSLContext.getInstance("TLS")
       sslContext.init(null, trustAllCerts, new SecureRandom())
       sslContext
@@ -36,7 +36,7 @@ private object SSL {
   private def secureSSLContext(
     certSource: KeySource,
     authentication: K8sAuthentication
-  ): ZIO[System with Blocking, Throwable, SSLContext] =
+  ): ZIO[System with Any, Throwable, SSLContext] =
     loadKeyStream(certSource).use { certStream =>
       for {
         keyManagers   <-
@@ -55,7 +55,7 @@ private object SSL {
     keyManagers: Option[Array[KeyManager]],
     trustManagers: Array[TrustManager]
   ): Task[SSLContext] =
-    Task.effect {
+    Task.attempt {
       val sslContext = SSLContext.getInstance("TLSv1.2")
       sslContext.init(keyManagers.orNull, trustManagers, new SecureRandom())
       sslContext

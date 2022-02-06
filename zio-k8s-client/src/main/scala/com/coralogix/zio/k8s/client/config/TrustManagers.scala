@@ -1,10 +1,7 @@
 package com.coralogix.zio.k8s.client.config
 
-import zio.blocking.Blocking
-import zio.nio.file.Path
-import zio.nio.file.Files
-import zio.{ system, Task, ZIO, ZManaged }
-import zio.system.System
+import zio.nio.file.{ Files, Path }
+import zio.{ System, Task, ZIO, ZManaged }
 
 import java.io.{ File, FileInputStream, InputStream }
 import java.security.KeyStore
@@ -14,7 +11,7 @@ import javax.net.ssl.{ TrustManager, TrustManagerFactory }
 private object TrustManagers {
 
   private def getDefaultTrustStoreWithoutSecurityDir: Task[KeyStore] =
-    ZIO.effect {
+    ZIO.attempt {
       val keyStore = KeyStore.getInstance("JKS")
       keyStore.load(null)
       keyStore
@@ -22,11 +19,11 @@ private object TrustManagers {
 
   private def getDefaultTrustStoreWithSecurityDir(
     secDir: Path
-  ): ZIO[Blocking with System, Throwable, KeyStore] =
+  ): ZIO[Any with System, Throwable, KeyStore] =
     for {
-      propertyTrustStore    <- system.property("javax.net.ssl.trustStore")
+      propertyTrustStore    <- System.property("javax.net.ssl.trustStore")
       propertyTrustStoreFile = propertyTrustStore.map(new File(_))
-      password              <- system.property("javax.net.ssl.trustStorePassword")
+      password              <- System.property("javax.net.ssl.trustStorePassword")
       jssecacertsPath        = secDir / "jssecacerts"
       cacertsPath            = secDir / "cacerts"
       jscacertsExists       <-
@@ -36,9 +33,9 @@ private object TrustManagers {
                     .orElse(if (jscacertsExists) Some(jssecacertsPath.toFile) else None)
                     .getOrElse(cacertsPath.toFile)
 
-      keyStore <- ZIO.effect(KeyStore.getInstance("JKS"))
-      _        <- ZManaged.fromAutoCloseable(ZIO.effect(new FileInputStream(finalFile))).use { stream =>
-                    ZIO.effect(
+      keyStore <- ZIO.attempt(KeyStore.getInstance("JKS"))
+      _        <- ZManaged.fromAutoCloseable(ZIO.attempt(new FileInputStream(finalFile))).use { stream =>
+                    ZIO.attempt(
                       keyStore.load(
                         stream,
                         password.getOrElse("changeit").toCharArray
@@ -47,9 +44,9 @@ private object TrustManagers {
                   }
     } yield keyStore
 
-  private def getDefaultTrustStore: ZIO[System with Blocking, Throwable, KeyStore] =
+  private def getDefaultTrustStore: ZIO[System with Any, Throwable, KeyStore] =
     for {
-      maybeJavaHome <- system.property("java.home")
+      maybeJavaHome <- System.property("java.home")
       keyStore      <- maybeJavaHome match {
                          case Some(javaHome) =>
                            getDefaultTrustStoreWithSecurityDir(Path(javaHome) / "lib/security")
@@ -59,9 +56,9 @@ private object TrustManagers {
 
   private def createTrustStore(
     pemInputStream: InputStream
-  ): ZIO[System with Blocking, Throwable, KeyStore] =
+  ): ZIO[System with Any, Throwable, KeyStore] =
     getDefaultTrustStore.flatMap { trustStore =>
-      Task.effect {
+      Task.attempt {
         while (pemInputStream.available() > 0) {
           val certFactory = CertificateFactory.getInstance("X509")
           val cert = certFactory.generateCertificate(pemInputStream).asInstanceOf[X509Certificate]
@@ -74,9 +71,9 @@ private object TrustManagers {
 
   def apply(
     pemInputStream: InputStream
-  ): ZIO[System with Blocking, Throwable, Array[TrustManager]] =
+  ): ZIO[System with Any, Throwable, Array[TrustManager]] =
     createTrustStore(pemInputStream).flatMap { trustStore =>
-      Task.effect {
+      Task.attempt {
         val tmf = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm)
         tmf.init(trustStore)
         tmf.getTrustManagers

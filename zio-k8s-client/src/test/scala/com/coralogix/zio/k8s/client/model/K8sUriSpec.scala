@@ -4,8 +4,9 @@ import sttp.client3.UriContext
 import zio.duration.durationInt
 import zio.test._
 import zio.test.Assertion._
+import zio.test.ZIOSpecDefault
 
-object K8sUriSpec extends DefaultRunnableSpec {
+object K8sUriSpec extends ZIOSpecDefault {
   private val cluster = K8sCluster(uri"https://localhost:32768", None)
   private val resourceType = K8sResourceType("rt", "gr", "v8")
   private val resourceTypeWithEmptyGroup = K8sResourceType("rt", "", "v8")

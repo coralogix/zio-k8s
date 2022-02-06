@@ -3,14 +3,15 @@ package com.coralogix.zio.k8s.client.model
 import com.coralogix.zio.k8s.model.pkg.apis.meta.v1.MicroTime
 import io.circe._
 import io.circe.syntax._
-import zio.clock.Clock
+import zio.Clock
 import zio.test.Assertion._
 import zio.test.environment.TestEnvironment
 import zio.test._
 
 import java.time.OffsetDateTime
+import zio.test.ZIOSpecDefault
 
-object TimeSerializationSpec extends DefaultRunnableSpec {
+object TimeSerializationSpec extends ZIOSpecDefault {
 
   override def spec: ZSpec[TestEnvironment, Any] =
     suite("MicroTime serialization")(
@@ -21,9 +22,9 @@ object TimeSerializationSpec extends DefaultRunnableSpec {
 
         assert(json)(isSome(equalTo("2021-05-05T14:36:10.348652Z")))
       },
-      testM("can print and parse") {
+      test("can print and parse") {
         for {
-          now       <- zio.clock.currentDateTime.provideLayer(Clock.live)
+          now       <- zio.Clock.currentDateTime.provideLayer(Clock.live)
           microTime1 = MicroTime(now)
           json       = microTime1.asJson
           microTime2 = json.as[MicroTime]

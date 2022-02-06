@@ -228,9 +228,9 @@ object ClassifiedResource {
 
   private def printIssues(logger: sbt.Logger, issues: Set[IssueReference]) =
     for {
-      _ <- Task.effect(logger.info(s"Issues for currently unsupported resources/actions:"))
-      _ <- Task.foreach_(issues) { issue =>
-             Task.effect(logger.info(s" - ${issue.url}"))
+      _ <- Task.attempt(logger.info(s"Issues for currently unsupported resources/actions:"))
+      _ <- Task.foreachDiscard(issues) { issue =>
+             Task.attempt(logger.info(s" - ${issue.url}"))
            }
     } yield ()
 

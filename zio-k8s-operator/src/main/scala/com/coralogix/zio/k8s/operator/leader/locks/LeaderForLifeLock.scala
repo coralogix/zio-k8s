@@ -9,7 +9,7 @@ import com.coralogix.zio.k8s.model.pkg.apis.meta.v1.{ DeleteOptions, Status }
 import com.coralogix.zio.k8s.operator.OperatorFailure.k8sFailureToThrowable
 import com.coralogix.zio.k8s.operator.OperatorLogging.logFailure
 import com.coralogix.zio.k8s.operator.leader.{ KubernetesError, LeaderElectionFailure, LeaderLock }
-import zio.clock.Clock
+import zio.Clock
 import zio.logging.{ log, LogAnnotation, Logging }
 import zio.{ Cause, IO, Schedule, ZIO, ZManaged }
 
@@ -51,7 +51,7 @@ abstract class LeaderForLifeLock[T: K8sObject](
     self: Pod
   ): ZManaged[Clock with Logging, LeaderElectionFailure[Nothing], Unit] =
     for {
-      alreadyOwned <- checkIfAlreadyOwned(namespace, self).toManaged_
+      alreadyOwned <- checkIfAlreadyOwned(namespace, self).toManaged
       lock         <-
         if (alreadyOwned)
           log
@@ -61,10 +61,10 @@ abstract class LeaderForLifeLock[T: K8sObject](
                   s"Lock '$lockName' in namespace '${namespace.value}' is already owned by the current pod"
                 )
             }
-            .toManaged_ *>
-            ZManaged.make(ZIO.unit)(_ => deleteLock(lockName, namespace))
+            .toManaged *>
+            ZManaged.acquireReleaseWith(ZIO.unit)(_ => deleteLock(lockName, namespace))
         else
-          ZManaged.make(
+          ZManaged.acquireReleaseWith(
             tryCreateLock(namespace, self)
           )(_ => deleteLock(lockName, namespace))
     } yield lock
@@ -95,7 +95,7 @@ abstract class LeaderForLifeLock[T: K8sObject](
       for {
         _               <- log.info(s"Acquiring lock '$lockName' in namespace '${namespace.value}'")
         lock            <- makeLock(lockName, namespace, self)
-        finalRetryPolicy = retryPolicy && Schedule.recurWhileM[Logging, K8sFailure] {
+        finalRetryPolicy = retryPolicy && Schedule.recurWhileZIO[Logging, K8sFailure] {
                              case DecodedFailure(_, status, code)
                                  if status.reason.contains("AlreadyExists") =>
                                log.info(s"Lock is already taken, retrying...").as(true)

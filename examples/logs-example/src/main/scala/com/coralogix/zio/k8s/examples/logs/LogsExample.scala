@@ -7,22 +7,21 @@ import com.coralogix.zio.k8s.client.model.K8sNamespace
 import com.coralogix.zio.k8s.client.v1.pods.Pods
 import com.coralogix.zio.k8s.client.v1.pods
 import zio._
-import zio.blocking.Blocking
-import zio.console.Console
+
 import zio.logging.{ LogFormat, LogLevel, Logging }
-import zio.system.System
 
 import scala.languageFeature.implicitConversions
+import zio.{ Console, Console, ZIOAppDefault }
 
-object LogsExample extends App {
+object LogsExample extends ZIOAppDefault {
   override def run(args: List[String]): URIO[zio.ZEnv, ExitCode] = {
     // Loading config from kubeconfig
     val config = kubeconfig(disableHostnameVerification = true)
       .project(cfg => cfg.dropTrailingDot)
 
     // K8s configuration and client layers
-    val client = (Blocking.any ++ System.any ++ config) >>> k8sSttpClient
-    val cluster = (Blocking.any ++ config) >>> k8sCluster
+    val client = (System.any ++ config) >>> k8sSttpClient
+    val cluster = (config) >>> k8sCluster
 
     val pods = (client ++ cluster) >>> Pods.live
 
@@ -31,7 +30,7 @@ object LogsExample extends App {
     val program = args match {
       case List(podName)                => tailLogs(podName, None)
       case List(podName, containerName) => tailLogs(podName, Some(containerName))
-      case _                            => console.putStrLnErr("Usage: <podname> [containername]")
+      case _                            => Console.printLineError("Usage: <podname> [containername]")
     }
 
     program
@@ -46,7 +45,7 @@ object LogsExample extends App {
     pods
       .getLog(podName, K8sNamespace.default, container = containerName, follow = Some(true))
       .tap { line =>
-        console.putStrLn(line).ignore
+        Console.printLine(line).ignore
       }
       .runDrain
 }

@@ -10,16 +10,16 @@ import com.coralogix.zio.k8s.operator.OperatorLogging.ConvertableToThrowable._
 import com.coralogix.zio.k8s.operator.contextinfo.{ ContextInfo, ContextInfoFailure }
 import com.coralogix.zio.k8s.operator.leader.locks.leaderlockresources.LeaderLockResources
 import com.coralogix.zio.k8s.operator.leader.locks.{ ConfigMapLock, CustomLeaderLock, LeaseLock }
-import zio.clock.Clock
+import zio.Clock
 import zio.duration.{ durationInt, Duration }
 import zio.logging.{ log, LogAnnotation, Logging }
-import zio.random.Random
-import zio.{ Cause, Has, Queue, Schedule, ZIO, ZLayer, ZManaged }
+import zio.{ Cause, Queue, Schedule, ZIO, ZLayer, ZManaged }
 
 import java.time.DateTimeException
+import zio.Random
 
 package object leader {
-  type LeaderElection = Has[LeaderElection.Service]
+  type LeaderElection = LeaderElection.Service
   object LeaderElection {
     trait Service {
 
@@ -33,7 +33,7 @@ package object leader {
         */
       def runAsLeader[R, E, A](f: ZIO[R, E, A]): ZIO[R with Clock with Logging, E, Option[A]] =
         lease
-          .use(_ => f.bimap(ApplicationError.apply, Some.apply))
+          .use(_ => f.mapBoth(ApplicationError.apply, Some.apply))
           .catchAll((failure: LeaderElectionFailure[E]) =>
             logLeaderElectionFailure(failure).as(None)
           )
@@ -46,8 +46,8 @@ package object leader {
     class Live(contextInfo: ContextInfo.Service, lock: LeaderLock) extends Service {
       override def lease: ZManaged[Clock with Logging, LeaderElectionFailure[Nothing], Unit] =
         for {
-          namespace   <- contextInfo.namespace.toManaged_.mapError(ContextInfoError.apply)
-          pod         <- contextInfo.pod.toManaged_.mapError(ContextInfoError.apply)
+          namespace   <- contextInfo.namespace.toManaged.mapError(ContextInfoError.apply)
+          pod         <- contextInfo.pod.toManaged.mapError(ContextInfoError.apply)
           managedLock <- lock.acquireLock(namespace, pod)
         } yield managedLock
 
@@ -60,8 +60,8 @@ package object leader {
     ) extends Service {
       override def lease: ZManaged[Clock with Logging, LeaderElectionFailure[Nothing], Unit] =
         for {
-          namespace   <- contextInfo.namespace.toManaged_.mapError(ContextInfoError.apply)
-          pod         <- contextInfo.pod.toManaged_.mapError(ContextInfoError.apply)
+          namespace   <- contextInfo.namespace.toManaged.mapError(ContextInfoError.apply)
+          pod         <- contextInfo.pod.toManaged.mapError(ContextInfoError.apply)
           managedLock <- lock.acquireLock(namespace, pod)
         } yield managedLock
 
@@ -70,7 +70,7 @@ package object leader {
       ): ZIO[R with Clock with Logging, E, Option[A]] =
         lease
           .use { _ =>
-            f.bimap(ApplicationError.apply, Some.apply) raceFirst leadershipLost.take.as(None)
+            f.mapBoth(ApplicationError.apply, Some.apply) raceFirst leadershipLost.take.as(None)
           }
           .catchAll((failure: LeaderElectionFailure[E]) =>
             logLeaderElectionFailure(failure).as(None)
@@ -87,7 +87,7 @@ package object leader {
       * For built-in leader election algorithms check [[configMapLock()]] and
       * [[customLeaderLock()]].
       */
-    def fromLock: ZLayer[Has[LeaderLock] with ContextInfo, Nothing, LeaderElection] =
+    def fromLock: ZLayer[LeaderLock with ContextInfo, Nothing, LeaderElection] =
       (for {
         selfInfo <- ZIO.service[ContextInfo.Service]
         lock     <- ZIO.service[LeaderLock]
@@ -168,7 +168,7 @@ package object leader {
       (for {
         selfInfo       <- ZIO.service[ContextInfo.Service]
         leases         <- ZIO.service[Leases.Service]
-        random         <- ZIO.service[Random.Service]
+        random         <- ZIO.service[Random]
         leadershipLost <- Queue.bounded[Unit](1)
         lock            = new LeaseLock(
                             lockName,
@@ -231,7 +231,7 @@ package object leader {
   def runAsLeader[R, E, A](
     f: ZIO[R, E, A]
   ): ZIO[R with LeaderElection with Clock with Logging, E, Option[A]] =
-    ZIO.accessM(
+    ZIO.environmentWithZIO(
       _.get.runAsLeader(f)
     )
 
@@ -239,5 +239,5 @@ package object leader {
     */
   def lease
     : ZManaged[LeaderElection with Clock with Logging, LeaderElectionFailure[Nothing], Unit] =
-    ZManaged.accessManaged(_.get.lease)
+    ZManaged.environmentWithManaged(_.get.lease)
 }

@@ -4,7 +4,6 @@ import com.coralogix.zio.k8s.codegen.internal.CodegenIO.writeTextFile
 import com.coralogix.zio.k8s.codegen.internal.Conversions.splitName
 import org.scalafmt.interfaces.Scalafmt
 import zio.ZIO
-import zio.blocking.Blocking
 import zio.nio.file.Path
 import zio.nio.file.Files
 
@@ -17,7 +16,7 @@ trait SubresourceClientGenerator {
     scalafmt: Scalafmt,
     targetRoot: Path,
     subresources: Set[SubresourceId]
-  ): ZIO[Blocking, Throwable, Set[Path]] = {
+  ): ZIO[Any, Throwable, Set[Path]] = {
     val targetDir = targetRoot / "com" / "coralogix" / "zio" / "k8s" / "client" / "subresources"
     ZIO.foreach(subresources) { subid =>
       val (modelPkg, modelName) = splitName(subid.modelName)
@@ -152,7 +151,7 @@ trait SubresourceClientGenerator {
         }
 
         object $namespacedTerm {
-          def makeClient[T : Tag : ResourceMetadata](backend: SttpBackend[Task, ZioStreams with WebSockets], cluster: K8sCluster): SubresourceClient[$modelT] =
+          def makeClient[T : EnvironmentTag : ResourceMetadata](backend: SttpBackend[Task, ZioStreams with WebSockets], cluster: K8sCluster): SubresourceClient[$modelT] =
             new SubresourceClient[$modelT](implicitly[ResourceMetadata[T]].resourceType, cluster, backend, $nameLit)
         }
 
@@ -163,7 +162,7 @@ trait SubresourceClientGenerator {
         }
 
         object $clusterTerm {
-          def makeClient[T : Tag : ResourceMetadata](backend: SttpBackend[Task, ZioStreams with WebSockets], cluster: K8sCluster): SubresourceClient[$modelT] =
+          def makeClient[T : EnvironmentTag : ResourceMetadata](backend: SttpBackend[Task, ZioStreams with WebSockets], cluster: K8sCluster): SubresourceClient[$modelT] =
             new SubresourceClient[$modelT](implicitly[ResourceMetadata[T]].resourceType, cluster, backend, $nameLit)
         }
         }

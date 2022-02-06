@@ -24,7 +24,7 @@ import sttp.client3.{
   SttpBackend
 }
 import sttp.model.{ StatusCode, Uri }
-import zio.duration.Duration
+import zio.Duration
 import zio.{ IO, Task }
 
 trait ResourceClientBase {

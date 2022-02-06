@@ -5,11 +5,12 @@ import com.coralogix.zio.k8s.model.core.v1.Pod
 import com.coralogix.zio.k8s.operator.Operator._
 import com.coralogix.zio.k8s.operator.aspects.logEvents
 import zio.ZIO
-import zio.clock.Clock
+import zio.Clock
 import zio.test.environment.TestEnvironment
-import zio.test.{ assertCompletes, DefaultRunnableSpec, ZSpec }
+import zio.test.{ assertCompletes, ZSpec }
+import zio.test.ZIOSpecDefault
 
-object OperatorAspectSpec extends DefaultRunnableSpec {
+object OperatorAspectSpec extends ZIOSpecDefault {
   sealed trait CustomOperatorFailures
 
   override def spec: ZSpec[TestEnvironment, Any] =
