@@ -1,6 +1,13 @@
 package com.coralogix.zio.k8s.client.test
 
 import com.coralogix.zio.k8s.client.model.K8sObject._
+import com.coralogix.zio.k8s.client.model.LabelSelector.{ And, LabelEquals, LabelIn, LabelNotIn }
+import com.coralogix.zio.k8s.client.model.ListResourceVersion.{
+  Any,
+  Exact,
+  MostRecent,
+  NotOlderThan
+}
 import com.coralogix.zio.k8s.client.model.{
   Added,
   Deleted,
@@ -13,6 +20,7 @@ import com.coralogix.zio.k8s.client.model.{
   Modified,
   Optional,
   PropagationPolicy,
+  Reseted,
   TypedWatchEvent
 }
 import com.coralogix.zio.k8s.client.{
@@ -24,12 +32,15 @@ import com.coralogix.zio.k8s.client.{
   ResourceDelete,
   ResourceDeleteAll
 }
-import com.coralogix.zio.k8s.model.pkg.apis.meta.v1.{ DeleteOptions, Status }
+import com.coralogix.zio.k8s.model.pkg.apis.meta.v1.{ DeleteOptions, ObjectMeta, Status }
+import io.circe.{ Json, JsonNumber }
 import sttp.model.StatusCode
 import zio.duration.Duration
 import zio.stm.{ TMap, TQueue, ZSTM }
 import zio.stream._
-import zio.{ IO, ZIO }
+import zio.{ Chunk, IO, ZIO }
+
+import scala.annotation.tailrec
 
 /** Implementation of [[Resource]] and [[ResourceDeleteAll]] to be used from unit tests
   * @param store
@@ -54,18 +65,21 @@ final class TestResourceClient[T: K8sObject, DeleteResult] private (
     labelSelector: Option[LabelSelector] = None,
     resourceVersion: ListResourceVersion = ListResourceVersion.MostRecent
   ): Stream[K8sFailure, T] = {
-    // TODO: support fieldSelector, labelSelector and resourceVersion
-
     val prefix = keyPrefix(namespace)
-    ZStream.unwrap {
+    filterByResourceVersion(ZStream.unwrap {
       store.toList.commit.map { items =>
         ZStream
           .fromIterable(items)
-          .filter { case (key, _) => if (namespace.isDefined) key.startsWith(prefix) else true }
-          .map { case (_, value) => value }
+          .filter { case (key, _) =>
+            if (namespace.isDefined) key.startsWith(prefix)
+            else true
+          }
+          .map(_._2)
+          .filter(filterByLabelSelector(labelSelector))
+          .filter(filterByFieldSelector(fieldSelector))
           .chunkN(chunkSize)
       }
-    }
+    })(resourceVersion)
   }
 
   override def watch(
@@ -74,8 +88,15 @@ final class TestResourceClient[T: K8sObject, DeleteResult] private (
     fieldSelector: Option[FieldSelector] = None,
     labelSelector: Option[LabelSelector] = None
   ): Stream[K8sFailure, TypedWatchEvent[T]] =
-    // TODO: support fieldSelector, labelSelector
-    ZStream.fromTQueue(events)
+    ZStream.fromTQueue(events).filter {
+      case Reseted()      => true
+      case Added(item)    =>
+        filterByLabelSelector(labelSelector)(item) && filterByFieldSelector(fieldSelector)(item)
+      case Modified(item) =>
+        filterByLabelSelector(labelSelector)(item) && filterByFieldSelector(fieldSelector)(item)
+      case Deleted(item)  =>
+        filterByLabelSelector(labelSelector)(item) && filterByFieldSelector(fieldSelector)(item)
+    }
 
   override def get(name: String, namespace: Option[K8sNamespace]): IO[K8sFailure, T] = {
     val prefix = keyPrefix(namespace)
@@ -194,7 +215,6 @@ final class TestResourceClient[T: K8sObject, DeleteResult] private (
     fieldSelector: Option[FieldSelector],
     labelSelector: Option[LabelSelector]
   ): IO[K8sFailure, Status] = {
-    // TODO: support fieldSelector, labelSelector
     val prefix = keyPrefix(namespace)
     if (!dryRun) {
       val stm = for {
@@ -203,7 +223,11 @@ final class TestResourceClient[T: K8sObject, DeleteResult] private (
         _           <- ZSTM.foreach_(filteredKeys) { key =>
                          for {
                            item <- store.get(key)
-                           _    <- ZSTM.foreach_(item) { item =>
+                           _    <- ZSTM.foreach_(
+                                     item
+                                       .filter(filterByLabelSelector(labelSelector))
+                                       .filter(filterByFieldSelector(fieldSelector))
+                                   ) { item =>
                                      for {
                                        _ <- store.delete(key)
                                        _ <- events.offer(Deleted(item))
@@ -220,6 +244,77 @@ final class TestResourceClient[T: K8sObject, DeleteResult] private (
 
   private def keyPrefix(namespace: Option[K8sNamespace]): String =
     namespace.map(_.value).getOrElse("") + ":"
+
+  private def selectableByLabel(
+    labels: Map[String, String]
+  )(labelSelector: LabelSelector): Boolean =
+    labelSelector match {
+      case LabelEquals(label, value) => labels.get(label).contains(value)
+      case LabelIn(label, values)    => labels.get(label).exists(values.contains)
+      case LabelNotIn(label, values) => !labels.get(label).exists(values.contains)
+      case And(selectors)            => selectors.forall(selectableByLabel(labels))
+    }
+
+  @tailrec
+  private def getValue(json: Json, fieldPath: List[String]): Json =
+    fieldPath match {
+      case head :: tail =>
+        json.asObject.flatMap(_.apply(head)) match {
+          case Some(value) => getValue(value, tail)
+          case None        => Json.Null
+        }
+      case Nil          => json
+    }
+
+  private def jsonEqualsTo(json: Json, value: String): Boolean =
+    json.asBoolean.exists(_.toString == value) || json.asString.contains(
+      value
+    ) || json.asNumber == JsonNumber.fromString(value)
+
+  private def selectableByField(json: Json)(fieldSelector: FieldSelector): Boolean =
+    fieldSelector match {
+      case FieldSelector.FieldEquals(fieldPath, value)    =>
+        jsonEqualsTo(getValue(json, fieldPath.toList), value)
+      case FieldSelector.FieldNotEquals(fieldPath, value) =>
+        !jsonEqualsTo(getValue(json, fieldPath.toList), value)
+      case FieldSelector.And(selectors)                   => selectors.forall(selectableByField(json))
+    }
+
+  private def filterByFieldSelector(fieldSelector: Option[FieldSelector])(item: T): Boolean =
+    if (fieldSelector.isDefined) {
+      item.metadata
+        .map(ObjectMeta.ObjectMetaEncoder.apply)
+        .exists(json => selectableByField(json)(fieldSelector.get))
+    } else true
+
+  private def filterByLabelSelector(labelSelector: Option[LabelSelector])(item: T): Boolean =
+    if (labelSelector.isDefined)
+      item.metadata
+        .flatMap(_.labels.map(labels => selectableByLabel(labels)(labelSelector.get)))
+        .getOrElse(false)
+    else true
+
+  private def filterByResourceVersion(
+    stream: Stream[K8sFailure, T]
+  )(resourceVersion: ListResourceVersion): ZStream[Any, K8sFailure, T] =
+    resourceVersion match {
+      case Exact(version)        =>
+        stream.filter(_.metadata.flatMap(_.resourceVersion).contains(version))
+      case NotOlderThan(version) =>
+        ZStream.fromIterableM(
+          stream.runCollect.map(
+            _.sortBy(_.generation)
+              .partition(_.metadata.flatMap(_.resourceVersion).contains(version))
+              ._2
+          )
+        )
+      case MostRecent | Any      =>
+        ZStream.fromIterableM(
+          stream.runCollect.map(
+            _.sortBy(_.generation).takeRight(1)
+          )
+        )
+    }
 }
 
 object TestResourceClient {
