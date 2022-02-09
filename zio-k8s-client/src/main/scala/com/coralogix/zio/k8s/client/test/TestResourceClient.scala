@@ -17,7 +17,7 @@ import sttp.model.StatusCode
 import zio.duration.Duration
 import zio.stm.{ TMap, TQueue, ZSTM }
 import zio.stream._
-import zio.{ IO, ZIO }
+import zio.{ Chunk, IO, ZIO }
 
 import scala.annotation.tailrec
 
@@ -32,7 +32,7 @@ import scala.annotation.tailrec
   *   Result of the delete operation
   */
 final class TestResourceClient[T: K8sObject, DeleteResult] private (
-  store: TMap[String, T],
+  store: TMap[String, Chunk[T]],
   events: TQueue[TypedWatchEvent[T]],
   createDeleteResult: () => DeleteResult
 ) extends Resource[T] with ResourceDelete[T, DeleteResult] with ResourceDeleteAll[T] {
@@ -54,11 +54,12 @@ final class TestResourceClient[T: K8sObject, DeleteResult] private (
             else true
           }
           .map(_._2)
-          .filter(filterByLabelSelector(labelSelector))
-          .filter(filterByFieldSelector(fieldSelector))
-          .chunkN(chunkSize)
       }
     })(resourceVersion)
+      .filter(filterByLabelSelector(labelSelector))
+      .filter(filterByFieldSelector(fieldSelector))
+      .chunkN(chunkSize)
+
   }
 
   override def watch(
@@ -70,17 +71,26 @@ final class TestResourceClient[T: K8sObject, DeleteResult] private (
     ZStream.fromTQueue(events).filter {
       case Reseted()      => true
       case Added(item)    =>
-        filterByLabelSelector(labelSelector)(item) && filterByFieldSelector(fieldSelector)(item)
+        filterByLabelSelector(labelSelector)(item) && filterByFieldSelector(fieldSelector)(
+          item
+        ) && resourceVersion
+          .forall(version => item.metadata.flatMap(_.resourceVersion).contains(version))
       case Modified(item) =>
-        filterByLabelSelector(labelSelector)(item) && filterByFieldSelector(fieldSelector)(item)
+        filterByLabelSelector(labelSelector)(item) && filterByFieldSelector(fieldSelector)(
+          item
+        ) && resourceVersion
+          .forall(version => item.metadata.flatMap(_.resourceVersion).contains(version))
       case Deleted(item)  =>
-        filterByLabelSelector(labelSelector)(item) && filterByFieldSelector(fieldSelector)(item)
+        filterByLabelSelector(labelSelector)(item) && filterByFieldSelector(fieldSelector)(
+          item
+        ) && resourceVersion
+          .forall(version => item.metadata.flatMap(_.resourceVersion).contains(version))
     }
 
   override def get(name: String, namespace: Option[K8sNamespace]): IO[K8sFailure, T] = {
     val prefix = keyPrefix(namespace)
     store.get(prefix + name).commit.flatMap {
-      case Some(value) => ZIO.succeed(value)
+      case Some(value) => ZIO.succeed(value.last)
       case None        => ZIO.fail(NotFound)
     }
   }
@@ -107,19 +117,23 @@ final class TestResourceClient[T: K8sObject, DeleteResult] private (
       for {
         name <- finalResource.getName
         stm   = for {
-                  _ <- store.contains(prefix + name).flatMap {
-                         case true  =>
-                           ZSTM.fail(
-                             DecodedFailure(
-                               K8sRequestInfo(K8sResourceType("test", "group", "version"), "create"),
-                               Status(),
-                               StatusCode.Conflict
-                             )
-                           )
-                         case false => ZSTM.unit
-                       }
-                  _ <- store.put(prefix + name, finalResource)
-                  _ <- events.offer(Added(finalResource))
+                  _           <- store.contains(prefix + name).flatMap {
+                                   case true  =>
+                                     ZSTM.fail(
+                                       DecodedFailure(
+                                         K8sRequestInfo(K8sResourceType("test", "group", "version"), "create"),
+                                         Status(),
+                                         StatusCode.Conflict
+                                       )
+                                     )
+                                   case false => ZSTM.unit
+                                 }
+                  maybeChunks <- store.get(prefix + name)
+                  _           <- store.put(
+                                   prefix + name,
+                                   maybeChunks.getOrElse(Chunk.empty) ++ Chunk(finalResource)
+                                 )
+                  _           <- events.offer(Added(finalResource))
                 } yield ()
         _    <- stm.commit
       } yield finalResource
@@ -138,21 +152,22 @@ final class TestResourceClient[T: K8sObject, DeleteResult] private (
     if (!dryRun) {
       val finalResource = increaseResourceVersion(updatedResource)
       val stm = for {
-        _ <- store.get(prefix + name).flatMap {
-               case Some(existing)
-                   if existing.metadata.flatMap(_.resourceVersion) != updatedResource.metadata
-                     .flatMap(_.resourceVersion) =>
-                 ZSTM.fail(
-                   DecodedFailure(
-                     K8sRequestInfo(K8sResourceType("test", "group", "version"), "replace"),
-                     Status(),
-                     StatusCode.Conflict
-                   )
-                 )
-               case _ => ZSTM.unit
-             }
-        _ <- store.put(prefix + name, finalResource)
-        _ <- events.offer(Modified(finalResource))
+        _           <- store.get(prefix + name).flatMap {
+                         case Some(items)
+                             if items.last.metadata.flatMap(_.resourceVersion) != updatedResource.metadata
+                               .flatMap(_.resourceVersion) =>
+                           ZSTM.fail(
+                             DecodedFailure(
+                               K8sRequestInfo(K8sResourceType("test", "group", "version"), "replace"),
+                               Status(),
+                               StatusCode.Conflict
+                             )
+                           )
+                         case _ => ZSTM.unit
+                       }
+        maybeChunks <- store.get(prefix + name)
+        _           <- store.put(prefix + name, maybeChunks.getOrElse(Chunk.empty) ++ Chunk(finalResource))
+        _           <- events.offer(Modified(finalResource))
       } yield finalResource
       stm.commit
     } else {
@@ -175,7 +190,7 @@ final class TestResourceClient[T: K8sObject, DeleteResult] private (
         _    <- ZSTM.foreach_(item) { item =>
                   for {
                     _ <- store.delete(prefix + name)
-                    _ <- events.offer(Deleted(item))
+                    _ <- events.offer(Deleted(item.last))
                   } yield ()
                 }
       } yield createDeleteResult()
@@ -201,17 +216,18 @@ final class TestResourceClient[T: K8sObject, DeleteResult] private (
         filteredKeys = keys.filter(_.startsWith(prefix))
         _           <- ZSTM.foreach_(filteredKeys) { key =>
                          for {
-                           item <- store.get(key)
-                           _    <- ZSTM.foreach_(
-                                     item
-                                       .filter(filterByLabelSelector(labelSelector))
-                                       .filter(filterByFieldSelector(fieldSelector))
-                                   ) { item =>
-                                     for {
-                                       _ <- store.delete(key)
-                                       _ <- events.offer(Deleted(item))
-                                     } yield ()
-                                   }
+                           items <- store.get(key)
+                           _     <- ZSTM.foreach_(
+                                      items
+                                        .flatMap(_.lastOption)
+                                        .filter(filterByLabelSelector(labelSelector))
+                                        .filter(filterByFieldSelector(fieldSelector))
+                                    ) { item =>
+                                      for {
+                                        _ <- store.delete(key)
+                                        _ <- events.offer(Deleted(item))
+                                      } yield ()
+                                    }
                          } yield ()
                        }
       } yield Status()
@@ -241,7 +257,7 @@ object TestResourceClient {
     createDeleteResult: () => DeleteResult
   ): ZIO[Any, Nothing, TestResourceClient[T, DeleteResult]] =
     for {
-      store  <- TMap.empty[String, T].commit
+      store  <- TMap.empty[String, Chunk[T]].commit
       events <- TQueue.unbounded[TypedWatchEvent[T]].commit
     } yield new TestResourceClient[T, DeleteResult](store, events, createDeleteResult)
 
@@ -306,31 +322,27 @@ object TestResourceClient {
     else true
 
   private[test] def filterByResourceVersion[T: K8sObject](
-    stream: Stream[K8sFailure, T]
+    stream: Stream[K8sFailure, Chunk[T]]
   )(resourceVersion: ListResourceVersion): ZStream[Any, K8sFailure, T] =
     resourceVersion match {
       case Exact(version)        =>
-        stream.filter(_.metadata.flatMap(_.resourceVersion).contains(version))
+        stream.flattenChunks.filter(_.metadata.flatMap(_.resourceVersion).contains(version))
       case NotOlderThan(version) =>
-        ZStream.fromIterableM(
-          stream.runCollect.map { items =>
-            val generation = items
-              .find(_.metadata.flatMap(_.resourceVersion).contains(version))
-              .map(_.generation)
-              .getOrElse(0L)
-            items
-              .partition(
-                _.generation >= generation
-              )
-              ._1
-              .sortBy(_.generation).takeRight(1)
-          }
-        )
-      case MostRecent | Any      =>
-        ZStream.fromIterableM(
-          stream.runCollect.map(
-            _.sortBy(_.generation).takeRight(1)
-          )
-        )
+        stream.map { items =>
+          val generation = items
+            .find(_.metadata.flatMap(_.resourceVersion).contains(version))
+            .map(_.generation)
+            .getOrElse(0L)
+          items
+            .partition(
+              _.generation >= generation
+            )
+            ._1
+            .sortBy(_.generation)
+            .takeRight(1)
+        }.flattenChunks
+
+      case MostRecent | Any =>
+        stream.map(_.takeRight(1)).flattenChunks
     }
 }
