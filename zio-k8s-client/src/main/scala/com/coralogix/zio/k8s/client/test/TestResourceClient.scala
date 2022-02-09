@@ -8,37 +8,16 @@ import com.coralogix.zio.k8s.client.model.ListResourceVersion.{
   MostRecent,
   NotOlderThan
 }
-import com.coralogix.zio.k8s.client.model.{
-  Added,
-  Deleted,
-  FieldSelector,
-  K8sNamespace,
-  K8sObject,
-  K8sResourceType,
-  LabelSelector,
-  ListResourceVersion,
-  Modified,
-  Optional,
-  PropagationPolicy,
-  Reseted,
-  TypedWatchEvent
-}
-import com.coralogix.zio.k8s.client.{
-  DecodedFailure,
-  K8sFailure,
-  K8sRequestInfo,
-  NotFound,
-  Resource,
-  ResourceDelete,
-  ResourceDeleteAll
-}
+import com.coralogix.zio.k8s.client.model._
+import com.coralogix.zio.k8s.client.test.TestResourceClient._
+import com.coralogix.zio.k8s.client._
 import com.coralogix.zio.k8s.model.pkg.apis.meta.v1.{ DeleteOptions, ObjectMeta, Status }
 import io.circe.{ Json, JsonNumber }
 import sttp.model.StatusCode
 import zio.duration.Duration
 import zio.stm.{ TMap, TQueue, ZSTM }
 import zio.stream._
-import zio.{ Chunk, IO, ZIO }
+import zio.{ IO, ZIO }
 
 import scala.annotation.tailrec
 
@@ -245,76 +224,6 @@ final class TestResourceClient[T: K8sObject, DeleteResult] private (
   private def keyPrefix(namespace: Option[K8sNamespace]): String =
     namespace.map(_.value).getOrElse("") + ":"
 
-  private def selectableByLabel(
-    labels: Map[String, String]
-  )(labelSelector: LabelSelector): Boolean =
-    labelSelector match {
-      case LabelEquals(label, value) => labels.get(label).contains(value)
-      case LabelIn(label, values)    => labels.get(label).exists(values.contains)
-      case LabelNotIn(label, values) => !labels.get(label).exists(values.contains)
-      case And(selectors)            => selectors.forall(selectableByLabel(labels))
-    }
-
-  @tailrec
-  private def getValue(json: Json, fieldPath: List[String]): Json =
-    fieldPath match {
-      case head :: tail =>
-        json.asObject.flatMap(_.apply(head)) match {
-          case Some(value) => getValue(value, tail)
-          case None        => Json.Null
-        }
-      case Nil          => json
-    }
-
-  private def jsonEqualsTo(json: Json, value: String): Boolean =
-    json.asBoolean.exists(_.toString == value) || json.asString.contains(
-      value
-    ) || json.asNumber == JsonNumber.fromString(value)
-
-  private def selectableByField(json: Json)(fieldSelector: FieldSelector): Boolean =
-    fieldSelector match {
-      case FieldSelector.FieldEquals(fieldPath, value)    =>
-        jsonEqualsTo(getValue(json, fieldPath.toList), value)
-      case FieldSelector.FieldNotEquals(fieldPath, value) =>
-        !jsonEqualsTo(getValue(json, fieldPath.toList), value)
-      case FieldSelector.And(selectors)                   => selectors.forall(selectableByField(json))
-    }
-
-  private def filterByFieldSelector(fieldSelector: Option[FieldSelector])(item: T): Boolean =
-    if (fieldSelector.isDefined) {
-      item.metadata
-        .map(ObjectMeta.ObjectMetaEncoder.apply)
-        .exists(json => selectableByField(json)(fieldSelector.get))
-    } else true
-
-  private def filterByLabelSelector(labelSelector: Option[LabelSelector])(item: T): Boolean =
-    if (labelSelector.isDefined)
-      item.metadata
-        .flatMap(_.labels.map(labels => selectableByLabel(labels)(labelSelector.get)))
-        .getOrElse(false)
-    else true
-
-  private def filterByResourceVersion(
-    stream: Stream[K8sFailure, T]
-  )(resourceVersion: ListResourceVersion): ZStream[Any, K8sFailure, T] =
-    resourceVersion match {
-      case Exact(version)        =>
-        stream.filter(_.metadata.flatMap(_.resourceVersion).contains(version))
-      case NotOlderThan(version) =>
-        ZStream.fromIterableM(
-          stream.runCollect.map(
-            _.sortBy(_.generation)
-              .partition(_.metadata.flatMap(_.resourceVersion).contains(version))
-              ._2
-          )
-        )
-      case MostRecent | Any      =>
-        ZStream.fromIterableM(
-          stream.runCollect.map(
-            _.sortBy(_.generation).takeRight(1)
-          )
-        )
-    }
 }
 
 object TestResourceClient {
@@ -335,4 +244,93 @@ object TestResourceClient {
       store  <- TMap.empty[String, T].commit
       events <- TQueue.unbounded[TypedWatchEvent[T]].commit
     } yield new TestResourceClient[T, DeleteResult](store, events, createDeleteResult)
+
+  @tailrec
+  private def getValue(json: Json, fieldPath: List[String]): Json =
+    fieldPath match {
+      case head :: tail =>
+        json.asObject.flatMap(_.apply(head)) match {
+          case Some(value) => getValue(value, tail)
+          case None        => Json.Null
+        }
+      case Nil          => json
+    }
+
+  private def jsonEqualsTo(json: Json, value: String): Boolean =
+    json.asBoolean.exists(_.toString == value) || json.asString.contains(
+      value
+    ) || (json.asNumber.nonEmpty && json.asNumber == JsonNumber.fromString(value))
+
+  // works for metadata only
+  private[test] def selectableByField(json: Json)(fieldSelector: FieldSelector): Boolean =
+    fieldSelector match {
+      case FieldSelector.FieldEquals(fieldPath, value)    =>
+        fieldPath.toList match {
+          case "metadata" :: tail => jsonEqualsTo(getValue(json, tail), value)
+          case _                  => false
+        }
+      case FieldSelector.FieldNotEquals(fieldPath, value) =>
+        (fieldPath.toList match {
+          case "metadata" :: tail => !jsonEqualsTo(getValue(json, tail), value)
+          case _                  => false
+        })
+      case FieldSelector.And(selectors)                   => selectors.forall(selectableByField(json))
+    }
+
+  private[test] def filterByFieldSelector[T: K8sObject](
+    fieldSelector: Option[FieldSelector]
+  )(item: T): Boolean =
+    if (fieldSelector.isDefined) {
+      item.metadata
+        .map(ObjectMeta.ObjectMetaEncoder.apply)
+        .exists(json => selectableByField(json)(fieldSelector.get))
+    } else true
+
+  private def selectableByLabel(
+    labels: Map[String, String]
+  )(labelSelector: LabelSelector): Boolean =
+    labelSelector match {
+      case LabelEquals(label, value) => labels.get(label).contains(value)
+      case LabelIn(label, values)    => labels.get(label).exists(values.contains)
+      case LabelNotIn(label, values) => !labels.get(label).exists(values.contains)
+      case And(selectors)            => selectors.forall(selectableByLabel(labels))
+    }
+
+  private[test] def filterByLabelSelector[T: K8sObject](
+    labelSelector: Option[LabelSelector]
+  )(item: T): Boolean =
+    if (labelSelector.isDefined)
+      item.metadata
+        .flatMap(_.labels.map(labels => selectableByLabel(labels)(labelSelector.get)))
+        .getOrElse(false)
+    else true
+
+  private[test] def filterByResourceVersion[T: K8sObject](
+    stream: Stream[K8sFailure, T]
+  )(resourceVersion: ListResourceVersion): ZStream[Any, K8sFailure, T] =
+    resourceVersion match {
+      case Exact(version)        =>
+        stream.filter(_.metadata.flatMap(_.resourceVersion).contains(version))
+      case NotOlderThan(version) =>
+        ZStream.fromIterableM(
+          stream.runCollect.map { items =>
+            val generation = items
+              .find(_.metadata.flatMap(_.resourceVersion).contains(version))
+              .map(_.generation)
+              .getOrElse(0L)
+            items
+              .partition(
+                _.generation >= generation
+              )
+              ._1
+              .sortBy(_.generation).takeRight(1)
+          }
+        )
+      case MostRecent | Any      =>
+        ZStream.fromIterableM(
+          stream.runCollect.map(
+            _.sortBy(_.generation).takeRight(1)
+          )
+        )
+    }
 }
