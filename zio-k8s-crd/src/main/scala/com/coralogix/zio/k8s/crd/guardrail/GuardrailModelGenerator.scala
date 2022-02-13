@@ -1,7 +1,8 @@
 package com.coralogix.zio.k8s.crd.guardrail
 
 import cats.data.NonEmptyList
-import cats.implicits._
+import cats.implicits.*
+import com.coralogix.zio.k8s.codegen.internal.CodegenIO.*
 import com.twilio.guardrail.core.CoreTermInterp
 import com.twilio.guardrail.generators.ScalaModule
 import com.twilio.guardrail.languages.{ JavaLanguage, ScalaLanguage }
@@ -15,23 +16,13 @@ import com.twilio.guardrail.{
   Target,
   UnparseableArgument
 }
-import io.circe._
-import io.circe.syntax._
-import io.circe.yaml.parser._
-import org.scalafmt.interfaces.Scalafmt
-import zio.{ Chunk, ZIO }
+import io.circe.*
+import io.circe.syntax.*
+import zio.ZIO
+import zio.nio.file.{ Files, Path }
 
-import zio.nio.file.Path
-import zio.nio.file.Files
-import zio.stream.{ Transducer, ZStream }
-
-import java.io.IOException
-import java.nio.charset.StandardCharsets
 import java.nio.file.attribute.FileAttribute
-import java.nio.file.{ Path => JPath }
-import scala.meta._
-
-import com.coralogix.zio.k8s.codegen.internal.CodegenIO._
+import scala.meta.*
 
 object GuardrailModelGenerator {
   class K8sCodegen(implicit k8sContext: K8sCodegenContext) extends CLICommon {

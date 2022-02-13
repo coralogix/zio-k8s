@@ -14,7 +14,7 @@ package object httpclient {
   /** An [[SttpClient]] layer configured with the proper SSL context based on the provided
     * [[K8sClusterConfig]] using the httpclient-backend-zio backend.
     */
-  val k8sSttpClient: ZLayer[K8sClusterConfig with System with Any, Throwable, SttpClient] = {
+  val k8sSttpClient: ZLayer[K8sClusterConfig with System, Throwable, SttpClient] = {
     (config: K8sClusterConfig) =>
       val disableHostnameVerification = config.client.serverCertificate match {
         case K8sServerCertificate.Insecure                               => true

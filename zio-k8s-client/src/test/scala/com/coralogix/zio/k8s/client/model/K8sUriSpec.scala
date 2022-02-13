@@ -1,10 +1,9 @@
 package com.coralogix.zio.k8s.client.model
 
 import sttp.client3.UriContext
-import zio.duration.durationInt
-import zio.test._
 import zio.test.Assertion._
-import zio.test.ZIOSpecDefault
+import zio.test.{ ZIOSpecDefault, _ }
+import zio._
 
 object K8sUriSpec extends ZIOSpecDefault {
   private val cluster = K8sCluster(uri"https://localhost:32768", None)
@@ -13,7 +12,7 @@ object K8sUriSpec extends ZIOSpecDefault {
   private val ns = K8sNamespace("def")
   private val name = "n-123"
 
-  override def spec: ZSpec[_root_.zio.test.environment.TestEnvironment, Any] =
+  override def spec: ZSpec[TestEnvironment, Any] =
     suite("K8sUriSpec")(
       suite("simple")(
         test("simple with name and namespace")(

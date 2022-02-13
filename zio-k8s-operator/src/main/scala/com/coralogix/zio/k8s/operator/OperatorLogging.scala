@@ -2,8 +2,9 @@ package com.coralogix.zio.k8s.operator
 
 import com.coralogix.zio.k8s.client.model.K8sNamespace
 import zio.Cause._
+import zio.logging.{ LogAnnotation, LogContext }
 import zio.{ Cause, ZIO }
-import zio.logging.{ log, LogAnnotation, LogContext, Logging }
+import zio.ZIO._
 
 // TODO: clean this up if zio-logging is improved
 object OperatorLogging {
@@ -36,23 +37,23 @@ object OperatorLogging {
     cause: Cause[E]
   ): ZIO[Logging, Nothing, Unit] =
     cause match {
-      case Empty()              =>
-        log.error(message)
-      case Fail(value)          =>
+      case Empty                     =>
+        logError(message)
+      case Fail(value, trace)        =>
         log.throwable(message, implicitly[ConvertableToThrowable[E]].toThrowable(value))
-      case Die(value)           =>
+      case Die(value, trace)         =>
         log.throwable(message, value)
-      case Interrupt(fiberId)   =>
+      case Interrupt(fiberId, trace) =>
         log.throwable(message, new InterruptedException(fiberId.toString))
-      case Traced(cause, trace) =>
-        logFailure(message, cause)
-      case Then(left, right)    =>
+//      case Traced(cause, trace) =>
+//        logFailure(message, cause)
+      case Then(left, right)         =>
         logFailure(message + s" #1 ++", left) *>
           logFailure(message + s" ++ #2", right)
-      case Both(left, right)    =>
+      case Both(left, right)         =>
         logFailure(message + s" #1 &&", left) *>
           logFailure(message + s" && #2", right)
-      case _                    =>
+      case _                         =>
         log.error(message, cause)
     }
 }

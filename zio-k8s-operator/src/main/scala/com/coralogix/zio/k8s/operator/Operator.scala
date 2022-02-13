@@ -9,9 +9,9 @@ import com.coralogix.zio.k8s.client.model.{
 import com.coralogix.zio.k8s.client.{ ClusterResource, K8sFailure, NamespacedResource, NotFound }
 import com.coralogix.zio.k8s.operator.Operator.{ EventProcessor, OperatorContext }
 import com.coralogix.zio.k8s.operator.OperatorLogging._
-import zio.{ Clock, _ }
-import zio.logging.{ log, Logging }
+import zio.ZIO._
 import zio.stream.ZStream
+import zio.{ Clock, _ }
 
 /** Core implementation of the operator logic. Watches a stream and calls an event processor.
   *
@@ -41,17 +41,17 @@ trait Operator[R, E, T] { self =>
       .foldCauseZIO(
         cause =>
           if (cause.failureOption.contains(KubernetesFailure(NotFound))) {
-            log.locally(OperatorLogging(context)) {
-              log.info("Watched resource is not available yet")
+            logSpan(OperatorLogging(context)) {
+              logInfo("Watched resource is not available yet")
             }
           } else {
-            log.locally(OperatorLogging(context)) {
+            locally(OperatorLogging(context)) {
               logFailure(s"Watch stream failed", cause)
             }
           },
         _ =>
-          log.locally(OperatorLogging(context)) {
-            log.error(s"Watch stream terminated")
+          locally(OperatorLogging(context)) {
+            logError(s"Watch stream terminated")
           } *> ZIO.dieMessage("Watch stream should never terminate")
       )
       .repeat(
@@ -79,20 +79,20 @@ trait Operator[R, E, T] { self =>
   /** Provide the required environment for the operator with a layer
     */
   final def provideLayer[E1 >: E, R0, R1](
-    layer: ZLayer[R0, OperatorFailure[E1], R1]
+    layer: ZLayer[R0, OperatorFailure[E1], R]
   )(implicit ev1: R1 <:< R, ev2: NeedsEnv[R]): Operator[R0, E1, T] =
     mapEventProcessor(_.provideLayer(layer))
 
   /** Provide the required environment for the operator with a layer on top of the standard ones
     */
-  final def provideCustomLayer[E1 >: E, R1 <: _](
+  final def provideCustomLayer[E1 >: E, R1 <: ZEnvironment[_]](
     layer: ZLayer[ZEnv, OperatorFailure[E1], R1]
   )(implicit ev: ZEnv with R1 <:< R, tagged: EnvironmentTag[R1]): Operator[ZEnv, E1, T] =
     mapEventProcessor(_.provideCustomLayer(layer))
 
   /** Provide parts of the required environment for the operator with a layer
     */
-  final def provideSomeLayer[R0 <: _]: Operator.ProvideSomeLayer[R0, R, E, T] =
+  final def provideSomeLayer[R0 <: ZEnvironment[_]]: Operator.ProvideSomeLayer[R0, R, E, T] =
     new Operator.ProvideSomeLayer[R0, R, E, T](self)
 }
 
@@ -254,9 +254,9 @@ object Operator {
       }
   }
 
-  final class ProvideSomeLayer[R0 <: _, R, E, T](private val self: Operator[R, E, T])
+  final class ProvideSomeLayer[R0 <: ZEnvironment[_], R, E, T](private val self: Operator[R, E, T])
       extends AnyVal {
-    def apply[E1 >: E, R1 <: _](
+    def apply[E1 >: E, R1 <: ZEnvironment[_]](
       layer: ZLayer[R0, OperatorFailure[E1], R1]
     )(implicit
       ev1: R0 with R1 <:< R,

@@ -1,20 +1,17 @@
 package com.coralogix.zio.k8s.client.config
 
-import io.circe.yaml.parser.parse
-import sttp.client3._
-import zio.{ Chunk, ZIO }
-import zio.config._
-import zio.config.typesafe.TypesafeConfig
-import zio.nio.file.Path
-import zio.test.environment.TestEnvironment
-import zio.test.{ assertCompletes, assertM, Assertion, ZSpec }
 import cats.implicits._
 import com.coralogix.zio.k8s.client.config.K8sAuthentication.ServiceAccountToken
 import com.coralogix.zio.k8s.client.config.KeySource.FromString
-import zio.nio.file.Files
+import io.circe.yaml.parser.parse
+import sttp.client3._
+import zio.config._
+import zio.config.typesafe.TypesafeConfig
+import zio.nio.file.{ Files, Path }
+import zio.test.{ assertCompletes, assertM, Assertion, TestEnvironment, ZIOSpecDefault, ZSpec }
+import zio.{ Chunk, ZIO }
 
 import java.nio.charset.StandardCharsets
-import zio.test.ZIOSpecDefault
 
 object ConfigSpec extends ZIOSpecDefault {
   override def spec: ZSpec[TestEnvironment, Any] =
@@ -117,14 +114,13 @@ object ConfigSpec extends ZIOSpecDefault {
 
         def loadTokenByCommand: ZIO[K8sClusterConfig, Throwable, Option[String]] =
           for {
-            authentication <-
-              ZIO.environment[K8sClusterConfig](_.get[K8sClusterConfig].authentication)
-            result         <- authentication match {
-                                case ServiceAccountToken(FromString(token)) =>
-                                  ZIO.succeed(token.some)
-                                case _                                      =>
-                                  ZIO.none
-                              }
+            result <-
+              ZIO.environmentWithZIO[K8sClusterConfig](_.get.authentication match {
+                case ServiceAccountToken(FromString(token)) =>
+                  ZIO.succeed(token.some)
+                case _                                      =>
+                  ZIO.none
+              })
           } yield result
 
         createTempKubeConfigFile.use(path =>

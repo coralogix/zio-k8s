@@ -186,7 +186,7 @@ package object config extends Descriptors {
     * This can be used to either set up from a configuration source with zio-config or provide the
     * hostname and token programmatically for the Kubernetes client.
     */
-  val k8sCluster: ZLayer[Any with K8sClusterConfig, Throwable, K8sCluster] =
+  val k8sCluster: ZLayer[K8sClusterConfig, Throwable, K8sCluster] =
     (for {
       config <- getConfig[K8sClusterConfig]
       result <- config.authentication match {
@@ -256,7 +256,7 @@ package object config extends Descriptors {
     context: Option[String] = None,
     debug: Boolean = false,
     disableHostnameVerification: Boolean = false
-  ): ZLayer[Any with System, Throwable, K8sClusterConfig] =
+  ): ZLayer[System, Throwable, K8sClusterConfig] =
     (for {
       maybePath <- findKubeconfigFile()
       path      <- maybePath match {

@@ -5,11 +5,9 @@ import io.circe._
 import io.circe.syntax._
 import zio.Clock
 import zio.test.Assertion._
-import zio.test.environment.TestEnvironment
-import zio.test._
+import zio.test.{ ZIOSpecDefault, _ }
 
 import java.time.OffsetDateTime
-import zio.test.ZIOSpecDefault
 
 object TimeSerializationSpec extends ZIOSpecDefault {
 

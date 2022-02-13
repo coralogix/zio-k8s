@@ -64,7 +64,7 @@ final class ResourceClient[
           .response(asJsonAccumulating[ObjectList[T]])
           .send(backend)
       }.map { initialResponse =>
-        val rest = ZStream {
+        val rest = ZStream.fromPull {
           for {
             nextContinueToken <- Ref.make(initialResponse.metadata.flatMap(_.continue)).toManaged
             pull               = for {
@@ -274,7 +274,7 @@ object ResourceClient {
       labelSelector: Option[LabelSelector] = None,
       resourceVersion: ListResourceVersion = ListResourceVersion.MostRecent
     ): ZStream[NamespacedResource[T], K8sFailure, T] =
-      ZStream.environmentWithStream(
+      ZStream.environmentWithStream[NamespacedResource[T]](
         _.get.getAll(namespace, chunkSize, fieldSelector, labelSelector, resourceVersion)
       )
 
@@ -305,7 +305,7 @@ object ResourceClient {
       fieldSelector: Option[FieldSelector] = None,
       labelSelector: Option[LabelSelector] = None
     ): ZStream[NamespacedResource[T], K8sFailure, TypedWatchEvent[T]] =
-      ZStream.environmentWithStream(
+      ZStream.environmentWithStream[NamespacedResource[T]](
         _.get.watch(namespace, resourceVersion, fieldSelector, labelSelector)
       )
 
@@ -332,7 +332,9 @@ object ResourceClient {
     ): ZStream[NamespacedResource[T] with Clock, K8sFailure, TypedWatchEvent[
       T
     ]] =
-      ZStream.environmentWithStream(_.get.watchForever(namespace, fieldSelector, labelSelector))
+      ZStream.environmentWithStream[NamespacedResource[T]](
+        _.get.watchForever(namespace, fieldSelector, labelSelector)
+      )
 
     /** Get a resource by its name
       * @param name
@@ -578,7 +580,9 @@ object ResourceClient {
       fieldSelector: Option[FieldSelector] = None,
       labelSelector: Option[LabelSelector] = None
     ): ZStream[ClusterResource[T] with Clock, K8sFailure, TypedWatchEvent[T]] =
-      ZStream.environmentWithStream(_.get.watchForever(fieldSelector, labelSelector))
+      ZStream.environmentWithStream[ClusterResource[T]](
+        _.get.watchForever(fieldSelector, labelSelector)
+      )
 
     /** Get a resource by its name
       * @param name

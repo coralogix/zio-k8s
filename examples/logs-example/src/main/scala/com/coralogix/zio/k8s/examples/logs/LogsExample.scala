@@ -1,20 +1,18 @@
 package com.coralogix.zio.k8s.examples.logs
 
-import com.coralogix.zio.k8s.client.K8sFailure
+import com.coralogix.zio.k8s.client.{ model, K8sFailure }
 import com.coralogix.zio.k8s.client.config._
 import com.coralogix.zio.k8s.client.config.httpclient._
 import com.coralogix.zio.k8s.client.model.K8sNamespace
-import com.coralogix.zio.k8s.client.v1.pods.Pods
 import com.coralogix.zio.k8s.client.v1.pods
-import zio._
-
-import zio.logging.{ LogFormat, LogLevel, Logging }
+import com.coralogix.zio.k8s.client.v1.pods.Pods
+import sttp.client3.httpclient.zio.SttpClient
+import zio.{ Console, ZIOAppDefault, _ }
 
 import scala.languageFeature.implicitConversions
-import zio.{ Console, Console, ZIOAppDefault }
 
 object LogsExample extends ZIOAppDefault {
-  override def run(args: List[String]): URIO[zio.ZEnv, ExitCode] = {
+  override def run: ZIO[ZEnv with ZIOAppArgs, Any, Any] = {
     // Loading config from kubeconfig
     val config = kubeconfig(disableHostnameVerification = true)
       .project(cfg => cfg.dropTrailingDot)
@@ -26,15 +24,26 @@ object LogsExample extends ZIOAppDefault {
     val pods = (client ++ cluster) >>> Pods.live
 
     // val pods = k8sDefault >>> Pods.live
+    val program = for {
+      args <- ZIOAppArgs.getArgs
+      _    <- args.toList match {
+                case List(podName)                => tailLogs(podName, None)
+                case List(podName, containerName) => tailLogs(podName, Some(containerName))
+                case _                            => Console.printLineError("Usage: <podname> [containername]")
+              }
+    } yield ()
 
-    val program = args match {
-      case List(podName)                => tailLogs(podName, None)
-      case List(podName, containerName) => tailLogs(podName, Some(containerName))
-      case _                            => Console.printLineError("Usage: <podname> [containername]")
-    }
+//    val program = ZIO
+//      .environmentWithZIO[ZIOAppArgs] {
+//        _.get.getArgs.toList match {
+//          case List(podName)                => tailLogs(podName, None)
+//          case List(podName, containerName) => tailLogs(podName, Some(containerName))
+//          case _                            => Console.printLineError("Usage: <podname> [containername]")
+//        }
+//      }
 
     program
-      .provideCustomLayer(pods)
+      .provideSome(pods)
       .exitCode
   }
 
