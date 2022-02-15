@@ -6,7 +6,7 @@ import com.coralogix.zio.k8s.client.model.{
   ListResourceVersion,
   Modified
 }
-import com.coralogix.zio.k8s.model.core.v1.Node
+import com.coralogix.zio.k8s.model.core.v1.{ Node, NodeSpec, NodeStatus }
 import com.coralogix.zio.k8s.model.pkg.apis.meta.v1.{ DeleteOptions, ObjectMeta, Status }
 import zio.Chunk
 import zio.stream.ZStream
@@ -91,20 +91,32 @@ object TestResourceClientSpec extends DefaultRunnableSpec {
       ),
       suite("fieldSelector")(
         test("equals") {
-          val field1 = Chunk("metadata", "name")
-          val value1 = "value1"
-          val field2 = Chunk("metadata", "clusterName")
-          val value2 = "value2"
+          val metadataName = Chunk("metadata", "name")
+          val name = "value1"
+          val specProviderId = Chunk("spec", "providerID")
+          val providerId = "aws:///eu-west-1a/i-057bb6d2fcef815d8"
+          val statusPhase = Chunk("status", "phase")
+          val phase = "phase"
 
           val node = Node(
-            metadata = ObjectMeta(name = value1, clusterName = value2)
+            metadata = ObjectMeta(name = name),
+            spec = NodeSpec(
+              providerID = providerId
+            ),
+            status = NodeStatus(
+              phase = phase
+            )
           )
 
-          val fieldSelector1 = FieldSelector.FieldEquals(field1, value1)
-          val fieldSelector2 = FieldSelector.FieldEquals(field2, value1)
+          val fieldSelector1 = FieldSelector.FieldEquals(metadataName, name)
+          val fieldSelector2 = FieldSelector.FieldEquals(specProviderId, name)
+          val specFieldSelector = FieldSelector.FieldEquals(specProviderId, providerId)
+          val statusFieldSelector = FieldSelector.FieldEquals(statusPhase, phase)
 
           assertTrue(TestResourceClient.filterByFieldSelector(Some(fieldSelector1))(node)) &&
           assertTrue(!TestResourceClient.filterByFieldSelector(Some(fieldSelector2))(node)) &&
+          assertTrue(TestResourceClient.filterByFieldSelector(Some(specFieldSelector))(node)) &&
+          assertTrue(TestResourceClient.filterByFieldSelector(Some(statusFieldSelector))(node)) &&
           assertTrue(TestResourceClient.filterByFieldSelector(None)(node))
         },
         test("notEquals") {
