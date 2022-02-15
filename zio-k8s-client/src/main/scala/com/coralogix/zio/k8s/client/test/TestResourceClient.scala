@@ -12,12 +12,13 @@ import com.coralogix.zio.k8s.client.model._
 import com.coralogix.zio.k8s.client.test.TestResourceClient._
 import com.coralogix.zio.k8s.client._
 import com.coralogix.zio.k8s.model.pkg.apis.meta.v1.{ DeleteOptions, ObjectMeta, Status }
-import io.circe.{ Json, JsonNumber }
+import io.circe.{ Encoder, Json, JsonNumber }
 import sttp.model.StatusCode
 import zio.duration.Duration
 import zio.stm.{ TMap, TQueue, ZSTM }
 import zio.stream._
 import zio.{ Chunk, IO, ZIO }
+import io.circe.syntax._
 
 import scala.annotation.tailrec
 
@@ -31,7 +32,7 @@ import scala.annotation.tailrec
   * @tparam DeleteResult
   *   Result of the delete operation
   */
-final class TestResourceClient[T: K8sObject, DeleteResult] private (
+final class TestResourceClient[T: K8sObject: Encoder, DeleteResult] private (
   store: TMap[String, Chunk[T]],
   events: TQueue[TypedWatchEvent[T]],
   createDeleteResult: () => DeleteResult
@@ -253,7 +254,7 @@ object TestResourceClient {
     * @return
     *   Test client
     */
-  def make[T: K8sObject, DeleteResult](
+  def make[T: K8sObject: Encoder, DeleteResult](
     createDeleteResult: () => DeleteResult
   ): ZIO[Any, Nothing, TestResourceClient[T, DeleteResult]] =
     for {
@@ -281,25 +282,17 @@ object TestResourceClient {
   private[test] def selectableByField(json: Json)(fieldSelector: FieldSelector): Boolean =
     fieldSelector match {
       case FieldSelector.FieldEquals(fieldPath, value)    =>
-        fieldPath.toList match {
-          case "metadata" :: tail => jsonEqualsTo(getValue(json, tail), value)
-          case _                  => false
-        }
+        jsonEqualsTo(getValue(json, fieldPath.toList), value)
       case FieldSelector.FieldNotEquals(fieldPath, value) =>
-        (fieldPath.toList match {
-          case "metadata" :: tail => !jsonEqualsTo(getValue(json, tail), value)
-          case _                  => false
-        })
+        !jsonEqualsTo(getValue(json, fieldPath.toList), value)
       case FieldSelector.And(selectors)                   => selectors.forall(selectableByField(json))
     }
 
-  private[test] def filterByFieldSelector[T: K8sObject](
+  private[test] def filterByFieldSelector[T: K8sObject: Encoder](
     fieldSelector: Option[FieldSelector]
   )(item: T): Boolean =
     if (fieldSelector.isDefined) {
-      item.metadata
-        .map(ObjectMeta.ObjectMetaEncoder.apply)
-        .exists(json => selectableByField(json)(fieldSelector.get))
+      selectableByField(item.asJson)(fieldSelector.get)
     } else true
 
   private def selectableByLabel(
