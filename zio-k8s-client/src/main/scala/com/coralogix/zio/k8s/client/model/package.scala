@@ -5,7 +5,6 @@ import sttp.client3.{ Empty, RequestT, UriContext }
 import sttp.model._
 import zio.Chunk
 
-
 import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 import java.util.Base64

@@ -1,9 +1,8 @@
 package com.coralogix.zio.k8s.codegen.internal
 
-
-import zio.nio.file.{Files, Path}
-import zio.stream.{ZPipeline, ZStream}
-import zio.{Chunk, ZIO}
+import zio.nio.file.{ Files, Path }
+import zio.stream.{ ZPipeline, ZStream }
+import zio.{ Chunk, ZIO }
 
 import java.io.IOException
 import java.nio.charset.StandardCharsets
