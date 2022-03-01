@@ -53,6 +53,13 @@ object EndpointType {
     rootPath: String
   ) extends SubresourceEndpoint
 
+  case class ConnectSubresource(
+    subresourceName: String,
+    namespaced: Boolean,
+    detectedPlural: String,
+    rootPath: String
+  ) extends SubresourceEndpoint
+
   case class Unsupported(reason: String) extends EndpointType
 
   def detectEndpointType(endpoint: IdentifiedAction): EndpointType = {
@@ -184,6 +191,35 @@ object EndpointType {
                   EndpointType.Unsupported("fallback")
               }
             }
+          }
+        }
+
+      case "connect" =>
+        val clusterStatusPattern = ClusterPatterns.getSubresource
+        val namespacedStatusPattern = NamespacedPatterns.getSubresource
+
+        guards.mustHaveMethod(PathItem.HttpMethod.POST) {
+          endpoint.name match {
+            case clusterStatusPattern(rootPath, _, _, _, _, plural, subresource)    =>
+              guards.mustHaveNotHaveParameter("namespace") {
+                EndpointType.ConnectSubresource(
+                  subresource,
+                  namespaced = false,
+                  plural,
+                  rootPath
+                )
+              }
+            case namespacedStatusPattern(rootPath, _, _, _, _, plural, subresource) =>
+              guards.mustHaveParameters("namespace") {
+                EndpointType.ConnectSubresource(
+                  subresource,
+                  namespaced = true,
+                  plural,
+                  rootPath
+                )
+              }
+            case _                                                                  =>
+              EndpointType.Unsupported("fallback")
           }
         }
 

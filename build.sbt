@@ -4,7 +4,7 @@ val scala3Version = "3.1.0"
 
 val zioVersion = "1.0.12"
 val zioConfigVersion = "1.0.10"
-val sttpVersion = "3.3.18"
+val sttpVersion = "3.5.0+18-a619cb46+20220301-1049-SNAPSHOT"
 val zioNioVersion = "1.0.0-RC12"
 
 inThisBuild(
@@ -55,7 +55,7 @@ lazy val client = Project("zio-k8s-client", file("zio-k8s-client"))
       "dev.zio"                       %% "zio-nio"                       % zioNioVersion,
       "dev.zio"                       %% "zio-process"                   % "0.6.1",
       "com.softwaremill.sttp.client3" %% "core"                          % sttpVersion,
-      "com.softwaremill.sttp.client3" %% "zio"                           % sttpVersion,
+      "com.softwaremill.sttp.client3" %% "zio1"                           % sttpVersion,
       "com.softwaremill.sttp.client3" %% "circe"                         % sttpVersion,
       "io.circe"                      %% "circe-core"                    % "0.14.1",
       "io.circe"                      %% "circe-generic"                 % "0.14.1",
@@ -66,8 +66,8 @@ lazy val client = Project("zio-k8s-client", file("zio-k8s-client"))
       "dev.zio"                       %% "zio-test-sbt"                  % zioVersion       % Test,
       "dev.zio"                       %% "zio-config-typesafe"           % zioConfigVersion % Test,
       "com.softwaremill.sttp.client3" %% "slf4j-backend"                 % sttpVersion      % Optional,
-      "com.softwaremill.sttp.client3" %% "async-http-client-backend-zio" % sttpVersion      % Optional,
-      "com.softwaremill.sttp.client3" %% "httpclient-backend-zio"        % sttpVersion      % Optional
+      "com.softwaremill.sttp.client3" %% "async-http-client-backend-zio1" % sttpVersion      % Optional,
+      "com.softwaremill.sttp.client3" %% "httpclient-backend-zio1"        % sttpVersion      % Optional
     ),
     testFrameworks += new TestFramework("zio.test.sbt.ZTestFramework"),
     Compile / packageSrc / mappings ++= {
@@ -233,7 +233,7 @@ lazy val leaderExample = Project("leader-example", file("examples/leader-example
   .settings(
     libraryDependencies ++= Seq(
       "dev.zio"                       %% "zio-config-typesafe"    % zioConfigVersion,
-      "com.softwaremill.sttp.client3" %% "httpclient-backend-zio" % sttpVersion,
+      "com.softwaremill.sttp.client3" %% "httpclient-backend-zio1" % sttpVersion,
       "com.softwaremill.sttp.client3" %% "slf4j-backend"          % sttpVersion
     ),
     Docker / packageName := "leader-example",
@@ -256,7 +256,7 @@ val logsExample = Project("logs-example", file("examples/logs-example"))
   .settings(
     publish / skip := true,
     libraryDependencies ++= Seq(
-      "com.softwaremill.sttp.client3" %% "httpclient-backend-zio" % sttpVersion,
+      "com.softwaremill.sttp.client3" %% "httpclient-backend-zio1" % sttpVersion,
       "com.softwaremill.sttp.client3" %% "slf4j-backend"          % sttpVersion
     )
   )
@@ -272,7 +272,7 @@ lazy val docs = project
     libraryDependencies ++= Seq(
       "dev.zio"                       %% "zio-config-typesafe"    % zioConfigVersion,
       "io.github.kitlangton"          %% "zio-magic"              % "0.3.2",
-      "com.softwaremill.sttp.client3" %% "httpclient-backend-zio" % sttpVersion,
+      "com.softwaremill.sttp.client3" %% "httpclient-backend-zio1" % sttpVersion,
       "dev.zio"                       %% "zio-metrics-prometheus" % "1.0.6"
     ),
     ScalaUnidoc / unidoc / unidocProjectFilter := inProjects(

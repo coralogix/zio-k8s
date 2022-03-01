@@ -189,6 +189,17 @@ package object model extends LabelSelector.Syntax with FieldSelector.Syntax {
         .addParam("allowWatchBookmarks", if (allowBookmarks) Some("true") else None)
   }
 
+  final case class K8sConnectUri(
+    resource: K8sResourceType,
+    name: String,
+    subresource: String,
+    namespace: Option[K8sNamespace]
+  ) extends K8sUri {
+    override def toUri(cluster: K8sCluster): Uri =
+      K8sSimpleUri(resource, Some(name), Some(subresource), namespace)
+        .toUri(cluster)
+  }
+
   val k8sDateTimeFormatter: DateTimeFormatter = DateTimeFormatter
     .ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'")
     .withZone(ZoneOffset.UTC)

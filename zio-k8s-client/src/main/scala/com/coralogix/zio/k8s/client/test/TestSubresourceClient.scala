@@ -1,6 +1,6 @@
 package com.coralogix.zio.k8s.client.test
 
-import com.coralogix.zio.k8s.client.model.K8sNamespace
+import com.coralogix.zio.k8s.client.model.{ AttachedProcessState, K8sNamespace }
 import com.coralogix.zio.k8s.client.{ K8sFailure, NotFound, Subresource }
 import zio.stm.TMap
 import zio.stream.{ ZStream, ZTransducer }
@@ -60,6 +60,12 @@ final class TestSubresourceClient[T] private (store: TMap[String, T]) extends Su
       ZIO.succeed(value)
     }
   }
+
+  override def connect(
+    name: String,
+    namespace: Option[K8sNamespace],
+    customParameters: Map[String, String]
+  ): IO[K8sFailure, AttachedProcessState] = ???
 
   private def keyPrefix(namespace: Option[K8sNamespace]): String =
     namespace.map(_.value).getOrElse("") + ":"

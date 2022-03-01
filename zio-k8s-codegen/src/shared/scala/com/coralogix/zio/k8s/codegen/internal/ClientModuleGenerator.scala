@@ -103,7 +103,7 @@ trait ClientModuleGenerator {
                                                                                                     )
                                                                                                   else
                                                                                                     Nil) ::
-          subresources.toList.map { subresource =>
+          subresources.toList.sortBy(_.name).map { subresource =>
             val clientName = Term.Name(subresource.name + "Client")
             val modelT = getSubresourceModelType(modelPackageName, subresource)
             List(param"$clientName: Subresource[$modelT]")
@@ -697,7 +697,7 @@ trait ClientModuleGenerator {
              q"new ResourceStatusClient[$statusT, $entityT](resourceType, cluster, backend)"
            )
          else Nil) ::
-        subresources.toList.map { subresource =>
+        subresources.toList.sortBy(_.name).map { subresource =>
           val nameLit = Lit.String(subresource.name)
           val modelT =
             getSubresourceModelType(modelPackageName, subresource, fullyQualifiedSubresourceModels)
@@ -728,7 +728,7 @@ trait ClientModuleGenerator {
              create("statusClient", q"new TestResourceStatusClient(client)")
            )
          else Nil) ::
-        subresources.toList.map { subresource =>
+        subresources.toList.sortBy(_.name).map { subresource =>
           val name = subresource.name + "Client"
           val modelT =
             getSubresourceModelType(modelPackageName, subresource, fullyQualifiedSubresourceModels)

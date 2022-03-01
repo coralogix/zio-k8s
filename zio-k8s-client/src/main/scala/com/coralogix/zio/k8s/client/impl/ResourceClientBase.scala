@@ -130,6 +130,17 @@ trait ResourceClientBase {
       cluster
     )
 
+  protected def connecting(
+    name: String,
+    subresource: String,
+    namespace: Option[K8sNamespace],
+  ): Uri = K8sConnectUri(
+    resourceType,
+    name,
+    subresource,
+    namespace
+  ).toUri(cluster)
+
   protected def handleFailures[A](operation: String)(
     f: Task[Response[Either[ResponseException[String, NonEmptyList[Error]], A]]]
   ): IO[K8sFailure, A] = {
