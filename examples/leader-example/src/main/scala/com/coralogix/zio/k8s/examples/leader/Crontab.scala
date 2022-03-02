@@ -68,11 +68,7 @@ package object crontabs {
     type Generic = NamespacedResource[Crontab] with NamespacedResourceStatus[CrontabStatus, Crontab]
 
     trait Service
-        extends NamespacedResource[Crontab] with NamespacedResourceStatus[CrontabStatus, Crontab] {
-      val asGeneric: Generic = (ZEnvironment[NamespacedResource[Crontab]](this) ++ ZEnvironment[
-        NamespacedResourceStatus[CrontabStatus, Crontab]
-      ](this)).get
-    }
+        extends NamespacedResource[Crontab] with NamespacedResourceStatus[CrontabStatus, Crontab]
 
     class Live(
       override val asGenericResource: ResourceClient[Crontab, Status],

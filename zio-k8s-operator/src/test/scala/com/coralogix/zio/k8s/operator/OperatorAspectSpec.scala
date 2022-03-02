@@ -6,9 +6,7 @@ import com.coralogix.zio.k8s.operator.Operator._
 import com.coralogix.zio.k8s.operator.aspects.logEvents
 import zio.ZIO
 import zio.Clock
-import zio.test.environment.TestEnvironment
-import zio.test.{ assertCompletes, ZSpec }
-import zio.test.ZIOSpecDefault
+import zio.test.{ assertCompletes, TestEnvironment, ZIOSpecDefault, ZSpec }
 
 object OperatorAspectSpec extends ZIOSpecDefault {
   sealed trait CustomOperatorFailures

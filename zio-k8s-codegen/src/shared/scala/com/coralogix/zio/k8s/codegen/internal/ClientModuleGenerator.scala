@@ -344,7 +344,6 @@ trait ClientModuleGenerator {
           import sttp.capabilities.WebSockets
           import sttp.capabilities.zio.ZioStreams
           import sttp.client3.SttpBackend
-          import zio.ZIO._
           import zio.stream.{ZStream, ZPipeline}
           import zio.{Task, ZIO, ZLayer, Clock, Duration, ZEnvironment }
 

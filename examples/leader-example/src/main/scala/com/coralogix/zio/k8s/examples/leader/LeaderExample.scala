@@ -9,7 +9,6 @@ import com.coralogix.zio.k8s.operator.contextinfo.ContextInfo
 import com.coralogix.zio.k8s.operator.leader.LeaderElection
 import com.coralogix.zio.k8s.operator.leader.locks.LeaderLockResource
 import com.coralogix.zio.k8s.operator.{ leader, Registration }
-import zio.logging.{ log, LogFormat, LogLevel, Logging }
 import zio.{ Clock, System, ZIOAppDefault, _ }
 
 import scala.languageFeature.implicitConversions
@@ -19,10 +18,6 @@ object LeaderExample extends ZIOAppDefault {
 
   override def run: ZIO[ZEnv with ZIOAppArgs, Any, Any] = {
     // Logging
-    val logging = Logging.console(
-      logLevel = LogLevel.Debug,
-      format = LogFormat.ColoredLogFormat()
-    ) >>> Logging.withRootLoggerName("leader-example")
 
     // Pods and ConfigMaps API
     val pods = k8sDefault >>> Pods.live
@@ -41,12 +36,12 @@ object LeaderExample extends ZIOAppDefault {
         example()
 
     program
-      .provideCustomLayer(logging ++ crds ++ leaderElection)
+      .provideCustomLayer(crds ++ leaderElection)
       .exitCode
   }
 
   private def example(): ZIO[
-    Logging with Any with System with Clock with LeaderElection,
+    Any with System with Clock with LeaderElection,
     Nothing,
     Option[Nothing]
   ] =
@@ -56,6 +51,6 @@ object LeaderExample extends ZIOAppDefault {
       }
       .repeatWhile(_.isEmpty)
 
-  private def exampleLeader(): ZIO[Logging, Nothing, Nothing] =
-    log.info(s"Got leader role") *> ZIO.never
+  private def exampleLeader(): ZIO[Any, Nothing, Nothing] =
+    ZIO.logInfo(s"Got leader role") *> ZIO.never
 }
