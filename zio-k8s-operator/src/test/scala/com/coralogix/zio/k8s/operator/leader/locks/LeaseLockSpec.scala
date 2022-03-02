@@ -1,49 +1,26 @@
 package com.coralogix.zio.k8s.operator.leader.locks
 
-import com.coralogix.zio.k8s.client.{
-  HttpFailure,
-  K8sFailure,
-  K8sRequestInfo,
-  NotFound,
-  RequestFailure,
-  Resource,
-  ResourceDelete,
-  ResourceDeleteAll
-}
 import com.coralogix.zio.k8s.client.coordination.v1.leases
 import com.coralogix.zio.k8s.client.coordination.v1.leases.Leases
-import com.coralogix.zio.k8s.client.model.{
-  FieldSelector,
-  K8sNamespace,
-  K8sResourceType,
-  LabelSelector,
-  ListResourceVersion,
-  PropagationPolicy,
-  TypedWatchEvent
-}
+import com.coralogix.zio.k8s.client.model._
+import com.coralogix.zio.k8s.client._
 import com.coralogix.zio.k8s.model.coordination.v1.{ Lease, LeaseSpec }
 import com.coralogix.zio.k8s.model.core.v1.Pod
 import com.coralogix.zio.k8s.model.pkg.apis.meta.v1.{ DeleteOptions, MicroTime, ObjectMeta, Status }
 import com.coralogix.zio.k8s.operator.contextinfo.ContextInfo
 import com.coralogix.zio.k8s.operator.leader
-import com.coralogix.zio.k8s.operator.leader.{ lease, LeaderElection }
-import zio.{ clock, console, stream, Fiber, IO, RIO, Ref, UIO, ULayer, ZIO, ZLayer }
-import zio.Clock
-
-import zio.logging.Logging
+import com.coralogix.zio.k8s.operator.leader.LeaderElection
+import zio.ZIO.ifZIO
 import zio.stream.ZStream
-import zio.test.Assertion.equalTo
-import zio.test.environment.TestEnvironment
-import zio.test._
 import zio.test.Assertion._
-import zio.{ Clock, Console, Random, _ }
-import zio.test.{ TestClock, ZIOSpecDefault }
+import zio.test._
+import zio.{ stream, Clock, Console, Fiber, IO, RIO, Random, Ref, UIO, ULayer, ZIO, ZLayer, _ }
 
 object LeaseLockSpec extends ZIOSpecDefault {
 
   private def leaderElection(
     name: String
-  ): ZLayer[Clock with Console with Random with Leases, Nothing, LeaderElection with Logging] =
+  ): ZLayer[Clock with Console with Random with Leases, Nothing, LeaderElection] =
     (Random.any ++
       Console.any ++
       Clock.any ++
@@ -56,7 +33,7 @@ object LeaseLockSpec extends ZIOSpecDefault {
         leaseDuration = 15.seconds,
         renewTimeout = 10.seconds,
         retryPeriod = 2.seconds
-      ) ++ Logging.console())
+      ))
 
   trait TestLeases {
     def enableFailures: UIO[Unit]
@@ -68,8 +45,9 @@ object LeaseLockSpec extends ZIOSpecDefault {
     ZIO.service[TestLeases].flatMap(_.disableFailures)
 
   private def failingLeases: ULayer[Leases with TestLeases] =
-    Leases.test >>> ZLayer
-      .fromServiceManyM[Leases.Service, Any, Nothing, Leases with TestLeases] { testImpl =>
+    Leases.test >>> ZIO
+      .service[Leases]
+      .flatMap { testImpl =>
         Ref.make(true).map { failSwitch =>
           val testLeases = new TestLeases {
             override def enableFailures: UIO[Unit] =
@@ -227,9 +205,12 @@ object LeaseLockSpec extends ZIOSpecDefault {
                 )
             }
           )
-          Has[Leases.Service](leases) ++ Has(testLeases)
+
+          ZLayer.succeed(leases) ++ ZLayer.succeed(testLeases)
         }
       }
+      .toLayer
+      .flatten
 
   private def singleton(
     counter: Ref[Int],
@@ -365,7 +346,7 @@ object LeaseLockSpec extends ZIOSpecDefault {
                     .runAsLeader(singleton(ref, winner, "pod2"))
                     .fork
                     .provideSomeLayer(leaderElection("pod2"))
-                    .provideSome[Console with Random with Leases](_ ++ otherClock)
+                    .provideSomeEnvironment[Console with Random with Leases](_ ++ otherClock)
 
             _  <- TestClock.adjust(5.seconds)
             _  <- otherClock.get[TestClock].adjust(5.seconds)

@@ -4,7 +4,7 @@ val scala3Version = "3.1.0"
 
 val zioVersion = "2.0.0-RC2"
 val zioConfigVersion = "3.0.0-RC2"
-val sttpVersion = "3.4.1"
+val sttpVersion = "3.5.0"
 val zioNioVersion = "2.0.0-RC1"
 
 inThisBuild(
@@ -51,7 +51,6 @@ lazy val client = Project("zio-k8s-client", file("zio-k8s-client"))
       "dev.zio"                       %% "zio"                           % zioVersion,
       "dev.zio"                       %% "zio-streams"                   % zioVersion,
       "dev.zio"                       %% "zio-config"                    % zioConfigVersion,
-      "dev.zio"                       %% "zio-logging"                   % "2.0.0-RC5",
       "dev.zio"                       %% "zio-nio"                       % zioNioVersion,
       "dev.zio"                       %% "zio-process"                   % "0.7.0-RC2",
       "com.softwaremill.sttp.client3" %% "core"                          % sttpVersion,

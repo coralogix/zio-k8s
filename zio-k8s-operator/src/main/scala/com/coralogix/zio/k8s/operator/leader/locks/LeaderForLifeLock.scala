@@ -9,9 +9,7 @@ import com.coralogix.zio.k8s.model.pkg.apis.meta.v1.{ DeleteOptions, Status }
 import com.coralogix.zio.k8s.operator.OperatorFailure.k8sFailureToThrowable
 import com.coralogix.zio.k8s.operator.OperatorLogging.logFailure
 import com.coralogix.zio.k8s.operator.leader.{ KubernetesError, LeaderElectionFailure, LeaderLock }
-import zio.Clock
-import zio.logging.{ log, LogAnnotation, Logging }
-import zio.{ Cause, IO, Schedule, ZIO, ZManaged }
+import zio.{ Cause, Clock, IO, Schedule, ZIO, ZManaged }
 
 abstract class LeaderForLifeLock[T: K8sObject](
   lockName: String,
@@ -49,17 +47,16 @@ abstract class LeaderForLifeLock[T: K8sObject](
   def acquireLock(
     namespace: K8sNamespace,
     self: Pod
-  ): ZManaged[Clock with Logging, LeaderElectionFailure[Nothing], Unit] =
+  ): ZManaged[Clock, LeaderElectionFailure[Nothing], Unit] =
     for {
       alreadyOwned <- checkIfAlreadyOwned(namespace, self).toManaged
       lock         <-
         if (alreadyOwned)
-          log
-            .locally(LogAnnotation.Name("Leader" :: Nil)) {
-              log
-                .info(
-                  s"Lock '$lockName' in namespace '${namespace.value}' is already owned by the current pod"
-                )
+          ZIO
+            .logAnnotate("name", "Leader") {
+              ZIO.logInfo(
+                s"Lock '$lockName' in namespace '${namespace.value}' is already owned by the current pod"
+              )
             }
             .toManaged *>
             ZManaged.acquireReleaseWith(ZIO.unit)(_ => deleteLock(lockName, namespace))
@@ -90,15 +87,15 @@ abstract class LeaderForLifeLock[T: K8sObject](
   private def tryCreateLock(
     namespace: K8sNamespace,
     self: Pod
-  ): ZIO[Clock with Logging, LeaderElectionFailure[Nothing], Unit] =
-    log.locally(LogAnnotation.Name("Leader" :: Nil)) {
+  ): ZIO[Clock, LeaderElectionFailure[Nothing], Unit] =
+    ZIO.logAnnotate("name", "Leader") {
       for {
-        _               <- log.info(s"Acquiring lock '$lockName' in namespace '${namespace.value}'")
+        _               <- ZIO.logInfo(s"Acquiring lock '$lockName' in namespace '${namespace.value}'")
         lock            <- makeLock(lockName, namespace, self)
-        finalRetryPolicy = retryPolicy && Schedule.recurWhileZIO[Logging, K8sFailure] {
+        finalRetryPolicy = retryPolicy && Schedule.recurWhileZIO[Any, K8sFailure] {
                              case DecodedFailure(_, status, code)
                                  if status.reason.contains("AlreadyExists") =>
-                               log.info(s"Lock is already taken, retrying...").as(true)
+                               ZIO.logInfo(s"Lock is already taken, retrying...").as(true)
                              case _ =>
                                ZIO.succeed(false)
                            }
@@ -112,10 +109,10 @@ abstract class LeaderForLifeLock[T: K8sObject](
   private def deleteLock(
     lockName: String,
     namespace: K8sNamespace
-  ): ZIO[Logging, Nothing, Unit] =
-    log.locally(LogAnnotation.Name("Leader" :: Nil)) {
+  ): ZIO[Any, Nothing, Unit] =
+    ZIO.logAnnotate("name", "Leader") {
       if (deleteOnRelease) {
-        log.info(s"Releasing lock '$lockName' in namespace '${namespace.value}'") *>
+        ZIO.logInfo(s"Releasing lock '$lockName' in namespace '${namespace.value}'") *>
           clientDelete
             .delete(lockName, DeleteOptions(), Some(namespace))
             .unit
@@ -126,7 +123,7 @@ abstract class LeaderForLifeLock[T: K8sObject](
               )
             }
       } else {
-        log.info(
+        ZIO.logInfo(
           s"Keeping unused lock '$lockName' in namespace '${namespace.value}' to be released by pod deletion"
         )
       }
