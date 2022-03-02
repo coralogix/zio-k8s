@@ -14,7 +14,7 @@ import sttp.client3._
 import sttp.model._
 import zio._
 import zio.nio.file.Path
-import zio.system.System
+import zio.System
 ```
 
 ```scala mdoc:silent

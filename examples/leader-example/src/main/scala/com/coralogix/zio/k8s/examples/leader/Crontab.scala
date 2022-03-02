@@ -1,15 +1,15 @@
 package com.coralogix.zio.k8s.examples.leader
 
-import com.coralogix.zio.k8s.client.impl.{ResourceClient, ResourceStatusClient}
+import com.coralogix.zio.k8s.client.impl.{ ResourceClient, ResourceStatusClient }
 import com.coralogix.zio.k8s.client.model._
 import com.coralogix.zio.k8s.client._
-import com.coralogix.zio.k8s.model.pkg.apis.meta.v1.{ObjectMeta, Status}
+import com.coralogix.zio.k8s.model.pkg.apis.meta.v1.{ ObjectMeta, Status }
 import io.circe.Codec
 import io.circe.generic.semiauto._
 import sttp.capabilities.WebSockets
 import sttp.capabilities.zio.ZioStreams
 import sttp.client3.SttpBackend
-import zio.{Task, ZLayer}
+import zio.{ Task, ZLayer }
 
 // Example of defining a custom resource client without using zio-k8s-crd
 
@@ -67,8 +67,6 @@ package object crontabs {
       override val asGenericResource: ResourceClient[Crontab, Status],
       override val asGenericResourceStatus: ResourceStatusClient[CrontabStatus, Crontab]
     ) extends Service
-
-
 
     val live
       : ZLayer[K8sCluster with SttpBackend[Task, ZioStreams with WebSockets], Nothing, Crontabs] = {

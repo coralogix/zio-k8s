@@ -3,7 +3,6 @@ package com.coralogix.zio.k8s.codegen.internal
 import io.swagger.v3.oas.models.media.ObjectSchema
 import org.scalafmt.interfaces.Scalafmt
 import sbt.util.Logger
-
 import zio.{ Task, ZIO }
 import com.coralogix.zio.k8s.codegen.internal.Conversions.{ groupNameToPackageName, splitName }
 import com.coralogix.zio.k8s.codegen.internal.CodegenIO._
@@ -317,7 +316,7 @@ trait ClientModuleGenerator {
           val mainInterfaceI = Init(mainInterface, Name.Anonymous(), List.empty)
           val extraInterfaceIs = extraInterfaces.map(t => Init(t, Name.Anonymous(), List.empty))
 
-          val interfacesWrappedInHas =
+          val interfacesWrappedInEnv =
             extraInterfaces.foldLeft[Term](q"ZEnvironment[$mainInterface](this)") { case (l, t) =>
               q"$l ++ ZEnvironment[$t](this)"
             }
@@ -351,12 +350,12 @@ trait ClientModuleGenerator {
             $typeAlias
 
             object $typeAliasTerm {
-              //typeAliasGeneric
+              $typeAliasGeneric
 
               trait Service
                 extends $mainInterfaceI with ..$extraInterfaceIs {
 
-                // val asGeneric: typeAliasGenericT = (interfacesWrappedInHas).get
+                val asGeneric: ZEnvironment[$typeAliasGenericT] = ($interfacesWrappedInEnv)
               }
 
               final class Live(..$clientList) extends Service {
