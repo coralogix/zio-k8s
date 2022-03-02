@@ -2,10 +2,10 @@ val scala212Version = "2.12.15"
 val scala213Version = "2.13.8"
 val scala3Version = "3.1.0"
 
-val zioVersion = "1.0.12"
-val zioConfigVersion = "1.0.10"
-val sttpVersion = "3.3.18"
-val zioNioVersion = "1.0.0-RC12"
+val zioVersion = "2.0.0-RC2"
+val zioConfigVersion = "3.0.0-RC2"
+val sttpVersion = "3.4.1"
+val zioNioVersion = "2.0.0-RC1"
 
 inThisBuild(
   List(
@@ -51,9 +51,9 @@ lazy val client = Project("zio-k8s-client", file("zio-k8s-client"))
       "dev.zio"                       %% "zio"                           % zioVersion,
       "dev.zio"                       %% "zio-streams"                   % zioVersion,
       "dev.zio"                       %% "zio-config"                    % zioConfigVersion,
-      "dev.zio"                       %% "zio-logging"                   % "0.5.14",
+      "dev.zio"                       %% "zio-logging"                   % "2.0.0-RC5",
       "dev.zio"                       %% "zio-nio"                       % zioNioVersion,
-      "dev.zio"                       %% "zio-process"                   % "0.6.1",
+      "dev.zio"                       %% "zio-process"                   % "0.7.0-RC2",
       "com.softwaremill.sttp.client3" %% "core"                          % sttpVersion,
       "com.softwaremill.sttp.client3" %% "zio"                           % sttpVersion,
       "com.softwaremill.sttp.client3" %% "circe"                         % sttpVersion,
@@ -271,7 +271,6 @@ lazy val docs = project
     scalacOptions -= "-Xfatal-warnings",
     libraryDependencies ++= Seq(
       "dev.zio"                       %% "zio-config-typesafe"    % zioConfigVersion,
-      "io.github.kitlangton"          %% "zio-magic"              % "0.3.2",
       "com.softwaremill.sttp.client3" %% "httpclient-backend-zio" % sttpVersion,
       "dev.zio"                       %% "zio-metrics-prometheus" % "1.0.6"
     ),

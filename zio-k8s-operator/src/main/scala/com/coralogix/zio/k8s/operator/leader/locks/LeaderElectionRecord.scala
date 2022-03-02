@@ -1,6 +1,6 @@
 package com.coralogix.zio.k8s.operator.leader.locks
 
-import zio.duration.Duration
+import zio.Duration
 
 import java.time.OffsetDateTime
 

@@ -2,11 +2,10 @@ package com.coralogix.zio.k8s.quicklens
 
 import com.coralogix.zio.k8s.client.model.Optional
 import com.softwaremill.quicklens._
-import zio.test.environment.TestEnvironment
 import zio.test.Assertion._
-import zio.test._
+import zio.test.{ ZIOSpecDefault, _ }
 
-object QuicklensOptionalSpec extends DefaultRunnableSpec {
+object QuicklensOptionalSpec extends ZIOSpecDefault {
 
   case class X(inner: Optional[Y])
   case class Y(leaf: Optional[Int])

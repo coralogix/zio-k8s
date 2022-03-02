@@ -11,18 +11,18 @@ import com.coralogix.zio.k8s.operator.leader
 import com.coralogix.zio.k8s.operator.leader.LeaderElection.logLeaderElectionFailure
 import com.coralogix.zio.k8s.operator.leader._
 import com.coralogix.zio.k8s.operator.leader.locks.LeaseLock.VersionedRecord
-import zio.clock.Clock
-import zio.duration._
+import zio.Clock
+
 import zio.logging.{ log, Logging }
-import zio.random.Random
-import zio.{ clock, Has, IO, Queue, Ref, Schedule, UIO, ZIO, ZManaged }
+import zio.{ clock, IO, Queue, Ref, Schedule, UIO, ZIO, ZManaged }
 
 import java.time.{ DateTimeException, OffsetDateTime }
+import zio.{ Clock, Random, _ }
 
 class LeaseLock(
   lockName: String,
   leases: Leases.Service,
-  random: Random.Service,
+  random: Random,
   leadershipLost: Queue[Unit],
   leaseDuration: Duration,
   renewTimeout: Duration,
@@ -35,14 +35,14 @@ class LeaseLock(
   ): ZManaged[Clock with Logging, leader.LeaderElectionFailure[Nothing], Unit] =
     for {
       store <- Ref.makeManaged[Option[VersionedRecord]](None)
-      name  <- pod.getName.mapError(KubernetesError.apply).toManaged_
+      name  <- pod.getName.mapError(KubernetesError.apply).toManaged
       impl   = new Impl(store, namespace, name)
       _     <- ZManaged.makeInterruptible(
                  impl
                    .acquire()
                    .provideSome[Clock with Logging](_ ++ Has(random))
                )(_ => impl.release())
-      _     <- impl.renew().fork.toManaged_
+      _     <- impl.renew().fork.toManaged
     } yield ()
 
   class Impl(
@@ -64,7 +64,7 @@ class LeaseLock(
               log.info("Failed to take leadership, will retry...")
         }
         .retry(Schedule.fixed(retryPeriod).jittered(0.0, 1.2))
-        .optional
+        .unsome
         .unit
 
     def renew(): ZIO[Clock with Logging, LeaderElectionFailure[Nothing], Unit] = {
@@ -87,7 +87,7 @@ class LeaseLock(
         .flatMap {
           case Some(stored) if stored.record.holderIdentity == identity =>
             for {
-              now      <- clock.currentDateTime.mapError(DateTimeError.apply)
+              now      <- Clock.currentDateTime.mapError(DateTimeError.apply)
               newRecord =
                 LeaderElectionRecord(
                   holderIdentity = identity,
@@ -108,7 +108,7 @@ class LeaseLock(
       : ZIO[Clock with Logging, LeaderElectionFailure[Nothing], Boolean] =
       for {
         latest <- get()
-        now    <- clock.currentDateTime.mapError(DateTimeError.apply)
+        now    <- Clock.currentDateTime.mapError(DateTimeError.apply)
         result <- latest match {
                     case None            =>
                       val record = LeaderElectionRecord(identity, leaseDuration, now, now, 0)
@@ -165,7 +165,7 @@ class LeaseLock(
         record          <- toLeaderElectionRecord(lease)
         meta            <- lease.getMetadata
         resourceVersion <- meta.getResourceVersion
-        now             <- clock.currentDateTime.orDie
+        now             <- Clock.currentDateTime.orDie
       } yield VersionedRecord(record, resourceVersion, now)).ifFound
         .mapError(KubernetesError.apply)
         .unrefine { case ex: DateTimeException =>

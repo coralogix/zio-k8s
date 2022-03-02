@@ -4,26 +4,20 @@ import com.coralogix.zio.k8s.client.apiextensions.v1.customresourcedefinitions.C
 import com.coralogix.zio.k8s.client.config._
 import com.coralogix.zio.k8s.client.config.httpclient._
 import com.coralogix.zio.k8s.client.coordination.v1.leases.Leases
-import com.coralogix.zio.k8s.client.v1.configmaps.ConfigMaps
 import com.coralogix.zio.k8s.client.v1.pods.Pods
 import com.coralogix.zio.k8s.operator.contextinfo.ContextInfo
-import com.coralogix.zio.k8s.operator.{ leader, Registration }
 import com.coralogix.zio.k8s.operator.leader.LeaderElection
 import com.coralogix.zio.k8s.operator.leader.locks.LeaderLockResource
-import com.coralogix.zio.k8s.operator.leader.locks.leaderlockresources.LeaderLockResources
-import zio._
-import zio.blocking.Blocking
-import zio.clock.Clock
+import com.coralogix.zio.k8s.operator.{ leader, Registration }
 import zio.logging.{ log, LogFormat, LogLevel, Logging }
-import zio.random.Random
-import zio.system.System
+import zio.{ Clock, System, ZIOAppDefault, _ }
 
 import scala.languageFeature.implicitConversions
 
-object LeaderExample extends App {
+object LeaderExample extends ZIOAppDefault {
   case class Config(k8s: K8sClusterConfig)
 
-  override def run(args: List[String]): URIO[zio.ZEnv, ExitCode] = {
+  override def run: ZIO[ZEnv with ZIOAppArgs, Any, Any] = {
     // Logging
     val logging = Logging.console(
       logLevel = LogLevel.Debug,
@@ -34,9 +28,8 @@ object LeaderExample extends App {
     val pods = k8sDefault >>> Pods.live
     val leases = k8sDefault >>> Leases.live
     val crds = k8sDefault >>> CustomResourceDefinitions.live
-    val contextInfo = (Blocking.any ++ System.any ++ pods) >>> ContextInfo.live.mapError(f =>
-      FiberFailure(Cause.fail(f))
-    )
+    val contextInfo =
+      (System.any ++ pods) >>> ContextInfo.live.mapError(f => FiberFailure(Cause.fail(f)))
     val leaderElection =
       (Random.any ++ leases ++ contextInfo) >>> LeaderElection.leaseLock("leader-example-lock")
 
@@ -53,7 +46,7 @@ object LeaderExample extends App {
   }
 
   private def example(): ZIO[
-    Logging with Blocking with system.System with Clock with LeaderElection,
+    Logging with Any with System with Clock with LeaderElection,
     Nothing,
     Option[Nothing]
   ] =

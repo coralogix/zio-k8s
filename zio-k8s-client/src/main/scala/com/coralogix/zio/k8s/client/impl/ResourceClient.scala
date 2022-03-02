@@ -10,9 +10,7 @@ import sttp.capabilities.WebSockets
 import sttp.capabilities.zio.ZioStreams
 import sttp.client3._
 import sttp.client3.circe._
-import zio._
-import zio.clock.Clock
-import zio.duration._
+import zio.{ Clock, _ }
 import zio.stream._
 
 /** Generic implementation of [[Resource]], [[ResourceDelete]] and [[ResourceDeleteAll]]
@@ -66,9 +64,9 @@ final class ResourceClient[
           .response(asJsonAccumulating[ObjectList[T]])
           .send(backend)
       }.map { initialResponse =>
-        val rest = ZStream {
+        val rest = ZStream.fromPull {
           for {
-            nextContinueToken <- Ref.make(initialResponse.metadata.flatMap(_.continue)).toManaged_
+            nextContinueToken <- Ref.make(initialResponse.metadata.flatMap(_.continue)).toManaged
             pull               = for {
                                    continueToken <- nextContinueToken.get
                                    chunk         <- continueToken match {
@@ -127,8 +125,8 @@ final class ResourceClient[
             .send(backend)
         }.map(_.mapError(RequestFailure(reqInfo, _)))
       }
-      .transduce(ZTransducer.utf8Decode >>> ZTransducer.splitLines)
-      .mapM { line =>
+      .via(ZPipeline.utf8Decode >>> ZPipeline.splitLines)
+      .mapZIO { line =>
         for {
           rawEvent <-
             ZIO
@@ -148,7 +146,7 @@ final class ResourceClient[
     ZStream.unwrap {
       Ref.make(resourceVersion).map { lastResourceVersion =>
         ZStream
-          .fromEffect(lastResourceVersion.get)
+          .fromZIO(lastResourceVersion.get)
           .flatMap(watchStream(namespace, fieldSelector, labelSelector, _))
           .tap {
             case ParsedTypedWatchEvent(event)    => lastResourceVersion.set(event.resourceVersion)
@@ -269,14 +267,14 @@ object ResourceClient {
       * @return
       *   A stream of resources
       */
-    def getAll[T: Tag](
+    def getAll[T: EnvironmentTag](
       namespace: Option[K8sNamespace],
       chunkSize: Int = 10,
       fieldSelector: Option[FieldSelector] = None,
       labelSelector: Option[LabelSelector] = None,
       resourceVersion: ListResourceVersion = ListResourceVersion.MostRecent
-    ): ZStream[Has[NamespacedResource[T]], K8sFailure, T] =
-      ZStream.accessStream(
+    ): ZStream[NamespacedResource[T], K8sFailure, T] =
+      ZStream.environmentWithStream[NamespacedResource[T]](
         _.get.getAll(namespace, chunkSize, fieldSelector, labelSelector, resourceVersion)
       )
 
@@ -301,13 +299,15 @@ object ResourceClient {
       * @return
       *   A stream of watch events
       */
-    def watch[T: Tag](
+    def watch[T: EnvironmentTag](
       namespace: Option[K8sNamespace],
       resourceVersion: Option[String],
       fieldSelector: Option[FieldSelector] = None,
       labelSelector: Option[LabelSelector] = None
-    ): ZStream[Has[NamespacedResource[T]], K8sFailure, TypedWatchEvent[T]] =
-      ZStream.accessStream(_.get.watch(namespace, resourceVersion, fieldSelector, labelSelector))
+    ): ZStream[NamespacedResource[T], K8sFailure, TypedWatchEvent[T]] =
+      ZStream.environmentWithStream[NamespacedResource[T]](
+        _.get.watch(namespace, resourceVersion, fieldSelector, labelSelector)
+      )
 
     /** Infinite watch stream of resource change events of type
       * [[com.coralogix.zio.k8s.client.model.TypedWatchEvent]]
@@ -325,14 +325,16 @@ object ResourceClient {
       * @return
       *   A stream of watch events
       */
-    def watchForever[T: Tag](
+    def watchForever[T: EnvironmentTag](
       namespace: Option[K8sNamespace],
       fieldSelector: Option[FieldSelector] = None,
       labelSelector: Option[LabelSelector] = None
-    ): ZStream[Has[NamespacedResource[T]] with Clock, K8sFailure, TypedWatchEvent[
+    ): ZStream[NamespacedResource[T] with Clock, K8sFailure, TypedWatchEvent[
       T
     ]] =
-      ZStream.accessStream(_.get.watchForever(namespace, fieldSelector, labelSelector))
+      ZStream.environmentWithStream[NamespacedResource[T]](
+        _.get.watchForever(namespace, fieldSelector, labelSelector)
+      )
 
     /** Get a resource by its name
       * @param name
@@ -342,11 +344,11 @@ object ResourceClient {
       * @return
       *   Returns the current version of the resource
       */
-    def get[T: Tag](
+    def get[T: EnvironmentTag](
       name: String,
       namespace: K8sNamespace
-    ): ZIO[Has[NamespacedResource[T]], K8sFailure, T] =
-      ZIO.accessM(_.get.get(name, namespace))
+    ): ZIO[NamespacedResource[T], K8sFailure, T] =
+      ZIO.environmentWithZIO(_.get.get(name, namespace))
 
     /** Creates a new resource
       * @param newResource
@@ -358,12 +360,12 @@ object ResourceClient {
       * @return
       *   Returns the created resource as it was returned from Kubernetes
       */
-    def create[T: Tag](
+    def create[T: EnvironmentTag](
       newResource: T,
       namespace: K8sNamespace,
       dryRun: Boolean = false
-    ): ZIO[Has[NamespacedResource[T]], K8sFailure, T] =
-      ZIO.accessM(_.get.create(newResource, namespace, dryRun))
+    ): ZIO[NamespacedResource[T], K8sFailure, T] =
+      ZIO.environmentWithZIO(_.get.create(newResource, namespace, dryRun))
 
     /** Replaces an existing resource selected by its name
       * @param name
@@ -377,13 +379,13 @@ object ResourceClient {
       * @return
       *   Returns the updated resource as it was returned from Kubernetes
       */
-    def replace[T: Tag](
+    def replace[T: EnvironmentTag](
       name: String,
       updatedResource: T,
       namespace: K8sNamespace,
       dryRun: Boolean = false
-    ): ZIO[Has[NamespacedResource[T]], K8sFailure, T] =
-      ZIO.accessM(_.get.replace(name, updatedResource, namespace, dryRun))
+    ): ZIO[NamespacedResource[T], K8sFailure, T] =
+      ZIO.environmentWithZIO(_.get.replace(name, updatedResource, namespace, dryRun))
 
     /** Replaces the status of a resource that was previously get from server.
       *
@@ -401,13 +403,13 @@ object ResourceClient {
       * @return
       *   Returns the updated resource (not just the status)
       */
-    def replaceStatus[StatusT: Tag, T: Tag](
+    def replaceStatus[StatusT: EnvironmentTag, T: EnvironmentTag](
       of: T,
       updatedStatus: StatusT,
       namespace: K8sNamespace,
       dryRun: Boolean = false
-    ): ZIO[Has[NamespacedResourceStatus[StatusT, T]], K8sFailure, T] =
-      ZIO.accessM(_.get.replaceStatus(of, updatedStatus, namespace, dryRun))
+    ): ZIO[NamespacedResourceStatus[StatusT, T], K8sFailure, T] =
+      ZIO.environmentWithZIO(_.get.replaceStatus(of, updatedStatus, namespace, dryRun))
 
     /** Get the status of a given subresource by name
       * @param name
@@ -417,11 +419,11 @@ object ResourceClient {
       * @return
       *   Returns the full resource object but with possibly the non-status fields absent.
       */
-    def getStatus[StatusT: Tag, T: Tag](
+    def getStatus[StatusT: EnvironmentTag, T: EnvironmentTag](
       name: String,
       namespace: K8sNamespace
-    ): ZIO[Has[NamespacedResourceStatus[StatusT, T]], K8sFailure, T] =
-      ZIO.accessM(_.get.getStatus(name, namespace))
+    ): ZIO[NamespacedResourceStatus[StatusT, T], K8sFailure, T] =
+      ZIO.environmentWithZIO(_.get.getStatus(name, namespace))
 
     /** Deletes an existing resource selected by its name
       * @param name
@@ -447,15 +449,15 @@ object ResourceClient {
       * @return
       *   Response from the Kubernetes API
       */
-    def delete[T: Tag, DeleteResult: Tag](
+    def delete[T: EnvironmentTag, DeleteResult: EnvironmentTag](
       name: String,
       deleteOptions: DeleteOptions,
       namespace: K8sNamespace,
       dryRun: Boolean = false,
       gracePeriod: Option[Duration] = None,
       propagationPolicy: Option[PropagationPolicy] = None
-    ): ZIO[Has[NamespacedResourceDelete[T, DeleteResult]], K8sFailure, DeleteResult] =
-      ZIO.accessM(
+    ): ZIO[NamespacedResourceDelete[T, DeleteResult], K8sFailure, DeleteResult] =
+      ZIO.environmentWithZIO(
         _.get.delete(name, deleteOptions, namespace, dryRun, gracePeriod, propagationPolicy)
       )
 
@@ -487,7 +489,7 @@ object ResourceClient {
       * @return
       *   Status returned by the Kubernetes API
       */
-    def deleteAll[T: Tag](
+    def deleteAll[T: EnvironmentTag](
       deleteOptions: DeleteOptions,
       namespace: K8sNamespace,
       dryRun: Boolean = false,
@@ -495,8 +497,8 @@ object ResourceClient {
       propagationPolicy: Option[PropagationPolicy] = None,
       fieldSelector: Option[FieldSelector] = None,
       labelSelector: Option[LabelSelector] = None
-    ): ZIO[Has[NamespacedResourceDeleteAll[T]], K8sFailure, Status] =
-      ZIO.accessM(
+    ): ZIO[NamespacedResourceDeleteAll[T], K8sFailure, Status] =
+      ZIO.environmentWithZIO(
         _.get.deleteAll(
           deleteOptions,
           namespace,
@@ -526,13 +528,15 @@ object ResourceClient {
       * @return
       *   A stream of resources
       */
-    def getAll[T: Tag](
+    def getAll[T: EnvironmentTag](
       chunkSize: Int = 10,
       fieldSelector: Option[FieldSelector] = None,
       labelSelector: Option[LabelSelector] = None,
       resourceVersion: ListResourceVersion = ListResourceVersion.MostRecent
-    ): ZStream[Has[ClusterResource[T]], K8sFailure, T] =
-      ZStream.accessStream(_.get.getAll(chunkSize, fieldSelector, labelSelector, resourceVersion))
+    ): ZStream[ClusterResource[T], K8sFailure, T] =
+      ZStream.environmentWithStream(
+        _.get.getAll(chunkSize, fieldSelector, labelSelector, resourceVersion)
+      )
 
     /** Watch stream of resource change events of type
       * [[com.coralogix.zio.k8s.client.model.TypedWatchEvent]]
@@ -552,12 +556,12 @@ object ResourceClient {
       * @return
       *   A stream of watch events
       */
-    def watch[T: Tag](
+    def watch[T: EnvironmentTag](
       resourceVersion: Option[String],
       fieldSelector: Option[FieldSelector] = None,
       labelSelector: Option[LabelSelector] = None
-    ): ZStream[Has[ClusterResource[T]], K8sFailure, TypedWatchEvent[T]] =
-      ZStream.accessStream(_.get.watch(resourceVersion, fieldSelector, labelSelector))
+    ): ZStream[ClusterResource[T], K8sFailure, TypedWatchEvent[T]] =
+      ZStream.environmentWithStream(_.get.watch(resourceVersion, fieldSelector, labelSelector))
 
     /** Infinite watch stream of resource change events of type
       * [[com.coralogix.zio.k8s.client.model.TypedWatchEvent]]
@@ -572,11 +576,13 @@ object ResourceClient {
       * @return
       *   A stream of watch events
       */
-    def watchForever[T: Tag](
+    def watchForever[T: EnvironmentTag](
       fieldSelector: Option[FieldSelector] = None,
       labelSelector: Option[LabelSelector] = None
-    ): ZStream[Has[ClusterResource[T]] with Clock, K8sFailure, TypedWatchEvent[T]] =
-      ZStream.accessStream(_.get.watchForever(fieldSelector, labelSelector))
+    ): ZStream[ClusterResource[T] with Clock, K8sFailure, TypedWatchEvent[T]] =
+      ZStream.environmentWithStream[ClusterResource[T]](
+        _.get.watchForever(fieldSelector, labelSelector)
+      )
 
     /** Get a resource by its name
       * @param name
@@ -584,10 +590,10 @@ object ResourceClient {
       * @return
       *   Returns the current version of the resource
       */
-    def get[T: Tag](
+    def get[T: EnvironmentTag](
       name: String
-    ): ZIO[Has[ClusterResource[T]], K8sFailure, T] =
-      ZIO.accessM(_.get.get(name))
+    ): ZIO[ClusterResource[T], K8sFailure, T] =
+      ZIO.environmentWithZIO(_.get.get(name))
 
     /** Creates a new resource
       * @param newResource
@@ -597,11 +603,11 @@ object ResourceClient {
       * @return
       *   Returns the created resource as it was returned from Kubernetes
       */
-    def create[T: Tag](
+    def create[T: EnvironmentTag](
       newResource: T,
       dryRun: Boolean = false
-    ): ZIO[Has[ClusterResource[T]], K8sFailure, T] =
-      ZIO.accessM(_.get.create(newResource, dryRun))
+    ): ZIO[ClusterResource[T], K8sFailure, T] =
+      ZIO.environmentWithZIO(_.get.create(newResource, dryRun))
 
     /** Replaces an existing resource selected by its name
       * @param name
@@ -613,12 +619,12 @@ object ResourceClient {
       * @return
       *   Returns the updated resource as it was returned from Kubernetes
       */
-    def replace[T: Tag](
+    def replace[T: EnvironmentTag](
       name: String,
       updatedResource: T,
       dryRun: Boolean = false
-    ): ZIO[Has[ClusterResource[T]], K8sFailure, T] =
-      ZIO.accessM(_.get.replace(name, updatedResource, dryRun))
+    ): ZIO[ClusterResource[T], K8sFailure, T] =
+      ZIO.environmentWithZIO(_.get.replace(name, updatedResource, dryRun))
 
     /** Replaces the status of a resource that was previously get from server.
       *
@@ -634,12 +640,12 @@ object ResourceClient {
       * @return
       *   Returns the updated resource (not just the status)
       */
-    def replaceStatus[StatusT: Tag, T: Tag](
+    def replaceStatus[StatusT: EnvironmentTag, T: EnvironmentTag](
       of: T,
       updatedStatus: StatusT,
       dryRun: Boolean = false
-    ): ZIO[Has[ClusterResourceStatus[StatusT, T]], K8sFailure, T] =
-      ZIO.accessM(_.get.replaceStatus(of, updatedStatus, dryRun))
+    ): ZIO[ClusterResourceStatus[StatusT, T], K8sFailure, T] =
+      ZIO.environmentWithZIO(_.get.replaceStatus(of, updatedStatus, dryRun))
 
     /** Get the status of a given subresource by name
       * @param name
@@ -647,10 +653,10 @@ object ResourceClient {
       * @return
       *   Returns the full resource object but with possibly the non-status fields absent.
       */
-    def getStatus[StatusT: Tag, T: Tag](
+    def getStatus[StatusT: EnvironmentTag, T: EnvironmentTag](
       name: String
-    ): ZIO[Has[ClusterResourceStatus[StatusT, T]], K8sFailure, T] =
-      ZIO.accessM(_.get.getStatus(name))
+    ): ZIO[ClusterResourceStatus[StatusT, T], K8sFailure, T] =
+      ZIO.environmentWithZIO(_.get.getStatus(name))
 
     /** Deletes an existing resource selected by its name
       * @param name
@@ -674,14 +680,16 @@ object ResourceClient {
       * @return
       *   Response from the Kubernetes API
       */
-    def delete[T: Tag, DeleteResult: Tag](
+    def delete[T: EnvironmentTag, DeleteResult: EnvironmentTag](
       name: String,
       deleteOptions: DeleteOptions,
       dryRun: Boolean = false,
       gracePeriod: Option[Duration] = None,
       propagationPolicy: Option[PropagationPolicy] = None
-    ): ZIO[Has[ClusterResourceDelete[T, DeleteResult]], K8sFailure, DeleteResult] =
-      ZIO.accessM(_.get.delete(name, deleteOptions, dryRun, gracePeriod, propagationPolicy))
+    ): ZIO[ClusterResourceDelete[T, DeleteResult], K8sFailure, DeleteResult] =
+      ZIO.environmentWithZIO(
+        _.get.delete(name, deleteOptions, dryRun, gracePeriod, propagationPolicy)
+      )
 
     /** Delete all resources matching the provided constraints
       *
@@ -709,15 +717,15 @@ object ResourceClient {
       * @return
       *   Status returned by the Kubernetes API
       */
-    def deleteAll[T: Tag](
+    def deleteAll[T: EnvironmentTag](
       deleteOptions: DeleteOptions,
       dryRun: Boolean = false,
       gracePeriod: Option[Duration] = None,
       propagationPolicy: Option[PropagationPolicy] = None,
       fieldSelector: Option[FieldSelector] = None,
       labelSelector: Option[LabelSelector] = None
-    ): ZIO[Has[ClusterResourceDeleteAll[T]], K8sFailure, Status] =
-      ZIO.accessM(
+    ): ZIO[ClusterResourceDeleteAll[T], K8sFailure, Status] =
+      ZIO.environmentWithZIO(
         _.get.deleteAll(
           deleteOptions,
           dryRun,

@@ -12,8 +12,8 @@ import com.coralogix.zio.k8s.client.model.{
 import com.coralogix.zio.k8s.model.pkg.apis.meta.v1.{ DeleteOptions, Preconditions, Status }
 import sttp.model.StatusCode
 import zio.{ IO, Schedule, ZIO }
-import zio.clock.Clock
-import zio.duration.{ durationInt, Duration }
+import zio.Clock
+import zio._
 import zio.stream.{ Stream, ZStream }
 
 /** Generic interface for working with Kubernetes resources

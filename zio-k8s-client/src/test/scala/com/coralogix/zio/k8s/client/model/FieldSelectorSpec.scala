@@ -1,10 +1,9 @@
 package com.coralogix.zio.k8s.client.model
 
 import zio.test.Assertion.equalTo
-import zio.test._
-import zio.test.environment.TestEnvironment
+import zio.test.{ ZIOSpecDefault, _ }
 
-object FieldSelectorSpec extends DefaultRunnableSpec {
+object FieldSelectorSpec extends ZIOSpecDefault {
   override def spec: ZSpec[TestEnvironment, Any] =
     suite("FieldSelector")(
       test("equals")(

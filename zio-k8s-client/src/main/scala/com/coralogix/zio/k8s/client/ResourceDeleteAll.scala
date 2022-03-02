@@ -8,7 +8,7 @@ import com.coralogix.zio.k8s.client.model.{
 }
 import com.coralogix.zio.k8s.model.pkg.apis.meta.v1.{ DeleteOptions, Status }
 import zio.IO
-import zio.duration.Duration
+import zio.Duration
 
 /** Extra capability for [[Resource]] interfaces providing deleteAll
   *

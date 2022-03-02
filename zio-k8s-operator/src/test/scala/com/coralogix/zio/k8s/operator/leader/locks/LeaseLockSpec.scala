@@ -27,20 +27,19 @@ import com.coralogix.zio.k8s.model.pkg.apis.meta.v1.{ DeleteOptions, MicroTime, 
 import com.coralogix.zio.k8s.operator.contextinfo.ContextInfo
 import com.coralogix.zio.k8s.operator.leader
 import com.coralogix.zio.k8s.operator.leader.{ lease, LeaderElection }
-import zio.ZIO.ifM
-import zio.{ clock, console, stream, Fiber, Has, IO, RIO, Ref, UIO, ULayer, ZIO, ZLayer }
-import zio.clock.Clock
-import zio.console.Console
-import zio.duration._
+import zio.{ clock, console, stream, Fiber, IO, RIO, Ref, UIO, ULayer, ZIO, ZLayer }
+import zio.Clock
+
 import zio.logging.Logging
-import zio.random.Random
 import zio.stream.ZStream
 import zio.test.Assertion.equalTo
-import zio.test.environment.{ TestClock, TestEnvironment }
+import zio.test.environment.TestEnvironment
 import zio.test._
 import zio.test.Assertion._
+import zio.{ Clock, Console, Random, _ }
+import zio.test.{ TestClock, ZIOSpecDefault }
 
-object LeaseLockSpec extends DefaultRunnableSpec {
+object LeaseLockSpec extends ZIOSpecDefault {
 
   private def leaderElection(
     name: String
@@ -64,13 +63,13 @@ object LeaseLockSpec extends DefaultRunnableSpec {
     def disableFailures: UIO[Unit]
   }
 
-  def enableFailures: RIO[Has[TestLeases], Unit] = ZIO.service[TestLeases].flatMap(_.enableFailures)
-  def disableFailures: RIO[Has[TestLeases], Unit] =
+  def enableFailures: RIO[TestLeases, Unit] = ZIO.service[TestLeases].flatMap(_.enableFailures)
+  def disableFailures: RIO[TestLeases, Unit] =
     ZIO.service[TestLeases].flatMap(_.disableFailures)
 
-  private def failingLeases: ULayer[Leases with Has[TestLeases]] =
+  private def failingLeases: ULayer[Leases with TestLeases] =
     Leases.test >>> ZLayer
-      .fromServiceManyM[Leases.Service, Any, Nothing, Leases with Has[TestLeases]] { testImpl =>
+      .fromServiceManyM[Leases.Service, Any, Nothing, Leases with TestLeases] { testImpl =>
         Ref.make(true).map { failSwitch =>
           val testLeases = new TestLeases {
             override def enableFailures: UIO[Unit] =
@@ -89,7 +88,7 @@ object LeaseLockSpec extends DefaultRunnableSpec {
                 resourceVersion: ListResourceVersion
               ): stream.Stream[K8sFailure, Lease] =
                 ZStream.unwrap {
-                  ifM(failSwitch.get)(
+                  ifZIO(failSwitch.get)(
                     ZIO.succeed(
                       ZStream.fail(
                         RequestFailure(
@@ -117,7 +116,7 @@ object LeaseLockSpec extends DefaultRunnableSpec {
                 labelSelector: Option[LabelSelector]
               ): stream.Stream[K8sFailure, TypedWatchEvent[Lease]] =
                 ZStream.unwrap {
-                  ifM(failSwitch.get)(
+                  ifZIO(failSwitch.get)(
                     ZIO.succeed(
                       ZStream.fail(
                         RequestFailure(
@@ -134,7 +133,7 @@ object LeaseLockSpec extends DefaultRunnableSpec {
 
               override def get(name: String, namespace: Option[K8sNamespace])
                 : IO[K8sFailure, Lease] =
-                ifM(failSwitch.get)(
+                ifZIO(failSwitch.get)(
                   ZIO.fail(
                     RequestFailure(
                       K8sRequestInfo(K8sResourceType("kind", "group", "version"), "get"),
@@ -149,7 +148,7 @@ object LeaseLockSpec extends DefaultRunnableSpec {
                 namespace: Option[K8sNamespace],
                 dryRun: Boolean
               ): IO[K8sFailure, Lease] =
-                ifM(failSwitch.get)(
+                ifZIO(failSwitch.get)(
                   ZIO.fail(
                     RequestFailure(
                       K8sRequestInfo(K8sResourceType("kind", "group", "version"), "create"),
@@ -165,7 +164,7 @@ object LeaseLockSpec extends DefaultRunnableSpec {
                 namespace: Option[K8sNamespace],
                 dryRun: Boolean
               ): IO[K8sFailure, Lease] =
-                ifM(failSwitch.get)(
+                ifZIO(failSwitch.get)(
                   ZIO.fail(
                     RequestFailure(
                       K8sRequestInfo(K8sResourceType("kind", "group", "version"), "replace"),
@@ -183,7 +182,7 @@ object LeaseLockSpec extends DefaultRunnableSpec {
                 gracePeriod: Option[Duration],
                 propagationPolicy: Option[PropagationPolicy]
               ): IO[K8sFailure, Status] =
-                ifM(failSwitch.get)(
+                ifZIO(failSwitch.get)(
                   ZIO.fail(
                     RequestFailure(
                       K8sRequestInfo(K8sResourceType("kind", "group", "version"), "delete"),
@@ -209,7 +208,7 @@ object LeaseLockSpec extends DefaultRunnableSpec {
                 fieldSelector: Option[FieldSelector],
                 labelSelector: Option[LabelSelector]
               ): IO[K8sFailure, Status] =
-                ifM(failSwitch.get)(
+                ifZIO(failSwitch.get)(
                   ZIO.fail(
                     RequestFailure(
                       K8sRequestInfo(K8sResourceType("kind", "group", "version"), "deleteAll"),
@@ -241,7 +240,7 @@ object LeaseLockSpec extends DefaultRunnableSpec {
 
   override def spec: ZSpec[TestEnvironment, Any] =
     suite("Lease based leader election")(
-      testM("simultaneous startup, only one leads") {
+      test("simultaneous startup, only one leads") {
         for {
           ref    <- Ref.make(0)
           winner <- Ref.make("")
@@ -264,7 +263,7 @@ object LeaseLockSpec extends DefaultRunnableSpec {
           _ <- f2.interrupt
         } yield assert(c1)(equalTo(1)) && assert(c2)(equalTo(1))
       }.provideCustomLayer(Leases.test),
-      testM("non-leader takes over if leader is interrupted") {
+      test("non-leader takes over if leader is interrupted") {
         for {
           ref    <- Ref.make(0)
           winner <- Ref.make("")
@@ -292,7 +291,7 @@ object LeaseLockSpec extends DefaultRunnableSpec {
           equalTo("pod2")
         )
       }.provideCustomLayer(Leases.test),
-      testM("leader gets interrupted if lease get stolen") {
+      test("leader gets interrupted if lease get stolen") {
         for {
           ref    <- Ref.make(0)
           winner <- Ref.make("")
@@ -307,7 +306,7 @@ object LeaseLockSpec extends DefaultRunnableSpec {
 
           // Replacing the lease
           _   <- leases.delete("test-lock", DeleteOptions(), K8sNamespace.default)
-          now <- clock.currentDateTime
+          now <- Clock.currentDateTime
           _   <- leases.create(
                    Lease(
                      ObjectMeta(name = "test-lock"),
@@ -330,7 +329,7 @@ object LeaseLockSpec extends DefaultRunnableSpec {
           assert(c2)(equalTo(0)) &&
           assert(status)(equalTo(Fiber.Status.Done))
       }.provideCustomLayer(Leases.test),
-      testM("never become leader with no K8s access") {
+      test("never become leader with no K8s access") {
         for {
           ref    <- Ref.make(0)
           winner <- Ref.make("")
@@ -346,13 +345,13 @@ object LeaseLockSpec extends DefaultRunnableSpec {
           _ <- f1.interrupt
         } yield assert(w)(isEmptyString)
       }.provideCustomLayer(failingLeases),
-      testM("with clock skew leadership can be stolen but other gets cancelled") {
+      test("with clock skew leadership can be stolen but other gets cancelled") {
         TestClock.default.build.use { otherClock =>
           for {
             ref    <- Ref.make(0)
             winner <- Ref.make("")
 
-            _ <- otherClock.get[TestClock.Service].adjust(20.seconds)
+            _ <- otherClock.get[TestClock].adjust(20.seconds)
 
             f1 <- leader
                     .runAsLeader(singleton(ref, winner, "pod1"))
@@ -369,7 +368,7 @@ object LeaseLockSpec extends DefaultRunnableSpec {
                     .provideSome[Console with Random with Leases](_ ++ otherClock)
 
             _  <- TestClock.adjust(5.seconds)
-            _  <- otherClock.get[TestClock.Service].adjust(5.seconds)
+            _  <- otherClock.get[TestClock].adjust(5.seconds)
             _  <- f1.join
             w1 <- winner.get
 
@@ -379,7 +378,7 @@ object LeaseLockSpec extends DefaultRunnableSpec {
             assert(w1)(equalTo("pod2"))
         }
       }.provideCustomLayer(Leases.test),
-      testM("becomes leader then fails to renew and gets aborted") {
+      test("becomes leader then fails to renew and gets aborted") {
         for {
           _      <- disableFailures
           ref    <- Ref.make(0)

@@ -3,9 +3,10 @@ package com.coralogix.zio.k8s.client
 import com.coralogix.zio.k8s.client.model.{ K8sNamespace, PropagationPolicy }
 import com.coralogix.zio.k8s.model.pkg.apis.meta.v1.{ DeleteOptions, Preconditions, Status }
 import sttp.model.StatusCode
-import zio.clock.Clock
+import zio.Clock
 import zio.{ IO, Schedule, ZIO }
-import zio.duration._
+
+import zio._
 
 /** Extra capability for [[Resource]] interfaces providing delete
   *
