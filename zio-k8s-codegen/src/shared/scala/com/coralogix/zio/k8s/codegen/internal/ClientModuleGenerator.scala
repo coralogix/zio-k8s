@@ -79,7 +79,7 @@ trait ClientModuleGenerator {
             val yamlPathLit = Lit.String("/" + yamlPath.toString)
 
             List(q"""
-              val customResourceDefinition: ZIO[Blocking, Throwable, com.coralogix.zio.k8s.model.pkg.apis.apiextensions.v1.CustomResourceDefinition] =
+              val customResourceDefinition: ZIO[Any, Throwable, com.coralogix.zio.k8s.model.pkg.apis.apiextensions.v1.CustomResourceDefinition] =
                 for {
                   rawYaml <- ZStream.fromInputStream(getClass.getResourceAsStream($yamlPathLit))
                     .via(ZPipeline.utf8Decode)
@@ -344,7 +344,6 @@ trait ClientModuleGenerator {
           import sttp.capabilities.WebSockets
           import sttp.capabilities.zio.ZioStreams
           import sttp.client3.SttpBackend
-          import zio.ZIO._
           import zio.stream.{ZStream, ZPipeline}
           import zio.{Task, ZIO, ZLayer, Clock, Duration, ZEnvironment }
 

@@ -43,7 +43,7 @@ object LogsExample extends ZIOAppDefault {
 //      }
 
     program
-      .provideSome(pods)
+      .provideSomeLayer[ZEnv with ZIOAppArgs](pods)
       .exitCode
   }
 

@@ -1,22 +1,15 @@
 package com.coralogix.zio.k8s.examples.leader
 
-import com.coralogix.zio.k8s.client.impl.{ ResourceClient, ResourceStatusClient }
-import com.coralogix.zio.k8s.client.model.{
-  K8sCluster,
-  K8sObject,
-  K8sObjectStatus,
-  K8sResourceType,
-  Optional,
-  ResourceMetadata
-}
-import com.coralogix.zio.k8s.client.{ NamespacedResource, _ }
-import com.coralogix.zio.k8s.model.pkg.apis.meta.v1.{ ObjectMeta, Status }
+import com.coralogix.zio.k8s.client.impl.{ResourceClient, ResourceStatusClient}
+import com.coralogix.zio.k8s.client.model._
+import com.coralogix.zio.k8s.client._
+import com.coralogix.zio.k8s.model.pkg.apis.meta.v1.{ObjectMeta, Status}
 import io.circe.Codec
 import io.circe.generic.semiauto._
 import sttp.capabilities.WebSockets
 import sttp.capabilities.zio.ZioStreams
 import sttp.client3.SttpBackend
-import zio.{ Task, ZEnvironment, ZLayer }
+import zio.{Task, ZLayer}
 
 // Example of defining a custom resource client without using zio-k8s-crd
 
@@ -68,16 +61,14 @@ package object crontabs {
     type Generic = NamespacedResource[Crontab] with NamespacedResourceStatus[CrontabStatus, Crontab]
 
     trait Service
-        extends NamespacedResource[Crontab] with NamespacedResourceStatus[CrontabStatus, Crontab] {
-      val asGeneric: Generic = (ZEnvironment[NamespacedResource[Crontab]](this) ++ ZEnvironment[
-        NamespacedResourceStatus[CrontabStatus, Crontab]
-      ](this)).get
-    }
+        extends NamespacedResource[Crontab] with NamespacedResourceStatus[CrontabStatus, Crontab]
 
     class Live(
       override val asGenericResource: ResourceClient[Crontab, Status],
       override val asGenericResourceStatus: ResourceStatusClient[CrontabStatus, Crontab]
     ) extends Service
+
+
 
     val live
       : ZLayer[K8sCluster with SttpBackend[Task, ZioStreams with WebSockets], Nothing, Crontabs] = {

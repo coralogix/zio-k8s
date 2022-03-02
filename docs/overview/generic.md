@@ -16,18 +16,18 @@ Every resource client module defines an _alternative_ type alias called `Generic
 For example the default `Pods` type is defined as the following:
 
 ```scala
-type Pods = Has[Pods.Service]
+type Pods = Pods.Service
 ```
 
 and it's generic version, `Pods.Generic` defined in the companion object of `Pods` as:
 
 ```scala
 type Generic = 
-    Has[NamespacedResource[Pod]]
-        with Has[NamespacedResourceStatus[PodStatus, Pod]]
-        with Has[NamespacedLogSubresource[Pod]] 
-        with Has[NamespacedEvictionSubresource[Pod]]
-        with Has[NamespacedBindingSubresource[Pod]]
+    NamespacedResource[Pod]
+        with NamespacedResourceStatus[PodStatus, Pod]
+        with NamespacedLogSubresource[Pod]
+        with NamespacedEvictionSubresource[Pod]
+        with NamespacedBindingSubresource[Pod]
 ```
 
 The `pods` layer can be converted to its `Generic` representation with `.asGeneric`:
@@ -38,7 +38,6 @@ import com.coralogix.zio.k8s.client.config.httpclient._
 import sttp.client3._
 import sttp.model._
 import zio._
-import zio.blocking.Blocking
 import zio.nio.file.Path
 import zio.system.System
 ```
@@ -58,12 +57,12 @@ import com.coralogix.zio.k8s.client._
 import com.coralogix.zio.k8s.client.model.K8sNamespace
 import com.coralogix.zio.k8s.client.impl.ResourceClient
 import zio._
-import zio.console.Console
+import zio.Console
 
-def getAndPrint[T : Tag](name: String, namespace: K8sNamespace): ZIO[Console with Has[NamespacedResource[T]], K8sFailure, Unit] =
+def getAndPrint[T : Tag](name: String, namespace: K8sNamespace): ZIO[Console with NamespacedResource[T], K8sFailure, Unit] =
     for {
         obj <- ResourceClient.namespaced.get(name, namespace)
-        _ <- console.putStrLn(obj.toString).ignore
+        _ <- Console.printLine(obj.toString).ignore
     } yield ()
 ```
 
@@ -81,11 +80,11 @@ For example the above example can be extended to print the object's UID instead:
 import com.coralogix.zio.k8s.client.model.K8sObject
 import com.coralogix.zio.k8s.client.model.K8sObject._
 
-def getAndPrintUid[T : Tag : K8sObject](name: String, namespace: K8sNamespace): ZIO[Console with Has[NamespacedResource[T]], K8sFailure, Unit] =
+def getAndPrintUid[T : Tag : K8sObject](name: String, namespace: K8sNamespace): ZIO[Console with NamespacedResource[T], K8sFailure, Unit] =
     for {
         obj <- ResourceClient.namespaced.get(name, namespace)
         uid <- obj.getUid
-        _ <- console.putStrLn(uid).ignore
+        _ <- Console.printLine(uid).ignore
     } yield ()
 ```
 

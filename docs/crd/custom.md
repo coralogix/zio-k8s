@@ -23,7 +23,7 @@ import io.circe.generic.semiauto._
 import sttp.capabilities.WebSockets
 import sttp.capabilities.zio.ZioStreams
 import sttp.client3.SttpBackend
-import zio.{ Has, Task, ZLayer }
+import zio.{ Task, ZLayer }
 ```
 
 We are going to use the [Crontab example](https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/) 
@@ -94,23 +94,14 @@ as a _package object_ instead) :
 
 ```scala mdoc
 object crontabs {
-  type Crontabs = Has[Crontabs.Service]
+  type Crontabs = Crontabs.Service
 
   object Crontabs {
     // Generic representation (optional) 
-    type Generic =
-      Has[NamespacedResource[Crontab]] with 
-      Has[NamespacedResourceStatus[CrontabStatus, Crontab]]
+    type Generic = NamespacedResource[Crontab] with NamespacedResourceStatus[CrontabStatus, Crontab]
 
-    trait Service 
-      extends NamespacedResource[Crontab]
-      with NamespacedResourceStatus[CrontabStatus, Crontab] {
-      
-      // Convert to generic representation (optional)
-      val asGeneric: Generic = 
-        Has[NamespacedResource[Crontab]](this) ++ 
-        Has[NamespacedResourceStatus[CrontabStatus, Crontab]](this)
-    }
+    trait Service
+      extends NamespacedResource[Crontab] with NamespacedResourceStatus[CrontabStatus, Crontab]
 
     final class Live(
       override val asGenericResource: ResourceClient[Crontab, Status],
@@ -118,8 +109,7 @@ object crontabs {
     ) extends Service
 
     val live
-      : ZLayer[Has[K8sCluster] with Has[SttpBackend[Task, ZioStreams with WebSockets]], Nothing, Crontabs] =
-      ZLayer.fromServices[SttpBackend[Task, ZioStreams with WebSockets], K8sCluster, Service] {
+      : ZLayer[K8sCluster with SttpBackend[Task, ZioStreams with WebSockets], Nothing, Crontabs] = {
         (backend: SttpBackend[Task, ZioStreams with WebSockets], cluster: K8sCluster) =>
           val client = new ResourceClient[Crontab, Status](metadata.resourceType, cluster, backend)
           val statusClient = new ResourceStatusClient[CrontabStatus, Crontab](
@@ -128,7 +118,7 @@ object crontabs {
             backend
           )
           new Live(client, statusClient)
-      }
+      }.toLayer
   }
 }
 ```

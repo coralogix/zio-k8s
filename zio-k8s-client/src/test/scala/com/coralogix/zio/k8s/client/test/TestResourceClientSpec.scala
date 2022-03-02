@@ -12,7 +12,6 @@ import zio.Chunk
 import zio.stream.ZStream
 import zio.test.Assertion._
 import zio.test._
-import zio.test.environment.TestEnvironment
 
 object TestResourceClientSpec extends DefaultRunnableSpec {
   override def spec: ZSpec[TestEnvironment, Any] = suite("TestResourceClient spec")(
