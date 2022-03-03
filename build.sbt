@@ -5,7 +5,7 @@ val scala3Version = "3.1.0"
 val zioVersion = "2.0.0-RC2"
 val zioConfigVersion = "3.0.0-RC2"
 val sttpVersion = "3.5.0"
-val zioNioVersion = "2.0.0-RC1"
+val zioNioVersion = "2.0.0-RC2"
 
 inThisBuild(
   List(
@@ -51,8 +51,8 @@ lazy val client = Project("zio-k8s-client", file("zio-k8s-client"))
       "dev.zio"                       %% "zio"                           % zioVersion,
       "dev.zio"                       %% "zio-streams"                   % zioVersion,
       "dev.zio"                       %% "zio-config"                    % zioConfigVersion,
-      "dev.zio"                       %% "zio-nio"                       % zioNioVersion,
-      "dev.zio"                       %% "zio-process"                   % "0.7.0-RC2",
+      "dev.zio"                       %% "zio-nio"                       % zioNioVersion exclude ("org.scala-lang.modules", "scala-collection-compat_2.13"),
+      "dev.zio"                       %% "zio-process"                   % "0.7.0-RC2" exclude ("org.scala-lang.modules", "scala-collection-compat_2.13"),
       "com.softwaremill.sttp.client3" %% "core"                          % sttpVersion,
       "com.softwaremill.sttp.client3" %% "zio"                           % sttpVersion,
       "com.softwaremill.sttp.client3" %% "circe"                         % sttpVersion,
