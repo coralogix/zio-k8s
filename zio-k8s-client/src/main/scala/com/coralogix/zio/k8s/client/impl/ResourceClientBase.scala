@@ -133,7 +133,7 @@ trait ResourceClientBase {
   protected def connecting(
     name: String,
     subresource: String,
-    namespace: Option[K8sNamespace],
+    namespace: Option[K8sNamespace]
   ): Uri = K8sConnectUri(
     resourceType,
     name,

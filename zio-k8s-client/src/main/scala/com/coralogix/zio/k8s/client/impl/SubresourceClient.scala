@@ -8,7 +8,13 @@ import com.coralogix.zio.k8s.client.model.{
   K8sNamespace,
   K8sResourceType
 }
-import com.coralogix.zio.k8s.client.{ K8sFailure, K8sRequestInfo, RequestFailure, Subresource }
+import com.coralogix.zio.k8s.client.{
+  HttpFailure,
+  K8sFailure,
+  K8sRequestInfo,
+  RequestFailure,
+  Subresource
+}
 import sttp.capabilities.WebSockets
 import sttp.capabilities.zio.ZioStreams
 import sttp.client3.ResponseAs.isWebSocket
@@ -16,8 +22,9 @@ import sttp.client3.circe._
 import sttp.client3._
 import sttp.ws.{ WebSocket, WebSocketFrame }
 import zio.stream.{ Stream, ZStream, ZTransducer }
-import zio.{ Chunk, IO, Promise, Queue, RIO, Task, UIO, ZIO }
+import zio.{ Chunk, IO, Promise, Queue, RIO, Schedule, Task, UIO, ZIO }
 
+import java.time.Duration
 import java.util.Base64
 import scala.util.Random
 
@@ -132,45 +139,72 @@ final class SubresourceClient[T: Encoder: Decoder](
 
     val queueSize = 1024
     for {
-      nonce     <- ZIO
-                     .effect {
-                       val arr = Array.ofDim[Byte](16)
-                       Random.nextBytes(arr)
+      nonce            <- ZIO
+                            .effect {
+                              val arr = Array.ofDim[Byte](16)
+                              Random.nextBytes(arr)
 
-                       new String(Base64.getEncoder.encode(arr))
-                     }
-                     .mapError(toK8sError)
-      stdin     <- ZIO.effect(customParameters.get("stdin").exists(_.toBoolean)).mapError(toK8sError)
-      stdout    <- ZIO.effect(customParameters.get("stdout").exists(_.toBoolean)).mapError(toK8sError)
-      stderr    <- ZIO.effect(customParameters.get("stderr").exists(_.toBoolean)).mapError(toK8sError)
-      in        <- maybeQueue(stdin, queueSize)
-      out       <- maybeQueue(stdout, queueSize)
-      err       <- maybeQueue(stderr, queueSize)
-      status    <- Promise.make[K8sFailure, Option[Chunk[Byte]]]
-      asResponse = asWebSocketStream(ZioStreams)(pipe(in, out, err, status))
-      _         <- k8sRequest
-                     .get(
-                       connecting(
-                         name,
-                         subresourceName,
-                         namespace
-                       ).addParams(customParameters).scheme("wss")
-                     )
-                     .header("X-Stream-Protocol-Version", "v4.channel.k8s.io")
-                     .header("Connection", "Upgrade")
-                     .header("Upgrade", "websocket")
-                     .header("Sec-WebSocket-Version", "13")
-                     .header("Sec-WebSocket-Key", nonce)
-                     .response(
-                       asResponse
-                     )
-                     .send(backend)
-                     .mapError(toK8sError)
-                     .fork
+                              new String(Base64.getEncoder.encode(arr))
+                            }
+                            .mapError(toK8sError)
+      stdin            <- ZIO.effect(customParameters.get("stdin").exists(_.toBoolean)).mapError(toK8sError)
+      stdout           <- ZIO.effect(customParameters.get("stdout").exists(_.toBoolean)).mapError(toK8sError)
+      stderr           <- ZIO.effect(customParameters.get("stderr").exists(_.toBoolean)).mapError(toK8sError)
+      in               <- maybeQueue(stdin, queueSize)
+      out              <- maybeQueue(stdout, queueSize)
+      err              <- maybeQueue(stderr, queueSize)
+      status           <- Promise.make[K8sFailure, Option[Chunk[Byte]]]
+      asResponse        = asWebSocketStream(ZioStreams)(pipe(in, out, err, status))
+      _                <- k8sRequest
+                            .get(
+                              connecting(
+                                name,
+                                subresourceName,
+                                namespace
+                              ).addParams(customParameters).scheme("wss")
+                            )
+                            .header("X-Stream-Protocol-Version", "v4.channel.k8s.io")
+                            .header("Connection", "Upgrade")
+                            .header("Upgrade", "websocket")
+                            .header("Sec-WebSocket-Version", "13")
+                            .header("Sec-WebSocket-Key", nonce)
+                            .response(
+                              asResponse
+                            )
+                            .send(backend)
+                            .mapError(toK8sError)
+                            .either
+                            .flatMap {
+                              case Left(failure)   =>
+                                status.fail(failure)
+                              case Right(response) =>
+                                response.body match {
+                                  case Left(error) =>
+                                    status.fail(
+                                      HttpFailure(
+                                        requestInfo = K8sRequestInfo(
+                                          resourceType,
+                                          "connect"
+                                        ),
+                                        message = error,
+                                        code = response.code
+                                      )
+                                    )
+                                  case Right(_)    => status.succeed(None)
+                                }
+                            }
+                            .fork
+      streamTermination = ZStream.fromEffect(status.await.as(Chunk.empty))
+
     } yield AttachedProcessState(
       in,
-      out.map(q => ZStream.fromQueue(q).flattenChunks),
-      err.map(q => ZStream.fromQueue(q).flattenChunks),
+      out.map(q =>
+        ZStream
+          .fromQueue(q)
+          .mergeTerminateEither(streamTermination)
+          .flattenChunks
+      ),
+      err.map(q => ZStream.fromQueue(q).mergeTerminateEither(streamTermination).flattenChunks),
       status
     )
   }
@@ -204,11 +238,14 @@ final class SubresourceClient[T: Encoder: Decoder](
           case 3 => Message.Status(Chunk.fromArray(payload.drop(1)))
           case _ => Message.Done
         }
-      case _                                                            => Message.Done
+      case _                                                            =>
+        Message.Done
     }
 
     val outMessageStream =
-      stdin.map(q => Stream.fromQueue(q.map(Message.Stdin))).getOrElse(Stream.empty)
+      stdin
+        .map(q => Stream.fromQueue(q.map(Message.Stdin)))
+        .getOrElse(Stream.empty)
 
     inMessageStream
       .mergeTerminateLeft(outMessageStream)
