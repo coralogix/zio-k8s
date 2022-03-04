@@ -1,4 +1,4 @@
-package com.coralogix.zio.k8s.examples.exec
+package com.coralogix.zio.k8s.examples.shell
 
 import com.coralogix.zio.k8s.client.K8sFailure
 import com.coralogix.zio.k8s.client.config.httpclient._
@@ -11,7 +11,7 @@ import zio.stream.ZStream
 
 import scala.languageFeature.implicitConversions
 
-object ExecExample extends App {
+object ShellExample extends App {
   override def run(args: List[String]): URIO[zio.ZEnv, ExitCode] = {
     val pods = k8sDefault >>> Pods.live
 
@@ -38,19 +38,25 @@ object ExecExample extends App {
                                 namespace = K8sNamespace.default,
                                 container = containerName,
                                 command = Some(command),
+                                stdin = Some(true),
                                 stdout = Some(true),
-                                stderr = Some(true)
+                                tty = Some(true)
                               )
-      _                  <- console.putStrLn("-" * 50).ignore
-      _                  <- attachProcessState.stdout
+      stdoutProcess       = attachProcessState.stdout
                               .getOrElse(ZStream.empty)
                               .foreachChunk { bytes =>
                                 val message = new String(bytes.toArray)
-                                console.putStr(message).ignore
+                                console.putStr(message)
                               }
-      _                  <- console.putStrLn("-" * 50).ignore
-      status             <- attachProcessState.status.await
-      _                  <- console.putStrLn(status.toString).ignore
+                              .ignore
+      stdinProcess        = ZStream
+                              .repeatEffect(
+                                console.getStrLn.map(line => Chunk.fromArray((line + "\n").getBytes))
+                              )
+                              .interruptWhen(attachProcessState.status.await.ignore)
+                              .run(attachProcessState.stdin.get)
+                              .ignore
+      _                  <- stdoutProcess <&> stdoutProcess
     } yield ())
       .mapError(error => error)
 

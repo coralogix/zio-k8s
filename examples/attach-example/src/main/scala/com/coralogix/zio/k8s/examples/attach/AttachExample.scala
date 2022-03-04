@@ -37,14 +37,16 @@ object AttachExample extends App {
                                 stdout = Some(true),
                                 stderr = Some(true)
                               )
+      _                  <- console.putStrLn("-" * 50).ignore
       _                  <- attachProcessState.stdout
                               .getOrElse(ZStream.empty)
                               .foreachChunk { bytes =>
                                 val message = new String(bytes.toArray)
                                 console.putStr(message).ignore
                               }
+      _                  <- console.putStrLn("-" * 50).ignore
       status             <- attachProcessState.status.await
-      _                  <- console.putStr(status.toString).ignore
+      _                  <- console.putStrLn(status.toString).ignore
     } yield ())
       .mapError(error => error)
 

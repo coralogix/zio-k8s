@@ -227,7 +227,8 @@ lazy val examples = project
     opticsExample,
     logsExample,
     attachExample,
-    execExample
+    execExample,
+    shellExample
   )
 
 lazy val leaderExample = Project("leader-example", file("examples/leader-example"))
@@ -276,6 +277,17 @@ val attachExample = Project("attach-example", file("examples/attach-example"))
   .dependsOn(client)
 
 val execExample = Project("exec-example", file("examples/exec-example"))
+  .settings(commonSettings)
+  .settings(
+    publish / skip := true,
+    libraryDependencies ++= Seq(
+      "com.softwaremill.sttp.client3" %% "httpclient-backend-zio1" % sttpVersion,
+      "com.softwaremill.sttp.client3" %% "slf4j-backend"           % sttpVersion
+    )
+  )
+  .dependsOn(client)
+
+val shellExample = Project("shell-example", file("examples/shell-example"))
   .settings(commonSettings)
   .settings(
     publish / skip := true,

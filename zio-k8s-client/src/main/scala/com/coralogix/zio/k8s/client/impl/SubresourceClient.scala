@@ -15,7 +15,8 @@ import sttp.capabilities.zio.ZioStreams
 import sttp.client3._
 import sttp.client3.circe._
 import sttp.ws.WebSocketFrame
-import zio.stream.{ Stream, ZStream, ZTransducer }
+import zio.stream.ZSink.Push
+import zio.stream.{ Stream, ZSink, ZStream, ZTransducer }
 import zio.{ Chunk, IO, Promise, Queue, Task, UIO, ZIO }
 
 import java.util.Base64
@@ -136,6 +137,7 @@ final class SubresourceClient[T: Encoder: Decoder](
       stderr    <- ZIO.effect(customParameters.get("stderr").exists(_.toBoolean)).mapError(toK8sError)
       status    <- Promise.make[K8sFailure, Option[Status]]
       in        <- maybeQueue(stdin, queueSize)
+      _         <- in.fold(ZIO.unit)(q => status.await.ignore *> q.shutdown).fork
       out       <- maybeQueue(stdout, queueSize)
       err       <- maybeQueue(stderr, queueSize)
       asResponse =
@@ -167,19 +169,18 @@ final class SubresourceClient[T: Encoder: Decoder](
           case Right(_)      =>
             status.succeed(None)
         }.fork
-      endStream  = ZStream.fromEffect(status.await.ignore.as(Chunk.empty))
     } yield AttachedProcessState(
-      in,
+      in.map(ZSink.fromQueueWithShutdown),
       out.map(q =>
         ZStream
           .fromQueueWithShutdown(q)
-          .mergeTerminateRight(endStream)
+          .interruptWhen(status.await.ignore)
           .flattenChunks
       ),
       err.map(q =>
         ZStream
           .fromQueueWithShutdown(q)
-          .mergeTerminateRight(endStream)
+          .interruptWhen(status.await.ignore)
           .flattenChunks
       ),
       status
@@ -226,7 +227,7 @@ final class SubresourceClient[T: Encoder: Decoder](
         case Message.Stdin(bytes)  =>
           ZIO.some(
             WebSocketFrame
-              .Binary((Chunk(0.toByte) ++ bytes).toArray, finalFragment = false, rsv = None)
+              .Binary((Chunk(0.toByte) ++ bytes).toArray, finalFragment = true, rsv = None)
           )
         case Message.Stdout(bytes) =>
           stdout match {
