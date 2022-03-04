@@ -8,23 +8,16 @@ import com.coralogix.zio.k8s.client.model.{
   K8sNamespace,
   K8sResourceType
 }
-import com.coralogix.zio.k8s.client.{
-  HttpFailure,
-  K8sFailure,
-  K8sRequestInfo,
-  RequestFailure,
-  Subresource
-}
+import com.coralogix.zio.k8s.client.{ K8sFailure, K8sRequestInfo, RequestFailure, Subresource }
+import com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Status
 import sttp.capabilities.WebSockets
 import sttp.capabilities.zio.ZioStreams
-import sttp.client3.ResponseAs.isWebSocket
-import sttp.client3.circe._
 import sttp.client3._
-import sttp.ws.{ WebSocket, WebSocketFrame }
+import sttp.client3.circe._
+import sttp.ws.WebSocketFrame
 import zio.stream.{ Stream, ZStream, ZTransducer }
-import zio.{ Chunk, IO, Promise, Queue, RIO, Schedule, Task, UIO, ZIO }
+import zio.{ Chunk, IO, Promise, Queue, Task, UIO, ZIO }
 
-import java.time.Duration
 import java.util.Base64
 import scala.util.Random
 
@@ -128,83 +121,67 @@ final class SubresourceClient[T: Encoder: Decoder](
     namespace: Option[K8sNamespace],
     customParameters: Map[String, String] = Map.empty
   ): IO[K8sFailure, AttachedProcessState] = {
-    def toK8sError(throwable: Throwable) =
-      RequestFailure(
-        requestInfo = K8sRequestInfo(
-          resourceType,
-          "connect"
-        ),
-        reason = throwable
-      )
 
     val queueSize = 1024
     for {
-      nonce            <- ZIO
-                            .effect {
-                              val arr = Array.ofDim[Byte](16)
-                              Random.nextBytes(arr)
-
-                              new String(Base64.getEncoder.encode(arr))
-                            }
-                            .mapError(toK8sError)
-      stdin            <- ZIO.effect(customParameters.get("stdin").exists(_.toBoolean)).mapError(toK8sError)
-      stdout           <- ZIO.effect(customParameters.get("stdout").exists(_.toBoolean)).mapError(toK8sError)
-      stderr           <- ZIO.effect(customParameters.get("stderr").exists(_.toBoolean)).mapError(toK8sError)
-      in               <- maybeQueue(stdin, queueSize)
-      out              <- maybeQueue(stdout, queueSize)
-      err              <- maybeQueue(stderr, queueSize)
-      status           <- Promise.make[K8sFailure, Option[Chunk[Byte]]]
-      asResponse        = asWebSocketStream(ZioStreams)(pipe(in, out, err, status))
-      _                <- k8sRequest
-                            .get(
-                              connecting(
-                                name,
-                                subresourceName,
-                                namespace
-                              ).addParams(customParameters).scheme("wss")
-                            )
-                            .header("X-Stream-Protocol-Version", "v4.channel.k8s.io")
-                            .header("Connection", "Upgrade")
-                            .header("Upgrade", "websocket")
-                            .header("Sec-WebSocket-Version", "13")
-                            .header("Sec-WebSocket-Key", nonce)
-                            .response(
-                              asResponse
-                            )
-                            .send(backend)
-                            .mapError(toK8sError)
-                            .either
-                            .flatMap {
-                              case Left(failure)   =>
-                                status.fail(failure)
-                              case Right(response) =>
-                                response.body match {
-                                  case Left(error) =>
-                                    status.fail(
-                                      HttpFailure(
-                                        requestInfo = K8sRequestInfo(
-                                          resourceType,
-                                          "connect"
-                                        ),
-                                        message = error,
-                                        code = response.code
-                                      )
-                                    )
-                                  case Right(_)    => status.succeed(None)
-                                }
-                            }
-                            .fork
-      streamTermination = ZStream.fromEffect(status.await.as(Chunk.empty))
-
+      nonce     <- ZIO
+                     .effect {
+                       val arr = Array.ofDim[Byte](16)
+                       Random.nextBytes(arr)
+                       new String(Base64.getEncoder.encode(arr))
+                     }
+                     .mapError(toK8sError)
+      stdin     <- ZIO.effect(customParameters.get("stdin").exists(_.toBoolean)).mapError(toK8sError)
+      stdout    <- ZIO.effect(customParameters.get("stdout").exists(_.toBoolean)).mapError(toK8sError)
+      stderr    <- ZIO.effect(customParameters.get("stderr").exists(_.toBoolean)).mapError(toK8sError)
+      status    <- Promise.make[K8sFailure, Option[Status]]
+      in        <- maybeQueue(stdin, queueSize)
+      out       <- maybeQueue(stdout, queueSize)
+      err       <- maybeQueue(stderr, queueSize)
+      asResponse =
+        asWebSocketStream(ZioStreams)(pipe(in, out, err, status)).mapWithMetadata {
+          case (body, meta) =>
+            body.left.map(error =>
+              HttpError(error, meta.code)
+                .asInstanceOf[ResponseException[String, NonEmptyList[Error]]]
+            )
+        }
+      _         <-
+        handleFailures("connect")(
+          k8sRequest
+            .get(
+              connecting(
+                name,
+                subresourceName,
+                namespace
+              ).addParams(customParameters).scheme("wss")
+            )
+            .header("Sec-WebSocket-Version", "13")
+            .header("Sec-WebSocket-Key", nonce)
+            .header("Sec-WebSocket-Protocol", "v4.channel.k8s.io")
+            .response(asResponse)
+            .send(backend)
+        ).either.flatMap {
+          case Left(failure) =>
+            status.fail(failure)
+          case Right(_)      =>
+            status.succeed(None)
+        }.fork
+      endStream  = ZStream.fromEffect(status.await.ignore.as(Chunk.empty))
     } yield AttachedProcessState(
       in,
       out.map(q =>
         ZStream
-          .fromQueue(q)
-          .mergeTerminateEither(streamTermination)
+          .fromQueueWithShutdown(q)
+          .mergeTerminateRight(endStream)
           .flattenChunks
       ),
-      err.map(q => ZStream.fromQueue(q).mergeTerminateEither(streamTermination).flattenChunks),
+      err.map(q =>
+        ZStream
+          .fromQueueWithShutdown(q)
+          .mergeTerminateRight(endStream)
+          .flattenChunks
+      ),
       status
     )
   }
@@ -213,7 +190,7 @@ final class SubresourceClient[T: Encoder: Decoder](
     stdin: Option[Queue[Chunk[Byte]]],
     stdout: Option[Queue[Chunk[Byte]]],
     stderr: Option[Queue[Chunk[Byte]]],
-    status: Promise[K8sFailure, Option[Chunk[Byte]]]
+    status: Promise[K8sFailure, Option[Status]]
   )(
     stream: Stream[Throwable, WebSocketFrame.Data[_]]
   ): Stream[Throwable, WebSocketFrame] = {
@@ -225,10 +202,6 @@ final class SubresourceClient[T: Encoder: Decoder](
       final case class Stdin(message: Chunk[Byte]) extends Message
       final case object Done extends Message
     }
-
-    val shutdownQueues = ZIO.foreach_(List(stdin, stdout, stderr).collect { case Some(value) =>
-      value
-    })(_.shutdown)
 
     val inMessageStream = stream.map {
       case WebSocketFrame.Binary(payload, _, _) if (payload.length > 0) =>
@@ -268,21 +241,34 @@ final class SubresourceClient[T: Encoder: Decoder](
 
         case Message.Status(bytes) =>
           for {
-            _ <- status.succeed(Some(bytes)).as(None)
-            _ <- shutdownQueues
+            _ <-
+              parser
+                .decode[Status](new String(bytes.toArray))
+                .fold(error => status.fail(toK8sError(error)), value => status.succeed(Some(value)))
           } yield None
         case Message.Done          =>
           for {
             _ <- status.succeed(None)
-            _ <- shutdownQueues
           } yield None
       }
       .collectSome
   }
 
   private def maybeQueue(create: Boolean, capacity: Int) =
-    if (create)
-      Queue.bounded[Chunk[Byte]](capacity).map(Some(_))
-    else
+    if (create) {
+      for {
+        queue <- Queue.bounded[Chunk[Byte]](capacity)
+      } yield Some(queue)
+    } else
       ZIO.none
+
+  private def toK8sError(throwable: Throwable) =
+    RequestFailure(
+      requestInfo = K8sRequestInfo(
+        resourceType,
+        "connect"
+      ),
+      reason = throwable
+    )
+
 }

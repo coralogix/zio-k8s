@@ -237,6 +237,7 @@ trait ClientModuleGenerator {
                 val getTerm = Term.Name(s"get$capName")
                 val putTerm = Term.Name(s"replace$capName")
                 val postTerm = Term.Name(s"create$capName")
+                val connectTerm = Term.Name(s"connect$capName")
 
                 val modelT: Type.Ref = getSubresourceModelType(modelPackageName, subresource)
 
@@ -289,6 +290,18 @@ trait ClientModuleGenerator {
                             ZIO.accessM(_.get.$postTerm(name, value, namespace, dryRun))
                         """
                     )
+                  case "connect"                            =>
+                    val paramDefs =
+                      param"name: String" :: param"namespace: K8sNamespace" :: subresource.toMethodParameters
+                    val params = q"name" :: q"namespace" :: subresource.toParameterAccess
+                    List(
+                      q"""
+                        def $connectTerm(
+                          ..$paramDefs
+                        ): ZIO[$typeAliasT, K8sFailure, AttachedProcessState] =
+                          ZIO.accessM(_.get.$connectTerm(..$params))
+                        """
+                    )
                   case _                                    => List.empty
                 }
               }
@@ -339,7 +352,8 @@ trait ClientModuleGenerator {
             ListResourceVersion,
             PropagationPolicy,
             ResourceMetadata,
-            TypedWatchEvent
+            TypedWatchEvent,
+            AttachedProcessState
           }
           import sttp.capabilities.WebSockets
           import sttp.capabilities.zio.ZioStreams
