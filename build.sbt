@@ -51,8 +51,8 @@ lazy val client = Project("zio-k8s-client", file("zio-k8s-client"))
       "dev.zio"                       %% "zio"                           % zioVersion,
       "dev.zio"                       %% "zio-streams"                   % zioVersion,
       "dev.zio"                       %% "zio-config"                    % zioConfigVersion,
-      "dev.zio"                       %% "zio-nio"                       % zioNioVersion exclude ("org.scala-lang.modules", "scala-collection-compat_2.13"),
-      "dev.zio"                       %% "zio-process"                   % "0.7.0-RC2" exclude ("org.scala-lang.modules", "scala-collection-compat_2.13"),
+      "dev.zio"                       %% "zio-nio"                       % zioNioVersion,
+      "dev.zio"                       %% "zio-process"                   % "0.7.0-RC2",
       "com.softwaremill.sttp.client3" %% "core"                          % sttpVersion,
       "com.softwaremill.sttp.client3" %% "zio"                           % sttpVersion,
       "com.softwaremill.sttp.client3" %% "circe"                         % sttpVersion,
@@ -68,6 +68,14 @@ lazy val client = Project("zio-k8s-client", file("zio-k8s-client"))
       "com.softwaremill.sttp.client3" %% "async-http-client-backend-zio" % sttpVersion      % Optional,
       "com.softwaremill.sttp.client3" %% "httpclient-backend-zio"        % sttpVersion      % Optional
     ),
+    excludeDependencies ++=
+      (CrossVersion.partialVersion(scalaVersion.value) match {
+        case Some((3, _)) =>
+          Seq(
+            ExclusionRule("org.scala-lang.modules", "scala-collection-compat_2.13")
+          )
+        case _ => Seq.empty[ExclusionRule]
+      }),
     testFrameworks += new TestFramework("zio.test.sbt.ZTestFramework"),
     Compile / packageSrc / mappings ++= {
       val base = (Compile / sourceManaged).value
