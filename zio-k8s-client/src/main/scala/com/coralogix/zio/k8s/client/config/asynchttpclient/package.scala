@@ -6,7 +6,7 @@ import org.asynchttpclient.Dsl
 import sttp.client3.asynchttpclient.zio._
 import sttp.client3.httpclient.zio.SttpClient
 import sttp.client3.logging.slf4j.Slf4jLoggingBackend
-import zio.{ System, ZLayer, ZManaged }
+import zio._
 
 /** HTTP client implementation based on the async-http-client-zio backend
   */

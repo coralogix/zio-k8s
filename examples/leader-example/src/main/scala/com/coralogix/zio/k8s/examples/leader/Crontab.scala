@@ -9,7 +9,7 @@ import io.circe.generic.semiauto._
 import sttp.capabilities.WebSockets
 import sttp.capabilities.zio.ZioStreams
 import sttp.client3.SttpBackend
-import zio.{ Task, ZLayer }
+import zio._
 
 // Example of defining a custom resource client without using zio-k8s-crd
 

@@ -27,7 +27,15 @@ val commonSettings = Seq(
   organization       := "com.coralogix",
   scalaVersion       := scala212Version,
   crossScalaVersions := List(scala212Version, scala213Version, scala3Version),
-  autoAPIMappings    := true
+  autoAPIMappings    := true,
+  excludeDependencies ++=
+    (CrossVersion.partialVersion(scalaVersion.value) match {
+      case Some((3, _)) =>
+        Seq(
+          ExclusionRule("org.scala-lang.modules", "scala-collection-compat_2.13")
+        )
+      case _            => Seq.empty[ExclusionRule]
+    })
 )
 
 lazy val root = Project("zio-k8s", file("."))
@@ -68,14 +76,6 @@ lazy val client = Project("zio-k8s-client", file("zio-k8s-client"))
       "com.softwaremill.sttp.client3" %% "async-http-client-backend-zio" % sttpVersion      % Optional,
       "com.softwaremill.sttp.client3" %% "httpclient-backend-zio"        % sttpVersion      % Optional
     ),
-    excludeDependencies ++=
-      (CrossVersion.partialVersion(scalaVersion.value) match {
-        case Some((3, _)) =>
-          Seq(
-            ExclusionRule("org.scala-lang.modules", "scala-collection-compat_2.13")
-          )
-        case _ => Seq.empty[ExclusionRule]
-      }),
     testFrameworks += new TestFramework("zio.test.sbt.ZTestFramework"),
     Compile / packageSrc / mappings ++= {
       val base = (Compile / sourceManaged).value

@@ -16,7 +16,7 @@ import sttp.capabilities.WebSockets
 import sttp.capabilities.zio.ZioStreams
 import sttp.client3.SttpBackend
 import zio.stream.{ ZPipeline, ZStream }
-import zio.{ Task, ZEnvironment, ZIO, ZLayer }
+import zio._
 
 case class LeaderLockResource(metadata: Optional[ObjectMeta])
 
