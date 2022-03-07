@@ -2,7 +2,12 @@ package com.coralogix.zio.k8s.operator.leader.locks
 
 import com.coralogix.zio.k8s.client.impl.ResourceClient
 import com.coralogix.zio.k8s.client.model._
-import com.coralogix.zio.k8s.client.{ model, NamespacedResource, ResourceDelete }
+import com.coralogix.zio.k8s.client.{
+  model,
+  NamespacedResource,
+  NamespacedResourceDelete,
+  ResourceDelete
+}
 import com.coralogix.zio.k8s.model.pkg.apis.apiextensions.v1.CustomResourceDefinition
 import com.coralogix.zio.k8s.model.pkg.apis.meta.v1.{ ObjectMeta, Status }
 import io.circe._
@@ -10,9 +15,8 @@ import io.circe.syntax._
 import sttp.capabilities.WebSockets
 import sttp.capabilities.zio.ZioStreams
 import sttp.client3.SttpBackend
-import zio.{ Task, ZEnv, ZEnvironment, ZIO, ZLayer }
-import zio.stream.{ ZPipeline, ZStream, ZTransducer }
-import zio.Duration
+import zio.stream.{ ZPipeline, ZStream }
+import zio._
 
 case class LeaderLockResource(metadata: Optional[ObjectMeta])
 
@@ -67,10 +71,9 @@ package object leaderlockresources {
   object LeaderLockResources {
     type Generic = NamespacedResource[LeaderLockResource]
 
-    trait Service extends NamespacedResource[LeaderLockResource] {
-      val asGeneric: Generic = ZEnvironment[LeaderLockResource](this)
-      val asGenericResourceDelete: ResourceDelete[LeaderLockResource, Status]
-    }
+    trait Service
+        extends NamespacedResource[LeaderLockResource]
+        with NamespacedResourceDelete[LeaderLockResource, Status]
 
     class Live(
       override val asGenericResource: ResourceClient[LeaderLockResource, Status]

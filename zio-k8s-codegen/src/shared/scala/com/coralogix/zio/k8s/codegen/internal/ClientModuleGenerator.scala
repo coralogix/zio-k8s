@@ -3,7 +3,6 @@ package com.coralogix.zio.k8s.codegen.internal
 import io.swagger.v3.oas.models.media.ObjectSchema
 import org.scalafmt.interfaces.Scalafmt
 import sbt.util.Logger
-
 import zio.{ Task, ZIO }
 import com.coralogix.zio.k8s.codegen.internal.Conversions.{ groupNameToPackageName, splitName }
 import com.coralogix.zio.k8s.codegen.internal.CodegenIO._
@@ -79,7 +78,7 @@ trait ClientModuleGenerator {
             val yamlPathLit = Lit.String("/" + yamlPath.toString)
 
             List(q"""
-              val customResourceDefinition: ZIO[Blocking, Throwable, com.coralogix.zio.k8s.model.pkg.apis.apiextensions.v1.CustomResourceDefinition] =
+              val customResourceDefinition: ZIO[Any, Throwable, com.coralogix.zio.k8s.model.pkg.apis.apiextensions.v1.CustomResourceDefinition] =
                 for {
                   rawYaml <- ZStream.fromInputStream(getClass.getResourceAsStream($yamlPathLit))
                     .via(ZPipeline.utf8Decode)
@@ -317,7 +316,7 @@ trait ClientModuleGenerator {
           val mainInterfaceI = Init(mainInterface, Name.Anonymous(), List.empty)
           val extraInterfaceIs = extraInterfaces.map(t => Init(t, Name.Anonymous(), List.empty))
 
-          val interfacesWrappedInHas =
+          val interfacesWrappedInEnv =
             extraInterfaces.foldLeft[Term](q"ZEnvironment[$mainInterface](this)") { case (l, t) =>
               q"$l ++ ZEnvironment[$t](this)"
             }
@@ -344,20 +343,19 @@ trait ClientModuleGenerator {
           import sttp.capabilities.WebSockets
           import sttp.capabilities.zio.ZioStreams
           import sttp.client3.SttpBackend
-          import zio.ZIO._
           import zio.stream.{ZStream, ZPipeline}
-          import zio.{Task, ZIO, ZLayer, Clock, Duration, ZEnvironment }
+          import zio._
 
           package object $moduleName {
             $typeAlias
 
             object $typeAliasTerm {
-              //typeAliasGeneric
+              $typeAliasGeneric
 
               trait Service
                 extends $mainInterfaceI with ..$extraInterfaceIs {
 
-                // val asGeneric: typeAliasGenericT = (interfacesWrappedInHas).get
+                val asGeneric: ZEnvironment[$typeAliasGenericT] = ($interfacesWrappedInEnv)
               }
 
               final class Live(..$clientList) extends Service {
@@ -562,7 +560,7 @@ trait ClientModuleGenerator {
           val mainInterfaceI = Init(mainInterface, Name.Anonymous(), List.empty)
           val extraInterfaceIs = extraInterfaces.map(t => Init(t, Name.Anonymous(), List.empty))
 
-          val interfacesWrappedInHas =
+          val interfacesWrappedInEnv =
             extraInterfaces.foldLeft[Term](q"ZEnvironment[$mainInterface](this)") { case (l, t) =>
               q"$l ++ ZEnvironment[$t](this)"
             }
@@ -590,18 +588,18 @@ trait ClientModuleGenerator {
           import sttp.capabilities.zio.ZioStreams
           import sttp.client3.SttpBackend
           import zio.stream.{ZStream, ZPipeline}
-          import zio.{ Task, ZIO, ZLayer, ZEnvironment, Clock, Duration }
+          import zio._
 
           package object $moduleName {
             $typeAlias
 
             object $typeAliasTerm {
-              // typeAliasGeneric
+              $typeAliasGeneric
 
               trait Service
                 extends $mainInterfaceI with ..$extraInterfaceIs {
 
-                 //val asGeneric: typeAliasGenericT = (interfacesWrappedInHas).get
+                val asGeneric: ZEnvironment[$typeAliasGenericT] = ($interfacesWrappedInEnv)
               }
 
               final class Live(..$clientList) extends Service {

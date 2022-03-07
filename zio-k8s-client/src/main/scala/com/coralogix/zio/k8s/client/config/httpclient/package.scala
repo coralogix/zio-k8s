@@ -3,7 +3,7 @@ package com.coralogix.zio.k8s.client.config
 import com.coralogix.zio.k8s.client.model.K8sCluster
 import sttp.client3.httpclient.zio._
 import sttp.client3.logging.slf4j.Slf4jLoggingBackend
-import zio.{ System, ZIO, ZLayer, ZManaged }
+import zio._
 
 import java.net.http.HttpClient
 

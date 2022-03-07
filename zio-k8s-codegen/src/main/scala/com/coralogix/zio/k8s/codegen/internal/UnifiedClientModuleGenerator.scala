@@ -78,7 +78,7 @@ trait UnifiedClientModuleGenerator {
         import sttp.capabilities.WebSockets
         import sttp.capabilities.zio.ZioStreams
         import sttp.client3.SttpBackend
-        import zio.{ Runtime, Task, ZIO, ZLayer }
+        import zio._
 
         package object kubernetes {
 

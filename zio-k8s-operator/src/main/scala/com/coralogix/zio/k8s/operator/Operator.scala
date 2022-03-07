@@ -32,7 +32,7 @@ trait Operator[R, E, T] { self =>
 
   /** Starts the operator on a forked fiber
     */
-  def start(): URIO[R with Clock with Logging, Fiber.Runtime[Nothing, Unit]] =
+  def start(): URIO[R with Clock, Fiber.Runtime[Nothing, Unit]] =
     watchStream()
       .buffer(bufferSize)
       .mapError(KubernetesFailure.apply)
@@ -40,19 +40,15 @@ trait Operator[R, E, T] { self =>
       .runDrain
       .foldCauseZIO(
         cause =>
-          if (cause.failureOption.contains(KubernetesFailure(NotFound))) {
-            logSpan(OperatorLogging(context)) {
-              logInfo("Watched resource is not available yet")
-            }
+          OperatorLogging(context)(if (cause.failureOption.contains(KubernetesFailure(NotFound))) {
+            logInfo("Watched resource is not available yet")
           } else {
-            locally(OperatorLogging(context)) {
-              logFailure(s"Watch stream failed", cause)
-            }
-          },
+            logFailure(s"Watch stream failed", cause)
+          }),
         _ =>
-          locally(OperatorLogging(context)) {
-            logError(s"Watch stream terminated")
-          } *> ZIO.dieMessage("Watch stream should never terminate")
+          OperatorLogging(context)(logError(s"Watch stream terminated")) *> ZIO.dieMessage(
+            "Watch stream should never terminate"
+          )
       )
       .repeat(
         (Schedule.exponential(base = 1.second, factor = 2.0) ||
@@ -66,27 +62,17 @@ trait Operator[R, E, T] { self =>
     f: ZIO[R, OperatorFailure[E], Unit] => ZIO[R1, OperatorFailure[E1], Unit]
   ): Operator[R1, E1, T]
 
-  /** Provide the required environment for the operator
-    */
-  final def provide(r: R)(implicit ev: NeedsEnv[R]): Operator[Any, E, T] =
-    provideSome(_ => r)
-
-  /** Provide a part of the required environment for the operator
-    */
-  final def provideSome[R0](f: R0 => R)(implicit ev: NeedsEnv[R]): Operator[R0, E, T] =
-    mapEventProcessor(_.provideSome[R0](f))
-
   /** Provide the required environment for the operator with a layer
     */
   final def provideLayer[E1 >: E, R0, R1](
-    layer: ZLayer[R0, OperatorFailure[E1], R]
-  )(implicit ev1: R1 <:< R, ev2: NeedsEnv[R]): Operator[R0, E1, T] =
+    layer: => ZLayer[R0, OperatorFailure[E1], R]
+  ): Operator[R0, E1, T] =
     mapEventProcessor(_.provideLayer(layer))
 
   /** Provide the required environment for the operator with a layer on top of the standard ones
     */
   final def provideCustomLayer[E1 >: E, R1 <: ZEnvironment[_]](
-    layer: ZLayer[ZEnv, OperatorFailure[E1], R1]
+    layer: => ZLayer[ZEnv, OperatorFailure[E1], R1]
   )(implicit ev: ZEnv with R1 <:< R, tagged: EnvironmentTag[R1]): Operator[ZEnv, E1, T] =
     mapEventProcessor(_.provideCustomLayer(layer))
 
@@ -254,17 +240,18 @@ object Operator {
       }
   }
 
-  final class ProvideSomeLayer[R0 <: ZEnvironment[_], R, E, T](private val self: Operator[R, E, T])
-      extends AnyVal {
-    def apply[E1 >: E, R1 <: ZEnvironment[_]](
-      layer: ZLayer[R0, OperatorFailure[E1], R1]
+  final class ProvideSomeLayer[R0, R, E, T](private val self: Operator[R, E, T]) extends AnyVal {
+    def apply[E1 >: E, R1](
+      layer: => ZLayer[R0, OperatorFailure[E1], R1]
     )(implicit
       ev1: R0 with R1 <:< R,
-      ev2: NeedsEnv[R],
-      tagged: EnvironmentTag[R1]
+      tagged: EnvironmentTag[R1],
+      trace: ZTraceElement
     ): Operator[R0, E1, T] =
-      self.mapEventProcessor(
-        _.provideLayer[OperatorFailure[E1], R0, R0 with R1](ZLayer.environment[R0] ++ layer)
-      )
+      self
+        .asInstanceOf[Operator[R0 with R1, E, T]]
+        .mapEventProcessor(
+          _.provideLayer(ZLayer.environment[R0] ++ layer)
+        )
   }
 }

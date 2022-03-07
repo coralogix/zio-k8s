@@ -4,8 +4,8 @@ val scala3Version = "3.1.0"
 
 val zioVersion = "2.0.0-RC2"
 val zioConfigVersion = "3.0.0-RC2"
-val sttpVersion = "3.4.1"
-val zioNioVersion = "2.0.0-RC1"
+val sttpVersion = "3.5.0"
+val zioNioVersion = "2.0.0-RC2"
 
 inThisBuild(
   List(
@@ -27,7 +27,15 @@ val commonSettings = Seq(
   organization       := "com.coralogix",
   scalaVersion       := scala212Version,
   crossScalaVersions := List(scala212Version, scala213Version, scala3Version),
-  autoAPIMappings    := true
+  autoAPIMappings    := true,
+  excludeDependencies ++=
+    (CrossVersion.partialVersion(scalaVersion.value) match {
+      case Some((3, _)) =>
+        Seq(
+          ExclusionRule("org.scala-lang.modules", "scala-collection-compat_2.13")
+        )
+      case _            => Seq.empty[ExclusionRule]
+    })
 )
 
 lazy val root = Project("zio-k8s", file("."))
@@ -51,7 +59,6 @@ lazy val client = Project("zio-k8s-client", file("zio-k8s-client"))
       "dev.zio"                       %% "zio"                           % zioVersion,
       "dev.zio"                       %% "zio-streams"                   % zioVersion,
       "dev.zio"                       %% "zio-config"                    % zioConfigVersion,
-      "dev.zio"                       %% "zio-logging"                   % "2.0.0-RC5",
       "dev.zio"                       %% "zio-nio"                       % zioNioVersion,
       "dev.zio"                       %% "zio-process"                   % "0.7.0-RC2",
       "com.softwaremill.sttp.client3" %% "core"                          % sttpVersion,

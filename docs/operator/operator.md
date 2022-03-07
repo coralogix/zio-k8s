@@ -23,7 +23,7 @@ import com.coralogix.zio.k8s.operator._
 import com.coralogix.zio.k8s.operator.Operator._
 
 import zio._
-import zio.clock.Clock
+import zio.Clock
 
 sealed trait CustomOperatorFailures
 
@@ -53,7 +53,6 @@ The event processor logic can be modified by various _aspects_ such as logging a
 
 ```scala mdoc
 import com.coralogix.zio.k8s.operator.aspects._
-import zio.logging.Logging
 
 val operator2 = 
     Operator.namespaced(
@@ -95,7 +94,7 @@ object OperatorMetrics {
 we can define a `metered` aspect:
 
 ```scala mdoc
-import zio.clock.Clock
+import zio.Clock
 
 def metered[T, E](operatorMetrics: OperatorMetrics): Aspect[Clock, E, T] =
     new Aspect[Clock, E, T] {
