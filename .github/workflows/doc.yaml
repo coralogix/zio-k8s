@@ -1,14 +1,13 @@
 name: Website
 
 on:
-  release:
-    types:
-      - published
+  push:
+    tags:
+      - 'v1.*'
 
 jobs:
   publish:
     runs-on: ubuntu-20.04
-    if: github.event_name != 'pull_request'
     steps:
       - uses: actions/checkout@v2
         with:

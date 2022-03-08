@@ -1,10 +1,9 @@
 name: Release
 on:
   push:
-    branches: ['zio2']
-  release:
-    types:
-      - published
+    branches: ['master']
+    tags:
+      - 'v2.*'
 jobs:
   publish:
     runs-on: ubuntu-20.04
