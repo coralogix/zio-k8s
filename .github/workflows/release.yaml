@@ -2,9 +2,8 @@ name: Release
 on:
   push:
     branches: ['master']
-  release:
-    types:
-      - published
+    tags:
+      - 'v2.*'
 jobs:
   publish:
     runs-on: ubuntu-20.04
