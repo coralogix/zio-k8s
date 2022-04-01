@@ -1,6 +1,6 @@
 package com.coralogix.zio.k8s.client
 
-import com.coralogix.zio.k8s.client.model.K8sNamespace
+import com.coralogix.zio.k8s.client.model.{ AttachedProcessState, K8sNamespace }
 import zio.IO
 import zio.stream.{ ZStream, ZTransducer }
 
@@ -86,4 +86,11 @@ trait Subresource[T] {
     namespace: Option[K8sNamespace],
     dryRun: Boolean
   ): IO[K8sFailure, T]
+
+  def connect(
+    name: String,
+    namespace: Option[K8sNamespace],
+    customParameters: Map[String, String] = Map.empty
+  ): IO[K8sFailure, AttachedProcessState]
+
 }

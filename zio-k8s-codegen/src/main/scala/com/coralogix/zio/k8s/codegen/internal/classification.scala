@@ -109,7 +109,7 @@ case class Subresource(
 
   def id: SubresourceId = {
     val customParameters: Map[String, Type] =
-      actions.find(_.action == "get") match {
+      actions.find(a => List("get", "connect").contains(a.action)) match {
         case Some(getAction) =>
           getAction.allParameters
             .filter { case (_, param) => param.getIn == "query" }

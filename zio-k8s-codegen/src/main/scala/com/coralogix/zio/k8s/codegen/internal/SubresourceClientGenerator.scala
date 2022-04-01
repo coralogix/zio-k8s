@@ -58,6 +58,7 @@ trait SubresourceClientGenerator {
     val getTerm = Term.Name(s"get$capName")
     val putTerm = Term.Name(s"replace$capName")
     val postTerm = Term.Name(s"create$capName")
+    val connectTerm = Term.Name(s"connect$capName")
     val asGenericTerm = Term.Name(s"asGeneric${capName}Subresource")
 
     val nameLit = Lit.String(subresource.name)
@@ -91,6 +92,14 @@ trait SubresourceClientGenerator {
                          value: $modelT,
                          dryRun: Boolean = false): IO[K8sFailure, $modelT] =
              $asGenericTerm.create(name, value, None, dryRun)
+         """)
+      case "connect"                            =>
+        val params = param"name: String" :: subresource.toMethodParameters
+        val customParamsMap = subresource.toMapFromParameters
+        List(q"""
+
+           def $connectTerm(..$params): IO[K8sFailure, AttachedProcessState] =
+             $asGenericTerm.connect(name, None, $customParamsMap)
          """)
       case _                                    => List.empty
     }
@@ -129,6 +138,14 @@ trait SubresourceClientGenerator {
                          dryRun: Boolean = false): IO[K8sFailure, $modelT] =
              $asGenericTerm.create(name, value, Some(namespace), dryRun)
          """)
+      case "connect"                            =>
+        val params = param"name: String" :: param"namespace: K8sNamespace" :: subresource.toMethodParameters
+        val customParamsMap = subresource.toMapFromParameters
+        List(q"""
+
+           def $connectTerm(..$params): IO[K8sFailure, AttachedProcessState] =
+             $asGenericTerm.connect(name, Some(namespace), $customParamsMap)
+         """)
       case _                                    => List.empty
     }
 
@@ -136,7 +153,7 @@ trait SubresourceClientGenerator {
 
         import com.coralogix.zio.k8s.model._
         import com.coralogix.zio.k8s.client.K8sFailure
-        import com.coralogix.zio.k8s.client.model.{K8sCluster, K8sNamespace, ResourceMetadata}
+        import com.coralogix.zio.k8s.client.model.{K8sCluster, K8sNamespace, ResourceMetadata, AttachedProcessState}
         import com.coralogix.zio.k8s.client.Subresource
         import com.coralogix.zio.k8s.client.impl.SubresourceClient
         import sttp.capabilities.WebSockets
