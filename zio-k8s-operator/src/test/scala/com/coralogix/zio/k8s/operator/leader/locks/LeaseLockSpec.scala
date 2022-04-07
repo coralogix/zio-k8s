@@ -93,7 +93,11 @@ object LeaseLockSpec extends DefaultRunnableSpec {
                     ZIO.succeed(
                       ZStream.fail(
                         RequestFailure(
-                          K8sRequestInfo(K8sResourceType("kind", "group", "version"), "getAll"),
+                          K8sRequestInfo(
+                            K8sResourceType("kind", "group", "version"),
+                            "getAll",
+                            namespace
+                          ),
                           new RuntimeException("test failure")
                         )
                       )
@@ -121,7 +125,11 @@ object LeaseLockSpec extends DefaultRunnableSpec {
                     ZIO.succeed(
                       ZStream.fail(
                         RequestFailure(
-                          K8sRequestInfo(K8sResourceType("kind", "group", "version"), "watch"),
+                          K8sRequestInfo(
+                            K8sResourceType("kind", "group", "version"),
+                            "watch",
+                            namespace
+                          ),
                           new RuntimeException("test failure")
                         )
                       )
@@ -137,7 +145,7 @@ object LeaseLockSpec extends DefaultRunnableSpec {
                 ifM(failSwitch.get)(
                   ZIO.fail(
                     RequestFailure(
-                      K8sRequestInfo(K8sResourceType("kind", "group", "version"), "get"),
+                      K8sRequestInfo(K8sResourceType("kind", "group", "version"), "get", namespace),
                       new RuntimeException("test failure")
                     )
                   ),
@@ -152,7 +160,11 @@ object LeaseLockSpec extends DefaultRunnableSpec {
                 ifM(failSwitch.get)(
                   ZIO.fail(
                     RequestFailure(
-                      K8sRequestInfo(K8sResourceType("kind", "group", "version"), "create"),
+                      K8sRequestInfo(
+                        K8sResourceType("kind", "group", "version"),
+                        "create",
+                        namespace
+                      ),
                       new RuntimeException("test failure")
                     )
                   ),
@@ -168,7 +180,11 @@ object LeaseLockSpec extends DefaultRunnableSpec {
                 ifM(failSwitch.get)(
                   ZIO.fail(
                     RequestFailure(
-                      K8sRequestInfo(K8sResourceType("kind", "group", "version"), "replace"),
+                      K8sRequestInfo(
+                        K8sResourceType("kind", "group", "version"),
+                        "replace",
+                        namespace
+                      ),
                       new RuntimeException("test failure")
                     )
                   ),
@@ -186,7 +202,11 @@ object LeaseLockSpec extends DefaultRunnableSpec {
                 ifM(failSwitch.get)(
                   ZIO.fail(
                     RequestFailure(
-                      K8sRequestInfo(K8sResourceType("kind", "group", "version"), "delete"),
+                      K8sRequestInfo(
+                        K8sResourceType("kind", "group", "version"),
+                        "delete",
+                        namespace
+                      ),
                       new RuntimeException("test failure")
                     )
                   ),
@@ -212,7 +232,11 @@ object LeaseLockSpec extends DefaultRunnableSpec {
                 ifM(failSwitch.get)(
                   ZIO.fail(
                     RequestFailure(
-                      K8sRequestInfo(K8sResourceType("kind", "group", "version"), "deleteAll"),
+                      K8sRequestInfo(
+                        K8sResourceType("kind", "group", "version"),
+                        "deleteAll",
+                        namespace
+                      ),
                       new RuntimeException("test failure")
                     )
                   ),

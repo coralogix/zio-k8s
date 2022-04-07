@@ -1,6 +1,6 @@
 package com.coralogix.zio.k8s.client
 
-import com.coralogix.zio.k8s.client.model.K8sResourceType
+import com.coralogix.zio.k8s.client.model.{ K8sNamespace, K8sResourceType }
 
 /** K8s API request information to be provided in [[K8sFailure]] failures
   * @param resourceType
@@ -8,4 +8,8 @@ import com.coralogix.zio.k8s.client.model.K8sResourceType
   * @param operation
   *   Operation name
   */
-case class K8sRequestInfo(resourceType: K8sResourceType, operation: String)
+case class K8sRequestInfo(
+  resourceType: K8sResourceType,
+  operation: String,
+  namespace: Option[K8sNamespace]
+)

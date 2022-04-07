@@ -37,7 +37,7 @@ final class ResourceStatusClient[StatusT: Encoder, T: K8sObject: Encoder: Decode
   ): IO[K8sFailure, T] =
     for {
       name     <- of.getName
-      response <- handleFailures("replaceStatus") {
+      response <- handleFailures("replaceStatus", namespace) {
                     k8sRequest
                       .put(modifying(name = name, subresource = Some("status"), namespace, dryRun))
                       .body(toStatusUpdate(of, updatedStatus))
@@ -47,7 +47,7 @@ final class ResourceStatusClient[StatusT: Encoder, T: K8sObject: Encoder: Decode
     } yield response
 
   override def getStatus(name: String, namespace: Option[K8sNamespace]): IO[K8sFailure, T] =
-    handleFailures("getStatus") {
+    handleFailures("getStatus", namespace) {
       k8sRequest
         .get(simple(Some(name), subresource = Some("status"), namespace))
         .response(asJsonAccumulating[T])
