@@ -46,8 +46,13 @@ object OperatorFailure {
       new RuntimeException(s"Not found")
   }
 
-  private def reqInfoToString(requestInfo: K8sRequestInfo): String =
-    s"[${requestInfo.resourceType.group}/${requestInfo.resourceType.version}/${requestInfo.resourceType.resourceType} ${requestInfo.operation}]"
+  private def reqInfoToString(requestInfo: K8sRequestInfo): String = {
+    val namespace = requestInfo.namespace.fold("")(n => s"namespace: $n")
+    val name = requestInfo.name.fold("")(n => s"name: $n")
+    val fieldSelector = requestInfo.fieldSelector.fold("")(n => s"field_selector: $n")
+    val labelSelector = requestInfo.labelSelector.fold("")(n => s"label_selector: $n")
+    s"[${requestInfo.resourceType.group}/${requestInfo.resourceType.version}/${requestInfo.resourceType.resourceType} ${requestInfo.operation} $namespace $name $fieldSelector $labelSelector]"
+  }
 
   implicit def toThrowable[E: ConvertableToThrowable]
     : ConvertableToThrowable[OperatorFailure[E]] = {
