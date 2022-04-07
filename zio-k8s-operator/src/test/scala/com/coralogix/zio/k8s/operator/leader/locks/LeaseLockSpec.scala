@@ -145,7 +145,11 @@ object LeaseLockSpec extends DefaultRunnableSpec {
                 ifM(failSwitch.get)(
                   ZIO.fail(
                     RequestFailure(
-                      K8sRequestInfo(K8sResourceType("kind", "group", "version"), "get", namespace),
+                      K8sRequestInfo(
+                        K8sResourceType("kind", "group", "version"),
+                        "get",
+                        namespace
+                      ),
                       new RuntimeException("test failure")
                     )
                   ),
