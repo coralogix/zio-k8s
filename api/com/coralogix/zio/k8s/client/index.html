@@ -599,7 +599,7 @@ them from any supported source.
                         <a class="trait" href="K8sFailure.html" title="Error type of the Kubernetes client"></a>
                         <a href="K8sFailure.html" title="Error type of the Kubernetes client">K8sFailure</a>
                       </li><li class="current-entities indented5">
-                        <span class="separator"></span>
+                        <a class="object" href="K8sRequestInfo$.html" title=""></a>
                         <a class="class" href="K8sRequestInfo.html" title="K8s API request information to be provided in K8sFailure failures"></a>
                         <a href="K8sRequestInfo.html" title="K8s API request information to be provided in K8sFailure failures">K8sRequestInfo</a>
                       </li><li class="current-entities indented5">
@@ -779,7 +779,7 @@ them from any supported source.
         <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <a title="Generic interface for working with Kubernetes cluster resources." href="ClusterResource.html"><span class="name">ClusterResource</span></a><span class="tparams">[<span name="T">T</span>]</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+        <a title="Generic interface for working with Kubernetes cluster resources." href="ClusterResource.html"><span class="name">ClusterResource</span></a><span class="tparams">[<span name="T">T</span>]</span><span class="result"> extends <a href="https://www.scala-lang.org/api/2.12.15/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
       </span>
       
       <p class="shortcomment cmt">Generic interface for working with Kubernetes cluster resources.</p><div class="fullcomment"><div class="comment cmt"><p>Generic interface for working with Kubernetes cluster resources.</p><p>More type safe than <a href="Resource.html" class="extype" name="com.coralogix.zio.k8s.client.Resource">Resource</a> as it does not allow passing a namespace.
@@ -797,7 +797,7 @@ them from any supported source.
         <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <a title="" href="ClusterResourceDelete.html"><span class="name">ClusterResourceDelete</span></a><span class="tparams">[<span name="T">T</span>, <span name="DeleteResult">DeleteResult</span>]</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+        <a title="" href="ClusterResourceDelete.html"><span class="name">ClusterResourceDelete</span></a><span class="tparams">[<span name="T">T</span>, <span name="DeleteResult">DeleteResult</span>]</span><span class="result"> extends <a href="https://www.scala-lang.org/api/2.12.15/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
       </span>
       
       
@@ -813,7 +813,7 @@ them from any supported source.
         <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <a title="Extra capability for ClusterResource interfaces providing deleteAll" href="ClusterResourceDeleteAll.html"><span class="name">ClusterResourceDeleteAll</span></a><span class="tparams">[<span name="T">T</span>]</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+        <a title="Extra capability for ClusterResource interfaces providing deleteAll" href="ClusterResourceDeleteAll.html"><span class="name">ClusterResourceDeleteAll</span></a><span class="tparams">[<span name="T">T</span>]</span><span class="result"> extends <a href="https://www.scala-lang.org/api/2.12.15/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
       </span>
       
       <p class="shortcomment cmt">Extra capability for <a href="ClusterResource.html" class="extype" name="com.coralogix.zio.k8s.client.ClusterResource">ClusterResource</a> interfaces providing deleteAll</p><div class="fullcomment"><div class="comment cmt"><p>Extra capability for <a href="ClusterResource.html" class="extype" name="com.coralogix.zio.k8s.client.ClusterResource">ClusterResource</a> interfaces providing deleteAll</p><p>It is separated because it is not supported by all resources.
@@ -831,7 +831,7 @@ them from any supported source.
         <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <a title="Extra capability for ClusterResource interfaces to manage status subresources" href="ClusterResourceStatus.html"><span class="name">ClusterResourceStatus</span></a><span class="tparams">[<span name="StatusT">StatusT</span>, <span name="T">T</span>]</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+        <a title="Extra capability for ClusterResource interfaces to manage status subresources" href="ClusterResourceStatus.html"><span class="name">ClusterResourceStatus</span></a><span class="tparams">[<span name="StatusT">StatusT</span>, <span name="T">T</span>]</span><span class="result"> extends <a href="https://www.scala-lang.org/api/2.12.15/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
       </span>
       
       <p class="shortcomment cmt">Extra capability for <a href="ClusterResource.html" class="extype" name="com.coralogix.zio.k8s.client.ClusterResource">ClusterResource</a> interfaces to manage status subresources</p><div class="fullcomment"><div class="comment cmt"><p>Extra capability for <a href="ClusterResource.html" class="extype" name="com.coralogix.zio.k8s.client.ClusterResource">ClusterResource</a> interfaces to manage status subresources</p></div><dl class="paramcmts block"><dt class="tparam">StatusT</dt><dd class="cmt"><p>
@@ -849,7 +849,7 @@ them from any supported source.
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a title="Failed Kubernetes API request" href="DecodedFailure.html"><span class="name">DecodedFailure</span></a><span class="params">(<span name="requestInfo">requestInfo: <a href="K8sRequestInfo.html" class="extype" name="com.coralogix.zio.k8s.client.K8sRequestInfo">K8sRequestInfo</a></span>, <span name="status">status: <a href="../model/pkg/apis/meta/v1/Status.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Status">Status</a></span>, <span name="code">code: <a href="https://javadoc.io/page/com.softwaremill.sttp.model/core_2.12/1.4.18/sttp/model/StatusCode.html#sttp.model.StatusCode" class="extype" name="sttp.model.StatusCode">StatusCode</a></span>)</span><span class="result"> extends <a href="K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a title="Failed Kubernetes API request" href="DecodedFailure.html"><span class="name">DecodedFailure</span></a><span class="params">(<span name="requestInfo">requestInfo: <a href="K8sRequestInfo.html" class="extype" name="com.coralogix.zio.k8s.client.K8sRequestInfo">K8sRequestInfo</a></span>, <span name="status">status: <a href="../model/pkg/apis/meta/v1/Status.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Status">Status</a></span>, <span name="code">code: <a href="https://javadoc.io/page/com.softwaremill.sttp.model/core_2.12/1.4.18/sttp/model/StatusCode.html#sttp.model.StatusCode" class="extype" name="sttp.model.StatusCode">StatusCode</a></span>)</span><span class="result"> extends <a href="K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a> with <a href="https://www.scala-lang.org/api/2.12.15/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a> with <a href="https://www.scala-lang.org/api/2.12.15/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
       </span>
       
       <p class="shortcomment cmt">Failed Kubernetes API request</p><div class="fullcomment"><div class="comment cmt"><p>Failed Kubernetes API request</p><p>Note that some specific failure types are encoded by their own failure type. See
@@ -870,7 +870,7 @@ them from any supported source.
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a title="Error indicating that Kubernetes API responded with success, but the response body could not be deserialized to the expected data type." href="DeserializationFailure.html"><span class="name">DeserializationFailure</span></a><span class="params">(<span name="requestInfo">requestInfo: <a href="K8sRequestInfo.html" class="extype" name="com.coralogix.zio.k8s.client.K8sRequestInfo">K8sRequestInfo</a></span>, <span name="error">error: <a href="http://typelevel.org/cats/api/cats/data/NonEmptyList.html#cats.data.NonEmptyList" class="extype" name="cats.data.NonEmptyList">NonEmptyList</a>[<a href="https://circe.github.io/circe/api/io/circe/Error.html#io.circe.Error" class="extype" name="io.circe.Error">Error</a>]</span>)</span><span class="result"> extends <a href="K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a title="Error indicating that Kubernetes API responded with success, but the response body could not be deserialized to the expected data type." href="DeserializationFailure.html"><span class="name">DeserializationFailure</span></a><span class="params">(<span name="requestInfo">requestInfo: <a href="K8sRequestInfo.html" class="extype" name="com.coralogix.zio.k8s.client.K8sRequestInfo">K8sRequestInfo</a></span>, <span name="error">error: <a href="http://typelevel.org/cats/api/cats/data/NonEmptyList.html#cats.data.NonEmptyList" class="extype" name="cats.data.NonEmptyList">NonEmptyList</a>[<a href="https://circe.github.io/circe/api/io/circe/Error.html#io.circe.Error" class="extype" name="io.circe.Error">Error</a>]</span>)</span><span class="result"> extends <a href="K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a> with <a href="https://www.scala-lang.org/api/2.12.15/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a> with <a href="https://www.scala-lang.org/api/2.12.15/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
       </span>
       
       <p class="shortcomment cmt">Error indicating that Kubernetes API responded with success, but the response body could not be
@@ -889,7 +889,7 @@ deserialized to the expected data type.</p></div><dl class="paramcmts block"><dt
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a title="Failed HTTP response" href="HttpFailure.html"><span class="name">HttpFailure</span></a><span class="params">(<span name="requestInfo">requestInfo: <a href="K8sRequestInfo.html" class="extype" name="com.coralogix.zio.k8s.client.K8sRequestInfo">K8sRequestInfo</a></span>, <span name="message">message: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="code">code: <a href="https://javadoc.io/page/com.softwaremill.sttp.model/core_2.12/1.4.18/sttp/model/StatusCode.html#sttp.model.StatusCode" class="extype" name="sttp.model.StatusCode">StatusCode</a></span>)</span><span class="result"> extends <a href="K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a title="Failed HTTP response" href="HttpFailure.html"><span class="name">HttpFailure</span></a><span class="params">(<span name="requestInfo">requestInfo: <a href="K8sRequestInfo.html" class="extype" name="com.coralogix.zio.k8s.client.K8sRequestInfo">K8sRequestInfo</a></span>, <span name="message">message: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="code">code: <a href="https://javadoc.io/page/com.softwaremill.sttp.model/core_2.12/1.4.18/sttp/model/StatusCode.html#sttp.model.StatusCode" class="extype" name="sttp.model.StatusCode">StatusCode</a></span>)</span><span class="result"> extends <a href="K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a> with <a href="https://www.scala-lang.org/api/2.12.15/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a> with <a href="https://www.scala-lang.org/api/2.12.15/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
       </span>
       
       <p class="shortcomment cmt">Failed HTTP response</p><div class="fullcomment"><div class="comment cmt"><p>Failed HTTP response</p><p>Indicates that the response from the Kubernetes API has a non-successful status code and it's
@@ -911,7 +911,7 @@ body did not contain a <a href="../model/pkg/apis/meta/v1/Status.html" class="ex
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a title="An unsupported event type was sent in a watch stream" href="InvalidEvent.html"><span class="name">InvalidEvent</span></a><span class="params">(<span name="requestInfo">requestInfo: <a href="K8sRequestInfo.html" class="extype" name="com.coralogix.zio.k8s.client.K8sRequestInfo">K8sRequestInfo</a></span>, <span name="eventType">eventType: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result"> extends <a href="K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a title="An unsupported event type was sent in a watch stream" href="InvalidEvent.html"><span class="name">InvalidEvent</span></a><span class="params">(<span name="requestInfo">requestInfo: <a href="K8sRequestInfo.html" class="extype" name="com.coralogix.zio.k8s.client.K8sRequestInfo">K8sRequestInfo</a></span>, <span name="eventType">eventType: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result"> extends <a href="K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a> with <a href="https://www.scala-lang.org/api/2.12.15/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a> with <a href="https://www.scala-lang.org/api/2.12.15/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
       </span>
       
       <p class="shortcomment cmt">An unsupported event type was sent in a watch stream</p><div class="fullcomment"><div class="comment cmt"><p>An unsupported event type was sent in a watch stream</p></div><dl class="paramcmts block"><dt class="param">eventType</dt><dd class="cmt"><p>
@@ -928,7 +928,7 @@ body did not contain a <a href="../model/pkg/apis/meta/v1/Status.html" class="ex
         <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <a title="Error type of the Kubernetes client" href="K8sFailure.html"><span class="name">K8sFailure</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+        <a title="Error type of the Kubernetes client" href="K8sFailure.html"><span class="name">K8sFailure</span></a><span class="result"> extends <a href="https://www.scala-lang.org/api/2.12.15/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
       </span>
       
       <p class="shortcomment cmt">Error type of the Kubernetes client
@@ -945,7 +945,7 @@ body did not contain a <a href="../model/pkg/apis/meta/v1/Status.html" class="ex
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a title="K8s API request information to be provided in K8sFailure failures" href="K8sRequestInfo.html"><span class="name">K8sRequestInfo</span></a><span class="params">(<span name="resourceType">resourceType: <a href="model/package$$K8sResourceType.html" class="extype" name="com.coralogix.zio.k8s.client.model.K8sResourceType">K8sResourceType</a></span>, <span name="operation">operation: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a title="K8s API request information to be provided in K8sFailure failures" href="K8sRequestInfo.html"><span class="name">K8sRequestInfo</span></a><span class="params">(<span name="resourceType">resourceType: <a href="model/package$$K8sResourceType.html" class="extype" name="com.coralogix.zio.k8s.client.model.K8sResourceType">K8sResourceType</a></span>, <span name="operation">operation: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="namespace">namespace: <a href="https://www.scala-lang.org/api/2.12.15/scala/Option.html#scala.Option" class="extype" name="scala.Option">Option</a>[<a href="model/package$$K8sNamespace.html" class="extype" name="com.coralogix.zio.k8s.client.model.K8sNamespace">K8sNamespace</a>]</span>, <span name="fieldSelector">fieldSelector: <a href="https://www.scala-lang.org/api/2.12.15/scala/Option.html#scala.Option" class="extype" name="scala.Option">Option</a>[<a href="model/FieldSelector.html" class="extype" name="com.coralogix.zio.k8s.client.model.FieldSelector">FieldSelector</a>]</span>, <span name="labelSelector">labelSelector: <a href="https://www.scala-lang.org/api/2.12.15/scala/Option.html#scala.Option" class="extype" name="scala.Option">Option</a>[<a href="model/LabelSelector.html" class="extype" name="com.coralogix.zio.k8s.client.model.LabelSelector">LabelSelector</a>]</span>, <span name="name">name: <a href="https://www.scala-lang.org/api/2.12.15/scala/Option.html#scala.Option" class="extype" name="scala.Option">Option</a>[<span class="extype" name="scala.Predef.String">String</span>]</span>)</span><span class="result"> extends <a href="https://www.scala-lang.org/api/2.12.15/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a> with <a href="https://www.scala-lang.org/api/2.12.15/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
       </span>
       
       <p class="shortcomment cmt">K8s API request information to be provided in <a href="K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a> failures</p><div class="fullcomment"><div class="comment cmt"><p>K8s API request information to be provided in <a href="K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a> failures</p></div><dl class="paramcmts block"><dt class="param">resourceType</dt><dd class="cmt"><p>
@@ -963,7 +963,7 @@ body did not contain a <a href="../model/pkg/apis/meta/v1/Status.html" class="ex
         <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <a title="Generic interface for working with namespaced Kubernetes resources." href="NamespacedResource.html"><span class="name">NamespacedResource</span></a><span class="tparams">[<span name="T">T</span>]</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+        <a title="Generic interface for working with namespaced Kubernetes resources." href="NamespacedResource.html"><span class="name">NamespacedResource</span></a><span class="tparams">[<span name="T">T</span>]</span><span class="result"> extends <a href="https://www.scala-lang.org/api/2.12.15/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
       </span>
       
       <p class="shortcomment cmt">Generic interface for working with namespaced Kubernetes resources.</p><div class="fullcomment"><div class="comment cmt"><p>Generic interface for working with namespaced Kubernetes resources.</p><p>More type safe than <a href="Resource.html" class="extype" name="com.coralogix.zio.k8s.client.Resource">Resource</a> as it requires passing a namespace where necessary.
@@ -981,7 +981,7 @@ body did not contain a <a href="../model/pkg/apis/meta/v1/Status.html" class="ex
         <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <a title="" href="NamespacedResourceDelete.html"><span class="name">NamespacedResourceDelete</span></a><span class="tparams">[<span name="T">T</span>, <span name="DeleteResult">DeleteResult</span>]</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+        <a title="" href="NamespacedResourceDelete.html"><span class="name">NamespacedResourceDelete</span></a><span class="tparams">[<span name="T">T</span>, <span name="DeleteResult">DeleteResult</span>]</span><span class="result"> extends <a href="https://www.scala-lang.org/api/2.12.15/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
       </span>
       
       
@@ -997,7 +997,7 @@ body did not contain a <a href="../model/pkg/apis/meta/v1/Status.html" class="ex
         <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <a title="Extra capability for NamespacedResource interfaces providing deleteAll" href="NamespacedResourceDeleteAll.html"><span class="name">NamespacedResourceDeleteAll</span></a><span class="tparams">[<span name="T">T</span>]</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+        <a title="Extra capability for NamespacedResource interfaces providing deleteAll" href="NamespacedResourceDeleteAll.html"><span class="name">NamespacedResourceDeleteAll</span></a><span class="tparams">[<span name="T">T</span>]</span><span class="result"> extends <a href="https://www.scala-lang.org/api/2.12.15/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
       </span>
       
       <p class="shortcomment cmt">Extra capability for <a href="NamespacedResource.html" class="extype" name="com.coralogix.zio.k8s.client.NamespacedResource">NamespacedResource</a> interfaces providing deleteAll</p><div class="fullcomment"><div class="comment cmt"><p>Extra capability for <a href="NamespacedResource.html" class="extype" name="com.coralogix.zio.k8s.client.NamespacedResource">NamespacedResource</a> interfaces providing deleteAll</p><p>It is separated because it is not supported by all resources.
@@ -1015,7 +1015,7 @@ body did not contain a <a href="../model/pkg/apis/meta/v1/Status.html" class="ex
         <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <a title="Extra capability for NamespacedResource interfaces to manage status subresources" href="NamespacedResourceStatus.html"><span class="name">NamespacedResourceStatus</span></a><span class="tparams">[<span name="StatusT">StatusT</span>, <span name="T">T</span>]</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+        <a title="Extra capability for NamespacedResource interfaces to manage status subresources" href="NamespacedResourceStatus.html"><span class="name">NamespacedResourceStatus</span></a><span class="tparams">[<span name="StatusT">StatusT</span>, <span name="T">T</span>]</span><span class="result"> extends <a href="https://www.scala-lang.org/api/2.12.15/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
       </span>
       
       <p class="shortcomment cmt">Extra capability for <a href="NamespacedResource.html" class="extype" name="com.coralogix.zio.k8s.client.NamespacedResource">NamespacedResource</a> interfaces to manage status subresources</p><div class="fullcomment"><div class="comment cmt"><p>Extra capability for <a href="NamespacedResource.html" class="extype" name="com.coralogix.zio.k8s.client.NamespacedResource">NamespacedResource</a> interfaces to manage status subresources</p></div><dl class="paramcmts block"><dt class="tparam">StatusT</dt><dd class="cmt"><p>
@@ -1033,7 +1033,7 @@ body did not contain a <a href="../model/pkg/apis/meta/v1/Status.html" class="ex
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a title="Failed to send the HTTP request to the Kubernetes API" href="RequestFailure.html"><span class="name">RequestFailure</span></a><span class="params">(<span name="requestInfo">requestInfo: <a href="K8sRequestInfo.html" class="extype" name="com.coralogix.zio.k8s.client.K8sRequestInfo">K8sRequestInfo</a></span>, <span name="reason">reason: <span class="extype" name="scala.Throwable">Throwable</span></span>)</span><span class="result"> extends <a href="K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a title="Failed to send the HTTP request to the Kubernetes API" href="RequestFailure.html"><span class="name">RequestFailure</span></a><span class="params">(<span name="requestInfo">requestInfo: <a href="K8sRequestInfo.html" class="extype" name="com.coralogix.zio.k8s.client.K8sRequestInfo">K8sRequestInfo</a></span>, <span name="reason">reason: <span class="extype" name="scala.Throwable">Throwable</span></span>)</span><span class="result"> extends <a href="K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a> with <a href="https://www.scala-lang.org/api/2.12.15/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a> with <a href="https://www.scala-lang.org/api/2.12.15/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
       </span>
       
       <p class="shortcomment cmt">Failed to send the HTTP request to the Kubernetes API</p><div class="fullcomment"><div class="comment cmt"><p>Failed to send the HTTP request to the Kubernetes API</p></div><dl class="paramcmts block"><dt class="param">reason</dt><dd class="cmt"><p>
@@ -1050,7 +1050,7 @@ body did not contain a <a href="../model/pkg/apis/meta/v1/Status.html" class="ex
         <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <a title="Generic interface for working with Kubernetes resources" href="Resource.html"><span class="name">Resource</span></a><span class="tparams">[<span name="T">T</span>]</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+        <a title="Generic interface for working with Kubernetes resources" href="Resource.html"><span class="name">Resource</span></a><span class="tparams">[<span name="T">T</span>]</span><span class="result"> extends <a href="https://www.scala-lang.org/api/2.12.15/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
       </span>
       
       <p class="shortcomment cmt">Generic interface for working with Kubernetes resources</p><div class="fullcomment"><div class="comment cmt"><p>Generic interface for working with Kubernetes resources</p><p>This interface supports both namespaced and cluster resources. For more type safe variants check
@@ -1069,7 +1069,7 @@ body did not contain a <a href="../model/pkg/apis/meta/v1/Status.html" class="ex
         <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <a title="Extra capability for Resource interfaces providing delete" href="ResourceDelete.html"><span class="name">ResourceDelete</span></a><span class="tparams">[<span name="T">T</span>, <span name="DeleteResult">DeleteResult</span>]</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+        <a title="Extra capability for Resource interfaces providing delete" href="ResourceDelete.html"><span class="name">ResourceDelete</span></a><span class="tparams">[<span name="T">T</span>, <span name="DeleteResult">DeleteResult</span>]</span><span class="result"> extends <a href="https://www.scala-lang.org/api/2.12.15/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
       </span>
       
       <p class="shortcomment cmt">Extra capability for <a href="Resource.html" class="extype" name="com.coralogix.zio.k8s.client.Resource">Resource</a> interfaces providing delete</p><div class="fullcomment"><div class="comment cmt"><p>Extra capability for <a href="Resource.html" class="extype" name="com.coralogix.zio.k8s.client.Resource">Resource</a> interfaces providing delete</p><p>It is separated because because its result type varies for different resources.
@@ -1088,7 +1088,7 @@ body did not contain a <a href="../model/pkg/apis/meta/v1/Status.html" class="ex
         <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <a title="Extra capability for Resource interfaces providing deleteAll" href="ResourceDeleteAll.html"><span class="name">ResourceDeleteAll</span></a><span class="tparams">[<span name="T">T</span>]</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+        <a title="Extra capability for Resource interfaces providing deleteAll" href="ResourceDeleteAll.html"><span class="name">ResourceDeleteAll</span></a><span class="tparams">[<span name="T">T</span>]</span><span class="result"> extends <a href="https://www.scala-lang.org/api/2.12.15/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
       </span>
       
       <p class="shortcomment cmt">Extra capability for <a href="Resource.html" class="extype" name="com.coralogix.zio.k8s.client.Resource">Resource</a> interfaces providing deleteAll</p><div class="fullcomment"><div class="comment cmt"><p>Extra capability for <a href="Resource.html" class="extype" name="com.coralogix.zio.k8s.client.Resource">Resource</a> interfaces providing deleteAll</p><p>It is separated because it is not supported by all resources.
@@ -1106,7 +1106,7 @@ body did not contain a <a href="../model/pkg/apis/meta/v1/Status.html" class="ex
         <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <a title="Extra capability for Resource interfaces to manage status subresources" href="ResourceStatus.html"><span class="name">ResourceStatus</span></a><span class="tparams">[<span name="StatusT">StatusT</span>, <span name="T">T</span>]</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+        <a title="Extra capability for Resource interfaces to manage status subresources" href="ResourceStatus.html"><span class="name">ResourceStatus</span></a><span class="tparams">[<span name="StatusT">StatusT</span>, <span name="T">T</span>]</span><span class="result"> extends <a href="https://www.scala-lang.org/api/2.12.15/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
       </span>
       
       <p class="shortcomment cmt">Extra capability for <a href="Resource.html" class="extype" name="com.coralogix.zio.k8s.client.Resource">Resource</a> interfaces to manage status subresources</p><div class="fullcomment"><div class="comment cmt"><p>Extra capability for <a href="Resource.html" class="extype" name="com.coralogix.zio.k8s.client.Resource">Resource</a> interfaces to manage status subresources</p></div><dl class="paramcmts block"><dt class="tparam">StatusT</dt><dd class="cmt"><p>
@@ -1124,7 +1124,7 @@ body did not contain a <a href="../model/pkg/apis/meta/v1/Status.html" class="ex
         <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <a title="Generic interface for subresources." href="Subresource.html"><span class="name">Subresource</span></a><span class="tparams">[<span name="T">T</span>]</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+        <a title="Generic interface for subresources." href="Subresource.html"><span class="name">Subresource</span></a><span class="tparams">[<span name="T">T</span>]</span><span class="result"> extends <a href="https://www.scala-lang.org/api/2.12.15/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
       </span>
       
       <p class="shortcomment cmt">Generic interface for subresources.</p><div class="fullcomment"><div class="comment cmt"><p>Generic interface for subresources.</p><p>Every subresource supports a different subset of these operations, so usually you should use the
@@ -1143,7 +1143,7 @@ actual generated subresource interfaces instead.
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a title="Request unauthorized" href="Unauthorized.html"><span class="name">Unauthorized</span></a><span class="params">(<span name="requestInfo">requestInfo: <a href="K8sRequestInfo.html" class="extype" name="com.coralogix.zio.k8s.client.K8sRequestInfo">K8sRequestInfo</a></span>, <span name="message">message: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result"> extends <a href="K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a title="Request unauthorized" href="Unauthorized.html"><span class="name">Unauthorized</span></a><span class="params">(<span name="requestInfo">requestInfo: <a href="K8sRequestInfo.html" class="extype" name="com.coralogix.zio.k8s.client.K8sRequestInfo">K8sRequestInfo</a></span>, <span name="message">message: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result"> extends <a href="K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a> with <a href="https://www.scala-lang.org/api/2.12.15/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a> with <a href="https://www.scala-lang.org/api/2.12.15/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
       </span>
       
       <p class="shortcomment cmt">Request unauthorized</p><div class="fullcomment"><div class="comment cmt"><p>Request unauthorized</p><p>Indicates that the Kubernetes API returned a HTTP 401 response.</p></div><dl class="paramcmts block"><dt class="param">message</dt><dd class="cmt"><p>
@@ -1160,7 +1160,7 @@ actual generated subresource interfaces instead.
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a title="Error produced by the generated getter methods on Kubernetes data structures." href="UndefinedField.html"><span class="name">UndefinedField</span></a><span class="params">(<span name="field">field: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result"> extends <a href="K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a title="Error produced by the generated getter methods on Kubernetes data structures." href="UndefinedField.html"><span class="name">UndefinedField</span></a><span class="params">(<span name="field">field: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result"> extends <a href="K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a> with <a href="https://www.scala-lang.org/api/2.12.15/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a> with <a href="https://www.scala-lang.org/api/2.12.15/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
       </span>
       
       <p class="shortcomment cmt">Error produced by the generated getter methods on Kubernetes data structures.</p><div class="fullcomment"><div class="comment cmt"><p>Error produced by the generated getter methods on Kubernetes data structures.</p><p>Indicates that the requested field is not present.
@@ -1186,7 +1186,7 @@ actual generated subresource interfaces instead.
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a title="" href="DeserializationFailure$.html"><span class="name">DeserializationFailure</span></a><span class="result"> extends <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a title="" href="DeserializationFailure$.html"><span class="name">DeserializationFailure</span></a><span class="result"> extends <a href="https://www.scala-lang.org/api/2.12.15/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
       </span>
       
       
@@ -1202,7 +1202,7 @@ actual generated subresource interfaces instead.
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a title="The server returned with HTTP 410 (Gone) which has a specific role in handling watch streams." href="Gone$.html"><span class="name">Gone</span></a><span class="result"> extends <a href="K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a title="The server returned with HTTP 410 (Gone) which has a specific role in handling watch streams." href="Gone$.html"><span class="name">Gone</span></a><span class="result"> extends <a href="K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a> with <a href="https://www.scala-lang.org/api/2.12.15/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a> with <a href="https://www.scala-lang.org/api/2.12.15/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
       </span>
       
       <p class="shortcomment cmt">The server returned with HTTP 410 (Gone) which has a specific role in handling watch streams.</p>
@@ -1222,6 +1222,22 @@ actual generated subresource interfaces instead.
       </span>
       
       
+    </li><li name="com.coralogix.zio.k8s.client.K8sRequestInfo" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="K8sRequestInfo"></a><a id="K8sRequestInfo:K8sRequestInfo"></a>
+      <span class="permalink">
+      <a href="../../../../../com/coralogix/zio/k8s/client/K8sRequestInfo$.html" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="K8sRequestInfo$.html"><span class="name">K8sRequestInfo</span></a><span class="result"> extends <a href="https://www.scala-lang.org/api/2.12.15/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+      </span>
+      
+      
     </li><li name="com.coralogix.zio.k8s.client.NotFound" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="NotFound"></a><a id="NotFound:NotFound"></a>
       <span class="permalink">
@@ -1234,7 +1250,7 @@ actual generated subresource interfaces instead.
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a title="The sever returned with HTTP 404 (NotFound)." href="NotFound$.html"><span class="name">NotFound</span></a><span class="result"> extends <a href="K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a title="The sever returned with HTTP 404 (NotFound)." href="NotFound$.html"><span class="name">NotFound</span></a><span class="result"> extends <a href="K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a> with <a href="https://www.scala-lang.org/api/2.12.15/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a> with <a href="https://www.scala-lang.org/api/2.12.15/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
       </span>
       
       <p class="shortcomment cmt">The sever returned with HTTP 404 (NotFound).</p><div class="fullcomment"><div class="comment cmt"><p>The sever returned with HTTP 404 (NotFound).</p><p>See the <a href="K8sFailure$$syntax$$K8sZIOSyntax.html#ifFound:zio.ZIO[R,com.coralogix.zio.k8s.client.K8sFailure,Option[A]]" class="extmbr" name="com.coralogix.zio.k8s.client.K8sFailure.syntax.K8sZIOSyntax#ifFound">K8sFailure.syntax.K8sZIOSyntax.ifFound</a> extension method for a convenient way to
