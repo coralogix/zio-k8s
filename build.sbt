@@ -2,7 +2,7 @@ val scala212Version = "2.12.15"
 val scala213Version = "2.13.8"
 val scala3Version = "3.1.1"
 
-val zioVersion = "1.0.12"
+val zioVersion = "1.0.14"
 val zioConfigVersion = "1.0.10"
 val sttpVersion = "3.3.18"
 val zioNioVersion = "1.0.0-RC12"
