@@ -85,13 +85,18 @@ package object leaderlockresources {
       K8sCluster with SttpBackend[Task, ZioStreams with WebSockets],
       Nothing,
       LeaderLockResources
-    ] = { (backend: SttpBackend[Task, ZioStreams with WebSockets], cluster: K8sCluster) =>
-      val client = new ResourceClient[LeaderLockResource, Status](
-        LeaderLockResource.metadata.resourceType,
-        cluster,
-        backend
-      )
-      new Live(client)
-    }.toLayer
+    ] = ZLayer {
+      for {
+        backend <- ZIO.service[SttpBackend[Task, ZioStreams with WebSockets]]
+        cluster <- ZIO.service[K8sCluster]
+      } yield {
+        val client = new ResourceClient[LeaderLockResource, Status](
+          LeaderLockResource.metadata.resourceType,
+          cluster,
+          backend
+        )
+        new Live(client)
+      }
+    }
   }
 }

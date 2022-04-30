@@ -151,12 +151,15 @@ trait ClientModuleGenerator {
 
       val live =
         q"""val live: ZLayer[SttpBackend[Task, ZioStreams with WebSockets] with K8sCluster, Nothing, $typeAliasT] =
-                  {
-                    (backend: SttpBackend[Task, ZioStreams with WebSockets], cluster: K8sCluster) => {
-                      val resourceType = implicitly[ResourceMetadata[$entityT]].resourceType
-                      new Live(..$clientConstruction)
-                    }
-                  }.toLayer
+              ZLayer.fromZIO {
+                for {
+                  backend <- ZIO.service[SttpBackend[Task, ZioStreams with WebSockets]]
+                  cluster <- ZIO.service[K8sCluster]
+                } yield {
+                    val resourceType = implicitly[ResourceMetadata[$entityT]].resourceType
+                    new Live(..$clientConstruction)
+                }
+              }
              """
 
       val any =

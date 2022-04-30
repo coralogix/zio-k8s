@@ -9,7 +9,7 @@ import sttp.model.Uri
 import zio.config._
 import zio.nio.file.Path
 import zio.process.Command
-import zio.{ RIO, System, Task, ZIO, ZLayer, ZManaged }
+import zio.{ IO, Layer, RIO, Scope, System, Task, ZIO, ZLayer }
 
 import java.io.{ ByteArrayInputStream, File, FileInputStream, InputStream }
 import java.nio.charset.StandardCharsets
@@ -187,19 +187,21 @@ package object config extends Descriptors {
     * hostname and token programmatically for the Kubernetes client.
     */
   val k8sCluster: ZLayer[K8sClusterConfig, Throwable, K8sCluster] =
-    (for {
-      config <- getConfig[K8sClusterConfig]
-      result <- config.authentication match {
-                  case K8sAuthentication.ServiceAccountToken(tokenSource) =>
-                    loadKeyString(tokenSource).use { token =>
-                      ZIO.succeed(K8sCluster(config.host, Some(_.auth.bearer(token))))
-                    }
-                  case K8sAuthentication.BasicAuth(username, password)    =>
-                    ZIO.succeed(K8sCluster(config.host, Some(_.auth.basic(username, password))))
-                  case K8sAuthentication.ClientCertificates(_, _, _)      =>
-                    ZIO.succeed(K8sCluster(config.host, None))
-                }
-    } yield result).toLayer
+    ZLayer.scoped {
+      for {
+        config <- getConfig[K8sClusterConfig]
+        result <- config.authentication match {
+                    case K8sAuthentication.ServiceAccountToken(tokenSource) =>
+                      loadKeyString(tokenSource).flatMap { token =>
+                        ZIO.succeed(K8sCluster(config.host, Some(_.auth.bearer(token))))
+                      }
+                    case K8sAuthentication.BasicAuth(username, password)    =>
+                      ZIO.succeed(K8sCluster(config.host, Some(_.auth.basic(username, password))))
+                    case K8sAuthentication.ClientCertificates(_, _, _)      =>
+                      ZIO.succeed(K8sCluster(config.host, None))
+                  }
+      } yield result
+    }
 
   /** Layer producing a [[K8sClusterConfig]] that first tries to load a kubeconfig and if it cannot
     * find one fallbacks to using the default service account token.
@@ -207,8 +209,8 @@ package object config extends Descriptors {
     * For more customization see [[kubeconfig]] and [[serviceAccount]] or provide a
     * [[K8sClusterConfig]] manually.
     */
-  val defaultConfigChain: ZLayer[System with Any, Throwable, K8sClusterConfig] =
-    ((System.any ++ findKubeconfigFile().some.toLayer) >>> kubeconfigFrom())
+  val defaultConfigChain: ZLayer[Any, Throwable, K8sClusterConfig] =
+    (ZLayer.fromZIO(findKubeconfigFile().some) >>> kubeconfigFrom())
       .orElse(serviceAccount())
 
   /** Layer producing a [[K8sClusterConfig]] using the default service account when running from
@@ -256,30 +258,34 @@ package object config extends Descriptors {
     context: Option[String] = None,
     debug: Boolean = false,
     disableHostnameVerification: Boolean = false
-  ): ZLayer[System, Throwable, K8sClusterConfig] =
-    (for {
-      maybePath <- findKubeconfigFile()
-      path      <- maybePath match {
-                     case Some(path) => ZIO.succeed(path)
-                     case None       =>
-                       ZIO.fail(
-                         new IllegalStateException(
-                           s"Neither KUBECONFIG nor the user's home directory is known"
+  ): Layer[Throwable, K8sClusterConfig] =
+    ZLayer.fromZIO {
+      for {
+        maybePath <- findKubeconfigFile()
+        path      <- maybePath match {
+                       case Some(path) => ZIO.succeed(path)
+                       case None       =>
+                         ZIO.fail(
+                           new IllegalStateException(
+                             s"Neither KUBECONFIG nor the user's home directory is known"
+                           )
                          )
-                       )
-                   }
-      config    <- fromKubeconfigFile(path, context, debug, disableHostnameVerification)
-    } yield config).toLayer
+                     }
+        config    <- fromKubeconfigFile(path, context, debug, disableHostnameVerification)
+      } yield config
+    }
 
   private def kubeconfigFrom(
     context: Option[String] = None,
     debug: Boolean = false,
     disableHostnameVerification: Boolean = false
-  ): ZLayer[Any with System with Path, Throwable, K8sClusterConfig] =
-    (for {
-      path   <- ZIO.service[Path]
-      config <- fromKubeconfigFile(path, context, debug, disableHostnameVerification)
-    } yield config).toLayer
+  ): ZLayer[Any with Path, Throwable, K8sClusterConfig] =
+    ZLayer.fromZIO {
+      for {
+        path   <- ZIO.service[Path]
+        config <- fromKubeconfigFile(path, context, debug, disableHostnameVerification)
+      } yield config
+    }
 
   /** Layer setting up a [[com.coralogix.zio.k8s.client.model.K8sCluster]] by loading a specific
     * kubeconfig file
@@ -298,9 +304,9 @@ package object config extends Descriptors {
     debug: Boolean = false,
     disableHostnameVerification: Boolean = false
   ): ZLayer[Any, Throwable, K8sClusterConfig] =
-    fromKubeconfigFile(configPath, context, debug, disableHostnameVerification).toLayer
+    ZLayer.fromZIO(fromKubeconfigFile(configPath, context, debug, disableHostnameVerification))
 
-  private def findKubeconfigFile(): ZIO[Any with System, Throwable, Option[Path]] =
+  private def findKubeconfigFile(): ZIO[Any, Throwable, Option[Path]] =
     for {
       envVar <- System.env("KUBECONFIG")
       home   <- System.property("user.home")
@@ -551,8 +557,8 @@ package object config extends Descriptors {
     } yield auth
   }
 
-  private[config] def loadKeyStream(source: KeySource): ZManaged[Any, Throwable, InputStream] =
-    ZManaged.fromAutoCloseable {
+  private[config] def loadKeyStream(source: KeySource): ZIO[Scope, Throwable, InputStream] =
+    ZIO.fromAutoCloseable {
       source match {
         case KeySource.FromFile(path)     =>
           Task.attempt(new FileInputStream(path.toFile))
@@ -563,19 +569,19 @@ package object config extends Descriptors {
       }
     }
 
-  private def loadKeyString(source: KeySource): ZManaged[Any, Throwable, String] =
+  private def loadKeyString(source: KeySource): ZIO[Scope, Throwable, String] =
     source match {
       case KeySource.FromFile(path)     =>
-        ZManaged
+        ZIO
           .fromAutoCloseable(Task.attempt(new FileInputStream(path.toFile)))
           .flatMap { stream =>
-            ZManaged.fromZIO(Task(new String(stream.readAllBytes(), StandardCharsets.US_ASCII)))
+            ZIO.scoped(Task.attempt(new String(stream.readAllBytes(), StandardCharsets.US_ASCII)))
           }
       case KeySource.FromBase64(base64) =>
-        ZManaged.fromZIO(
-          Task(new String(Base64.getDecoder.decode(base64), StandardCharsets.US_ASCII))
+        ZIO.scoped(
+          Task.attempt(new String(Base64.getDecoder.decode(base64), StandardCharsets.US_ASCII))
         )
       case KeySource.FromString(value)  =>
-        ZManaged.succeed(value)
+        ZIO.scoped(ZIO.succeed(value))
     }
 }

@@ -9,7 +9,7 @@ import com.coralogix.zio.k8s.operator.OperatorLogging.logFailure
 import com.coralogix.zio.k8s.operator.contextinfo.{ ContextInfo, ContextInfoFailure }
 import com.coralogix.zio.k8s.operator.leader.locks.leaderlockresources.LeaderLockResources
 import com.coralogix.zio.k8s.operator.leader.locks.{ ConfigMapLock, CustomLeaderLock, LeaseLock }
-import zio.{ Clock, Random, _ }
+import zio._
 
 package object leader {
   type LeaderElection = LeaderElection.Service
@@ -19,28 +19,28 @@ package object leader {
       /** Runs the given effect by applying the leader election algorithm, with the guarantee that
         * the inner effect will only run at once in the Kubernetes cluster.
         *
-        * If you want to manage the lock as a ZManaged use [[lease]]
+        * If you want to manage the lock as Scoped use [[lease]]
         *
         * @param f
         *   Inner effect to protect
         */
-      def runAsLeader[R, E, A](f: ZIO[R, E, A]): ZIO[R with Clock, E, Option[A]] =
+      def runAsLeader[R, E, A](f: ZIO[R, E, A]): ZIO[R with Scope, E, Option[A]] =
         lease
-          .use(_ => f.mapBoth(ApplicationError.apply, Some.apply))
+          .zipRight(f.mapBoth(ApplicationError.apply, Some.apply))
           .catchAll((failure: LeaderElectionFailure[E]) =>
             logLeaderElectionFailure(failure).as(None)
           )
 
       /** Creates a managed lock implementing the leader election algorithm
         */
-      def lease: ZManaged[Clock, LeaderElectionFailure[Nothing], Unit]
+      def lease: ZIO[Scope, LeaderElectionFailure[Nothing], Unit]
     }
 
     class Live(contextInfo: ContextInfo.Service, lock: LeaderLock) extends Service {
-      override def lease: ZManaged[Clock, LeaderElectionFailure[Nothing], Unit] =
+      override def lease: ZIO[Scope, LeaderElectionFailure[Nothing], Unit] =
         for {
-          namespace   <- contextInfo.namespace.toManaged.mapError(ContextInfoError.apply)
-          pod         <- contextInfo.pod.toManaged.mapError(ContextInfoError.apply)
+          namespace   <- ZIO.scoped(contextInfo.namespace).mapError(ContextInfoError.apply)
+          pod         <- ZIO.scoped(contextInfo.pod).mapError(ContextInfoError.apply)
           managedLock <- lock.acquireLock(namespace, pod)
         } yield managedLock
 
@@ -51,23 +51,25 @@ package object leader {
       lock: LeaderLock,
       leadershipLost: Queue[Unit]
     ) extends Service {
-      override def lease: ZManaged[Clock, LeaderElectionFailure[Nothing], Unit] =
+      override def lease: ZIO[Scope, LeaderElectionFailure[Nothing], Unit] =
         for {
-          namespace   <- contextInfo.namespace.toManaged.mapError(ContextInfoError.apply)
-          pod         <- contextInfo.pod.toManaged.mapError(ContextInfoError.apply)
+          namespace   <- ZIO.scoped(contextInfo.namespace).mapError(ContextInfoError.apply)
+          pod         <- ZIO.scoped(contextInfo.pod).mapError(ContextInfoError.apply)
           managedLock <- lock.acquireLock(namespace, pod)
         } yield managedLock
 
       override def runAsLeader[R, E, A](
         f: ZIO[R, E, A]
-      ): ZIO[R with Clock, E, Option[A]] =
-        lease
-          .use { _ =>
-            f.mapBoth(ApplicationError.apply, Some.apply) raceFirst leadershipLost.take.as(None)
-          }
-          .catchAll((failure: LeaderElectionFailure[E]) =>
-            logLeaderElectionFailure(failure).as(None)
-          )
+      ): ZIO[R, E, Option[A]] =
+        ZIO.scoped[R] {
+          lease
+            .flatMap { _ =>
+              f.mapBoth(ApplicationError.apply, Some.apply) raceFirst leadershipLost.take.as(None)
+            }
+            .catchAll((failure: LeaderElectionFailure[E]) =>
+              logLeaderElectionFailure(failure).as(None)
+            )
+        }
     }
 
     /** Default retry policy for acquiring the lock
@@ -81,10 +83,12 @@ package object leader {
       * [[customLeaderLock()]].
       */
     def fromLock: ZLayer[LeaderLock with ContextInfo, Nothing, LeaderElection] =
-      (for {
-        selfInfo <- ZIO.service[ContextInfo.Service]
-        lock     <- ZIO.service[LeaderLock]
-      } yield new Live(selfInfo, lock)).toLayer
+      ZLayer.fromZIO {
+        for {
+          selfInfo <- ZIO.service[ContextInfo.Service]
+          lock     <- ZIO.service[LeaderLock]
+        } yield new Live(selfInfo, lock)
+      }
 
     /** Simple leader election implementation
       *
@@ -104,9 +108,11 @@ package object leader {
       deleteLockOnRelease: Boolean = true
     ): ZLayer[ContextInfo with ConfigMaps with Pods, Nothing, LeaderElection] =
       (ContextInfo.any ++
-        ZLayer.fromService[ConfigMaps.Service, LeaderLock](configmaps =>
-          new ConfigMapLock(lockName, retryPolicy, deleteLockOnRelease, configmaps)
-        )) >>> fromLock
+        ZLayer {
+          for {
+            configmaps <- ZIO.service[ConfigMaps.Service]
+          } yield new ConfigMapLock(lockName, retryPolicy, deleteLockOnRelease, configmaps)
+        }) >>> fromLock
 
     /** Simple leader election implementation based on a custom resource
       *
@@ -129,9 +135,11 @@ package object leader {
       deleteLockOnRelease: Boolean = true
     ): ZLayer[ContextInfo with LeaderLockResources with Pods, Nothing, LeaderElection] =
       (ContextInfo.any ++
-        ZLayer.fromService[LeaderLockResources.Service, LeaderLock](configmaps =>
-          new CustomLeaderLock(lockName, retryPolicy, deleteLockOnRelease, configmaps)
-        )) >>> fromLock
+        ZLayer {
+          for {
+            configmaps <- ZIO.service[LeaderLockResources.Service]
+          } yield new CustomLeaderLock(lockName, retryPolicy, deleteLockOnRelease, configmaps)
+        }) >>> fromLock
 
     /** Lease based leader election implementation
       *
@@ -157,22 +165,22 @@ package object leader {
       leaseDuration: Duration = 15.seconds,
       renewTimeout: Duration = 10.seconds,
       retryPeriod: Duration = 2.seconds
-    ): ZLayer[Random with ContextInfo with Leases, Nothing, LeaderElection] =
-      (for {
-        selfInfo       <- ZIO.service[ContextInfo.Service]
-        leases         <- ZIO.service[Leases.Service]
-        random         <- ZIO.service[Random]
-        leadershipLost <- Queue.bounded[Unit](1)
-        lock            = new LeaseLock(
-                            lockName,
-                            leases,
-                            random,
-                            leadershipLost,
-                            leaseDuration,
-                            renewTimeout,
-                            retryPeriod
-                          )
-      } yield new LiveTemporary(selfInfo, lock, leadershipLost)).toLayer
+    ): ZLayer[ContextInfo with Leases, Nothing, LeaderElection] =
+      ZLayer {
+        for {
+          selfInfo       <- ZIO.service[ContextInfo.Service]
+          leases         <- ZIO.service[Leases.Service]
+          leadershipLost <- Queue.bounded[Unit](1)
+          lock            = new LeaseLock(
+                              lockName,
+                              leases,
+                              leadershipLost,
+                              leaseDuration,
+                              renewTimeout,
+                              retryPeriod
+                            )
+        } yield new LiveTemporary(selfInfo, lock, leadershipLost)
+      }
 
     private[leader] def logLeaderElectionFailure[E](
       failure: LeaderElectionFailure[E]
@@ -211,18 +219,18 @@ package object leader {
   /** Runs the given effect by applying the leader election algorithm, with the guarantee that the
     * inner effect will only run at once in the Kubernetes cluster.
     *
-    * If you want to manage the lock as a ZManaged use [[lease()]]
+    * If you want to manage the lock as Scoped use [[lease()]]
     *
     * @param f
     *   Inner effect to protect
     */
   def runAsLeader[R, E, A](
     f: ZIO[R, E, A]
-  ): ZIO[R with LeaderElection with Clock, E, Option[A]] =
+  ): ZIO[R with Scope with LeaderElection, E, Option[A]] =
     ZIO.serviceWithZIO[LeaderElection](_.runAsLeader(f))
 
   /** Creates a managed lock implementing the leader election algorithm
     */
-  def lease: ZManaged[LeaderElection with Clock, LeaderElectionFailure[Nothing], Unit] =
-    ZManaged.environmentWithManaged(_.get[LeaderElection].lease)
+  def lease: ZIO[LeaderElection with Scope, LeaderElectionFailure[Nothing], Unit] =
+    ZIO.environmentWithZIO(_.get[LeaderElection].lease)
 }

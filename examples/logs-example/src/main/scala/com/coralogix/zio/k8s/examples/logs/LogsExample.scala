@@ -12,26 +12,28 @@ import zio.{ Console, ZIOAppDefault, _ }
 import scala.languageFeature.implicitConversions
 
 object LogsExample extends ZIOAppDefault {
-  override def run: ZIO[ZEnv with ZIOAppArgs, Any, Any] = {
+  override def run = {
     // Loading config from kubeconfig
     val config = kubeconfig(disableHostnameVerification = true)
       .project(cfg => cfg.dropTrailingDot)
 
     // K8s configuration and client layers
-    val client = (System.any ++ config) >>> k8sSttpClient
-    val cluster = (config) >>> k8sCluster
+    val client = config >>> k8sSttpClient
+    val cluster = config >>> k8sCluster
 
     val pods = (client ++ cluster) >>> Pods.live
 
     // val pods = k8sDefault >>> Pods.live
-    val program = for {
-      args <- ZIOAppArgs.getArgs
-      _    <- args.toList match {
-                case List(podName)                => tailLogs(podName, None)
-                case List(podName, containerName) => tailLogs(podName, Some(containerName))
-                case _                            => Console.printLineError("Usage: <podname> [containername]")
-              }
-    } yield ()
+    val program =
+      for {
+        pods <- ZIO.service[Pods]
+        args <- getArgs
+        _    <- args.toList match {
+                  case List(podName)                => tailLogs(pods, podName, None)
+                  case List(podName, containerName) => tailLogs(pods, podName, Some(containerName))
+                  case _                            => Console.printLineError("Usage: <podname> [containername]").ignore
+                }
+      } yield ()
 
 //    val program = ZIO
 //      .environmentWithZIO[ZIOAppArgs] {
@@ -42,15 +44,14 @@ object LogsExample extends ZIOAppDefault {
 //        }
 //      }
 
-    program
-      .provideSomeLayer[ZEnv with ZIOAppArgs](pods)
-      .exitCode
+    program.provideSome[ZIOAppArgs](pods)
   }
 
   private def tailLogs(
+    pods: Pods,
     podName: String,
     containerName: Option[String]
-  ): ZIO[Pods with Console, K8sFailure, Unit] =
+  ): IO[K8sFailure, Unit] =
     pods
       .getLog(podName, K8sNamespace.default, container = containerName, follow = Some(true))
       .tap { line =>

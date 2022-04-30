@@ -69,16 +69,21 @@ package object crontabs {
     ) extends Service
 
     val live
-      : ZLayer[K8sCluster with SttpBackend[Task, ZioStreams with WebSockets], Nothing, Crontabs] = {
-      (backend: SttpBackend[Task, ZioStreams with WebSockets], cluster: K8sCluster) =>
-        val client =
-          new ResourceClient[Crontab, Status](Crontab.metadata.resourceType, cluster, backend)
-        val statusClient = new ResourceStatusClient[CrontabStatus, Crontab](
-          Crontab.metadata.resourceType,
-          cluster,
-          backend
-        )
-        new Live(client, statusClient)
-    }.toLayer
+      : ZLayer[K8sCluster with SttpBackend[Task, ZioStreams with WebSockets], Nothing, Crontabs] =
+      ZLayer {
+        for {
+          backend <- ZIO.service[SttpBackend[Task, ZioStreams with WebSockets]]
+          cluster <- ZIO.service[K8sCluster]
+        } yield {
+          val client =
+            new ResourceClient[Crontab, Status](Crontab.metadata.resourceType, cluster, backend)
+          val statusClient = new ResourceStatusClient[CrontabStatus, Crontab](
+            Crontab.metadata.resourceType,
+            cluster,
+            backend
+          )
+          new Live(client, statusClient)
+        }
+      }
   }
 }

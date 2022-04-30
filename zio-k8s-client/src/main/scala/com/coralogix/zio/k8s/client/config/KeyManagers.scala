@@ -4,7 +4,7 @@ import org.bouncycastle.asn1.pkcs.PrivateKeyInfo
 import org.bouncycastle.jce.provider.BouncyCastleProvider
 import org.bouncycastle.openssl.jcajce.JcaPEMKeyConverter
 import org.bouncycastle.openssl.{ PEMKeyPair, PEMParser }
-import zio.{ System, ZIO, ZManaged }
+import zio.{ Scope, System, ZIO }
 
 import java.io.{ File, FileInputStream, InputStreamReader }
 import java.security.KeyStore
@@ -13,7 +13,7 @@ import javax.net.ssl.{ KeyManager, KeyManagerFactory }
 
 private object KeyManagers {
 
-  private def getDefaultKeyStore: ZIO[System, Throwable, KeyStore] =
+  private def getDefaultKeyStore: ZIO[Scope, Throwable, KeyStore] =
     for {
       propertyKeyStore    <- System.property("javax.net.ssl.keyStore")
       propertyKeyStoreFile = propertyKeyStore.map(new File(_))
@@ -22,7 +22,7 @@ private object KeyManagers {
       _                   <-
         propertyKeyStoreFile match {
           case Some(file) =>
-            ZManaged.fromAutoCloseable(ZIO.attempt(new FileInputStream(file))).use { stream =>
+            ZIO.fromAutoCloseable(ZIO.attempt(new FileInputStream(file))) flatMap { stream =>
               ZIO.attempt(defaultKeyStore.load(stream, password.getOrElse("changeit").toCharArray))
             }
           case None       =>
@@ -34,12 +34,12 @@ private object KeyManagers {
     certificate: KeySource,
     key: KeySource,
     password: Option[String]
-  ): ZIO[System, Throwable, Array[KeyManager]] =
+  ): ZIO[Any with Scope, Throwable, Array[KeyManager]] =
     for {
       keyStore <- getDefaultKeyStore
       provider <- ZIO.attempt(new BouncyCastleProvider())
 
-      privateKey <- loadKeyStream(key).use { stream =>
+      privateKey <- loadKeyStream(key) flatMap { stream =>
                       ZIO.attempt {
                         val pemKeyPair = new PEMParser(new InputStreamReader(stream))
                         val converter = new JcaPEMKeyConverter().setProvider(provider)
@@ -55,7 +55,7 @@ private object KeyManagers {
                     }
 
       certificateFactory <- ZIO.attempt(CertificateFactory.getInstance("X509"))
-      x509Cert           <- loadKeyStream(certificate).use { stream =>
+      x509Cert           <- loadKeyStream(certificate) flatMap { stream =>
                               ZIO.attempt(
                                 certificateFactory.generateCertificate(stream).asInstanceOf[X509Certificate]
                               )

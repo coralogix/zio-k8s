@@ -25,11 +25,11 @@ package object contextinfo {
       def pod: IO[ContextInfoFailure, Pod]
     }
 
-    abstract class LiveBase(system: System, pods: Pods.Service) extends Service {
+    abstract class LiveBase(pods: Pods.Service) extends Service {
       override def pod: IO[ContextInfoFailure, Pod] =
         for {
           ns           <- namespace
-          maybePodName <- system
+          maybePodName <- System
                             .env("POD_NAME")
                             .mapError(reason => ContextInfoFailure.PodNameMissing(Some(reason)))
           result       <- maybePodName match {
@@ -43,7 +43,7 @@ package object contextinfo {
         } yield result
     }
 
-    class Live(system: System, pods: Pods.Service) extends LiveBase(system, pods) {
+    class Live(pods: Pods.Service) extends LiveBase(pods) {
       override def namespace: IO[ContextInfoFailure, K8sNamespace] =
         Files
           .readAllLines(Path("/var/run/secrets/kubernetes.io/serviceaccount/namespace"))
@@ -54,26 +54,28 @@ package object contextinfo {
           }
     }
 
-    class LiveForcedNamespace(system: System, pods: Pods.Service, ns: K8sNamespace)
-        extends LiveBase(system, pods) {
+    class LiveForcedNamespace(pods: Pods.Service, ns: K8sNamespace) extends LiveBase(pods) {
       override def namespace: IO[ContextInfoFailure, K8sNamespace] = ZIO.succeed(ns)
     }
 
-    val any: ZLayer[ContextInfo, Nothing, ContextInfo] = ZLayer.requires[ContextInfo]
+    zio.Clock
+    val any: ZLayer[ContextInfo, Nothing, ContextInfo] = ZLayer.service[ContextInfo]
 
-    val live: ZLayer[Any with Pods with System, ContextInfoFailure, ContextInfo] =
-      (for {
-        system <- ZIO.service[System]
-        pods   <- ZIO.service[Pods.Service]
-      } yield new Live(system, pods)).toLayer
+    val live: ZLayer[Any with Pods, ContextInfoFailure, ContextInfo] =
+      ZLayer {
+        for {
+          pods <- ZIO.service[Pods.Service]
+        } yield new Live(pods)
+      }
 
     def liveForcedNamespace(
       namespace: K8sNamespace
-    ): ZLayer[Pods with System, ContextInfoFailure, ContextInfo] =
-      (for {
-        system <- ZIO.service[System]
-        pods   <- ZIO.service[Pods.Service]
-      } yield new LiveForcedNamespace(system, pods, namespace)).toLayer
+    ): ZLayer[Pods, ContextInfoFailure, ContextInfo] =
+      ZLayer {
+        for {
+          pods <- ZIO.service[Pods.Service]
+        } yield new LiveForcedNamespace(pods, namespace)
+      }
 
     def test(p: Pod, ns: K8sNamespace): ULayer[ContextInfo] =
       ZLayer.succeed(new Service {

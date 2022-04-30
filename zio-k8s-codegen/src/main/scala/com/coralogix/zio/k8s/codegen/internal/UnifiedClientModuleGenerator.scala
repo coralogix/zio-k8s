@@ -53,19 +53,21 @@ trait UnifiedClientModuleGenerator {
 
     val liveLayer =
       q"""val live: ZLayer[SttpBackend[Task, ZioStreams with WebSockets] with K8sCluster, Nothing, Kubernetes] =
-            {
-              (backend: SttpBackend[Task, ZioStreams with WebSockets], cluster: K8sCluster) => {
-                new Api(backend, cluster)
+            ZLayer.fromZIO {
+              for {
+                backend <- ZIO.service[SttpBackend[Task, ZioStreams with WebSockets]]
+                cluster <- ZIO.service[K8sCluster]
+              } yield new Api(backend, cluster)
             }
-          }.toLayer
        """
 
     val anyLayer =
       q"""val any: ZLayer[Kubernetes, Nothing, Kubernetes] = ZLayer.environment[Kubernetes]"""
 
     val testLayer =
-      q"""val test: ZLayer[Any, Nothing, Kubernetes] =
-            ZIO.runtime[Any].map { runtime => new TestApi(runtime) }.toLayer
+      q"""val test: ZLayer[Any, Nothing, Kubernetes] = ZLayer.fromZIO {
+            ZIO.runtime[Any].map { runtime => new TestApi(runtime) }
+          }
        """
 
     val defs = interfaces ++ List(liveClass, testClass, liveLayer, anyLayer, testLayer)

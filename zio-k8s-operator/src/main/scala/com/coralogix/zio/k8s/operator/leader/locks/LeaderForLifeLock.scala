@@ -9,7 +9,7 @@ import com.coralogix.zio.k8s.model.pkg.apis.meta.v1.{ DeleteOptions, Status }
 import com.coralogix.zio.k8s.operator.OperatorFailure.k8sFailureToThrowable
 import com.coralogix.zio.k8s.operator.OperatorLogging.logFailure
 import com.coralogix.zio.k8s.operator.leader.{ KubernetesError, LeaderElectionFailure, LeaderLock }
-import zio.{ Cause, Clock, IO, Schedule, ZIO, ZManaged }
+import zio.{ Cause, IO, Schedule, Scope, ZIO, ZLayer }
 
 abstract class LeaderForLifeLock[T: K8sObject](
   lockName: String,
@@ -47,9 +47,9 @@ abstract class LeaderForLifeLock[T: K8sObject](
   def acquireLock(
     namespace: K8sNamespace,
     self: Pod
-  ): ZManaged[Clock, LeaderElectionFailure[Nothing], Unit] =
+  ): ZIO[Scope, LeaderElectionFailure[Nothing], Unit] =
     for {
-      alreadyOwned <- checkIfAlreadyOwned(namespace, self).toManaged
+      alreadyOwned <- ZIO.scoped(checkIfAlreadyOwned(namespace, self))
       lock         <-
         if (alreadyOwned)
           ZIO
@@ -57,11 +57,11 @@ abstract class LeaderForLifeLock[T: K8sObject](
               ZIO.logInfo(
                 s"Lock '$lockName' in namespace '${namespace.value}' is already owned by the current pod"
               )
-            }
-            .toManaged *>
-            ZManaged.acquireReleaseWith(ZIO.unit)(_ => deleteLock(lockName, namespace))
+            } flatMap { _ =>
+            ZIO.acquireRelease(ZIO.unit)(_ => deleteLock(lockName, namespace))
+          }
         else
-          ZManaged.acquireReleaseWith(
+          ZIO.acquireRelease(
             tryCreateLock(namespace, self)
           )(_ => deleteLock(lockName, namespace))
     } yield lock
@@ -87,7 +87,7 @@ abstract class LeaderForLifeLock[T: K8sObject](
   private def tryCreateLock(
     namespace: K8sNamespace,
     self: Pod
-  ): ZIO[Clock, LeaderElectionFailure[Nothing], Unit] =
+  ): ZIO[Any, LeaderElectionFailure[Nothing], Unit] =
     ZIO.logAnnotate("name", "Leader") {
       for {
         _               <- ZIO.logInfo(s"Acquiring lock '$lockName' in namespace '${namespace.value}'")
