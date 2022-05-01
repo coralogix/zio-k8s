@@ -98,6 +98,7 @@ class LeaseLock(
 
     private def tryAcquireOrRenew(): ZIO[Any, LeaderElectionFailure[Nothing], Boolean] =
       for {
+        _      <- logInfo("tryAcquireOrRenew")
         latest <- get()
         now    <- Clock.currentDateTime
         result <- latest match {
@@ -113,10 +114,16 @@ class LeaseLock(
                       } yield true
                     case Some(versioned) =>
                       for {
+                        _              <- logInfo(s"Found versioned: $versioned")
                         _              <- updateStore(versioned)
+                        _              <- logInfo(
+                                            s"versioned renewTime + leaderDuration = ${versioned.record.renewTime
+                                              .plus(leaseDuration)}, now: ${now}"
+                                          )
                         isLeader        = versioned.record.holderIdentity == identity
                         canBecomeLeader =
-                          !(versioned.record.renewTime.plus(leaseDuration).isAfter(now))
+                          versioned.record.renewTime.plus(leaseDuration).isBefore(now)
+                        _              <- logInfo(s"canBecomeLeader: ${canBecomeLeader}")
                         result         <-
                           if (!isLeader && !canBecomeLeader) {
                             ZIO.succeed(false)

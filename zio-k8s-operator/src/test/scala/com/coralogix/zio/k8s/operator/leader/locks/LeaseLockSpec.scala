@@ -10,17 +10,18 @@ import com.coralogix.zio.k8s.model.pkg.apis.meta.v1.{ DeleteOptions, MicroTime, 
 import com.coralogix.zio.k8s.operator.contextinfo.ContextInfo
 import com.coralogix.zio.k8s.operator.leader
 import com.coralogix.zio.k8s.operator.leader.LeaderElection
-import zio.ZIO.ifZIO
+import zio.ZIO.{ ifZIO, logDebug, logInfo }
 import zio.logging.LogFormat
 import zio.stream.ZStream
 import zio.test.Assertion._
 import zio.test.TestAspect.timeout
 import zio.test._
-import zio.{ stream, Clock, Console, Fiber, IO, RIO, Random, Ref, UIO, ULayer, ZIO, ZLayer, _ }
+import zio.{ stream, Clock, Fiber, IO, RIO, Ref, UIO, ULayer, ZIO, ZLayer, _ }
 
 object LeaseLockSpec extends ZIOSpecDefault {
 
-  override def hook = zio.logging.console(LogFormat.colored, LogLevel.All)
+  val consoleLogging =
+    TestAspect.runtimeConfig(zio.logging.console(LogFormat.colored, LogLevel.All))
 
   private def leaderElection(
     name: String
@@ -222,13 +223,13 @@ object LeaseLockSpec extends ZIOSpecDefault {
 
   override def spec: ZSpec[TestEnvironment, Any] =
     suite("Lease based leader election")(
-      simultaneousStartupSingleLeaderTest,
-      newLeaderAfterInterruptionTest,
-      stolenLeaseInterruptionTest,
-      noK8sAccessTest,
-      clockSkewTest,
-      renewalFailure
-    ) @@ timeout(30.second)
+//      simultaneousStartupSingleLeaderTest,
+//      newLeaderAfterInterruptionTest,
+//      stolenLeaseInterruptionTest,
+//      noK8sAccessTest,
+      clockSkewTest
+//      renewalFailure
+    ) @@ timeout(30.second) @@ consoleLogging
 
   val simultaneousStartupSingleLeaderTest: ZSpec[TestEnvironment, Any] =
     test("simultaneous startup, only one leads") {
@@ -348,38 +349,38 @@ object LeaseLockSpec extends ZIOSpecDefault {
           ref        <- Ref.make(0)
           winner     <- Ref.make("")
           _          <- otherClock.get[TestClock].adjust(20.seconds)
-          _          <- Console.printLine("starting f1").orDie
+          otherNow   <- otherClock.get[TestClock].currentDateTime
+          _          <- logInfo(s"otherClock things now is: ${otherNow}")
+          _          <- logDebug("starting f1")
           f1         <- ZIO
-                          .scoped(leader.runAsLeader(singleton(ref, winner, "pod1")))
+                          .scoped(leader.runAsLeader(singleton(ref, winner, "pod1")).fork)
                           .provideSomeLayer(leaderElection("pod1"))
-                          .fork
 
-          _  <- Console.printLine("getting least test-lock").orDie
+          _  <- logDebug("getting lease test-lock")
           _  <- leases.get("test-lock", K8sNamespace.default).retryWhile(_ == NotFound)
-          _  <- Console.printLine("waiting for 'pod1'").orDie
+          _  <- logDebug("waiting for 'pod1'")
           w0 <- winner.get.repeatUntil(_ == "pod1")
 
-          _  <- Console.printLine("starting f2").orDie
+          _  <- logDebug("starting f2")
           f2 <- ZIO
-                  .scoped(leader.runAsLeader(singleton(ref, winner, "pod2")))
+                  .scoped(leader.runAsLeader(singleton(ref, winner, "pod2")).fork)
                   .provideSomeLayer[Leases.Service](leaderElection("pod2"))
                   .provideSomeEnvironment[Leases](_ ++ otherClock)
-                  .fork
 
-          _  <- Console.printLine("adjust TestClock by 5 seconds").orDie
+          _  <- logDebug("adjust TestClock by 5 seconds")
           _  <- TestClock.adjust(5.seconds)
-          _  <- Console.printLine("adjust otherClock by 5 seconds").orDie
+          _  <- logDebug("adjust otherClock by 5 seconds")
           _  <- otherClock.get[TestClock].adjust(5.seconds)
-          _  <- Console.printLine("join f1").orDie
+          _  <- logDebug("join f1")
           _  <- f1.join
-          _  <- Console.printLine("get winner").orDie
+          _  <- logDebug("get winner")
           w1 <- winner.get
 
-          _ <- Console.printLine("interrupt f1 and f2").orDie
+          _ <- logDebug("interrupt f1 and f2")
           _ <- f1.interrupt
           _ <- f2.interrupt
         } yield assertTrue(w0 == "pod1") && assertTrue(w1 == "pod2")
-      }.provideSomeLayer[Live with Annotations with Leases](Console.live)
+      }
 
       testIO
     }.provideCustomLayer(Leases.test)
