@@ -350,11 +350,12 @@ object LeaseLockSpec extends ZIOSpecDefault {
           winner     <- Ref.make("")
           _          <- otherClock.get[TestClock].adjust(20.seconds)
           otherNow   <- otherClock.get[TestClock].currentDateTime
-          _          <- logInfo(s"otherClock things now is: ${otherNow}")
+          _          <- logInfo(s"otherClock thinks now is: ${otherNow}")
           _          <- logDebug("starting f1")
           f1         <- ZIO
-                          .scoped(leader.runAsLeader(singleton(ref, winner, "pod1")).fork)
+                          .scoped(leader.runAsLeader(singleton(ref, winner, "pod1")))
                           .provideSomeLayer(leaderElection("pod1"))
+                          .fork
 
           _  <- logDebug("getting lease test-lock")
           _  <- leases.get("test-lock", K8sNamespace.default).retryWhile(_ == NotFound)
@@ -363,9 +364,10 @@ object LeaseLockSpec extends ZIOSpecDefault {
 
           _  <- logDebug("starting f2")
           f2 <- ZIO
-                  .scoped(leader.runAsLeader(singleton(ref, winner, "pod2")).fork)
+                  .scoped(leader.runAsLeader(singleton(ref, winner, "pod2")))
                   .provideSomeLayer[Leases.Service](leaderElection("pod2"))
                   .provideSomeEnvironment[Leases](_ ++ otherClock)
+                  .fork
 
           _  <- logDebug("adjust TestClock by 5 seconds")
           _  <- TestClock.adjust(5.seconds)
