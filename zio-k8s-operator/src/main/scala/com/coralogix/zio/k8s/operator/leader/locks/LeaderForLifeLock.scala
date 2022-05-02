@@ -9,7 +9,7 @@ import com.coralogix.zio.k8s.model.pkg.apis.meta.v1.{ DeleteOptions, Status }
 import com.coralogix.zio.k8s.operator.OperatorFailure.k8sFailureToThrowable
 import com.coralogix.zio.k8s.operator.OperatorLogging.logFailure
 import com.coralogix.zio.k8s.operator.leader.{ KubernetesError, LeaderElectionFailure, LeaderLock }
-import zio.{ Cause, IO, Schedule, Scope, ZIO, ZLayer }
+import zio.{ Cause, IO, Schedule, ZIO, ZLayer }
 
 abstract class LeaderForLifeLock[T: K8sObject](
   lockName: String,
@@ -47,9 +47,9 @@ abstract class LeaderForLifeLock[T: K8sObject](
   def acquireLock(
     namespace: K8sNamespace,
     self: Pod
-  ): ZIO[Scope, LeaderElectionFailure[Nothing], Unit] =
-    for {
-      alreadyOwned <- ZIO.scoped(checkIfAlreadyOwned(namespace, self))
+  ): ZIO[Any, LeaderElectionFailure[Nothing], Unit] =
+    ZIO.scoped { for {
+      alreadyOwned <- checkIfAlreadyOwned(namespace, self)
       lock         <-
         if (alreadyOwned)
           ZIO
@@ -64,7 +64,7 @@ abstract class LeaderForLifeLock[T: K8sObject](
           ZIO.acquireRelease(
             tryCreateLock(namespace, self)
           )(_ => deleteLock(lockName, namespace))
-    } yield lock
+    } yield lock }
 
   private def checkIfAlreadyOwned(
     namespace: K8sNamespace,

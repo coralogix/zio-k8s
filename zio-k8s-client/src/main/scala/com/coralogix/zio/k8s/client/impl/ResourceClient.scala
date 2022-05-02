@@ -66,7 +66,7 @@ final class ResourceClient[
       }.map { initialResponse =>
         val rest = ZStream.fromPull {
           for {
-            nextContinueToken <- ZIO.scoped(Ref.make(initialResponse.metadata.flatMap(_.continue)))
+            nextContinueToken <- Ref.make(initialResponse.metadata.flatMap(_.continue))
             pull               = for {
                                    continueToken <- nextContinueToken.get
                                    chunk         <- continueToken match {

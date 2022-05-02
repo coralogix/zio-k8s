@@ -41,7 +41,7 @@ object LeaderExample extends ZIOAppDefault {
   }
 
   private def example(): ZIO[
-    Any with Scope with LeaderElection.Service,
+    Any with LeaderElection.Service,
     Nothing,
     Option[Nothing]
   ] =

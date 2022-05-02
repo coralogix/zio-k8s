@@ -15,12 +15,11 @@ package object asynchttpclient {
   /** An [[SttpClient]] layer configured with the proper SSL context based on the provided
     * [[K8sClusterConfig]] using the async-http-client-backend-zio backend.
     */
-  val k8sSttpClient: ZLayer[K8sClusterConfig with Scope with Any, Throwable, SttpClient] = ZLayer {
-
+  val k8sSttpClient: ZLayer[K8sClusterConfig with System, Throwable, SttpClient] = ZLayer.scoped {
     for {
       config                      <- ZIO.service[K8sClusterConfig]
-      runtime                     <- ZIO.scoped(ZIO.runtime[Any])
-      sslContext                  <- ZIO.scoped(SSL(config.client.serverCertificate, config.authentication))
+      runtime                     <- ZIO.runtime[Any]
+      sslContext                  <- SSL(config.client.serverCertificate, config.authentication)
       disableHostnameVerification <- ZIO.succeed(getHostnameVerificationDisabled(config))
       client                      <-
         ZIO
@@ -69,6 +68,6 @@ package object asynchttpclient {
   /** Layer producing a [[K8sCluster]] and an [[SttpClient]] module that can be directly used to
     * initialize specific Kubernetes client modules, using the [[defaultConfigChain]].
     */
-  val k8sDefault: ZLayer[Any with Scope, Throwable, K8sCluster with SttpClient] =
+  val k8sDefault: ZLayer[System, Throwable, K8sCluster with SttpClient] =
     defaultConfigChain >>> (k8sCluster ++ k8sSttpClient)
 }

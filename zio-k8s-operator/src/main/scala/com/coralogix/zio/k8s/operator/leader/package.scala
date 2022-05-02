@@ -24,7 +24,7 @@ package object leader {
         * @param f
         *   Inner effect to protect
         */
-      def runAsLeader[R, E, A](f: ZIO[R, E, A]): ZIO[R with Scope, E, Option[A]] =
+      def runAsLeader[R, E, A](f: ZIO[R, E, A]): ZIO[R with Any, E, Option[A]] =
         lease
           .zipRight(f.mapBoth(ApplicationError.apply, Some.apply))
           .catchAll((failure: LeaderElectionFailure[E]) =>
@@ -33,17 +33,18 @@ package object leader {
 
       /** Creates a managed lock implementing the leader election algorithm
         */
-      def lease: ZIO[Scope, LeaderElectionFailure[Nothing], Unit]
+      def lease: ZIO[Any, LeaderElectionFailure[Nothing], Unit]
     }
 
     class Live(contextInfo: ContextInfo.Service, lock: LeaderLock) extends Service {
-      override def lease: ZIO[Scope, LeaderElectionFailure[Nothing], Unit] =
-        for {
-          namespace   <- ZIO.scoped(contextInfo.namespace).mapError(ContextInfoError.apply)
-          pod         <- ZIO.scoped(contextInfo.pod).mapError(ContextInfoError.apply)
-          managedLock <- lock.acquireLock(namespace, pod)
-        } yield managedLock
-
+      override def lease: ZIO[Any, LeaderElectionFailure[Nothing], Unit] =
+        ZIO.scoped {
+          for {
+            namespace <- contextInfo.namespace.mapError(ContextInfoError.apply)
+            pod <- contextInfo.pod.mapError(ContextInfoError.apply)
+            managedLock <- lock.acquireLock(namespace, pod)
+          } yield managedLock
+        }
     }
 
     class LiveTemporary(
@@ -51,12 +52,14 @@ package object leader {
       lock: LeaderLock,
       leadershipLost: Queue[Unit]
     ) extends Service {
-      override def lease: ZIO[Scope, LeaderElectionFailure[Nothing], Unit] =
-        for {
-          namespace   <- ZIO.scoped(contextInfo.namespace).mapError(ContextInfoError.apply)
-          pod         <- ZIO.scoped(contextInfo.pod).mapError(ContextInfoError.apply)
-          managedLock <- lock.acquireLock(namespace, pod)
-        } yield managedLock
+      override def lease: ZIO[Any, LeaderElectionFailure[Nothing], Unit] =
+        ZIO.scoped {
+          for {
+            namespace <- contextInfo.namespace.mapError(ContextInfoError.apply)
+            pod <- contextInfo.pod.mapError(ContextInfoError.apply)
+            managedLock <- lock.acquireLock(namespace, pod)
+          } yield managedLock
+        }
 
       override def runAsLeader[R, E, A](
         f: ZIO[R, E, A]
@@ -226,11 +229,11 @@ package object leader {
     */
   def runAsLeader[R, E, A](
     f: ZIO[R, E, A]
-  ): ZIO[R with Scope with LeaderElection, E, Option[A]] =
+  ): ZIO[R with Any with LeaderElection, E, Option[A]] =
     ZIO.serviceWithZIO[LeaderElection](_.runAsLeader(f))
 
   /** Creates a managed lock implementing the leader election algorithm
     */
-  def lease: ZIO[LeaderElection with Scope, LeaderElectionFailure[Nothing], Unit] =
-    ZIO.environmentWithZIO(_.get[LeaderElection].lease)
+  def lease: ZIO[LeaderElection with Any, LeaderElectionFailure[Nothing], Unit] =
+    ZIO.scoped(ZIO.environmentWithZIO(_.get[LeaderElection].lease))
 }

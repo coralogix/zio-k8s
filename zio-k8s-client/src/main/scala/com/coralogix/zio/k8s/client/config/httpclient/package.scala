@@ -14,13 +14,12 @@ package object httpclient {
   /** An [[SttpClient]] layer configured with the proper SSL context based on the provided
     * [[K8sClusterConfig]] using the httpclient-backend-zio backend.
     */
-  val k8sSttpClient: ZLayer[K8sClusterConfig, Throwable, SttpClient] =
+  val k8sSttpClient: ZLayer[System with K8sClusterConfig, Throwable, SttpClient] =
     ZLayer.scoped {
       for {
         config                      <- ZIO.service[K8sClusterConfig]
         disableHostnameVerification <- ZIO.succeed(getHostnameVerificationDisabled(config))
-        _                           <- ZIO.scoped(
-                                         ZIO
+        _                           <- ZIO
                                            .attempt {
                                              java.lang.System.setProperty(
                                                "jdk.internal.httpclient.disableHostnameVerification",
@@ -28,9 +27,9 @@ package object httpclient {
                                              )
                                            }
                                            .when(disableHostnameVerification)
-                                       )
-        sslContext                  <- ZIO.scoped(SSL(config.client.serverCertificate, config.authentication))
-        client                      <- ZIO
+
+        sslContext                  <- SSL(config.client.serverCertificate, config.authentication)
+        client                      <- ZIO.scoped(ZIO
                                          .acquireRelease(
                                            ZIO.attempt(
                                              HttpClientZioBackend.usingClient(
@@ -48,14 +47,14 @@ package object httpclient {
                                              logRequestBody = config.client.debug,
                                              logResponseBody = config.client.debug
                                            )
-                                         }
+                                         })
       } yield client
     }
 
   /** Layer producing a [[K8sCluster]] and an [[SttpClient]] module that can be directly used to
     * initialize specific Kubernetes client modules, using the [[defaultConfigChain]].
     */
-  val k8sDefault: ZLayer[Any with Scope, Throwable, K8sCluster with SttpClient] =
+  val k8sDefault: ZLayer[System, Throwable, K8sCluster with SttpClient] =
     defaultConfigChain >>> (k8sCluster ++ k8sSttpClient)
 
   def getHostnameVerificationDisabled(config: K8sClusterConfig) =
