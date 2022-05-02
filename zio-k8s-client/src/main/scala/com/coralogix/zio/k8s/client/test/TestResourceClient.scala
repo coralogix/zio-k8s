@@ -122,7 +122,11 @@ final class TestResourceClient[T: K8sObject: Encoder, DeleteResult] private (
                                    case true  =>
                                      ZSTM.fail(
                                        DecodedFailure(
-                                         K8sRequestInfo(K8sResourceType("test", "group", "version"), "create"),
+                                         K8sRequestInfo(
+                                           K8sResourceType("test", "group", "version"),
+                                           "create",
+                                           namespace
+                                         ),
                                          Status(),
                                          StatusCode.Conflict
                                        )
@@ -159,7 +163,11 @@ final class TestResourceClient[T: K8sObject: Encoder, DeleteResult] private (
                                .flatMap(_.resourceVersion) =>
                            ZSTM.fail(
                              DecodedFailure(
-                               K8sRequestInfo(K8sResourceType("test", "group", "version"), "replace"),
+                               K8sRequestInfo(
+                                 K8sResourceType("test", "group", "version"),
+                                 "replace",
+                                 namespace
+                               ),
                                Status(),
                                StatusCode.Conflict
                              )
