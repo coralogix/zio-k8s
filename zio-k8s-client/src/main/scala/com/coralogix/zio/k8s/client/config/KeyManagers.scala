@@ -3,17 +3,17 @@ package com.coralogix.zio.k8s.client.config
 import org.bouncycastle.asn1.pkcs.PrivateKeyInfo
 import org.bouncycastle.jce.provider.BouncyCastleProvider
 import org.bouncycastle.openssl.jcajce.JcaPEMKeyConverter
-import org.bouncycastle.openssl.{PEMKeyPair, PEMParser}
-import zio.{System, ZIO}
+import org.bouncycastle.openssl.{ PEMKeyPair, PEMParser }
+import zio.{ System, ZIO }
 
-import java.io.{File, FileInputStream, InputStreamReader}
+import java.io.{ File, FileInputStream, InputStreamReader }
 import java.security.KeyStore
-import java.security.cert.{CertificateFactory, X509Certificate}
-import javax.net.ssl.{KeyManager, KeyManagerFactory}
+import java.security.cert.{ CertificateFactory, X509Certificate }
+import javax.net.ssl.{ KeyManager, KeyManagerFactory }
 
 private object KeyManagers {
 
-  private def getDefaultKeyStore: ZIO[System, Throwable, KeyStore] =
+  private def getDefaultKeyStore: ZIO[Any, Throwable, KeyStore] =
     for {
       propertyKeyStore    <- System.property("javax.net.ssl.keyStore")
       propertyKeyStoreFile = propertyKeyStore.map(new File(_))
@@ -22,8 +22,11 @@ private object KeyManagers {
       _                   <-
         propertyKeyStoreFile match {
           case Some(file) =>
-            ZIO.scoped(ZIO.fromAutoCloseable(ZIO.attempt(new FileInputStream(file))) flatMap { stream =>
-              ZIO.attempt(defaultKeyStore.load(stream, password.getOrElse("changeit").toCharArray))
+            ZIO.scoped(ZIO.fromAutoCloseable(ZIO.attempt(new FileInputStream(file))) flatMap {
+              stream =>
+                ZIO.attempt(
+                  defaultKeyStore.load(stream, password.getOrElse("changeit").toCharArray)
+                )
             })
           case None       =>
             ZIO.attempt(defaultKeyStore.load(null))
@@ -34,7 +37,7 @@ private object KeyManagers {
     certificate: KeySource,
     key: KeySource,
     password: Option[String]
-  ): ZIO[System, Throwable, Array[KeyManager]] =
+  ): ZIO[Any, Throwable, Array[KeyManager]] =
     for {
       keyStore <- getDefaultKeyStore
       provider <- ZIO.attempt(new BouncyCastleProvider())

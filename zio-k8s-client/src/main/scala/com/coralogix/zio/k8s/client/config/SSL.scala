@@ -1,16 +1,16 @@
 package com.coralogix.zio.k8s.client.config
 
-import zio.{System, Task, ZIO}
+import zio.{ System, Task, ZIO }
 
 import java.security.SecureRandom
 import java.security.cert.X509Certificate
-import javax.net.ssl.{KeyManager, SSLContext, TrustManager, X509TrustManager}
+import javax.net.ssl.{ KeyManager, SSLContext, TrustManager, X509TrustManager }
 
 private object SSL {
   def apply(
     serverCertificate: K8sServerCertificate,
     authentication: K8sAuthentication
-  ): ZIO[System, Throwable, SSLContext] =
+  ): ZIO[Any, Throwable, SSLContext] =
     serverCertificate match {
       case K8sServerCertificate.Insecure               =>
         insecureSSLContext()
@@ -34,8 +34,8 @@ private object SSL {
   private def secureSSLContext(
     certSource: KeySource,
     authentication: K8sAuthentication
-  ): ZIO[System, Throwable, SSLContext] =
-   ZIO.scoped(loadKeyStream(certSource) flatMap { certStream =>
+  ): ZIO[Any, Throwable, SSLContext] =
+    ZIO.scoped(loadKeyStream(certSource) flatMap { certStream =>
       for {
         keyManagers   <-
           authentication match {

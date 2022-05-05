@@ -5,7 +5,7 @@ import com.coralogix.zio.k8s.client.config._
 import com.coralogix.zio.k8s.client.config.httpclient._
 import com.coralogix.zio.k8s.client.model.K8sNamespace
 import com.coralogix.zio.k8s.client.v1.pods.Pods
-import zio.{Console, ZIOAppDefault, _}
+import zio.{ Console, ZIOAppDefault, _ }
 
 import scala.languageFeature.implicitConversions
 
@@ -49,7 +49,7 @@ object LogsExample extends ZIOAppDefault {
     pods: Pods,
     podName: String,
     containerName: Option[String]
-  ): ZIO[Pods with Console, K8sFailure, Unit] =
+  ): ZIO[Pods, K8sFailure, Unit] =
     pods
       .getLog(podName, K8sNamespace.default, container = containerName, follow = Some(true))
       .tap { line =>

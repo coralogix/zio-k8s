@@ -1,12 +1,12 @@
 package com.coralogix.zio.k8s.client.config
 
-import zio.nio.file.{Files, Path}
-import zio.{System, Task, ZIO}
+import zio.nio.file.{ Files, Path }
+import zio.{ System, Task, ZIO }
 
-import java.io.{File, FileInputStream, InputStream}
+import java.io.{ File, FileInputStream, InputStream }
 import java.security.KeyStore
-import java.security.cert.{CertificateFactory, X509Certificate}
-import javax.net.ssl.{TrustManager, TrustManagerFactory}
+import java.security.cert.{ CertificateFactory, X509Certificate }
+import javax.net.ssl.{ TrustManager, TrustManagerFactory }
 
 private object TrustManagers {
 
@@ -19,7 +19,7 @@ private object TrustManagers {
 
   private def getDefaultTrustStoreWithSecurityDir(
     secDir: Path
-  ): ZIO[System, Throwable, KeyStore] =
+  ): ZIO[Any, Throwable, KeyStore] =
     for {
       propertyTrustStore    <- System.property("javax.net.ssl.trustStore")
       propertyTrustStoreFile = propertyTrustStore.map(new File(_))
@@ -34,17 +34,19 @@ private object TrustManagers {
                     .getOrElse(cacertsPath.toFile)
 
       keyStore <- ZIO.attempt(KeyStore.getInstance("JKS"))
-      _        <- ZIO.scoped(ZIO.fromAutoCloseable(ZIO.attempt(new FileInputStream(finalFile))).flatMap { stream =>
-                    ZIO.attempt(
-                      keyStore.load(
-                        stream,
-                        password.getOrElse("changeit").toCharArray
+      _        <- ZIO.scoped(
+                    ZIO.fromAutoCloseable(ZIO.attempt(new FileInputStream(finalFile))).flatMap { stream =>
+                      ZIO.attempt(
+                        keyStore.load(
+                          stream,
+                          password.getOrElse("changeit").toCharArray
+                        )
                       )
-                    )
-                  })
+                    }
+                  )
     } yield keyStore
 
-  private def getDefaultTrustStore: ZIO[System, Throwable, KeyStore] =
+  private def getDefaultTrustStore: ZIO[Any, Throwable, KeyStore] =
     for {
       maybeJavaHome <- System.property("java.home")
       keyStore      <- maybeJavaHome match {
@@ -56,7 +58,7 @@ private object TrustManagers {
 
   private def createTrustStore(
     pemInputStream: InputStream
-  ): ZIO[System, Throwable, KeyStore] =
+  ): ZIO[Any, Throwable, KeyStore] =
     getDefaultTrustStore.flatMap { trustStore =>
       Task.attempt {
         while (pemInputStream.available() > 0) {
@@ -71,7 +73,7 @@ private object TrustManagers {
 
   def apply(
     pemInputStream: InputStream
-  ): ZIO[System, Throwable, Array[TrustManager]] =
+  ): ZIO[Any, Throwable, Array[TrustManager]] =
     createTrustStore(pemInputStream).flatMap { trustStore =>
       Task.attempt {
         val tmf = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm)

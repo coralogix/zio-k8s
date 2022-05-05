@@ -363,10 +363,13 @@ object LeaseLockSpec extends ZIOSpecDefault {
           w0 <- winner.get.repeatUntil(_ == "pod1")
 
           _  <- logDebug("starting f2")
-          f2 <- ZIO
-                  .scoped(leader.runAsLeader(singleton(ref, winner, "pod2")))
-                  .provideSomeLayer[Leases.Service](leaderElection("pod2"))
-                  .provideSomeEnvironment[Leases](_ ++ otherClock)
+          f2 <- ZEnv.services
+                  .locallyWith(_.unionAll(otherClock))(
+                    ZIO
+                      .scoped(leader.runAsLeader(singleton(ref, winner, "pod2")))
+                      .provideSomeLayer[Leases.Service](leaderElection("pod2"))
+                      .provideSomeEnvironment[Leases](_ ++ otherClock)
+                  )
                   .fork
 
           _  <- logDebug("adjust TestClock by 5 seconds")
