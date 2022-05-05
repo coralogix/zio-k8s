@@ -48,23 +48,25 @@ abstract class LeaderForLifeLock[T: K8sObject](
     namespace: K8sNamespace,
     self: Pod
   ): ZIO[Any, LeaderElectionFailure[Nothing], Unit] =
-    ZIO.scoped { for {
-      alreadyOwned <- checkIfAlreadyOwned(namespace, self)
-      lock         <-
-        if (alreadyOwned)
-          ZIO
-            .logAnnotate("name", "Leader") {
-              ZIO.logInfo(
-                s"Lock '$lockName' in namespace '${namespace.value}' is already owned by the current pod"
-              )
-            } flatMap { _ =>
-            ZIO.acquireRelease(ZIO.unit)(_ => deleteLock(lockName, namespace))
-          }
-        else
-          ZIO.acquireRelease(
-            tryCreateLock(namespace, self)
-          )(_ => deleteLock(lockName, namespace))
-    } yield lock }
+    ZIO.scoped {
+      for {
+        alreadyOwned <- checkIfAlreadyOwned(namespace, self)
+        lock         <-
+          if (alreadyOwned)
+            ZIO
+              .logAnnotate("name", "Leader") {
+                ZIO.logInfo(
+                  s"Lock '$lockName' in namespace '${namespace.value}' is already owned by the current pod"
+                )
+              } flatMap { _ =>
+              ZIO.acquireRelease(ZIO.unit)(_ => deleteLock(lockName, namespace))
+            }
+          else
+            ZIO.acquireRelease(
+              tryCreateLock(namespace, self)
+            )(_ => deleteLock(lockName, namespace))
+      } yield lock
+    }
 
   private def checkIfAlreadyOwned(
     namespace: K8sNamespace,

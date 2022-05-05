@@ -3,15 +3,15 @@ package com.coralogix.zio.k8s.client
 import cats.implicits._
 import com.coralogix.zio.k8s.client.model.K8sCluster
 import io.circe.generic.semiauto.deriveDecoder
-import io.circe.{Decoder, parser}
+import io.circe.{ parser, Decoder }
 import sttp.client3.UriContext
 import sttp.model.Uri
 import zio.config._
 import zio.nio.file.Path
 import zio.process.Command
-import zio.{Layer, RIO, System, Task, ZIO, ZLayer}
+import zio.{ Layer, RIO, System, Task, ZIO, ZLayer }
 
-import java.io.{ByteArrayInputStream, File, FileInputStream, InputStream}
+import java.io.{ ByteArrayInputStream, File, FileInputStream, InputStream }
 import java.nio.charset.StandardCharsets
 import java.util.Base64
 
@@ -560,24 +560,27 @@ package object config extends Descriptors {
   private[config] def loadKeyStream(source: KeySource): ZIO[Any, Throwable, InputStream] =
     ZIO.scoped {
       ZIO.fromAutoCloseable {
-      source match {
-        case KeySource.FromFile(path)     =>
-          Task.attempt(new FileInputStream(path.toFile))
-        case KeySource.FromBase64(base64) =>
-          Task.attempt(new ByteArrayInputStream(Base64.getDecoder.decode(base64)))
-        case KeySource.FromString(value)  =>
-          Task.attempt(new ByteArrayInputStream(value.getBytes(StandardCharsets.US_ASCII)))
+        source match {
+          case KeySource.FromFile(path)     =>
+            Task.attempt(new FileInputStream(path.toFile))
+          case KeySource.FromBase64(base64) =>
+            Task.attempt(new ByteArrayInputStream(Base64.getDecoder.decode(base64)))
+          case KeySource.FromString(value)  =>
+            Task.attempt(new ByteArrayInputStream(value.getBytes(StandardCharsets.US_ASCII)))
+        }
       }
-    }}
+    }
 
   private def loadKeyString(source: KeySource): ZIO[Any, Throwable, String] =
     source match {
       case KeySource.FromFile(path)     =>
-        ZIO.scoped(ZIO
-          .fromAutoCloseable(Task.attempt(new FileInputStream(path.toFile)))
-          .flatMap { stream =>
-            Task.attempt(new String(stream.readAllBytes(), StandardCharsets.US_ASCII))
-          })
+        ZIO.scoped(
+          ZIO
+            .fromAutoCloseable(Task.attempt(new FileInputStream(path.toFile)))
+            .flatMap { stream =>
+              Task.attempt(new String(stream.readAllBytes(), StandardCharsets.US_ASCII))
+            }
+        )
       case KeySource.FromBase64(base64) =>
         Task.attempt(new String(Base64.getDecoder.decode(base64), StandardCharsets.US_ASCII))
       case KeySource.FromString(value)  =>

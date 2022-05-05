@@ -40,8 +40,8 @@ package object leader {
       override def lease: ZIO[Any, LeaderElectionFailure[Nothing], Unit] =
         ZIO.scoped {
           for {
-            namespace <- contextInfo.namespace.mapError(ContextInfoError.apply)
-            pod <- contextInfo.pod.mapError(ContextInfoError.apply)
+            namespace   <- contextInfo.namespace.mapError(ContextInfoError.apply)
+            pod         <- contextInfo.pod.mapError(ContextInfoError.apply)
             managedLock <- lock.acquireLock(namespace, pod)
           } yield managedLock
         }
@@ -55,8 +55,8 @@ package object leader {
       override def lease: ZIO[Any, LeaderElectionFailure[Nothing], Unit] =
         ZIO.scoped {
           for {
-            namespace <- contextInfo.namespace.mapError(ContextInfoError.apply)
-            pod <- contextInfo.pod.mapError(ContextInfoError.apply)
+            namespace   <- contextInfo.namespace.mapError(ContextInfoError.apply)
+            pod         <- contextInfo.pod.mapError(ContextInfoError.apply)
             managedLock <- lock.acquireLock(namespace, pod)
           } yield managedLock
         }
