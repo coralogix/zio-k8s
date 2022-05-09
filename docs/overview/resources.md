@@ -22,7 +22,7 @@ import com.coralogix.zio.k8s.client.v1.configmaps.ConfigMaps
 import com.coralogix.zio.k8s.client.v1.pods.Pods
 import com.coralogix.zio.k8s.client.K8sFailure
 
-val k8s: ZLayer[System, Throwable, Pods with ConfigMaps] = 
+val k8s: ZLayer[Any, Throwable, Pods with ConfigMaps] = 
   k8sDefault >>> (Pods.live ++ ConfigMaps.live)
 ```
 
@@ -37,8 +37,8 @@ functions working with a subset of these resource types:
 def launchNewPods(count: Int): ZIO[Pods, K8sFailure, Unit] = ZIO.unit // ...
 def getFromConfigMap(key: String): ZIO[ConfigMaps, K8sFailure, String] = ZIO.succeed("TODO") // ...
 
-launchNewPods(5).provideCustomLayer(k8s)
-getFromConfigMap("something").provideCustomLayer(k8s)
+launchNewPods(5).provide(k8s)
+getFromConfigMap("something").provide(k8s)
 ```
 
 when using this style, use the _accessor functions_ that are available for every resource in its
@@ -79,8 +79,8 @@ def getFromConfigMap2(key: String): ZIO[Kubernetes, K8sFailure, String] =
     ZIO.succeed("TODO")
   }
 
-launchNewPods2(5).provideCustomLayer(api)
-getFromConfigMap2("something").provideCustomLayer(api)
+launchNewPods2(5).provide(api)
+getFromConfigMap2("something").provide(api)
 ```
 
 Also, instead of the _accessor functions_ like `pods.create` shown in the previous section,
@@ -98,8 +98,8 @@ If we have initialized the single unified API layer like above, called `api`, we
 provide it for functions that have per-resource layer requirements:
 
 ```scala mdoc:silent
-launchNewPods(5).provideCustomLayer(api.project(_.v1.pods))
-getFromConfigMap("something").provideCustomLayer(api.project(_.v1.configmaps))
+launchNewPods(5).provide(api.project(_.v1.pods))
+getFromConfigMap("something").provide(api.project(_.v1.configmaps))
 ```
 
 ## Operations
