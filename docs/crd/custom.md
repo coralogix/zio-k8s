@@ -109,16 +109,19 @@ object crontabs {
     ) extends Service
 
     val live
-      : ZLayer[K8sCluster with SttpBackend[Task, ZioStreams with WebSockets], Nothing, Crontabs] = {
-        (backend: SttpBackend[Task, ZioStreams with WebSockets], cluster: K8sCluster) =>
-          val client = new ResourceClient[Crontab, Status](metadata.resourceType, cluster, backend)
-          val statusClient = new ResourceStatusClient[CrontabStatus, Crontab](
-            metadata.resourceType,
-            cluster,
-            backend
-          )
-          new Live(client, statusClient)
-      }.toLayer
+      : ZLayer[K8sCluster with SttpBackend[Task, ZioStreams with WebSockets], Nothing, Crontabs] = 
+        ZLayer {
+          for {
+            backend <- ZIO.service[SttpBackend[Task, ZioStreams with WebSockets]]
+            cluster <- ZIO.service[K8sCluster]
+            client = new ResourceClient[Crontab, Status](metadata.resourceType, cluster, backend)
+            statusClient = new ResourceStatusClient[CrontabStatus, Crontab](
+              metadata.resourceType,
+              cluster,
+              backend
+            )
+          } yield new Live(client, statusClient)
+        }
   }
 }
 ```
@@ -127,5 +130,5 @@ In addition to this you can add _accessor functions_ to the `crontabs` package i
 
 ```scala
 def get(name: String, namespace: K8sNamespace): ZIO[Crontabs, K8sFailure, Crontab] =
-  ZIO.accessM(_.get.get(name, namespace))
+  ZIO.serviceWithZIO(_.get(name, namespace))
 ```
