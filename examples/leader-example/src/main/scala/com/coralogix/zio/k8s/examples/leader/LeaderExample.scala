@@ -9,14 +9,14 @@ import com.coralogix.zio.k8s.operator.contextinfo.ContextInfo
 import com.coralogix.zio.k8s.operator.leader.LeaderElection
 import com.coralogix.zio.k8s.operator.leader.locks.LeaderLockResource
 import com.coralogix.zio.k8s.operator.{ leader, Registration }
-import zio.{ Clock, System, ZIOAppDefault, _ }
+import zio.{ ZIOAppDefault, _ }
 
 import scala.languageFeature.implicitConversions
 
 object LeaderExample extends ZIOAppDefault {
   case class Config(k8s: K8sClusterConfig)
 
-  override def run: ZIO[ZEnv with ZIOAppArgs, Any, Any] = {
+  override def run = {
     // Logging
 
     // Pods and ConfigMaps API
@@ -24,9 +24,9 @@ object LeaderExample extends ZIOAppDefault {
     val leases = k8sDefault >>> Leases.live
     val crds = k8sDefault >>> CustomResourceDefinitions.live
     val contextInfo =
-      (System.any ++ pods) >>> ContextInfo.live.mapError(f => FiberFailure(Cause.fail(f)))
+      pods >>> ContextInfo.live.mapError(f => FiberFailure(Cause.fail(f)))
     val leaderElection =
-      (Random.any ++ leases ++ contextInfo) >>> LeaderElection.leaseLock("leader-example-lock")
+      (leases ++ contextInfo) >>> LeaderElection.leaseLock("leader-example-lock")
 
     // Example code
     val program =
@@ -36,12 +36,12 @@ object LeaderExample extends ZIOAppDefault {
         example()
 
     program
-      .provideCustomLayer(crds ++ leaderElection)
+      .provideSomeLayer(crds ++ leaderElection)
       .exitCode
   }
 
   private def example(): ZIO[
-    Any with System with Clock with LeaderElection,
+    Any with LeaderElection.Service,
     Nothing,
     Option[Nothing]
   ] =

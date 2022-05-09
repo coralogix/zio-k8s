@@ -101,7 +101,7 @@ object Kubeconfig {
   def load(configPath: Path): ZIO[Any, Throwable, Kubeconfig] =
     for {
       yamlBytes  <- Files.readAllBytes(configPath)
-      yamlString <- Task(new String(yamlBytes.toArray, StandardCharsets.UTF_8))
+      yamlString <- Task.attempt(new String(yamlBytes.toArray, StandardCharsets.UTF_8))
       kubeconfig <- loadFromString(yamlString)
     } yield kubeconfig
 

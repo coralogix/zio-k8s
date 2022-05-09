@@ -87,7 +87,7 @@ import zio.System
 
 
 def example(): ZIO[
-    System with Clock with LeaderElection,
+    LeaderElection,
     Nothing,
     Option[Nothing]
   ] =
@@ -98,7 +98,7 @@ def example(): ZIO[
 def exampleLeader(): ZIO[Any, Nothing, Nothing] =
     ZIO.logInfo(s"Got leader role") *> ZIO.never
 
-example.provideCustom(
+example.provide(
     k8sDefault,
     ContextInfo.live,
     Pods.live,

@@ -15,22 +15,16 @@ package object asynchttpclient {
   /** An [[SttpClient]] layer configured with the proper SSL context based on the provided
     * [[K8sClusterConfig]] using the async-http-client-backend-zio backend.
     */
-  val k8sSttpClient: ZLayer[K8sClusterConfig with System with Any, Throwable, SttpClient] = {
-    (config: K8sClusterConfig) =>
-      (for {
-        runtime                    <- ZManaged.runtime[Any]
-        sslContext                 <- SSL(config.client.serverCertificate, config.authentication).toManaged
-        disableHostnameVerification = config.client.serverCertificate match {
-                                        case K8sServerCertificate.Insecure => true
-                                        case K8sServerCertificate.Secure(
-                                              _,
-                                              disableHostnameVerification
-                                            ) =>
-                                          disableHostnameVerification
-                                      }
-        client                     <-
-          ZManaged
-            .acquireReleaseAttemptWith(
+  val k8sSttpClient: ZLayer[K8sClusterConfig, Throwable, SttpClient] = ZLayer.scoped {
+    for {
+      config                      <- ZIO.service[K8sClusterConfig]
+      runtime                     <- ZIO.runtime[Any]
+      sslContext                  <- SSL(config.client.serverCertificate, config.authentication)
+      disableHostnameVerification <- ZIO.succeed(getHostnameVerificationDisabled(config))
+      client                      <-
+        ZIO
+          .acquireRelease(
+            ZIO.attempt {
               AsyncHttpClientZioBackend.usingClient(
                 runtime,
                 Dsl.asyncHttpClient(
@@ -52,20 +46,28 @@ package object asynchttpclient {
                     )
                 )
               )
-            )(_.close().ignore)
-            .map { backend =>
-              Slf4jLoggingBackend(
-                backend,
-                logRequestBody = config.client.debug,
-                logResponseBody = config.client.debug
-              )
             }
-      } yield client).toLayer[SttpClient]
-  }.toLayer.flatten
+          )(_.close().ignore)
+          .map { backend =>
+            Slf4jLoggingBackend(
+              backend,
+              logRequestBody = config.client.debug,
+              logResponseBody = config.client.debug
+            )
+          }
+    } yield client
+  }
+
+  def getHostnameVerificationDisabled(config: K8sClusterConfig) =
+    config.client.serverCertificate match {
+      case K8sServerCertificate.Insecure                               => true
+      case K8sServerCertificate.Secure(_, disableHostnameVerification) =>
+        disableHostnameVerification
+    }
 
   /** Layer producing a [[K8sCluster]] and an [[SttpClient]] module that can be directly used to
     * initialize specific Kubernetes client modules, using the [[defaultConfigChain]].
     */
-  val k8sDefault: ZLayer[Any with System, Throwable, K8sCluster with SttpClient] =
-    (System.any) >+> defaultConfigChain >>> (k8sCluster ++ k8sSttpClient)
+  val k8sDefault: ZLayer[Any, Throwable, K8sCluster with SttpClient] =
+    defaultConfigChain >>> (k8sCluster ++ k8sSttpClient)
 }

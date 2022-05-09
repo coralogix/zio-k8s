@@ -16,121 +16,131 @@ import java.nio.charset.StandardCharsets
 object ConfigSpec extends ZIOSpecDefault {
   override def spec: ZSpec[TestEnvironment, Any] =
     suite("K8sClusterConfig descriptors")(
-      test("load config from string") {
-        kubeconfigFromString(example2).as(assertCompletes)
-      },
-      test("load client config") {
-        // Loading config from HOCON
-        val loadConfig =
-          TypesafeConfig.fromHoconString[Config](example1, configDesc).build.useNow.map(_.get)
+      loadKubeConfigFromString,
+      clientConfigSpec,
+      parseKubeConfig,
+      runLocalConfigLoading
+    )
 
-        assertM(loadConfig)(
-          Assertion.equalTo(
-            Config(
-              K8sClusterConfig(
-                uri"https://kubernetes.default.svc",
-                authentication = K8sAuthentication.ServiceAccountToken(
-                  token =
-                    KeySource.FromFile(Path("/var/run/secrets/kubernetes.io/serviceaccount/token"))
-                ),
-                client = K8sClientConfig(
-                  debug = false,
-                  serverCertificate = K8sServerCertificate.Secure(
-                    disableHostnameVerification = false,
-                    certificate = KeySource.FromFile(
-                      Path("/var/run/secrets/kubernetes.io/serviceaccount/ca.crt")
-                    )
-                  )
+  val parseKubeConfig: ZSpec[TestEnvironment, Any] = test("parse kube config") {
+    val kubeConfig = parseKubeConfigYaml(example2)
+
+    assertM(kubeConfig)(
+      Assertion.equalTo(
+        Kubeconfig(
+          clusters = List(
+            KubeconfigCluster(
+              "test_cluster",
+              KubeconfigClusterInfo(
+                "https://127.0.0.1:696",
+                None,
+                "DDDDAAAANNNNYYYYMMMMOOOORRRR".some
+              )
+            )
+          ),
+          contexts = List(
+            KubeconfigContext(
+              name = "test",
+              context = KubeconfigContextInfo("test_cluster", "test_user", "test_namespace".some)
+            )
+          ),
+          users = List(
+            KubeconfigUser(
+              "test_user",
+              KubeconfigUserInfo(
+                None,
+                None,
+                None,
+                None,
+                None,
+                None,
+                None,
+                ExecConfig(
+                  apiVersion = "client.authentication.k8s.io/v1alpha1",
+                  command = "echo",
+                  env = Set(ExecEnv("BEARER_TOKEN", "bearer-token")).some,
+                  args = List(
+                    "{ \"apiVersion\": \"client.authentication.k8s.io/v1alpha1\", \"kind\": \"ExecCredential\", \"status\": {\"token\": \"bearer-token\" }}"
+                  ).some,
+                  None,
+                  None
+                ).some
+              )
+            )
+          ),
+          `current-context` = "test"
+        )
+      )
+    )
+  }
+
+  val loadKubeConfigFromString: ZSpec[TestEnvironment, Any] = test("load config from string") {
+    kubeconfigFromString(example2).as(assertCompletes)
+  }
+
+  val clientConfigSpec: ZSpec[zio.test.TestEnvironment, Any] = test("load client config") {
+    // Loading config from HOCON
+    val loadConfig = ZIO.scoped {
+      TypesafeConfig.fromHoconString[Config](example1, configDesc).build.map(_.get)
+    }
+
+    assertM(loadConfig)(
+      Assertion.equalTo(
+        Config(
+          K8sClusterConfig(
+            uri"https://kubernetes.default.svc",
+            authentication = K8sAuthentication.ServiceAccountToken(
+              token =
+                KeySource.FromFile(Path("/var/run/secrets/kubernetes.io/serviceaccount/token"))
+            ),
+            client = K8sClientConfig(
+              debug = false,
+              serverCertificate = K8sServerCertificate.Secure(
+                disableHostnameVerification = false,
+                certificate = KeySource.FromFile(
+                  Path("/var/run/secrets/kubernetes.io/serviceaccount/ca.crt")
                 )
               )
             )
           )
         )
-      },
-      test("parse kube config") {
-        val kubeConfig = parseKubeConfigYaml(example2)
-
-        assertM(kubeConfig)(
-          Assertion.equalTo(
-            Kubeconfig(
-              clusters = List(
-                KubeconfigCluster(
-                  "test_cluster",
-                  KubeconfigClusterInfo(
-                    "https://127.0.0.1:696",
-                    None,
-                    "DDDDAAAANNNNYYYYMMMMOOOORRRR".some
-                  )
-                )
-              ),
-              contexts = List(
-                KubeconfigContext(
-                  name = "test",
-                  context =
-                    KubeconfigContextInfo("test_cluster", "test_user", "test_namespace".some)
-                )
-              ),
-              users = List(
-                KubeconfigUser(
-                  "test_user",
-                  KubeconfigUserInfo(
-                    None,
-                    None,
-                    None,
-                    None,
-                    None,
-                    None,
-                    None,
-                    ExecConfig(
-                      apiVersion = "client.authentication.k8s.io/v1alpha1",
-                      command = "echo",
-                      env = Set(ExecEnv("BEARER_TOKEN", "bearer-token")).some,
-                      args = List(
-                        "{ \"apiVersion\": \"client.authentication.k8s.io/v1alpha1\", \"kind\": \"ExecCredential\", \"status\": {\"token\": \"bearer-token\" }}"
-                      ).some,
-                      None,
-                      None
-                    ).some
-                  )
-                )
-              ),
-              `current-context` = "test"
-            )
-          )
-        )
-      },
-      test("run local config loading") {
-        def createTempKubeConfigFile =
-          for {
-            path <- Files
-                      .createTempFileManaged(prefix = "zio_k8s_test_".some)
-            _    <- Files
-                      .writeBytes(
-                        path,
-                        Chunk.fromArray(example2.getBytes(StandardCharsets.UTF_8))
-                      )
-                      .toManaged
-          } yield path
-
-        def loadTokenByCommand: ZIO[K8sClusterConfig, Throwable, Option[String]] =
-          for {
-            result <-
-              ZIO.environmentWithZIO[K8sClusterConfig](_.get.authentication match {
-                case ServiceAccountToken(FromString(token)) =>
-                  ZIO.succeed(token.some)
-                case _                                      =>
-                  ZIO.none
-              })
-          } yield result
-
-        createTempKubeConfigFile.use(path =>
-          assertM(for {
-            configLayer <- ZIO.attempt(kubeconfigFile(path))
-            maybeToken  <- loadTokenByCommand.provideLayer(configLayer)
-          } yield maybeToken)(Assertion.equalTo(Some("bearer-token")))
-        )
-      }
+      )
     )
+  }
+
+  val runLocalConfigLoading: ZSpec[TestEnvironment, Any] = test("run local config loading") {
+    def createTempKubeConfigFile =
+      for {
+        path <- Files.createTempFileScoped(prefix = "zio_k8s_test_".some)
+        _    <- Files
+                  .writeBytes(
+                    path,
+                    Chunk.fromArray(example2.getBytes(StandardCharsets.UTF_8))
+                  )
+
+      } yield path
+
+    def loadTokenByCommand: ZIO[K8sClusterConfig, Throwable, Option[String]] =
+      for {
+        result <-
+          ZIO.environmentWithZIO[K8sClusterConfig](_.get.authentication match {
+            case ServiceAccountToken(FromString(token)) =>
+              ZIO.succeed(token.some)
+            case _                                      =>
+              ZIO.none
+          })
+      } yield result
+
+    val testIO = ZIO.scoped {
+      createTempKubeConfigFile.flatMap { path =>
+        for {
+          configLayer <- ZIO.attempt(kubeconfigFile(path))
+          maybeToken  <- loadTokenByCommand.provideLayer(configLayer)
+        } yield maybeToken
+      }
+    }
+    assertM(testIO)(Assertion.equalTo(Some("bearer-token")))
+  }
 
   case class Config(k8s: K8sClusterConfig)
 

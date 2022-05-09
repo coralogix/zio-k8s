@@ -66,7 +66,7 @@ final class ResourceClient[
       }.map { initialResponse =>
         val rest = ZStream.fromPull {
           for {
-            nextContinueToken <- Ref.make(initialResponse.metadata.flatMap(_.continue)).toManaged
+            nextContinueToken <- Ref.make(initialResponse.metadata.flatMap(_.continue))
             pull               = for {
                                    continueToken <- nextContinueToken.get
                                    chunk         <- continueToken match {

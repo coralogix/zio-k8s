@@ -12,14 +12,13 @@ import com.coralogix.zio.k8s.operator.leader.LeaderElection.logLeaderElectionFai
 import com.coralogix.zio.k8s.operator.leader._
 import com.coralogix.zio.k8s.operator.leader.locks.LeaseLock.VersionedRecord
 import zio.ZIO.logInfo
-import zio.{ Clock, IO, Queue, Random, Ref, Schedule, ZIO, ZManaged, _ }
+import zio.{ Clock, IO, Queue, Ref, Schedule, ZIO, _ }
 
-import java.time.{ DateTimeException, OffsetDateTime }
+import java.time.OffsetDateTime
 
 class LeaseLock(
   lockName: String,
   leases: Leases.Service,
-  random: Random,
   leadershipLost: Queue[Unit],
   leaseDuration: Duration,
   renewTimeout: Duration,
@@ -29,24 +28,21 @@ class LeaseLock(
   override def acquireLock(
     namespace: K8sNamespace,
     pod: Pod
-  ): ZManaged[Clock, leader.LeaderElectionFailure[Nothing], Unit] =
-    (for {
-      store <- Ref.makeManaged(Option.empty[VersionedRecord])
-      name  <- pod.getName.mapError(KubernetesError.apply).toManaged
+  ): ZIO[Any, leader.LeaderElectionFailure[Nothing], Unit] =
+    ZIO.scoped(for {
+      store <- Ref.make(Option.empty[VersionedRecord])
+      name  <- pod.getName.mapError(KubernetesError.apply)
       impl   = new Impl(store, namespace, name)
-      _     <- ZManaged.acquireReleaseInterruptibleWith(
-                 impl
-                   .acquire()
-               )(_ => impl.release())
-      _     <- impl.renew().fork.toManaged
-    } yield ()).provideSomeLayer[Clock](ZLayer.succeed(random))
+      _     <- ZIO.acquireReleaseInterruptible(impl.acquire())(impl.release())
+      _     <- impl.renew().fork
+    } yield ())
 
   class Impl(
     store: Ref[Option[VersionedRecord]],
     namespace: K8sNamespace,
     identity: String
   ) {
-    def acquire(): ZIO[Random with Clock, LeaderElectionFailure[Nothing], Unit] =
+    def acquire(): IO[LeaderElectionFailure[Nothing], Unit] =
       tryAcquireOrRenew().asSomeError
         .flatMap {
           case false => ZIO.fail(None)
@@ -63,7 +59,7 @@ class LeaseLock(
         .unsome
         .unit
 
-    def renew(): ZIO[Clock, LeaderElectionFailure[Nothing], Unit] = {
+    def renew(): ZIO[Any, LeaderElectionFailure[Nothing], Unit] = {
       tryAcquireOrRenew()
         .tapError { failure =>
           logLeaderElectionFailure(failure) *>
@@ -78,7 +74,7 @@ class LeaseLock(
         ) // keep renewing if it succeeded
     } *> logInfo("Leadership lost") *> leadershipLost.offer(()).unit
 
-    def release(): ZIO[Clock, Nothing, Unit] =
+    def release(): ZIO[Any, Nothing, Unit] =
       store.get
         .flatMap {
           case Some(stored) if stored.record.holderIdentity == identity =>
@@ -100,8 +96,9 @@ class LeaseLock(
           logLeaderElectionFailure(error)
         }
 
-    private def tryAcquireOrRenew(): ZIO[Clock, LeaderElectionFailure[Nothing], Boolean] =
+    private def tryAcquireOrRenew(): ZIO[Any, LeaderElectionFailure[Nothing], Boolean] =
       for {
+        _      <- logInfo("tryAcquireOrRenew")
         latest <- get()
         now    <- Clock.currentDateTime
         result <- latest match {
@@ -117,10 +114,16 @@ class LeaseLock(
                       } yield true
                     case Some(versioned) =>
                       for {
+                        _              <- logInfo(s"Found versioned: $versioned")
                         _              <- updateStore(versioned)
+                        _              <- logInfo(
+                                            s"versioned renewTime + leaderDuration = ${versioned.record.renewTime
+                                              .plus(leaseDuration)}, now: ${now}"
+                                          )
                         isLeader        = versioned.record.holderIdentity == identity
                         canBecomeLeader =
-                          !(versioned.record.renewTime.plus(leaseDuration).isAfter(now))
+                          versioned.record.renewTime.plus(leaseDuration).isBefore(now)
+                        _              <- logInfo(s"canBecomeLeader: ${canBecomeLeader}")
                         result         <-
                           if (!isLeader && !canBecomeLeader) {
                             ZIO.succeed(false)
@@ -154,7 +157,7 @@ class LeaseLock(
           Some(oldRecord)
       }
 
-    private def get(): ZIO[Clock, LeaderElectionFailure[Nothing], Option[VersionedRecord]] =
+    private def get(): ZIO[Any, LeaderElectionFailure[Nothing], Option[VersionedRecord]] =
       (for {
         lease           <- leases.get(lockName, namespace)
         record          <- toLeaderElectionRecord(lease)

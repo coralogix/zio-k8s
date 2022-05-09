@@ -82,7 +82,7 @@ trait ClientModuleGenerator {
                 for {
                   rawYaml <- ZStream.fromInputStream(getClass.getResourceAsStream($yamlPathLit))
                     .via(ZPipeline.utf8Decode)
-                    .fold("")(_ ++ _).orDie
+                    .runFold("")(_ ++ _).orDie
                   crd <- ZIO.fromEither(_root_.io.circe.yaml.parser.parse(rawYaml).flatMap(_.as[com.coralogix.zio.k8s.model.pkg.apis.apiextensions.v1.CustomResourceDefinition]))
                 } yield crd
              """)
@@ -151,12 +151,15 @@ trait ClientModuleGenerator {
 
       val live =
         q"""val live: ZLayer[SttpBackend[Task, ZioStreams with WebSockets] with K8sCluster, Nothing, $typeAliasT] =
-                  {
-                    (backend: SttpBackend[Task, ZioStreams with WebSockets], cluster: K8sCluster) => {
-                      val resourceType = implicitly[ResourceMetadata[$entityT]].resourceType
-                      new Live(..$clientConstruction)
-                    }
-                  }.toLayer
+              ZLayer.fromZIO {
+                for {
+                  backend <- ZIO.service[SttpBackend[Task, ZioStreams with WebSockets]]
+                  cluster <- ZIO.service[K8sCluster]
+                } yield {
+                    val resourceType = implicitly[ResourceMetadata[$entityT]].resourceType
+                    new Live(..$clientConstruction)
+                }
+              }
              """
 
       val any =
