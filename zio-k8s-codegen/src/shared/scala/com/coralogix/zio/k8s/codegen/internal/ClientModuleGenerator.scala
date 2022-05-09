@@ -82,7 +82,7 @@ trait ClientModuleGenerator {
                 for {
                   rawYaml <- ZStream.fromInputStream(getClass.getResourceAsStream($yamlPathLit))
                     .via(ZPipeline.utf8Decode)
-                    .fold("")(_ ++ _).orDie
+                    .runFold("")(_ ++ _).orDie
                   crd <- ZIO.fromEither(_root_.io.circe.yaml.parser.parse(rawYaml).flatMap(_.as[com.coralogix.zio.k8s.model.pkg.apis.apiextensions.v1.CustomResourceDefinition]))
                 } yield crd
              """)
