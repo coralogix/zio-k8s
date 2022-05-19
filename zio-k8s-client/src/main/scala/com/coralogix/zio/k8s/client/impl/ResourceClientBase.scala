@@ -5,7 +5,7 @@ import com.coralogix.zio.k8s.client._
 import com.coralogix.zio.k8s.client.internal.IsOptional
 import com.coralogix.zio.k8s.client.model._
 import com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Status
-import io.circe.Error
+import io.circe.{ Decoder, Error }
 import io.circe.parser.{ decode, decodeAccumulating }
 import sttp.capabilities.WebSockets
 import sttp.capabilities.zio.ZioStreams
@@ -178,8 +178,8 @@ trait ResourceClientBase {
   }
 
   private def deserializeJson[B: IsOptional]: String => Either[NonEmptyList[io.circe.Error], B] = {
-    implicit val isOption = implicitly[IsOptional[B]].isOption
-    implicit val decoder = implicitly[IsOptional[B]].decoder
+    implicit val isOption: IsOption[B] = implicitly[IsOptional[B]].isOption
+    implicit val decoder: Decoder[B] = implicitly[IsOptional[B]].decoder
     sanitize[B].andThen(decodeAccumulating[B]).andThen(_.toEither)
   }
 
