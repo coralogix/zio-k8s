@@ -246,7 +246,7 @@ object Operator {
     )(implicit
       ev1: R0 with R1 <:< R,
       tagged: EnvironmentTag[R1],
-      trace: ZTraceElement
+      trace: Trace
     ): Operator[R0, E1, T] =
       self
         .asInstanceOf[Operator[R0 with R1, E, T]]

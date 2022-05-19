@@ -60,7 +60,7 @@ private object TrustManagers {
     pemInputStream: InputStream
   ): ZIO[Any, Throwable, KeyStore] =
     getDefaultTrustStore.flatMap { trustStore =>
-      Task.attempt {
+      ZIO.attempt {
         while (pemInputStream.available() > 0) {
           val certFactory = CertificateFactory.getInstance("X509")
           val cert = certFactory.generateCertificate(pemInputStream).asInstanceOf[X509Certificate]
@@ -75,7 +75,7 @@ private object TrustManagers {
     pemInputStream: InputStream
   ): ZIO[Any, Throwable, Array[TrustManager]] =
     createTrustStore(pemInputStream).flatMap { trustStore =>
-      Task.attempt {
+      ZIO.attempt {
         val tmf = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm)
         tmf.init(trustStore)
         tmf.getTrustManagers

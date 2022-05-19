@@ -118,7 +118,7 @@ object GuardrailModelGenerator {
   private def postProcessOptionalsInAst(ast: Source): Source =
     ast
       .transform {
-        case Type.Name(name) if name == "Option" => t"com.coralogix.zio.k8s.client.model.Optional"
+        case Type.Name(name) if name == "Option" => t"zio.prelude.data.Optional"
       }
       .asInstanceOf[Source]
 }

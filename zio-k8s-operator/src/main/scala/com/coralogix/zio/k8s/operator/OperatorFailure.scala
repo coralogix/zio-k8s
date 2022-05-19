@@ -26,6 +26,8 @@ object OperatorFailure {
       new RuntimeException(s"${reqInfoToString(reqInfo)} K8s authorization error: $message")
     case HttpFailure(reqInfo, message, code)    =>
       new RuntimeException(s"${reqInfoToString(reqInfo)} K8s HTTP error: $message with code $code")
+    case CodingFailure(reqInfo, failure)        =>
+      new RuntimeException(s"${reqInfoToString(reqInfo)} K8s character coding error", failure)
     case DecodedFailure(reqInfo, status, code)  =>
       new RuntimeException(
         s"${reqInfoToString(reqInfo)} K8s error: ${status.message} with code $code"

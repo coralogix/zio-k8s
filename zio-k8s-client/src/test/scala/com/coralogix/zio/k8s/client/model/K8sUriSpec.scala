@@ -12,7 +12,7 @@ object K8sUriSpec extends ZIOSpecDefault {
   private val ns = K8sNamespace("def")
   private val name = "n-123"
 
-  override def spec: ZSpec[TestEnvironment, Any] =
+  override def spec: Spec[TestEnvironment, Any] =
     suite("K8sUriSpec")(
       suite("simple")(
         test("simple with name and namespace")(

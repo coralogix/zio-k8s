@@ -1,6 +1,6 @@
 package com.coralogix.zio.k8s
 
-import com.coralogix.zio.k8s.client.model.Optional
+import zio.prelude.data.Optional
 import com.softwaremill.quicklens.{ QuicklensFunctor, QuicklensSingleAtFunctor }
 
 import java.util.NoSuchElementException

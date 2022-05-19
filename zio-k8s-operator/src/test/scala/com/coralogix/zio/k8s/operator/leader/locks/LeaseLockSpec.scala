@@ -20,9 +20,6 @@ import zio.{ stream, Clock, Fiber, IO, RIO, Ref, UIO, ULayer, ZIO, ZLayer, _ }
 
 object LeaseLockSpec extends ZIOSpecDefault {
 
-  val consoleLogging =
-    TestAspect.runtimeConfig(zio.logging.console(LogFormat.colored, LogLevel.All))
-
   private def leaderElection(
     name: String
   ): ZLayer[Leases, Nothing, LeaderElection] =
@@ -221,7 +218,7 @@ object LeaseLockSpec extends ZIOSpecDefault {
   ): ZIO[Any, Nothing, Nothing] =
     (counter.update(_ + 1) *> winner.set(name) *> ZIO.never).ensuring(counter.update(_ - 1))
 
-  override def spec: ZSpec[TestEnvironment, Any] =
+  override def spec: Spec[TestEnvironment, Any] =
     suite("Lease based leader election")(
 //      simultaneousStartupSingleLeaderTest,
 //      newLeaderAfterInterruptionTest,
@@ -229,9 +226,9 @@ object LeaseLockSpec extends ZIOSpecDefault {
 //      noK8sAccessTest,
       clockSkewTest
 //      renewalFailure
-    ) @@ timeout(30.second) @@ consoleLogging
+    ) @@ timeout(30.second)
 
-  val simultaneousStartupSingleLeaderTest: ZSpec[TestEnvironment, Any] =
+  val simultaneousStartupSingleLeaderTest: Spec[TestEnvironment, Any] =
     test("simultaneous startup, only one leads") {
       for {
         ref    <- Ref.make(0)
@@ -254,7 +251,7 @@ object LeaseLockSpec extends ZIOSpecDefault {
       } yield assertTrue(c1 == 1) && assertTrue(c2 == 1)
     }.provideCustomLayer(Leases.test)
 //
-  val newLeaderAfterInterruptionTest: ZSpec[TestEnvironment, Any] =
+  val newLeaderAfterInterruptionTest: Spec[TestEnvironment, Any] =
     test("non-leader takes over if leader is interrupted") {
       for {
         ref    <- Ref.make(0)
@@ -280,7 +277,7 @@ object LeaseLockSpec extends ZIOSpecDefault {
       } yield assertTrue(w1 == "pod1") && assertTrue(w2 == "pod1") && assertTrue(w3 == "pod2")
     }.provideCustomLayer(Leases.test)
 //
-  val stolenLeaseInterruptionTest: ZSpec[TestEnvironment, Any] =
+  val stolenLeaseInterruptionTest: Spec[TestEnvironment, Any] =
     test("leader gets interrupted if lease get stolen") {
       for {
         ref    <- Ref.make(0)
@@ -319,7 +316,7 @@ object LeaseLockSpec extends ZIOSpecDefault {
         assert(status)(equalTo(Fiber.Status.Done))
     }.provideCustomLayer(Leases.test)
 
-  val noK8sAccessTest: ZSpec[TestEnvironment, Any] =
+  val noK8sAccessTest: Spec[TestEnvironment, Any] =
     test("never become leader with no K8s access") {
       for {
         ref    <- Ref.make(0)
@@ -341,9 +338,9 @@ object LeaseLockSpec extends ZIOSpecDefault {
       } yield assert(w)(isEmptyString)
     }.provideCustomLayer(failingLeases)
 
-  val clockSkewTest: ZSpec[TestEnvironment, Any] =
+  val clockSkewTest: Spec[TestEnvironment, Any] =
     test("with clock skew leadership can be stolen but other gets cancelled") {
-      val testIO: ZIO[Live with Annotations with Leases, K8sFailure, Assert] = {
+      val testIO: ZIO[Live with Annotations with Leases, K8sFailure, TestResult] = {
         for {
           otherClock <- ZIO.scoped(TestClock.default.build)
           ref        <- Ref.make(0)
@@ -390,7 +387,7 @@ object LeaseLockSpec extends ZIOSpecDefault {
       testIO
     }.provideCustomLayer(Leases.test)
 
-  val renewalFailure: ZSpec[TestEnvironment, Any] =
+  val renewalFailure: Spec[TestEnvironment, Any] =
     test("becomes leader then fails to renew and gets aborted") {
       for {
         _      <- disableFailures

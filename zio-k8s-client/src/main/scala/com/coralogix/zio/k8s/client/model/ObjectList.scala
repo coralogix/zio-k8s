@@ -3,6 +3,7 @@ package com.coralogix.zio.k8s.client.model
 import io.circe._
 import io.circe.syntax._
 import com.coralogix.zio.k8s.model.pkg.apis.meta.v1.ListMeta
+import zio.prelude.data.Optional
 
 /** Response type of the getAll operation
   * @param metadata

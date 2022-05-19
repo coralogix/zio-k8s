@@ -1,7 +1,7 @@
 package com.coralogix.zio.k8s
 
 import zio.optics._
-import com.coralogix.zio.k8s.client.model.{ Optional => K8sOptional }
+import zio.prelude.data.{ Optional => K8sOptional }
 
 package object optics {
 

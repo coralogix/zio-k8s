@@ -110,7 +110,7 @@ trait MonocleOpticsGenerator {
           import monocle.{Optional => MonocleOptional}
           import monocle.macros.GenLens
 
-          import com.coralogix.zio.k8s.client.model.Optional
+          import zio.prelude.data.Optional
           import com.coralogix.zio.k8s.monocle.optional
 
           import $modelRootPackageTerm._

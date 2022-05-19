@@ -81,7 +81,7 @@ trait ClientModuleGenerator {
               val customResourceDefinition: ZIO[Any, Throwable, com.coralogix.zio.k8s.model.pkg.apis.apiextensions.v1.CustomResourceDefinition] =
                 for {
                   rawYaml <- ZStream.fromInputStream(getClass.getResourceAsStream($yamlPathLit))
-                    .via(ZPipeline.utf8Decode)
+                    .via(ZPipeline.fromChannel(ZPipeline.utf8Decode.channel.orDie))
                     .runFold("")(_ ++ _).orDie
                   crd <- ZIO.fromEither(_root_.io.circe.yaml.parser.parse(rawYaml).flatMap(_.as[com.coralogix.zio.k8s.model.pkg.apis.apiextensions.v1.CustomResourceDefinition]))
                 } yield crd
@@ -329,7 +329,7 @@ trait ClientModuleGenerator {
           $entityImport
           import com.coralogix.zio.k8s.model.pkg.apis.meta.v1._
           import com.coralogix.zio.k8s.model._
-          import com.coralogix.zio.k8s.client.{Resource, ResourceDelete, ResourceDeleteAll, ResourceStatus, Subresource, NamespacedResource, NamespacedResourceDelete, NamespacedResourceDeleteAll, NamespacedResourceStatus, K8sFailure}
+          import com.coralogix.zio.k8s.client.{Resource, ResourceDelete, ResourceDeleteAll, ResourceStatus, Subresource, NamespacedResource, NamespacedResourceDelete, NamespacedResourceDeleteAll, NamespacedResourceStatus, K8sFailure, CodingFailure}
           import com.coralogix.zio.k8s.client.impl.{ResourceClient, ResourceStatusClient, SubresourceClient}
           import com.coralogix.zio.k8s.client.test.{TestResourceClient, TestResourceStatusClient, TestSubresourceClient}
           import com.coralogix.zio.k8s.client.model.{
@@ -573,7 +573,7 @@ trait ClientModuleGenerator {
           $entityImport
           import com.coralogix.zio.k8s.model.pkg.apis.meta.v1._
           import com.coralogix.zio.k8s.model._
-          import com.coralogix.zio.k8s.client.{Resource, ResourceDelete, ResourceDeleteAll, ResourceStatus, Subresource, ClusterResource, ClusterResourceDelete, ClusterResourceDeleteAll, ClusterResourceStatus, K8sFailure}
+          import com.coralogix.zio.k8s.client.{Resource, ResourceDelete, ResourceDeleteAll, ResourceStatus, Subresource, ClusterResource, ClusterResourceDelete, ClusterResourceDeleteAll, ClusterResourceStatus, K8sFailure, CodingFailure}
           import com.coralogix.zio.k8s.client.impl.{ResourceClient, ResourceStatusClient, SubresourceClient}
           import com.coralogix.zio.k8s.client.test.{TestResourceClient, TestResourceStatusClient, TestSubresourceClient}
           import com.coralogix.zio.k8s.client.model.{

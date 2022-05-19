@@ -6,12 +6,12 @@ import com.coralogix.zio.k8s.operator.Operator._
 import com.coralogix.zio.k8s.operator.aspects.logEvents
 import zio.ZIO
 import zio.Clock
-import zio.test.{ assertCompletes, TestEnvironment, ZIOSpecDefault, ZSpec }
+import zio.test.{ assertCompletes, Spec, TestEnvironment, ZIOSpecDefault }
 
 object OperatorAspectSpec extends ZIOSpecDefault {
   sealed trait CustomOperatorFailures
 
-  override def spec: ZSpec[TestEnvironment, Any] =
+  override def spec: Spec[TestEnvironment, Any] =
     suite("Operator aspects")(
       test("can @@ the built-in logEvents aspect") {
         val eventProcessor: EventProcessor[Clock, CustomOperatorFailures, Pod] =

@@ -11,7 +11,7 @@ import java.time.OffsetDateTime
 
 object TimeSerializationSpec extends ZIOSpecDefault {
 
-  override def spec: ZSpec[TestEnvironment, Any] =
+  override def spec: Spec[TestEnvironment, Any] =
     suite("MicroTime serialization")(
       test("produce json string in the expected format") {
         val offsetDateTime = OffsetDateTime.parse("2021-05-05T14:36:10.348652378Z")

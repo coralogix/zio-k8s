@@ -2,11 +2,12 @@ val scala212Version = "2.12.15"
 val scala213Version = "2.13.8"
 val scala3Version = "3.1.0"
 
-val zioVersion = "2.0.0-RC5"
-val zioConfigVersion = "3.0.0-RC8"
-val zioLoggingVersion = "2.0.0-RC8"
+val zioVersion = "2.0.0-RC6"
+val zioConfigVersion = "3.0.0-RC9"
+val zioLoggingVersion = "2.0.0-RC10"
 val sttpVersion = "3.5.2"
-val zioNioVersion = "2.0.0-RC6"
+val zioNioVersion = "2.0.0-RC7"
+val zioPreludeVersion = "1.0.0-RC14"
 
 Global / onChangedBuildSource := ReloadOnSourceChanges
 
@@ -63,7 +64,8 @@ lazy val client = Project("zio-k8s-client", file("zio-k8s-client"))
       "dev.zio"                       %% "zio-streams"                   % zioVersion,
       "dev.zio"                       %% "zio-config"                    % zioConfigVersion,
       "dev.zio"                       %% "zio-nio"                       % zioNioVersion,
-      "dev.zio"                       %% "zio-process"                   % "0.7.0-RC5",
+      "dev.zio"                       %% "zio-process"                   % "0.7.0-RC6",
+      "dev.zio"                       %% "zio-prelude"                   % zioPreludeVersion,
       "com.softwaremill.sttp.client3" %% "core"                          % sttpVersion,
       "com.softwaremill.sttp.client3" %% "zio"                           % sttpVersion,
       "com.softwaremill.sttp.client3" %% "circe"                         % sttpVersion,
@@ -153,7 +155,7 @@ lazy val clientZioOptics = Project("zio-k8s-client-optics", file("zio-k8s-client
   .settings(
     crossScalaVersions := List(scala212Version, scala213Version, scala3Version),
     libraryDependencies ++= Seq(
-      "dev.zio" %% "zio-optics"   % "2.0.0-RC4",
+      "dev.zio" %% "zio-optics"   % "0.2.0-RC4",
       "dev.zio" %% "zio-test"     % zioVersion % Test,
       "dev.zio" %% "zio-test-sbt" % zioVersion % Test
     ),

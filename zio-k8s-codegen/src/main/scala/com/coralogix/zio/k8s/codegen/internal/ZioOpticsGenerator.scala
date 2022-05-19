@@ -104,7 +104,7 @@ trait ZioOpticsGenerator {
           import zio.Chunk
           import zio.optics._
 
-          import com.coralogix.zio.k8s.client.model.Optional
+          import zio.prelude.data.Optional
           import com.coralogix.zio.k8s.optics.{absent, present}
 
           import $modelRootPackageTerm._

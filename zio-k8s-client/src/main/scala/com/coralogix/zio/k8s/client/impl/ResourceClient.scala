@@ -10,6 +10,7 @@ import sttp.capabilities.WebSockets
 import sttp.capabilities.zio.ZioStreams
 import sttp.client3._
 import sttp.client3.circe._
+import zio.prelude.data.Optional
 import zio.{ Clock, _ }
 import zio.stream._
 
@@ -125,7 +126,11 @@ final class ResourceClient[
             .send(backend)
         }.map(_.mapError(RequestFailure(reqInfo, _)))
       }
-      .via(ZPipeline.utf8Decode >>> ZPipeline.splitLines)
+      .via(
+        ZPipeline.fromChannel(
+          ZPipeline.utf8Decode.channel.mapError(CodingFailure(reqInfo, _))
+        ) >>> ZPipeline.splitLines
+      )
       .mapZIO { line =>
         for {
           rawEvent <-
