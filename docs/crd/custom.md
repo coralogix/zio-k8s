@@ -13,7 +13,9 @@ import com.coralogix.zio.k8s.client.model.{
   K8sObject,
   K8sObjectStatus,
   K8sResourceType,
-  ResourceMetadata
+  ResourceMetadata,
+  optionalDecoder,
+  optionalEncoder
 }
 import com.coralogix.zio.k8s.client._
 import com.coralogix.zio.k8s.model.pkg.apis.meta.v1.{ ObjectMeta, Status }
