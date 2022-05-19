@@ -13,8 +13,9 @@ import com.coralogix.zio.k8s.client.model.{
   K8sObject,
   K8sObjectStatus,
   K8sResourceType,
-  Optional,
-  ResourceMetadata
+  ResourceMetadata,
+  optionalDecoder,
+  optionalEncoder
 }
 import com.coralogix.zio.k8s.client._
 import com.coralogix.zio.k8s.model.pkg.apis.meta.v1.{ ObjectMeta, Status }
@@ -24,6 +25,7 @@ import sttp.capabilities.WebSockets
 import sttp.capabilities.zio.ZioStreams
 import sttp.client3.SttpBackend
 import zio.{ Task, ZLayer, ZIO }
+import zio.prelude.data.Optional
 ```
 
 We are going to use the [Crontab example](https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/) 

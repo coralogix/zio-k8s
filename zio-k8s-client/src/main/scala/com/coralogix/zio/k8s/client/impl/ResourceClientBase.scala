@@ -2,10 +2,11 @@ package com.coralogix.zio.k8s.client.impl
 
 import cats.data.NonEmptyList
 import com.coralogix.zio.k8s.client._
+import com.coralogix.zio.k8s.client.internal.IsOptional
 import com.coralogix.zio.k8s.client.model._
 import com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Status
-import io.circe.parser.{ decode, decodeAccumulating }
 import io.circe.{ Decoder, Error }
+import io.circe.parser.{ decode, decodeAccumulating }
 import sttp.capabilities.WebSockets
 import sttp.capabilities.zio.ZioStreams
 import sttp.client3.json.RichResponseAs
@@ -24,8 +25,7 @@ import sttp.client3.{
   SttpBackend
 }
 import sttp.model.{ StatusCode, Uri }
-import zio.Duration
-import zio.{ IO, Task }
+import zio.{ Duration, IO, Task, ZIO }
 
 trait ResourceClientBase {
   protected val resourceType: K8sResourceType
@@ -138,22 +138,22 @@ trait ResourceClientBase {
       .flatMap { response =>
         response.body match {
           case Left(HttpError(error, StatusCode.Unauthorized)) =>
-            IO.fail(Unauthorized(reqInfo, error))
+            ZIO.fail(Unauthorized(reqInfo, error))
           case Left(HttpError(_, StatusCode.Gone))             =>
-            IO.fail(Gone)
+            ZIO.fail(Gone)
           case Left(HttpError(_, StatusCode.NotFound))         =>
-            IO.fail(NotFound)
+            ZIO.fail(NotFound)
           case Left(HttpError(error, code))                    =>
             decode[Status](error) match {
               case Left(_)       =>
-                IO.fail(HttpFailure(reqInfo, error, code))
+                ZIO.fail(HttpFailure(reqInfo, error, code))
               case Right(status) =>
-                IO.fail(DecodedFailure(reqInfo, status, code))
+                ZIO.fail(DecodedFailure(reqInfo, status, code))
             }
           case Left(DeserializationException(_, errors))       =>
-            IO.fail(DeserializationFailure(reqInfo, errors))
+            ZIO.fail(DeserializationFailure(reqInfo, errors))
           case Right(value)                                    =>
-            IO.succeed(value)
+            ZIO.succeed(value)
         }
       }
   }
@@ -165,15 +165,23 @@ trait ResourceClientBase {
     *     attempted)
     *   - `Left(DeserializationException)` if there's an error during deserialization
     */
-  protected def asJsonAccumulating[B: Decoder: IsOption]
+  protected def asJsonAccumulating[B: IsOptional]
     : ResponseAs[Either[ResponseException[String, NonEmptyList[io.circe.Error]], B], Any] = {
     import ResourceClientBase.showCirceErrors
-    asString.mapWithMetadata(ResponseAs.deserializeRightWithError(deserializeJson)).showAsJson
+    asString
+      .mapWithMetadata(
+        ResponseAs.deserializeRightWithError(
+          deserializeJson
+        )
+      )
+      .showAsJson
   }
 
-  private def deserializeJson[B: Decoder: IsOption]
-    : String => Either[NonEmptyList[io.circe.Error], B] =
+  private def deserializeJson[B: IsOptional]: String => Either[NonEmptyList[io.circe.Error], B] = {
+    implicit val isOption: IsOption[B] = implicitly[IsOptional[B]].isOption
+    implicit val decoder: Decoder[B] = implicitly[IsOptional[B]].decoder
     sanitize[B].andThen(decodeAccumulating[B]).andThen(_.toEither)
+  }
 
   private def sanitize[T: IsOption]: String => String = { s =>
     if (implicitly[IsOption[T]].isOption && s.trim.isEmpty) "null" else s

@@ -14,7 +14,7 @@ import zio.test.Assertion._
 import zio.test._
 
 object TestResourceClientSpec extends ZIOSpecDefault {
-  override def spec: ZSpec[TestEnvironment, Any] = suite("TestResourceClient spec")(
+  override def spec: Spec[TestEnvironment, Any] = suite("TestResourceClient spec")(
     suite("filter")(
       suite("labelSelector")(
         test("equals") {
@@ -170,7 +170,7 @@ object TestResourceClientSpec extends ZIOSpecDefault {
             metadata = ObjectMeta(name = name, generation = generation2, resourceVersion = v2)
           )
 
-          assertM(
+          assertZIO(
             TestResourceClient
               .filterByResourceVersion(ZStream(Chunk(node1, node2)))(ListResourceVersion.Exact(v1))
               .runCollect
@@ -196,7 +196,7 @@ object TestResourceClientSpec extends ZIOSpecDefault {
             metadata = ObjectMeta(name = name, generation = generation3, resourceVersion = v3)
           )
 
-          assertM(
+          assertZIO(
             TestResourceClient
               .filterByResourceVersion(ZStream(Chunk(node1, node2, node3)))(
                 ListResourceVersion.NotOlderThan(v2)
@@ -217,7 +217,7 @@ object TestResourceClientSpec extends ZIOSpecDefault {
             metadata = ObjectMeta(name = name, generation = generation2, resourceVersion = v2)
           )
 
-          assertM(
+          assertZIO(
             TestResourceClient
               .filterByResourceVersion(ZStream(Chunk(node1, node2)))(ListResourceVersion.MostRecent)
               .runCollect
@@ -236,7 +236,7 @@ object TestResourceClientSpec extends ZIOSpecDefault {
             metadata = ObjectMeta(name = name, generation = generation2, resourceVersion = v2)
           )
 
-          assertM(
+          assertZIO(
             TestResourceClient
               .filterByResourceVersion(ZStream(Chunk(node1, node2)))(ListResourceVersion.Any)
               .runCollect

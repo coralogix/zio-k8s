@@ -403,9 +403,10 @@ trait ModelGenerator {
           import java.time.OffsetDateTime
           import scala.util.Try
           import zio.{Chunk, IO, ZIO}
+          import zio.prelude.data.Optional
 
           import com.coralogix.zio.k8s.client.{K8sFailure, UndefinedField}
-          import com.coralogix.zio.k8s.client.model.{Field, K8sResourceType, Optional, ResourceMetadata}
+          import com.coralogix.zio.k8s.client.model.{Field, K8sResourceType, ResourceMetadata, optionalDecoder, optionalEncoder}
           import com.coralogix.zio.k8s.client.model.codecs.{chunkByteDecoder, chunkByteEncoder}
 
           import $rootPackageTerm._

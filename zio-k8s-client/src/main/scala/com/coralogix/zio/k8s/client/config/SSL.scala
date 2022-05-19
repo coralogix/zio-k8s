@@ -24,7 +24,7 @@ private object SSL {
       override def checkServerTrusted(chain: Array[X509Certificate], authType: String): Unit = {}
       override def getAcceptedIssuers: Array[X509Certificate] = null
     })
-    Task.attempt {
+    ZIO.attempt {
       val sslContext: SSLContext = SSLContext.getInstance("TLS")
       sslContext.init(null, trustAllCerts, new SecureRandom())
       sslContext
@@ -53,7 +53,7 @@ private object SSL {
     keyManagers: Option[Array[KeyManager]],
     trustManagers: Array[TrustManager]
   ): Task[SSLContext] =
-    Task.attempt {
+    ZIO.attempt {
       val sslContext = SSLContext.getInstance("TLSv1.2")
       sslContext.init(keyManagers.orNull, trustManagers, new SecureRandom())
       sslContext

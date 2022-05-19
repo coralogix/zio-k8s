@@ -15,6 +15,7 @@ import com.coralogix.zio.k8s.model.pkg.apis.meta.v1.{ DeleteOptions, Status }
 import io.circe.syntax._
 import io.circe.{ Encoder, Json, JsonNumber }
 import sttp.model.StatusCode
+import zio.prelude.data.Optional
 import zio.stm.{ TMap, TQueue, ZSTM }
 import zio.stream._
 import zio.{ Chunk, Duration, IO, ZIO }

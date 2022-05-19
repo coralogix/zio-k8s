@@ -457,8 +457,8 @@ package object config extends Descriptors {
 
       configPath match {
         case Some(configPath) if useRelativeCmdPath =>
-          Task.attempt(configPath.resolveSibling(Path(execConfig.command)).normalize.toString)
-        case _                                      => Task.attempt(execConfig.command)
+          ZIO.attempt(configPath.resolveSibling(Path(execConfig.command)).normalize.toString)
+        case _                                      => ZIO.attempt(execConfig.command)
       }
     }
 
@@ -562,11 +562,11 @@ package object config extends Descriptors {
       ZIO.fromAutoCloseable {
         source match {
           case KeySource.FromFile(path)     =>
-            Task.attempt(new FileInputStream(path.toFile))
+            ZIO.attempt(new FileInputStream(path.toFile))
           case KeySource.FromBase64(base64) =>
-            Task.attempt(new ByteArrayInputStream(Base64.getDecoder.decode(base64)))
+            ZIO.attempt(new ByteArrayInputStream(Base64.getDecoder.decode(base64)))
           case KeySource.FromString(value)  =>
-            Task.attempt(new ByteArrayInputStream(value.getBytes(StandardCharsets.US_ASCII)))
+            ZIO.attempt(new ByteArrayInputStream(value.getBytes(StandardCharsets.US_ASCII)))
         }
       }
     }
@@ -576,13 +576,13 @@ package object config extends Descriptors {
       case KeySource.FromFile(path)     =>
         ZIO.scoped(
           ZIO
-            .fromAutoCloseable(Task.attempt(new FileInputStream(path.toFile)))
+            .fromAutoCloseable(ZIO.attempt(new FileInputStream(path.toFile)))
             .flatMap { stream =>
-              Task.attempt(new String(stream.readAllBytes(), StandardCharsets.US_ASCII))
+              ZIO.attempt(new String(stream.readAllBytes(), StandardCharsets.US_ASCII))
             }
         )
       case KeySource.FromBase64(base64) =>
-        Task.attempt(new String(Base64.getDecoder.decode(base64), StandardCharsets.US_ASCII))
+        ZIO.attempt(new String(Base64.getDecoder.decode(base64), StandardCharsets.US_ASCII))
       case KeySource.FromString(value)  =>
         ZIO.succeed(value)
     }

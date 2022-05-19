@@ -3,7 +3,7 @@ package com.coralogix.zio.k8s.operator.leader.locks
 import com.coralogix.zio.k8s.client.K8sFailure
 import com.coralogix.zio.k8s.client.K8sFailure.syntax._
 import com.coralogix.zio.k8s.client.coordination.v1.leases.Leases
-import com.coralogix.zio.k8s.client.model.{ K8sNamespace, Optional }
+import com.coralogix.zio.k8s.client.model.K8sNamespace
 import com.coralogix.zio.k8s.model.coordination.v1.{ Lease, LeaseSpec }
 import com.coralogix.zio.k8s.model.core.v1.Pod
 import com.coralogix.zio.k8s.model.pkg.apis.meta.v1.{ MicroTime, ObjectMeta }
@@ -12,6 +12,7 @@ import com.coralogix.zio.k8s.operator.leader.LeaderElection.logLeaderElectionFai
 import com.coralogix.zio.k8s.operator.leader._
 import com.coralogix.zio.k8s.operator.leader.locks.LeaseLock.VersionedRecord
 import zio.ZIO.logInfo
+import zio.prelude.data.Optional
 import zio.{ Clock, IO, Queue, Ref, Schedule, ZIO, _ }
 
 import java.time.OffsetDateTime

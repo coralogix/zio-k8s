@@ -134,7 +134,7 @@ trait SubresourceClientGenerator {
     prettyPrint(q"""package $packageTerm {
 
         import com.coralogix.zio.k8s.model._
-        import com.coralogix.zio.k8s.client.K8sFailure
+        import com.coralogix.zio.k8s.client.{ CodingFailure, K8sFailure }
         import com.coralogix.zio.k8s.client.model.{K8sCluster, K8sNamespace, ResourceMetadata}
         import com.coralogix.zio.k8s.client.Subresource
         import com.coralogix.zio.k8s.client.impl.SubresourceClient

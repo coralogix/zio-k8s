@@ -4,7 +4,7 @@ import zio.test.Assertion.equalTo
 import zio.test.{ ZIOSpecDefault, _ }
 
 object LabelSelectorSpec extends ZIOSpecDefault {
-  override def spec: ZSpec[TestEnvironment, Any] =
+  override def spec: Spec[TestEnvironment, Any] =
     suite("LabelSelector")(
       test("equals")(
         assert((label("lb1") === "value1").asQuery)(equalTo("lb1=value1"))

@@ -6,6 +6,8 @@ import com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Status
 import sttp.model.StatusCode
 import zio.ZIO
 
+import java.nio.charset.CharacterCodingException
+
 /** Error type of the Kubernetes client
   */
 sealed trait K8sFailure
@@ -49,6 +51,13 @@ final case class HttpFailure(requestInfo: K8sRequestInfo, message: String, code:
   *   Response status code
   */
 final case class DecodedFailure(requestInfo: K8sRequestInfo, status: Status, code: StatusCode)
+    extends K8sFailure
+
+/** Error in the UTF-8 character coding of the response from the Kubernetes API
+  * @param failure
+  *   The character coding error
+  */
+final case class CodingFailure(requestInfo: K8sRequestInfo, failure: CharacterCodingException)
     extends K8sFailure
 
 /** Error indicating that Kubernetes API responded with success, but the response body could not be

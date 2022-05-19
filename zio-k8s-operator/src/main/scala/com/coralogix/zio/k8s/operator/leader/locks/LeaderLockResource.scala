@@ -17,6 +17,7 @@ import sttp.capabilities.zio.ZioStreams
 import sttp.client3.SttpBackend
 import zio.stream.{ ZPipeline, ZStream }
 import zio._
+import zio.prelude.data.Optional
 
 case class LeaderLockResource(metadata: Optional[ObjectMeta])
 

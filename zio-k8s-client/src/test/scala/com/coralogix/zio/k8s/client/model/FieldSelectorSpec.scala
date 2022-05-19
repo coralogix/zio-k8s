@@ -4,7 +4,7 @@ import zio.test.Assertion.equalTo
 import zio.test.{ ZIOSpecDefault, _ }
 
 object FieldSelectorSpec extends ZIOSpecDefault {
-  override def spec: ZSpec[TestEnvironment, Any] =
+  override def spec: Spec[TestEnvironment, Any] =
     suite("FieldSelector")(
       test("equals")(
         assert((field("metadata.name") === "value1").asQuery)(equalTo("metadata.name==value1"))

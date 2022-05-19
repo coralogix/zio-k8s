@@ -8,13 +8,13 @@ import sttp.client3._
 import zio.config._
 import zio.config.typesafe.TypesafeConfig
 import zio.nio.file.{ Files, Path }
-import zio.test.{ assertCompletes, assertM, Assertion, TestEnvironment, ZIOSpecDefault, ZSpec }
+import zio.test.{ assertCompletes, assertZIO, Assertion, Spec, TestEnvironment, ZIOSpecDefault }
 import zio.{ Chunk, ZIO }
 
 import java.nio.charset.StandardCharsets
 
 object ConfigSpec extends ZIOSpecDefault {
-  override def spec: ZSpec[TestEnvironment, Any] =
+  override def spec: Spec[TestEnvironment, Any] =
     suite("K8sClusterConfig descriptors")(
       loadKubeConfigFromString,
       clientConfigSpec,
@@ -22,10 +22,10 @@ object ConfigSpec extends ZIOSpecDefault {
       runLocalConfigLoading
     )
 
-  val parseKubeConfig: ZSpec[TestEnvironment, Any] = test("parse kube config") {
+  val parseKubeConfig: Spec[TestEnvironment, Any] = test("parse kube config") {
     val kubeConfig = parseKubeConfigYaml(example2)
 
-    assertM(kubeConfig)(
+    assertZIO(kubeConfig)(
       Assertion.equalTo(
         Kubeconfig(
           clusters = List(
@@ -74,17 +74,17 @@ object ConfigSpec extends ZIOSpecDefault {
     )
   }
 
-  val loadKubeConfigFromString: ZSpec[TestEnvironment, Any] = test("load config from string") {
+  val loadKubeConfigFromString: Spec[TestEnvironment, Any] = test("load config from string") {
     kubeconfigFromString(example2).as(assertCompletes)
   }
 
-  val clientConfigSpec: ZSpec[zio.test.TestEnvironment, Any] = test("load client config") {
+  val clientConfigSpec: Spec[zio.test.TestEnvironment, Any] = test("load client config") {
     // Loading config from HOCON
     val loadConfig = ZIO.scoped {
       TypesafeConfig.fromHoconString[Config](example1, configDesc).build.map(_.get)
     }
 
-    assertM(loadConfig)(
+    assertZIO(loadConfig)(
       Assertion.equalTo(
         Config(
           K8sClusterConfig(
@@ -108,7 +108,7 @@ object ConfigSpec extends ZIOSpecDefault {
     )
   }
 
-  val runLocalConfigLoading: ZSpec[TestEnvironment, Any] = test("run local config loading") {
+  val runLocalConfigLoading: Spec[TestEnvironment, Any] = test("run local config loading") {
     def createTempKubeConfigFile =
       for {
         path <- Files.createTempFileScoped(prefix = "zio_k8s_test_".some)
@@ -139,7 +139,7 @@ object ConfigSpec extends ZIOSpecDefault {
         } yield maybeToken
       }
     }
-    assertM(testIO)(Assertion.equalTo(Some("bearer-token")))
+    assertZIO(testIO)(Assertion.equalTo(Some("bearer-token")))
   }
 
   case class Config(k8s: K8sClusterConfig)
