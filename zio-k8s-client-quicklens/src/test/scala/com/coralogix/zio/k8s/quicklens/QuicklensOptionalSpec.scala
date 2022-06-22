@@ -1,6 +1,7 @@
 package com.coralogix.zio.k8s.quicklens
 
 import com.coralogix.zio.k8s.client.model.Optional
+import com.coralogix.zio.k8s.client.model.Optional._
 import com.softwaremill.quicklens._
 import zio.test.environment.TestEnvironment
 import zio.test.Assertion._
@@ -15,7 +16,7 @@ object QuicklensOptionalSpec extends DefaultRunnableSpec {
     suite("Quicklens support")(
       test("works on optionals") {
         val a = X(Y(None))
-        val f = modify(_: X)(_.inner.each.leaf).setTo(5)
+        val f = modify[X, Optional[Int]](_: X)(_.inner.each.leaf).setTo(5)
         val g = modify(_: X)(_.inner.each.leaf.each)(_ + 1)
         val b = g(f(a))
 
