@@ -1,8 +1,8 @@
 val scala212Version = "2.12.15"
 val scala213Version = "2.13.8"
-val scala3Version = "3.1.0"
+val scala3Version = "3.1.2"
 
-val zioVersion = "1.0.12"
+val zioVersion = "1.0.15"
 val zioConfigVersion = "1.0.10"
 val sttpVersion = "3.3.18"
 val zioNioVersion = "1.0.0-RC12"
@@ -57,11 +57,11 @@ lazy val client = Project("zio-k8s-client", file("zio-k8s-client"))
       "com.softwaremill.sttp.client3" %% "core"                          % sttpVersion,
       "com.softwaremill.sttp.client3" %% "zio"                           % sttpVersion,
       "com.softwaremill.sttp.client3" %% "circe"                         % sttpVersion,
-      "io.circe"                      %% "circe-core"                    % "0.14.1",
-      "io.circe"                      %% "circe-generic"                 % "0.14.1",
-      "io.circe"                      %% "circe-parser"                  % "0.14.1",
+      "io.circe"                      %% "circe-core"                    % "0.14.2",
+      "io.circe"                      %% "circe-generic"                 % "0.14.2",
+      "io.circe"                      %% "circe-parser"                  % "0.14.2",
       "io.circe"                      %% "circe-yaml"                    % "0.14.1",
-      "org.bouncycastle"               % "bcpkix-jdk15on"                % "1.70",
+      "org.bouncycastle"               % "bcpkix-jdk18on"                % "1.71",
       "dev.zio"                       %% "zio-test"                      % zioVersion       % Test,
       "dev.zio"                       %% "zio-test-sbt"                  % zioVersion       % Test,
       "dev.zio"                       %% "zio-config-typesafe"           % zioConfigVersion % Test,
@@ -91,7 +91,7 @@ lazy val clientQuicklens = Project("zio-k8s-client-quicklens", file("zio-k8s-cli
   .settings(commonSettings)
   .settings(
     libraryDependencies ++= Seq(
-      "com.softwaremill.quicklens" %% "quicklens"    % "1.8.3",
+      "com.softwaremill.quicklens" %% "quicklens"    % "1.8.8",
       "dev.zio"                    %% "zio-test"     % zioVersion % Test,
       "dev.zio"                    %% "zio-test-sbt" % zioVersion % Test
     ),
