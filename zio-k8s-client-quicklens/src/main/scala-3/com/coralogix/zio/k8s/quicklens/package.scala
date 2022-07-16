@@ -21,6 +21,6 @@ package object quicklens {
   }
 
   given QuicklensFunctor[Optional] with {
-    def map[A, B](fa: Optional[A], f: A => B): Optional[B] = fa.map(f)
+    def map[A](fa: Optional[A], f: A => A): Optional[A] = fa.map(f)
   }
 }

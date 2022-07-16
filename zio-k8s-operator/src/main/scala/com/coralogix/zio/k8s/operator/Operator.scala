@@ -30,14 +30,18 @@ trait Operator[R, E, T] { self =>
   implicit def toThrowable: ConvertableToThrowable[E] =
     (error: E) => new RuntimeException(s"Operator failure: $error")
 
-  /** Starts the operator on a forked fiber
+  /** Exposes stream
     */
-  def start(): URIO[R with Clock, Fiber.Runtime[Nothing, Unit]] =
+  def stream(): ZStream[R with Clock, OperatorFailure[E], Unit] =
     watchStream()
       .buffer(bufferSize)
       .mapError(KubernetesFailure.apply)
       .mapZIO(processEvent)
-      .runDrain
+
+  /** Starts the operator on a forked fiber
+    */
+  def start(): URIO[R with Clock, Fiber.Runtime[Nothing, Unit]] =
+    stream().runDrain
       .foldCauseZIO(
         cause =>
           OperatorLogging(context)(if (cause.failureOption.contains(KubernetesFailure(NotFound))) {

@@ -50,7 +50,7 @@ final class ResourceClient[
     resourceVersion: ListResourceVersion = ListResourceVersion.MostRecent
   ): Stream[K8sFailure, T] =
     ZStream.unwrap {
-      handleFailures("getAll") {
+      handleFailures("getAll", namespace, fieldSelector, labelSelector, None) {
         k8sRequest
           .get(
             paginated(
@@ -75,7 +75,13 @@ final class ResourceClient[
                                                         ZIO.fail(None)
                                                       case Optional.Present(token)                =>
                                                         for {
-                                                          lst <- handleFailures("getAll") {
+                                                          lst <- handleFailures(
+                                                                   "getAll",
+                                                                   namespace,
+                                                                   fieldSelector,
+                                                                   labelSelector,
+                                                                   None
+                                                                 ) {
                                                                    k8sRequest
                                                                      .get(
                                                                        paginated(
@@ -115,10 +121,11 @@ final class ResourceClient[
     labelSelector: Option[LabelSelector],
     resourceVersion: Option[String]
   ): Stream[K8sFailure, ParsedWatchEvent[T]] = {
-    val reqInfo = K8sRequestInfo(resourceType, "watch")
+    val reqInfo =
+      K8sRequestInfo(resourceType, "watch", namespace, fieldSelector, labelSelector, None)
     ZStream
       .unwrap {
-        handleFailures("watch") {
+        handleFailures("watch", namespace, fieldSelector, labelSelector, None) {
           k8sRequest
             .get(watching(namespace, resourceVersion, fieldSelector, labelSelector))
             .response(asStreamUnsafeWithError)
@@ -165,7 +172,7 @@ final class ResourceClient[
     }
 
   def get(name: String, namespace: Option[K8sNamespace]): IO[K8sFailure, T] =
-    handleFailures("get") {
+    handleFailures("get", namespace, name) {
       k8sRequest
         .get(simple(Some(name), subresource = None, namespace))
         .response(asJsonAccumulating[T])
@@ -177,7 +184,7 @@ final class ResourceClient[
     namespace: Option[K8sNamespace],
     dryRun: Boolean
   ): IO[K8sFailure, T] =
-    handleFailures("create") {
+    handleFailures("create", namespace, None, None, None) {
       k8sRequest
         .post(creating(namespace, dryRun))
         .body(newResource)
@@ -191,7 +198,7 @@ final class ResourceClient[
     namespace: Option[K8sNamespace],
     dryRun: Boolean
   ): IO[K8sFailure, T] =
-    handleFailures("replace") {
+    handleFailures("replace", namespace, name) {
       k8sRequest
         .put(modifying(name = name, subresource = None, namespace, dryRun))
         .body(updatedResource)
@@ -207,7 +214,7 @@ final class ResourceClient[
     gracePeriod: Option[Duration] = None,
     propagationPolicy: Option[PropagationPolicy] = None
   ): IO[K8sFailure, DeleteResult] =
-    handleFailures("delete") {
+    handleFailures("delete", namespace, name) {
       k8sRequest
         .delete(
           deleting(
@@ -233,7 +240,7 @@ final class ResourceClient[
     fieldSelector: Option[FieldSelector] = None,
     labelSelector: Option[LabelSelector] = None
   ): IO[K8sFailure, Status] =
-    handleFailures("deleteAll") {
+    handleFailures("deleteAll", namespace, fieldSelector, labelSelector, None) {
       k8sRequest
         .delete(
           deletingMany(

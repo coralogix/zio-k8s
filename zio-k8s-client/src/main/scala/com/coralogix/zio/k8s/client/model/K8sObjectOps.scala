@@ -62,14 +62,17 @@ trait K8sObjectOps[T] {
     *   Owner's UID
     * @param ownerType
     *   Owner's resource type metadata
+    * @param kind
+    *   Owner's resource kind
     * @return
     *   Object with the attached owner described in its metadata
     */
   def attachOwner(
     ownerName: String,
     ownerUid: String,
-    ownerType: K8sResourceType
-  ): T = impl.attachOwner(obj)(ownerName, ownerUid, ownerType)
+    ownerType: K8sResourceType,
+    kind: String
+  ): T = impl.attachOwner(obj)(ownerName, ownerUid, ownerType, kind)
 
   /** Tries to attach another resource as the owner of this one. Can fail with
     * [[com.coralogix.zio.k8s.client.UndefinedField]] if the owner does not have all the required
