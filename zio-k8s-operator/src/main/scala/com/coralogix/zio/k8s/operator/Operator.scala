@@ -72,8 +72,8 @@ trait Operator[R, E, T] { self =>
   /** Provide the required environment for the operator with a layer on top of the standard ones
     */
   final def provideCustomLayer[E1 >: E, R1 <: ZEnvironment[_]](
-    layer: => ZLayer[ZEnv, OperatorFailure[E1], R1]
-  )(implicit ev: ZEnv with R1 <:< R, tagged: EnvironmentTag[R1]): Operator[ZEnv, E1, T] =
+    layer: => ZLayer[Any, OperatorFailure[E1], R1]
+  )(implicit ev: R1 <:< R, tagged: EnvironmentTag[R1]): Operator[Any, E1, T] =
     mapEventProcessor(_.provideSomeLayer(layer))
 
   /** Provide parts of the required environment for the operator with a layer

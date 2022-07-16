@@ -20,18 +20,18 @@ println(s"""```""")
 
 in addition to this, you need to choose an [sttp](https://sttp.softwaremill.com/en/latest/) _backend_ that `zio-k8s` will use to make HTTP requests with. There are two official backends that can be used out of the box:
 
-In case your application runs on **Java 11** or above, choose the `HttpClient` based version:
+In case your application runs on **Java 11** or above, choose the `HttpClient` based version which is now included in sttp core
+so you may only need to add SLF4j support for logging requests:
 
 ```scala
-"com.softwaremill.sttp.client3" %% "httpclient-backend-zio" % "3.1.1"
-"com.softwaremill.sttp.client3" %% "slf4j-backend"          % "3.1.1"
+"com.softwaremill.sttp.client3" %% "slf4j-backend"          % "3.7.0"
 ```
 
 Otherwise choose the `async-http-client` based backend:
 
 ```scala
-"com.softwaremill.sttp.client3" %% "async-http-client-backend-zio" % "3.1.1"
-"com.softwaremill.sttp.client3" %% "slf4j-backend"                 % "3.1.1"
+"com.softwaremill.sttp.client3" %% "async-http-client-backend-zio" % "3.7.0"
+"com.softwaremill.sttp.client3" %% "slf4j-backend"                 % "3.7.0"
 ```
 
 ## Configuration
