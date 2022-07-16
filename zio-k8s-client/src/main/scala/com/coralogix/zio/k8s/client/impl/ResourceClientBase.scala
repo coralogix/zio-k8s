@@ -130,10 +130,21 @@ trait ResourceClientBase {
       cluster
     )
 
-  protected def handleFailures[A](operation: String)(
+  protected def handleFailures[A](operation: String, namespace: Option[K8sNamespace], name: String)(
+    f: Task[Response[Either[ResponseException[String, NonEmptyList[Error]], A]]]
+  ): IO[K8sFailure, A] = handleFailures(operation, namespace, None, None, Some(name))(f)
+
+  protected def handleFailures[A](
+    operation: String,
+    namespace: Option[K8sNamespace],
+    fieldSelector: Option[FieldSelector],
+    labelSelector: Option[LabelSelector],
+    name: Option[String]
+  )(
     f: Task[Response[Either[ResponseException[String, NonEmptyList[Error]], A]]]
   ): IO[K8sFailure, A] = {
-    val reqInfo = K8sRequestInfo(resourceType, operation)
+    val reqInfo =
+      K8sRequestInfo(resourceType, operation, namespace, fieldSelector, labelSelector, name)
     f.mapError(RequestFailure.apply(reqInfo, _))
       .flatMap { response =>
         response.body match {

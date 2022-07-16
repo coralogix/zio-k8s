@@ -96,9 +96,9 @@ class K8sResourceCodegen(val logger: sbt.Logger, val scalaVersion: String)
     } yield opticsPaths.map(_.toFile).toSeq
 
   private def loadK8sSwagger(from: Path): ZIO[Any, Throwable, OpenAPI] =
-    Task.attempt(logger.info("Loading k8s-swagger.json")) *>
+    ZIO.attempt(logger.info("Loading k8s-swagger.json")) *>
       Files.readAllBytes(from).flatMap { bytes =>
-        Task.attempt {
+        ZIO.attempt {
           val rawJson = new String(bytes.toArray[Byte], StandardCharsets.UTF_8)
 
           val parser = new OpenAPIParser

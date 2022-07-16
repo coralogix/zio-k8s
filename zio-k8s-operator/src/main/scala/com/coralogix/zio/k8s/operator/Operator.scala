@@ -30,14 +30,18 @@ trait Operator[R, E, T] { self =>
   implicit def toThrowable: ConvertableToThrowable[E] =
     (error: E) => new RuntimeException(s"Operator failure: $error")
 
-  /** Starts the operator on a forked fiber
+  /** Exposes stream
     */
-  def start(): URIO[R with Clock, Fiber.Runtime[Nothing, Unit]] =
+  def stream(): ZStream[R with Clock, OperatorFailure[E], Unit] =
     watchStream()
       .buffer(bufferSize)
       .mapError(KubernetesFailure.apply)
       .mapZIO(processEvent)
-      .runDrain
+
+  /** Starts the operator on a forked fiber
+    */
+  def start(): URIO[R with Clock, Fiber.Runtime[Nothing, Unit]] =
+    stream().runDrain
       .foldCauseZIO(
         cause =>
           OperatorLogging(context)(if (cause.failureOption.contains(KubernetesFailure(NotFound))) {
@@ -72,8 +76,8 @@ trait Operator[R, E, T] { self =>
   /** Provide the required environment for the operator with a layer on top of the standard ones
     */
   final def provideCustomLayer[E1 >: E, R1 <: ZEnvironment[_]](
-    layer: => ZLayer[ZEnv, OperatorFailure[E1], R1]
-  )(implicit ev: ZEnv with R1 <:< R, tagged: EnvironmentTag[R1]): Operator[ZEnv, E1, T] =
+    layer: => ZLayer[Any, OperatorFailure[E1], R1]
+  )(implicit ev: R1 <:< R, tagged: EnvironmentTag[R1]): Operator[Any, E1, T] =
     mapEventProcessor(_.provideSomeLayer(layer))
 
   /** Provide parts of the required environment for the operator with a layer

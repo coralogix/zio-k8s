@@ -22,7 +22,7 @@ object TimeSerializationSpec extends ZIOSpecDefault {
       },
       test("can print and parse") {
         for {
-          now       <- zio.Clock.currentDateTime.provideLayer(Clock.live)
+          now       <- zio.Clock.currentDateTime.withClock(Clock.ClockLive)
           microTime1 = MicroTime(now)
           json       = microTime1.asJson
           microTime2 = json.as[MicroTime]

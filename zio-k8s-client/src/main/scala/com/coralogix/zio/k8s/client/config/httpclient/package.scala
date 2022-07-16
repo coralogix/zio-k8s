@@ -1,6 +1,9 @@
 package com.coralogix.zio.k8s.client.config
 
 import com.coralogix.zio.k8s.client.model.K8sCluster
+import sttp.capabilities.WebSockets
+import sttp.capabilities.zio.ZioStreams
+import sttp.client3.SttpBackend
 import sttp.client3.httpclient.zio._
 import sttp.client3.logging.slf4j.Slf4jLoggingBackend
 import zio._
@@ -11,10 +14,11 @@ import java.net.http.HttpClient
   */
 package object httpclient {
 
-  /** An [[SttpClient]] layer configured with the proper SSL context based on the provided
+  /** An STTP backend layer configured with the proper SSL context based on the provided
     * [[K8sClusterConfig]] using the httpclient-backend-zio backend.
     */
-  val k8sSttpClient: ZLayer[K8sClusterConfig, Throwable, SttpClient] =
+  val k8sSttpClient
+    : ZLayer[K8sClusterConfig, Throwable, SttpBackend[Task, ZioStreams with WebSockets]] =
     ZLayer.scoped {
       for {
         config                      <- ZIO.service[K8sClusterConfig]
@@ -53,10 +57,11 @@ package object httpclient {
       } yield client
     }
 
-  /** Layer producing a [[K8sCluster]] and an [[SttpClient]] module that can be directly used to
+  /** Layer producing a [[K8sCluster]] and an STTP backend module that can be directly used to
     * initialize specific Kubernetes client modules, using the [[defaultConfigChain]].
     */
-  val k8sDefault: ZLayer[Any, Throwable, K8sCluster with SttpClient] =
+  val k8sDefault
+    : ZLayer[Any, Throwable, K8sCluster with SttpBackend[Task, ZioStreams with WebSockets]] =
     defaultConfigChain >>> (k8sCluster ++ k8sSttpClient)
 
   def getHostnameVerificationDisabled(config: K8sClusterConfig) =

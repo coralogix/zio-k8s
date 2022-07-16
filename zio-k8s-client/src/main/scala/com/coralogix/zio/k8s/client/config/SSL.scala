@@ -6,7 +6,7 @@ import java.security.SecureRandom
 import java.security.cert.X509Certificate
 import javax.net.ssl.{ KeyManager, SSLContext, TrustManager, X509TrustManager }
 
-private object SSL {
+object SSL {
   def apply(
     serverCertificate: K8sServerCertificate,
     authentication: K8sAuthentication

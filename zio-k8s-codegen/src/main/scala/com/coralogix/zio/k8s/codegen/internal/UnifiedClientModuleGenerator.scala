@@ -301,12 +301,12 @@ trait UnifiedClientModuleGenerator {
         List(testClientConstruction.map(_._1))
       )
 
-      q"""lazy val $namePat: $serviceT = {
-            runtime.unsafeRun {
+      q"""lazy val $namePat: $serviceT = zio.Unsafe.unsafeCompat { implicit u =>
+            runtime.unsafe.run {
               for {
                 ..${testClientConstruction.map(_._2)}
               } yield new $liveInit
-            }
+            }.getOrThrowFiberFailure()
           }"""
     } else {
       val cons =

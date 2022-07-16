@@ -42,7 +42,7 @@ final class SubresourceClient[T: Encoder: Decoder](
     namespace: Option[K8sNamespace],
     customParameters: Map[String, String] = Map.empty
   ): IO[K8sFailure, T] =
-    handleFailures(s"get $subresourceName") {
+    handleFailures(s"get $subresourceName", namespace, name) {
       k8sRequest
         .get(
           simple(Some(name), Some(subresourceName), namespace)
@@ -59,7 +59,7 @@ final class SubresourceClient[T: Encoder: Decoder](
     customParameters: Map[String, String] = Map.empty
   ): ZStream[Any, K8sFailure, T] =
     ZStream.unwrap {
-      handleFailures(s"get $subresourceName") {
+      handleFailures(s"get $subresourceName", namespace, name) {
         k8sRequest
           .get(
             simple(Some(name), Some(subresourceName), namespace)
@@ -80,7 +80,9 @@ final class SubresourceClient[T: Encoder: Decoder](
           .send(backend)
       }.map { (stream: ZioStreams.BinaryStream) =>
         stream
-          .mapError(RequestFailure(K8sRequestInfo(resourceType, s"get $subresourceName"), _))
+          .mapError(
+            RequestFailure(K8sRequestInfo(resourceType, s"get $subresourceName", namespace), _)
+          )
           .via(pipeline)
       }
     }
@@ -91,7 +93,7 @@ final class SubresourceClient[T: Encoder: Decoder](
     namespace: Option[K8sNamespace],
     dryRun: Boolean
   ): IO[K8sFailure, T] =
-    handleFailures(s"replace $subresourceName") {
+    handleFailures(s"replace $subresourceName", namespace, name) {
       k8sRequest
         .put(modifying(name, Some(subresourceName), namespace, dryRun))
         .body(updatedValue)
@@ -105,7 +107,7 @@ final class SubresourceClient[T: Encoder: Decoder](
     namespace: Option[K8sNamespace],
     dryRun: Boolean
   ): IO[K8sFailure, T] =
-    handleFailures(s"create $subresourceName") {
+    handleFailures(s"create $subresourceName", namespace, name) {
       k8sRequest
         .post(modifying(name, Some(subresourceName), namespace, dryRun))
         .body(value)
