@@ -1,10 +1,10 @@
 package com.coralogix.zio.k8s.client.config
 
-import zio.{Task, ZIO}
+import zio.{ Task, ZIO }
 
 import java.security.SecureRandom
 import java.security.cert.X509Certificate
-import javax.net.ssl.{KeyManager, SSLContext, TrustManager, X509TrustManager}
+import javax.net.ssl.{ KeyManager, SSLContext, TrustManager, X509TrustManager }
 
 object SSL {
   def apply(

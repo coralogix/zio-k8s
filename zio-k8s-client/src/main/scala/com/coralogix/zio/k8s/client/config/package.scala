@@ -3,15 +3,15 @@ package com.coralogix.zio.k8s.client
 import cats.implicits._
 import com.coralogix.zio.k8s.client.model.K8sCluster
 import io.circe.generic.semiauto.deriveDecoder
-import io.circe.{Decoder, parser}
+import io.circe.{ parser, Decoder }
 import sttp.client3.UriContext
 import sttp.model.Uri
 import zio.config._
 import zio.nio.file.Path
 import zio.process.Command
-import zio.{Layer, RIO, Scope, System, Task, ZIO, ZLayer}
+import zio.{ Layer, RIO, Scope, System, Task, ZIO, ZLayer }
 
-import java.io.{ByteArrayInputStream, File, FileInputStream, InputStream}
+import java.io.{ ByteArrayInputStream, File, FileInputStream, InputStream }
 import java.nio.charset.StandardCharsets
 import java.util.Base64
 
