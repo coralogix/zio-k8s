@@ -9,7 +9,7 @@ import sttp.model.Uri
 import zio.config._
 import zio.nio.file.Path
 import zio.process.Command
-import zio.{Layer, RIO, Scope, Task, ZIO, ZLayer}
+import zio.{Layer, RIO, Scope, System, Task, ZIO, ZLayer}
 
 import java.io.{ByteArrayInputStream, File, FileInputStream, InputStream}
 import java.nio.charset.StandardCharsets
