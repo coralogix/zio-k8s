@@ -1,6 +1,6 @@
 package com.coralogix.zio.k8s.client.config
 
-import zio.{ System, Task, ZIO }
+import zio.{ Task, ZIO }
 
 import java.security.SecureRandom
 import java.security.cert.X509Certificate

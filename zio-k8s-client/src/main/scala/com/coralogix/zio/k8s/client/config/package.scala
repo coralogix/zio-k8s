@@ -9,7 +9,7 @@ import sttp.model.Uri
 import zio.config._
 import zio.nio.file.Path
 import zio.process.Command
-import zio.{ Layer, RIO, System, Task, ZIO, ZLayer }
+import zio.{ Layer, RIO, Scope, System, Task, ZIO, ZLayer }
 
 import java.io.{ ByteArrayInputStream, File, FileInputStream, InputStream }
 import java.nio.charset.StandardCharsets
@@ -557,17 +557,15 @@ package object config extends Descriptors {
     } yield auth
   }
 
-  private[config] def loadKeyStream(source: KeySource): ZIO[Any, Throwable, InputStream] =
-    ZIO.scoped {
-      ZIO.fromAutoCloseable {
-        source match {
-          case KeySource.FromFile(path)     =>
-            ZIO.attempt(new FileInputStream(path.toFile))
-          case KeySource.FromBase64(base64) =>
-            ZIO.attempt(new ByteArrayInputStream(Base64.getDecoder.decode(base64)))
-          case KeySource.FromString(value)  =>
-            ZIO.attempt(new ByteArrayInputStream(value.getBytes(StandardCharsets.US_ASCII)))
-        }
+  private[config] def loadKeyStream(source: KeySource): ZIO[Scope, Throwable, InputStream] =
+    ZIO.fromAutoCloseable {
+      source match {
+        case KeySource.FromFile(path)     =>
+          ZIO.attempt(new FileInputStream(path.toFile))
+        case KeySource.FromBase64(base64) =>
+          ZIO.attempt(new ByteArrayInputStream(Base64.getDecoder.decode(base64)))
+        case KeySource.FromString(value)  =>
+          ZIO.attempt(new ByteArrayInputStream(value.getBytes(StandardCharsets.US_ASCII)))
       }
     }
 
