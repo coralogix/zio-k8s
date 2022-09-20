@@ -16,7 +16,7 @@ libraryDependencies ++= Seq(
   "io.circe"            %% "circe-core"       % "0.14.2",
   "io.circe"            %% "circe-parser"     % "0.14.2",
   "io.circe"            %% "circe-yaml"       % "0.14.1",
-  "org.scalameta"       %% "scalameta"        % "4.4.21",
+  "org.scalameta"       %% "scalameta"        % "4.5.13",
   "org.scalameta"       %% "scalafmt-dynamic" % "2.7.5",
   "org.atteo"            % "evo-inflector"    % "1.3"
 )

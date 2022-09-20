@@ -6,7 +6,7 @@ import com.coralogix.zio.k8s.codegen.internal.CodegenIO._
 import com.coralogix.zio.k8s.model.pkg.apis.apiextensions.v1._
 import com.coralogix.zio.k8s.client.model._
 import com.coralogix.zio.k8s.model.pkg.apis.apiextensions.v1
-import com.twilio.guardrail.generators.syntax._
+import dev.guardrail.generators.syntax._
 import io.circe.syntax._
 import io.circe.yaml.parser.parse
 import sbt._

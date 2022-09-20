@@ -182,14 +182,18 @@ lazy val crd = Project("zio-k8s-crd", file("zio-k8s-crd"))
     crossVersion       := CrossVersion.disabled,
     Compile / unmanagedSourceDirectories += baseDirectory.value / "../zio-k8s-codegen/src/shared/scala",
     libraryDependencies ++= Seq(
-      "dev.zio"       %% "zio"              % zioVersion,
-      "dev.zio"       %% "zio-streams"      % zioVersion,
-      "dev.zio"       %% "zio-nio"          % zioNioVersion,
-      "com.twilio"    %% "guardrail"        % "0.64.1",
-      "org.scalameta" %% "scalafmt-dynamic" % "2.7.5",
-      "org.atteo"      % "evo-inflector"    % "1.3",
-      "dev.zio"       %% "zio-test"         % zioVersion % Test,
-      "dev.zio"       %% "zio-test-sbt"     % zioVersion % Test
+      "dev.zio"       %% "zio"                     % zioVersion,
+      "dev.zio"       %% "zio-streams"             % zioVersion,
+      "dev.zio"       %% "zio-nio"                 % zioNioVersion,
+      "dev.guardrail" %% "guardrail-core"          % "0.74.0",
+      "dev.guardrail" %% "guardrail-cli"           % "0.71.0",
+      "dev.guardrail" %% "guardrail-scala-support" % "0.74.0",
+      "dev.guardrail" %% "guardrail-scala-http4s"  % "0.74.0",
+      "org.scalameta" %% "scalameta"               % "4.5.13",
+      "org.scalameta" %% "scalafmt-dynamic"        % "2.7.5",
+      "org.atteo"      % "evo-inflector"           % "1.3",
+      "dev.zio"       %% "zio-test"                % zioVersion % Test,
+      "dev.zio"       %% "zio-test-sbt"            % zioVersion % Test
     ),
     testFrameworks += new TestFramework("zio.test.sbt.ZTestFramework"),
     compile / skip     := {

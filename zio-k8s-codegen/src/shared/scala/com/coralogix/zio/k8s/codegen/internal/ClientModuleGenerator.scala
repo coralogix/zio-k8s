@@ -11,6 +11,7 @@ import zio.nio.file.Path
 import zio.nio.file.Files
 
 import scala.meta._
+import scala.meta.dialects.Scala212
 
 trait ClientModuleGenerator {
   this: Common =>
@@ -350,10 +351,10 @@ trait ClientModuleGenerator {
           import zio._
 
           package object $moduleName {
-            $typeAlias
+            type $typeAliasT = ${t"$serviceT"}
 
             object $typeAliasTerm {
-              $typeAliasGeneric
+              type Generic = $typeAliasRhs
 
               trait Service
                 extends $mainInterfaceI with ..$extraInterfaceIs {
@@ -594,10 +595,10 @@ trait ClientModuleGenerator {
           import zio._
 
           package object $moduleName {
-            $typeAlias
+            type $typeAliasT = ${t"$serviceT"}
 
             object $typeAliasTerm {
-              $typeAliasGeneric
+              type Generic = $typeAliasRhs
 
               trait Service
                 extends $mainInterfaceI with ..$extraInterfaceIs {

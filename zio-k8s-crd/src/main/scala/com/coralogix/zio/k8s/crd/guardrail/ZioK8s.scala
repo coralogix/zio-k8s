@@ -1,12 +1,19 @@
 package com.coralogix.zio.k8s.crd.guardrail
 
-import com.twilio.guardrail.Target
-import com.twilio.guardrail.generators.Scala.model.CirceModelGenerator
-import com.twilio.guardrail.generators.Scala.{ AkkaHttpGenerator, CirceProtocolGenerator }
-import com.twilio.guardrail.generators.ScalaGenerator.ScalaInterp
-import com.twilio.guardrail.generators.collections.ScalaCollectionsGenerator.ScalaCollectionsInterp
-import com.twilio.guardrail.generators.{ Framework, SwaggerGenerator }
-import com.twilio.guardrail.languages.ScalaLanguage
+import dev.guardrail.Target
+import dev.guardrail.generators.{ Framework, SwaggerGenerator }
+import dev.guardrail.generators.scala.{
+  CirceModelGenerator,
+  ScalaCollectionsGenerator,
+  ScalaGenerator,
+  ScalaLanguage
+}
+import dev.guardrail.generators.scala.circe.CirceProtocolGenerator
+import dev.guardrail.generators.scala.http4s.Http4sGenerator
+import dev.guardrail.terms.client.ClientTerms
+import dev.guardrail.terms.{ CollectionsLibTerms, LanguageTerms, ProtocolTerms, SwaggerTerms }
+import dev.guardrail.terms.framework.FrameworkTerms
+import dev.guardrail.terms.server.ServerTerms
 
 // Custom code generator framework
 
@@ -14,15 +21,25 @@ import com.twilio.guardrail.languages.ScalaLanguage
 // the generated models (naming, split to package)
 // if we want to generate clients too then SttpK8sClient has to be implemented
 class ZioK8s(implicit k8sContext: K8sCodegenContext) extends Framework[ScalaLanguage, Target] {
-  implicit def CollectionsLibInterp = ScalaCollectionsInterp
-  implicit def ArrayProtocolInterp = new CirceProtocolGenerator.ArrayProtocolTermInterp
-  implicit def ClientInterp = new SttpK8sClient
-  implicit def EnumProtocolInterp = new CirceProtocolGenerator.EnumProtocolTermInterp
-  implicit def FrameworkInterp = new AkkaHttpGenerator.FrameworkInterp(CirceModelGenerator.V012)
-  implicit def ModelProtocolInterp = new K8sModelProtocolTermInterp()
-  implicit def PolyProtocolInterp = new CirceProtocolGenerator.PolyProtocolTermInterp
-  implicit def ProtocolSupportInterp = new CirceProtocolGenerator.ProtocolSupportTermInterp
-  implicit def ServerInterp = new NoServerSupport
-  implicit def SwaggerInterp = SwaggerGenerator[ScalaLanguage]
-  implicit def LanguageInterp = ScalaInterp
+
+  override implicit def ClientInterp: ClientTerms[ScalaLanguage, Target] =
+    new SttpK8sClient
+
+  override implicit def FrameworkInterp: FrameworkTerms[ScalaLanguage, Target] =
+    Http4sGenerator()
+
+  override implicit def ProtocolInterp: ProtocolTerms[ScalaLanguage, Target] =
+    CirceProtocolGenerator(CirceModelGenerator.V012)
+
+  override implicit def ServerInterp: ServerTerms[ScalaLanguage, Target] =
+    new NoServerSupport
+
+  override implicit def SwaggerInterp: SwaggerTerms[ScalaLanguage, Target] =
+    SwaggerGenerator[ScalaLanguage]
+
+  override implicit def LanguageInterp: LanguageTerms[ScalaLanguage, Target] =
+    ScalaGenerator()
+
+  override implicit def CollectionsLibInterp: CollectionsLibTerms[ScalaLanguage, Target] =
+    ScalaCollectionsGenerator()
 }

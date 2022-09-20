@@ -2,40 +2,24 @@ package com.coralogix.zio.k8s.crd.guardrail
 
 import cats.Monad
 import cats.data.{ NonEmptyList, NonEmptyVector }
-import cats.implicits._
-import com.twilio.guardrail.{
-  DataVisible,
-  EmptyIsNull,
-  ProtocolParameter,
-  StaticDefns,
-  SuperClass,
-  SwaggerUtil,
-  Target,
-  UserError
-}
-import com.twilio.guardrail.core.Tracker
-import com.twilio.guardrail.generators.{ RawParameterName, ScalaGenerator }
-import com.twilio.guardrail.generators.Scala.CirceProtocolGenerator
-import com.twilio.guardrail.generators.Scala.CirceProtocolGenerator.suffixClsName
-import com.twilio.guardrail.generators.Scala.model.CirceModelGenerator
-import com.twilio.guardrail.languages.ScalaLanguage
-import com.twilio.guardrail.protocol.terms.protocol.{
-  ModelProtocolTerms,
-  PropMeta,
-  PropertyRequirement
-}
-import com.twilio.guardrail.terms.CollectionsLibTerms
+import cats.implicits.*
+import dev.guardrail.{ SwaggerUtil, Target, UserError }
+import dev.guardrail.core.*
+import dev.guardrail.generators.scala.circe.CirceProtocolGenerator
+import dev.guardrail.generators.scala.{ CirceModelGenerator, ScalaGenerator, ScalaLanguage }
+import dev.guardrail.terms.protocol.*
+import dev.guardrail.terms.{ CollectionsLibTerms, ProtocolTerms, RenderedEnum }
 import io.swagger.v3.oas.models.media.Schema
 
-import scala.meta._
+import scala.meta.*
 
 class K8sModelProtocolTermInterp(implicit
   collectionsLibTerms: CollectionsLibTerms[ScalaLanguage, Target],
   k8sContext: K8sCodegenContext
-) extends ModelProtocolTerms[ScalaLanguage, Target] {
+) extends ProtocolTerms[ScalaLanguage, Target] {
 
   private val circeVersion = CirceModelGenerator.V012
-  private val circe = new CirceProtocolGenerator.ModelProtocolTermInterp(circeVersion)
+  private val circe = CirceProtocolGenerator(circeVersion)
 
   private val kindLit = Lit.String(k8sContext.kind)
   private val apiVersionLit = Lit.String(s"${k8sContext.group}/${k8sContext.version}")
@@ -46,6 +30,32 @@ class K8sModelProtocolTermInterp(implicit
   private val reservedNames = Set("wait", "equals", "toString", "notify", "notifyAll", "finalize")
 
   override def MonadF: Monad[Target] = Target.targetInstances
+
+  override def renderMembers(clsName: String, elems: RenderedEnum[ScalaLanguage]) =
+    circe.renderMembers(clsName, elems)
+
+  override def encodeEnum(clsName: String, tpe: Type): Target[Option[Defn]] =
+    circe.encodeEnum(clsName, tpe)
+
+  override def decodeEnum(clsName: String, tpe: Type): Target[Option[Defn]] =
+    circe.decodeEnum(clsName, tpe)
+
+  override def renderClass(
+    clsName: String,
+    tpe: scala.meta.Type,
+    elems: RenderedEnum[ScalaLanguage]
+  ) =
+    circe.renderClass(clsName, tpe, elems)
+
+  override def renderStaticDefns(
+    clsName: String,
+    tpe: scala.meta.Type,
+    members: Option[scala.meta.Defn.Object],
+    accessors: List[scala.meta.Term.Name],
+    encoder: Option[scala.meta.Defn],
+    decoder: Option[scala.meta.Defn]
+  ): Target[StaticDefns[ScalaLanguage]] =
+    circe.renderStaticDefns(clsName, tpe, members, accessors, encoder, decoder)
 
   override def extractProperties(
     swagger: Tracker[Schema[_]]
@@ -61,7 +71,7 @@ class K8sModelProtocolTermInterp(implicit
     name: String,
     fieldName: String,
     prop: Tracker[Schema[_]],
-    meta: SwaggerUtil.ResolvedType[ScalaLanguage],
+    meta: ResolvedType[ScalaLanguage],
     requirement: PropertyRequirement,
     isCustomType: Boolean,
     defaultValue: Option[Term]
@@ -116,15 +126,16 @@ class K8sModelProtocolTermInterp(implicit
       List.empty[Defn.Def]
 
     // format: off
-    val withoutParent =
-        q"""case class ${Type.Name(clsName)}(..${terms}) { ..$toStringMethod }"""
 
     val code = parentOpt
-      .fold(withoutParent) { parent =>
-          q"""case class ${Type.Name(clsName)}(..${terms}) extends ${template"..${init"${Type.Name(parent.clsName)}(...$Nil)" ::
-            parent.interfaces.map(a => init"${Type.Name(a)}(...$Nil)")} { ..$toStringMethod }"}"""
-      }
-
+      .fold(q"""case class ${Type.Name(clsName)}(..${terms}) { ..$toStringMethod }""")(parent =>
+        q"""case class ${Type.Name(clsName)}(..${terms}) extends ..${
+          init"${Type.Name(parent.clsName)}(...$Nil)" :: parent.interfaces.map(a =>
+            init"${Type.Name(a)}(...$Nil)"
+          )
+        } { ..$toStringMethod }"""
+      )
+    
     // format: on
     Target.pure(code)
   }
@@ -147,7 +158,7 @@ class K8sModelProtocolTermInterp(implicit
     val paramCount = params.length
     for {
       presence <-
-        ScalaGenerator.ScalaInterp.selectTerm(NonEmptyList.ofInitLast(supportPackage, "Presence"))
+        ScalaGenerator().selectTerm(NonEmptyList.ofInitLast(supportPackage, "Presence"))
       decVal   <- if (paramCount == 0)
                     Target.pure(Option.empty[Term])
                   else if (paramCount <= 22 && !needsEmptyToNull) {
@@ -458,4 +469,7 @@ class K8sModelProtocolTermInterp(implicit
         )
       )
   }
+
+  private def suffixClsName(prefix: String, clsName: String): Pat.Var =
+    Pat.Var(Term.Name(s"${prefix}${clsName}"))
 }

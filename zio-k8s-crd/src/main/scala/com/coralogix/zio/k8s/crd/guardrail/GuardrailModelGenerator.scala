@@ -3,19 +3,11 @@ package com.coralogix.zio.k8s.crd.guardrail
 import cats.data.NonEmptyList
 import cats.implicits.*
 import com.coralogix.zio.k8s.codegen.internal.CodegenIO.*
-import com.twilio.guardrail.core.CoreTermInterp
-import com.twilio.guardrail.generators.ScalaModule
-import com.twilio.guardrail.languages.{ JavaLanguage, ScalaLanguage }
-import com.twilio.guardrail.terms.CoreTerms
-import com.twilio.guardrail.{
-  Args,
-  CLI,
-  CLICommon,
-  CodegenTarget,
-  Context,
-  Target,
-  UnparseableArgument
-}
+import dev.guardrail.cli.{ CLI, CLICommon }
+import dev.guardrail.core.CoreTermInterp
+import dev.guardrail.generators.scala.{ ScalaGeneratorMappings, ScalaLanguage }
+import dev.guardrail.terms.CoreTerms
+import dev.guardrail.{ Args, CodegenTarget, Context, Target, UnparseableArgument }
 import io.circe.*
 import io.circe.syntax.*
 import zio.ZIO
@@ -26,21 +18,9 @@ import scala.meta.*
 
 object GuardrailModelGenerator {
   class K8sCodegen(implicit k8sContext: K8sCodegenContext) extends CLICommon {
-    override implicit def scalaInterpreter: CoreTerms[ScalaLanguage, Target] =
-      new CoreTermInterp[ScalaLanguage](
-        "zio-k8s",
-        ScalaModule.extract,
-        { case "zio-k8s" =>
-          new ZioK8s
-        },
-        _.parse[Importer].toEither.bimap(
-          err => UnparseableArgument("import", err.toString),
-          importer => Import(List(importer))
-        )
-      )
+    val AnsiColor = scala.io.AnsiColor
 
-    override implicit def javaInterpreter: CoreTerms[JavaLanguage, Target] =
-      CLI.javaInterpreter
+    def putErrLn(string: String): Unit = System.err.println(string)
   }
 
   def generateModelFiles(

@@ -2,22 +2,16 @@ package com.coralogix.zio.k8s.crd.guardrail
 
 import cats.Monad
 import cats.data.NonEmptyList
-import com.twilio.guardrail.{
-  RenderedClientOperation,
-  StaticDefns,
-  StrictProtocolElems,
-  SupportDefinition,
-  Target
-}
-import com.twilio.guardrail.generators.LanguageParameters
-import com.twilio.guardrail.languages.ScalaLanguage
-import com.twilio.guardrail.protocol.terms.Responses
-import com.twilio.guardrail.protocol.terms.client.ClientTerms
-import com.twilio.guardrail.terms.{ CollectionsLibTerms, RouteMeta, SecurityScheme }
+import dev.guardrail.Target
+import dev.guardrail.core.SupportDefinition
+import dev.guardrail.generators.{LanguageParameters, RenderedClientOperation}
+import dev.guardrail.generators.scala.ScalaLanguage
+import dev.guardrail.terms.{CollectionsLibTerms, Responses, RouteMeta, SecurityScheme}
+import dev.guardrail.terms.client.ClientTerms
+import dev.guardrail.terms.protocol.{StaticDefns, StrictProtocolElems}
 
 import java.net.URI
-
-import scala.meta.{ Defn, Import, Term }
+import scala.meta.{Defn, Import, Term}
 
 class SttpK8sClient(implicit cl: CollectionsLibTerms[ScalaLanguage, Target])
     extends ClientTerms[ScalaLanguage, Target] {

@@ -2,19 +2,13 @@ package com.coralogix.zio.k8s.crd.guardrail
 
 import cats.Monad
 import cats.data.NonEmptyList
-import com.twilio.guardrail.{
-  CustomExtractionField,
-  RenderedRoutes,
-  StrictProtocolElems,
-  SupportDefinition,
-  Target,
-  TracingField
-}
-import com.twilio.guardrail.core.Tracker
-import com.twilio.guardrail.languages.ScalaLanguage
-import com.twilio.guardrail.protocol.terms.Responses
-import com.twilio.guardrail.protocol.terms.server.{ GenerateRouteMeta, ServerTerms }
-import com.twilio.guardrail.terms.{ CollectionsLibTerms, SecurityScheme }
+import dev.guardrail.{ AuthImplementation, Target }
+import dev.guardrail.core.{ SupportDefinition, Tracker }
+import dev.guardrail.generators.{ CustomExtractionField, RenderedRoutes, TracingField }
+import dev.guardrail.generators.scala.ScalaLanguage
+import dev.guardrail.terms.protocol.StrictProtocolElems
+import dev.guardrail.terms.server.{ GenerateRouteMeta, SecurityExposure, ServerTerms }
+import dev.guardrail.terms.{ CollectionsLibTerms, Responses, SecurityScheme }
 import io.swagger.v3.oas.models.Operation
 
 import scala.meta._
@@ -44,13 +38,20 @@ class NoServerSupport(implicit cl: CollectionsLibTerms[ScalaLanguage, Target])
     basePath: Option[String],
     routes: List[GenerateRouteMeta[ScalaLanguage]],
     protocolElems: List[StrictProtocolElems[ScalaLanguage]],
-    securitySchemes: Map[String, SecurityScheme[ScalaLanguage]]
+    securitySchemes: Map[String, SecurityScheme[ScalaLanguage]],
+    securityExposure: SecurityExposure,
+    authImplementation: AuthImplementation
   ): Target[RenderedRoutes[ScalaLanguage]] =
-    Target.pure(RenderedRoutes(List.empty, List.empty, List.empty, List.empty, List.empty))
+    Target.pure(
+      RenderedRoutes(List.empty, List.empty, List.empty, List.empty, List.empty, List.empty)
+    )
 
   override def getExtraRouteParams(
+    resourceName: String,
     customExtraction: Boolean,
-    tracing: Boolean
+    tracing: Boolean,
+    authImplementation: AuthImplementation,
+    securityExposure: SecurityExposure
   ): Target[List[Term.Param]] =
     Target.pure(List.empty)
 
@@ -75,7 +76,9 @@ class NoServerSupport(implicit cl: CollectionsLibTerms[ScalaLanguage, Target])
     extraRouteParams: List[Term.Param],
     responseDefinitions: List[Defn],
     supportDefinitions: List[Defn],
-    customExtraction: Boolean
+    securitySchemesDefinitions: List[Defn],
+    customExtraction: Boolean,
+    authImplementation: AuthImplementation
   ): Target[List[Defn]] =
     Target.pure(List.empty)
 
