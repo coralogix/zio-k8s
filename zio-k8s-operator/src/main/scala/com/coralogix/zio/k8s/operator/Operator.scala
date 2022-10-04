@@ -53,7 +53,7 @@ trait Operator[R, E, T] { self =>
             }
           } else {
             log.locally(OperatorLogging(context)) {
-              logFailure(s"Watch stream failed", cause)
+              log.warn(s"Watch stream failed", cause)
             }
           },
         _ =>
