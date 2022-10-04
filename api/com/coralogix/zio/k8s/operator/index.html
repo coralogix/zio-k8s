@@ -354,7 +354,7 @@
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a title="Operator failed with a Kubernetes error" href="KubernetesFailure.html"><span class="name">KubernetesFailure</span></a><span class="params">(<span name="failure">failure: <a href="../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a></span>)</span><span class="result"> extends <a href="OperatorFailure.html" class="extype" name="com.coralogix.zio.k8s.operator.OperatorFailure">OperatorFailure</a>[<a href="https://www.scala-lang.org/api/2.12.15/scala/Nothing.html#scala.Nothing" class="extype" name="scala.Nothing">Nothing</a>] with <a href="https://www.scala-lang.org/api/2.12.15/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a> with <a href="https://www.scala-lang.org/api/2.12.15/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+        <a title="Operator failed with a Kubernetes error" href="KubernetesFailure.html"><span class="name">KubernetesFailure</span></a><span class="params">(<span name="failure">failure: <a href="../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a></span>)</span><span class="result"> extends <a href="OperatorFailure.html" class="extype" name="com.coralogix.zio.k8s.operator.OperatorFailure">OperatorFailure</a>[<span class="extype" name="scala.Nothing">Nothing</span>] with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       <p class="shortcomment cmt">Operator failed with a Kubernetes error
@@ -387,7 +387,7 @@
         <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <a title="Core implementation of the operator logic." href="Operator.html"><span class="name">Operator</span></a><span class="tparams">[<span name="R">R</span>, <span name="E">E</span>, <span name="T">T</span>]</span><span class="result"> extends <a href="https://www.scala-lang.org/api/2.12.15/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
+        <a title="Core implementation of the operator logic." href="Operator.html"><span class="name">Operator</span></a><span class="tparams">[<span name="R">R</span>, <span name="E">E</span>, <span name="T">T</span>]</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       
       <p class="shortcomment cmt">Core implementation of the operator logic.</p><div class="fullcomment"><div class="comment cmt"><p>Core implementation of the operator logic. Watches a stream and calls an event processor.</p><p>An instance of this is tied to one particular resource type in one namespace.</p><p>Create an instance using either <span class="extype" name="Operator.namespaced()">Operator.namespaced()</span> or <span class="extype" name="Operator.cluster()">Operator.cluster()</span>
@@ -404,7 +404,7 @@
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a title="Operator failed with an application-specific error" href="OperatorError.html"><span class="name">OperatorError</span></a><span class="tparams">[<span name="E">E</span>]</span><span class="params">(<span name="error">error: <span class="extype" name="com.coralogix.zio.k8s.operator.OperatorError.E">E</span></span>)</span><span class="result"> extends <a href="OperatorFailure.html" class="extype" name="com.coralogix.zio.k8s.operator.OperatorFailure">OperatorFailure</a>[<span class="extype" name="com.coralogix.zio.k8s.operator.OperatorError.E">E</span>] with <a href="https://www.scala-lang.org/api/2.12.15/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a> with <a href="https://www.scala-lang.org/api/2.12.15/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+        <a title="Operator failed with an application-specific error" href="OperatorError.html"><span class="name">OperatorError</span></a><span class="tparams">[<span name="E">E</span>]</span><span class="params">(<span name="error">error: <span class="extype" name="com.coralogix.zio.k8s.operator.OperatorError.E">E</span></span>)</span><span class="result"> extends <a href="OperatorFailure.html" class="extype" name="com.coralogix.zio.k8s.operator.OperatorFailure">OperatorFailure</a>[<span class="extype" name="com.coralogix.zio.k8s.operator.OperatorError.E">E</span>] with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       <p class="shortcomment cmt">Operator failed with an application-specific error</p><div class="fullcomment"><div class="comment cmt"><p>Operator failed with an application-specific error</p></div><dl class="paramcmts block"><dt class="tparam">E</dt><dd class="cmt"><p>
@@ -421,7 +421,7 @@
         <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <a title="Operator failure type" href="OperatorFailure.html"><span class="name">OperatorFailure</span></a><span class="tparams">[<span name="E">+E</span>]</span><span class="result"> extends <a href="https://www.scala-lang.org/api/2.12.15/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
+        <a title="Operator failure type" href="OperatorFailure.html"><span class="name">OperatorFailure</span></a><span class="tparams">[<span name="E">+E</span>]</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       
       <p class="shortcomment cmt">Operator failure type</p><div class="fullcomment"><div class="comment cmt"><p>Operator failure type</p></div><dl class="paramcmts block"><dt class="tparam">E</dt><dd class="cmt"><p>
