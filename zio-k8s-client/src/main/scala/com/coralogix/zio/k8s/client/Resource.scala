@@ -12,7 +12,6 @@ import com.coralogix.zio.k8s.client.model.{
 import com.coralogix.zio.k8s.model.pkg.apis.meta.v1.{ DeleteOptions, Preconditions, Status }
 import sttp.model.StatusCode
 import zio.{ IO, Schedule, ZIO }
-import zio.Clock
 import zio._
 import zio.stream.{ Stream, ZStream }
 
@@ -94,7 +93,7 @@ trait Resource[T] {
     namespace: Option[K8sNamespace],
     fieldSelector: Option[FieldSelector] = None,
     labelSelector: Option[LabelSelector] = None
-  ): ZStream[Clock, K8sFailure, TypedWatchEvent[T]] =
+  ): ZStream[Any, K8sFailure, TypedWatchEvent[T]] =
     ZStream.succeed(Reseted[T]()) ++ watch(namespace, None, fieldSelector, labelSelector)
       .retry(Schedule.recurWhileEquals(Gone))
 
@@ -227,7 +226,7 @@ trait NamespacedResource[T] {
     namespace: Option[K8sNamespace],
     fieldSelector: Option[FieldSelector] = None,
     labelSelector: Option[LabelSelector] = None
-  ): ZStream[Clock, K8sFailure, TypedWatchEvent[T]] =
+  ): ZStream[Any, K8sFailure, TypedWatchEvent[T]] =
     asGenericResource.watchForever(namespace, fieldSelector, labelSelector)
 
   /** Get a resource by its name
@@ -347,7 +346,7 @@ trait ClusterResource[T] {
   def watchForever(
     fieldSelector: Option[FieldSelector] = None,
     labelSelector: Option[LabelSelector] = None
-  ): ZStream[Clock, K8sFailure, TypedWatchEvent[T]] =
+  ): ZStream[Any, K8sFailure, TypedWatchEvent[T]] =
     asGenericResource.watchForever(None, fieldSelector, labelSelector)
 
   /** Get a resource by its name
