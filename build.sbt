@@ -61,7 +61,7 @@ lazy val client = Project("zio-k8s-client", file("zio-k8s-client"))
       "io.circe"                      %% "circe-generic"                 % "0.14.2",
       "io.circe"                      %% "circe-parser"                  % "0.14.2",
       "io.circe"                      %% "circe-yaml"                    % "0.14.1",
-      "org.bouncycastle"               % "bcpkix-jdk18on"                % "1.71",
+      "org.bouncycastle"               % "bcpkix-jdk18on"                % "1.72",
       "dev.zio"                       %% "zio-test"                      % zioVersion       % Test,
       "dev.zio"                       %% "zio-test-sbt"                  % zioVersion       % Test,
       "dev.zio"                       %% "zio-config-typesafe"           % zioConfigVersion % Test,
