@@ -3,20 +3,21 @@ package com.coralogix.zio.k8s.codegen.internal
 import com.coralogix.zio.k8s.codegen.internal.Conversions.splitName
 import com.coralogix.zio.k8s.codegen.internal.EndpointType.SubresourceEndpoint
 import com.coralogix.zio.k8s.codegen.internal.Whitelist.IssueReference
+import io.github.vigoo.metagen.core._
 import org.atteo.evo.inflector.English
-import zio.Task
+import zio.ZIO
 
 import scala.meta._
-import _root_.io.swagger.v3.oas.models.parameters.QueryParameter
 
 sealed trait ClassifiedResource {
   val unsupportedEndpoints: Set[IdentifiedAction]
 }
 case class SupportedResource(
+  schemaName: String,
   namespaced: Boolean,
   hasStatus: Boolean,
   gvk: GroupVersionKind,
-  modelName: String,
+  model: ScalaType,
   plural: String,
   modelReferences: Set[String],
   actions: Set[IdentifiedAction],
@@ -60,17 +61,16 @@ case class SupportedResource(
 
         Subresource(
           name = subresourceName,
-          modelName = modelName,
+          model = splitName(modelName),
           actions.map(_._1)
         )
       }
       .toSet
 
-  def pluralEntityName: String = {
-    val (_, entity) = splitName(modelName)
-    English.plural(entity)
-  }
+  def pluralEntityName: String =
+    English.plural(model.name)
 }
+
 case class UnsupportedResource(
   gvk: GroupVersionKind,
   actions: Set[IdentifiedAction],
@@ -102,10 +102,10 @@ case class UnsupportedResource(
 
 case class Subresource(
   name: String,
-  modelName: String,
+  model: ScalaType,
   actions: Set[IdentifiedAction]
 ) {
-  def describe: String = s"$name ($modelName) [${actions.map(_.action).mkString(", ")}]"
+  def describe: String = s"$name (${model.name}) [${actions.map(_.action).mkString(", ")}]"
 
   def id: SubresourceId = {
     val customParameters: Map[String, Type] =
@@ -131,7 +131,7 @@ case class Subresource(
 
         case None => Map.empty
       }
-    SubresourceId(name, modelName, actions.map(_.action), customParameters)
+    SubresourceId(name, model, actions.map(_.action), customParameters)
   }
 }
 
@@ -140,7 +140,7 @@ object ClassifiedResource {
     logger: sbt.Logger,
     definitionMap: Map[String, IdentifiedSchema],
     identified: Set[IdentifiedAction]
-  ): Task[Set[SupportedResource]] = {
+  ): ZIO[Any, GeneratorFailure[Throwable], Set[SupportedResource]] = {
     val byPath: Map[String, IdentifiedAction] =
       identified.map(action => action.name -> action).toMap
     val rootGVKs: Map[IdentifiedAction, GroupVersionKind] =
@@ -213,13 +213,15 @@ object ClassifiedResource {
     for {
       _      <- printIssues(logger, allIssues)
       result <- if (hadUnsupported) {
-                  Task.fail(
-                    new sbt.MessageOnlyException(
-                      "Unknown, non-whitelisted resource actions found. See the code generation log."
+                  ZIO.fail(
+                    GeneratorFailure.CustomFailure(
+                      new sbt.MessageOnlyException(
+                        "Unknown, non-whitelisted resource actions found. See the code generation log."
+                      )
                     )
                   )
                 } else {
-                  Task.succeed(allResources.collect { case supported: SupportedResource =>
+                  ZIO.succeed(allResources.collect { case supported: SupportedResource =>
                     supported
                   })
                 }
@@ -228,9 +230,9 @@ object ClassifiedResource {
 
   private def printIssues(logger: sbt.Logger, issues: Set[IssueReference]) =
     for {
-      _ <- Task.effect(logger.info(s"Issues for currently unsupported resources/actions:"))
-      _ <- Task.foreach_(issues) { issue =>
-             Task.effect(logger.info(s" - ${issue.url}"))
+      _ <- ZIO.effectTotal(logger.info(s"Issues for currently unsupported resources/actions:"))
+      _ <- ZIO.foreach_(issues) { issue =>
+             ZIO.effectTotal(logger.info(s" - ${issue.url}"))
            }
     } yield ()
 
@@ -278,10 +280,11 @@ object ClassifiedResource {
           plural    <- pluralOpt
           modelName <- modelNameOpt
         } yield SupportedResource(
+          modelName,
           namespaced,
           hasStatus,
           gvk,
-          modelName,
+          splitName(modelName),
           plural,
           modelReferences = refs,
           actions,

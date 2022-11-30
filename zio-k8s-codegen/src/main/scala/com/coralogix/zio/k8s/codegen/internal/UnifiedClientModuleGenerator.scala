@@ -1,12 +1,13 @@
 package com.coralogix.zio.k8s.codegen.internal
 
+import io.github.vigoo.metagen.core._
 import com.coralogix.zio.k8s.codegen.internal.CodegenIO.writeTextFile
 import com.coralogix.zio.k8s.codegen.internal.Conversions.{ groupNameToPackageName, splitName }
 import com.coralogix.zio.k8s.codegen.internal.UnifiedClientModuleGenerator._
 import org.scalafmt.interfaces.Scalafmt
 
 import scala.meta._
-import zio.ZIO
+import zio.{ Has, ZIO }
 import zio.blocking.Blocking
 import zio.nio.file.Path
 import zio.nio.file.Files
@@ -17,30 +18,25 @@ trait UnifiedClientModuleGenerator {
   this: Common with ClientModuleGenerator =>
 
   def generateUnifiedClientModule(
-    scalafmt: Scalafmt,
-    targetRoot: Path,
     basePackageName: String,
     definitionMap: Map[String, IdentifiedSchema],
     resources: Set[SupportedResource]
-  ): ZIO[Blocking, Throwable, Set[Path]] = {
+  ): ZIO[Has[Generator] with Blocking, GeneratorFailure[Nothing], Set[Path]] = {
     val gvkTree = toTree(resources)
-    val source = generateUnifiedClientModuleSource(gvkTree, basePackageName, definitionMap)
-
-    val pkg = basePackageName.split('.')
-    val targetDir = pkg.foldLeft(targetRoot)(_ / _) / "kubernetes"
+    val parts = basePackageName.split('.')
+    val pkg = Package(parts.head, parts.tail: _*)
     for {
-      _         <- Files.createDirectories(targetDir)
-      targetPath = targetDir / "package.scala"
-      _         <- writeTextFile(targetPath, source)
-      _         <- format(scalafmt, targetPath)
+      targetPath <- Generator.generateScalaPackageObject[Any, Nothing](pkg, "kubernetes") {
+                      generateUnifiedClientModuleCode(gvkTree, basePackageName, definitionMap)
+                    }
     } yield Set(targetPath)
   }
 
-  private def generateUnifiedClientModuleSource(
+  private def generateUnifiedClientModuleCode(
     gvkTree: PackageNode,
     basePackageName: String,
     definitionMap: Map[String, IdentifiedSchema]
-  ): String = {
+  ): ZIO[Has[CodeFileGenerator], Nothing, Term.Block] = {
     val interfaces =
       pkgNodeToInterfaces(definitionMap, basePackageName, "Service", gvkTree)
     val liveClass =
@@ -71,25 +67,14 @@ trait UnifiedClientModuleGenerator {
 
     val defs = interfaces ++ List(liveClass, testClass, liveLayer, anyLayer, testLayer)
 
-    prettyPrint(q"""package $pkg {
-
-        import com.coralogix.zio.k8s.client.model.{K8sCluster, ResourceMetadata}
-        import com.coralogix.zio.k8s.client.impl.{ResourceClient, ResourceStatusClient, SubresourceClient}
-        import com.coralogix.zio.k8s.client.test.{TestResourceClient, TestResourceStatusClient, TestSubresourceClient}
-        import sttp.capabilities.WebSockets
-        import sttp.capabilities.zio.ZioStreams
-        import sttp.client3.SttpBackend
-        import zio.{ Has, Runtime, Task, ZIO, ZLayer }
-
-        package object kubernetes {
-
+    ZIO.succeed {
+      q"""
           type Kubernetes = Has[Kubernetes.Service]
           object Kubernetes {
             ..$defs
           }
-        }
-        }
-     """)
+     """
+    }
   }
 
   private def toInterfaceName(name: String): String =
@@ -251,47 +236,32 @@ trait UnifiedClientModuleGenerator {
           .get
           .asInstanceOf[Term.Ref]
 
-    val (entityPkg, entity) = splitName(resource.modelName)
-    val dtoPackage = ("com.coralogix.zio.k8s.model." + entityPkg.mkString("."))
-      .parse[Term]
-      .get
-      .asInstanceOf[Term.Ref]
+    val entity = splitName(resource.schemaName)
 
     val nameTerm = Term.Name(name)
     val namePat = Pat.Var(nameTerm)
 
-    val statusEntity = findStatusEntity(definitionMap, resource.modelName).map(s =>
-      s"com.coralogix.zio.k8s.model.$s"
-    )
-    val entityT = Type.Select(dtoPackage, Type.Name(entity))
-    val statusT = statusEntity.map(s => s.parse[Type].get).getOrElse(t"Nothing")
+    val statusEntity = findStatusEntity(Packages.k8sModel, definitionMap, resource.schemaName)
+
+    val status = statusEntity.getOrElse(ScalaType.nothing)
+
     val deleteResponse = resource.actions
       .map(_.endpointType)
-      .collectFirst { case EndpointType.Delete(_, _, responseTypeRef) =>
-        s"com.coralogix.zio.k8s.model.$responseTypeRef"
-      }
-      .getOrElse("com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Status")
-    val deleteResultT = deleteResponse.parse[Type].get
-    val isStandardDelete = deleteResponse == "com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Status"
-    val deleteResultTerm =
-      if (isStandardDelete)
-        q"() => com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Status()"
-      else
-        q"() => ???"
+      .collectFirst { case EndpointType.Delete(_, _, responseTypeRef) => responseTypeRef }
+      .getOrElse(Types.status)
+
+    val isStandardDelete = deleteResponse == Types.status
 
     val obj = Term.Select(pkg, Term.Name(resource.pluralEntityName))
     val serviceT = Type.Select(obj, Type.Name("Service"))
 
     if (isTest) {
       val testClientConstruction: List[(Term, Enumerator)] = getTestClientConstruction(
-        "com.coralogix.zio.k8s.model",
-        statusEntity,
+        statusEntity.isDefined,
         resource.subresources.map(_.id),
-        entityT,
-        statusT,
-        deleteResultT,
-        deleteResultTerm,
-        fullyQualifiedSubresourceModels = true
+        entity,
+        status,
+        deleteResponse
       )
 
       val liveInit = Init(
@@ -310,13 +280,11 @@ trait UnifiedClientModuleGenerator {
     } else {
       val cons =
         getClientConstruction(
-          "com.coralogix.zio.k8s.model",
-          statusEntity,
+          statusEntity.isDefined,
           resource.subresources.map(_.id),
-          entityT,
-          statusT,
-          deleteResultT,
-          fullyQualifiedSubresourceModels = true
+          entity,
+          status,
+          deleteResponse
         )
 
       val liveInit = Init(
@@ -325,7 +293,7 @@ trait UnifiedClientModuleGenerator {
         List(cons)
       )
       q"""lazy val $namePat: $serviceT = {
-            val resourceType = implicitly[ResourceMetadata[$entityT]].resourceType
+            val resourceType = implicitly[${Types.resourceMetadata(entity).typ}].resourceType
             new $liveInit
           }"""
     }

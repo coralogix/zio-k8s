@@ -1,6 +1,10 @@
 package com.coralogix.zio.k8s.codegen.internal
 
+import io.github.vigoo.metagen.core._
+
 object Conversions {
+  val modelRoot: Package = Packages.k8sModel
+
   def groupNameToPackageName(groupName: String): Vector[String] = {
     val base = groupName
       .split('.')
@@ -13,7 +17,7 @@ object Conversions {
     else base
   }
 
-  def splitName(name: String): (Vector[String], String) = {
+  def splitName(name: String, root: Package = modelRoot): ScalaType = {
     val parts =
       if (name.startsWith("io.k8s.api"))
         name.split('.').drop(3)
@@ -23,6 +27,7 @@ object Conversions {
       .filter(_.nonEmpty)
       .map(_.replace('-', '_'))
       .toVector
-    (groupName, parts.last)
+
+    ScalaType(groupName.foldLeft(root)(_ / _), parts.last)
   }
 }
