@@ -167,7 +167,7 @@ lazy val crd = Project("zio-k8s-crd", file("zio-k8s-crd"))
   .settings(commonSettings)
   .settings(
     sbtPlugin          := true,
-    scalaVersion       := "2.12.15",
+    scalaVersion       := "2.12.16",
     crossVersion       := CrossVersion.disabled,
     Compile / unmanagedSourceDirectories += baseDirectory.value / "../zio-k8s-codegen/src/shared/scala",
     libraryDependencies ++= Seq(
