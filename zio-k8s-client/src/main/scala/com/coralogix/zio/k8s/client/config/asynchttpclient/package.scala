@@ -5,7 +5,8 @@ import io.netty.handler.ssl.{ ClientAuth, IdentityCipherSuiteFilter, JdkSslConte
 import org.asynchttpclient.Dsl
 import sttp.client3.asynchttpclient.zio._
 import sttp.client3.httpclient.zio.SttpClient
-import sttp.client3.logging.slf4j.Slf4jLoggingBackend
+import sttp.client3.logging.LoggingBackend
+import sttp.client3.logging.slf4j.Slf4jLogger
 import zio.blocking.Blocking
 import zio.system.System
 import zio.{ Has, ZLayer, ZManaged }
@@ -17,8 +18,9 @@ package object asynchttpclient {
   /** An [[SttpClient]] layer configured with the proper SSL context based on the provided
     * [[K8sClusterConfig]] using the async-http-client-backend-zio backend.
     */
-  val k8sSttpClient
-    : ZLayer[Has[K8sClusterConfig] with System with Blocking, Throwable, SttpClient] =
+  def k8sSttpClient(
+    loggerName: String = "sttp.client3.logging.slf4j.Slf4jLoggingBackend"
+  ): ZLayer[Has[K8sClusterConfig] with System with Blocking, Throwable, SttpClient] =
     ZLayer.fromServiceManaged { (config: K8sClusterConfig) =>
       for {
         runtime                    <- ZManaged.runtime[Any]
@@ -57,8 +59,9 @@ package object asynchttpclient {
               )
             )(_.close().ignore)
             .map { backend =>
-              Slf4jLoggingBackend(
+              LoggingBackend(
                 backend,
+                new Slf4jLogger(loggerName, backend.responseMonad),
                 logRequestBody = config.client.debug,
                 logResponseBody = config.client.debug
               )
@@ -70,5 +73,5 @@ package object asynchttpclient {
     * initialize specific Kubernetes client modules, using the [[defaultConfigChain]].
     */
   val k8sDefault: ZLayer[Blocking with System, Throwable, Has[K8sCluster] with SttpClient] =
-    (Blocking.any ++ System.any) >+> defaultConfigChain >>> (k8sCluster ++ k8sSttpClient)
+    (Blocking.any ++ System.any) >+> defaultConfigChain >>> (k8sCluster ++ k8sSttpClient())
 }
