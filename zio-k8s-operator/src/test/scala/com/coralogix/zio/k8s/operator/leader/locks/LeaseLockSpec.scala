@@ -348,7 +348,7 @@ object LeaseLockSpec extends DefaultRunnableSpec {
 
           f1 <- leader
                   .runAsLeader(singleton(ref, winner, "pod1"))
-                  .fork
+                  .forkInternal
                   .provideSomeLayer(leaderElection("pod1"))
 
           _ <- TestClock.adjust(60.seconds)
@@ -398,7 +398,7 @@ object LeaseLockSpec extends DefaultRunnableSpec {
 
           f1 <- leader
                   .runAsLeader(singleton(ref, winner, "pod1"))
-                  .fork
+                  .forkInternal
                   .provideSomeLayer(leaderElection("pod1"))
 
           _ <- winner.get.repeatUntil(_ == "pod1")
