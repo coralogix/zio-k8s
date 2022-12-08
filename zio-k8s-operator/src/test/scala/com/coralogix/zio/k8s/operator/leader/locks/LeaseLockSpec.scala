@@ -271,8 +271,8 @@ object LeaseLockSpec extends DefaultRunnableSpec {
           _  <- TestClock.adjust(25.seconds)
           c2 <- ref.get
 
-          _ <- f1.interrupt
-          _ <- f2.interrupt
+          _ <- f1.interruptFork
+          _ <- f2.interruptFork
         } yield assert(c1)(equalTo(1)) && assert(c2)(equalTo(1))
       }.provideCustomLayer(Leases.test),
       testM("non-leader takes over if leader is interrupted") {
@@ -294,11 +294,11 @@ object LeaseLockSpec extends DefaultRunnableSpec {
           _  <- TestClock.adjust(5.seconds)
           w2 <- winner.get
 
-          _ <- f1.interrupt
+          _ <- f1.interruptFork
 
           _  <- TestClock.adjust(30.seconds)
           w3 <- winner.get
-          _  <- f2.interrupt
+          _  <- f2.interruptFork
         } yield assert(w1)(equalTo("pod1")) && assert(w2)(equalTo("pod1")) && assert(w3)(
           equalTo("pod2")
         )
@@ -354,7 +354,7 @@ object LeaseLockSpec extends DefaultRunnableSpec {
           _ <- TestClock.adjust(60.seconds)
           w <- winner.get
 
-          _ <- f1.interrupt
+          _ <- f1.interruptFork
         } yield assert(w)(isEmptyString)
       }.provideCustomLayer(failingLeases),
       testM("with clock skew leadership can be stolen but other gets cancelled") {
@@ -384,8 +384,8 @@ object LeaseLockSpec extends DefaultRunnableSpec {
             _  <- f1.join
             w1 <- winner.get
 
-            _ <- f1.interrupt
-            _ <- f2.interrupt
+            _ <- f1.interruptFork
+            _ <- f2.interruptFork
           } yield assert(w0)(equalTo("pod1")) &&
             assert(w1)(equalTo("pod2"))
         }
