@@ -327,9 +327,7 @@
   operation will be called.
 This field is immutable.</p></dd><dt class="param">fsGroupPolicy</dt><dd class="cmt"><p>
   Defines if the underlying volume supports changing ownership and permission of the volume
-  before being mounted. Refer to the specific FSGroupPolicy values for additional details. This
-  field is beta, and is only honored by servers that enable the CSIVolumeFSGroupPolicy feature
-  gate.
+  before being mounted. Refer to the specific FSGroupPolicy values for additional details.
 This field is immutable.
 Defaults to ReadWriteOnceWithFSType, which will examine each volume to determine if Kubernetes
 should modify ownership and permissions of the volume. With the default policy the defined
@@ -364,7 +362,7 @@ volumes with late binding will pause until the driver deployment has published s
 CSIStorageCapacity object.
 Alternatively, the driver can be deployed with the field unset or false and it can be flipped
 later when storage capacity information has been published.
-This field is immutable.
+This field was immutable in Kubernetes &lt;= 1.22 and now is mutable.
 This is a beta field and only available when the CSIStorageCapacity feature is enabled. The
 default is false.</p></dd><dt class="param">tokenRequests</dt><dd class="cmt"><p>
   TokenRequests indicates the CSI driver needs pods' service account tokens it is mounting
@@ -460,9 +458,7 @@ This field is immutable.</p></dd></dl><div class="toggleContainer block">
   operation will be called.
 This field is immutable.</p></dd><dt class="param">fsGroupPolicy</dt><dd class="cmt"><p>
   Defines if the underlying volume supports changing ownership and permission of the volume
-  before being mounted. Refer to the specific FSGroupPolicy values for additional details. This
-  field is beta, and is only honored by servers that enable the CSIVolumeFSGroupPolicy feature
-  gate.
+  before being mounted. Refer to the specific FSGroupPolicy values for additional details.
 This field is immutable.
 Defaults to ReadWriteOnceWithFSType, which will examine each volume to determine if Kubernetes
 should modify ownership and permissions of the volume. With the default policy the defined
@@ -497,7 +493,7 @@ volumes with late binding will pause until the driver deployment has published s
 CSIStorageCapacity object.
 Alternatively, the driver can be deployed with the field unset or false and it can be flipped
 later when storage capacity information has been published.
-This field is immutable.
+This field was immutable in Kubernetes &lt;= 1.22 and now is mutable.
 This is a beta field and only available when the CSIStorageCapacity feature is enabled. The
 default is false.</p></dd><dt class="param">tokenRequests</dt><dd class="cmt"><p>
   TokenRequests indicates the CSI driver needs pods' service account tokens it is mounting
@@ -731,9 +727,7 @@ operation will be called.</p><p>This field is immutable.</p><p>If the field is n
       
       <p class="shortcomment cmt">Defines if the underlying volume supports changing ownership and permission of the volume
 before being mounted.</p><div class="fullcomment"><div class="comment cmt"><p>Defines if the underlying volume supports changing ownership and permission of the volume
-before being mounted. Refer to the specific FSGroupPolicy values for additional details. This
-field is beta, and is only honored by servers that enable the CSIVolumeFSGroupPolicy feature
-gate.</p><p>This field is immutable.</p><p>Defaults to ReadWriteOnceWithFSType, which will examine each volume to determine if Kubernetes
+before being mounted. Refer to the specific FSGroupPolicy values for additional details.</p><p>This field is immutable.</p><p>Defaults to ReadWriteOnceWithFSType, which will examine each volume to determine if Kubernetes
 should modify ownership and permissions of the volume. With the default policy the defined
 fsGroup will only be applied if a fstype is defined and the volume's access mode contains
 ReadWriteOnce.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
@@ -812,7 +806,7 @@ consider the storage capacity that the driver deployment will report by creating
 CSIStorageCapacity objects with capacity information.</p><p>The check can be enabled immediately when deploying a driver. In that case, provisioning new
 volumes with late binding will pause until the driver deployment has published some suitable
 CSIStorageCapacity object.</p><p>Alternatively, the driver can be deployed with the field unset or false and it can be flipped
-later when storage capacity information has been published.</p><p>This field is immutable.</p><p>This is a beta field and only available when the CSIStorageCapacity feature is enabled. The
+later when storage capacity information has been published.</p><p>This field was immutable in Kubernetes &lt;= 1.22 and now is mutable.</p><p>This is a beta field and only available when the CSIStorageCapacity feature is enabled. The
 default is false.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.storage.v1.CSIDriverSpec#getTokenRequests" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">

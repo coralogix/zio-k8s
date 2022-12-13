@@ -444,9 +444,7 @@ mount. CSIDriver objects are non-namespaced.
   operation will be called.
 This field is immutable.</p></dd><dt class="param">fsGroupPolicy</dt><dd class="cmt"><p>
   Defines if the underlying volume supports changing ownership and permission of the volume
-  before being mounted. Refer to the specific FSGroupPolicy values for additional details. This
-  field is beta, and is only honored by servers that enable the CSIVolumeFSGroupPolicy feature
-  gate.
+  before being mounted. Refer to the specific FSGroupPolicy values for additional details.
 This field is immutable.
 Defaults to ReadWriteOnceWithFSType, which will examine each volume to determine if Kubernetes
 should modify ownership and permissions of the volume. With the default policy the defined
@@ -481,7 +479,7 @@ volumes with late binding will pause until the driver deployment has published s
 CSIStorageCapacity object.
 Alternatively, the driver can be deployed with the field unset or false and it can be flipped
 later when storage capacity information has been published.
-This field is immutable.
+This field was immutable in Kubernetes &lt;= 1.22 and now is mutable.
 This is a beta field and only available when the CSIStorageCapacity feature is enabled. The
 default is false.</p></dd><dt class="param">tokenRequests</dt><dd class="cmt"><p>
   TokenRequests indicates the CSI driver needs pods' service account tokens it is mounting

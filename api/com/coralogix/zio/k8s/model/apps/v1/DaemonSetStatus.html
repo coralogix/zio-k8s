@@ -342,6 +342,14 @@
                         <a class="class" href="StatefulSetFields.html" title=""></a>
                         <a href="StatefulSetFields.html" title="">StatefulSetFields</a>
                       </li><li class="current-entities indented7">
+                        <a class="object" href="StatefulSetPersistentVolumeClaimRetentionPolicy$.html" title=""></a>
+                        <a class="class" href="StatefulSetPersistentVolumeClaimRetentionPolicy.html" title="StatefulSetPersistentVolumeClaimRetentionPolicy describes the policy used for PVCs created from the StatefulSet VolumeClaimTemplates."></a>
+                        <a href="StatefulSetPersistentVolumeClaimRetentionPolicy.html" title="StatefulSetPersistentVolumeClaimRetentionPolicy describes the policy used for PVCs created from the StatefulSet VolumeClaimTemplates.">StatefulSetPersistentVolumeClaimRetentionPolicy</a>
+                      </li><li class="current-entities indented7">
+                        <span class="separator"></span>
+                        <a class="class" href="StatefulSetPersistentVolumeClaimRetentionPolicyFields.html" title=""></a>
+                        <a href="StatefulSetPersistentVolumeClaimRetentionPolicyFields.html" title="">StatefulSetPersistentVolumeClaimRetentionPolicyFields</a>
+                      </li><li class="current-entities indented7">
                         <a class="object" href="StatefulSetSpec$.html" title=""></a>
                         <a class="class" href="StatefulSetSpec.html" title="A StatefulSetSpec is the specification of a StatefulSet."></a>
                         <a href="StatefulSetSpec.html" title="A StatefulSetSpec is the specification of a StatefulSet.">StatefulSetSpec</a>
@@ -410,8 +418,8 @@
   pod running and available (ready for at least spec.minReadySeconds)</p></dd><dt class="param">numberMisscheduled</dt><dd class="cmt"><p>
   The number of nodes that are running the daemon pod, but are not supposed to run the daemon
   pod. More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/</p></dd><dt class="param">numberReady</dt><dd class="cmt"><p>
-  The number of nodes that should be running the daemon pod and have one or more of the daemon
-  pod running and ready.</p></dd><dt class="param">numberUnavailable</dt><dd class="cmt"><p>
+  numberReady is the number of nodes that should be running the daemon pod and have one or more
+  of the daemon pod running with a Ready Condition.</p></dd><dt class="param">numberUnavailable</dt><dd class="cmt"><p>
   The number of nodes that should be running the daemon pod and have none of the daemon pod
   running and available (ready for at least spec.minReadySeconds)</p></dd><dt class="param">observedGeneration</dt><dd class="cmt"><p>
   The most recent generation observed by the daemon set controller.</p></dd><dt class="param">updatedNumberScheduled</dt><dd class="cmt"><p>
@@ -494,8 +502,8 @@
   pod running and available (ready for at least spec.minReadySeconds)</p></dd><dt class="param">numberMisscheduled</dt><dd class="cmt"><p>
   The number of nodes that are running the daemon pod, but are not supposed to run the daemon
   pod. More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/</p></dd><dt class="param">numberReady</dt><dd class="cmt"><p>
-  The number of nodes that should be running the daemon pod and have one or more of the daemon
-  pod running and ready.</p></dd><dt class="param">numberUnavailable</dt><dd class="cmt"><p>
+  numberReady is the number of nodes that should be running the daemon pod and have one or more
+  of the daemon pod running with a Ready Condition.</p></dd><dt class="param">numberUnavailable</dt><dd class="cmt"><p>
   The number of nodes that should be running the daemon pod and have none of the daemon pod
   running and available (ready for at least spec.minReadySeconds)</p></dd><dt class="param">observedGeneration</dt><dd class="cmt"><p>
   The most recent generation observed by the daemon set controller.</p></dd><dt class="param">updatedNumberScheduled</dt><dd class="cmt"><p>
@@ -829,9 +837,9 @@ pod. More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemon
         <span class="name">getNumberReady</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Int">Int</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">The number of nodes that should be running the daemon pod and have one or more of the daemon
-pod running and ready.</p><div class="fullcomment"><div class="comment cmt"><p>The number of nodes that should be running the daemon pod and have one or more of the daemon
-pod running and ready.</p><p>This effect always succeeds, it is safe to use the field <a href="#numberReady:Int" class="extmbr" name="com.coralogix.zio.k8s.model.apps.v1.DaemonSetStatus#numberReady">numberReady</a> directly.
+      <p class="shortcomment cmt">numberReady is the number of nodes that should be running the daemon pod and have one or more
+of the daemon pod running with a Ready Condition.</p><div class="fullcomment"><div class="comment cmt"><p>numberReady is the number of nodes that should be running the daemon pod and have one or more
+of the daemon pod running with a Ready Condition.</p><p>This effect always succeeds, it is safe to use the field <a href="#numberReady:Int" class="extmbr" name="com.coralogix.zio.k8s.model.apps.v1.DaemonSetStatus#numberReady">numberReady</a> directly.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.apps.v1.DaemonSetStatus#getNumberUnavailable" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getNumberUnavailable:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Int]"></a><a id="getNumberUnavailable:IO[K8sFailure,Int]"></a>

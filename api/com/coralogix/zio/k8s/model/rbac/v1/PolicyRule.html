@@ -289,8 +289,8 @@ about who the rule applies to or which namespace the rule applies to.
   ResourceNames is an optional white list of names that the rule applies to. An empty set means
   that everything is allowed.</p></dd><dt class="param">resources</dt><dd class="cmt"><p>
   Resources is a list of resources this rule applies to. '*' represents all resources.</p></dd><dt class="param">verbs</dt><dd class="cmt"><p>
-  Verbs is a list of Verbs that apply to ALL the ResourceKinds and AttributeRestrictions
-  contained in this rule. '*' represents all verbs.</p></dd></dl><div class="toggleContainer block">
+  Verbs is a list of Verbs that apply to ALL the ResourceKinds contained in this rule. '*'
+  represents all verbs.</p></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -367,8 +367,8 @@ about who the rule applies to or which namespace the rule applies to.
   ResourceNames is an optional white list of names that the rule applies to. An empty set means
   that everything is allowed.</p></dd><dt class="param">resources</dt><dd class="cmt"><p>
   Resources is a list of resources this rule applies to. '*' represents all resources.</p></dd><dt class="param">verbs</dt><dd class="cmt"><p>
-  Verbs is a list of Verbs that apply to ALL the ResourceKinds and AttributeRestrictions
-  contained in this rule. '*' represents all verbs.</p></dd></dl></div>
+  Verbs is a list of Verbs that apply to ALL the ResourceKinds contained in this rule. '*'
+  represents all verbs.</p></dd></dl></div>
     </li></ol>
             </div>
 
@@ -612,9 +612,8 @@ that everything is allowed.</p><p>If the field is not present, fails with <a hre
         <span class="name">getVerbs</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]]</span>
       </span>
       
-      <p class="shortcomment cmt">Verbs is a list of Verbs that apply to ALL the ResourceKinds and AttributeRestrictions
-contained in this rule.</p><div class="fullcomment"><div class="comment cmt"><p>Verbs is a list of Verbs that apply to ALL the ResourceKinds and AttributeRestrictions
-contained in this rule. '*' represents all verbs.</p><p>This effect always succeeds, it is safe to use the field <a href="#verbs:Vector[String]" class="extmbr" name="com.coralogix.zio.k8s.model.rbac.v1.PolicyRule#verbs">verbs</a> directly.
+      <p class="shortcomment cmt">Verbs is a list of Verbs that apply to ALL the ResourceKinds contained in this rule.</p><div class="fullcomment"><div class="comment cmt"><p>Verbs is a list of Verbs that apply to ALL the ResourceKinds contained in this rule. '*'
+represents all verbs.</p><p>This effect always succeeds, it is safe to use the field <a href="#verbs:Vector[String]" class="extmbr" name="com.coralogix.zio.k8s.model.rbac.v1.PolicyRule#verbs">verbs</a> directly.
 </p></div></div>
     </li><li name="scala.Any#isInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isInstanceOf[T0]:Boolean"></a>

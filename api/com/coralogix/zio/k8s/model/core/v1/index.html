@@ -527,8 +527,8 @@
                         <a href="EnvVarSourceFields.html" title="">EnvVarSourceFields</a>
                       </li><li class="current-entities indented7">
                         <a class="object" href="EphemeralContainer$.html" title=""></a>
-                        <a class="class" href="EphemeralContainer.html" title="An EphemeralContainer is a container that may be added temporarily to an existing pod for user-initiated activities such as debugging."></a>
-                        <a href="EphemeralContainer.html" title="An EphemeralContainer is a container that may be added temporarily to an existing pod for user-initiated activities such as debugging.">EphemeralContainer</a>
+                        <a class="class" href="EphemeralContainer.html" title="An EphemeralContainer is a temporary container that you may add to an existing Pod for user-initiated activities such as debugging."></a>
+                        <a href="EphemeralContainer.html" title="An EphemeralContainer is a temporary container that you may add to an existing Pod for user-initiated activities such as debugging.">EphemeralContainer</a>
                       </li><li class="current-entities indented7">
                         <span class="separator"></span>
                         <a class="class" href="EphemeralContainerFields.html" title=""></a>
@@ -614,6 +614,14 @@
                         <a class="class" href="GCEPersistentDiskVolumeSourceFields.html" title=""></a>
                         <a href="GCEPersistentDiskVolumeSourceFields.html" title="">GCEPersistentDiskVolumeSourceFields</a>
                       </li><li class="current-entities indented7">
+                        <a class="object" href="GRPCAction$.html" title=""></a>
+                        <a class="class" href="GRPCAction.html" title=""></a>
+                        <a href="GRPCAction.html" title="">GRPCAction</a>
+                      </li><li class="current-entities indented7">
+                        <span class="separator"></span>
+                        <a class="class" href="GRPCActionFields.html" title=""></a>
+                        <a href="GRPCActionFields.html" title="">GRPCActionFields</a>
+                      </li><li class="current-entities indented7">
                         <a class="object" href="GitRepoVolumeSource$.html" title=""></a>
                         <a class="class" href="GitRepoVolumeSource.html" title="Represents a volume that is populated with the contents of a git repository."></a>
                         <a href="GitRepoVolumeSource.html" title="Represents a volume that is populated with the contents of a git repository.">GitRepoVolumeSource</a>
@@ -653,14 +661,6 @@
                         <span class="separator"></span>
                         <a class="class" href="HTTPHeaderFields.html" title=""></a>
                         <a href="HTTPHeaderFields.html" title="">HTTPHeaderFields</a>
-                      </li><li class="current-entities indented7">
-                        <a class="object" href="Handler$.html" title=""></a>
-                        <a class="class" href="Handler.html" title="Handler defines a specific action that should be taken"></a>
-                        <a href="Handler.html" title="Handler defines a specific action that should be taken">Handler</a>
-                      </li><li class="current-entities indented7">
-                        <span class="separator"></span>
-                        <a class="class" href="HandlerFields.html" title=""></a>
-                        <a href="HandlerFields.html" title="">HandlerFields</a>
                       </li><li class="current-entities indented7">
                         <a class="object" href="HostAlias$.html" title=""></a>
                         <a class="class" href="HostAlias.html" title="HostAlias holds the mapping between IP and hostnames that will be injected as an entry in the pod's hosts file."></a>
@@ -709,6 +709,14 @@
                         <span class="separator"></span>
                         <a class="class" href="LifecycleFields.html" title=""></a>
                         <a href="LifecycleFields.html" title="">LifecycleFields</a>
+                      </li><li class="current-entities indented7">
+                        <a class="object" href="LifecycleHandler$.html" title=""></a>
+                        <a class="class" href="LifecycleHandler.html" title="LifecycleHandler defines a specific action that should be taken in a lifecycle hook."></a>
+                        <a href="LifecycleHandler.html" title="LifecycleHandler defines a specific action that should be taken in a lifecycle hook.">LifecycleHandler</a>
+                      </li><li class="current-entities indented7">
+                        <span class="separator"></span>
+                        <a class="class" href="LifecycleHandlerFields.html" title=""></a>
+                        <a href="LifecycleHandlerFields.html" title="">LifecycleHandlerFields</a>
                       </li><li class="current-entities indented7">
                         <a class="object" href="LimitRange$.html" title=""></a>
                         <a class="class" href="LimitRange.html" title="LimitRange sets resource usage limits for each kind of resource in a Namespace."></a>
@@ -1069,6 +1077,14 @@
                         <span class="separator"></span>
                         <a class="class" href="PodIPFields.html" title=""></a>
                         <a href="PodIPFields.html" title="">PodIPFields</a>
+                      </li><li class="current-entities indented7">
+                        <a class="object" href="PodOS$.html" title=""></a>
+                        <a class="class" href="PodOS.html" title="PodOS defines the OS parameters of a pod."></a>
+                        <a href="PodOS.html" title="PodOS defines the OS parameters of a pod.">PodOS</a>
+                      </li><li class="current-entities indented7">
+                        <span class="separator"></span>
+                        <a class="class" href="PodOSFields.html" title=""></a>
+                        <a href="PodOSFields.html" title="">PodOSFields</a>
                       </li><li class="current-entities indented7">
                         <a class="object" href="PodReadinessGate$.html" title=""></a>
                         <a class="class" href="PodReadinessGate.html" title="PodReadinessGate contains the reference to a pod condition"></a>
@@ -2295,7 +2311,7 @@ API is deprecated in v1.19+
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a title="ConfigMap holds configuration data for pods to consume." href="ConfigMap.html"><span class="name">ConfigMap</span></a><span class="params">(<span name="binaryData">binaryData: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <a href="https://javadoc.io/page/dev.zio/zio_2.12/1.0.16/zio/Chunk.html#zio.Chunk" class="extype" name="zio.Chunk">Chunk</a>[<span class="extype" name="scala.Byte">Byte</span>]]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="data">data: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="immutable">immutable: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Boolean">Boolean</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="metadata">metadata: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="../../pkg/apis/meta/v1/ObjectMeta.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.ObjectMeta">ObjectMeta</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a title="ConfigMap holds configuration data for pods to consume." href="ConfigMap.html"><span class="name">ConfigMap</span></a><span class="params">(<span name="binaryData">binaryData: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <a href="https://javadoc.io/page/dev.zio/zio_2.12/1.0.17/zio/Chunk.html#zio.Chunk" class="extype" name="zio.Chunk">Chunk</a>[<span class="extype" name="scala.Byte">Byte</span>]]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="data">data: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="immutable">immutable: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Boolean">Boolean</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="metadata">metadata: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="../../pkg/apis/meta/v1/ObjectMeta.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.ObjectMeta">ObjectMeta</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       <p class="shortcomment cmt">ConfigMap holds configuration data for pods to consume.</p><div class="fullcomment"><div class="comment cmt"><p>ConfigMap holds configuration data for pods to consume.
@@ -2870,13 +2886,11 @@ none of them is specified, the default one is ContainerStateWaiting.
 </p></div><dl class="paramcmts block"><dt class="param">containerID</dt><dd class="cmt"><p>
   Container's ID in the format 'docker://&lt;container_id&gt;'.</p></dd><dt class="param">image</dt><dd class="cmt"><p>
   The image the container is running. More info:
-  https://kubernetes.io/docs/concepts/containers/images</p></dd><dt class="param">imageID</dt><dd class="cmt"><p>
+  https://kubernetes.io/docs/concepts/containers/images.</p></dd><dt class="param">imageID</dt><dd class="cmt"><p>
   ImageID of the container's image.</p></dd><dt class="param">name</dt><dd class="cmt"><p>
   This must be a DNS_LABEL. Each container in a pod must have a unique name. Cannot be updated.</p></dd><dt class="param">ready</dt><dd class="cmt"><p>
   Specifies whether the container has passed its readiness probe.</p></dd><dt class="param">restartCount</dt><dd class="cmt"><p>
-  The number of times the container has been restarted, currently based on the number of dead
-  containers that have not yet been removed. Note that this is calculated from dead containers.
-  But those containers are subject to garbage collection. This value will get capped at 5 by GC.</p></dd><dt class="param">started</dt><dd class="cmt"><p>
+  The number of times the container has been restarted.</p></dd><dt class="param">started</dt><dd class="cmt"><p>
   Specifies whether the container has passed its startup probe. Initialized as false, becomes
   true after startupProbe is considered successful. Resets to false when the container is
   restarted, or if kubelet loses state temporarily. Is always true when no startupProbe is
@@ -3369,17 +3383,17 @@ b: [ 10.10.1.1:309, 10.10.2.2:309 ]
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a title="An EphemeralContainer is a container that may be added temporarily to an existing pod for user-initiated activities such as debugging." href="EphemeralContainer.html"><span class="name">EphemeralContainer</span></a><span class="params">(<span name="args">args: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="command">command: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="env">env: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="EnvVar.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.EnvVar">EnvVar</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="envFrom">envFrom: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="EnvFromSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.EnvFromSource">EnvFromSource</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="image">image: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="imagePullPolicy">imagePullPolicy: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="lifecycle">lifecycle: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="Lifecycle.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.Lifecycle">Lifecycle</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="livenessProbe">livenessProbe: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="Probe.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.Probe">Probe</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="name">name: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="ports">ports: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="ContainerPort.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.ContainerPort">ContainerPort</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="readinessProbe">readinessProbe: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="Probe.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.Probe">Probe</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="resources">resources: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="ResourceRequirements.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.ResourceRequirements">ResourceRequirements</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="securityContext">securityContext: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="SecurityContext.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.SecurityContext">SecurityContext</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="startupProbe">startupProbe: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="Probe.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.Probe">Probe</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="stdin">stdin: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Boolean">Boolean</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="stdinOnce">stdinOnce: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Boolean">Boolean</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="targetContainerName">targetContainerName: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="terminationMessagePath">terminationMessagePath: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="terminationMessagePolicy">terminationMessagePolicy: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="tty">tty: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Boolean">Boolean</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="volumeDevices">volumeDevices: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="VolumeDevice.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.VolumeDevice">VolumeDevice</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="volumeMounts">volumeMounts: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="VolumeMount.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.VolumeMount">VolumeMount</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="workingDir">workingDir: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a title="An EphemeralContainer is a temporary container that you may add to an existing Pod for user-initiated activities such as debugging." href="EphemeralContainer.html"><span class="name">EphemeralContainer</span></a><span class="params">(<span name="args">args: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="command">command: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="env">env: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="EnvVar.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.EnvVar">EnvVar</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="envFrom">envFrom: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="EnvFromSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.EnvFromSource">EnvFromSource</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="image">image: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="imagePullPolicy">imagePullPolicy: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="lifecycle">lifecycle: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="Lifecycle.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.Lifecycle">Lifecycle</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="livenessProbe">livenessProbe: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="Probe.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.Probe">Probe</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="name">name: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="ports">ports: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="ContainerPort.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.ContainerPort">ContainerPort</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="readinessProbe">readinessProbe: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="Probe.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.Probe">Probe</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="resources">resources: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="ResourceRequirements.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.ResourceRequirements">ResourceRequirements</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="securityContext">securityContext: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="SecurityContext.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.SecurityContext">SecurityContext</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="startupProbe">startupProbe: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="Probe.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.Probe">Probe</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="stdin">stdin: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Boolean">Boolean</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="stdinOnce">stdinOnce: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Boolean">Boolean</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="targetContainerName">targetContainerName: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="terminationMessagePath">terminationMessagePath: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="terminationMessagePolicy">terminationMessagePolicy: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="tty">tty: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Boolean">Boolean</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="volumeDevices">volumeDevices: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="VolumeDevice.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.VolumeDevice">VolumeDevice</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="volumeMounts">volumeMounts: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="VolumeMount.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.VolumeMount">VolumeMount</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="workingDir">workingDir: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
-      <p class="shortcomment cmt">An EphemeralContainer is a container that may be added temporarily to an existing pod for
-user-initiated activities such as debugging.</p><div class="fullcomment"><div class="comment cmt"><p>An EphemeralContainer is a container that may be added temporarily to an existing pod for
+      <p class="shortcomment cmt">An EphemeralContainer is a temporary container that you may add to an existing Pod for
+user-initiated activities such as debugging.</p><div class="fullcomment"><div class="comment cmt"><p>An EphemeralContainer is a temporary container that you may add to an existing Pod for
 user-initiated activities such as debugging. Ephemeral containers have no resource or scheduling
-guarantees, and they will not be restarted when they exit or when a pod is removed or restarted.
-If an ephemeral container causes a pod to exceed its resource allocation, the pod may be
-evicted. Ephemeral containers may not be added by directly updating the pod spec. They must be
-added via the pod's ephemeralcontainers subresource, and they will appear in the pod spec once
-added. This is an alpha feature enabled by the EphemeralContainers feature flag.
+guarantees, and they will not be restarted when they exit or when a Pod is removed or restarted.
+The kubelet may evict a Pod if an ephemeral container causes the Pod to exceed its resource
+allocation.</p><p>To add an ephemeral container, use the ephemeralcontainers subresource of an existing Pod.
+Ephemeral containers may not be removed or restarted.</p><p>This is a beta feature available on clusters that haven't disabled the EphemeralContainers
+feature gate.
 </p></div><dl class="paramcmts block"><dt class="param">args</dt><dd class="cmt"><p>
   Arguments to the entrypoint. The docker image's CMD is used if this is not provided. Variable
   references $$(VAR_NAME) are expanded using the container's environment. If a variable cannot
@@ -3420,8 +3434,9 @@ added. This is an alpha feature enabled by the EphemeralContainers feature flag.
   receive an EOF. Default is false</p></dd><dt class="param">targetContainerName</dt><dd class="cmt"><p>
   If set, the name of the container from PodSpec that this ephemeral container targets. The
   ephemeral container will be run in the namespaces (IPC, PID, etc) of this container. If not
-  set then the ephemeral container is run in whatever namespaces are shared for the pod. Note
-  that the container runtime must support this feature.</p></dd><dt class="param">terminationMessagePath</dt><dd class="cmt"><p>
+  set then the ephemeral container uses the namespaces configured in the Pod spec.
+The container runtime must implement support for this feature. If the runtime does not support
+namespace targeting then the result of setting this field is undefined.</p></dd><dt class="param">terminationMessagePath</dt><dd class="cmt"><p>
   Optional: Path at which the file to which the container's termination message will be written
   is mounted into the container's filesystem. Message written is intended to be brief final
   status, such as an assertion failure message. Will be truncated by the node if greater than
@@ -3435,7 +3450,8 @@ added. This is an alpha feature enabled by the EphemeralContainers feature flag.
   Whether this container should allocate a TTY for itself, also requires 'stdin' to be true.
   Default is false.</p></dd><dt class="param">volumeDevices</dt><dd class="cmt"><p>
   volumeDevices is the list of block devices to be used by the container.</p></dd><dt class="param">volumeMounts</dt><dd class="cmt"><p>
-  Pod volumes to mount into the container's filesystem. Cannot be updated.</p></dd><dt class="param">workingDir</dt><dd class="cmt"><p>
+  Pod volumes to mount into the container's filesystem. Subpath mounts are not allowed for
+  ephemeral containers. Cannot be updated.</p></dd><dt class="param">workingDir</dt><dd class="cmt"><p>
   Container's working directory. If not specified, the container runtime's default will be used,
   which might be configured in the container image. Cannot be updated.</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.core.v1.EphemeralContainerFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
@@ -3848,6 +3864,42 @@ many times. GCE PDs support ownership management and SELinux relabeling.
       </span>
       
       
+    </li><li name="com.coralogix.zio.k8s.model.core.v1.GRPCAction" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="GRPCActionextendsProductwithSerializable"></a><a id="GRPCAction:GRPCAction"></a>
+      <span class="permalink">
+      <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/GRPCAction.html" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="GRPCAction.html"><span class="name">GRPCAction</span></a><span class="params">(<span name="port">port: <span class="extype" name="scala.Int">Int</span></span>, <span name="service">service: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">port</dt><dd class="cmt"><p>
+  Port number of the gRPC service. Number must be in the range 1 to 65535.</p></dd><dt class="param">service</dt><dd class="cmt"><p>
+  Service is the name of the service to place in the gRPC HealthCheckRequest (see
+  https://github.com/grpc/grpc/blob/master/doc/health-checking.md).
+If this is not specified, the default behavior is defined by gRPC.</p></dd></dl></div>
+    </li><li name="com.coralogix.zio.k8s.model.core.v1.GRPCActionFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="GRPCActionFieldsextendsAnyRef"></a><a id="GRPCActionFields:GRPCActionFields"></a>
+      <span class="permalink">
+      <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/GRPCActionFields.html" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="GRPCActionFields.html"><span class="name">GRPCActionFields</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+      </span>
+      
+      
     </li><li name="com.coralogix.zio.k8s.model.core.v1.GitRepoVolumeSource" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="GitRepoVolumeSourceextendsProductwithSerializable"></a><a id="GitRepoVolumeSource:GitRepoVolumeSource"></a>
       <span class="permalink">
@@ -4043,39 +4095,6 @@ ownership management or SELinux relabeling.
       </span>
       <span class="symbol">
         <a title="" href="HTTPHeaderFields.html"><span class="name">HTTPHeaderFields</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
-      </span>
-      
-      
-    </li><li name="com.coralogix.zio.k8s.model.core.v1.Handler" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="HandlerextendsProductwithSerializable"></a><a id="Handler:Handler"></a>
-      <span class="permalink">
-      <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/Handler.html" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">case class</span>
-      </span>
-      <span class="symbol">
-        <a title="Handler defines a specific action that should be taken" href="Handler.html"><span class="name">Handler</span></a><span class="params">(<span name="exec">exec: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="ExecAction.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.ExecAction">ExecAction</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="httpGet">httpGet: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="HTTPGetAction.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.HTTPGetAction">HTTPGetAction</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="tcpSocket">tcpSocket: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="TCPSocketAction.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.TCPSocketAction">TCPSocketAction</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
-      </span>
-      
-      <p class="shortcomment cmt">Handler defines a specific action that should be taken
-</p>
-    </li><li name="com.coralogix.zio.k8s.model.core.v1.HandlerFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="HandlerFieldsextendsAnyRef"></a><a id="HandlerFields:HandlerFields"></a>
-      <span class="permalink">
-      <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/HandlerFields.html" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">class</span>
-      </span>
-      <span class="symbol">
-        <a title="" href="HandlerFields.html"><span class="name">HandlerFields</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       
       
@@ -4307,7 +4326,7 @@ support ownership management and SELinux relabeling.
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a title="Lifecycle describes actions that the management system should take in response to container lifecycle events." href="Lifecycle.html"><span class="name">Lifecycle</span></a><span class="params">(<span name="postStart">postStart: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="Handler.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.Handler">Handler</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="preStop">preStop: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="Handler.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.Handler">Handler</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a title="Lifecycle describes actions that the management system should take in response to container lifecycle events." href="Lifecycle.html"><span class="name">Lifecycle</span></a><span class="params">(<span name="postStart">postStart: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="LifecycleHandler.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.LifecycleHandler">LifecycleHandler</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="preStop">preStop: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="LifecycleHandler.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.LifecycleHandler">LifecycleHandler</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       <p class="shortcomment cmt">Lifecycle describes actions that the management system should take in response to container
@@ -4329,6 +4348,40 @@ handler is aborted.
       </span>
       <span class="symbol">
         <a title="" href="LifecycleFields.html"><span class="name">LifecycleFields</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+      </span>
+      
+      
+    </li><li name="com.coralogix.zio.k8s.model.core.v1.LifecycleHandler" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="LifecycleHandlerextendsProductwithSerializable"></a><a id="LifecycleHandler:LifecycleHandler"></a>
+      <span class="permalink">
+      <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/LifecycleHandler.html" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a title="LifecycleHandler defines a specific action that should be taken in a lifecycle hook." href="LifecycleHandler.html"><span class="name">LifecycleHandler</span></a><span class="params">(<span name="exec">exec: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="ExecAction.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.ExecAction">ExecAction</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="httpGet">httpGet: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="HTTPGetAction.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.HTTPGetAction">HTTPGetAction</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="tcpSocket">tcpSocket: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="TCPSocketAction.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.TCPSocketAction">TCPSocketAction</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      
+      <p class="shortcomment cmt">LifecycleHandler defines a specific action that should be taken in a lifecycle hook.</p><div class="fullcomment"><div class="comment cmt"><p>LifecycleHandler defines a specific action that should be taken in a lifecycle hook. One and
+only one of the fields, except TCPSocket must be specified.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.core.v1.LifecycleHandlerFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="LifecycleHandlerFieldsextendsAnyRef"></a><a id="LifecycleHandlerFields:LifecycleHandlerFields"></a>
+      <span class="permalink">
+      <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/LifecycleHandlerFields.html" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="LifecycleHandlerFields.html"><span class="name">LifecycleHandlerFields</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       
       
@@ -4573,7 +4626,7 @@ the same namespace.
 </p></div><dl class="paramcmts block"><dt class="param">fsType</dt><dd class="cmt"><p>
   Filesystem type to mount. It applies only when the Path is a block device. Must be a
   filesystem type supported by the host operating system. Ex. &quot;ext4&quot;, &quot;xfs&quot;, &quot;ntfs&quot;. The default
-  value is to auto-select a fileystem if unspecified.</p></dd><dt class="param">path</dt><dd class="cmt"><p>
+  value is to auto-select a filesystem if unspecified.</p></dd><dt class="param">path</dt><dd class="cmt"><p>
   The full path to the volume on the node. It can be either a directory or block device (disk,
   partition, ...).</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.core.v1.LocalVolumeSourceFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
@@ -5514,17 +5567,28 @@ for provider-specific attributes
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a title="PersistentVolumeClaimStatus is the current status of a persistent volume claim." href="PersistentVolumeClaimStatus.html"><span class="name">PersistentVolumeClaimStatus</span></a><span class="params">(<span name="accessModes">accessModes: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="capacity">capacity: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <a href="../../pkg/api/resource/Quantity.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.api.resource.Quantity">Quantity</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="conditions">conditions: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="PersistentVolumeClaimCondition.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.PersistentVolumeClaimCondition">PersistentVolumeClaimCondition</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="phase">phase: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a title="PersistentVolumeClaimStatus is the current status of a persistent volume claim." href="PersistentVolumeClaimStatus.html"><span class="name">PersistentVolumeClaimStatus</span></a><span class="params">(<span name="accessModes">accessModes: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="allocatedResources">allocatedResources: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <a href="../../pkg/api/resource/Quantity.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.api.resource.Quantity">Quantity</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="capacity">capacity: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <a href="../../pkg/api/resource/Quantity.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.api.resource.Quantity">Quantity</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="conditions">conditions: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="PersistentVolumeClaimCondition.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.PersistentVolumeClaimCondition">PersistentVolumeClaimCondition</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="phase">phase: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="resizeStatus">resizeStatus: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       <p class="shortcomment cmt">PersistentVolumeClaimStatus is the current status of a persistent volume claim.</p><div class="fullcomment"><div class="comment cmt"><p>PersistentVolumeClaimStatus is the current status of a persistent volume claim.
 </p></div><dl class="paramcmts block"><dt class="param">accessModes</dt><dd class="cmt"><p>
   AccessModes contains the actual access modes the volume backing the PVC has. More info:
-  https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1</p></dd><dt class="param">capacity</dt><dd class="cmt"><p>
+  https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1</p></dd><dt class="param">allocatedResources</dt><dd class="cmt"><p>
+  The storage resource within AllocatedResources tracks the capacity allocated to a PVC. It may
+  be larger than the actual capacity when a volume expansion operation is requested. For storage
+  quota, the larger value from allocatedResources and PVC.spec.resources is used. If
+  allocatedResources is not set, PVC.spec.resources alone is used for quota calculation. If a
+  volume expansion capacity request is lowered, allocatedResources is only lowered if there are
+  no expansion operations in progress and if the actual volume capacity is equal or lower than
+  the requested capacity. This is an alpha field and requires enabling
+  RecoverVolumeExpansionFailure feature.</p></dd><dt class="param">capacity</dt><dd class="cmt"><p>
   Represents the actual resources of the underlying volume.</p></dd><dt class="param">conditions</dt><dd class="cmt"><p>
   Current Condition of persistent volume claim. If underlying persistent volume is being resized
   then the Condition will be set to 'ResizeStarted'.</p></dd><dt class="param">phase</dt><dd class="cmt"><p>
-  Phase represents the current phase of PersistentVolumeClaim.</p></dd></dl></div>
+  Phase represents the current phase of PersistentVolumeClaim.</p></dd><dt class="param">resizeStatus</dt><dd class="cmt"><p>
+  ResizeStatus stores status of resize operation. ResizeStatus is not set by default but when
+  expansion is complete resizeStatus is set to empty string by resize controller or kubelet.
+  This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.core.v1.PersistentVolumeClaimStatusFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="PersistentVolumeClaimStatusFieldsextendsAnyRef"></a><a id="PersistentVolumeClaimStatusFields:PersistentVolumeClaimStatusFields"></a>
       <span class="permalink">
@@ -6074,6 +6138,44 @@ address allocated to the pod. Routable at least within the cluster.
       </span>
       
       
+    </li><li name="com.coralogix.zio.k8s.model.core.v1.PodOS" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="PodOSextendsProductwithSerializable"></a><a id="PodOS:PodOS"></a>
+      <span class="permalink">
+      <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/PodOS.html" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a title="PodOS defines the OS parameters of a pod." href="PodOS.html"><span class="name">PodOS</span></a><span class="params">(<span name="name">name: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      
+      <p class="shortcomment cmt">PodOS defines the OS parameters of a pod.</p><div class="fullcomment"><div class="comment cmt"><p>PodOS defines the OS parameters of a pod.
+</p></div><dl class="paramcmts block"><dt class="param">name</dt><dd class="cmt"><p>
+  Name is the name of the operating system. The currently supported values are linux and
+  windows. Additional value may be defined in future and can be one of:
+  https://github.com/opencontainers/runtime-spec/blob/master/config.md#platform-specific-configuration
+  Clients should expect to handle additional values and treat unrecognized values in this field
+  as os: null</p></dd></dl></div>
+    </li><li name="com.coralogix.zio.k8s.model.core.v1.PodOSFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="PodOSFieldsextendsAnyRef"></a><a id="PodOSFields:PodOSFields"></a>
+      <span class="permalink">
+      <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/PodOSFields.html" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="PodOSFields.html"><span class="name">PodOSFields</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+      </span>
+      
+      
     </li><li name="com.coralogix.zio.k8s.model.core.v1.PodReadinessGate" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="PodReadinessGateextendsProductwithSerializable"></a><a id="PodReadinessGate:PodReadinessGate"></a>
       <span class="permalink">
@@ -6132,15 +6234,17 @@ take precedence over field values of PodSecurityContext.
   the Kubelet to change the ownership of that volume to be owned by the pod:
 1. The owning GID will be the FSGroup 2. The setgid bit is set (new files created in the volume
 will be owned by FSGroup) 3. The permission bits are OR'd with rw-rw----
-If unset, the Kubelet will not modify the ownership and permissions of any volume.</p></dd><dt class="param">fsGroupChangePolicy</dt><dd class="cmt"><p>
+If unset, the Kubelet will not modify the ownership and permissions of any volume. Note that
+this field cannot be set when spec.os.name is windows.</p></dd><dt class="param">fsGroupChangePolicy</dt><dd class="cmt"><p>
   fsGroupChangePolicy defines behavior of changing ownership and permission of the volume before
   being exposed inside Pod. This field will only apply to volume types which support fsGroup
   based ownership(and permissions). It will have no effect on ephemeral volume types such as:
   secret, configmaps and emptydir. Valid values are &quot;OnRootMismatch&quot; and &quot;Always&quot;. If not
-  specified, &quot;Always&quot; is used.</p></dd><dt class="param">runAsGroup</dt><dd class="cmt"><p>
+  specified, &quot;Always&quot; is used. Note that this field cannot be set when spec.os.name is windows.</p></dd><dt class="param">runAsGroup</dt><dd class="cmt"><p>
   The GID to run the entrypoint of the container process. Uses runtime default if unset. May
   also be set in SecurityContext. If set in both SecurityContext and PodSecurityContext, the
-  value specified in SecurityContext takes precedence for that container.</p></dd><dt class="param">runAsNonRoot</dt><dd class="cmt"><p>
+  value specified in SecurityContext takes precedence for that container. Note that this field
+  cannot be set when spec.os.name is windows.</p></dd><dt class="param">runAsNonRoot</dt><dd class="cmt"><p>
   Indicates that the container must run as a non-root user. If true, the Kubelet will validate
   the image at runtime to ensure that it does not run as UID 0 (root) and fail to start the
   container if it does. If unset or false, no such validation will be performed. May also be set
@@ -6149,11 +6253,13 @@ If unset, the Kubelet will not modify the ownership and permissions of any volum
   The UID to run the entrypoint of the container process. Defaults to user specified in image
   metadata if unspecified. May also be set in SecurityContext. If set in both SecurityContext
   and PodSecurityContext, the value specified in SecurityContext takes precedence for that
-  container.</p></dd><dt class="param">supplementalGroups</dt><dd class="cmt"><p>
+  container. Note that this field cannot be set when spec.os.name is windows.</p></dd><dt class="param">supplementalGroups</dt><dd class="cmt"><p>
   A list of groups applied to the first process run in each container, in addition to the
-  container's primary GID. If unspecified, no groups will be added to any container.</p></dd><dt class="param">sysctls</dt><dd class="cmt"><p>
+  container's primary GID. If unspecified, no groups will be added to any container. Note that
+  this field cannot be set when spec.os.name is windows.</p></dd><dt class="param">sysctls</dt><dd class="cmt"><p>
   Sysctls hold a list of namespaced sysctls used for the pod. Pods with unsupported sysctls (by
-  the container runtime) might fail to launch.</p></dd></dl></div>
+  the container runtime) might fail to launch. Note that this field cannot be set when
+  spec.os.name is windows.</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.core.v1.PodSecurityContextFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="PodSecurityContextFieldsextendsAnyRef"></a><a id="PodSecurityContextFields:PodSecurityContextFields"></a>
       <span class="permalink">
@@ -6182,7 +6288,7 @@ If unset, the Kubelet will not modify the ownership and permissions of any volum
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a title="PodSpec is a description of a pod." href="PodSpec.html"><span class="name">PodSpec</span></a><span class="params">(<span name="activeDeadlineSeconds">activeDeadlineSeconds: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Long">Long</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="affinity">affinity: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="Affinity.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.Affinity">Affinity</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="automountServiceAccountToken">automountServiceAccountToken: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Boolean">Boolean</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="containers">containers: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="Container.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.Container">Container</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="dnsConfig">dnsConfig: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="PodDNSConfig.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.PodDNSConfig">PodDNSConfig</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="dnsPolicy">dnsPolicy: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="enableServiceLinks">enableServiceLinks: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Boolean">Boolean</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="ephemeralContainers">ephemeralContainers: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="EphemeralContainer.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.EphemeralContainer">EphemeralContainer</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="hostAliases">hostAliases: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="HostAlias.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.HostAlias">HostAlias</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="hostIPC">hostIPC: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Boolean">Boolean</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="hostNetwork">hostNetwork: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Boolean">Boolean</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="hostPID">hostPID: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Boolean">Boolean</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="hostname">hostname: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="imagePullSecrets">imagePullSecrets: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="LocalObjectReference.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.LocalObjectReference">LocalObjectReference</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="initContainers">initContainers: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="Container.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.Container">Container</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="nodeName">nodeName: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="nodeSelector">nodeSelector: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="overhead">overhead: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <a href="../../pkg/api/resource/Quantity.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.api.resource.Quantity">Quantity</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="preemptionPolicy">preemptionPolicy: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="priority">priority: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="priorityClassName">priorityClassName: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="readinessGates">readinessGates: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="PodReadinessGate.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.PodReadinessGate">PodReadinessGate</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="restartPolicy">restartPolicy: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="runtimeClassName">runtimeClassName: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="schedulerName">schedulerName: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="securityContext">securityContext: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="PodSecurityContext.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.PodSecurityContext">PodSecurityContext</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="serviceAccount">serviceAccount: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="serviceAccountName">serviceAccountName: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="setHostnameAsFQDN">setHostnameAsFQDN: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Boolean">Boolean</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="shareProcessNamespace">shareProcessNamespace: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Boolean">Boolean</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="subdomain">subdomain: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="terminationGracePeriodSeconds">terminationGracePeriodSeconds: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Long">Long</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="tolerations">tolerations: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="Toleration.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.Toleration">Toleration</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="topologySpreadConstraints">topologySpreadConstraints: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="TopologySpreadConstraint.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.TopologySpreadConstraint">TopologySpreadConstraint</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="volumes">volumes: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="Volume.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.Volume">Volume</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a title="PodSpec is a description of a pod." href="PodSpec.html"><span class="name">PodSpec</span></a><span class="params">(<span name="activeDeadlineSeconds">activeDeadlineSeconds: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Long">Long</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="affinity">affinity: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="Affinity.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.Affinity">Affinity</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="automountServiceAccountToken">automountServiceAccountToken: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Boolean">Boolean</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="containers">containers: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="Container.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.Container">Container</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="dnsConfig">dnsConfig: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="PodDNSConfig.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.PodDNSConfig">PodDNSConfig</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="dnsPolicy">dnsPolicy: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="enableServiceLinks">enableServiceLinks: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Boolean">Boolean</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="ephemeralContainers">ephemeralContainers: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="EphemeralContainer.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.EphemeralContainer">EphemeralContainer</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="hostAliases">hostAliases: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="HostAlias.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.HostAlias">HostAlias</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="hostIPC">hostIPC: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Boolean">Boolean</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="hostNetwork">hostNetwork: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Boolean">Boolean</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="hostPID">hostPID: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Boolean">Boolean</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="hostname">hostname: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="imagePullSecrets">imagePullSecrets: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="LocalObjectReference.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.LocalObjectReference">LocalObjectReference</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="initContainers">initContainers: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="Container.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.Container">Container</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="nodeName">nodeName: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="nodeSelector">nodeSelector: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="os">os: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="PodOS.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.PodOS">PodOS</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="overhead">overhead: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <a href="../../pkg/api/resource/Quantity.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.api.resource.Quantity">Quantity</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="preemptionPolicy">preemptionPolicy: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="priority">priority: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="priorityClassName">priorityClassName: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="readinessGates">readinessGates: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="PodReadinessGate.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.PodReadinessGate">PodReadinessGate</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="restartPolicy">restartPolicy: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="runtimeClassName">runtimeClassName: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="schedulerName">schedulerName: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="securityContext">securityContext: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="PodSecurityContext.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.PodSecurityContext">PodSecurityContext</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="serviceAccount">serviceAccount: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="serviceAccountName">serviceAccountName: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="setHostnameAsFQDN">setHostnameAsFQDN: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Boolean">Boolean</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="shareProcessNamespace">shareProcessNamespace: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Boolean">Boolean</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="subdomain">subdomain: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="terminationGracePeriodSeconds">terminationGracePeriodSeconds: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Long">Long</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="tolerations">tolerations: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="Toleration.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.Toleration">Toleration</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="topologySpreadConstraints">topologySpreadConstraints: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="TopologySpreadConstraint.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.TopologySpreadConstraint">TopologySpreadConstraint</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="volumes">volumes: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="Volume.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.Volume">Volume</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       <p class="shortcomment cmt">PodSpec is a description of a pod.</p><div class="fullcomment"><div class="comment cmt"><p>PodSpec is a description of a pod.
@@ -6205,8 +6311,8 @@ If unset, the Kubelet will not modify the ownership and permissions of any volum
   pod to perform user-initiated actions such as debugging. This list cannot be specified when
   creating a pod, and it cannot be modified by updating the pod spec. In order to add an
   ephemeral container to an existing pod, use the pod's ephemeralcontainers subresource. This
-  field is alpha-level and is only honored by servers that enable the EphemeralContainers
-  feature.</p></dd><dt class="param">hostAliases</dt><dd class="cmt"><p>
+  field is beta-level and available on clusters that haven't disabled the EphemeralContainers
+  feature gate.</p></dd><dt class="param">hostAliases</dt><dd class="cmt"><p>
   HostAliases is an optional list of hosts and IPs that will be injected into the pod's hosts
   file if specified. This is only valid for non-hostNetwork pods.</p></dd><dt class="param">hostIPC</dt><dd class="cmt"><p>
   Use the host's ipc namespace. Optional: Default to false.</p></dd><dt class="param">hostNetwork</dt><dd class="cmt"><p>
@@ -6340,8 +6446,8 @@ a system, especially if the node that hosts the pod cannot contact the control p
   The list has one entry per container in the manifest. Each entry is currently the output of
   <code>docker inspect</code>. More info:
   https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status</p></dd><dt class="param">ephemeralContainerStatuses</dt><dd class="cmt"><p>
-  Status for any ephemeral containers that have run in this pod. This field is alpha-level and
-  is only populated by servers that enable the EphemeralContainers feature.</p></dd><dt class="param">hostIP</dt><dd class="cmt"><p>
+  Status for any ephemeral containers that have run in this pod. This field is beta-level and
+  available on clusters that haven't disabled the EphemeralContainers feature gate.</p></dd><dt class="param">hostIP</dt><dd class="cmt"><p>
   IP address of the host to which the pod is assigned. Empty if not yet scheduled.</p></dd><dt class="param">initContainerStatuses</dt><dd class="cmt"><p>
   The list has one entry per init container in the manifest. The most recent successful init
   container will have ready = true, the most recently started container will have startTime set.
@@ -6582,7 +6688,7 @@ no-op). A null preferred scheduling term matches no objects (i.e. is also a no-o
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a title="Probe describes a health check to be performed against a container to determine whether it is alive or ready to receive traffic." href="Probe.html"><span class="name">Probe</span></a><span class="params">(<span name="exec">exec: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="ExecAction.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.ExecAction">ExecAction</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="failureThreshold">failureThreshold: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="httpGet">httpGet: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="HTTPGetAction.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.HTTPGetAction">HTTPGetAction</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="initialDelaySeconds">initialDelaySeconds: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="periodSeconds">periodSeconds: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="successThreshold">successThreshold: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="tcpSocket">tcpSocket: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="TCPSocketAction.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.TCPSocketAction">TCPSocketAction</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="terminationGracePeriodSeconds">terminationGracePeriodSeconds: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Long">Long</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="timeoutSeconds">timeoutSeconds: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a title="Probe describes a health check to be performed against a container to determine whether it is alive or ready to receive traffic." href="Probe.html"><span class="name">Probe</span></a><span class="params">(<span name="exec">exec: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="ExecAction.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.ExecAction">ExecAction</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="failureThreshold">failureThreshold: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="grpc">grpc: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="GRPCAction.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.GRPCAction">GRPCAction</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="httpGet">httpGet: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="HTTPGetAction.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.HTTPGetAction">HTTPGetAction</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="initialDelaySeconds">initialDelaySeconds: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="periodSeconds">periodSeconds: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="successThreshold">successThreshold: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="tcpSocket">tcpSocket: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="TCPSocketAction.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.TCPSocketAction">TCPSocketAction</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="terminationGracePeriodSeconds">terminationGracePeriodSeconds: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Long">Long</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="timeoutSeconds">timeoutSeconds: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       <p class="shortcomment cmt">Probe describes a health check to be performed against a container to determine whether it is
@@ -7403,7 +7509,7 @@ container runtime default profile should be used. Unconfined - no profile should
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a title="Secret holds secret data of a certain type." href="Secret.html"><span class="name">Secret</span></a><span class="params">(<span name="data">data: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <a href="https://javadoc.io/page/dev.zio/zio_2.12/1.0.16/zio/Chunk.html#zio.Chunk" class="extype" name="zio.Chunk">Chunk</a>[<span class="extype" name="scala.Byte">Byte</span>]]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="immutable">immutable: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Boolean">Boolean</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="metadata">metadata: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="../../pkg/apis/meta/v1/ObjectMeta.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.ObjectMeta">ObjectMeta</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="stringData">stringData: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="type">type: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a title="Secret holds secret data of a certain type." href="Secret.html"><span class="name">Secret</span></a><span class="params">(<span name="data">data: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <a href="https://javadoc.io/page/dev.zio/zio_2.12/1.0.17/zio/Chunk.html#zio.Chunk" class="extype" name="zio.Chunk">Chunk</a>[<span class="extype" name="scala.Byte">Byte</span>]]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="immutable">immutable: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Boolean">Boolean</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="metadata">metadata: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="../../pkg/apis/meta/v1/ObjectMeta.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.ObjectMeta">ObjectMeta</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="stringData">stringData: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="type">type: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       <p class="shortcomment cmt">Secret holds secret data of a certain type.</p><div class="fullcomment"><div class="comment cmt"><p>Secret holds secret data of a certain type. The total bytes of the values in the Data field must
@@ -7420,7 +7526,8 @@ be less than MaxSecretSize bytes.
   write-only input field for convenience. All keys and values are merged into the data field on
   write, overwriting any existing values. The stringData field is never output when reading from
   the API.</p></dd><dt class="param">type</dt><dd class="cmt"><p>
-  Used to facilitate programmatic handling of secret data.</p></dd></dl></div>
+  Used to facilitate programmatic handling of secret data. More info:
+  https://kubernetes.io/docs/concepts/configuration/secret/#secret-types</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.core.v1.SecretEnvSource" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="SecretEnvSourceextendsProductwithSerializable"></a><a id="SecretEnvSource:SecretEnvSource"></a>
       <span class="permalink">
@@ -7662,16 +7769,20 @@ SecurityContext take precedence.
   AllowPrivilegeEscalation controls whether a process can gain more privileges than its parent
   process. This bool directly controls if the no_new_privs flag will be set on the container
   process. AllowPrivilegeEscalation is true always when the container is: 1) run as Privileged
-  2) has CAP_SYS_ADMIN</p></dd><dt class="param">privileged</dt><dd class="cmt"><p>
+  2) has CAP_SYS_ADMIN Note that this field cannot be set when spec.os.name is windows.</p></dd><dt class="param">privileged</dt><dd class="cmt"><p>
   Run container in privileged mode. Processes in privileged containers are essentially
-  equivalent to root on the host. Defaults to false.</p></dd><dt class="param">procMount</dt><dd class="cmt"><p>
+  equivalent to root on the host. Defaults to false. Note that this field cannot be set when
+  spec.os.name is windows.</p></dd><dt class="param">procMount</dt><dd class="cmt"><p>
   procMount denotes the type of proc mount to use for the containers. The default is
   DefaultProcMount which uses the container runtime defaults for readonly paths and masked
-  paths. This requires the ProcMountType feature flag to be enabled.</p></dd><dt class="param">readOnlyRootFilesystem</dt><dd class="cmt"><p>
-  Whether this container has a read-only root filesystem. Default is false.</p></dd><dt class="param">runAsGroup</dt><dd class="cmt"><p>
+  paths. This requires the ProcMountType feature flag to be enabled. Note that this field cannot
+  be set when spec.os.name is windows.</p></dd><dt class="param">readOnlyRootFilesystem</dt><dd class="cmt"><p>
+  Whether this container has a read-only root filesystem. Default is false. Note that this field
+  cannot be set when spec.os.name is windows.</p></dd><dt class="param">runAsGroup</dt><dd class="cmt"><p>
   The GID to run the entrypoint of the container process. Uses runtime default if unset. May
   also be set in PodSecurityContext. If set in both SecurityContext and PodSecurityContext, the
-  value specified in SecurityContext takes precedence.</p></dd><dt class="param">runAsNonRoot</dt><dd class="cmt"><p>
+  value specified in SecurityContext takes precedence. Note that this field cannot be set when
+  spec.os.name is windows.</p></dd><dt class="param">runAsNonRoot</dt><dd class="cmt"><p>
   Indicates that the container must run as a non-root user. If true, the Kubelet will validate
   the image at runtime to ensure that it does not run as UID 0 (root) and fail to start the
   container if it does. If unset or false, no such validation will be performed. May also be set
@@ -7679,7 +7790,8 @@ SecurityContext take precedence.
   specified in SecurityContext takes precedence.</p></dd><dt class="param">runAsUser</dt><dd class="cmt"><p>
   The UID to run the entrypoint of the container process. Defaults to user specified in image
   metadata if unspecified. May also be set in PodSecurityContext. If set in both SecurityContext
-  and PodSecurityContext, the value specified in SecurityContext takes precedence.</p></dd></dl></div>
+  and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that
+  this field cannot be set when spec.os.name is windows.</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.core.v1.SecurityContextFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="SecurityContextFieldsextendsAnyRef"></a><a id="SecurityContextFields:SecurityContextFields"></a>
       <span class="permalink">
@@ -7919,11 +8031,9 @@ use against APIs (Kubernetes API Server or otherwise).
   ExternalName. If this field is not specified, it will be initialized from the clusterIP field.
   If this field is specified, clients must ensure that clusterIPs[0] and clusterIP have the same
   value.
-Unless the &quot;IPv6DualStack&quot; feature gate is enabled, this field is limited to one value, which
-must be the same as the clusterIP field. If the feature gate is enabled, this field may hold a
-maximum of two entries (dual-stack IPs, in either order). These IPs must correspond to the
-values of the ipFamilies field. Both clusterIPs and ipFamilies are governed by the
-ipFamilyPolicy field. More info:
+This field may hold a maximum of two entries (dual-stack IPs, in either order). These IPs must
+correspond to the values of the ipFamilies field. Both clusterIPs and ipFamilies are governed by
+the ipFamilyPolicy field. More info:
 https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies</p></dd><dt class="param">externalIPs</dt><dd class="cmt"><p>
   externalIPs is a list of IP addresses for which nodes in the cluster will also accept traffic
   for this service. These IPs are not managed by Kubernetes. The user is responsible for
@@ -7949,25 +8059,25 @@ https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and
   endpoints or node-local endpoints only. &quot;Cluster&quot; routes internal traffic to a Service to all
   endpoints. &quot;Local&quot; routes traffic to node-local endpoints only, traffic is dropped if no
   node-local endpoints are ready. The default value is &quot;Cluster&quot;.</p></dd><dt class="param">ipFamilies</dt><dd class="cmt"><p>
-  IPFamilies is a list of IP families (e.g. IPv4, IPv6) assigned to this service, and is gated
-  by the &quot;IPv6DualStack&quot; feature gate. This field is usually assigned automatically based on
-  cluster configuration and the ipFamilyPolicy field. If this field is specified manually, the
-  requested family is available in the cluster, and ipFamilyPolicy allows it, it will be used;
-  otherwise creation of the service will fail. This field is conditionally mutable: it allows
-  for adding or removing a secondary IP family, but it does not allow changing the primary IP
-  family of the Service. Valid values are &quot;IPv4&quot; and &quot;IPv6&quot;. This field only applies to Services
-  of types ClusterIP, NodePort, and LoadBalancer, and does apply to &quot;headless&quot; services. This
-  field will be wiped when updating a Service to type ExternalName.
+  IPFamilies is a list of IP families (e.g. IPv4, IPv6) assigned to this service. This field is
+  usually assigned automatically based on cluster configuration and the ipFamilyPolicy field. If
+  this field is specified manually, the requested family is available in the cluster, and
+  ipFamilyPolicy allows it, it will be used; otherwise creation of the service will fail. This
+  field is conditionally mutable: it allows for adding or removing a secondary IP family, but it
+  does not allow changing the primary IP family of the Service. Valid values are &quot;IPv4&quot; and
+  &quot;IPv6&quot;. This field only applies to Services of types ClusterIP, NodePort, and LoadBalancer,
+  and does apply to &quot;headless&quot; services. This field will be wiped when updating a Service to
+  type ExternalName.
 This field may hold a maximum of two entries (dual-stack families, in either order). These
 families must correspond to the values of the clusterIPs field, if specified. Both clusterIPs
 and ipFamilies are governed by the ipFamilyPolicy field.</p></dd><dt class="param">ipFamilyPolicy</dt><dd class="cmt"><p>
-  IPFamilyPolicy represents the dual-stack-ness requested or required by this Service, and is
-  gated by the &quot;IPv6DualStack&quot; feature gate. If there is no value provided, then this field will
-  be set to SingleStack. Services can be &quot;SingleStack&quot; (a single IP family), &quot;PreferDualStack&quot;
-  (two IP families on dual-stack configured clusters or a single IP family on single-stack
-  clusters), or &quot;RequireDualStack&quot; (two IP families on dual-stack configured clusters, otherwise
-  fail). The ipFamilies and clusterIPs fields depend on the value of this field. This field will
-  be wiped when updating a service to type ExternalName.</p></dd><dt class="param">loadBalancerClass</dt><dd class="cmt"><p>
+  IPFamilyPolicy represents the dual-stack-ness requested or required by this Service. If there
+  is no value provided, then this field will be set to SingleStack. Services can be
+  &quot;SingleStack&quot; (a single IP family), &quot;PreferDualStack&quot; (two IP families on dual-stack
+  configured clusters or a single IP family on single-stack clusters), or &quot;RequireDualStack&quot;
+  (two IP families on dual-stack configured clusters, otherwise fail). The ipFamilies and
+  clusterIPs fields depend on the value of this field. This field will be wiped when updating a
+  service to type ExternalName.</p></dd><dt class="param">loadBalancerClass</dt><dd class="cmt"><p>
   loadBalancerClass is the class of the load balancer implementation this Service belongs to. If
   specified, the value of this field must be a label-style identifier, with an optional prefix,
   e.g. &quot;internal-vip&quot; or &quot;example.com/internal-vip&quot;. Unprefixed names are reserved for
@@ -8446,9 +8556,9 @@ functionality as NodeSelectorTerm. This is an alpha feature and may change in th
   constraint. - DoNotSchedule (default) tells the scheduler not to schedule it. - ScheduleAnyway
   tells the scheduler to schedule the pod in any location, but giving higher precedence to
   topologies that would help reduce the skew. A constraint is considered &quot;Unsatisfiable&quot; for an
-  incoming pod if and only if every possible node assigment for that pod would violate &quot;MaxSkew&quot;
-  on some topology. For example, in a 3-zone cluster, MaxSkew is set to 1, and pods with the
-  same labelSelector spread as 3/1/1: | zone1 | zone2 | zone3 | | P P P | P | P | If
+  incoming pod if and only if every possible node assignment for that pod would violate
+  &quot;MaxSkew&quot; on some topology. For example, in a 3-zone cluster, MaxSkew is set to 1, and pods
+  with the same labelSelector spread as 3/1/1: | zone1 | zone2 | zone3 | | P P P | P | P | If
   WhenUnsatisfiable is set to DoNotSchedule, incoming pod can only be scheduled to zone2(zone3)
   to become 3/2/1(3/1/2) as ActualSkew(2-1) on zone2(zone3) satisfies MaxSkew(1). In other
   words, the cluster can still be imbalanced, but scheduler won't make it *more* imbalanced.
@@ -9683,6 +9793,22 @@ most preferred node(s)
       </span>
       
       
+    </li><li name="com.coralogix.zio.k8s.model.core.v1.GRPCAction" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="GRPCAction"></a><a id="GRPCAction:GRPCAction"></a>
+      <span class="permalink">
+      <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/GRPCAction$.html" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="GRPCAction$.html"><span class="name">GRPCAction</span></a><span class="result"> extends <a href="GRPCActionFields.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.GRPCActionFields">GRPCActionFields</a> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      
+      
     </li><li name="com.coralogix.zio.k8s.model.core.v1.GitRepoVolumeSource" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="GitRepoVolumeSource"></a><a id="GitRepoVolumeSource:GitRepoVolumeSource"></a>
       <span class="permalink">
@@ -9760,22 +9886,6 @@ most preferred node(s)
       </span>
       <span class="symbol">
         <a title="" href="HTTPHeader$.html"><span class="name">HTTPHeader</span></a><span class="result"> extends <a href="HTTPHeaderFields.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.HTTPHeaderFields">HTTPHeaderFields</a> with <span class="extype" name="scala.Serializable">Serializable</span></span>
-      </span>
-      
-      
-    </li><li name="com.coralogix.zio.k8s.model.core.v1.Handler" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="Handler"></a><a id="Handler:Handler"></a>
-      <span class="permalink">
-      <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/Handler$.html" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">object</span>
-      </span>
-      <span class="symbol">
-        <a title="" href="Handler$.html"><span class="name">Handler</span></a><span class="result"> extends <a href="HandlerFields.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.HandlerFields">HandlerFields</a> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       
@@ -9872,6 +9982,22 @@ most preferred node(s)
       </span>
       <span class="symbol">
         <a title="" href="Lifecycle$.html"><span class="name">Lifecycle</span></a><span class="result"> extends <a href="LifecycleFields.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.LifecycleFields">LifecycleFields</a> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      
+      
+    </li><li name="com.coralogix.zio.k8s.model.core.v1.LifecycleHandler" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="LifecycleHandler"></a><a id="LifecycleHandler:LifecycleHandler"></a>
+      <span class="permalink">
+      <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/LifecycleHandler$.html" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="LifecycleHandler$.html"><span class="name">LifecycleHandler</span></a><span class="result"> extends <a href="LifecycleHandlerFields.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.LifecycleHandlerFields">LifecycleHandlerFields</a> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       
@@ -10592,6 +10718,22 @@ most preferred node(s)
       </span>
       <span class="symbol">
         <a title="" href="PodIP$.html"><span class="name">PodIP</span></a><span class="result"> extends <a href="PodIPFields.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.PodIPFields">PodIPFields</a> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      
+      
+    </li><li name="com.coralogix.zio.k8s.model.core.v1.PodOS" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="PodOS"></a><a id="PodOS:PodOS"></a>
+      <span class="permalink">
+      <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/PodOS$.html" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="PodOS$.html"><span class="name">PodOS</span></a><span class="result"> extends <a href="PodOSFields.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.PodOSFields">PodOSFields</a> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       

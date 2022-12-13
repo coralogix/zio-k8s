@@ -527,8 +527,8 @@
                         <a href="EnvVarSourceFields.html" title="">EnvVarSourceFields</a>
                       </li><li class="current-entities indented7">
                         <a class="object" href="EphemeralContainer$.html" title=""></a>
-                        <a class="class" href="EphemeralContainer.html" title="An EphemeralContainer is a container that may be added temporarily to an existing pod for user-initiated activities such as debugging."></a>
-                        <a href="EphemeralContainer.html" title="An EphemeralContainer is a container that may be added temporarily to an existing pod for user-initiated activities such as debugging.">EphemeralContainer</a>
+                        <a class="class" href="EphemeralContainer.html" title="An EphemeralContainer is a temporary container that you may add to an existing Pod for user-initiated activities such as debugging."></a>
+                        <a href="EphemeralContainer.html" title="An EphemeralContainer is a temporary container that you may add to an existing Pod for user-initiated activities such as debugging.">EphemeralContainer</a>
                       </li><li class="current-entities indented7">
                         <span class="separator"></span>
                         <a class="class" href="EphemeralContainerFields.html" title=""></a>
@@ -614,6 +614,14 @@
                         <a class="class" href="GCEPersistentDiskVolumeSourceFields.html" title=""></a>
                         <a href="GCEPersistentDiskVolumeSourceFields.html" title="">GCEPersistentDiskVolumeSourceFields</a>
                       </li><li class="current-entities indented7">
+                        <a class="object" href="GRPCAction$.html" title=""></a>
+                        <a class="class" href="GRPCAction.html" title=""></a>
+                        <a href="GRPCAction.html" title="">GRPCAction</a>
+                      </li><li class="current-entities indented7">
+                        <span class="separator"></span>
+                        <a class="class" href="GRPCActionFields.html" title=""></a>
+                        <a href="GRPCActionFields.html" title="">GRPCActionFields</a>
+                      </li><li class="current-entities indented7">
                         <a class="object" href="GitRepoVolumeSource$.html" title=""></a>
                         <a class="class" href="GitRepoVolumeSource.html" title="Represents a volume that is populated with the contents of a git repository."></a>
                         <a href="GitRepoVolumeSource.html" title="Represents a volume that is populated with the contents of a git repository.">GitRepoVolumeSource</a>
@@ -653,14 +661,6 @@
                         <span class="separator"></span>
                         <a class="class" href="HTTPHeaderFields.html" title=""></a>
                         <a href="HTTPHeaderFields.html" title="">HTTPHeaderFields</a>
-                      </li><li class="current-entities indented7">
-                        <a class="object" href="Handler$.html" title=""></a>
-                        <a class="class" href="Handler.html" title="Handler defines a specific action that should be taken"></a>
-                        <a href="Handler.html" title="Handler defines a specific action that should be taken">Handler</a>
-                      </li><li class="current-entities indented7">
-                        <span class="separator"></span>
-                        <a class="class" href="HandlerFields.html" title=""></a>
-                        <a href="HandlerFields.html" title="">HandlerFields</a>
                       </li><li class="current-entities indented7">
                         <a class="object" href="HostAlias$.html" title=""></a>
                         <a class="class" href="HostAlias.html" title="HostAlias holds the mapping between IP and hostnames that will be injected as an entry in the pod's hosts file."></a>
@@ -709,6 +709,14 @@
                         <span class="separator"></span>
                         <a class="class" href="LifecycleFields.html" title=""></a>
                         <a href="LifecycleFields.html" title="">LifecycleFields</a>
+                      </li><li class="current-entities indented7">
+                        <a class="object" href="LifecycleHandler$.html" title=""></a>
+                        <a class="class" href="LifecycleHandler.html" title="LifecycleHandler defines a specific action that should be taken in a lifecycle hook."></a>
+                        <a href="LifecycleHandler.html" title="LifecycleHandler defines a specific action that should be taken in a lifecycle hook.">LifecycleHandler</a>
+                      </li><li class="current-entities indented7">
+                        <span class="separator"></span>
+                        <a class="class" href="LifecycleHandlerFields.html" title=""></a>
+                        <a href="LifecycleHandlerFields.html" title="">LifecycleHandlerFields</a>
                       </li><li class="current-entities indented7">
                         <a class="object" href="LimitRange$.html" title=""></a>
                         <a class="class" href="LimitRange.html" title="LimitRange sets resource usage limits for each kind of resource in a Namespace."></a>
@@ -1069,6 +1077,14 @@
                         <span class="separator"></span>
                         <a class="class" href="PodIPFields.html" title=""></a>
                         <a href="PodIPFields.html" title="">PodIPFields</a>
+                      </li><li class="current-entities indented7">
+                        <a class="object" href="PodOS$.html" title=""></a>
+                        <a class="class" href="PodOS.html" title="PodOS defines the OS parameters of a pod."></a>
+                        <a href="PodOS.html" title="PodOS defines the OS parameters of a pod.">PodOS</a>
+                      </li><li class="current-entities indented7">
+                        <span class="separator"></span>
+                        <a class="class" href="PodOSFields.html" title=""></a>
+                        <a href="PodOSFields.html" title="">PodOSFields</a>
                       </li><li class="current-entities indented7">
                         <a class="object" href="PodReadinessGate$.html" title=""></a>
                         <a class="class" href="PodReadinessGate.html" title="PodReadinessGate contains the reference to a pod condition"></a>
@@ -1594,16 +1610,20 @@ SecurityContext take precedence.
   AllowPrivilegeEscalation controls whether a process can gain more privileges than its parent
   process. This bool directly controls if the no_new_privs flag will be set on the container
   process. AllowPrivilegeEscalation is true always when the container is: 1) run as Privileged
-  2) has CAP_SYS_ADMIN</p></dd><dt class="param">privileged</dt><dd class="cmt"><p>
+  2) has CAP_SYS_ADMIN Note that this field cannot be set when spec.os.name is windows.</p></dd><dt class="param">privileged</dt><dd class="cmt"><p>
   Run container in privileged mode. Processes in privileged containers are essentially
-  equivalent to root on the host. Defaults to false.</p></dd><dt class="param">procMount</dt><dd class="cmt"><p>
+  equivalent to root on the host. Defaults to false. Note that this field cannot be set when
+  spec.os.name is windows.</p></dd><dt class="param">procMount</dt><dd class="cmt"><p>
   procMount denotes the type of proc mount to use for the containers. The default is
   DefaultProcMount which uses the container runtime defaults for readonly paths and masked
-  paths. This requires the ProcMountType feature flag to be enabled.</p></dd><dt class="param">readOnlyRootFilesystem</dt><dd class="cmt"><p>
-  Whether this container has a read-only root filesystem. Default is false.</p></dd><dt class="param">runAsGroup</dt><dd class="cmt"><p>
+  paths. This requires the ProcMountType feature flag to be enabled. Note that this field cannot
+  be set when spec.os.name is windows.</p></dd><dt class="param">readOnlyRootFilesystem</dt><dd class="cmt"><p>
+  Whether this container has a read-only root filesystem. Default is false. Note that this field
+  cannot be set when spec.os.name is windows.</p></dd><dt class="param">runAsGroup</dt><dd class="cmt"><p>
   The GID to run the entrypoint of the container process. Uses runtime default if unset. May
   also be set in PodSecurityContext. If set in both SecurityContext and PodSecurityContext, the
-  value specified in SecurityContext takes precedence.</p></dd><dt class="param">runAsNonRoot</dt><dd class="cmt"><p>
+  value specified in SecurityContext takes precedence. Note that this field cannot be set when
+  spec.os.name is windows.</p></dd><dt class="param">runAsNonRoot</dt><dd class="cmt"><p>
   Indicates that the container must run as a non-root user. If true, the Kubelet will validate
   the image at runtime to ensure that it does not run as UID 0 (root) and fail to start the
   container if it does. If unset or false, no such validation will be performed. May also be set
@@ -1611,7 +1631,8 @@ SecurityContext take precedence.
   specified in SecurityContext takes precedence.</p></dd><dt class="param">runAsUser</dt><dd class="cmt"><p>
   The UID to run the entrypoint of the container process. Defaults to user specified in image
   metadata if unspecified. May also be set in PodSecurityContext. If set in both SecurityContext
-  and PodSecurityContext, the value specified in SecurityContext takes precedence.</p></dd></dl><div class="toggleContainer block">
+  and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that
+  this field cannot be set when spec.os.name is windows.</p></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -1680,16 +1701,20 @@ SecurityContext take precedence.
   AllowPrivilegeEscalation controls whether a process can gain more privileges than its parent
   process. This bool directly controls if the no_new_privs flag will be set on the container
   process. AllowPrivilegeEscalation is true always when the container is: 1) run as Privileged
-  2) has CAP_SYS_ADMIN</p></dd><dt class="param">privileged</dt><dd class="cmt"><p>
+  2) has CAP_SYS_ADMIN Note that this field cannot be set when spec.os.name is windows.</p></dd><dt class="param">privileged</dt><dd class="cmt"><p>
   Run container in privileged mode. Processes in privileged containers are essentially
-  equivalent to root on the host. Defaults to false.</p></dd><dt class="param">procMount</dt><dd class="cmt"><p>
+  equivalent to root on the host. Defaults to false. Note that this field cannot be set when
+  spec.os.name is windows.</p></dd><dt class="param">procMount</dt><dd class="cmt"><p>
   procMount denotes the type of proc mount to use for the containers. The default is
   DefaultProcMount which uses the container runtime defaults for readonly paths and masked
-  paths. This requires the ProcMountType feature flag to be enabled.</p></dd><dt class="param">readOnlyRootFilesystem</dt><dd class="cmt"><p>
-  Whether this container has a read-only root filesystem. Default is false.</p></dd><dt class="param">runAsGroup</dt><dd class="cmt"><p>
+  paths. This requires the ProcMountType feature flag to be enabled. Note that this field cannot
+  be set when spec.os.name is windows.</p></dd><dt class="param">readOnlyRootFilesystem</dt><dd class="cmt"><p>
+  Whether this container has a read-only root filesystem. Default is false. Note that this field
+  cannot be set when spec.os.name is windows.</p></dd><dt class="param">runAsGroup</dt><dd class="cmt"><p>
   The GID to run the entrypoint of the container process. Uses runtime default if unset. May
   also be set in PodSecurityContext. If set in both SecurityContext and PodSecurityContext, the
-  value specified in SecurityContext takes precedence.</p></dd><dt class="param">runAsNonRoot</dt><dd class="cmt"><p>
+  value specified in SecurityContext takes precedence. Note that this field cannot be set when
+  spec.os.name is windows.</p></dd><dt class="param">runAsNonRoot</dt><dd class="cmt"><p>
   Indicates that the container must run as a non-root user. If true, the Kubelet will validate
   the image at runtime to ensure that it does not run as UID 0 (root) and fail to start the
   container if it does. If unset or false, no such validation will be performed. May also be set
@@ -1697,7 +1722,8 @@ SecurityContext take precedence.
   specified in SecurityContext takes precedence.</p></dd><dt class="param">runAsUser</dt><dd class="cmt"><p>
   The UID to run the entrypoint of the container process. Defaults to user specified in image
   metadata if unspecified. May also be set in PodSecurityContext. If set in both SecurityContext
-  and PodSecurityContext, the value specified in SecurityContext takes precedence.</p></dd></dl></div>
+  and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that
+  this field cannot be set when spec.os.name is windows.</p></dd></dl></div>
     </li></ol>
             </div>
 
@@ -1865,7 +1891,7 @@ SecurityContext take precedence.
 process.</p><div class="fullcomment"><div class="comment cmt"><p>AllowPrivilegeEscalation controls whether a process can gain more privileges than its parent
 process. This bool directly controls if the no_new_privs flag will be set on the container
 process. AllowPrivilegeEscalation is true always when the container is: 1) run as Privileged
-2) has CAP_SYS_ADMIN</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+2) has CAP_SYS_ADMIN Note that this field cannot be set when spec.os.name is windows.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.core.v1.SecurityContext#getCapabilities" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getCapabilities:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.model.core.v1.Capabilities]"></a><a id="getCapabilities:IO[K8sFailure,Capabilities]"></a>
@@ -1921,7 +1947,8 @@ process. AllowPrivilegeEscalation is true always when the container is: 1) run a
       </span>
       
       <p class="shortcomment cmt">Run container in privileged mode.</p><div class="fullcomment"><div class="comment cmt"><p>Run container in privileged mode. Processes in privileged containers are essentially
-equivalent to root on the host. Defaults to false.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+equivalent to root on the host. Defaults to false. Note that this field cannot be set when
+spec.os.name is windows.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.core.v1.SecurityContext#getProcMount" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getProcMount:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]"></a><a id="getProcMount:IO[K8sFailure,String]"></a>
@@ -1940,7 +1967,8 @@ equivalent to root on the host. Defaults to false.</p><p>If the field is not pre
       
       <p class="shortcomment cmt">procMount denotes the type of proc mount to use for the containers.</p><div class="fullcomment"><div class="comment cmt"><p>procMount denotes the type of proc mount to use for the containers. The default is
 DefaultProcMount which uses the container runtime defaults for readonly paths and masked
-paths. This requires the ProcMountType feature flag to be enabled.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+paths. This requires the ProcMountType feature flag to be enabled. Note that this field cannot
+be set when spec.os.name is windows.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.core.v1.SecurityContext#getReadOnlyRootFilesystem" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getReadOnlyRootFilesystem:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Boolean]"></a><a id="getReadOnlyRootFilesystem:IO[K8sFailure,Boolean]"></a>
@@ -1957,7 +1985,8 @@ paths. This requires the ProcMountType feature flag to be enabled.</p><p>If the 
         <span class="name">getReadOnlyRootFilesystem</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Boolean">Boolean</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">Whether this container has a read-only root filesystem.</p><div class="fullcomment"><div class="comment cmt"><p>Whether this container has a read-only root filesystem. Default is false.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">Whether this container has a read-only root filesystem.</p><div class="fullcomment"><div class="comment cmt"><p>Whether this container has a read-only root filesystem. Default is false. Note that this field
+cannot be set when spec.os.name is windows.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.core.v1.SecurityContext#getRunAsGroup" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getRunAsGroup:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Long]"></a><a id="getRunAsGroup:IO[K8sFailure,Long]"></a>
@@ -1976,7 +2005,8 @@ paths. This requires the ProcMountType feature flag to be enabled.</p><p>If the 
       
       <p class="shortcomment cmt">The GID to run the entrypoint of the container process.</p><div class="fullcomment"><div class="comment cmt"><p>The GID to run the entrypoint of the container process. Uses runtime default if unset. May
 also be set in PodSecurityContext. If set in both SecurityContext and PodSecurityContext, the
-value specified in SecurityContext takes precedence.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+value specified in SecurityContext takes precedence. Note that this field cannot be set when
+spec.os.name is windows.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.core.v1.SecurityContext#getRunAsNonRoot" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getRunAsNonRoot:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Boolean]"></a><a id="getRunAsNonRoot:IO[K8sFailure,Boolean]"></a>
@@ -2016,7 +2046,8 @@ specified in SecurityContext takes precedence.</p><p>If the field is not present
       
       <p class="shortcomment cmt">The UID to run the entrypoint of the container process.</p><div class="fullcomment"><div class="comment cmt"><p>The UID to run the entrypoint of the container process. Defaults to user specified in image
 metadata if unspecified. May also be set in PodSecurityContext. If set in both SecurityContext
-and PodSecurityContext, the value specified in SecurityContext takes precedence.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that
+this field cannot be set when spec.os.name is windows.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.core.v1.SecurityContext#getSeLinuxOptions" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getSeLinuxOptions:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.model.core.v1.SELinuxOptions]"></a><a id="getSeLinuxOptions:IO[K8sFailure,SELinuxOptions]"></a>

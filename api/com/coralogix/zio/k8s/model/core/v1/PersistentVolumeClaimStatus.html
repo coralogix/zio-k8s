@@ -527,8 +527,8 @@
                         <a href="EnvVarSourceFields.html" title="">EnvVarSourceFields</a>
                       </li><li class="current-entities indented7">
                         <a class="object" href="EphemeralContainer$.html" title=""></a>
-                        <a class="class" href="EphemeralContainer.html" title="An EphemeralContainer is a container that may be added temporarily to an existing pod for user-initiated activities such as debugging."></a>
-                        <a href="EphemeralContainer.html" title="An EphemeralContainer is a container that may be added temporarily to an existing pod for user-initiated activities such as debugging.">EphemeralContainer</a>
+                        <a class="class" href="EphemeralContainer.html" title="An EphemeralContainer is a temporary container that you may add to an existing Pod for user-initiated activities such as debugging."></a>
+                        <a href="EphemeralContainer.html" title="An EphemeralContainer is a temporary container that you may add to an existing Pod for user-initiated activities such as debugging.">EphemeralContainer</a>
                       </li><li class="current-entities indented7">
                         <span class="separator"></span>
                         <a class="class" href="EphemeralContainerFields.html" title=""></a>
@@ -614,6 +614,14 @@
                         <a class="class" href="GCEPersistentDiskVolumeSourceFields.html" title=""></a>
                         <a href="GCEPersistentDiskVolumeSourceFields.html" title="">GCEPersistentDiskVolumeSourceFields</a>
                       </li><li class="current-entities indented7">
+                        <a class="object" href="GRPCAction$.html" title=""></a>
+                        <a class="class" href="GRPCAction.html" title=""></a>
+                        <a href="GRPCAction.html" title="">GRPCAction</a>
+                      </li><li class="current-entities indented7">
+                        <span class="separator"></span>
+                        <a class="class" href="GRPCActionFields.html" title=""></a>
+                        <a href="GRPCActionFields.html" title="">GRPCActionFields</a>
+                      </li><li class="current-entities indented7">
                         <a class="object" href="GitRepoVolumeSource$.html" title=""></a>
                         <a class="class" href="GitRepoVolumeSource.html" title="Represents a volume that is populated with the contents of a git repository."></a>
                         <a href="GitRepoVolumeSource.html" title="Represents a volume that is populated with the contents of a git repository.">GitRepoVolumeSource</a>
@@ -653,14 +661,6 @@
                         <span class="separator"></span>
                         <a class="class" href="HTTPHeaderFields.html" title=""></a>
                         <a href="HTTPHeaderFields.html" title="">HTTPHeaderFields</a>
-                      </li><li class="current-entities indented7">
-                        <a class="object" href="Handler$.html" title=""></a>
-                        <a class="class" href="Handler.html" title="Handler defines a specific action that should be taken"></a>
-                        <a href="Handler.html" title="Handler defines a specific action that should be taken">Handler</a>
-                      </li><li class="current-entities indented7">
-                        <span class="separator"></span>
-                        <a class="class" href="HandlerFields.html" title=""></a>
-                        <a href="HandlerFields.html" title="">HandlerFields</a>
                       </li><li class="current-entities indented7">
                         <a class="object" href="HostAlias$.html" title=""></a>
                         <a class="class" href="HostAlias.html" title="HostAlias holds the mapping between IP and hostnames that will be injected as an entry in the pod's hosts file."></a>
@@ -709,6 +709,14 @@
                         <span class="separator"></span>
                         <a class="class" href="LifecycleFields.html" title=""></a>
                         <a href="LifecycleFields.html" title="">LifecycleFields</a>
+                      </li><li class="current-entities indented7">
+                        <a class="object" href="LifecycleHandler$.html" title=""></a>
+                        <a class="class" href="LifecycleHandler.html" title="LifecycleHandler defines a specific action that should be taken in a lifecycle hook."></a>
+                        <a href="LifecycleHandler.html" title="LifecycleHandler defines a specific action that should be taken in a lifecycle hook.">LifecycleHandler</a>
+                      </li><li class="current-entities indented7">
+                        <span class="separator"></span>
+                        <a class="class" href="LifecycleHandlerFields.html" title=""></a>
+                        <a href="LifecycleHandlerFields.html" title="">LifecycleHandlerFields</a>
                       </li><li class="current-entities indented7">
                         <a class="object" href="LimitRange$.html" title=""></a>
                         <a class="class" href="LimitRange.html" title="LimitRange sets resource usage limits for each kind of resource in a Namespace."></a>
@@ -1069,6 +1077,14 @@
                         <span class="separator"></span>
                         <a class="class" href="PodIPFields.html" title=""></a>
                         <a href="PodIPFields.html" title="">PodIPFields</a>
+                      </li><li class="current-entities indented7">
+                        <a class="object" href="PodOS$.html" title=""></a>
+                        <a class="class" href="PodOS.html" title="PodOS defines the OS parameters of a pod."></a>
+                        <a href="PodOS.html" title="PodOS defines the OS parameters of a pod.">PodOS</a>
+                      </li><li class="current-entities indented7">
+                        <span class="separator"></span>
+                        <a class="class" href="PodOSFields.html" title=""></a>
+                        <a href="PodOSFields.html" title="">PodOSFields</a>
                       </li><li class="current-entities indented7">
                         <a class="object" href="PodReadinessGate$.html" title=""></a>
                         <a class="class" href="PodReadinessGate.html" title="PodReadinessGate contains the reference to a pod condition"></a>
@@ -1582,7 +1598,7 @@
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <span class="name">PersistentVolumeClaimStatus</span><span class="params">(<span name="accessModes">accessModes: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="capacity">capacity: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <a href="../../pkg/api/resource/Quantity.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.api.resource.Quantity">Quantity</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="conditions">conditions: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="PersistentVolumeClaimCondition.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.PersistentVolumeClaimCondition">PersistentVolumeClaimCondition</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="phase">phase: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <span class="name">PersistentVolumeClaimStatus</span><span class="params">(<span name="accessModes">accessModes: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="allocatedResources">allocatedResources: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <a href="../../pkg/api/resource/Quantity.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.api.resource.Quantity">Quantity</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="capacity">capacity: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <a href="../../pkg/api/resource/Quantity.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.api.resource.Quantity">Quantity</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="conditions">conditions: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="PersistentVolumeClaimCondition.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.PersistentVolumeClaimCondition">PersistentVolumeClaimCondition</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="phase">phase: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="resizeStatus">resizeStatus: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       </h4>
 
@@ -1590,11 +1606,22 @@
           <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>PersistentVolumeClaimStatus is the current status of a persistent volume claim.
 </p></div><dl class="paramcmts block"><dt class="param">accessModes</dt><dd class="cmt"><p>
   AccessModes contains the actual access modes the volume backing the PVC has. More info:
-  https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1</p></dd><dt class="param">capacity</dt><dd class="cmt"><p>
+  https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1</p></dd><dt class="param">allocatedResources</dt><dd class="cmt"><p>
+  The storage resource within AllocatedResources tracks the capacity allocated to a PVC. It may
+  be larger than the actual capacity when a volume expansion operation is requested. For storage
+  quota, the larger value from allocatedResources and PVC.spec.resources is used. If
+  allocatedResources is not set, PVC.spec.resources alone is used for quota calculation. If a
+  volume expansion capacity request is lowered, allocatedResources is only lowered if there are
+  no expansion operations in progress and if the actual volume capacity is equal or lower than
+  the requested capacity. This is an alpha field and requires enabling
+  RecoverVolumeExpansionFailure feature.</p></dd><dt class="param">capacity</dt><dd class="cmt"><p>
   Represents the actual resources of the underlying volume.</p></dd><dt class="param">conditions</dt><dd class="cmt"><p>
   Current Condition of persistent volume claim. If underlying persistent volume is being resized
   then the Condition will be set to 'ResizeStarted'.</p></dd><dt class="param">phase</dt><dd class="cmt"><p>
-  Phase represents the current phase of PersistentVolumeClaim.</p></dd></dl><div class="toggleContainer block">
+  Phase represents the current phase of PersistentVolumeClaim.</p></dd><dt class="param">resizeStatus</dt><dd class="cmt"><p>
+  ResizeStatus stores status of resize operation. ResizeStatus is not set by default but when
+  expansion is complete resizeStatus is set to empty string by resize controller or kubelet.
+  This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.</p></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -1645,9 +1672,9 @@
         <div id="constructors" class="members">
               <h3>Instance Constructors</h3>
               <ol><li name="com.coralogix.zio.k8s.model.core.v1.PersistentVolumeClaimStatus#&lt;init&gt;" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="&lt;init&gt;(accessModes:com.coralogix.zio.k8s.client.model.Optional[Vector[String]],capacity:com.coralogix.zio.k8s.client.model.Optional[Map[String,com.coralogix.zio.k8s.model.pkg.api.resource.Quantity]],conditions:com.coralogix.zio.k8s.client.model.Optional[Vector[com.coralogix.zio.k8s.model.core.v1.PersistentVolumeClaimCondition]],phase:com.coralogix.zio.k8s.client.model.Optional[String]):com.coralogix.zio.k8s.model.core.v1.PersistentVolumeClaimStatus"></a><a id="&lt;init&gt;:PersistentVolumeClaimStatus"></a>
+      <a id="&lt;init&gt;(accessModes:com.coralogix.zio.k8s.client.model.Optional[Vector[String]],allocatedResources:com.coralogix.zio.k8s.client.model.Optional[Map[String,com.coralogix.zio.k8s.model.pkg.api.resource.Quantity]],capacity:com.coralogix.zio.k8s.client.model.Optional[Map[String,com.coralogix.zio.k8s.model.pkg.api.resource.Quantity]],conditions:com.coralogix.zio.k8s.client.model.Optional[Vector[com.coralogix.zio.k8s.model.core.v1.PersistentVolumeClaimCondition]],phase:com.coralogix.zio.k8s.client.model.Optional[String],resizeStatus:com.coralogix.zio.k8s.client.model.Optional[String]):com.coralogix.zio.k8s.model.core.v1.PersistentVolumeClaimStatus"></a><a id="&lt;init&gt;:PersistentVolumeClaimStatus"></a>
       <span class="permalink">
-      <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/PersistentVolumeClaimStatus.html#&lt;init&gt;(accessModes:com.coralogix.zio.k8s.client.model.Optional[Vector[String]],capacity:com.coralogix.zio.k8s.client.model.Optional[Map[String,com.coralogix.zio.k8s.model.pkg.api.resource.Quantity]],conditions:com.coralogix.zio.k8s.client.model.Optional[Vector[com.coralogix.zio.k8s.model.core.v1.PersistentVolumeClaimCondition]],phase:com.coralogix.zio.k8s.client.model.Optional[String]):com.coralogix.zio.k8s.model.core.v1.PersistentVolumeClaimStatus" title="Permalink">
+      <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/PersistentVolumeClaimStatus.html#&lt;init&gt;(accessModes:com.coralogix.zio.k8s.client.model.Optional[Vector[String]],allocatedResources:com.coralogix.zio.k8s.client.model.Optional[Map[String,com.coralogix.zio.k8s.model.pkg.api.resource.Quantity]],capacity:com.coralogix.zio.k8s.client.model.Optional[Map[String,com.coralogix.zio.k8s.model.pkg.api.resource.Quantity]],conditions:com.coralogix.zio.k8s.client.model.Optional[Vector[com.coralogix.zio.k8s.model.core.v1.PersistentVolumeClaimCondition]],phase:com.coralogix.zio.k8s.client.model.Optional[String],resizeStatus:com.coralogix.zio.k8s.client.model.Optional[String]):com.coralogix.zio.k8s.model.core.v1.PersistentVolumeClaimStatus" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -1656,16 +1683,27 @@
         <span class="kind">new</span>
       </span>
       <span class="symbol">
-        <span class="name">PersistentVolumeClaimStatus</span><span class="params">(<span name="accessModes">accessModes: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="capacity">capacity: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <a href="../../pkg/api/resource/Quantity.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.api.resource.Quantity">Quantity</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="conditions">conditions: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="PersistentVolumeClaimCondition.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.PersistentVolumeClaimCondition">PersistentVolumeClaimCondition</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="phase">phase: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span>
+        <span class="name">PersistentVolumeClaimStatus</span><span class="params">(<span name="accessModes">accessModes: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="allocatedResources">allocatedResources: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <a href="../../pkg/api/resource/Quantity.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.api.resource.Quantity">Quantity</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="capacity">capacity: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <a href="../../pkg/api/resource/Quantity.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.api.resource.Quantity">Quantity</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="conditions">conditions: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="PersistentVolumeClaimCondition.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.PersistentVolumeClaimCondition">PersistentVolumeClaimCondition</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="phase">phase: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="resizeStatus">resizeStatus: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span>
       </span>
       
       <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">accessModes</dt><dd class="cmt"><p>
   AccessModes contains the actual access modes the volume backing the PVC has. More info:
-  https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1</p></dd><dt class="param">capacity</dt><dd class="cmt"><p>
+  https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1</p></dd><dt class="param">allocatedResources</dt><dd class="cmt"><p>
+  The storage resource within AllocatedResources tracks the capacity allocated to a PVC. It may
+  be larger than the actual capacity when a volume expansion operation is requested. For storage
+  quota, the larger value from allocatedResources and PVC.spec.resources is used. If
+  allocatedResources is not set, PVC.spec.resources alone is used for quota calculation. If a
+  volume expansion capacity request is lowered, allocatedResources is only lowered if there are
+  no expansion operations in progress and if the actual volume capacity is equal or lower than
+  the requested capacity. This is an alpha field and requires enabling
+  RecoverVolumeExpansionFailure feature.</p></dd><dt class="param">capacity</dt><dd class="cmt"><p>
   Represents the actual resources of the underlying volume.</p></dd><dt class="param">conditions</dt><dd class="cmt"><p>
   Current Condition of persistent volume claim. If underlying persistent volume is being resized
   then the Condition will be set to 'ResizeStarted'.</p></dd><dt class="param">phase</dt><dd class="cmt"><p>
-  Phase represents the current phase of PersistentVolumeClaim.</p></dd></dl></div>
+  Phase represents the current phase of PersistentVolumeClaim.</p></dd><dt class="param">resizeStatus</dt><dd class="cmt"><p>
+  ResizeStatus stores status of resize operation. ResizeStatus is not set by default but when
+  expansion is complete resizeStatus is set to empty string by resize controller or kubelet.
+  This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.</p></dd></dl></div>
     </li></ol>
             </div>
 
@@ -1737,6 +1775,22 @@
       </span>
       <span class="symbol">
         <span class="name">accessModes</span><span class="result">: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]]</span>
+      </span>
+      
+      
+    </li><li name="com.coralogix.zio.k8s.model.core.v1.PersistentVolumeClaimStatus#allocatedResources" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="allocatedResources:com.coralogix.zio.k8s.client.model.Optional[Map[String,com.coralogix.zio.k8s.model.pkg.api.resource.Quantity]]"></a><a id="allocatedResources:Optional[Map[String,Quantity]]"></a>
+      <span class="permalink">
+      <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/PersistentVolumeClaimStatus.html#allocatedResources:com.coralogix.zio.k8s.client.model.Optional[Map[String,com.coralogix.zio.k8s.model.pkg.api.resource.Quantity]]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">allocatedResources</span><span class="result">: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <a href="../../pkg/api/resource/Quantity.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.api.resource.Quantity">Quantity</a>]]</span>
       </span>
       
       
@@ -1848,6 +1902,30 @@
       <p class="shortcomment cmt">AccessModes contains the actual access modes the volume backing the PVC has.</p><div class="fullcomment"><div class="comment cmt"><p>AccessModes contains the actual access modes the volume backing the PVC has. More info:
 https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.core.v1.PersistentVolumeClaimStatus#getAllocatedResources" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="getAllocatedResources:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Map[String,com.coralogix.zio.k8s.model.pkg.api.resource.Quantity]]"></a><a id="getAllocatedResources:IO[K8sFailure,Map[String,Quantity]]"></a>
+      <span class="permalink">
+      <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/PersistentVolumeClaimStatus.html#getAllocatedResources:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Map[String,com.coralogix.zio.k8s.model.pkg.api.resource.Quantity]]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">getAllocatedResources</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <a href="../../pkg/api/resource/Quantity.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.api.resource.Quantity">Quantity</a>]]</span>
+      </span>
+      
+      <p class="shortcomment cmt">The storage resource within AllocatedResources tracks the capacity allocated to a PVC.</p><div class="fullcomment"><div class="comment cmt"><p>The storage resource within AllocatedResources tracks the capacity allocated to a PVC. It may
+be larger than the actual capacity when a volume expansion operation is requested. For storage
+quota, the larger value from allocatedResources and PVC.spec.resources is used. If
+allocatedResources is not set, PVC.spec.resources alone is used for quota calculation. If a
+volume expansion capacity request is lowered, allocatedResources is only lowered if there are
+no expansion operations in progress and if the actual volume capacity is equal or lower than
+the requested capacity. This is an alpha field and requires enabling
+RecoverVolumeExpansionFailure feature.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+</p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.core.v1.PersistentVolumeClaimStatus#getCapacity" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getCapacity:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Map[String,com.coralogix.zio.k8s.model.pkg.api.resource.Quantity]]"></a><a id="getCapacity:IO[K8sFailure,Map[String,Quantity]]"></a>
       <span class="permalink">
@@ -1920,6 +1998,25 @@ then the Condition will be set to 'ResizeStarted'.</p><p>If the field is not pre
       </span>
       
       <p class="shortcomment cmt">Phase represents the current phase of PersistentVolumeClaim.</p><div class="fullcomment"><div class="comment cmt"><p>Phase represents the current phase of PersistentVolumeClaim.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+</p></div></div>
+    </li><li name="com.coralogix.zio.k8s.model.core.v1.PersistentVolumeClaimStatus#getResizeStatus" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="getResizeStatus:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]"></a><a id="getResizeStatus:IO[K8sFailure,String]"></a>
+      <span class="permalink">
+      <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/PersistentVolumeClaimStatus.html#getResizeStatus:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">getResizeStatus</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Predef.String">String</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">ResizeStatus stores status of resize operation.</p><div class="fullcomment"><div class="comment cmt"><p>ResizeStatus stores status of resize operation. ResizeStatus is not set by default but when
+expansion is complete resizeStatus is set to empty string by resize controller or kubelet.
+This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="scala.Any#isInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isInstanceOf[T0]:Boolean"></a>
@@ -2008,6 +2105,22 @@ then the Condition will be set to 'ResizeStarted'.</p><p>If the field is not pre
       </span>
       <span class="symbol">
         <span class="name">phase</span><span class="result">: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>]</span>
+      </span>
+      
+      
+    </li><li name="com.coralogix.zio.k8s.model.core.v1.PersistentVolumeClaimStatus#resizeStatus" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="resizeStatus:com.coralogix.zio.k8s.client.model.Optional[String]"></a><a id="resizeStatus:Optional[String]"></a>
+      <span class="permalink">
+      <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/PersistentVolumeClaimStatus.html#resizeStatus:com.coralogix.zio.k8s.client.model.Optional[String]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">resizeStatus</span><span class="result">: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
       

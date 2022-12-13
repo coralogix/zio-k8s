@@ -341,7 +341,23 @@
                         <span class="separator"></span>
                         <a class="class" href="UserSubjectFields.html" title=""></a>
                         <a href="UserSubjectFields.html" title="">UserSubjectFields</a>
-                      </li>
+                      </li><li name="com.coralogix.zio.k8s.model.flowcontrol.v1beta2" visbl="pub" class="indented7 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="v1beta2"></a><a id="v1beta2:v1beta2"></a>
+      <span class="permalink">
+      <a href="../../../../../../../com/coralogix/zio/k8s/model/flowcontrol/v1beta2/index.html" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="../v1beta2/index.html"><span class="name">v1beta2</span></a>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="com.coralogix.zio.k8s.model.flowcontrol">flowcontrol</a></dd></dl></div>
+    </li>
               </ul>
             </div>
           </div>
@@ -1038,8 +1054,10 @@ being used.
 verb and the target resource.</p><div class="fullcomment"><div class="comment cmt"><p>ResourcePolicyRule is a predicate that matches some resource requests, testing the request's
 verb and the target resource. A ResourcePolicyRule matches a resource request if and only if:
 (a) at least one member of verbs matches the request, (b) at least one member of apiGroups
-matches the request, (c) at least one member of resources matches the request, and (d) least one
-member of namespaces matches the request.
+matches the request, (c) at least one member of resources matches the request, and (d) either
+(d1) the request does not specify a namespace (i.e., <code>Namespace==&quot;&quot;</code>) and clusterScope is true
+or (d2) the request specifies a namespace and least one member of namespaces matches the
+request's namespace.
 </p></div><dl class="paramcmts block"><dt class="param">apiGroups</dt><dd class="cmt"><p>
   <code>apiGroups</code> is a list of matching API groups and may not be empty. &quot;*&quot; matches all API groups
   and, if present, must be the only entry. Required.</p></dd><dt class="param">clusterScope</dt><dd class="cmt"><p>

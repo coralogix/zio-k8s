@@ -527,8 +527,8 @@
                         <a href="EnvVarSourceFields.html" title="">EnvVarSourceFields</a>
                       </li><li class="current-entities indented7">
                         <a class="object" href="EphemeralContainer$.html" title=""></a>
-                        <a class="class" href="EphemeralContainer.html" title="An EphemeralContainer is a container that may be added temporarily to an existing pod for user-initiated activities such as debugging."></a>
-                        <a href="EphemeralContainer.html" title="An EphemeralContainer is a container that may be added temporarily to an existing pod for user-initiated activities such as debugging.">EphemeralContainer</a>
+                        <a class="class" href="EphemeralContainer.html" title="An EphemeralContainer is a temporary container that you may add to an existing Pod for user-initiated activities such as debugging."></a>
+                        <a href="EphemeralContainer.html" title="An EphemeralContainer is a temporary container that you may add to an existing Pod for user-initiated activities such as debugging.">EphemeralContainer</a>
                       </li><li class="current-entities indented7">
                         <span class="separator"></span>
                         <a class="class" href="EphemeralContainerFields.html" title=""></a>
@@ -614,6 +614,14 @@
                         <a class="class" href="GCEPersistentDiskVolumeSourceFields.html" title=""></a>
                         <a href="GCEPersistentDiskVolumeSourceFields.html" title="">GCEPersistentDiskVolumeSourceFields</a>
                       </li><li class="current-entities indented7">
+                        <a class="object" href="GRPCAction$.html" title=""></a>
+                        <a class="class" href="GRPCAction.html" title=""></a>
+                        <a href="GRPCAction.html" title="">GRPCAction</a>
+                      </li><li class="current-entities indented7">
+                        <span class="separator"></span>
+                        <a class="class" href="GRPCActionFields.html" title=""></a>
+                        <a href="GRPCActionFields.html" title="">GRPCActionFields</a>
+                      </li><li class="current-entities indented7">
                         <a class="object" href="GitRepoVolumeSource$.html" title=""></a>
                         <a class="class" href="GitRepoVolumeSource.html" title="Represents a volume that is populated with the contents of a git repository."></a>
                         <a href="GitRepoVolumeSource.html" title="Represents a volume that is populated with the contents of a git repository.">GitRepoVolumeSource</a>
@@ -653,14 +661,6 @@
                         <span class="separator"></span>
                         <a class="class" href="HTTPHeaderFields.html" title=""></a>
                         <a href="HTTPHeaderFields.html" title="">HTTPHeaderFields</a>
-                      </li><li class="current-entities indented7">
-                        <a class="object" href="Handler$.html" title=""></a>
-                        <a class="class" href="Handler.html" title="Handler defines a specific action that should be taken"></a>
-                        <a href="Handler.html" title="Handler defines a specific action that should be taken">Handler</a>
-                      </li><li class="current-entities indented7">
-                        <span class="separator"></span>
-                        <a class="class" href="HandlerFields.html" title=""></a>
-                        <a href="HandlerFields.html" title="">HandlerFields</a>
                       </li><li class="current-entities indented7">
                         <a class="object" href="HostAlias$.html" title=""></a>
                         <a class="class" href="HostAlias.html" title="HostAlias holds the mapping between IP and hostnames that will be injected as an entry in the pod's hosts file."></a>
@@ -709,6 +709,14 @@
                         <span class="separator"></span>
                         <a class="class" href="LifecycleFields.html" title=""></a>
                         <a href="LifecycleFields.html" title="">LifecycleFields</a>
+                      </li><li class="current-entities indented7">
+                        <a class="object" href="LifecycleHandler$.html" title=""></a>
+                        <a class="class" href="LifecycleHandler.html" title="LifecycleHandler defines a specific action that should be taken in a lifecycle hook."></a>
+                        <a href="LifecycleHandler.html" title="LifecycleHandler defines a specific action that should be taken in a lifecycle hook.">LifecycleHandler</a>
+                      </li><li class="current-entities indented7">
+                        <span class="separator"></span>
+                        <a class="class" href="LifecycleHandlerFields.html" title=""></a>
+                        <a href="LifecycleHandlerFields.html" title="">LifecycleHandlerFields</a>
                       </li><li class="current-entities indented7">
                         <a class="object" href="LimitRange$.html" title=""></a>
                         <a class="class" href="LimitRange.html" title="LimitRange sets resource usage limits for each kind of resource in a Namespace."></a>
@@ -1069,6 +1077,14 @@
                         <span class="separator"></span>
                         <a class="class" href="PodIPFields.html" title=""></a>
                         <a href="PodIPFields.html" title="">PodIPFields</a>
+                      </li><li class="current-entities indented7">
+                        <a class="object" href="PodOS$.html" title=""></a>
+                        <a class="class" href="PodOS.html" title="PodOS defines the OS parameters of a pod."></a>
+                        <a href="PodOS.html" title="PodOS defines the OS parameters of a pod.">PodOS</a>
+                      </li><li class="current-entities indented7">
+                        <span class="separator"></span>
+                        <a class="class" href="PodOSFields.html" title=""></a>
+                        <a href="PodOSFields.html" title="">PodOSFields</a>
                       </li><li class="current-entities indented7">
                         <a class="object" href="PodReadinessGate$.html" title=""></a>
                         <a class="class" href="PodReadinessGate.html" title="PodReadinessGate contains the reference to a pod condition"></a>
@@ -1595,15 +1611,17 @@ take precedence over field values of PodSecurityContext.
   the Kubelet to change the ownership of that volume to be owned by the pod:
 1. The owning GID will be the FSGroup 2. The setgid bit is set (new files created in the volume
 will be owned by FSGroup) 3. The permission bits are OR'd with rw-rw----
-If unset, the Kubelet will not modify the ownership and permissions of any volume.</p></dd><dt class="param">fsGroupChangePolicy</dt><dd class="cmt"><p>
+If unset, the Kubelet will not modify the ownership and permissions of any volume. Note that
+this field cannot be set when spec.os.name is windows.</p></dd><dt class="param">fsGroupChangePolicy</dt><dd class="cmt"><p>
   fsGroupChangePolicy defines behavior of changing ownership and permission of the volume before
   being exposed inside Pod. This field will only apply to volume types which support fsGroup
   based ownership(and permissions). It will have no effect on ephemeral volume types such as:
   secret, configmaps and emptydir. Valid values are &quot;OnRootMismatch&quot; and &quot;Always&quot;. If not
-  specified, &quot;Always&quot; is used.</p></dd><dt class="param">runAsGroup</dt><dd class="cmt"><p>
+  specified, &quot;Always&quot; is used. Note that this field cannot be set when spec.os.name is windows.</p></dd><dt class="param">runAsGroup</dt><dd class="cmt"><p>
   The GID to run the entrypoint of the container process. Uses runtime default if unset. May
   also be set in SecurityContext. If set in both SecurityContext and PodSecurityContext, the
-  value specified in SecurityContext takes precedence for that container.</p></dd><dt class="param">runAsNonRoot</dt><dd class="cmt"><p>
+  value specified in SecurityContext takes precedence for that container. Note that this field
+  cannot be set when spec.os.name is windows.</p></dd><dt class="param">runAsNonRoot</dt><dd class="cmt"><p>
   Indicates that the container must run as a non-root user. If true, the Kubelet will validate
   the image at runtime to ensure that it does not run as UID 0 (root) and fail to start the
   container if it does. If unset or false, no such validation will be performed. May also be set
@@ -1612,11 +1630,13 @@ If unset, the Kubelet will not modify the ownership and permissions of any volum
   The UID to run the entrypoint of the container process. Defaults to user specified in image
   metadata if unspecified. May also be set in SecurityContext. If set in both SecurityContext
   and PodSecurityContext, the value specified in SecurityContext takes precedence for that
-  container.</p></dd><dt class="param">supplementalGroups</dt><dd class="cmt"><p>
+  container. Note that this field cannot be set when spec.os.name is windows.</p></dd><dt class="param">supplementalGroups</dt><dd class="cmt"><p>
   A list of groups applied to the first process run in each container, in addition to the
-  container's primary GID. If unspecified, no groups will be added to any container.</p></dd><dt class="param">sysctls</dt><dd class="cmt"><p>
+  container's primary GID. If unspecified, no groups will be added to any container. Note that
+  this field cannot be set when spec.os.name is windows.</p></dd><dt class="param">sysctls</dt><dd class="cmt"><p>
   Sysctls hold a list of namespaced sysctls used for the pod. Pods with unsupported sysctls (by
-  the container runtime) might fail to launch.</p></dd></dl><div class="toggleContainer block">
+  the container runtime) might fail to launch. Note that this field cannot be set when
+  spec.os.name is windows.</p></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -1686,15 +1706,17 @@ If unset, the Kubelet will not modify the ownership and permissions of any volum
   the Kubelet to change the ownership of that volume to be owned by the pod:
 1. The owning GID will be the FSGroup 2. The setgid bit is set (new files created in the volume
 will be owned by FSGroup) 3. The permission bits are OR'd with rw-rw----
-If unset, the Kubelet will not modify the ownership and permissions of any volume.</p></dd><dt class="param">fsGroupChangePolicy</dt><dd class="cmt"><p>
+If unset, the Kubelet will not modify the ownership and permissions of any volume. Note that
+this field cannot be set when spec.os.name is windows.</p></dd><dt class="param">fsGroupChangePolicy</dt><dd class="cmt"><p>
   fsGroupChangePolicy defines behavior of changing ownership and permission of the volume before
   being exposed inside Pod. This field will only apply to volume types which support fsGroup
   based ownership(and permissions). It will have no effect on ephemeral volume types such as:
   secret, configmaps and emptydir. Valid values are &quot;OnRootMismatch&quot; and &quot;Always&quot;. If not
-  specified, &quot;Always&quot; is used.</p></dd><dt class="param">runAsGroup</dt><dd class="cmt"><p>
+  specified, &quot;Always&quot; is used. Note that this field cannot be set when spec.os.name is windows.</p></dd><dt class="param">runAsGroup</dt><dd class="cmt"><p>
   The GID to run the entrypoint of the container process. Uses runtime default if unset. May
   also be set in SecurityContext. If set in both SecurityContext and PodSecurityContext, the
-  value specified in SecurityContext takes precedence for that container.</p></dd><dt class="param">runAsNonRoot</dt><dd class="cmt"><p>
+  value specified in SecurityContext takes precedence for that container. Note that this field
+  cannot be set when spec.os.name is windows.</p></dd><dt class="param">runAsNonRoot</dt><dd class="cmt"><p>
   Indicates that the container must run as a non-root user. If true, the Kubelet will validate
   the image at runtime to ensure that it does not run as UID 0 (root) and fail to start the
   container if it does. If unset or false, no such validation will be performed. May also be set
@@ -1703,11 +1725,13 @@ If unset, the Kubelet will not modify the ownership and permissions of any volum
   The UID to run the entrypoint of the container process. Defaults to user specified in image
   metadata if unspecified. May also be set in SecurityContext. If set in both SecurityContext
   and PodSecurityContext, the value specified in SecurityContext takes precedence for that
-  container.</p></dd><dt class="param">supplementalGroups</dt><dd class="cmt"><p>
+  container. Note that this field cannot be set when spec.os.name is windows.</p></dd><dt class="param">supplementalGroups</dt><dd class="cmt"><p>
   A list of groups applied to the first process run in each container, in addition to the
-  container's primary GID. If unspecified, no groups will be added to any container.</p></dd><dt class="param">sysctls</dt><dd class="cmt"><p>
+  container's primary GID. If unspecified, no groups will be added to any container. Note that
+  this field cannot be set when spec.os.name is windows.</p></dd><dt class="param">sysctls</dt><dd class="cmt"><p>
   Sysctls hold a list of namespaced sysctls used for the pod. Pods with unsupported sysctls (by
-  the container runtime) might fail to launch.</p></dd></dl></div>
+  the container runtime) might fail to launch. Note that this field cannot be set when
+  spec.os.name is windows.</p></dd></dl></div>
     </li></ol>
             </div>
 
@@ -1894,7 +1918,8 @@ If unset, the Kubelet will not modify the ownership and permissions of any volum
       
       <p class="shortcomment cmt">A special supplemental group that applies to all containers in a pod.</p><div class="fullcomment"><div class="comment cmt"><p>A special supplemental group that applies to all containers in a pod. Some volume types allow
 the Kubelet to change the ownership of that volume to be owned by the pod:</p><p>1. The owning GID will be the FSGroup 2. The setgid bit is set (new files created in the
-volume will be owned by FSGroup) 3. The permission bits are OR'd with rw-rw----</p><p>If unset, the Kubelet will not modify the ownership and permissions of any volume.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+volume will be owned by FSGroup) 3. The permission bits are OR'd with rw-rw----</p><p>If unset, the Kubelet will not modify the ownership and permissions of any volume. Note that
+this field cannot be set when spec.os.name is windows.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.core.v1.PodSecurityContext#getFsGroupChangePolicy" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getFsGroupChangePolicy:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]"></a><a id="getFsGroupChangePolicy:IO[K8sFailure,String]"></a>
@@ -1916,7 +1941,7 @@ being exposed inside Pod.</p><div class="fullcomment"><div class="comment cmt"><
 being exposed inside Pod. This field will only apply to volume types which support fsGroup
 based ownership(and permissions). It will have no effect on ephemeral volume types such as:
 secret, configmaps and emptydir. Valid values are &quot;OnRootMismatch&quot; and &quot;Always&quot;. If not
-specified, &quot;Always&quot; is used.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+specified, &quot;Always&quot; is used. Note that this field cannot be set when spec.os.name is windows.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.core.v1.PodSecurityContext#getRunAsGroup" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getRunAsGroup:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Long]"></a><a id="getRunAsGroup:IO[K8sFailure,Long]"></a>
@@ -1935,7 +1960,8 @@ specified, &quot;Always&quot; is used.</p><p>If the field is not present, fails 
       
       <p class="shortcomment cmt">The GID to run the entrypoint of the container process.</p><div class="fullcomment"><div class="comment cmt"><p>The GID to run the entrypoint of the container process. Uses runtime default if unset. May
 also be set in SecurityContext. If set in both SecurityContext and PodSecurityContext, the
-value specified in SecurityContext takes precedence for that container.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+value specified in SecurityContext takes precedence for that container. Note that this field
+cannot be set when spec.os.name is windows.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.core.v1.PodSecurityContext#getRunAsNonRoot" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getRunAsNonRoot:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Boolean]"></a><a id="getRunAsNonRoot:IO[K8sFailure,Boolean]"></a>
@@ -1976,7 +2002,7 @@ in SecurityContext takes precedence.</p><p>If the field is not present, fails wi
       <p class="shortcomment cmt">The UID to run the entrypoint of the container process.</p><div class="fullcomment"><div class="comment cmt"><p>The UID to run the entrypoint of the container process. Defaults to user specified in image
 metadata if unspecified. May also be set in SecurityContext. If set in both SecurityContext
 and PodSecurityContext, the value specified in SecurityContext takes precedence for that
-container.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+container. Note that this field cannot be set when spec.os.name is windows.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.core.v1.PodSecurityContext#getSeLinuxOptions" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getSeLinuxOptions:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.model.core.v1.SELinuxOptions]"></a><a id="getSeLinuxOptions:IO[K8sFailure,SELinuxOptions]"></a>
@@ -2029,7 +2055,8 @@ container.</p><p>If the field is not present, fails with <a href="../../../clien
       
       <p class="shortcomment cmt">A list of groups applied to the first process run in each container, in addition to the
 container's primary GID.</p><div class="fullcomment"><div class="comment cmt"><p>A list of groups applied to the first process run in each container, in addition to the
-container's primary GID. If unspecified, no groups will be added to any container.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+container's primary GID. If unspecified, no groups will be added to any container. Note that
+this field cannot be set when spec.os.name is windows.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.core.v1.PodSecurityContext#getSysctls" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getSysctls:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Vector[com.coralogix.zio.k8s.model.core.v1.Sysctl]]"></a><a id="getSysctls:IO[K8sFailure,Vector[Sysctl]]"></a>
@@ -2047,7 +2074,8 @@ container's primary GID. If unspecified, no groups will be added to any containe
       </span>
       
       <p class="shortcomment cmt">Sysctls hold a list of namespaced sysctls used for the pod.</p><div class="fullcomment"><div class="comment cmt"><p>Sysctls hold a list of namespaced sysctls used for the pod. Pods with unsupported sysctls (by
-the container runtime) might fail to launch.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+the container runtime) might fail to launch. Note that this field cannot be set when
+spec.os.name is windows.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.core.v1.PodSecurityContext#getWindowsOptions" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getWindowsOptions:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.model.core.v1.WindowsSecurityContextOptions]"></a><a id="getWindowsOptions:IO[K8sFailure,WindowsSecurityContextOptions]"></a>

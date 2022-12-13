@@ -527,8 +527,8 @@
                         <a href="EnvVarSourceFields.html" title="">EnvVarSourceFields</a>
                       </li><li class="current-entities indented7">
                         <a class="object" href="EphemeralContainer$.html" title=""></a>
-                        <a class="class" href="EphemeralContainer.html" title="An EphemeralContainer is a container that may be added temporarily to an existing pod for user-initiated activities such as debugging."></a>
-                        <a href="EphemeralContainer.html" title="An EphemeralContainer is a container that may be added temporarily to an existing pod for user-initiated activities such as debugging.">EphemeralContainer</a>
+                        <a class="class" href="EphemeralContainer.html" title="An EphemeralContainer is a temporary container that you may add to an existing Pod for user-initiated activities such as debugging."></a>
+                        <a href="EphemeralContainer.html" title="An EphemeralContainer is a temporary container that you may add to an existing Pod for user-initiated activities such as debugging.">EphemeralContainer</a>
                       </li><li class="current-entities indented7">
                         <span class="separator"></span>
                         <a class="class" href="EphemeralContainerFields.html" title=""></a>
@@ -614,6 +614,14 @@
                         <a class="class" href="GCEPersistentDiskVolumeSourceFields.html" title=""></a>
                         <a href="GCEPersistentDiskVolumeSourceFields.html" title="">GCEPersistentDiskVolumeSourceFields</a>
                       </li><li class="current-entities indented7">
+                        <a class="object" href="GRPCAction$.html" title=""></a>
+                        <a class="class" href="GRPCAction.html" title=""></a>
+                        <a href="GRPCAction.html" title="">GRPCAction</a>
+                      </li><li class="current-entities indented7">
+                        <span class="separator"></span>
+                        <a class="class" href="GRPCActionFields.html" title=""></a>
+                        <a href="GRPCActionFields.html" title="">GRPCActionFields</a>
+                      </li><li class="current-entities indented7">
                         <a class="object" href="GitRepoVolumeSource$.html" title=""></a>
                         <a class="class" href="GitRepoVolumeSource.html" title="Represents a volume that is populated with the contents of a git repository."></a>
                         <a href="GitRepoVolumeSource.html" title="Represents a volume that is populated with the contents of a git repository.">GitRepoVolumeSource</a>
@@ -653,14 +661,6 @@
                         <span class="separator"></span>
                         <a class="class" href="HTTPHeaderFields.html" title=""></a>
                         <a href="HTTPHeaderFields.html" title="">HTTPHeaderFields</a>
-                      </li><li class="current-entities indented7">
-                        <a class="object" href="Handler$.html" title=""></a>
-                        <a class="class" href="Handler.html" title="Handler defines a specific action that should be taken"></a>
-                        <a href="Handler.html" title="Handler defines a specific action that should be taken">Handler</a>
-                      </li><li class="current-entities indented7">
-                        <span class="separator"></span>
-                        <a class="class" href="HandlerFields.html" title=""></a>
-                        <a href="HandlerFields.html" title="">HandlerFields</a>
                       </li><li class="current-entities indented7">
                         <a class="object" href="HostAlias$.html" title=""></a>
                         <a class="class" href="HostAlias.html" title="HostAlias holds the mapping between IP and hostnames that will be injected as an entry in the pod's hosts file."></a>
@@ -709,6 +709,14 @@
                         <span class="separator"></span>
                         <a class="class" href="LifecycleFields.html" title=""></a>
                         <a href="LifecycleFields.html" title="">LifecycleFields</a>
+                      </li><li class="current-entities indented7">
+                        <a class="object" href="LifecycleHandler$.html" title=""></a>
+                        <a class="class" href="LifecycleHandler.html" title="LifecycleHandler defines a specific action that should be taken in a lifecycle hook."></a>
+                        <a href="LifecycleHandler.html" title="LifecycleHandler defines a specific action that should be taken in a lifecycle hook.">LifecycleHandler</a>
+                      </li><li class="current-entities indented7">
+                        <span class="separator"></span>
+                        <a class="class" href="LifecycleHandlerFields.html" title=""></a>
+                        <a href="LifecycleHandlerFields.html" title="">LifecycleHandlerFields</a>
                       </li><li class="current-entities indented7">
                         <a class="object" href="LimitRange$.html" title=""></a>
                         <a class="class" href="LimitRange.html" title="LimitRange sets resource usage limits for each kind of resource in a Namespace."></a>
@@ -1069,6 +1077,14 @@
                         <span class="separator"></span>
                         <a class="class" href="PodIPFields.html" title=""></a>
                         <a href="PodIPFields.html" title="">PodIPFields</a>
+                      </li><li class="current-entities indented7">
+                        <a class="object" href="PodOS$.html" title=""></a>
+                        <a class="class" href="PodOS.html" title="PodOS defines the OS parameters of a pod."></a>
+                        <a href="PodOS.html" title="PodOS defines the OS parameters of a pod.">PodOS</a>
+                      </li><li class="current-entities indented7">
+                        <span class="separator"></span>
+                        <a class="class" href="PodOSFields.html" title=""></a>
+                        <a href="PodOSFields.html" title="">PodOSFields</a>
                       </li><li class="current-entities indented7">
                         <a class="object" href="PodReadinessGate$.html" title=""></a>
                         <a class="class" href="PodReadinessGate.html" title="PodReadinessGate contains the reference to a pod condition"></a>
@@ -1900,7 +1916,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">nestedField</span><span class="params">(<span name="prefix">prefix: <a href="https://javadoc.io/page/dev.zio/zio_2.12/1.0.16/zio/Chunk.html#zio.Chunk" class="extype" name="zio.Chunk">Chunk</a>[<span class="extype" name="scala.Predef.String">String</span>]</span>)</span><span class="result">: <a href="PersistentVolumeStatusFields.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.PersistentVolumeStatusFields">PersistentVolumeStatusFields</a></span>
+        <span class="name">nestedField</span><span class="params">(<span name="prefix">prefix: <a href="https://javadoc.io/page/dev.zio/zio_2.12/1.0.17/zio/Chunk.html#zio.Chunk" class="extype" name="zio.Chunk">Chunk</a>[<span class="extype" name="scala.Predef.String">String</span>]</span>)</span><span class="result">: <a href="PersistentVolumeStatusFields.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.PersistentVolumeStatusFields">PersistentVolumeStatusFields</a></span>
       </span>
       
       

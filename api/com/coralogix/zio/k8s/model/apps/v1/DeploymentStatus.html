@@ -342,6 +342,14 @@
                         <a class="class" href="StatefulSetFields.html" title=""></a>
                         <a href="StatefulSetFields.html" title="">StatefulSetFields</a>
                       </li><li class="current-entities indented7">
+                        <a class="object" href="StatefulSetPersistentVolumeClaimRetentionPolicy$.html" title=""></a>
+                        <a class="class" href="StatefulSetPersistentVolumeClaimRetentionPolicy.html" title="StatefulSetPersistentVolumeClaimRetentionPolicy describes the policy used for PVCs created from the StatefulSet VolumeClaimTemplates."></a>
+                        <a href="StatefulSetPersistentVolumeClaimRetentionPolicy.html" title="StatefulSetPersistentVolumeClaimRetentionPolicy describes the policy used for PVCs created from the StatefulSet VolumeClaimTemplates.">StatefulSetPersistentVolumeClaimRetentionPolicy</a>
+                      </li><li class="current-entities indented7">
+                        <span class="separator"></span>
+                        <a class="class" href="StatefulSetPersistentVolumeClaimRetentionPolicyFields.html" title=""></a>
+                        <a href="StatefulSetPersistentVolumeClaimRetentionPolicyFields.html" title="">StatefulSetPersistentVolumeClaimRetentionPolicyFields</a>
+                      </li><li class="current-entities indented7">
                         <a class="object" href="StatefulSetSpec$.html" title=""></a>
                         <a class="class" href="StatefulSetSpec.html" title="A StatefulSetSpec is the specification of a StatefulSet."></a>
                         <a href="StatefulSetSpec.html" title="A StatefulSetSpec is the specification of a StatefulSet.">StatefulSetSpec</a>
@@ -403,7 +411,7 @@
   collision avoidance mechanism when it needs to create the name for the newest ReplicaSet.</p></dd><dt class="param">conditions</dt><dd class="cmt"><p>
   Represents the latest available observations of a deployment's current state.</p></dd><dt class="param">observedGeneration</dt><dd class="cmt"><p>
   The generation observed by the deployment controller.</p></dd><dt class="param">readyReplicas</dt><dd class="cmt"><p>
-  Total number of ready pods targeted by this deployment.</p></dd><dt class="param">replicas</dt><dd class="cmt"><p>
+  readyReplicas is the number of pods targeted by this Deployment with a Ready Condition.</p></dd><dt class="param">replicas</dt><dd class="cmt"><p>
   Total number of non-terminated pods targeted by this deployment (their labels match the
   selector).</p></dd><dt class="param">unavailableReplicas</dt><dd class="cmt"><p>
   Total number of unavailable pods targeted by this deployment. This is the total number of pods
@@ -482,7 +490,7 @@
   collision avoidance mechanism when it needs to create the name for the newest ReplicaSet.</p></dd><dt class="param">conditions</dt><dd class="cmt"><p>
   Represents the latest available observations of a deployment's current state.</p></dd><dt class="param">observedGeneration</dt><dd class="cmt"><p>
   The generation observed by the deployment controller.</p></dd><dt class="param">readyReplicas</dt><dd class="cmt"><p>
-  Total number of ready pods targeted by this deployment.</p></dd><dt class="param">replicas</dt><dd class="cmt"><p>
+  readyReplicas is the number of pods targeted by this Deployment with a Ready Condition.</p></dd><dt class="param">replicas</dt><dd class="cmt"><p>
   Total number of non-terminated pods targeted by this deployment (their labels match the
   selector).</p></dd><dt class="param">unavailableReplicas</dt><dd class="cmt"><p>
   Total number of unavailable pods targeted by this deployment. This is the total number of pods
@@ -761,7 +769,7 @@ collision avoidance mechanism when it needs to create the name for the newest Re
         <span class="name">getReadyReplicas</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Int">Int</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">Total number of ready pods targeted by this deployment.</p><div class="fullcomment"><div class="comment cmt"><p>Total number of ready pods targeted by this deployment.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">readyReplicas is the number of pods targeted by this Deployment with a Ready Condition.</p><div class="fullcomment"><div class="comment cmt"><p>readyReplicas is the number of pods targeted by this Deployment with a Ready Condition.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.apps.v1.DeploymentStatus#getReplicas" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getReplicas:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,Int]"></a><a id="getReplicas:IO[K8sFailure,Int]"></a>

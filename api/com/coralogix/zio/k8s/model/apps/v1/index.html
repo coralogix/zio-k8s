@@ -342,6 +342,14 @@
                         <a class="class" href="StatefulSetFields.html" title=""></a>
                         <a href="StatefulSetFields.html" title="">StatefulSetFields</a>
                       </li><li class="current-entities indented7">
+                        <a class="object" href="StatefulSetPersistentVolumeClaimRetentionPolicy$.html" title=""></a>
+                        <a class="class" href="StatefulSetPersistentVolumeClaimRetentionPolicy.html" title="StatefulSetPersistentVolumeClaimRetentionPolicy describes the policy used for PVCs created from the StatefulSet VolumeClaimTemplates."></a>
+                        <a href="StatefulSetPersistentVolumeClaimRetentionPolicy.html" title="StatefulSetPersistentVolumeClaimRetentionPolicy describes the policy used for PVCs created from the StatefulSet VolumeClaimTemplates.">StatefulSetPersistentVolumeClaimRetentionPolicy</a>
+                      </li><li class="current-entities indented7">
+                        <span class="separator"></span>
+                        <a class="class" href="StatefulSetPersistentVolumeClaimRetentionPolicyFields.html" title=""></a>
+                        <a href="StatefulSetPersistentVolumeClaimRetentionPolicyFields.html" title="">StatefulSetPersistentVolumeClaimRetentionPolicyFields</a>
+                      </li><li class="current-entities indented7">
                         <a class="object" href="StatefulSetSpec$.html" title=""></a>
                         <a class="class" href="StatefulSetSpec.html" title="A StatefulSetSpec is the specification of a StatefulSet."></a>
                         <a href="StatefulSetSpec.html" title="A StatefulSetSpec is the specification of a StatefulSet.">StatefulSetSpec</a>
@@ -606,8 +614,8 @@ primarily for internal use by controllers.
   pod running and available (ready for at least spec.minReadySeconds)</p></dd><dt class="param">numberMisscheduled</dt><dd class="cmt"><p>
   The number of nodes that are running the daemon pod, but are not supposed to run the daemon
   pod. More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/</p></dd><dt class="param">numberReady</dt><dd class="cmt"><p>
-  The number of nodes that should be running the daemon pod and have one or more of the daemon
-  pod running and ready.</p></dd><dt class="param">numberUnavailable</dt><dd class="cmt"><p>
+  numberReady is the number of nodes that should be running the daemon pod and have one or more
+  of the daemon pod running with a Ready Condition.</p></dd><dt class="param">numberUnavailable</dt><dd class="cmt"><p>
   The number of nodes that should be running the daemon pod and have none of the daemon pod
   running and available (ready for at least spec.minReadySeconds)</p></dd><dt class="param">observedGeneration</dt><dd class="cmt"><p>
   The most recent generation observed by the daemon set controller.</p></dd><dt class="param">updatedNumberScheduled</dt><dd class="cmt"><p>
@@ -799,7 +807,7 @@ primarily for internal use by controllers.
   collision avoidance mechanism when it needs to create the name for the newest ReplicaSet.</p></dd><dt class="param">conditions</dt><dd class="cmt"><p>
   Represents the latest available observations of a deployment's current state.</p></dd><dt class="param">observedGeneration</dt><dd class="cmt"><p>
   The generation observed by the deployment controller.</p></dd><dt class="param">readyReplicas</dt><dd class="cmt"><p>
-  Total number of ready pods targeted by this deployment.</p></dd><dt class="param">replicas</dt><dd class="cmt"><p>
+  readyReplicas is the number of pods targeted by this Deployment with a Ready Condition.</p></dd><dt class="param">replicas</dt><dd class="cmt"><p>
   Total number of non-terminated pods targeted by this deployment (their labels match the
   selector).</p></dd><dt class="param">unavailableReplicas</dt><dd class="cmt"><p>
   Total number of unavailable pods targeted by this deployment. This is the total number of pods
@@ -986,7 +994,7 @@ primarily for internal use by controllers.
   Represents the latest available observations of a replica set's current state.</p></dd><dt class="param">fullyLabeledReplicas</dt><dd class="cmt"><p>
   The number of pods that have labels matching the labels of the pod template of the replicaset.</p></dd><dt class="param">observedGeneration</dt><dd class="cmt"><p>
   ObservedGeneration reflects the generation of the most recently observed ReplicaSet.</p></dd><dt class="param">readyReplicas</dt><dd class="cmt"><p>
-  The number of ready replicas for this replica set.</p></dd><dt class="param">replicas</dt><dd class="cmt"><p>
+  readyReplicas is the number of pods targeted by this ReplicaSet with a Ready Condition.</p></dd><dt class="param">replicas</dt><dd class="cmt"><p>
   Replicas is the most recently oberved number of replicas. More info:
   https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.apps.v1.ReplicaSetStatusFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
@@ -1179,6 +1187,48 @@ identity will always map to the same storage identity.
       </span>
       
       
+    </li><li name="com.coralogix.zio.k8s.model.apps.v1.StatefulSetPersistentVolumeClaimRetentionPolicy" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="StatefulSetPersistentVolumeClaimRetentionPolicyextendsProductwithSerializable"></a><a id="StatefulSetPersistentVolumeClaimRetentionPolicy:StatefulSetPersistentVolumeClaimRetentionPolicy"></a>
+      <span class="permalink">
+      <a href="../../../../../../../com/coralogix/zio/k8s/model/apps/v1/StatefulSetPersistentVolumeClaimRetentionPolicy.html" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a title="StatefulSetPersistentVolumeClaimRetentionPolicy describes the policy used for PVCs created from the StatefulSet VolumeClaimTemplates." href="StatefulSetPersistentVolumeClaimRetentionPolicy.html"><span class="name">StatefulSetPersistentVolumeClaimRetentionPolicy</span></a><span class="params">(<span name="whenDeleted">whenDeleted: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="whenScaled">whenScaled: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      
+      <p class="shortcomment cmt">StatefulSetPersistentVolumeClaimRetentionPolicy describes the policy used for PVCs created from
+the StatefulSet VolumeClaimTemplates.</p><div class="fullcomment"><div class="comment cmt"><p>StatefulSetPersistentVolumeClaimRetentionPolicy describes the policy used for PVCs created from
+the StatefulSet VolumeClaimTemplates.
+</p></div><dl class="paramcmts block"><dt class="param">whenDeleted</dt><dd class="cmt"><p>
+  WhenDeleted specifies what happens to PVCs created from StatefulSet VolumeClaimTemplates when
+  the StatefulSet is deleted. The default policy of <code>Retain</code> causes PVCs to not be affected by
+  StatefulSet deletion. The <code>Delete</code> policy causes those PVCs to be deleted.</p></dd><dt class="param">whenScaled</dt><dd class="cmt"><p>
+  WhenScaled specifies what happens to PVCs created from StatefulSet VolumeClaimTemplates when
+  the StatefulSet is scaled down. The default policy of <code>Retain</code> causes PVCs to not be affected
+  by a scaledown. The <code>Delete</code> policy causes the associated PVCs for any excess pods above the
+  replica count to be deleted.</p></dd></dl></div>
+    </li><li name="com.coralogix.zio.k8s.model.apps.v1.StatefulSetPersistentVolumeClaimRetentionPolicyFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="StatefulSetPersistentVolumeClaimRetentionPolicyFieldsextendsAnyRef"></a><a id="StatefulSetPersistentVolumeClaimRetentionPolicyFields:StatefulSetPersistentVolumeClaimRetentionPolicyFields"></a>
+      <span class="permalink">
+      <a href="../../../../../../../com/coralogix/zio/k8s/model/apps/v1/StatefulSetPersistentVolumeClaimRetentionPolicyFields.html" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="StatefulSetPersistentVolumeClaimRetentionPolicyFields.html"><span class="name">StatefulSetPersistentVolumeClaimRetentionPolicyFields</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+      </span>
+      
+      
     </li><li name="com.coralogix.zio.k8s.model.apps.v1.StatefulSetSpec" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="StatefulSetSpecextendsProductwithSerializable"></a><a id="StatefulSetSpec:StatefulSetSpec"></a>
       <span class="permalink">
@@ -1191,7 +1241,7 @@ identity will always map to the same storage identity.
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a title="A StatefulSetSpec is the specification of a StatefulSet." href="StatefulSetSpec.html"><span class="name">StatefulSetSpec</span></a><span class="params">(<span name="minReadySeconds">minReadySeconds: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="podManagementPolicy">podManagementPolicy: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="replicas">replicas: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="revisionHistoryLimit">revisionHistoryLimit: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="selector">selector: <a href="../../pkg/apis/meta/v1/LabelSelector.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.LabelSelector">LabelSelector</a></span>, <span name="serviceName">serviceName: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="template">template: <a href="../../core/v1/PodTemplateSpec.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.PodTemplateSpec">PodTemplateSpec</a></span>, <span name="updateStrategy">updateStrategy: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="StatefulSetUpdateStrategy.html" class="extype" name="com.coralogix.zio.k8s.model.apps.v1.StatefulSetUpdateStrategy">StatefulSetUpdateStrategy</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="volumeClaimTemplates">volumeClaimTemplates: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="../../core/v1/PersistentVolumeClaim.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.PersistentVolumeClaim">PersistentVolumeClaim</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a title="A StatefulSetSpec is the specification of a StatefulSet." href="StatefulSetSpec.html"><span class="name">StatefulSetSpec</span></a><span class="params">(<span name="minReadySeconds">minReadySeconds: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="persistentVolumeClaimRetentionPolicy">persistentVolumeClaimRetentionPolicy: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="StatefulSetPersistentVolumeClaimRetentionPolicy.html" class="extype" name="com.coralogix.zio.k8s.model.apps.v1.StatefulSetPersistentVolumeClaimRetentionPolicy">StatefulSetPersistentVolumeClaimRetentionPolicy</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="podManagementPolicy">podManagementPolicy: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="replicas">replicas: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="revisionHistoryLimit">revisionHistoryLimit: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="selector">selector: <a href="../../pkg/apis/meta/v1/LabelSelector.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.LabelSelector">LabelSelector</a></span>, <span name="serviceName">serviceName: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="template">template: <a href="../../core/v1/PodTemplateSpec.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.PodTemplateSpec">PodTemplateSpec</a></span>, <span name="updateStrategy">updateStrategy: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="StatefulSetUpdateStrategy.html" class="extype" name="com.coralogix.zio.k8s.model.apps.v1.StatefulSetUpdateStrategy">StatefulSetUpdateStrategy</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="volumeClaimTemplates">volumeClaimTemplates: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="../../core/v1/PersistentVolumeClaim.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.PersistentVolumeClaim">PersistentVolumeClaim</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       <p class="shortcomment cmt">A StatefulSetSpec is the specification of a StatefulSet.</p><div class="fullcomment"><div class="comment cmt"><p>A StatefulSetSpec is the specification of a StatefulSet.
@@ -1250,14 +1300,14 @@ identity will always map to the same storage identity.
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a title="StatefulSetStatus represents the current state of a StatefulSet." href="StatefulSetStatus.html"><span class="name">StatefulSetStatus</span></a><span class="params">(<span name="availableReplicas">availableReplicas: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="collisionCount">collisionCount: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="conditions">conditions: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="StatefulSetCondition.html" class="extype" name="com.coralogix.zio.k8s.model.apps.v1.StatefulSetCondition">StatefulSetCondition</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="currentReplicas">currentReplicas: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="currentRevision">currentRevision: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="observedGeneration">observedGeneration: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Long">Long</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="readyReplicas">readyReplicas: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="replicas">replicas: <span class="extype" name="scala.Int">Int</span></span>, <span name="updateRevision">updateRevision: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="updatedReplicas">updatedReplicas: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a title="StatefulSetStatus represents the current state of a StatefulSet." href="StatefulSetStatus.html"><span class="name">StatefulSetStatus</span></a><span class="params">(<span name="availableReplicas">availableReplicas: <span class="extype" name="scala.Int">Int</span></span>, <span name="collisionCount">collisionCount: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="conditions">conditions: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="StatefulSetCondition.html" class="extype" name="com.coralogix.zio.k8s.model.apps.v1.StatefulSetCondition">StatefulSetCondition</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="currentReplicas">currentReplicas: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="currentRevision">currentRevision: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="observedGeneration">observedGeneration: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Long">Long</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="readyReplicas">readyReplicas: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="replicas">replicas: <span class="extype" name="scala.Int">Int</span></span>, <span name="updateRevision">updateRevision: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="updatedReplicas">updatedReplicas: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       <p class="shortcomment cmt">StatefulSetStatus represents the current state of a StatefulSet.</p><div class="fullcomment"><div class="comment cmt"><p>StatefulSetStatus represents the current state of a StatefulSet.
 </p></div><dl class="paramcmts block"><dt class="param">availableReplicas</dt><dd class="cmt"><p>
   Total number of available pods (ready for at least minReadySeconds) targeted by this
-  statefulset. This is an alpha field and requires enabling StatefulSetMinReadySeconds feature
-  gate. Remove omitempty when graduating to beta</p></dd><dt class="param">collisionCount</dt><dd class="cmt"><p>
+  statefulset. This is a beta field and enabled/disabled by StatefulSetMinReadySeconds feature
+  gate.</p></dd><dt class="param">collisionCount</dt><dd class="cmt"><p>
   collisionCount is the count of hash collisions for the StatefulSet. The StatefulSet controller
   uses this field as a collision avoidance mechanism when it needs to create the name for the
   newest ControllerRevision.</p></dd><dt class="param">conditions</dt><dd class="cmt"><p>
@@ -1268,8 +1318,7 @@ identity will always map to the same storage identity.
   in the sequence [0,currentReplicas).</p></dd><dt class="param">observedGeneration</dt><dd class="cmt"><p>
   observedGeneration is the most recent generation observed for this StatefulSet. It corresponds
   to the StatefulSet's generation, which is updated on mutation by the API Server.</p></dd><dt class="param">readyReplicas</dt><dd class="cmt"><p>
-  readyReplicas is the number of Pods created by the StatefulSet controller that have a Ready
-  Condition.</p></dd><dt class="param">replicas</dt><dd class="cmt"><p>
+  readyReplicas is the number of pods created for this StatefulSet with a Ready Condition.</p></dd><dt class="param">replicas</dt><dd class="cmt"><p>
   replicas is the number of Pods created by the StatefulSet controller.</p></dd><dt class="param">updateRevision</dt><dd class="cmt"><p>
   updateRevision, if not empty, indicates the version of the StatefulSet used to generate Pods
   in the sequence [replicas-updatedReplicas,replicas)</p></dd><dt class="param">updatedReplicas</dt><dd class="cmt"><p>
@@ -1653,6 +1702,22 @@ indicated strategy.
       </span>
       <span class="symbol">
         <a title="" href="StatefulSetCondition$.html"><span class="name">StatefulSetCondition</span></a><span class="result"> extends <a href="StatefulSetConditionFields.html" class="extype" name="com.coralogix.zio.k8s.model.apps.v1.StatefulSetConditionFields">StatefulSetConditionFields</a> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      
+      
+    </li><li name="com.coralogix.zio.k8s.model.apps.v1.StatefulSetPersistentVolumeClaimRetentionPolicy" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="StatefulSetPersistentVolumeClaimRetentionPolicy"></a><a id="StatefulSetPersistentVolumeClaimRetentionPolicy:StatefulSetPersistentVolumeClaimRetentionPolicy"></a>
+      <span class="permalink">
+      <a href="../../../../../../../com/coralogix/zio/k8s/model/apps/v1/StatefulSetPersistentVolumeClaimRetentionPolicy$.html" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="StatefulSetPersistentVolumeClaimRetentionPolicy$.html"><span class="name">StatefulSetPersistentVolumeClaimRetentionPolicy</span></a><span class="result"> extends <a href="StatefulSetPersistentVolumeClaimRetentionPolicyFields.html" class="extype" name="com.coralogix.zio.k8s.model.apps.v1.StatefulSetPersistentVolumeClaimRetentionPolicyFields">StatefulSetPersistentVolumeClaimRetentionPolicyFields</a> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       

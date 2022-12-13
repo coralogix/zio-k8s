@@ -527,8 +527,8 @@
                         <a href="EnvVarSourceFields.html" title="">EnvVarSourceFields</a>
                       </li><li class="current-entities indented7">
                         <a class="object" href="EphemeralContainer$.html" title=""></a>
-                        <a class="class" href="" title="An EphemeralContainer is a container that may be added temporarily to an existing pod for user-initiated activities such as debugging."></a>
-                        <a href="" title="An EphemeralContainer is a container that may be added temporarily to an existing pod for user-initiated activities such as debugging.">EphemeralContainer</a>
+                        <a class="class" href="" title="An EphemeralContainer is a temporary container that you may add to an existing Pod for user-initiated activities such as debugging."></a>
+                        <a href="" title="An EphemeralContainer is a temporary container that you may add to an existing Pod for user-initiated activities such as debugging.">EphemeralContainer</a>
                       </li><li class="current-entities indented7">
                         <span class="separator"></span>
                         <a class="class" href="EphemeralContainerFields.html" title=""></a>
@@ -614,6 +614,14 @@
                         <a class="class" href="GCEPersistentDiskVolumeSourceFields.html" title=""></a>
                         <a href="GCEPersistentDiskVolumeSourceFields.html" title="">GCEPersistentDiskVolumeSourceFields</a>
                       </li><li class="current-entities indented7">
+                        <a class="object" href="GRPCAction$.html" title=""></a>
+                        <a class="class" href="GRPCAction.html" title=""></a>
+                        <a href="GRPCAction.html" title="">GRPCAction</a>
+                      </li><li class="current-entities indented7">
+                        <span class="separator"></span>
+                        <a class="class" href="GRPCActionFields.html" title=""></a>
+                        <a href="GRPCActionFields.html" title="">GRPCActionFields</a>
+                      </li><li class="current-entities indented7">
                         <a class="object" href="GitRepoVolumeSource$.html" title=""></a>
                         <a class="class" href="GitRepoVolumeSource.html" title="Represents a volume that is populated with the contents of a git repository."></a>
                         <a href="GitRepoVolumeSource.html" title="Represents a volume that is populated with the contents of a git repository.">GitRepoVolumeSource</a>
@@ -653,14 +661,6 @@
                         <span class="separator"></span>
                         <a class="class" href="HTTPHeaderFields.html" title=""></a>
                         <a href="HTTPHeaderFields.html" title="">HTTPHeaderFields</a>
-                      </li><li class="current-entities indented7">
-                        <a class="object" href="Handler$.html" title=""></a>
-                        <a class="class" href="Handler.html" title="Handler defines a specific action that should be taken"></a>
-                        <a href="Handler.html" title="Handler defines a specific action that should be taken">Handler</a>
-                      </li><li class="current-entities indented7">
-                        <span class="separator"></span>
-                        <a class="class" href="HandlerFields.html" title=""></a>
-                        <a href="HandlerFields.html" title="">HandlerFields</a>
                       </li><li class="current-entities indented7">
                         <a class="object" href="HostAlias$.html" title=""></a>
                         <a class="class" href="HostAlias.html" title="HostAlias holds the mapping between IP and hostnames that will be injected as an entry in the pod's hosts file."></a>
@@ -709,6 +709,14 @@
                         <span class="separator"></span>
                         <a class="class" href="LifecycleFields.html" title=""></a>
                         <a href="LifecycleFields.html" title="">LifecycleFields</a>
+                      </li><li class="current-entities indented7">
+                        <a class="object" href="LifecycleHandler$.html" title=""></a>
+                        <a class="class" href="LifecycleHandler.html" title="LifecycleHandler defines a specific action that should be taken in a lifecycle hook."></a>
+                        <a href="LifecycleHandler.html" title="LifecycleHandler defines a specific action that should be taken in a lifecycle hook.">LifecycleHandler</a>
+                      </li><li class="current-entities indented7">
+                        <span class="separator"></span>
+                        <a class="class" href="LifecycleHandlerFields.html" title=""></a>
+                        <a href="LifecycleHandlerFields.html" title="">LifecycleHandlerFields</a>
                       </li><li class="current-entities indented7">
                         <a class="object" href="LimitRange$.html" title=""></a>
                         <a class="class" href="LimitRange.html" title="LimitRange sets resource usage limits for each kind of resource in a Namespace."></a>
@@ -1069,6 +1077,14 @@
                         <span class="separator"></span>
                         <a class="class" href="PodIPFields.html" title=""></a>
                         <a href="PodIPFields.html" title="">PodIPFields</a>
+                      </li><li class="current-entities indented7">
+                        <a class="object" href="PodOS$.html" title=""></a>
+                        <a class="class" href="PodOS.html" title="PodOS defines the OS parameters of a pod."></a>
+                        <a href="PodOS.html" title="PodOS defines the OS parameters of a pod.">PodOS</a>
+                      </li><li class="current-entities indented7">
+                        <span class="separator"></span>
+                        <a class="class" href="PodOSFields.html" title=""></a>
+                        <a href="PodOSFields.html" title="">PodOSFields</a>
                       </li><li class="current-entities indented7">
                         <a class="object" href="PodReadinessGate$.html" title=""></a>
                         <a class="class" href="PodReadinessGate.html" title="PodReadinessGate contains the reference to a pod condition"></a>
@@ -1587,13 +1603,13 @@
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>An EphemeralContainer is a container that may be added temporarily to an existing pod for
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>An EphemeralContainer is a temporary container that you may add to an existing Pod for
 user-initiated activities such as debugging. Ephemeral containers have no resource or scheduling
-guarantees, and they will not be restarted when they exit or when a pod is removed or restarted.
-If an ephemeral container causes a pod to exceed its resource allocation, the pod may be
-evicted. Ephemeral containers may not be added by directly updating the pod spec. They must be
-added via the pod's ephemeralcontainers subresource, and they will appear in the pod spec once
-added. This is an alpha feature enabled by the EphemeralContainers feature flag.
+guarantees, and they will not be restarted when they exit or when a Pod is removed or restarted.
+The kubelet may evict a Pod if an ephemeral container causes the Pod to exceed its resource
+allocation.</p><p>To add an ephemeral container, use the ephemeralcontainers subresource of an existing Pod.
+Ephemeral containers may not be removed or restarted.</p><p>This is a beta feature available on clusters that haven't disabled the EphemeralContainers
+feature gate.
 </p></div><dl class="paramcmts block"><dt class="param">args</dt><dd class="cmt"><p>
   Arguments to the entrypoint. The docker image's CMD is used if this is not provided. Variable
   references $$(VAR_NAME) are expanded using the container's environment. If a variable cannot
@@ -1634,8 +1650,9 @@ added. This is an alpha feature enabled by the EphemeralContainers feature flag.
   receive an EOF. Default is false</p></dd><dt class="param">targetContainerName</dt><dd class="cmt"><p>
   If set, the name of the container from PodSpec that this ephemeral container targets. The
   ephemeral container will be run in the namespaces (IPC, PID, etc) of this container. If not
-  set then the ephemeral container is run in whatever namespaces are shared for the pod. Note
-  that the container runtime must support this feature.</p></dd><dt class="param">terminationMessagePath</dt><dd class="cmt"><p>
+  set then the ephemeral container uses the namespaces configured in the Pod spec.
+The container runtime must implement support for this feature. If the runtime does not support
+namespace targeting then the result of setting this field is undefined.</p></dd><dt class="param">terminationMessagePath</dt><dd class="cmt"><p>
   Optional: Path at which the file to which the container's termination message will be written
   is mounted into the container's filesystem. Message written is intended to be brief final
   status, such as an assertion failure message. Will be truncated by the node if greater than
@@ -1649,7 +1666,8 @@ added. This is an alpha feature enabled by the EphemeralContainers feature flag.
   Whether this container should allocate a TTY for itself, also requires 'stdin' to be true.
   Default is false.</p></dd><dt class="param">volumeDevices</dt><dd class="cmt"><p>
   volumeDevices is the list of block devices to be used by the container.</p></dd><dt class="param">volumeMounts</dt><dd class="cmt"><p>
-  Pod volumes to mount into the container's filesystem. Cannot be updated.</p></dd><dt class="param">workingDir</dt><dd class="cmt"><p>
+  Pod volumes to mount into the container's filesystem. Subpath mounts are not allowed for
+  ephemeral containers. Cannot be updated.</p></dd><dt class="param">workingDir</dt><dd class="cmt"><p>
   Container's working directory. If not specified, the container runtime's default will be used,
   which might be configured in the container image. Cannot be updated.</p></dd></dl><div class="toggleContainer block">
           <span class="toggle">
@@ -1756,8 +1774,9 @@ added. This is an alpha feature enabled by the EphemeralContainers feature flag.
   receive an EOF. Default is false</p></dd><dt class="param">targetContainerName</dt><dd class="cmt"><p>
   If set, the name of the container from PodSpec that this ephemeral container targets. The
   ephemeral container will be run in the namespaces (IPC, PID, etc) of this container. If not
-  set then the ephemeral container is run in whatever namespaces are shared for the pod. Note
-  that the container runtime must support this feature.</p></dd><dt class="param">terminationMessagePath</dt><dd class="cmt"><p>
+  set then the ephemeral container uses the namespaces configured in the Pod spec.
+The container runtime must implement support for this feature. If the runtime does not support
+namespace targeting then the result of setting this field is undefined.</p></dd><dt class="param">terminationMessagePath</dt><dd class="cmt"><p>
   Optional: Path at which the file to which the container's termination message will be written
   is mounted into the container's filesystem. Message written is intended to be brief final
   status, such as an assertion failure message. Will be truncated by the node if greater than
@@ -1771,7 +1790,8 @@ added. This is an alpha feature enabled by the EphemeralContainers feature flag.
   Whether this container should allocate a TTY for itself, also requires 'stdin' to be true.
   Default is false.</p></dd><dt class="param">volumeDevices</dt><dd class="cmt"><p>
   volumeDevices is the list of block devices to be used by the container.</p></dd><dt class="param">volumeMounts</dt><dd class="cmt"><p>
-  Pod volumes to mount into the container's filesystem. Cannot be updated.</p></dd><dt class="param">workingDir</dt><dd class="cmt"><p>
+  Pod volumes to mount into the container's filesystem. Subpath mounts are not allowed for
+  ephemeral containers. Cannot be updated.</p></dd><dt class="param">workingDir</dt><dd class="cmt"><p>
   Container's working directory. If not specified, the container runtime's default will be used,
   which might be configured in the container image. Cannot be updated.</p></dd></dl></div>
     </li></ol>
@@ -2292,8 +2312,8 @@ receive an EOF. Default is false</p><p>If the field is not present, fails with <
       
       <p class="shortcomment cmt">If set, the name of the container from PodSpec that this ephemeral container targets.</p><div class="fullcomment"><div class="comment cmt"><p>If set, the name of the container from PodSpec that this ephemeral container targets. The
 ephemeral container will be run in the namespaces (IPC, PID, etc) of this container. If not
-set then the ephemeral container is run in whatever namespaces are shared for the pod. Note
-that the container runtime must support this feature.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+set then the ephemeral container uses the namespaces configured in the Pod spec.</p><p>The container runtime must implement support for this feature. If the runtime does not support
+namespace targeting then the result of setting this field is undefined.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.core.v1.EphemeralContainer#getTerminationMessagePath" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getTerminationMessagePath:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]"></a><a id="getTerminationMessagePath:IO[K8sFailure,String]"></a>
@@ -2388,7 +2408,8 @@ Default is false.</p><p>If the field is not present, fails with <a href="../../.
         <span class="name">getVolumeMounts</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Vector">Vector</span>[<a href="VolumeMount.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.VolumeMount">VolumeMount</a>]]</span>
       </span>
       
-      <p class="shortcomment cmt">Pod volumes to mount into the container's filesystem.</p><div class="fullcomment"><div class="comment cmt"><p>Pod volumes to mount into the container's filesystem. Cannot be updated.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">Pod volumes to mount into the container's filesystem.</p><div class="fullcomment"><div class="comment cmt"><p>Pod volumes to mount into the container's filesystem. Subpath mounts are not allowed for
+ephemeral containers. Cannot be updated.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.core.v1.EphemeralContainer#getWorkingDir" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getWorkingDir:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]"></a><a id="getWorkingDir:IO[K8sFailure,String]"></a>

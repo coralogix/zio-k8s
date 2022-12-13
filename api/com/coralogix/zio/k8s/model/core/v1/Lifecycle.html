@@ -527,8 +527,8 @@
                         <a href="EnvVarSourceFields.html" title="">EnvVarSourceFields</a>
                       </li><li class="current-entities indented7">
                         <a class="object" href="EphemeralContainer$.html" title=""></a>
-                        <a class="class" href="EphemeralContainer.html" title="An EphemeralContainer is a container that may be added temporarily to an existing pod for user-initiated activities such as debugging."></a>
-                        <a href="EphemeralContainer.html" title="An EphemeralContainer is a container that may be added temporarily to an existing pod for user-initiated activities such as debugging.">EphemeralContainer</a>
+                        <a class="class" href="EphemeralContainer.html" title="An EphemeralContainer is a temporary container that you may add to an existing Pod for user-initiated activities such as debugging."></a>
+                        <a href="EphemeralContainer.html" title="An EphemeralContainer is a temporary container that you may add to an existing Pod for user-initiated activities such as debugging.">EphemeralContainer</a>
                       </li><li class="current-entities indented7">
                         <span class="separator"></span>
                         <a class="class" href="EphemeralContainerFields.html" title=""></a>
@@ -614,6 +614,14 @@
                         <a class="class" href="GCEPersistentDiskVolumeSourceFields.html" title=""></a>
                         <a href="GCEPersistentDiskVolumeSourceFields.html" title="">GCEPersistentDiskVolumeSourceFields</a>
                       </li><li class="current-entities indented7">
+                        <a class="object" href="GRPCAction$.html" title=""></a>
+                        <a class="class" href="GRPCAction.html" title=""></a>
+                        <a href="GRPCAction.html" title="">GRPCAction</a>
+                      </li><li class="current-entities indented7">
+                        <span class="separator"></span>
+                        <a class="class" href="GRPCActionFields.html" title=""></a>
+                        <a href="GRPCActionFields.html" title="">GRPCActionFields</a>
+                      </li><li class="current-entities indented7">
                         <a class="object" href="GitRepoVolumeSource$.html" title=""></a>
                         <a class="class" href="GitRepoVolumeSource.html" title="Represents a volume that is populated with the contents of a git repository."></a>
                         <a href="GitRepoVolumeSource.html" title="Represents a volume that is populated with the contents of a git repository.">GitRepoVolumeSource</a>
@@ -653,14 +661,6 @@
                         <span class="separator"></span>
                         <a class="class" href="HTTPHeaderFields.html" title=""></a>
                         <a href="HTTPHeaderFields.html" title="">HTTPHeaderFields</a>
-                      </li><li class="current-entities indented7">
-                        <a class="object" href="Handler$.html" title=""></a>
-                        <a class="class" href="Handler.html" title="Handler defines a specific action that should be taken"></a>
-                        <a href="Handler.html" title="Handler defines a specific action that should be taken">Handler</a>
-                      </li><li class="current-entities indented7">
-                        <span class="separator"></span>
-                        <a class="class" href="HandlerFields.html" title=""></a>
-                        <a href="HandlerFields.html" title="">HandlerFields</a>
                       </li><li class="current-entities indented7">
                         <a class="object" href="HostAlias$.html" title=""></a>
                         <a class="class" href="HostAlias.html" title="HostAlias holds the mapping between IP and hostnames that will be injected as an entry in the pod's hosts file."></a>
@@ -709,6 +709,14 @@
                         <span class="separator"></span>
                         <a class="class" href="LifecycleFields.html" title=""></a>
                         <a href="LifecycleFields.html" title="">LifecycleFields</a>
+                      </li><li class="current-entities indented7">
+                        <a class="object" href="LifecycleHandler$.html" title=""></a>
+                        <a class="class" href="LifecycleHandler.html" title="LifecycleHandler defines a specific action that should be taken in a lifecycle hook."></a>
+                        <a href="LifecycleHandler.html" title="LifecycleHandler defines a specific action that should be taken in a lifecycle hook.">LifecycleHandler</a>
+                      </li><li class="current-entities indented7">
+                        <span class="separator"></span>
+                        <a class="class" href="LifecycleHandlerFields.html" title=""></a>
+                        <a href="LifecycleHandlerFields.html" title="">LifecycleHandlerFields</a>
                       </li><li class="current-entities indented7">
                         <a class="object" href="LimitRange$.html" title=""></a>
                         <a class="class" href="LimitRange.html" title="LimitRange sets resource usage limits for each kind of resource in a Namespace."></a>
@@ -1069,6 +1077,14 @@
                         <span class="separator"></span>
                         <a class="class" href="PodIPFields.html" title=""></a>
                         <a href="PodIPFields.html" title="">PodIPFields</a>
+                      </li><li class="current-entities indented7">
+                        <a class="object" href="PodOS$.html" title=""></a>
+                        <a class="class" href="PodOS.html" title="PodOS defines the OS parameters of a pod."></a>
+                        <a href="PodOS.html" title="PodOS defines the OS parameters of a pod.">PodOS</a>
+                      </li><li class="current-entities indented7">
+                        <span class="separator"></span>
+                        <a class="class" href="PodOSFields.html" title=""></a>
+                        <a href="PodOSFields.html" title="">PodOSFields</a>
                       </li><li class="current-entities indented7">
                         <a class="object" href="PodReadinessGate$.html" title=""></a>
                         <a class="class" href="PodReadinessGate.html" title="PodReadinessGate contains the reference to a pod condition"></a>
@@ -1582,7 +1598,7 @@
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <span class="name">Lifecycle</span><span class="params">(<span name="postStart">postStart: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="Handler.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.Handler">Handler</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="preStop">preStop: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="Handler.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.Handler">Handler</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <span class="name">Lifecycle</span><span class="params">(<span name="postStart">postStart: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="LifecycleHandler.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.LifecycleHandler">LifecycleHandler</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="preStop">preStop: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="LifecycleHandler.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.LifecycleHandler">LifecycleHandler</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       </h4>
 
@@ -1642,9 +1658,9 @@ handler is aborted.
         <div id="constructors" class="members">
               <h3>Instance Constructors</h3>
               <ol><li name="com.coralogix.zio.k8s.model.core.v1.Lifecycle#&lt;init&gt;" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="&lt;init&gt;(postStart:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.Handler],preStop:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.Handler]):com.coralogix.zio.k8s.model.core.v1.Lifecycle"></a><a id="&lt;init&gt;:Lifecycle"></a>
+      <a id="&lt;init&gt;(postStart:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.LifecycleHandler],preStop:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.LifecycleHandler]):com.coralogix.zio.k8s.model.core.v1.Lifecycle"></a><a id="&lt;init&gt;:Lifecycle"></a>
       <span class="permalink">
-      <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/Lifecycle.html#&lt;init&gt;(postStart:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.Handler],preStop:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.Handler]):com.coralogix.zio.k8s.model.core.v1.Lifecycle" title="Permalink">
+      <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/Lifecycle.html#&lt;init&gt;(postStart:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.LifecycleHandler],preStop:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.LifecycleHandler]):com.coralogix.zio.k8s.model.core.v1.Lifecycle" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -1653,7 +1669,7 @@ handler is aborted.
         <span class="kind">new</span>
       </span>
       <span class="symbol">
-        <span class="name">Lifecycle</span><span class="params">(<span name="postStart">postStart: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="Handler.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.Handler">Handler</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="preStop">preStop: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="Handler.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.Handler">Handler</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span>
+        <span class="name">Lifecycle</span><span class="params">(<span name="postStart">postStart: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="LifecycleHandler.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.LifecycleHandler">LifecycleHandler</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="preStop">preStop: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="LifecycleHandler.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.LifecycleHandler">LifecycleHandler</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span>
       </span>
       
       
@@ -1795,9 +1811,9 @@ handler is aborted.
               
         </dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.core.v1.Lifecycle#getPostStart" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="getPostStart:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.model.core.v1.Handler]"></a><a id="getPostStart:IO[K8sFailure,Handler]"></a>
+      <a id="getPostStart:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.model.core.v1.LifecycleHandler]"></a><a id="getPostStart:IO[K8sFailure,LifecycleHandler]"></a>
       <span class="permalink">
-      <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/Lifecycle.html#getPostStart:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.model.core.v1.Handler]" title="Permalink">
+      <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/Lifecycle.html#getPostStart:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.model.core.v1.LifecycleHandler]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -1806,15 +1822,15 @@ handler is aborted.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">getPostStart</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="Handler.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.Handler">Handler</a>]</span>
+        <span class="name">getPostStart</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="LifecycleHandler.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.LifecycleHandler">LifecycleHandler</a>]</span>
       </span>
       
       <p class="shortcomment cmt">Gets postStart.</p><div class="fullcomment"><div class="comment cmt"><p>Gets postStart.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.core.v1.Lifecycle#getPreStop" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="getPreStop:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.model.core.v1.Handler]"></a><a id="getPreStop:IO[K8sFailure,Handler]"></a>
+      <a id="getPreStop:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.model.core.v1.LifecycleHandler]"></a><a id="getPreStop:IO[K8sFailure,LifecycleHandler]"></a>
       <span class="permalink">
-      <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/Lifecycle.html#getPreStop:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.model.core.v1.Handler]" title="Permalink">
+      <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/Lifecycle.html#getPreStop:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.model.core.v1.LifecycleHandler]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -1823,7 +1839,7 @@ handler is aborted.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">getPreStop</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="Handler.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.Handler">Handler</a>]</span>
+        <span class="name">getPreStop</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="LifecycleHandler.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.LifecycleHandler">LifecycleHandler</a>]</span>
       </span>
       
       <p class="shortcomment cmt">Gets preStop.</p><div class="fullcomment"><div class="comment cmt"><p>Gets preStop.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
@@ -1903,9 +1919,9 @@ handler is aborted.
               
         </dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.core.v1.Lifecycle#postStart" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="postStart:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.Handler]"></a><a id="postStart:Optional[Handler]"></a>
+      <a id="postStart:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.LifecycleHandler]"></a><a id="postStart:Optional[LifecycleHandler]"></a>
       <span class="permalink">
-      <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/Lifecycle.html#postStart:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.Handler]" title="Permalink">
+      <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/Lifecycle.html#postStart:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.LifecycleHandler]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -1914,14 +1930,14 @@ handler is aborted.
         <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">postStart</span><span class="result">: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="Handler.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.Handler">Handler</a>]</span>
+        <span class="name">postStart</span><span class="result">: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="LifecycleHandler.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.LifecycleHandler">LifecycleHandler</a>]</span>
       </span>
       
       
     </li><li name="com.coralogix.zio.k8s.model.core.v1.Lifecycle#preStop" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="preStop:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.Handler]"></a><a id="preStop:Optional[Handler]"></a>
+      <a id="preStop:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.LifecycleHandler]"></a><a id="preStop:Optional[LifecycleHandler]"></a>
       <span class="permalink">
-      <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/Lifecycle.html#preStop:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.Handler]" title="Permalink">
+      <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/Lifecycle.html#preStop:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.LifecycleHandler]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -1930,7 +1946,7 @@ handler is aborted.
         <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">preStop</span><span class="result">: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="Handler.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.Handler">Handler</a>]</span>
+        <span class="name">preStop</span><span class="result">: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="LifecycleHandler.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.LifecycleHandler">LifecycleHandler</a>]</span>
       </span>
       
       

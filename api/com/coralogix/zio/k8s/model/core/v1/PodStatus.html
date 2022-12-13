@@ -527,8 +527,8 @@
                         <a href="EnvVarSourceFields.html" title="">EnvVarSourceFields</a>
                       </li><li class="current-entities indented7">
                         <a class="object" href="EphemeralContainer$.html" title=""></a>
-                        <a class="class" href="EphemeralContainer.html" title="An EphemeralContainer is a container that may be added temporarily to an existing pod for user-initiated activities such as debugging."></a>
-                        <a href="EphemeralContainer.html" title="An EphemeralContainer is a container that may be added temporarily to an existing pod for user-initiated activities such as debugging.">EphemeralContainer</a>
+                        <a class="class" href="EphemeralContainer.html" title="An EphemeralContainer is a temporary container that you may add to an existing Pod for user-initiated activities such as debugging."></a>
+                        <a href="EphemeralContainer.html" title="An EphemeralContainer is a temporary container that you may add to an existing Pod for user-initiated activities such as debugging.">EphemeralContainer</a>
                       </li><li class="current-entities indented7">
                         <span class="separator"></span>
                         <a class="class" href="EphemeralContainerFields.html" title=""></a>
@@ -614,6 +614,14 @@
                         <a class="class" href="GCEPersistentDiskVolumeSourceFields.html" title=""></a>
                         <a href="GCEPersistentDiskVolumeSourceFields.html" title="">GCEPersistentDiskVolumeSourceFields</a>
                       </li><li class="current-entities indented7">
+                        <a class="object" href="GRPCAction$.html" title=""></a>
+                        <a class="class" href="GRPCAction.html" title=""></a>
+                        <a href="GRPCAction.html" title="">GRPCAction</a>
+                      </li><li class="current-entities indented7">
+                        <span class="separator"></span>
+                        <a class="class" href="GRPCActionFields.html" title=""></a>
+                        <a href="GRPCActionFields.html" title="">GRPCActionFields</a>
+                      </li><li class="current-entities indented7">
                         <a class="object" href="GitRepoVolumeSource$.html" title=""></a>
                         <a class="class" href="GitRepoVolumeSource.html" title="Represents a volume that is populated with the contents of a git repository."></a>
                         <a href="GitRepoVolumeSource.html" title="Represents a volume that is populated with the contents of a git repository.">GitRepoVolumeSource</a>
@@ -653,14 +661,6 @@
                         <span class="separator"></span>
                         <a class="class" href="HTTPHeaderFields.html" title=""></a>
                         <a href="HTTPHeaderFields.html" title="">HTTPHeaderFields</a>
-                      </li><li class="current-entities indented7">
-                        <a class="object" href="Handler$.html" title=""></a>
-                        <a class="class" href="Handler.html" title="Handler defines a specific action that should be taken"></a>
-                        <a href="Handler.html" title="Handler defines a specific action that should be taken">Handler</a>
-                      </li><li class="current-entities indented7">
-                        <span class="separator"></span>
-                        <a class="class" href="HandlerFields.html" title=""></a>
-                        <a href="HandlerFields.html" title="">HandlerFields</a>
                       </li><li class="current-entities indented7">
                         <a class="object" href="HostAlias$.html" title=""></a>
                         <a class="class" href="HostAlias.html" title="HostAlias holds the mapping between IP and hostnames that will be injected as an entry in the pod's hosts file."></a>
@@ -709,6 +709,14 @@
                         <span class="separator"></span>
                         <a class="class" href="LifecycleFields.html" title=""></a>
                         <a href="LifecycleFields.html" title="">LifecycleFields</a>
+                      </li><li class="current-entities indented7">
+                        <a class="object" href="LifecycleHandler$.html" title=""></a>
+                        <a class="class" href="LifecycleHandler.html" title="LifecycleHandler defines a specific action that should be taken in a lifecycle hook."></a>
+                        <a href="LifecycleHandler.html" title="LifecycleHandler defines a specific action that should be taken in a lifecycle hook.">LifecycleHandler</a>
+                      </li><li class="current-entities indented7">
+                        <span class="separator"></span>
+                        <a class="class" href="LifecycleHandlerFields.html" title=""></a>
+                        <a href="LifecycleHandlerFields.html" title="">LifecycleHandlerFields</a>
                       </li><li class="current-entities indented7">
                         <a class="object" href="LimitRange$.html" title=""></a>
                         <a class="class" href="LimitRange.html" title="LimitRange sets resource usage limits for each kind of resource in a Namespace."></a>
@@ -1069,6 +1077,14 @@
                         <span class="separator"></span>
                         <a class="class" href="PodIPFields.html" title=""></a>
                         <a href="PodIPFields.html" title="">PodIPFields</a>
+                      </li><li class="current-entities indented7">
+                        <a class="object" href="PodOS$.html" title=""></a>
+                        <a class="class" href="PodOS.html" title="PodOS defines the OS parameters of a pod."></a>
+                        <a href="PodOS.html" title="PodOS defines the OS parameters of a pod.">PodOS</a>
+                      </li><li class="current-entities indented7">
+                        <span class="separator"></span>
+                        <a class="class" href="PodOSFields.html" title=""></a>
+                        <a href="PodOSFields.html" title="">PodOSFields</a>
                       </li><li class="current-entities indented7">
                         <a class="object" href="PodReadinessGate$.html" title=""></a>
                         <a class="class" href="PodReadinessGate.html" title="PodReadinessGate contains the reference to a pod condition"></a>
@@ -1595,8 +1611,8 @@ a system, especially if the node that hosts the pod cannot contact the control p
   The list has one entry per container in the manifest. Each entry is currently the output of
   <code>docker inspect</code>. More info:
   https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status</p></dd><dt class="param">ephemeralContainerStatuses</dt><dd class="cmt"><p>
-  Status for any ephemeral containers that have run in this pod. This field is alpha-level and
-  is only populated by servers that enable the EphemeralContainers feature.</p></dd><dt class="param">hostIP</dt><dd class="cmt"><p>
+  Status for any ephemeral containers that have run in this pod. This field is beta-level and
+  available on clusters that haven't disabled the EphemeralContainers feature gate.</p></dd><dt class="param">hostIP</dt><dd class="cmt"><p>
   IP address of the host to which the pod is assigned. Empty if not yet scheduled.</p></dd><dt class="param">initContainerStatuses</dt><dd class="cmt"><p>
   The list has one entry per init container in the manifest. The most recent successful init
   container will have ready = true, the most recently started container will have startTime set.
@@ -1702,8 +1718,8 @@ More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-
   The list has one entry per container in the manifest. Each entry is currently the output of
   <code>docker inspect</code>. More info:
   https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status</p></dd><dt class="param">ephemeralContainerStatuses</dt><dd class="cmt"><p>
-  Status for any ephemeral containers that have run in this pod. This field is alpha-level and
-  is only populated by servers that enable the EphemeralContainers feature.</p></dd><dt class="param">hostIP</dt><dd class="cmt"><p>
+  Status for any ephemeral containers that have run in this pod. This field is beta-level and
+  available on clusters that haven't disabled the EphemeralContainers feature gate.</p></dd><dt class="param">hostIP</dt><dd class="cmt"><p>
   IP address of the host to which the pod is assigned. Empty if not yet scheduled.</p></dd><dt class="param">initContainerStatuses</dt><dd class="cmt"><p>
   The list has one entry per init container in the manifest. The most recent successful init
   container will have ready = true, the most recently started container will have startTime set.
@@ -1976,8 +1992,8 @@ https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-contain
         <span class="name">getEphemeralContainerStatuses</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Vector">Vector</span>[<a href="ContainerStatus.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.ContainerStatus">ContainerStatus</a>]]</span>
       </span>
       
-      <p class="shortcomment cmt">Status for any ephemeral containers that have run in this pod.</p><div class="fullcomment"><div class="comment cmt"><p>Status for any ephemeral containers that have run in this pod. This field is alpha-level and
-is only populated by servers that enable the EphemeralContainers feature.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+      <p class="shortcomment cmt">Status for any ephemeral containers that have run in this pod.</p><div class="fullcomment"><div class="comment cmt"><p>Status for any ephemeral containers that have run in this pod. This field is beta-level and
+available on clusters that haven't disabled the EphemeralContainers feature gate.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.core.v1.PodStatus#getHostIP" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getHostIP:zio.IO[com.coralogix.zio.k8s.client.K8sFailure,String]"></a><a id="getHostIP:IO[K8sFailure,String]"></a>
