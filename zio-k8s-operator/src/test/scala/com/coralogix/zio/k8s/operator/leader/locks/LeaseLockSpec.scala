@@ -1,44 +1,27 @@
 package com.coralogix.zio.k8s.operator.leader.locks
 
-import com.coralogix.zio.k8s.client.{
-  HttpFailure,
-  K8sFailure,
-  K8sRequestInfo,
-  NotFound,
-  RequestFailure,
-  Resource,
-  ResourceDelete,
-  ResourceDeleteAll
-}
 import com.coralogix.zio.k8s.client.coordination.v1.leases
 import com.coralogix.zio.k8s.client.coordination.v1.leases.Leases
-import com.coralogix.zio.k8s.client.model.{
-  FieldSelector,
-  K8sNamespace,
-  K8sResourceType,
-  LabelSelector,
-  ListResourceVersion,
-  PropagationPolicy,
-  TypedWatchEvent
-}
+import com.coralogix.zio.k8s.client.model._
+import com.coralogix.zio.k8s.client._
 import com.coralogix.zio.k8s.model.coordination.v1.{ Lease, LeaseSpec }
 import com.coralogix.zio.k8s.model.core.v1.Pod
 import com.coralogix.zio.k8s.model.pkg.apis.meta.v1.{ DeleteOptions, MicroTime, ObjectMeta, Status }
 import com.coralogix.zio.k8s.operator.contextinfo.ContextInfo
 import com.coralogix.zio.k8s.operator.leader
-import com.coralogix.zio.k8s.operator.leader.{ lease, LeaderElection }
+import com.coralogix.zio.k8s.operator.leader.LeaderElection
 import zio.ZIO.ifM
-import zio.{ clock, console, stream, Fiber, Has, IO, RIO, Ref, UIO, ULayer, ZIO, ZLayer }
 import zio.clock.Clock
 import zio.console.Console
 import zio.duration._
 import zio.logging.Logging
 import zio.random.Random
 import zio.stream.ZStream
-import zio.test.Assertion.equalTo
-import zio.test.environment.{ TestClock, TestEnvironment }
-import zio.test._
 import zio.test.Assertion._
+import zio.test.TestAspect.sequential
+import zio.test._
+import zio.test.environment.{ TestClock, TestEnvironment }
+import zio.{ clock, stream, Fiber, Has, IO, RIO, Ref, UIO, ULayer, ZIO, ZLayer }
 
 object LeaseLockSpec extends DefaultRunnableSpec {
 
@@ -425,5 +408,5 @@ object LeaseLockSpec extends DefaultRunnableSpec {
           w <- winner.get
         } yield assert(w)(equalTo("pod1"))
       }.provideCustomLayer(failingLeases)
-    )
+    ) @@ sequential
 }
