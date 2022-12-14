@@ -51,13 +51,16 @@ trait K8sObject[T] {
     *   Owner's UID
     * @param ownerType
     *   Owner's resource type
+    * @param kind
+    *   Owner's resource kind
     * @return
     *   The modified object with the attached owner
     */
   def attachOwner(obj: T)(
     ownerName: String,
     ownerUid: String,
-    ownerType: K8sResourceType
+    ownerType: K8sResourceType,
+    kind: String
   ): T =
     mapMetadata(metadata =>
       metadata.copy(ownerReferences =
@@ -65,7 +68,7 @@ trait K8sObject[T] {
           metadata.ownerReferences.getOrElse(Vector.empty) :+
             OwnerReference(
               apiVersion = s"${ownerType.group}/${ownerType.version}".stripPrefix("/"),
-              kind = ownerType.resourceType,
+              kind = kind,
               name = ownerName,
               uid = ownerUid,
               controller = Some(true),
@@ -83,10 +86,10 @@ trait K8sObject[T] {
   )(owner: OwnerT): IO[K8sFailure, T] = {
     import K8sObject._
     for {
-      name <- owner.getName
-      uid  <- owner.getUid
-      typ   = implicitly[ResourceMetadata[OwnerT]].resourceType
-    } yield attachOwner(obj)(name, uid, typ)
+      name            <- owner.getName
+      uid             <- owner.getUid
+      resourceMetadata = implicitly[ResourceMetadata[OwnerT]]
+    } yield attachOwner(obj)(name, uid, resourceMetadata.resourceType, resourceMetadata.kind)
   }
 
   /** Check if a resource is owned by an other one
@@ -104,10 +107,10 @@ trait K8sObject[T] {
     (for {
       name <- owner.metadata.flatMap(_.name)
       uid  <- owner.metadata.flatMap(_.uid)
-      typ   = implicitly[ResourceMetadata[OwnerT]].resourceType
+      kind  = implicitly[ResourceMetadata[OwnerT]].kind
       refs <- metadata(obj).flatMap(_.ownerReferences)
       found = refs.exists(ownerReference =>
-                ownerReference.kind == typ.resourceType &&
+                ownerReference.kind == kind &&
                   ownerReference.name == name &&
                   ownerReference.uid == uid
               )
