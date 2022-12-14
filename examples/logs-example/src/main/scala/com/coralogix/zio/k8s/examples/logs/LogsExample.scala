@@ -21,7 +21,7 @@ object LogsExample extends App {
       .project(cfg => cfg.dropTrailingDot)
 
     // K8s configuration and client layers
-    val client = (Blocking.any ++ System.any ++ config) >>> k8sSttpClient
+    val client = (Blocking.any ++ System.any ++ config) >>> k8sSttpClient("test_logger")
     val cluster = (Blocking.any ++ config) >>> k8sCluster
 
     val pods = (client ++ cluster) >>> Pods.live
