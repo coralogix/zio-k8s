@@ -1,13 +1,13 @@
-val scala212Version = "2.12.16"
-val scala213Version = "2.13.8"
-val scala3Version = "3.1.3"
+val scala212Version = "2.12.17"
+val scala213Version = "2.13.10"
+val scala3Version = "3.2.2"
 
-val zioVersion = "2.0.0"
-val zioConfigVersion = "3.0.1"
-val zioLoggingVersion = "2.0.0"
-val sttpVersion = "3.7.0"
-val zioNioVersion = "2.0.0"
-val zioPreludeVersion = "1.0.0-RC15"
+val zioVersion = "2.0.9"
+val zioConfigVersion = "3.0.7"
+val zioLoggingVersion = "2.1.7"
+val sttpVersion = "3.8.1"
+val zioNioVersion = "2.0.1"
+val zioPreludeVersion = "1.0.0-RC16"
 
 Global / onChangedBuildSource := ReloadOnSourceChanges
 
@@ -102,7 +102,7 @@ lazy val clientQuicklens = Project("zio-k8s-client-quicklens", file("zio-k8s-cli
   .settings(commonSettings)
   .settings(
     libraryDependencies ++= Seq(
-      "com.softwaremill.quicklens" %% "quicklens"    % "1.8.8",
+      "com.softwaremill.quicklens" %% "quicklens"    % "1.8.10",
       "dev.zio"                    %% "zio-test"     % zioVersion % Test,
       "dev.zio"                    %% "zio-test-sbt" % zioVersion % Test
     ),
