@@ -143,7 +143,7 @@ lazy val clientZioOptics = Project("zio-k8s-client-optics", file("zio-k8s-client
   .settings(
     crossScalaVersions := List(scala212Version, scala213Version, scala3Version),
     libraryDependencies ++= Seq(
-      "dev.zio" %% "zio-optics"   % "0.1.0",
+      "dev.zio" %% "zio-optics"   % "0.2.1",
       "dev.zio" %% "zio-test"     % zioVersion % Test,
       "dev.zio" %% "zio-test-sbt" % zioVersion % Test
     ),
