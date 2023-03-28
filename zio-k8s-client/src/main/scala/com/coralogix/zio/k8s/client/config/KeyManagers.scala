@@ -4,8 +4,7 @@ import org.bouncycastle.asn1.pkcs.PrivateKeyInfo
 import org.bouncycastle.jce.provider.BouncyCastleProvider
 import org.bouncycastle.openssl.jcajce.JcaPEMKeyConverter
 import org.bouncycastle.openssl.{ PEMKeyPair, PEMParser }
-import zio.system.System
-import zio.{ system, ZIO, ZManaged }
+import zio.{ System, ZIO }
 
 import java.io.{ File, FileInputStream, InputStreamReader }
 import java.security.KeyStore
@@ -14,20 +13,23 @@ import javax.net.ssl.{ KeyManager, KeyManagerFactory }
 
 private object KeyManagers {
 
-  private def getDefaultKeyStore: ZIO[System, Throwable, KeyStore] =
+  private def getDefaultKeyStore: ZIO[Any, Throwable, KeyStore] =
     for {
-      propertyKeyStore    <- system.property("javax.net.ssl.keyStore")
+      propertyKeyStore    <- System.property("javax.net.ssl.keyStore")
       propertyKeyStoreFile = propertyKeyStore.map(new File(_))
-      password            <- system.property("javax.net.ssl.keyStorePassword")
-      defaultKeyStore     <- ZIO.effect(KeyStore.getInstance("JKS"))
+      password            <- System.property("javax.net.ssl.keyStorePassword")
+      defaultKeyStore     <- ZIO.attempt(KeyStore.getInstance("JKS"))
       _                   <-
         propertyKeyStoreFile match {
           case Some(file) =>
-            ZManaged.fromAutoCloseable(ZIO.effect(new FileInputStream(file))).use { stream =>
-              ZIO.effect(defaultKeyStore.load(stream, password.getOrElse("changeit").toCharArray))
-            }
+            ZIO.scoped(ZIO.fromAutoCloseable(ZIO.attempt(new FileInputStream(file))) flatMap {
+              stream =>
+                ZIO.attempt(
+                  defaultKeyStore.load(stream, password.getOrElse("changeit").toCharArray)
+                )
+            })
           case None       =>
-            ZIO.effect(defaultKeyStore.load(null))
+            ZIO.attempt(defaultKeyStore.load(null))
         }
     } yield defaultKeyStore
 
@@ -35,13 +37,13 @@ private object KeyManagers {
     certificate: KeySource,
     key: KeySource,
     password: Option[String]
-  ): ZIO[System, Throwable, Array[KeyManager]] =
+  ): ZIO[Any, Throwable, Array[KeyManager]] =
     for {
       keyStore <- getDefaultKeyStore
-      provider <- ZIO.effect(new BouncyCastleProvider())
+      provider <- ZIO.attempt(new BouncyCastleProvider())
 
-      privateKey <- loadKeyStream(key).use { stream =>
-                      ZIO.effect {
+      privateKey <- ZIO.scoped(loadKeyStream(key) flatMap { stream =>
+                      ZIO.attempt {
                         val pemKeyPair = new PEMParser(new InputStreamReader(stream))
                         val converter = new JcaPEMKeyConverter().setProvider(provider)
                         pemKeyPair.readObject() match {
@@ -53,16 +55,16 @@ private object KeyManagers {
                             )
                         }
                       }
-                    }
+                    })
 
-      certificateFactory <- ZIO.effect(CertificateFactory.getInstance("X509"))
-      x509Cert           <- loadKeyStream(certificate).use { stream =>
-                              ZIO.effect(
+      certificateFactory <- ZIO.attempt(CertificateFactory.getInstance("X509"))
+      x509Cert           <- ZIO.scoped(loadKeyStream(certificate) flatMap { stream =>
+                              ZIO.attempt(
                                 certificateFactory.generateCertificate(stream).asInstanceOf[X509Certificate]
                               )
-                            }
+                            })
 
-      _ <- ZIO.effect {
+      _ <- ZIO.attempt {
              keyStore.setKeyEntry(
                x509Cert.getIssuerX500Principal.getName,
                privateKey,
@@ -71,7 +73,7 @@ private object KeyManagers {
              )
            }
 
-      kmf <- ZIO.effect(KeyManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm))
-      _   <- ZIO.effect(kmf.init(keyStore, "changeit".toCharArray))
+      kmf <- ZIO.attempt(KeyManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm))
+      _   <- ZIO.attempt(kmf.init(keyStore, "changeit".toCharArray))
     } yield kmf.getKeyManagers
 }

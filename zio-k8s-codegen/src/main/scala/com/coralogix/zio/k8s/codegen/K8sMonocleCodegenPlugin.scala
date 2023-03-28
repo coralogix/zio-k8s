@@ -1,9 +1,10 @@
 package com.coralogix.zio.k8s.codegen
 
-import sbt.Keys._
-import sbt._
-import zio.nio.file.{ Path => ZPath }
-import K8sSwaggerPlugin.autoImport._
+import sbt.Keys.*
+import sbt.*
+import zio.nio.file.Path as ZPath
+import K8sSwaggerPlugin.autoImport.*
+import zio.Unsafe
 
 object K8sMonocleCodegenPlugin extends AutoPlugin {
   object autoImport {
@@ -22,13 +23,15 @@ object K8sMonocleCodegenPlugin extends AutoPlugin {
           FileInfo.hash
         ) { input: Set[File] =>
           input.foldLeft(Set.empty[File]) { (result, k8sSwagger) =>
-            val fs = runtime.unsafeRunTask(
-              codegen.generateAllMonocle(
-                ZPath.fromJava(k8sSwagger.toPath),
-                ZPath.fromJava(sourcesDir.toPath)
-              )
-            )
-            result union fs.toSet
+            Unsafe.unsafe { implicit u =>
+              val fs = runtime.unsafe.run(
+                codegen.generateAllMonocle(
+                  ZPath.fromJava(k8sSwagger.toPath),
+                  ZPath.fromJava(sourcesDir.toPath)
+                )
+              ).getOrThrow()
+              result union fs.toSet
+            }
           }
         }
 

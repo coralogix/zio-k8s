@@ -7,7 +7,6 @@ import org.scalafmt.interfaces.Scalafmt
 
 import scala.meta._
 import zio.ZIO
-import zio.blocking.Blocking
 import zio.nio.file.Path
 import zio.nio.file.Files
 
@@ -22,7 +21,7 @@ trait UnifiedClientModuleGenerator {
     basePackageName: String,
     definitionMap: Map[String, IdentifiedSchema],
     resources: Set[SupportedResource]
-  ): ZIO[Blocking, Throwable, Set[Path]] = {
+  ): ZIO[Any, Throwable, Set[Path]] = {
     val gvkTree = toTree(resources)
     val source = generateUnifiedClientModuleSource(gvkTree, basePackageName, definitionMap)
 
@@ -53,20 +52,22 @@ trait UnifiedClientModuleGenerator {
       .asInstanceOf[Term.Ref]
 
     val liveLayer =
-      q"""val live: ZLayer[Has[SttpBackend[Task, ZioStreams with WebSockets]] with Has[K8sCluster], Nothing, Kubernetes] =
-            ZLayer.fromServices[SttpBackend[Task, ZioStreams with WebSockets], K8sCluster, Service] {
-              (backend: SttpBackend[Task, ZioStreams with WebSockets], cluster: K8sCluster) => {
-                new Api(backend, cluster)
+      q"""val live: ZLayer[SttpBackend[Task, ZioStreams with WebSockets] with K8sCluster, Nothing, Kubernetes] =
+            ZLayer.fromZIO {
+              for {
+                backend <- ZIO.service[SttpBackend[Task, ZioStreams with WebSockets]]
+                cluster <- ZIO.service[K8sCluster]
+              } yield new Api(backend, cluster)
             }
-          }
        """
 
     val anyLayer =
-      q"""val any: ZLayer[Kubernetes, Nothing, Kubernetes] = ZLayer.requires[Kubernetes]"""
+      q"""val any: ZLayer[Kubernetes, Nothing, Kubernetes] = ZLayer.environment[Kubernetes]"""
 
     val testLayer =
-      q"""val test: ZLayer[Any, Nothing, Kubernetes] =
-            ZIO.runtime[Any].map { runtime => new TestApi(runtime) }.toLayer
+      q"""val test: ZLayer[Any, Nothing, Kubernetes] = ZLayer.fromZIO {
+            ZIO.runtime[Any].map { runtime => new TestApi(runtime) }
+          }
        """
 
     val defs = interfaces ++ List(liveClass, testClass, liveLayer, anyLayer, testLayer)
@@ -79,11 +80,11 @@ trait UnifiedClientModuleGenerator {
         import sttp.capabilities.WebSockets
         import sttp.capabilities.zio.ZioStreams
         import sttp.client3.SttpBackend
-        import zio.{ Has, Runtime, Task, ZIO, ZLayer }
+        import zio._
 
         package object kubernetes {
 
-          type Kubernetes = Has[Kubernetes.Service]
+          type Kubernetes = Kubernetes.Service
           object Kubernetes {
             ..$defs
           }
@@ -300,12 +301,12 @@ trait UnifiedClientModuleGenerator {
         List(testClientConstruction.map(_._1))
       )
 
-      q"""lazy val $namePat: $serviceT = {
-            runtime.unsafeRun {
+      q"""lazy val $namePat: $serviceT = zio.Unsafe.unsafeCompat { implicit u =>
+            runtime.unsafe.run {
               for {
                 ..${testClientConstruction.map(_._2)}
               } yield new $liveInit
-            }
+            }.getOrThrowFiberFailure()
           }"""
     } else {
       val cons =

@@ -23,11 +23,11 @@ import com.coralogix.zio.k8s.operator._
 import com.coralogix.zio.k8s.operator.Operator._
 
 import zio._
-import zio.clock.Clock
+import zio.Clock
 
 sealed trait CustomOperatorFailures
 
-val eventProcessor: EventProcessor[Clock, CustomOperatorFailures, Pod] = 
+val eventProcessor: EventProcessor[Any, CustomOperatorFailures, Pod] = 
     (ctx, event) => 
         event match {
             case Reseted() =>
@@ -53,7 +53,6 @@ The event processor logic can be modified by various _aspects_ such as logging a
 
 ```scala mdoc
 import com.coralogix.zio.k8s.operator.aspects._
-import zio.logging.Logging
 
 val operator2 = 
     Operator.namespaced(
@@ -95,11 +94,11 @@ object OperatorMetrics {
 we can define a `metered` aspect:
 
 ```scala mdoc
-import zio.clock.Clock
+import zio.Clock
 
-def metered[T, E](operatorMetrics: OperatorMetrics): Aspect[Clock, E, T] =
-    new Aspect[Clock, E, T] {
-      override def apply[R1 <: Clock, E1 >: E](
+def metered[T, E](operatorMetrics: OperatorMetrics): Aspect[Any, E, T] =
+    new Aspect[Any, E, T] {
+      override def apply[R1, E1 >: E](
         f: EventProcessor[R1, E1, T]
       ): EventProcessor[R1, E1, T] =
         (ctx, event) => {

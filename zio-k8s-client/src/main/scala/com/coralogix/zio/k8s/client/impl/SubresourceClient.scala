@@ -15,7 +15,7 @@ import sttp.client3.{
   ResponseException,
   SttpBackend
 }
-import zio.stream.{ ZStream, ZTransducer }
+import zio.stream.{ ZPipeline, ZStream }
 import zio.{ IO, Task }
 
 /** Generic implementation for [[Subresource]]
@@ -55,7 +55,7 @@ final class SubresourceClient[T: Encoder: Decoder](
   def streamingGet(
     name: String,
     namespace: Option[K8sNamespace],
-    transducer: ZTransducer[Any, K8sFailure, Byte, T],
+    pipeline: ZPipeline[Any, K8sFailure, Byte, T],
     customParameters: Map[String, String] = Map.empty
   ): ZStream[Any, K8sFailure, T] =
     ZStream.unwrap {
@@ -81,12 +81,9 @@ final class SubresourceClient[T: Encoder: Decoder](
       }.map { (stream: ZioStreams.BinaryStream) =>
         stream
           .mapError(
-            RequestFailure(
-              K8sRequestInfo(resourceType, s"get $subresourceName", namespace),
-              _
-            )
+            RequestFailure(K8sRequestInfo(resourceType, s"get $subresourceName", namespace), _)
           )
-          .transduce(transducer)
+          .via(pipeline)
       }
     }
 

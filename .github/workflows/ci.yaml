@@ -16,7 +16,7 @@ jobs:
         uses: coursier/cache-action@v5
       - name: Build and test
         run: |
-          sbt ++2.12.15 clean scalafmtCheckAll test zio-k8s-crd/scripted docs/mdoc
+          sbt ++2.12.17 clean scalafmtCheckAll test zio-k8s-crd/scripted docs/mdoc
 
           rm -rf "$HOME/.ivy2/local" || true
           find $HOME/Library/Caches/Coursier/v1        -name "ivydata-*.properties" -delete || true
@@ -37,7 +37,7 @@ jobs:
         uses: coursier/cache-action@v5
       - name: Build and test
         run: |
-          sbt ++2.13.6 clean scalafmtCheckAll zio-k8s-client/test zio-k8s-operator/test examples/compile
+          sbt ++2.13.10 clean scalafmtCheckAll zio-k8s-client/test zio-k8s-operator/test examples/compile
       
           rm -rf "$HOME/.ivy2/local" || true
           find $HOME/Library/Caches/Coursier/v1        -name "ivydata-*.properties" -delete || true
@@ -58,7 +58,7 @@ jobs:
         uses: coursier/cache-action@v5
       - name: Build and test
         run: |
-          sbt ++3.1.0 clean zio-k8s-client/test zio-k8s-operator/test leader-example/compile logs-example/compile
+          sbt ++3.2.2 clean zio-k8s-client/test zio-k8s-operator/test leader-example/compile logs-example/compile
 
           rm -rf "$HOME/.ivy2/local" || true
           find $HOME/Library/Caches/Coursier/v1        -name "ivydata-*.properties" -delete || true
