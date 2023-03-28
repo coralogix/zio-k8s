@@ -1,11 +1,10 @@
 package com.coralogix.zio.k8s.client.model
 
 import zio.test.Assertion.equalTo
-import zio.test._
-import zio.test.environment.TestEnvironment
+import zio.test.{ ZIOSpecDefault, _ }
 
-object FieldSelectorSpec extends DefaultRunnableSpec {
-  override def spec: ZSpec[TestEnvironment, Any] =
+object FieldSelectorSpec extends ZIOSpecDefault {
+  override def spec: Spec[TestEnvironment, Any] =
     suite("FieldSelector")(
       test("equals")(
         assert((field("metadata.name") === "value1").asQuery)(equalTo("metadata.name==value1"))

@@ -1,15 +1,17 @@
 package com.coralogix.zio.k8s.client
 
-import io.circe.{ Decoder, Encoder, HCursor }
-import sttp.client3.{ Empty, RequestT, UriContext }
+import io.circe.{ Codec, Decoder, Encoder, HCursor }
+import sttp.client3.IsOption.True
+import sttp.client3.{ Empty, IsOption, RequestT, UriContext }
 import sttp.model._
 import zio.Chunk
-import zio.duration._
 
 import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 import java.util.Base64
 import scala.util.Try
+import zio._
+import zio.prelude.data.Optional
 
 package object model extends LabelSelector.Syntax with FieldSelector.Syntax {
 
@@ -192,4 +194,16 @@ package object model extends LabelSelector.Syntax with FieldSelector.Syntax {
   val k8sDateTimeFormatter: DateTimeFormatter = DateTimeFormatter
     .ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'")
     .withZone(ZoneOffset.UTC)
+
+  implicit def optionalEncoder[A: Encoder]: Encoder[Optional[A]] =
+    Encoder.encodeOption[A].contramap(_.toOption)
+  implicit def optionalDecoder[A: Decoder]: Decoder[Optional[A]] =
+    Decoder.decodeOption[A].map(Optional.OptionIsNullable)
+
+  private object IsOptionTrue extends IsOption[Any] {
+    override def isOption: Boolean = true
+  }
+  implicit def optionalIsOption[T]: IsOption[Optional[T]] = IsOptionTrue
+  implicit def leftOptionalIsOption[T]: IsOption[Either[Optional[T], _]] = IsOptionTrue
+  implicit def rightOptionalIsOption[T]: IsOption[Either[_, Optional[T]]] = IsOptionTrue
 }

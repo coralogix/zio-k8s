@@ -1,11 +1,15 @@
-val scala212Version = "2.12.16"
-val scala213Version = "2.13.8"
-val scala3Version = "3.1.3"
+val scala212Version = "2.12.17"
+val scala213Version = "2.13.10"
+val scala3Version = "3.2.2"
 
-val zioVersion = "1.0.16"
-val zioConfigVersion = "1.0.10"
-val sttpVersion = "3.3.18"
-val zioNioVersion = "1.0.0-RC12"
+val zioVersion = "2.0.9"
+val zioConfigVersion = "3.0.7"
+val zioLoggingVersion = "2.1.7"
+val sttpVersion = "3.8.1"
+val zioNioVersion = "2.0.1"
+val zioPreludeVersion = "1.0.0-RC16"
+
+Global / onChangedBuildSource := ReloadOnSourceChanges
 
 inThisBuild(
   List(
@@ -27,7 +31,15 @@ val commonSettings = Seq(
   organization       := "com.coralogix",
   scalaVersion       := scala212Version,
   crossScalaVersions := List(scala212Version, scala213Version, scala3Version),
-  autoAPIMappings    := true
+  autoAPIMappings    := true,
+  excludeDependencies ++=
+    (CrossVersion.partialVersion(scalaVersion.value) match {
+      case Some((3, _)) =>
+        Seq(
+          ExclusionRule("org.scala-lang.modules", "scala-collection-compat_2.13")
+        )
+      case _            => Seq.empty[ExclusionRule]
+    })
 )
 
 lazy val root = Project("zio-k8s", file("."))
@@ -51,9 +63,9 @@ lazy val client = Project("zio-k8s-client", file("zio-k8s-client"))
       "dev.zio"                       %% "zio"                           % zioVersion,
       "dev.zio"                       %% "zio-streams"                   % zioVersion,
       "dev.zio"                       %% "zio-config"                    % zioConfigVersion,
-      "dev.zio"                       %% "zio-logging"                   % "0.5.14",
       "dev.zio"                       %% "zio-nio"                       % zioNioVersion,
-      "dev.zio"                       %% "zio-process"                   % "0.6.1",
+      "dev.zio"                       %% "zio-process"                   % "0.7.1",
+      "dev.zio"                       %% "zio-prelude"                   % zioPreludeVersion,
       "com.softwaremill.sttp.client3" %% "core"                          % sttpVersion,
       "com.softwaremill.sttp.client3" %% "zio"                           % sttpVersion,
       "com.softwaremill.sttp.client3" %% "circe"                         % sttpVersion,
@@ -61,13 +73,12 @@ lazy val client = Project("zio-k8s-client", file("zio-k8s-client"))
       "io.circe"                      %% "circe-generic"                 % "0.14.2",
       "io.circe"                      %% "circe-parser"                  % "0.14.2",
       "io.circe"                      %% "circe-yaml"                    % "0.14.2",
-      "org.bouncycastle"               % "bcpkix-jdk18on"                % "1.71",
+      "org.bouncycastle"               % "bcpkix-jdk18on"                % "1.72",
       "dev.zio"                       %% "zio-test"                      % zioVersion       % Test,
       "dev.zio"                       %% "zio-test-sbt"                  % zioVersion       % Test,
       "dev.zio"                       %% "zio-config-typesafe"           % zioConfigVersion % Test,
       "com.softwaremill.sttp.client3" %% "slf4j-backend"                 % sttpVersion      % Optional,
-      "com.softwaremill.sttp.client3" %% "async-http-client-backend-zio" % sttpVersion      % Optional,
-      "com.softwaremill.sttp.client3" %% "httpclient-backend-zio"        % sttpVersion      % Optional
+      "com.softwaremill.sttp.client3" %% "async-http-client-backend-zio" % sttpVersion      % Optional
     ),
     testFrameworks += new TestFramework("zio.test.sbt.ZTestFramework"),
     Compile / packageSrc / mappings ++= {
@@ -91,7 +102,7 @@ lazy val clientQuicklens = Project("zio-k8s-client-quicklens", file("zio-k8s-cli
   .settings(commonSettings)
   .settings(
     libraryDependencies ++= Seq(
-      "com.softwaremill.quicklens" %% "quicklens"    % "1.8.8",
+      "com.softwaremill.quicklens" %% "quicklens"    % "1.8.10",
       "dev.zio"                    %% "zio-test"     % zioVersion % Test,
       "dev.zio"                    %% "zio-test-sbt" % zioVersion % Test
     ),
@@ -143,7 +154,7 @@ lazy val clientZioOptics = Project("zio-k8s-client-optics", file("zio-k8s-client
   .settings(
     crossScalaVersions := List(scala212Version, scala213Version, scala3Version),
     libraryDependencies ++= Seq(
-      "dev.zio" %% "zio-optics"   % "0.1.0",
+      "dev.zio" %% "zio-optics"   % "0.2.0",
       "dev.zio" %% "zio-test"     % zioVersion % Test,
       "dev.zio" %% "zio-test-sbt" % zioVersion % Test
     ),
@@ -167,7 +178,7 @@ lazy val crd = Project("zio-k8s-crd", file("zio-k8s-crd"))
   .settings(commonSettings)
   .settings(
     sbtPlugin          := true,
-    scalaVersion       := "2.12.16",
+    scalaVersion       := "2.12.17",
     crossVersion       := CrossVersion.disabled,
     Compile / unmanagedSourceDirectories += baseDirectory.value / "../zio-k8s-codegen/src/shared/scala",
     libraryDependencies ++= Seq(
@@ -210,8 +221,9 @@ lazy val operator = Project("zio-k8s-operator", file("zio-k8s-operator"))
       "dev.zio" %% "zio"          % zioVersion,
       "dev.zio" %% "zio-streams"  % zioVersion,
       "dev.zio" %% "zio-nio"      % zioNioVersion,
-      "dev.zio" %% "zio-test"     % zioVersion % Test,
-      "dev.zio" %% "zio-test-sbt" % zioVersion % Test
+      "dev.zio" %% "zio-test"     % zioVersion        % Test,
+      "dev.zio" %% "zio-test-sbt" % zioVersion        % Test,
+      "dev.zio" %% "zio-logging"  % zioLoggingVersion % Test
     ),
     testFrameworks += new TestFramework("zio.test.sbt.ZTestFramework")
   )
@@ -232,9 +244,8 @@ lazy val leaderExample = Project("leader-example", file("examples/leader-example
   .settings(commonSettings)
   .settings(
     libraryDependencies ++= Seq(
-      "dev.zio"                       %% "zio-config-typesafe"    % zioConfigVersion,
-      "com.softwaremill.sttp.client3" %% "httpclient-backend-zio" % sttpVersion,
-      "com.softwaremill.sttp.client3" %% "slf4j-backend"          % sttpVersion
+      "dev.zio"                       %% "zio-config-typesafe" % zioConfigVersion,
+      "com.softwaremill.sttp.client3" %% "slf4j-backend"       % sttpVersion
     ),
     Docker / packageName := "leader-example",
     Docker / version     := "0.0.1",
@@ -256,8 +267,7 @@ val logsExample = Project("logs-example", file("examples/logs-example"))
   .settings(
     publish / skip := true,
     libraryDependencies ++= Seq(
-      "com.softwaremill.sttp.client3" %% "httpclient-backend-zio" % sttpVersion,
-      "com.softwaremill.sttp.client3" %% "slf4j-backend"          % sttpVersion
+      "com.softwaremill.sttp.client3" %% "slf4j-backend" % sttpVersion
     )
   )
   .dependsOn(client)
@@ -270,10 +280,8 @@ lazy val docs = project
     scalacOptions -= "-Yno-imports",
     scalacOptions -= "-Xfatal-warnings",
     libraryDependencies ++= Seq(
-      "dev.zio"                       %% "zio-config-typesafe"    % zioConfigVersion,
-      "io.github.kitlangton"          %% "zio-magic"              % "0.3.2",
-      "com.softwaremill.sttp.client3" %% "httpclient-backend-zio" % sttpVersion,
-      "dev.zio"                       %% "zio-metrics-prometheus" % "1.0.6"
+      "dev.zio" %% "zio-config-typesafe"    % zioConfigVersion,
+      "dev.zio" %% "zio-metrics-prometheus" % "2.0.0"
     ),
     ScalaUnidoc / unidoc / unidocProjectFilter := inProjects(
       client,

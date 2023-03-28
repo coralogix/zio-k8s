@@ -5,7 +5,7 @@ import com.coralogix.zio.k8s.codegen.internal.Conversions.splitName
 import io.swagger.v3.oas.models.media.ObjectSchema
 import org.scalafmt.interfaces.Scalafmt
 import zio.ZIO
-import zio.blocking.Blocking
+
 import zio.nio.file.Path
 
 import java.nio.file.{ Path => JPath, Paths => JPaths }
@@ -41,7 +41,7 @@ trait Common {
     prettyprinter(tree).toString
   }
 
-  protected def format(scalafmt: Scalafmt, path: Path): ZIO[Blocking, Throwable, Path] =
+  protected def format(scalafmt: Scalafmt, path: Path): ZIO[Any, Throwable, Path] =
     if (scalaVersion.startsWith("3."))
       ZIO.succeed(path) // NOTE: no formatting for scala 3 yet
     else
