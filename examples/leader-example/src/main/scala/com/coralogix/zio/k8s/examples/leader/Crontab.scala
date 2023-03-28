@@ -80,9 +80,10 @@ package object crontabs {
       override val asGenericResourceStatus: ResourceStatusClient[CrontabStatus, Crontab]
     ) extends Service
 
-    val live: ZLayer[Has[K8sCluster] with Has[
-      SttpBackend[Task, ZioStreams with WebSockets]
-    ], Nothing, Crontabs] =
+    val live: ZLayer[Has[K8sCluster]
+      with Has[
+        SttpBackend[Task, ZioStreams with WebSockets]
+      ], Nothing, Crontabs] =
       ZLayer.fromServices[SttpBackend[Task, ZioStreams with WebSockets], K8sCluster, Service] {
         (backend: SttpBackend[Task, ZioStreams with WebSockets], cluster: K8sCluster) =>
           val client =
