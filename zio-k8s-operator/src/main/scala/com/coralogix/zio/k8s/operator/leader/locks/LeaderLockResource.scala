@@ -2,7 +2,12 @@ package com.coralogix.zio.k8s.operator.leader.locks
 
 import com.coralogix.zio.k8s.client.impl.ResourceClient
 import com.coralogix.zio.k8s.client.model._
-import com.coralogix.zio.k8s.client.{ model, NamespacedResource, ResourceDelete }
+import com.coralogix.zio.k8s.client.{
+  model,
+  NamespacedResource,
+  NamespacedResourceDelete,
+  ResourceDelete
+}
 import com.coralogix.zio.k8s.model.pkg.apis.apiextensions.v1.CustomResourceDefinition
 import com.coralogix.zio.k8s.model.pkg.apis.meta.v1.{ ObjectMeta, Status }
 import io.circe._
@@ -10,9 +15,9 @@ import io.circe.syntax._
 import sttp.capabilities.WebSockets
 import sttp.capabilities.zio.ZioStreams
 import sttp.client3.SttpBackend
-import zio.{ Has, Task, ZIO, ZLayer }
-import zio.blocking.Blocking
-import zio.stream.{ ZStream, ZTransducer }
+import zio.stream.{ ZPipeline, ZStream }
+import zio._
+import zio.prelude.data.Optional
 
 case class LeaderLockResource(metadata: Optional[ObjectMeta])
 
@@ -45,15 +50,15 @@ object LeaderLockResource {
     }
 
   val customResourceDefinition: ZIO[
-    Blocking,
+    Any,
     Throwable,
     com.coralogix.zio.k8s.model.pkg.apis.apiextensions.v1.CustomResourceDefinition
   ] =
     for {
       rawYaml <- ZStream
                    .fromInputStream(getClass.getResourceAsStream("/crds/leaderlock.yaml"))
-                   .transduce(ZTransducer.utf8Decode)
-                   .fold("")(_ ++ _)
+                   .via(ZPipeline.utf8Decode)
+                   .runFold("")(_ ++ _)
                    .orDie
       crd     <- ZIO.fromEither(
                    _root_.io.circe.yaml.parser.parse(rawYaml).flatMap(_.as[CustomResourceDefinition])
@@ -62,15 +67,14 @@ object LeaderLockResource {
 }
 
 package object leaderlockresources {
-  type LeaderLockResources = Has[LeaderLockResources.Service]
+  type LeaderLockResources = LeaderLockResources.Service
 
   object LeaderLockResources {
-    type Generic = Has[NamespacedResource[LeaderLockResource]]
+    type Generic = NamespacedResource[LeaderLockResource]
 
-    trait Service extends NamespacedResource[LeaderLockResource] {
-      val asGeneric: Generic = Has[NamespacedResource[LeaderLockResource]](this)
-      val asGenericResourceDelete: ResourceDelete[LeaderLockResource, Status]
-    }
+    trait Service
+        extends NamespacedResource[LeaderLockResource]
+        with NamespacedResourceDelete[LeaderLockResource, Status]
 
     class Live(
       override val asGenericResource: ResourceClient[LeaderLockResource, Status]
@@ -78,18 +82,22 @@ package object leaderlockresources {
       val asGenericResourceDelete: ResourceDelete[LeaderLockResource, Status] = asGenericResource
     }
 
-    val live: ZLayer[Has[K8sCluster]
-      with Has[
-        SttpBackend[Task, ZioStreams with WebSockets]
-      ], Nothing, LeaderLockResources] =
-      ZLayer.fromServices[SttpBackend[Task, ZioStreams with WebSockets], K8sCluster, Service] {
-        (backend: SttpBackend[Task, ZioStreams with WebSockets], cluster: K8sCluster) =>
-          val client = new ResourceClient[LeaderLockResource, Status](
-            LeaderLockResource.metadata.resourceType,
-            cluster,
-            backend
-          )
-          new Live(client)
+    val live: ZLayer[
+      K8sCluster with SttpBackend[Task, ZioStreams with WebSockets],
+      Nothing,
+      LeaderLockResources
+    ] = ZLayer {
+      for {
+        backend <- ZIO.service[SttpBackend[Task, ZioStreams with WebSockets]]
+        cluster <- ZIO.service[K8sCluster]
+      } yield {
+        val client = new ResourceClient[LeaderLockResource, Status](
+          LeaderLockResource.metadata.resourceType,
+          cluster,
+          backend
+        )
+        new Live(client)
       }
+    }
   }
 }

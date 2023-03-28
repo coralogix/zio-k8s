@@ -4,7 +4,6 @@ import io.swagger.v3.oas.models.media.{ ArraySchema, ObjectSchema, Schema }
 import org.scalafmt.interfaces.Scalafmt
 import sbt.util.Logger
 import zio.ZIO
-import zio.blocking.Blocking
 import com.coralogix.zio.k8s.codegen.internal.CodegenIO.writeTextFile
 import com.coralogix.zio.k8s.codegen.internal.Conversions.splitName
 import zio.nio.file.Path
@@ -24,16 +23,16 @@ trait ModelGenerator {
     targetRoot: Path,
     definitionMap: Map[String, IdentifiedSchema],
     resources: Set[SupportedResource]
-  ): ZIO[Blocking, Throwable, Set[Path]] = {
+  ): ZIO[Any, Throwable, Set[Path]] = {
     val filteredDefinitions = definitionMap.values.filter(d => !isListModel(d)).toSet
     for {
-      _     <- ZIO.effect(logger.info(s"Generating code for ${filteredDefinitions.size} models..."))
+      _     <- ZIO.attempt(logger.info(s"Generating code for ${filteredDefinitions.size} models..."))
       paths <- ZIO.foreach(filteredDefinitions) { d =>
                  val (groupName, entityName) = splitName(d.name)
                  val pkg = (modelRoot ++ groupName)
 
                  for {
-                   _         <- ZIO.effect(logger.info(s"Generating '$entityName' to ${pkg.mkString(".")}"))
+                   _         <- ZIO.attempt(logger.info(s"Generating '$entityName' to ${pkg.mkString(".")}"))
                    src        = generateModel(modelRoot, pkg, entityName, d, resources, definitionMap)
                    targetDir  = pkg.foldLeft(targetRoot)(_ / _)
                    _         <- Files.createDirectories(targetDir)
@@ -404,9 +403,10 @@ trait ModelGenerator {
           import java.time.OffsetDateTime
           import scala.util.Try
           import zio.{Chunk, IO, ZIO}
+          import zio.prelude.data.Optional
 
           import com.coralogix.zio.k8s.client.{K8sFailure, UndefinedField}
-          import com.coralogix.zio.k8s.client.model.{Field, K8sResourceType, Optional, ResourceMetadata}
+          import com.coralogix.zio.k8s.client.model.{Field, K8sResourceType, ResourceMetadata, optionalDecoder, optionalEncoder}
           import com.coralogix.zio.k8s.client.model.codecs.{chunkByteDecoder, chunkByteEncoder}
 
           import $rootPackageTerm._

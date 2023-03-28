@@ -4,10 +4,9 @@ import com.coralogix.zio.k8s.codegen.internal.Conversions.splitName
 import com.coralogix.zio.k8s.codegen.internal.EndpointType.SubresourceEndpoint
 import com.coralogix.zio.k8s.codegen.internal.Whitelist.IssueReference
 import org.atteo.evo.inflector.English
-import zio.Task
+import zio.{Task, ZIO}
 
-import scala.meta._
-import _root_.io.swagger.v3.oas.models.parameters.QueryParameter
+import scala.meta.*
 
 sealed trait ClassifiedResource {
   val unsupportedEndpoints: Set[IdentifiedAction]
@@ -213,13 +212,13 @@ object ClassifiedResource {
     for {
       _      <- printIssues(logger, allIssues)
       result <- if (hadUnsupported) {
-                  Task.fail(
+                  ZIO.fail(
                     new sbt.MessageOnlyException(
                       "Unknown, non-whitelisted resource actions found. See the code generation log."
                     )
                   )
                 } else {
-                  Task.succeed(allResources.collect { case supported: SupportedResource =>
+                  ZIO.succeed(allResources.collect { case supported: SupportedResource =>
                     supported
                   })
                 }
@@ -228,9 +227,9 @@ object ClassifiedResource {
 
   private def printIssues(logger: sbt.Logger, issues: Set[IssueReference]) =
     for {
-      _ <- Task.effect(logger.info(s"Issues for currently unsupported resources/actions:"))
-      _ <- Task.foreach_(issues) { issue =>
-             Task.effect(logger.info(s" - ${issue.url}"))
+      _ <- ZIO.attempt(logger.info(s"Issues for currently unsupported resources/actions:"))
+      _ <- ZIO.foreachDiscard(issues) { issue =>
+             ZIO.attempt(logger.info(s" - ${issue.url}"))
            }
     } yield ()
 

@@ -1,7 +1,7 @@
 package com.coralogix.zio.k8s
 
 import _root_.monocle.{ Lens, Optional }
-import client.model.{ Optional => K8sOptional }
+import zio.prelude.data.{ Optional => K8sOptional }
 
 /** Provides support for Monocle for the Kubernetes data models
   *

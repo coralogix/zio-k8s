@@ -458,8 +458,9 @@ class K8sModelProtocolTermInterp(implicit
       .map(sdefs =>
         sdefs.copy(
           extraImports =
-            q"import com.coralogix.zio.k8s.client.model.{K8sObject, K8sObjectOps, K8sResourceType, Optional, ResourceMetadata}" ::
+            q"import com.coralogix.zio.k8s.client.model.{K8sObject, K8sObjectOps, K8sResourceType, ResourceMetadata, optionalDecoder, optionalEncoder}" ::
               q"import com.coralogix.zio.k8s.client.model.primitives._" ::
+              q"import zio.prelude.data.Optional" ::
               sdefs.extraImports,
           definitions = if (isTopLevel) {
             k8sObject :: ops :: metadata :: status ::: sdefs.definitions
