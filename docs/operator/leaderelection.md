@@ -71,7 +71,6 @@ import com.coralogix.zio.k8s.client.config.httpclient._
 import sttp.client3._
 import sttp.model._
 import zio._
-import zio.blocking.Blocking
 import zio.nio.file.Path
 ```
 
@@ -83,19 +82,12 @@ import com.coralogix.zio.k8s.operator.contextinfo.ContextInfo
 import com.coralogix.zio.k8s.operator.leader
 import com.coralogix.zio.k8s.operator.leader.LeaderElection
 
-import zio.blocking.Blocking
-import zio.clock.Clock
-import zio.logging._
-import zio.magic._
-import zio.system.System
+import zio.Clock
+import zio.System
 
-val logging = Logging.console(
-      logLevel = LogLevel.Debug,
-      format = LogFormat.ColoredLogFormat()
-    ) >>> Logging.withRootLoggerName("leader-example")
 
 def example(): ZIO[
-    Logging with Blocking with System with Clock with LeaderElection,
+    LeaderElection,
     Nothing,
     Option[Nothing]
   ] =
@@ -103,11 +95,10 @@ def example(): ZIO[
       exampleLeader()
     }
 
-def exampleLeader(): ZIO[Logging, Nothing, Nothing] =
-    log.info(s"Got leader role") *> ZIO.never
+def exampleLeader(): ZIO[Any, Nothing, Nothing] =
+    ZIO.logInfo(s"Got leader role") *> ZIO.never
 
-example.injectCustom(
-    logging,
+example.provide(
     k8sDefault,
     ContextInfo.live,
     Pods.live,

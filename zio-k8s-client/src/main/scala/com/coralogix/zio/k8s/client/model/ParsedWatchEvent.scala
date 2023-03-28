@@ -8,7 +8,7 @@ import com.coralogix.zio.k8s.client.{
 }
 import com.coralogix.zio.k8s.model.pkg.apis.meta.v1.WatchEvent
 import io.circe.{ Decoder, Json }
-import zio.IO
+import zio.{ IO, ZIO }
 
 /** Watch event with parsed payload
   *
@@ -39,7 +39,8 @@ object ParsedWatchEvent {
   private def parseOrFail[T](requestInfo: K8sRequestInfo, json: Json)(implicit
     decoder: Decoder[T]
   ): IO[K8sFailure, T] =
-    IO.fromEither(decoder.decodeAccumulating(json.hcursor).toEither)
+    ZIO
+      .fromEither(decoder.decodeAccumulating(json.hcursor).toEither)
       .mapError(DeserializationFailure(requestInfo, _))
 
   private val bookmarkedResourceVersion: Decoder[String] =
@@ -75,6 +76,6 @@ object ParsedWatchEvent {
         parseOrFail(requestInfo, event.`object`.value)(bookmarkedResourceVersion)
           .map(ParsedBookmark.apply)
       case _          =>
-        IO.fail(InvalidEvent(requestInfo, event.`type`))
+        ZIO.fail(InvalidEvent(requestInfo, event.`type`))
     }
 }
