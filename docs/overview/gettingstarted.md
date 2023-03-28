@@ -72,7 +72,7 @@ an input for both `K8sCluster` and `SttpClient`. Assuming we have a custom clust
 ```scala mdoc:silent
 def customConfig: ZLayer[Any, Nothing, K8sClusterConfig] = ???
 
-def customK8s = customConfig >>> (k8sCluster ++ k8sSttpClient)
+def customK8s = customConfig >>> (k8sCluster ++ k8sSttpClient())
 ```
 
 #### Trailing dots
@@ -118,7 +118,7 @@ val config = ZLayer.succeed(
 
 ```scala mdoc:silent
 // K8s configuration and client layers
-val client = config >>> k8sSttpClient
+val client = config >>> k8sSttpClient()
 val cluster = config >>> k8sCluster
 ```
 
@@ -139,7 +139,7 @@ val configDesc = ConfigDescriptor.nested("k8s")(clusterConfigDescriptor).to[Conf
 val config = TypesafeConfig.fromTypesafeConfig[Config](ZIO.attempt(ConfigFactory.load.resolve), configDesc)
 
 // K8s configuration and client layers
-val client = config.project(_.k8s) >>> k8sSttpClient
+val client = config.project(_.k8s) >>> k8sSttpClient()
 val cluster = config.project(_.k8s) >>> k8sCluster
 ```
 
