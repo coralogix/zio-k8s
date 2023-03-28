@@ -2,6 +2,7 @@ package com.coralogix.zio.k8s.client.model
 
 import com.coralogix.zio.k8s.client.{ K8sFailure, UndefinedField }
 import zio.{ IO, ZIO }
+import zio.prelude.data._
 
 /** Common operations for every Kubernetes resource type supporting status subresources.
   *

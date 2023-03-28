@@ -40,7 +40,8 @@ case class SubresourceId(
   def streamingGetTransducer: Term =
     modelName match {
       case "String" =>
-        q"zio.stream.ZTransducer.utf8Decode >>> zio.stream.ZTransducer.splitLines"
+        val opName = Lit.String(s"get $name")
+        q"zio.stream.ZPipeline.fromChannel(zio.stream.ZPipeline.utf8Decode.channel.orDie) >>> zio.stream.ZPipeline.splitLines" // TODO: map to CodingFailure, needs metadata access
       case _        => q"???"
     }
 
