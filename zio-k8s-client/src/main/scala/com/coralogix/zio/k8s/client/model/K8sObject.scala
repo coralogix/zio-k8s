@@ -108,10 +108,10 @@ trait K8sObject[T] {
     (for {
       name <- owner.metadata.flatMap(_.name)
       uid  <- owner.metadata.flatMap(_.uid)
-      typ   = implicitly[ResourceMetadata[OwnerT]].resourceType
+      kind  = implicitly[ResourceMetadata[OwnerT]].kind
       refs <- metadata(obj).flatMap(_.ownerReferences)
       found = refs.exists(ownerReference =>
-                ownerReference.kind == typ.resourceType &&
+                ownerReference.kind == kind &&
                   ownerReference.name == name &&
                   ownerReference.uid == uid
               )

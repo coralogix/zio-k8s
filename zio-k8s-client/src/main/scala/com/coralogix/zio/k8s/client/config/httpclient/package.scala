@@ -5,7 +5,8 @@ import sttp.capabilities.WebSockets
 import sttp.capabilities.zio.ZioStreams
 import sttp.client3.SttpBackend
 import sttp.client3.httpclient.zio._
-import sttp.client3.logging.slf4j.Slf4jLoggingBackend
+import sttp.client3.logging.LoggingBackend
+import sttp.client3.logging.slf4j.{ Slf4jLogger, Slf4jLoggingBackend }
 import zio._
 
 import java.net.http.HttpClient
@@ -17,8 +18,9 @@ package object httpclient {
   /** An STTP backend layer configured with the proper SSL context based on the provided
     * [[K8sClusterConfig]] using the httpclient-backend-zio backend.
     */
-  val k8sSttpClient
-    : ZLayer[K8sClusterConfig, Throwable, SttpBackend[Task, ZioStreams with WebSockets]] =
+  def k8sSttpClient(
+    loggerName: String = "sttp.client3.logging.slf4j.Slf4jLoggingBackend"
+  ): ZLayer[K8sClusterConfig, Throwable, SttpBackend[Task, ZioStreams with WebSockets]] =
     ZLayer.scoped {
       for {
         config                      <- ZIO.service[K8sClusterConfig]
@@ -47,8 +49,9 @@ package object httpclient {
                             )
                           )(_.close().ignore)
                           .map { backend =>
-                            Slf4jLoggingBackend(
+                            LoggingBackend(
                               backend,
+                              new Slf4jLogger(loggerName, backend.responseMonad),
                               logRequestBody = config.client.debug,
                               logResponseBody = config.client.debug
                             )
@@ -62,7 +65,7 @@ package object httpclient {
     */
   val k8sDefault
     : ZLayer[Any, Throwable, K8sCluster with SttpBackend[Task, ZioStreams with WebSockets]] =
-    defaultConfigChain >>> (k8sCluster ++ k8sSttpClient)
+    defaultConfigChain >>> (k8sCluster ++ k8sSttpClient())
 
   def getHostnameVerificationDisabled(config: K8sClusterConfig) =
     config.client.serverCertificate match {

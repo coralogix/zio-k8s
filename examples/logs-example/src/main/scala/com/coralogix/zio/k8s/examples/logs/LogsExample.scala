@@ -16,7 +16,7 @@ object LogsExample extends ZIOAppDefault {
       .project(cfg => cfg.dropTrailingDot)
 
     // K8s configuration and client layers
-    val client = config >>> k8sSttpClient
+    val client = config >>> k8sSttpClient()
     val cluster = config >>> k8sCluster
 
     val pods = (client ++ cluster) >>> Pods.live

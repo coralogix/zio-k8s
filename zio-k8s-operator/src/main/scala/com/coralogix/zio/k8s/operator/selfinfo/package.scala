@@ -44,21 +44,26 @@ package object contextinfo {
     }
 
     class Live(pods: Pods.Service) extends LiveBase(pods) {
-      override def namespace: IO[ContextInfoFailure, K8sNamespace] =
-        Files
+      override def namespace: IO[ContextInfoFailure, K8sNamespace] = {
+        val readNamespaceFromFile = Files
           .readAllLines(Path("/var/run/secrets/kubernetes.io/serviceaccount/namespace"))
           .mapBoth(error => ContextInfoFailure.UnknownNamespace(Some(error)), _.headOption)
+
+        System
+          .env("NAMESPACE")
+          .catchAll(_ => ZIO.none)
+          .flatMap(_.fold(readNamespaceFromFile)(ZIO.some(_)))
           .flatMap {
             case Some(line) => ZIO.succeed(K8sNamespace(line.trim))
             case None       => ZIO.fail(ContextInfoFailure.UnknownNamespace(None))
           }
+      }
     }
 
     class LiveForcedNamespace(pods: Pods.Service, ns: K8sNamespace) extends LiveBase(pods) {
       override def namespace: IO[ContextInfoFailure, K8sNamespace] = ZIO.succeed(ns)
     }
 
-    zio.Clock
     val any: ZLayer[ContextInfo, Nothing, ContextInfo] = ZLayer.service[ContextInfo]
 
     val live: ZLayer[Any with Pods, ContextInfoFailure, ContextInfo] =
