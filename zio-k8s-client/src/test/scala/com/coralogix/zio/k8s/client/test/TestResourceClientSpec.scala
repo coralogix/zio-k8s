@@ -12,10 +12,9 @@ import zio.Chunk
 import zio.stream.ZStream
 import zio.test.Assertion._
 import zio.test._
-import zio.test.environment.TestEnvironment
 
-object TestResourceClientSpec extends DefaultRunnableSpec {
-  override def spec: ZSpec[TestEnvironment, Any] = suite("TestResourceClient spec")(
+object TestResourceClientSpec extends ZIOSpecDefault {
+  override def spec: Spec[TestEnvironment, Any] = suite("TestResourceClient spec")(
     suite("filter")(
       suite("labelSelector")(
         test("equals") {
@@ -158,7 +157,7 @@ object TestResourceClientSpec extends DefaultRunnableSpec {
         }
       ),
       suite("resourceVersion")(
-        testM("Exact") {
+        test("Exact") {
           val name = "name"
           val v1 = "v1"
           val v2 = "v2"
@@ -171,14 +170,14 @@ object TestResourceClientSpec extends DefaultRunnableSpec {
             metadata = ObjectMeta(name = name, generation = generation2, resourceVersion = v2)
           )
 
-          assertM(
+          assertZIO(
             TestResourceClient
               .filterByResourceVersion(ZStream(Chunk(node1, node2)))(ListResourceVersion.Exact(v1))
               .runCollect
           )(equalTo(Chunk(node1)))
 
         },
-        testM("NotOlderThan") {
+        test("NotOlderThan") {
           val name = "name"
           val v1 = "v1"
           val v2 = "v2"
@@ -197,7 +196,7 @@ object TestResourceClientSpec extends DefaultRunnableSpec {
             metadata = ObjectMeta(name = name, generation = generation3, resourceVersion = v3)
           )
 
-          assertM(
+          assertZIO(
             TestResourceClient
               .filterByResourceVersion(ZStream(Chunk(node1, node2, node3)))(
                 ListResourceVersion.NotOlderThan(v2)
@@ -205,7 +204,7 @@ object TestResourceClientSpec extends DefaultRunnableSpec {
               .runCollect
           )(equalTo(Chunk(node3)))
         },
-        testM("MostRecent") {
+        test("MostRecent") {
           val name = "name"
           val v1 = "v1"
           val v2 = "v2"
@@ -218,13 +217,13 @@ object TestResourceClientSpec extends DefaultRunnableSpec {
             metadata = ObjectMeta(name = name, generation = generation2, resourceVersion = v2)
           )
 
-          assertM(
+          assertZIO(
             TestResourceClient
               .filterByResourceVersion(ZStream(Chunk(node1, node2)))(ListResourceVersion.MostRecent)
               .runCollect
           )(equalTo(Chunk(node2)))
         },
-        testM("Any") {
+        test("Any") {
           val name = "name"
           val v1 = "v1"
           val v2 = "v2"
@@ -237,14 +236,14 @@ object TestResourceClientSpec extends DefaultRunnableSpec {
             metadata = ObjectMeta(name = name, generation = generation2, resourceVersion = v2)
           )
 
-          assertM(
+          assertZIO(
             TestResourceClient
               .filterByResourceVersion(ZStream(Chunk(node1, node2)))(ListResourceVersion.Any)
               .runCollect
           )(equalTo(Chunk(node2)))
         }
       ),
-      testM("getAll") {
+      test("getAll") {
         val label = "label1"
         val value = "value1"
         val value2 = "value2"
@@ -292,7 +291,7 @@ object TestResourceClientSpec extends DefaultRunnableSpec {
                        .runCollect
         } yield assertTrue(nodes == Chunk(created))
       },
-      testM("watch") {
+      test("watch") {
         val label = "label1"
         val value = "value1"
         val value2 = "value2"
@@ -344,7 +343,7 @@ object TestResourceClientSpec extends DefaultRunnableSpec {
                        .runCollect
         } yield assertTrue(nodes == Chunk(Modified(latest)))
       },
-      testM("deleteAll") {
+      test("deleteAll") {
         val label = "label1"
         val value = "value1"
         val value2 = "value2"
@@ -396,7 +395,7 @@ object TestResourceClientSpec extends DefaultRunnableSpec {
         } yield assertTrue(nodes == Chunk(modified2))
       }
     ),
-    testM("get") {
+    test("get") {
       val name = "name"
       val node = Node(
         metadata = ObjectMeta(name = name)
@@ -410,7 +409,7 @@ object TestResourceClientSpec extends DefaultRunnableSpec {
         latest   <- client.get(name, None)
       } yield assertTrue(modified == latest)
     },
-    testM("delete") {
+    test("delete") {
       import com.coralogix.zio.k8s.client.K8sFailure.syntax._
       val name = "name"
       val node = Node(

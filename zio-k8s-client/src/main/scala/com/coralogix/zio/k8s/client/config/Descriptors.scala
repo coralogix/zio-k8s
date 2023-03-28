@@ -61,7 +61,7 @@ trait Descriptors {
 
   private val basicAuth: ConfigDescriptor[K8sAuthentication] =
     nested("basicAuth")(
-      (string("username") <*> string("password"))
+      string("username") zip string("password")
     ).transformOrFailRight(
       { case (username, password) => K8sAuthentication.BasicAuth(username, password) },
       {
@@ -72,9 +72,9 @@ trait Descriptors {
 
   private val clientCertificates: ConfigDescriptor[K8sAuthentication] =
     nested("clientCertificates")(
-      (nested("certificate")(keySource) |@| nested("key")(keySource) |@| string(
+      nested("certificate")(keySource) zip nested("key")(keySource) zip string(
         "password"
-      ).optional).tupled
+      ).optional
     ).transformOrFailRight(
       { case (certificate, key, password) =>
         K8sAuthentication.ClientCertificates(certificate, key, password)
@@ -103,7 +103,7 @@ trait Descriptors {
 
   private val secureServerCertificate: ConfigDescriptor[K8sServerCertificate] =
     nested("secure")(
-      nested("certificate")(keySource) <*> boolean("disableHostnameVerification")
+      nested("certificate")(keySource) zip boolean("disableHostnameVerification")
     ).transformOrFailRight(
       { case (cert, disableHostnameVerification) =>
         K8sServerCertificate.Secure(cert, disableHostnameVerification)
@@ -119,12 +119,12 @@ trait Descriptors {
     insecureServerCertificate <> secureServerCertificate
 
   private val clientConfig: ConfigDescriptor[K8sClientConfig] =
-    (boolean("debug") |@| serverCertificate).to[K8sClientConfig]
+    (boolean("debug") zip serverCertificate).to[K8sClientConfig]
 
   /** ZIO Config descriptor for [[K8sClusterConfig]]
     */
   val clusterConfigDescriptor: ConfigDescriptor[K8sClusterConfig] =
-    (nested("host")(uri) |@| nested("authentication")(k8sAuthentication) |@| nested("client")(
+    (nested("host")(uri) zip nested("authentication")(k8sAuthentication) zip nested("client")(
       clientConfig
     )).to[K8sClusterConfig]
 }

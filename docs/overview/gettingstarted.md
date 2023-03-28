@@ -20,18 +20,18 @@ println(s"""```""")
 
 in addition to this, you need to choose an [sttp](https://sttp.softwaremill.com/en/latest/) _backend_ that `zio-k8s` will use to make HTTP requests with. There are two official backends that can be used out of the box:
 
-In case your application runs on **Java 11** or above, choose the `HttpClient` based version:
+In case your application runs on **Java 11** or above, choose the `HttpClient` based version which is now included in sttp core
+so you may only need to add SLF4j support for logging requests:
 
 ```scala
-"com.softwaremill.sttp.client3" %% "httpclient-backend-zio" % "3.1.1"
-"com.softwaremill.sttp.client3" %% "slf4j-backend"          % "3.1.1"
+"com.softwaremill.sttp.client3" %% "slf4j-backend"          % "3.7.0"
 ```
 
 Otherwise choose the `async-http-client` based backend:
 
 ```scala
-"com.softwaremill.sttp.client3" %% "async-http-client-backend-zio" % "3.1.1"
-"com.softwaremill.sttp.client3" %% "slf4j-backend"                 % "3.1.1"
+"com.softwaremill.sttp.client3" %% "async-http-client-backend-zio" % "3.7.0"
+"com.softwaremill.sttp.client3" %% "slf4j-backend"                 % "3.7.0"
 ```
 
 ## Configuration
@@ -48,8 +48,6 @@ the chosen HTTP implementation. In case of `HttpClient` this looks like the foll
 import com.coralogix.zio.k8s.client.config._
 import com.coralogix.zio.k8s.client.config.httpclient._
 import zio._
-import zio.blocking.Blocking
-import zio.system.System
 
 import com.coralogix.zio.k8s.client.v1.configmaps.ConfigMaps
 import com.coralogix.zio.k8s.client.v1.pods.Pods
@@ -72,9 +70,9 @@ The more custom functions in the `config` package are only producing a `K8sClust
 an input for both `K8sCluster` and `SttpClient`. Assuming we have a custom cluster configuration layer `config`:
 
 ```scala mdoc:silent
-def customConfig: ZLayer[Any, Nothing, Has[K8sClusterConfig]] = ???
+def customConfig: ZLayer[Any, Nothing, K8sClusterConfig] = ???
 
-def customK8s = (Blocking.any ++ System.any ++ customConfig) >>> (k8sCluster ++ k8sSttpClient)
+def customK8s = customConfig >>> (k8sCluster ++ k8sSttpClient())
 ```
 
 #### Trailing dots
@@ -94,7 +92,6 @@ import com.coralogix.zio.k8s.client.config.httpclient._
 import sttp.client3._
 import sttp.model._
 import zio.ZLayer
-import zio.blocking.Blocking
 import zio.nio.file.Path
 
 // Configuration
@@ -121,8 +118,8 @@ val config = ZLayer.succeed(
 
 ```scala mdoc:silent
 // K8s configuration and client layers
-val client = Blocking.any ++ System.any ++ config >>> k8sSttpClient
-val cluster = Blocking.any ++ System.any ++ config >>> k8sCluster
+val client = config >>> k8sSttpClient()
+val cluster = config >>> k8sCluster
 ```
 
 ### Configuring with zio-config + Typesafe Config
@@ -130,20 +127,20 @@ val cluster = Blocking.any ++ System.any ++ config >>> k8sCluster
 ```scala mdoc:silent:reset
 import com.coralogix.zio.k8s.client.config._
 import com.coralogix.zio.k8s.client.config.httpclient._
-import zio.blocking.Blocking
+import com.typesafe.config.ConfigFactory
 import zio.config.ConfigDescriptor
 import zio.config.typesafe._
-import zio.system.System
+import zio._
 
 case class Config(k8s: K8sClusterConfig)
 
 // Loading config from HOCON
 val configDesc = ConfigDescriptor.nested("k8s")(clusterConfigDescriptor).to[Config]
-val config = TypesafeConfig.fromDefaultLoader[Config](configDesc)
+val config = TypesafeConfig.fromTypesafeConfig[Config](ZIO.attempt(ConfigFactory.load.resolve), configDesc)
 
 // K8s configuration and client layers
-val client = (Blocking.any ++ System.any ++ config.project(_.k8s)) >>> k8sSttpClient
-val cluster = (Blocking.any ++ System.any ++ config.project(_.k8s)) >>> k8sCluster
+val client = config.project(_.k8s) >>> k8sSttpClient()
+val cluster = config.project(_.k8s) >>> k8sCluster
 ```
 
 and place the configuration in `application.conf`, for example:

@@ -1,5 +1,6 @@
 package com.coralogix.zio.k8s.client.test
 
+import com.coralogix.zio.k8s.client._
 import com.coralogix.zio.k8s.client.model.K8sObject._
 import com.coralogix.zio.k8s.client.model.LabelSelector.{ And, LabelEquals, LabelIn, LabelNotIn }
 import com.coralogix.zio.k8s.client.model.ListResourceVersion.{
@@ -10,15 +11,14 @@ import com.coralogix.zio.k8s.client.model.ListResourceVersion.{
 }
 import com.coralogix.zio.k8s.client.model._
 import com.coralogix.zio.k8s.client.test.TestResourceClient._
-import com.coralogix.zio.k8s.client._
-import com.coralogix.zio.k8s.model.pkg.apis.meta.v1.{ DeleteOptions, ObjectMeta, Status }
+import com.coralogix.zio.k8s.model.pkg.apis.meta.v1.{ DeleteOptions, Status }
+import io.circe.syntax._
 import io.circe.{ Encoder, Json, JsonNumber }
 import sttp.model.StatusCode
-import zio.duration.Duration
+import zio.prelude.data.Optional
 import zio.stm.{ TMap, TQueue, ZSTM }
 import zio.stream._
-import zio.{ Chunk, IO, ZIO }
-import io.circe.syntax._
+import zio.{ Chunk, Duration, IO, ZIO }
 
 import scala.annotation.tailrec
 
@@ -59,8 +59,7 @@ final class TestResourceClient[T: K8sObject: Encoder, DeleteResult] private (
     })(resourceVersion)
       .filter(filterByLabelSelector(labelSelector))
       .filter(filterByFieldSelector(fieldSelector))
-      .chunkN(chunkSize)
-
+      .rechunk(chunkSize)
   }
 
   override def watch(
@@ -196,7 +195,7 @@ final class TestResourceClient[T: K8sObject: Encoder, DeleteResult] private (
     if (!dryRun) {
       val stm = for {
         item <- store.get(prefix + name)
-        _    <- ZSTM.foreach_(item) { item =>
+        _    <- ZSTM.foreachDiscard(item) { item =>
                   for {
                     _ <- store.delete(prefix + name)
                     _ <- events.offer(Deleted(item.last))
@@ -223,10 +222,10 @@ final class TestResourceClient[T: K8sObject: Encoder, DeleteResult] private (
       val stm = for {
         keys        <- store.keys
         filteredKeys = keys.filter(_.startsWith(prefix))
-        _           <- ZSTM.foreach_(filteredKeys) { key =>
+        _           <- ZSTM.foreachDiscard(filteredKeys) { key =>
                          for {
                            items <- store.get(key)
-                           _     <- ZSTM.foreach_(
+                           _     <- ZSTM.foreachDiscard(
                                       items
                                         .flatMap(_.lastOption)
                                         .filter(filterByLabelSelector(labelSelector))

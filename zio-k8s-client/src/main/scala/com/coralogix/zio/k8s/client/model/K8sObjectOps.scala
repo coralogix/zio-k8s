@@ -3,6 +3,7 @@ package com.coralogix.zio.k8s.client.model
 import com.coralogix.zio.k8s.client.K8sFailure
 import com.coralogix.zio.k8s.model.pkg.apis.meta.v1.ObjectMeta
 import zio.IO
+import zio.prelude.data.Optional
 
 /** Extension methods for Kubernetes resources
   *

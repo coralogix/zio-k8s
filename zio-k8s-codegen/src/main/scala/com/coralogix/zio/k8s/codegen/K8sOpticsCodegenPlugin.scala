@@ -1,9 +1,10 @@
 package com.coralogix.zio.k8s.codegen
 
-import com.coralogix.zio.k8s.codegen.K8sSwaggerPlugin.autoImport._
-import sbt.Keys._
-import sbt._
-import zio.nio.file.{ Path => ZPath }
+import com.coralogix.zio.k8s.codegen.K8sSwaggerPlugin.autoImport.*
+import sbt.Keys.*
+import sbt.*
+import zio.Unsafe
+import zio.nio.file.Path as ZPath
 
 object K8sOpticsCodegenPlugin extends AutoPlugin {
   object autoImport {
@@ -22,13 +23,15 @@ object K8sOpticsCodegenPlugin extends AutoPlugin {
           FileInfo.hash
         ) { input: Set[File] =>
           input.foldLeft(Set.empty[File]) { (result, k8sSwagger) =>
-            val fs = runtime.unsafeRunTask(
-              codegen.generateAllOptics(
-                ZPath.fromJava(k8sSwagger.toPath),
-                ZPath.fromJava(sourcesDir.toPath)
-              )
-            )
-            result union fs.toSet
+            Unsafe.unsafe { implicit u =>
+              val fs = runtime.unsafe.run(
+                codegen.generateAllOptics(
+                  ZPath.fromJava(k8sSwagger.toPath),
+                  ZPath.fromJava(sourcesDir.toPath)
+                )
+              ).getOrThrow()
+              result union fs.toSet
+            }
           }
         }
 
