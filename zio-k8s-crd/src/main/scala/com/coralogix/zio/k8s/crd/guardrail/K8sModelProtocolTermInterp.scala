@@ -110,7 +110,7 @@ class K8sModelProtocolTermInterp(implicit
 
       List[Defn.Def](
         q"override def toString: String = ${toStringTerms
-          .foldLeft[Term](Lit.String(s"$clsName("))((accum, term) => q"$accum + $term")} + ${Lit.String(")")}"
+            .foldLeft[Term](Lit.String(s"$clsName("))((accum, term) => q"$accum + $term")} + ${Lit.String(")")}"
       )
     } else
       List.empty[Defn.Def]
@@ -156,7 +156,7 @@ class K8sModelProtocolTermInterp(implicit
                       Option(
                         q"""
                     Decoder.${Term.Name(s"forProduct$paramCount")}(..$names)(${Term
-                          .Name(clsName)}.apply _)
+                            .Name(clsName)}.apply _)
                   """
                       )
                     )
@@ -199,8 +199,8 @@ class K8sModelProtocolTermInterp(implicit
                               .asObject
                               .filter(!_.contains($name))
                               .fold(${emptyToNull(
-                                  q"c.downField($name)"
-                                )}.as[$tpe].map(x => ${present(q"x")})) { _ =>
+                                    q"c.downField($name)"
+                                  )}.as[$tpe].map(x => ${present(q"x")})) { _ =>
                                 Right($absent)
                               }
                           )($t)
@@ -266,7 +266,7 @@ class K8sModelProtocolTermInterp(implicit
     } yield decVal.map(decVal =>
       q"""
               implicit val ${suffixClsName("decode", clsName)}: Decoder[${Type
-        .Name(clsName)}] = $decVal
+          .Name(clsName)}] = $decVal
             """
     )
   }
@@ -319,8 +319,8 @@ class K8sModelProtocolTermInterp(implicit
               Right(encodeRequired(param))
             case PropertyRequirement.Configured(PropertyRequirement.Optional, _)     =>
               Left(q"""a.${Term.Name(param.term.name.value)}.map(value => (${Lit.String(
-                param.name.value
-              )}, value.asJson))""")
+                  param.name.value
+                )}, value.asJson))""")
           }
         }
 
@@ -337,7 +337,7 @@ class K8sModelProtocolTermInterp(implicit
         Option(
           q"""
                 ${circeVersion.encoderObjectCompanion}.instance[${Type
-            .Name(clsName)}](a => JsonObject.fromIterable($arg))
+              .Name(clsName)}](a => JsonObject.fromIterable($arg))
               """
         )
       }
@@ -351,8 +351,11 @@ class K8sModelProtocolTermInterp(implicit
                         .mapJsonObject(_.filter { case (_, v) => !v.isNull })""")
 
     if (containsObjectMetadataField && isTopLevel)
-      Target.pure(encoder.map(encoder => q"""
-            implicit val ${suffixClsName("encode", clsName)}: ${circeVersion.encoderObject}[${Type.Name(clsName)}] = {
+      Target.pure(
+        encoder.map(encoder =>
+          q"""
+            implicit val ${suffixClsName("encode", clsName)}: ${circeVersion.encoderObject}[${Type
+              .Name(clsName)}] = {
               val readOnlyKeys = Set[String](..${readOnlyKeys.map(Lit.String(_))})
               $encoder
                 .mapJsonObject(
@@ -360,14 +363,21 @@ class K8sModelProtocolTermInterp(implicit
                   ("apiVersion", $apiVersionLit.asJson) +: _
                 )
             }
-          """))
+          """
+        )
+      )
     else
-      Target.pure(encoder.map(encoder => q"""
-            implicit val ${suffixClsName("encode", clsName)}: ${circeVersion.encoderObject}[${Type.Name(clsName)}] = {
+      Target.pure(
+        encoder.map(encoder =>
+          q"""
+            implicit val ${suffixClsName("encode", clsName)}: ${circeVersion.encoderObject}[${Type
+              .Name(clsName)}] = {
               val readOnlyKeys = Set[String](..${readOnlyKeys.map(Lit.String(_))})
               $encoder
             }
-          """))
+          """
+        )
+      )
   }
 
   override def renderDTOStaticDefns(

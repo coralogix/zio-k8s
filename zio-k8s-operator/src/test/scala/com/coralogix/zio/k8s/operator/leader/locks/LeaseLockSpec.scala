@@ -368,7 +368,7 @@ object LeaseLockSpec extends ZIOSpecDefault {
 
   val clockSkewTest: Spec[TestEnvironment, Any] =
     test("with clock skew leadership can be stolen but other gets cancelled") {
-      val testIO: ZIO[Live with Annotations with Leases, K8sFailure, TestResult] = {
+      val testIO: ZIO[Live with Annotations with Leases, K8sFailure, TestResult] =
         for {
           otherClock <- ZIO.scoped(TestClock.default.build)
           ref        <- Ref.make(0)
@@ -408,7 +408,6 @@ object LeaseLockSpec extends ZIOSpecDefault {
           _ <- f1.interrupt
           _ <- f2.interrupt
         } yield assertTrue(w0 == "pod1") && assertTrue(w1 == "pod2")
-      }
 
       testIO
     }.provideCustomLayer(Leases.test)

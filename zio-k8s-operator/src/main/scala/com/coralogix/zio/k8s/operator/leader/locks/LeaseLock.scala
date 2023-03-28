@@ -119,7 +119,7 @@ class LeaseLock(
                         _              <- updateStore(versioned)
                         _              <- logInfo(
                                             s"versioned renewTime + leaderDuration = ${versioned.record.renewTime
-                                              .plus(leaseDuration)}, now: ${now}"
+                                                .plus(leaseDuration)}, now: ${now}"
                                           )
                         isLeader        = versioned.record.holderIdentity == identity
                         canBecomeLeader =
