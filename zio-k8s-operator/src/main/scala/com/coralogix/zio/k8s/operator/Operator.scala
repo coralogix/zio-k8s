@@ -10,8 +10,8 @@ import com.coralogix.zio.k8s.client.{ ClusterResource, K8sFailure, NamespacedRes
 import com.coralogix.zio.k8s.operator.Operator.{ EventProcessor, OperatorContext }
 import com.coralogix.zio.k8s.operator.OperatorLogging._
 import zio.ZIO._
+import zio._
 import zio.stream.ZStream
-import zio.{ Clock, _ }
 
 /** Core implementation of the operator logic. Watches a stream and calls an event processor.
   *
@@ -20,7 +20,7 @@ import zio.{ Clock, _ }
   * Create an instance using either [[Operator.namespaced()]] or [[Operator.cluster()]]
   */
 trait Operator[R, E, T] { self =>
-  protected def watchStream(): ZStream[Clock, K8sFailure, TypedWatchEvent[T]]
+  protected def watchStream(): ZStream[Any, K8sFailure, TypedWatchEvent[T]]
 
   def processEvent(event: TypedWatchEvent[T]): ZIO[R, OperatorFailure[E], Unit]
 
@@ -32,7 +32,7 @@ trait Operator[R, E, T] { self =>
 
   /** Exposes stream
     */
-  def stream(): ZStream[R with Clock, OperatorFailure[E], Unit] =
+  def stream(): ZStream[R, OperatorFailure[E], Unit] =
     watchStream()
       .buffer(bufferSize)
       .mapError(KubernetesFailure.apply)
@@ -40,7 +40,7 @@ trait Operator[R, E, T] { self =>
 
   /** Starts the operator on a forked fiber
     */
-  def start(): URIO[R with Clock, Fiber.Runtime[Nothing, Unit]] =
+  def start(): URIO[R, Fiber.Runtime[Nothing, Unit]] =
     stream().runDrain
       .foldCauseZIO(
         cause =>
@@ -93,7 +93,7 @@ final class NamespacedOperator[R, E, T](
   override val context: OperatorContext,
   override val bufferSize: Int
 ) extends Operator[R, E, T] {
-  override protected def watchStream(): ZStream[Clock, K8sFailure, TypedWatchEvent[T]] =
+  override protected def watchStream(): ZStream[Any, K8sFailure, TypedWatchEvent[T]] =
     client.watchForever(namespace)
 
   override def processEvent(event: TypedWatchEvent[T]): ZIO[R, OperatorFailure[E], Unit] =
@@ -117,7 +117,7 @@ final class ClusterOperator[R, E, T](
   override val context: OperatorContext,
   override val bufferSize: Int
 ) extends Operator[R, E, T] {
-  override protected def watchStream(): ZStream[Clock, K8sFailure, TypedWatchEvent[T]] =
+  override protected def watchStream(): ZStream[Any, K8sFailure, TypedWatchEvent[T]] =
     client.watchForever()
 
   override def processEvent(event: TypedWatchEvent[T]): ZIO[R, OperatorFailure[E], Unit] =

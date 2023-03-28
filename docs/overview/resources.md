@@ -171,7 +171,7 @@ def watchForever(
   namespace: Option[K8sNamespace],
   fieldSelector: Option[FieldSelector] = None,
   labelSelector: Option[LabelSelector] = None
-): ZStream[StatefulSets with Clock, K8sFailure, TypedWatchEvent[StatefulSet]]
+): ZStream[StatefulSets, K8sFailure, TypedWatchEvent[StatefulSet]]
 ```
 
 - `watch` starts a **stream** of _watch events_ starting from a given resource version. The lifecycle of this stream corresponds with the underlying Kubernetes API request.

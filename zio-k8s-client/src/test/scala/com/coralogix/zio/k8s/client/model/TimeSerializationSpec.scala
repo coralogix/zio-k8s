@@ -5,6 +5,7 @@ import io.circe._
 import io.circe.syntax._
 import zio.Clock
 import zio.test.Assertion._
+import zio.test.TestAspect.withLiveClock
 import zio.test.{ ZIOSpecDefault, _ }
 
 import java.time.OffsetDateTime
@@ -22,14 +23,14 @@ object TimeSerializationSpec extends ZIOSpecDefault {
       },
       test("can print and parse") {
         for {
-          now       <- zio.Clock.currentDateTime.withClock(Clock.ClockLive)
+          now       <- Clock.currentDateTime
           microTime1 = MicroTime(now)
           json       = microTime1.asJson
           microTime2 = json.as[MicroTime]
         } yield assert(microTime2.map(_.value.toEpochSecond))(
           isRight(equalTo(microTime1.value.toEpochSecond))
         )
-      },
+      } @@ withLiveClock,
       test("Can read time with 6 digit fraction part") {
         val json = Json.fromString("2021-03-06T12:09:50.348652Z")
         assert(json.as[MicroTime])(isRight(anything))

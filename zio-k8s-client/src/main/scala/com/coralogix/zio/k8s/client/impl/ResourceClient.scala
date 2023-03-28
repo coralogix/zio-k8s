@@ -3,15 +3,15 @@ package com.coralogix.zio.k8s.client.impl
 import _root_.io.circe._
 import _root_.io.circe.parser._
 import cats.data.NonEmptyList
-import com.coralogix.zio.k8s.client.model._
 import com.coralogix.zio.k8s.client._
+import com.coralogix.zio.k8s.client.model._
 import com.coralogix.zio.k8s.model.pkg.apis.meta.v1.{ DeleteOptions, Status, WatchEvent }
 import sttp.capabilities.WebSockets
 import sttp.capabilities.zio.ZioStreams
 import sttp.client3._
 import sttp.client3.circe._
+import zio._
 import zio.prelude.data.Optional
-import zio.{ Clock, _ }
 import zio.stream._
 
 /** Generic implementation of [[Resource]], [[ResourceDelete]] and [[ResourceDeleteAll]]
@@ -341,7 +341,7 @@ object ResourceClient {
       namespace: Option[K8sNamespace],
       fieldSelector: Option[FieldSelector] = None,
       labelSelector: Option[LabelSelector] = None
-    ): ZStream[NamespacedResource[T] with Clock, K8sFailure, TypedWatchEvent[
+    ): ZStream[NamespacedResource[T], K8sFailure, TypedWatchEvent[
       T
     ]] =
       ZStream.environmentWithStream[NamespacedResource[T]](
@@ -591,7 +591,7 @@ object ResourceClient {
     def watchForever[T: EnvironmentTag](
       fieldSelector: Option[FieldSelector] = None,
       labelSelector: Option[LabelSelector] = None
-    ): ZStream[ClusterResource[T] with Clock, K8sFailure, TypedWatchEvent[T]] =
+    ): ZStream[ClusterResource[T], K8sFailure, TypedWatchEvent[T]] =
       ZStream.environmentWithStream[ClusterResource[T]](
         _.get.watchForever(fieldSelector, labelSelector)
       )

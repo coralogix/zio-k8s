@@ -27,7 +27,7 @@ import zio.Clock
 
 sealed trait CustomOperatorFailures
 
-val eventProcessor: EventProcessor[Clock, CustomOperatorFailures, Pod] = 
+val eventProcessor: EventProcessor[Any, CustomOperatorFailures, Pod] = 
     (ctx, event) => 
         event match {
             case Reseted() =>
@@ -96,9 +96,9 @@ we can define a `metered` aspect:
 ```scala mdoc
 import zio.Clock
 
-def metered[T, E](operatorMetrics: OperatorMetrics): Aspect[Clock, E, T] =
-    new Aspect[Clock, E, T] {
-      override def apply[R1 <: Clock, E1 >: E](
+def metered[T, E](operatorMetrics: OperatorMetrics): Aspect[Any, E, T] =
+    new Aspect[Any, E, T] {
+      override def apply[R1, E1 >: E](
         f: EventProcessor[R1, E1, T]
       ): EventProcessor[R1, E1, T] =
         (ctx, event) => {
