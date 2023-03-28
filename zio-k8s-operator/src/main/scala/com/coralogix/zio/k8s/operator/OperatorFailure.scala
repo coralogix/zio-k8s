@@ -28,6 +28,11 @@ object OperatorFailure {
       new RuntimeException(
         formatErrorWithK8sContext(reqInfo, s"K8s HTTP error: $message with code $code")
       )
+    case CodingFailure(reqInfo, failure)        =>
+      new RuntimeException(
+        formatErrorWithK8sContext(reqInfo, "K8s character coding error"),
+        failure
+      )
     case DecodedFailure(reqInfo, status, code)  =>
       new RuntimeException(
         formatErrorWithK8sContext(reqInfo, s"K8s error: ${status.message} with code $code")

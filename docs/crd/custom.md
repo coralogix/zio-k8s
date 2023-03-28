@@ -13,8 +13,9 @@ import com.coralogix.zio.k8s.client.model.{
   K8sObject,
   K8sObjectStatus,
   K8sResourceType,
-  Optional,
-  ResourceMetadata
+  ResourceMetadata,
+  optionalDecoder,
+  optionalEncoder
 }
 import com.coralogix.zio.k8s.client._
 import com.coralogix.zio.k8s.model.pkg.apis.meta.v1.{ ObjectMeta, Status }
@@ -23,7 +24,8 @@ import io.circe.generic.semiauto._
 import sttp.capabilities.WebSockets
 import sttp.capabilities.zio.ZioStreams
 import sttp.client3.SttpBackend
-import zio.{ Has, Task, ZLayer }
+import zio.{ Task, ZLayer, ZIO }
+import zio.prelude.data.Optional
 ```
 
 We are going to use the [Crontab example](https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/) 
@@ -94,23 +96,14 @@ as a _package object_ instead) :
 
 ```scala mdoc
 object crontabs {
-  type Crontabs = Has[Crontabs.Service]
+  type Crontabs = Crontabs.Service
 
   object Crontabs {
     // Generic representation (optional) 
-    type Generic =
-      Has[NamespacedResource[Crontab]] with 
-      Has[NamespacedResourceStatus[CrontabStatus, Crontab]]
+    type Generic = NamespacedResource[Crontab] with NamespacedResourceStatus[CrontabStatus, Crontab]
 
-    trait Service 
-      extends NamespacedResource[Crontab]
-      with NamespacedResourceStatus[CrontabStatus, Crontab] {
-      
-      // Convert to generic representation (optional)
-      val asGeneric: Generic = 
-        Has[NamespacedResource[Crontab]](this) ++ 
-        Has[NamespacedResourceStatus[CrontabStatus, Crontab]](this)
-    }
+    trait Service
+      extends NamespacedResource[Crontab] with NamespacedResourceStatus[CrontabStatus, Crontab]
 
     final class Live(
       override val asGenericResource: ResourceClient[Crontab, Status],
@@ -118,17 +111,19 @@ object crontabs {
     ) extends Service
 
     val live
-      : ZLayer[Has[K8sCluster] with Has[SttpBackend[Task, ZioStreams with WebSockets]], Nothing, Crontabs] =
-      ZLayer.fromServices[SttpBackend[Task, ZioStreams with WebSockets], K8sCluster, Service] {
-        (backend: SttpBackend[Task, ZioStreams with WebSockets], cluster: K8sCluster) =>
-          val client = new ResourceClient[Crontab, Status](metadata.resourceType, cluster, backend)
-          val statusClient = new ResourceStatusClient[CrontabStatus, Crontab](
-            metadata.resourceType,
-            cluster,
-            backend
-          )
-          new Live(client, statusClient)
-      }
+      : ZLayer[K8sCluster with SttpBackend[Task, ZioStreams with WebSockets], Nothing, Crontabs] = 
+        ZLayer {
+          for {
+            backend <- ZIO.service[SttpBackend[Task, ZioStreams with WebSockets]]
+            cluster <- ZIO.service[K8sCluster]
+            client = new ResourceClient[Crontab, Status](metadata.resourceType, cluster, backend)
+            statusClient = new ResourceStatusClient[CrontabStatus, Crontab](
+              metadata.resourceType,
+              cluster,
+              backend
+            )
+          } yield new Live(client, statusClient)
+        }
   }
 }
 ```
@@ -137,5 +132,5 @@ In addition to this you can add _accessor functions_ to the `crontabs` package i
 
 ```scala
 def get(name: String, namespace: K8sNamespace): ZIO[Crontabs, K8sFailure, Crontab] =
-  ZIO.accessM(_.get.get(name, namespace))
+  ZIO.serviceWithZIO(_.get(name, namespace))
 ```

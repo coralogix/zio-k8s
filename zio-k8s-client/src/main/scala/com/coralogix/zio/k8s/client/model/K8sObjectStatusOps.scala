@@ -2,6 +2,7 @@ package com.coralogix.zio.k8s.client.model
 
 import com.coralogix.zio.k8s.client.K8sFailure
 import zio.IO
+import zio.prelude.data.Optional
 
 /** Extension methods for Kubernetes resources with status subresource support
   *
