@@ -3,9 +3,9 @@ package com.coralogix.zio.k8s.client
 import com.coralogix.zio.k8s.client.model.{ K8sNamespace, PropagationPolicy }
 import com.coralogix.zio.k8s.model.pkg.apis.meta.v1.{ DeleteOptions, Preconditions, Status }
 import sttp.model.StatusCode
-import zio.clock.Clock
 import zio.{ IO, Schedule, ZIO }
-import zio.duration._
+
+import zio._
 
 /** Extra capability for [[Resource]] interfaces providing delete
   *
@@ -81,7 +81,7 @@ trait ResourceDelete[T, DeleteResult] {
     dryRun: Boolean = false,
     gracePeriod: Option[Duration] = None,
     propagationPolicy: Option[PropagationPolicy] = None
-  )(implicit ev: DeleteResult <:< Status): ZIO[Clock, K8sFailure, Unit] =
+  )(implicit ev: DeleteResult <:< Status): ZIO[Any, K8sFailure, Unit] =
     delete(name, deleteOptions, namespace, dryRun, gracePeriod, propagationPolicy).flatMap {
       status =>
         for {
@@ -180,7 +180,7 @@ trait NamespacedResourceDelete[T, DeleteResult] {
     dryRun: Boolean = false,
     gracePeriod: Option[Duration] = None,
     propagationPolicy: Option[PropagationPolicy] = None
-  )(implicit ev: DeleteResult <:< Status): ZIO[Clock, K8sFailure, Unit] =
+  )(implicit ev: DeleteResult <:< Status): ZIO[Any, K8sFailure, Unit] =
     asGenericResourceDelete.deleteAndWait(
       name,
       deleteOptions,
@@ -258,7 +258,7 @@ trait ClusterResourceDelete[T, DeleteResult] {
     dryRun: Boolean = false,
     gracePeriod: Option[Duration] = None,
     propagationPolicy: Option[PropagationPolicy] = None
-  )(implicit ev: DeleteResult <:< Status): ZIO[Clock, K8sFailure, Unit] =
+  )(implicit ev: DeleteResult <:< Status): ZIO[Any, K8sFailure, Unit] =
     asGenericResourceDelete.deleteAndWait(
       name,
       deleteOptions,

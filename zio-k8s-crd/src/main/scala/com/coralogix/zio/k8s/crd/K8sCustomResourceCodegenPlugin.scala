@@ -3,6 +3,7 @@ package com.coralogix.zio.k8s.crd
 import sbt._
 import sbt.Keys._
 import zio.nio.file.{ Path => ZPath }
+import zio.Unsafe
 
 object K8sCustomResourceCodegenPlugin extends AutoPlugin {
 
@@ -24,16 +25,20 @@ object K8sCustomResourceCodegenPlugin extends AutoPlugin {
         val cachedFun = FileFunction.cached(
           streams.value.cacheDirectory / "k8s-crd-src"
         ) { input: Set[File] =>
-          input.foldLeft(Set.empty[File]) { (result, crdYaml) =>
-            val fs = runtime.unsafeRun {
-              val codegen = new K8sCustomResourceCodegen(scalaVer)
-              codegen.generateSource(
-                ZPath.fromJava(crdYaml.toPath),
-                ZPath.fromJava(sourcesDir.toPath),
-                log
-              )
+          Unsafe.unsafe { implicit u =>
+            input.foldLeft(Set.empty[File]) { (result, crdYaml) =>
+              val fs = runtime.unsafe
+                .run {
+                  val codegen = new K8sCustomResourceCodegen(scalaVer)
+                  codegen.generateSource(
+                    ZPath.fromJava(crdYaml.toPath),
+                    ZPath.fromJava(sourcesDir.toPath),
+                    log
+                  )
+                }
+                .getOrThrowFiberFailure()
+              result union fs.toSet
             }
-            result union fs.toSet
           }
         }
 
@@ -54,15 +59,19 @@ object K8sCustomResourceCodegenPlugin extends AutoPlugin {
         val cachedFun = FileFunction.cached(
           streams.value.cacheDirectory / "k8s-crd-res"
         ) { input: Set[File] =>
-          input.foldLeft(Set.empty[File]) { (result, crdYaml) =>
-            val fs = runtime.unsafeRun(
-              new K8sCustomResourceCodegen(scalaVer).generateResource(
-                ZPath.fromJava(crdYaml.toPath),
-                ZPath.fromJava(resourcesDir.toPath),
-                log
-              )
-            )
-            result union fs.toSet
+          Unsafe.unsafe { implicit u =>
+            input.foldLeft(Set.empty[File]) { (result, crdYaml) =>
+              val fs = runtime.unsafe
+                .run(
+                  new K8sCustomResourceCodegen(scalaVer).generateResource(
+                    ZPath.fromJava(crdYaml.toPath),
+                    ZPath.fromJava(resourcesDir.toPath),
+                    log
+                  )
+                )
+                .getOrThrowFiberFailure()
+              result union fs.toSet
+            }
           }
         }
 
