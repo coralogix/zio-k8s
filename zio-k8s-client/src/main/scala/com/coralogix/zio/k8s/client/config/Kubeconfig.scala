@@ -3,7 +3,7 @@ package com.coralogix.zio.k8s.client.config
 import io.circe._
 import io.circe.generic.semiauto._
 import io.circe.yaml.parser._
-import zio.blocking.Blocking
+
 import zio.nio.file.Path
 import zio.nio.file.Files
 import zio.{ IO, Task, ZIO }
@@ -98,10 +98,10 @@ case class Kubeconfig(
 object Kubeconfig {
   implicit val codec: Codec[Kubeconfig] = deriveCodec
 
-  def load(configPath: Path): ZIO[Blocking, Throwable, Kubeconfig] =
+  def load(configPath: Path): ZIO[Any, Throwable, Kubeconfig] =
     for {
       yamlBytes  <- Files.readAllBytes(configPath)
-      yamlString <- Task(new String(yamlBytes.toArray, StandardCharsets.UTF_8))
+      yamlString <- ZIO.attempt(new String(yamlBytes.toArray, StandardCharsets.UTF_8))
       kubeconfig <- loadFromString(yamlString)
     } yield kubeconfig
 

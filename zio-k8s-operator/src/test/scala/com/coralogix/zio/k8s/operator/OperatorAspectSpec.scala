@@ -5,17 +5,15 @@ import com.coralogix.zio.k8s.model.core.v1.Pod
 import com.coralogix.zio.k8s.operator.Operator._
 import com.coralogix.zio.k8s.operator.aspects.logEvents
 import zio.ZIO
-import zio.clock.Clock
-import zio.test.environment.TestEnvironment
-import zio.test.{ assertCompletes, DefaultRunnableSpec, ZSpec }
+import zio.test.{ assertCompletes, Spec, TestEnvironment, ZIOSpecDefault }
 
-object OperatorAspectSpec extends DefaultRunnableSpec {
+object OperatorAspectSpec extends ZIOSpecDefault {
   sealed trait CustomOperatorFailures
 
-  override def spec: ZSpec[TestEnvironment, Any] =
+  override def spec: Spec[TestEnvironment, Any] =
     suite("Operator aspects")(
       test("can @@ the built-in logEvents aspect") {
-        val eventProcessor: EventProcessor[Clock, CustomOperatorFailures, Pod] =
+        val eventProcessor: EventProcessor[Any, CustomOperatorFailures, Pod] =
           (ctx, event) =>
             event match {
               case Reseted()      =>

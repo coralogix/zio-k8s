@@ -12,7 +12,7 @@ import io.circe.yaml.parser.parse
 import sbt._
 import sbt.util.Logger
 import org.scalafmt.interfaces.Scalafmt
-import zio.blocking.Blocking
+
 import zio.nio.file.Path
 import zio.nio.file.Files
 import zio.stream.ZStream
@@ -83,7 +83,7 @@ class K8sCustomResourceCodegen(val scalaVersion: String) extends Common with Cli
     version: CustomResourceDefinitionVersion,
     yamlPath: Path,
     outputRoot: Path
-  ): ZIO[Blocking, Throwable, List[Path]] = {
+  ): ZIO[Any, Throwable, List[Path]] = {
     val singular = crd.spec.names.singular.getOrElse(crd.spec.names.plural)
     val entityName = crd.spec.names.kind
     val pluralName = crd.spec.names.plural
@@ -131,7 +131,7 @@ class K8sCustomResourceCodegen(val scalaVersion: String) extends Common with Cli
   private def generateForResource(
     path: Path,
     targetDir: Path
-  ): ZIO[Blocking, Throwable, Set[Path]] =
+  ): ZIO[Any, Throwable, Set[Path]] =
     for {
       yaml   <- readTextFile(path)
       rawCrd <- ZIO.fromEither(parse(yaml))
@@ -143,29 +143,29 @@ class K8sCustomResourceCodegen(val scalaVersion: String) extends Common with Cli
     yaml: Path,
     targetDir: Path,
     log: Logger
-  ): ZIO[Blocking, Throwable, Seq[File]] =
+  ): ZIO[Any, Throwable, Seq[File]] =
     for {
-      scalafmt <- ZIO.effect(Scalafmt.create(this.getClass.getClassLoader))
+      scalafmt <- ZIO.attempt(Scalafmt.create(this.getClass.getClassLoader))
       paths    <- ZStream
-                    .fromEffect(generateForResource(yaml, targetDir))
+                    .fromZIO(generateForResource(yaml, targetDir))
                     .map(Chunk.fromIterable)
                     .flattenChunks
-                    .mapMPar(4)(format(scalafmt, _))
+                    .mapZIOPar(4)(format(scalafmt, _))
                     .runCollect
-      _        <- ZIO.effect(log.info(s"Generated from $yaml:\n${paths.mkString("\n")}"))
+      _        <- ZIO.attempt(log.info(s"Generated from $yaml:\n${paths.mkString("\n")}"))
     } yield paths.map(_.toFile)
 
   def generateResource(
     yaml: Path,
     targetDir: Path,
     log: Logger
-  ): ZIO[Blocking, Throwable, Seq[File]] = {
+  ): ZIO[Any, Throwable, Seq[File]] = {
     val crdResources = targetDir / "crds"
     for {
       _         <- Files.createDirectories(crdResources)
       copiedYaml = crdResources / yaml.filename
       _         <- Files.copy(yaml, copiedYaml, StandardCopyOption.REPLACE_EXISTING)
-      _         <- ZIO.effect(log.info(s"Copied CRD to $copiedYaml"))
+      _         <- ZIO.attempt(log.info(s"Copied CRD to $copiedYaml"))
     } yield Seq(copiedYaml.toFile)
   }
 }

@@ -6,7 +6,6 @@ import io.swagger.v3.oas.models.media.ObjectSchema
 import org.scalafmt.interfaces.Scalafmt
 import sbt.util.Logger
 import zio.ZIO
-import zio.blocking.Blocking
 import zio.nio.file.Path
 import zio.nio.file.Files
 
@@ -21,11 +20,11 @@ trait MonocleOpticsGenerator {
     scalafmt: Scalafmt,
     targetRoot: Path,
     definitions: Set[IdentifiedSchema]
-  ): ZIO[Blocking, Throwable, Set[Path]] = {
+  ): ZIO[Any, Throwable, Set[Path]] = {
     val filteredDefinitions = definitions.filter(d => !isListModel(d))
     for {
       _     <-
-        ZIO.effect(
+        ZIO.attempt(
           logger.info(s"Generating Monocle optics for ${filteredDefinitions.size} models...")
         )
       paths <- ZIO.foreach(filteredDefinitions) { d =>
@@ -34,7 +33,7 @@ trait MonocleOpticsGenerator {
                  val modelPkg = (modelRoot ++ groupName)
 
                  for {
-                   _         <- ZIO.effect(logger.info(s"Generating '$entityName' to ${pkg.mkString(".")}"))
+                   _         <- ZIO.attempt(logger.info(s"Generating '$entityName' to ${pkg.mkString(".")}"))
                    src        =
                      generateMonocleOptics(modelRoot, pkg, modelPkg, entityName, d)
                    targetDir  = pkg.foldLeft(targetRoot)(_ / _)
@@ -111,7 +110,7 @@ trait MonocleOpticsGenerator {
           import monocle.{Optional => MonocleOptional}
           import monocle.macros.GenLens
 
-          import com.coralogix.zio.k8s.client.model.Optional
+          import zio.prelude.data.Optional
           import com.coralogix.zio.k8s.monocle.optional
 
           import $modelRootPackageTerm._
