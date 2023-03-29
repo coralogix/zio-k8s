@@ -32,7 +32,8 @@ trait ModelGenerator {
                  val pkg = (modelRoot ++ groupName)
 
                  for {
-                   _         <- ZIO.attempt(logger.info(s"Generating '$entityName' to ${pkg.mkString(".")}"))
+                   _         <-
+                     ZIO.attempt(logger.info(s"Generating '$entityName' to ${pkg.mkString(".")}"))
                    src        = generateModel(modelRoot, pkg, entityName, d, resources, definitionMap)
                    targetDir  = pkg.foldLeft(targetRoot)(_ / _)
                    _         <- Files.createDirectories(targetDir)

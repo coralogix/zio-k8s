@@ -33,7 +33,8 @@ trait MonocleOpticsGenerator {
                  val modelPkg = (modelRoot ++ groupName)
 
                  for {
-                   _         <- ZIO.attempt(logger.info(s"Generating '$entityName' to ${pkg.mkString(".")}"))
+                   _         <-
+                     ZIO.attempt(logger.info(s"Generating '$entityName' to ${pkg.mkString(".")}"))
                    src        =
                      generateMonocleOptics(modelRoot, pkg, modelPkg, entityName, d)
                    targetDir  = pkg.foldLeft(targetRoot)(_ / _)
