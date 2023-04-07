@@ -329,6 +329,8 @@ object ResourceClient {
       * @param namespace
       *   Constraint the watched resources by their namespace. If None, all namespaces will be
       *   watched.
+      * @param resourceVersion
+      *   Last known resource version
       * @param fieldSelector
       *   Constrain the returned items by field selectors. Not all fields are supported by the
       *   server.
@@ -339,13 +341,14 @@ object ResourceClient {
       */
     def watchForever[T: EnvironmentTag](
       namespace: Option[K8sNamespace],
+      resourceVersion: Option[String] = None,
       fieldSelector: Option[FieldSelector] = None,
       labelSelector: Option[LabelSelector] = None
     ): ZStream[NamespacedResource[T], K8sFailure, TypedWatchEvent[
       T
     ]] =
       ZStream.environmentWithStream[NamespacedResource[T]](
-        _.get.watchForever(namespace, fieldSelector, labelSelector)
+        _.get.watchForever(namespace, resourceVersion, fieldSelector, labelSelector)
       )
 
     /** Get a resource by its name
@@ -580,6 +583,8 @@ object ResourceClient {
       *
       * The underlying implementation takes advantage of Kubernetes watch bookmarks.
       *
+      * @param resourceVersion
+      *   Last known resource version
       * @param fieldSelector
       *   Constrain the returned items by field selectors. Not all fields are supported by the
       *   server.
@@ -589,11 +594,12 @@ object ResourceClient {
       *   A stream of watch events
       */
     def watchForever[T: EnvironmentTag](
+      resourceVersion: Option[String] = None,
       fieldSelector: Option[FieldSelector] = None,
       labelSelector: Option[LabelSelector] = None
     ): ZStream[ClusterResource[T], K8sFailure, TypedWatchEvent[T]] =
       ZStream.environmentWithStream[ClusterResource[T]](
-        _.get.watchForever(fieldSelector, labelSelector)
+        _.get.watchForever(resourceVersion, fieldSelector, labelSelector)
       )
 
     /** Get a resource by its name

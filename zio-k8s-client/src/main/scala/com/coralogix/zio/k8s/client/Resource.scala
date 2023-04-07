@@ -82,6 +82,8 @@ trait Resource[T] {
     * @param namespace
     *   Constraint the watched resources by their namespace. If None, all namespaces will be
     *   watched.
+    * @param resourceVersion
+    *   Last known resource version to start watch from.
     * @param fieldSelector
     *   Constrain the returned items by field selectors. Not all fields are supported by the server.
     * @param labelSelector
@@ -91,10 +93,11 @@ trait Resource[T] {
     */
   def watchForever(
     namespace: Option[K8sNamespace],
+    resourceVersion: Option[String] = None,
     fieldSelector: Option[FieldSelector] = None,
     labelSelector: Option[LabelSelector] = None
   ): ZStream[Any, K8sFailure, TypedWatchEvent[T]] =
-    ZStream.succeed(Reseted[T]()) ++ watch(namespace, None, fieldSelector, labelSelector)
+    ZStream.succeed(Reseted[T]()) ++ watch(namespace, resourceVersion, fieldSelector, labelSelector)
       .retry(Schedule.recurWhileEquals(Gone))
 
   /** Get a resource by its name
@@ -224,10 +227,11 @@ trait NamespacedResource[T] {
     */
   def watchForever(
     namespace: Option[K8sNamespace],
+    resourceVersion: Option[String] = None,
     fieldSelector: Option[FieldSelector] = None,
     labelSelector: Option[LabelSelector] = None
   ): ZStream[Any, K8sFailure, TypedWatchEvent[T]] =
-    asGenericResource.watchForever(namespace, fieldSelector, labelSelector)
+    asGenericResource.watchForever(namespace, resourceVersion, fieldSelector, labelSelector)
 
   /** Get a resource by its name
     * @param name
@@ -344,10 +348,11 @@ trait ClusterResource[T] {
     *   A stream of watch events
     */
   def watchForever(
+    resourceVersion: Option[String] = None,
     fieldSelector: Option[FieldSelector] = None,
     labelSelector: Option[LabelSelector] = None
   ): ZStream[Any, K8sFailure, TypedWatchEvent[T]] =
-    asGenericResource.watchForever(None, fieldSelector, labelSelector)
+    asGenericResource.watchForever(None, resourceVersion, fieldSelector, labelSelector)
 
   /** Get a resource by its name
     * @param name

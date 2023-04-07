@@ -389,10 +389,11 @@ trait ClientModuleGenerator {
 
             def watchForever(
               namespace: Option[K8sNamespace],
+              resourceVersion: Option[String] = None,
               fieldSelector: Option[FieldSelector] = None,
               labelSelector: Option[LabelSelector] = None,
             ): ZStream[$typeAliasT, K8sFailure, TypedWatchEvent[$entityT]] =
-              ZStream.environmentWithStream[$typeAliasT](_.get.watchForever(namespace, fieldSelector, labelSelector))
+              ZStream.environmentWithStream[$typeAliasT](_.get.watchForever(namespace, resourceVersion, fieldSelector, labelSelector))
 
             def get(
               name: String,
@@ -630,10 +631,11 @@ trait ClientModuleGenerator {
               ZStream.environmentWithStream[$typeAliasT](_.get.watch(resourceVersion, fieldSelector, labelSelector))
 
             def watchForever(
+              resourceVersion: Option[String]= None,
               fieldSelector: Option[FieldSelector] = None,
               labelSelector: Option[LabelSelector] = None,
             ): ZStream[$typeAliasT, K8sFailure, TypedWatchEvent[$entityT]] =
-              ZStream.environmentWithStream[$typeAliasT](_.get.watchForever(fieldSelector, labelSelector))
+              ZStream.environmentWithStream[$typeAliasT](_.get.watchForever(resourceVersion, fieldSelector, labelSelector))
 
             def get(
               name: String,
