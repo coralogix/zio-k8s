@@ -4,7 +4,7 @@ import com.coralogix.zio.k8s.codegen.internal.Conversions.splitName
 import com.coralogix.zio.k8s.codegen.internal.EndpointType.SubresourceEndpoint
 import com.coralogix.zio.k8s.codegen.internal.Whitelist.IssueReference
 import org.atteo.evo.inflector.English
-import zio.{Task, ZIO}
+import zio.{ Task, ZIO }
 
 import scala.meta.*
 

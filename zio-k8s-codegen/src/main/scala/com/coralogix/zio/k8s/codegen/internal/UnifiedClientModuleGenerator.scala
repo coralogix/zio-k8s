@@ -116,9 +116,9 @@ trait UnifiedClientModuleGenerator {
 
     val children = node.children.collect { case (childName, pkgNode: PackageNode) =>
       q"""def ${Term.Name(childName)}: ${Type.Select(
-        Term.Name(name),
-        Type.Name(toInterfaceName(childName))
-      )}"""
+          Term.Name(name),
+          Type.Name(toInterfaceName(childName))
+        )}"""
     }.toList
 
     val resources = node.children.collect { case (childName, ResourceNode(resource)) =>
