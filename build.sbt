@@ -1,13 +1,13 @@
-val scala212Version = "2.12.17"
+val scala212Version = "2.12.18"
 val scala213Version = "2.13.10"
 val scala3Version = "3.2.2"
 
 val zioVersion = "2.0.13"
 val zioConfigVersion = "3.0.7"
-val zioLoggingVersion = "2.1.12"
+val zioLoggingVersion = "2.1.13"
 val sttpVersion = "3.8.15"
 val zioNioVersion = "2.0.1"
-val zioPreludeVersion = "1.0.0-RC18"
+val zioPreludeVersion = "1.0.0-RC19"
 
 Global / onChangedBuildSource := ReloadOnSourceChanges
 
@@ -102,7 +102,7 @@ lazy val clientQuicklens = Project("zio-k8s-client-quicklens", file("zio-k8s-cli
   .settings(commonSettings)
   .settings(
     libraryDependencies ++= Seq(
-      "com.softwaremill.quicklens" %% "quicklens"    % "1.9.2",
+      "com.softwaremill.quicklens" %% "quicklens"    % "1.9.4",
       "dev.zio"                    %% "zio-test"     % zioVersion % Test,
       "dev.zio"                    %% "zio-test-sbt" % zioVersion % Test
     ),
@@ -178,7 +178,7 @@ lazy val crd = Project("zio-k8s-crd", file("zio-k8s-crd"))
   .settings(commonSettings)
   .settings(
     sbtPlugin          := true,
-    scalaVersion       := "2.12.17",
+    scalaVersion       := "2.12.18",
     crossVersion       := CrossVersion.disabled,
     Compile / unmanagedSourceDirectories += baseDirectory.value / "../zio-k8s-codegen/src/shared/scala",
     libraryDependencies ++= Seq(
