@@ -4,10 +4,10 @@ val scala3Version = "3.3.0"
 
 val zioVersion = "2.0.15"
 val zioConfigVersion = "3.0.7"
-val zioLoggingVersion = "2.1.12"
+val zioLoggingVersion = "2.1.13"
 val sttpVersion = "3.8.15"
 val zioNioVersion = "2.0.1"
-val zioPreludeVersion = "1.0.0-RC18"
+val zioPreludeVersion = "1.0.0-RC19"
 
 Global / onChangedBuildSource := ReloadOnSourceChanges
 
@@ -73,7 +73,7 @@ lazy val client = Project("zio-k8s-client", file("zio-k8s-client"))
       "io.circe"                      %% "circe-generic"                 % "0.14.5",
       "io.circe"                      %% "circe-parser"                  % "0.14.5",
       "io.circe"                      %% "circe-yaml"                    % "0.14.2",
-      "org.bouncycastle"               % "bcpkix-jdk18on"                % "1.73",
+      "org.bouncycastle"               % "bcpkix-jdk18on"                % "1.75",
       "dev.zio"                       %% "zio-test"                      % zioVersion       % Test,
       "dev.zio"                       %% "zio-test-sbt"                  % zioVersion       % Test,
       "dev.zio"                       %% "zio-config-typesafe"           % zioConfigVersion % Test,
@@ -102,7 +102,7 @@ lazy val clientQuicklens = Project("zio-k8s-client-quicklens", file("zio-k8s-cli
   .settings(commonSettings)
   .settings(
     libraryDependencies ++= Seq(
-      "com.softwaremill.quicklens" %% "quicklens"    % "1.9.2",
+      "com.softwaremill.quicklens" %% "quicklens"    % "1.9.4",
       "dev.zio"                    %% "zio-test"     % zioVersion % Test,
       "dev.zio"                    %% "zio-test-sbt" % zioVersion % Test
     ),
