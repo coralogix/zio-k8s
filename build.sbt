@@ -1,8 +1,8 @@
 val scala212Version = "2.12.18"
-val scala213Version = "2.13.10"
-val scala3Version = "3.2.2"
+val scala213Version = "2.13.11"
+val scala3Version = "3.3.0"
 
-val zioVersion = "2.0.13"
+val zioVersion = "2.0.15"
 val zioConfigVersion = "3.0.7"
 val zioLoggingVersion = "2.1.13"
 val sttpVersion = "3.8.15"
@@ -178,7 +178,7 @@ lazy val crd = Project("zio-k8s-crd", file("zio-k8s-crd"))
   .settings(commonSettings)
   .settings(
     sbtPlugin          := true,
-    scalaVersion       := "2.12.18",
+    scalaVersion       := scala212Version,
     crossVersion       := CrossVersion.disabled,
     Compile / unmanagedSourceDirectories += baseDirectory.value / "../zio-k8s-codegen/src/shared/scala",
     libraryDependencies ++= Seq(
