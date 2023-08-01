@@ -296,3 +296,8 @@ lazy val docs = project
   )
   .dependsOn(client, clientQuicklens, clientMonocle, clientZioOptics, operator)
   .enablePlugins(MdocPlugin, DocusaurusPlugin, ScalaUnidocPlugin)
+
+addCommandAlias(
+  "ciBuild",
+  "++2.13.11;clean;scalafmtCheckAll;zio-k8s-client/test;zio-k8s-operator/test;examples/compile"
+)
