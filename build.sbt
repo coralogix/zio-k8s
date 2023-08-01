@@ -299,5 +299,5 @@ lazy val docs = project
 
 addCommandAlias(
   "ciBuild",
-  "++2.13.11;clean;scalafmtCheckAll;zio-k8s-client/test;zio-k8s-operator/test;examples/compile"
+  "++2.13.11;clean;scalafmtCheckAll;zio-k8s-client/test;zio-k8s-operator/test;examples/compile;makePom"
 )
