@@ -28,10 +28,9 @@ inThisBuild(
 )
 
 val commonSettings = Seq(
-  organization       := "com.coralogix",
-  scalaVersion       := scala212Version,
-  crossScalaVersions := List(scala212Version, scala213Version, scala3Version),
-  autoAPIMappings    := true,
+  organization    := "com.coralogix",
+  scalaVersion    := scala213Version,
+  autoAPIMappings := true,
   excludeDependencies ++=
     (CrossVersion.partialVersion(scalaVersion.value) match {
       case Some((3, _)) =>
@@ -113,7 +112,6 @@ lazy val clientQuicklens = Project("zio-k8s-client-quicklens", file("zio-k8s-cli
 lazy val clientMonocle = Project("zio-k8s-client-monocle", file("zio-k8s-client-monocle"))
   .settings(commonSettings)
   .settings(
-    crossScalaVersions := List(scala212Version, scala213Version),
     Compile / scalacOptions ++= {
       CrossVersion.partialVersion(scalaVersion.value) match {
         case Some((2, n)) if n >= 13 => "-Ymacro-annotations" :: Nil
@@ -178,7 +176,7 @@ lazy val crd = Project("zio-k8s-crd", file("zio-k8s-crd"))
   .settings(commonSettings)
   .settings(
     sbtPlugin          := true,
-    scalaVersion       := scala212Version,
+    scalaVersion       := scala213Version,
     crossVersion       := CrossVersion.disabled,
     Compile / unmanagedSourceDirectories += baseDirectory.value / "../zio-k8s-codegen/src/shared/scala",
     libraryDependencies ++= Seq(
@@ -299,5 +297,5 @@ lazy val docs = project
 
 addCommandAlias(
   "ciBuild",
-  "++2.13.11;clean;scalafmtCheckAll;zio-k8s-client/test;zio-k8s-operator/test;examples/compile;makePom"
+  "+clean;scalafmtCheckAll;zio-k8s-client/test;zio-k8s-operator/test;examples/compile;makePom"
 )
