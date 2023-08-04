@@ -189,7 +189,7 @@ package object config extends Descriptors {
   val k8sCluster: ZLayer[K8sClusterConfig, Throwable, K8sCluster] =
     ZLayer.scoped {
       for {
-        config <- getConfig[K8sClusterConfig]
+        config <- ZIO.config(clusterConfigDescriptor)
         result <- config.authentication match {
                     case K8sAuthentication.ServiceAccountToken(tokenSource) =>
                       loadKeyString(tokenSource).flatMap { token =>

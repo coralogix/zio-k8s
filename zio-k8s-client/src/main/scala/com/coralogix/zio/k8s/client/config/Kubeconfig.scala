@@ -6,7 +6,7 @@ import io.circe.yaml.parser._
 
 import zio.nio.file.Path
 import zio.nio.file.Files
-import zio.{ IO, Task, ZIO }
+import zio.{ IO, ZIO }
 
 import java.nio.charset.StandardCharsets
 
