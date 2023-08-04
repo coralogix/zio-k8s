@@ -6,9 +6,9 @@ import com.coralogix.zio.k8s.client.config.KeySource.FromString
 import io.circe.yaml.parser.parse
 import sttp.client3._
 import zio.config.typesafe.TypesafeConfigProvider
-import zio.nio.file.{Files, Path}
-import zio.test.{Assertion, Spec, TestEnvironment, ZIOSpecDefault, assertCompletes, assertZIO}
-import zio.{Chunk, ZIO}
+import zio.nio.file.{ Files, Path }
+import zio.test.{ assertCompletes, assertZIO, Assertion, Spec, TestEnvironment, ZIOSpecDefault }
+import zio.{ Chunk, ZIO }
 
 import java.nio.charset.StandardCharsets
 
