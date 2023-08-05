@@ -299,7 +299,12 @@ lazy val docs = project
   .dependsOn(client, clientQuicklens, clientMonocle, clientZioOptics, operator)
   .enablePlugins(MdocPlugin, DocusaurusPlugin, ScalaUnidocPlugin)
 
+addCommandAlias("ciBuild", "build212; build213")
 addCommandAlias(
-  "ciBuild",
-  "+clean;scalafmtCheckAll;zio-k8s-client/test;zio-k8s-operator/test;examples/compile;makePom"
+  "build212",
+  "++2.12.17;clean;scalafmtCheckAll;zio-k8s-client/test;zio-k8s-operator/test;examples/compile;makePom"
+)
+addCommandAlias(
+  "build213",
+  "++2.13.11;clean;scalafmtCheckAll;zio-k8s-client/test;zio-k8s-operator/test;examples/compile;makePom"
 )
