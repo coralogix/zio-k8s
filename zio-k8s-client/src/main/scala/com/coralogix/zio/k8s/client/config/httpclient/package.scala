@@ -6,7 +6,7 @@ import sttp.capabilities.zio.ZioStreams
 import sttp.client3.SttpBackend
 import sttp.client3.httpclient.zio._
 import sttp.client3.logging.LoggingBackend
-import sttp.client3.logging.slf4j.{ Slf4jLogger, Slf4jLoggingBackend }
+import sttp.client3.logging.slf4j.Slf4jLogger
 import zio._
 
 import java.net.http.HttpClient

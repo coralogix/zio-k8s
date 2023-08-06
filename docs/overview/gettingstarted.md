@@ -127,20 +127,26 @@ val cluster = config >>> k8sCluster
 ```scala mdoc:silent:reset
 import com.coralogix.zio.k8s.client.config._
 import com.coralogix.zio.k8s.client.config.httpclient._
-import com.typesafe.config.ConfigFactory
-import zio.config.ConfigDescriptor
+import com.coralogix.zio.k8s.client.model._
+import zio.config._
 import zio.config.typesafe._
 import zio._
 
-case class Config(k8s: K8sClusterConfig)
+// Define a custom configuration class for your application
+case class MyConfig(k8s: K8sClusterConfig)
+object MyConfig {
+  val configDescriptor: zio.Config[MyConfig] = clusterConfigDescriptor.map(k8s => MyConfig(k8s))
+  val live = ZLayer.fromZIO(ZIO.config(configDescriptor))
+  val k8s = ZLayer.fromFunction { cfg: MyConfig => cfg.k8s }
+}
 
-// Loading config from HOCON
-val configDesc = ConfigDescriptor.nested("k8s")(clusterConfigDescriptor).to[Config]
-val config = TypesafeConfig.fromTypesafeConfig[Config](ZIO.attempt(ConfigFactory.load.resolve), configDesc)
-
-// K8s configuration and client layers
-val client = config.project(_.k8s) >>> k8sSttpClient()
-val cluster = config.project(_.k8s) >>> k8sCluster
+// Set the config provider for the ZIO runtime to load your typesafe config. Typically this is done by overriding 
+// `ZIOAppDefault.bootstrap` in the Main class of your project.
+val bootstrap: ZLayer[Any, Nothing, Unit] =
+    zio.Runtime.setConfigProvider(TypesafeConfigProvider.fromResourcePath())
+    
+//create zio-k8s layers for use in your application
+val k8sLayers = MyConfig.live >>> MyConfig.k8s ++ k8sCluster ++ k8sSttpClient()
 ```
 
 and place the configuration in `application.conf`, for example:
@@ -167,7 +173,7 @@ k8s {
 
 ## Clients
 
-The above created `client` and `cluster` modules can be fed to any of the `zio-k8s` **client modules**
+The above created `k8sLayers` can be fed to any of the `zio-k8s` **client modules**
 to access _Kubernetes_ resources. This is explained in details in the [resources](resources.md) section. 
 
 The following example demonstrates how to gain access to the _Kubernetes pods and config maps_:
@@ -176,7 +182,7 @@ The following example demonstrates how to gain access to the _Kubernetes pods an
 import com.coralogix.zio.k8s.client.v1.configmaps.ConfigMaps
 import com.coralogix.zio.k8s.client.v1.pods.Pods
 
-val k8s = (cluster ++ client) >>> (Pods.live ++ ConfigMaps.live)
+val k8s = k8sLayers >>> (Pods.live ++ ConfigMaps.live)
 ```
 
 ## Notes

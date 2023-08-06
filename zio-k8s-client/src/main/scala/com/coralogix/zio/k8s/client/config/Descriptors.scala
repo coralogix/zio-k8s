@@ -2,7 +2,6 @@ package com.coralogix.zio.k8s.client.config
 
 import sttp.model.Uri
 import zio.Config.boolean
-import zio.config.magnolia._
 import zio.nio.file.Path
 import zio.{ Chunk, Config }
 

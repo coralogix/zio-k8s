@@ -6,7 +6,6 @@ import io.circe.generic.semiauto.deriveDecoder
 import io.circe.{ parser, Decoder }
 import sttp.client3.UriContext
 import sttp.model.Uri
-import zio.config._
 import zio.nio.file.Path
 import zio.process.Command
 import zio.{ Layer, RIO, Scope, System, Task, ZIO, ZLayer }
@@ -180,8 +179,7 @@ package object config extends Descriptors {
       }
   }
 
-  /** Layer producing a [[com.coralogix.zio.k8s.client.model.K8sCluster]] from a provided
-    * K8sClusterConfig
+  /** Layer producing a [[com.coralogix.zio.k8s.client.model.K8sCluster]] from a K8sClusterConfig
     *
     * This can be used to either set up from a configuration source with zio-config or provide the
     * hostname and token programmatically for the Kubernetes client.
@@ -189,7 +187,7 @@ package object config extends Descriptors {
   val k8sCluster: ZLayer[K8sClusterConfig, Throwable, K8sCluster] =
     ZLayer.scoped {
       for {
-        config <- ZIO.config(clusterConfigDescriptor)
+        config <- ZIO.service[K8sClusterConfig]
         result <- config.authentication match {
                     case K8sAuthentication.ServiceAccountToken(tokenSource) =>
                       loadKeyString(tokenSource).flatMap { token =>
