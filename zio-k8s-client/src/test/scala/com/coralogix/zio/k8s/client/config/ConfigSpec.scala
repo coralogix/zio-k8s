@@ -5,8 +5,7 @@ import com.coralogix.zio.k8s.client.config.K8sAuthentication.ServiceAccountToken
 import com.coralogix.zio.k8s.client.config.KeySource.FromString
 import io.circe.yaml.parser.parse
 import sttp.client3._
-import zio.config._
-import zio.config.typesafe.TypesafeConfig
+import zio.config.typesafe.TypesafeConfigProvider
 import zio.nio.file.{ Files, Path }
 import zio.test.{ assertCompletes, assertZIO, Assertion, Spec, TestEnvironment, ZIOSpecDefault }
 import zio.{ Chunk, ZIO }
@@ -81,7 +80,7 @@ object ConfigSpec extends ZIOSpecDefault {
   val clientConfigSpec: Spec[zio.test.TestEnvironment, Any] = test("load client config") {
     // Loading config from HOCON
     val loadConfig = ZIO.scoped {
-      TypesafeConfig.fromHoconString[Config](example1, configDesc).build.map(_.get)
+      TypesafeConfigProvider.fromHoconString(example1).load(configDesc)
     }
 
     assertZIO(loadConfig)(
@@ -144,8 +143,7 @@ object ConfigSpec extends ZIOSpecDefault {
 
   case class Config(k8s: K8sClusterConfig)
 
-  val configDesc: ConfigDescriptor[Config] =
-    ConfigDescriptor.nested("k8s")(clusterConfigDescriptor).to[Config]
+  val configDesc: zio.Config[Config] = clusterConfigDescriptor.nested("k8s").map(Config)
 
   val example1: String =
     """k8s {
