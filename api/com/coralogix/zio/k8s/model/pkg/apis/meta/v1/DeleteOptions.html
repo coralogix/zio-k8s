@@ -406,7 +406,7 @@
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <span class="name">DeleteOptions</span><span class="params">(<span name="dryRun">dryRun: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="gracePeriodSeconds">gracePeriodSeconds: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Long">Long</span>] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="orphanDependents">orphanDependents: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Boolean">Boolean</span>] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="preconditions">preconditions: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="Preconditions.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Preconditions">Preconditions</a>] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="propagationPolicy">propagationPolicy: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <span class="name">DeleteOptions</span><span class="params">(<span name="dryRun">dryRun: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../../../../zio/index.html">Optional.Absent</a></span></span></span>, <span name="gracePeriodSeconds">gracePeriodSeconds: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<a href="https://www.scala-lang.org/api/2.12.18/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a>] = <span class="symbol"><span class="name"><a href="../../../../../../../../../zio/index.html">Optional.Absent</a></span></span></span>, <span name="orphanDependents">orphanDependents: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<a href="https://www.scala-lang.org/api/2.12.18/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a>] = <span class="symbol"><span class="name"><a href="../../../../../../../../../zio/index.html">Optional.Absent</a></span></span></span>, <span name="preconditions">preconditions: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<a href="Preconditions.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Preconditions">Preconditions</a>] = <span class="symbol"><span class="name"><a href="../../../../../../../../../zio/index.html">Optional.Absent</a></span></span></span>, <span name="propagationPolicy">propagationPolicy: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../../../../zio/index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <a href="https://www.scala-lang.org/api/2.12.18/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a> with <a href="https://www.scala-lang.org/api/2.12.18/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
       </span>
       </h4>
 
@@ -426,13 +426,14 @@
   both.</p></dd><dt class="param">propagationPolicy</dt><dd class="cmt"><p>
   Whether and how garbage collection will be performed. Either this field or OrphanDependents
   may be set, but not both. The default policy is decided by the existing finalizer set in the
-  metadata.finalizers and the resource-specific default policy. Acceptable values are: 'Orphan'</p><ul><li>orphan the dependents; 'Background' - allow the garbage collector to delete the dependents
+  metadata.finalizers and the resource-specific default policy. Acceptable values are: 'Orphan'
+  \- orphan the dependents; 'Background' - allow the garbage collector to delete the dependents
   in the background; 'Foreground' - a cascading policy that deletes all dependents in the
-  foreground.</li></ul></dd></dl><div class="toggleContainer block">
+  foreground.</p></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
-          <div class="superTypes hiddenContent"><span class="extype" name="scala.Serializable">Serializable</span>, <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/io/Serializable.html#java.io.Serializable" class="extype" name="java.io.Serializable">Serializable</a>, <span class="extype" name="scala.Product">Product</span>, <span class="extype" name="scala.Equals">Equals</span>, <span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
+          <div class="superTypes hiddenContent"><a href="https://www.scala-lang.org/api/2.12.18/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a>, <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/io/Serializable.html#java.io.Serializable" class="extype" name="java.io.Serializable">Serializable</a>, <a href="https://www.scala-lang.org/api/2.12.18/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a>, <a href="https://www.scala-lang.org/api/2.12.18/scala/Equals.html#scala.Equals" class="extype" name="scala.Equals">Equals</a>, <a href="https://www.scala-lang.org/api/2.12.18/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a>, <a href="https://www.scala-lang.org/api/2.12.18/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></div>
         </div></div>
         
 
@@ -479,9 +480,9 @@
         <div id="constructors" class="members">
               <h3>Instance Constructors</h3>
               <ol><li name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.DeleteOptions#&lt;init&gt;" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="&lt;init&gt;(dryRun:com.coralogix.zio.k8s.client.model.Optional[Vector[String]],gracePeriodSeconds:com.coralogix.zio.k8s.client.model.Optional[Long],orphanDependents:com.coralogix.zio.k8s.client.model.Optional[Boolean],preconditions:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Preconditions],propagationPolicy:com.coralogix.zio.k8s.client.model.Optional[String]):com.coralogix.zio.k8s.model.pkg.apis.meta.v1.DeleteOptions"></a><a id="&lt;init&gt;:DeleteOptions"></a>
+      <a id="&lt;init&gt;(dryRun:zio.prelude.data.Optional[Vector[String]],gracePeriodSeconds:zio.prelude.data.Optional[Long],orphanDependents:zio.prelude.data.Optional[Boolean],preconditions:zio.prelude.data.Optional[com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Preconditions],propagationPolicy:zio.prelude.data.Optional[String]):com.coralogix.zio.k8s.model.pkg.apis.meta.v1.DeleteOptions"></a><a id="&lt;init&gt;:DeleteOptions"></a>
       <span class="permalink">
-      <a href="../../../../../../../../../com/coralogix/zio/k8s/model/pkg/apis/meta/v1/DeleteOptions.html#&lt;init&gt;(dryRun:com.coralogix.zio.k8s.client.model.Optional[Vector[String]],gracePeriodSeconds:com.coralogix.zio.k8s.client.model.Optional[Long],orphanDependents:com.coralogix.zio.k8s.client.model.Optional[Boolean],preconditions:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Preconditions],propagationPolicy:com.coralogix.zio.k8s.client.model.Optional[String]):com.coralogix.zio.k8s.model.pkg.apis.meta.v1.DeleteOptions" title="Permalink">
+      <a href="../../../../../../../../../com/coralogix/zio/k8s/model/pkg/apis/meta/v1/DeleteOptions.html#&lt;init&gt;(dryRun:zio.prelude.data.Optional[Vector[String]],gracePeriodSeconds:zio.prelude.data.Optional[Long],orphanDependents:zio.prelude.data.Optional[Boolean],preconditions:zio.prelude.data.Optional[com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Preconditions],propagationPolicy:zio.prelude.data.Optional[String]):com.coralogix.zio.k8s.model.pkg.apis.meta.v1.DeleteOptions" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -490,7 +491,7 @@
         <span class="kind">new</span>
       </span>
       <span class="symbol">
-        <span class="name">DeleteOptions</span><span class="params">(<span name="dryRun">dryRun: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="gracePeriodSeconds">gracePeriodSeconds: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Long">Long</span>] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="orphanDependents">orphanDependents: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Boolean">Boolean</span>] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="preconditions">preconditions: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="Preconditions.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Preconditions">Preconditions</a>] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="propagationPolicy">propagationPolicy: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>)</span>
+        <span class="name">DeleteOptions</span><span class="params">(<span name="dryRun">dryRun: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../../../../zio/index.html">Optional.Absent</a></span></span></span>, <span name="gracePeriodSeconds">gracePeriodSeconds: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<a href="https://www.scala-lang.org/api/2.12.18/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a>] = <span class="symbol"><span class="name"><a href="../../../../../../../../../zio/index.html">Optional.Absent</a></span></span></span>, <span name="orphanDependents">orphanDependents: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<a href="https://www.scala-lang.org/api/2.12.18/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a>] = <span class="symbol"><span class="name"><a href="../../../../../../../../../zio/index.html">Optional.Absent</a></span></span></span>, <span name="preconditions">preconditions: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<a href="Preconditions.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Preconditions">Preconditions</a>] = <span class="symbol"><span class="name"><a href="../../../../../../../../../zio/index.html">Optional.Absent</a></span></span></span>, <span name="propagationPolicy">propagationPolicy: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../../../../zio/index.html">Optional.Absent</a></span></span></span>)</span>
       </span>
       
       <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">dryRun</dt><dd class="cmt"><p>
@@ -507,9 +508,10 @@
   both.</p></dd><dt class="param">propagationPolicy</dt><dd class="cmt"><p>
   Whether and how garbage collection will be performed. Either this field or OrphanDependents
   may be set, but not both. The default policy is decided by the existing finalizer set in the
-  metadata.finalizers and the resource-specific default policy. Acceptable values are: 'Orphan'</p><ul><li>orphan the dependents; 'Background' - allow the garbage collector to delete the dependents
+  metadata.finalizers and the resource-specific default policy. Acceptable values are: 'Orphan'
+  \- orphan the dependents; 'Background' - allow the garbage collector to delete the dependents
   in the background; 'Foreground' - a cascading policy that deletes all dependents in the
-  foreground.</li></ul></dd></dl></div>
+  foreground.</p></dd></dl></div>
     </li></ol>
             </div>
 
@@ -532,7 +534,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: $bang$eq" class="name">!=</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+        <span title="gt4s: $bang$eq" class="name">!=</span><span class="params">(<span name="arg0">arg0: <a href="https://www.scala-lang.org/api/2.12.18/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></span>)</span><span class="result">: <a href="https://www.scala-lang.org/api/2.12.18/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -548,7 +550,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: $hash$hash" class="name">##</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
+        <span title="gt4s: $hash$hash" class="name">##</span><span class="params">()</span><span class="result">: <a href="https://www.scala-lang.org/api/2.12.18/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -564,7 +566,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: $eq$eq" class="name">==</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+        <span title="gt4s: $eq$eq" class="name">==</span><span class="params">(<span name="arg0">arg0: <a href="https://www.scala-lang.org/api/2.12.18/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></span>)</span><span class="result">: <a href="https://www.scala-lang.org/api/2.12.18/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -596,7 +598,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">clone</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+        <span class="name">clone</span><span class="params">()</span><span class="result">: <a href="https://www.scala-lang.org/api/2.12.18/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<span class="extype" name="java.lang">lang</span>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -611,9 +613,9 @@
               
         </dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.DeleteOptions#dryRun" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="dryRun:com.coralogix.zio.k8s.client.model.Optional[Vector[String]]"></a><a id="dryRun:Optional[Vector[String]]"></a>
+      <a id="dryRun:zio.prelude.data.Optional[Vector[String]]"></a><a id="dryRun:Optional[Vector[String]]"></a>
       <span class="permalink">
-      <a href="../../../../../../../../../com/coralogix/zio/k8s/model/pkg/apis/meta/v1/DeleteOptions.html#dryRun:com.coralogix.zio.k8s.client.model.Optional[Vector[String]]" title="Permalink">
+      <a href="../../../../../../../../../com/coralogix/zio/k8s/model/pkg/apis/meta/v1/DeleteOptions.html#dryRun:zio.prelude.data.Optional[Vector[String]]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -622,7 +624,7 @@
         <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">dryRun</span><span class="result">: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]]</span>
+        <span class="name">dryRun</span><span class="result">: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]]</span>
       </span>
       
       
@@ -638,7 +640,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">eq</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.AnyRef">AnyRef</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+        <span class="name">eq</span><span class="params">(<span name="arg0">arg0: <a href="https://www.scala-lang.org/api/2.12.18/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>)</span><span class="result">: <a href="https://www.scala-lang.org/api/2.12.18/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
@@ -694,7 +696,7 @@ Valid values are: - All: all dry run stages will be processed</p><p>If the field
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">getGracePeriodSeconds</span><span class="result">: <a href="../../../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Long">Long</span>]</span>
+        <span class="name">getGracePeriodSeconds</span><span class="result">: <a href="../../../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="https://www.scala-lang.org/api/2.12.18/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a>]</span>
       </span>
       
       <p class="shortcomment cmt">The duration in seconds before the object should be deleted.</p><div class="fullcomment"><div class="comment cmt"><p>The duration in seconds before the object should be deleted. Value must be non-negative
@@ -714,7 +716,7 @@ zero means delete immediately.</p><p>If the field is not present, fails with <a 
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">getOrphanDependents</span><span class="result">: <a href="../../../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="scala.Boolean">Boolean</span>]</span>
+        <span class="name">getOrphanDependents</span><span class="result">: <a href="../../../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="https://www.scala-lang.org/api/2.12.18/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a>]</span>
       </span>
       
       <p class="shortcomment cmt">Deprecated: please use the PropagationPolicy, this field will be deprecated in 1.7.</p><div class="fullcomment"><div class="comment cmt"><p>Deprecated: please use the PropagationPolicy, this field will be deprecated in 1.7. Should the
@@ -757,14 +759,14 @@ both.</p><p>If the field is not present, fails with <a href="../../../../../clie
       <p class="shortcomment cmt">Whether and how garbage collection will be performed.</p><div class="fullcomment"><div class="comment cmt"><p>Whether and how garbage collection will be performed. Either this field or OrphanDependents
 may be set, but not both. The default policy is decided by the existing finalizer set in the
 metadata.finalizers and the resource-specific default policy. Acceptable values are: 'Orphan'
-- orphan the dependents; 'Background' - allow the garbage collector to delete the dependents
+\- orphan the dependents; 'Background' - allow the garbage collector to delete the dependents
 in the background; 'Foreground' - a cascading policy that deletes all dependents in the
 foreground.</p><p>If the field is not present, fails with <a href="../../../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.DeleteOptions#gracePeriodSeconds" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="gracePeriodSeconds:com.coralogix.zio.k8s.client.model.Optional[Long]"></a><a id="gracePeriodSeconds:Optional[Long]"></a>
+      <a id="gracePeriodSeconds:zio.prelude.data.Optional[Long]"></a><a id="gracePeriodSeconds:Optional[Long]"></a>
       <span class="permalink">
-      <a href="../../../../../../../../../com/coralogix/zio/k8s/model/pkg/apis/meta/v1/DeleteOptions.html#gracePeriodSeconds:com.coralogix.zio.k8s.client.model.Optional[Long]" title="Permalink">
+      <a href="../../../../../../../../../com/coralogix/zio/k8s/model/pkg/apis/meta/v1/DeleteOptions.html#gracePeriodSeconds:zio.prelude.data.Optional[Long]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -773,7 +775,7 @@ foreground.</p><p>If the field is not present, fails with <a href="../../../../.
         <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">gracePeriodSeconds</span><span class="result">: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Long">Long</span>]</span>
+        <span class="name">gracePeriodSeconds</span><span class="result">: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<a href="https://www.scala-lang.org/api/2.12.18/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a>]</span>
       </span>
       
       
@@ -789,7 +791,7 @@ foreground.</p><p>If the field is not present, fails with <a href="../../../../.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">isInstanceOf</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+        <span class="name">isInstanceOf</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="result">: <a href="https://www.scala-lang.org/api/2.12.18/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
@@ -805,7 +807,7 @@ foreground.</p><p>If the field is not present, fails with <a href="../../../../.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">ne</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.AnyRef">AnyRef</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+        <span class="name">ne</span><span class="params">(<span name="arg0">arg0: <a href="https://www.scala-lang.org/api/2.12.18/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>)</span><span class="result">: <a href="https://www.scala-lang.org/api/2.12.18/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
@@ -821,7 +823,7 @@ foreground.</p><p>If the field is not present, fails with <a href="../../../../.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">notify</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+        <span class="name">notify</span><span class="params">()</span><span class="result">: <a href="https://www.scala-lang.org/api/2.12.18/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -842,7 +844,7 @@ foreground.</p><p>If the field is not present, fails with <a href="../../../../.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">notifyAll</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+        <span class="name">notifyAll</span><span class="params">()</span><span class="result">: <a href="https://www.scala-lang.org/api/2.12.18/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -852,9 +854,9 @@ foreground.</p><p>If the field is not present, fails with <a href="../../../../.
               
         </dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.DeleteOptions#orphanDependents" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="orphanDependents:com.coralogix.zio.k8s.client.model.Optional[Boolean]"></a><a id="orphanDependents:Optional[Boolean]"></a>
+      <a id="orphanDependents:zio.prelude.data.Optional[Boolean]"></a><a id="orphanDependents:Optional[Boolean]"></a>
       <span class="permalink">
-      <a href="../../../../../../../../../com/coralogix/zio/k8s/model/pkg/apis/meta/v1/DeleteOptions.html#orphanDependents:com.coralogix.zio.k8s.client.model.Optional[Boolean]" title="Permalink">
+      <a href="../../../../../../../../../com/coralogix/zio/k8s/model/pkg/apis/meta/v1/DeleteOptions.html#orphanDependents:zio.prelude.data.Optional[Boolean]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -863,14 +865,14 @@ foreground.</p><p>If the field is not present, fails with <a href="../../../../.
         <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">orphanDependents</span><span class="result">: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Boolean">Boolean</span>]</span>
+        <span class="name">orphanDependents</span><span class="result">: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<a href="https://www.scala-lang.org/api/2.12.18/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a>]</span>
       </span>
       
       
     </li><li name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.DeleteOptions#preconditions" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="preconditions:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Preconditions]"></a><a id="preconditions:Optional[Preconditions]"></a>
+      <a id="preconditions:zio.prelude.data.Optional[com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Preconditions]"></a><a id="preconditions:Optional[Preconditions]"></a>
       <span class="permalink">
-      <a href="../../../../../../../../../com/coralogix/zio/k8s/model/pkg/apis/meta/v1/DeleteOptions.html#preconditions:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Preconditions]" title="Permalink">
+      <a href="../../../../../../../../../com/coralogix/zio/k8s/model/pkg/apis/meta/v1/DeleteOptions.html#preconditions:zio.prelude.data.Optional[com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Preconditions]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -879,14 +881,14 @@ foreground.</p><p>If the field is not present, fails with <a href="../../../../.
         <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">preconditions</span><span class="result">: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="Preconditions.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Preconditions">Preconditions</a>]</span>
+        <span class="name">preconditions</span><span class="result">: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<a href="Preconditions.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Preconditions">Preconditions</a>]</span>
       </span>
       
       
     </li><li name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.DeleteOptions#propagationPolicy" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="propagationPolicy:com.coralogix.zio.k8s.client.model.Optional[String]"></a><a id="propagationPolicy:Optional[String]"></a>
+      <a id="propagationPolicy:zio.prelude.data.Optional[String]"></a><a id="propagationPolicy:Optional[String]"></a>
       <span class="permalink">
-      <a href="../../../../../../../../../com/coralogix/zio/k8s/model/pkg/apis/meta/v1/DeleteOptions.html#propagationPolicy:com.coralogix.zio.k8s.client.model.Optional[String]" title="Permalink">
+      <a href="../../../../../../../../../com/coralogix/zio/k8s/model/pkg/apis/meta/v1/DeleteOptions.html#propagationPolicy:zio.prelude.data.Optional[String]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -895,7 +897,7 @@ foreground.</p><p>If the field is not present, fails with <a href="../../../../.
         <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">propagationPolicy</span><span class="result">: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>]</span>
+        <span class="name">propagationPolicy</span><span class="result">: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
       
@@ -927,7 +929,7 @@ foreground.</p><p>If the field is not present, fails with <a href="../../../../.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Long">Long</span></span>, <span name="arg1">arg1: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <a href="https://www.scala-lang.org/api/2.12.18/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a></span>, <span name="arg1">arg1: <a href="https://www.scala-lang.org/api/2.12.18/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>)</span><span class="result">: <a href="https://www.scala-lang.org/api/2.12.18/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -949,7 +951,7 @@ foreground.</p><p>If the field is not present, fails with <a href="../../../../.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Long">Long</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <a href="https://www.scala-lang.org/api/2.12.18/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a></span>)</span><span class="result">: <a href="https://www.scala-lang.org/api/2.12.18/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -973,7 +975,7 @@ foreground.</p><p>If the field is not present, fails with <a href="../../../../.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">wait</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+        <span class="name">wait</span><span class="params">()</span><span class="result">: <a href="https://www.scala-lang.org/api/2.12.18/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -1003,7 +1005,7 @@ foreground.</p><p>If the field is not present, fails with <a href="../../../../.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name deprecated" title="Deprecated: ">finalize</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+        <span class="name deprecated" title="Deprecated: ">finalize</span><span class="params">()</span><span class="result">: <a href="https://www.scala-lang.org/api/2.12.18/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<span class="extype" name="java.lang">lang</span>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -1021,17 +1023,17 @@ foreground.</p><p>If the field is not present, fails with <a href="../../../../.
 
         <div id="inheritedMembers">
         <div class="parent" name="scala.Serializable">
-              <h3>Inherited from <span class="extype" name="scala.Serializable">Serializable</span></h3>
+              <h3>Inherited from <a href="https://www.scala-lang.org/api/2.12.18/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></h3>
             </div><div class="parent" name="java.io.Serializable">
               <h3>Inherited from <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/io/Serializable.html#java.io.Serializable" class="extype" name="java.io.Serializable">Serializable</a></h3>
             </div><div class="parent" name="scala.Product">
-              <h3>Inherited from <span class="extype" name="scala.Product">Product</span></h3>
+              <h3>Inherited from <a href="https://www.scala-lang.org/api/2.12.18/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a></h3>
             </div><div class="parent" name="scala.Equals">
-              <h3>Inherited from <span class="extype" name="scala.Equals">Equals</span></h3>
+              <h3>Inherited from <a href="https://www.scala-lang.org/api/2.12.18/scala/Equals.html#scala.Equals" class="extype" name="scala.Equals">Equals</a></h3>
             </div><div class="parent" name="scala.AnyRef">
-              <h3>Inherited from <span class="extype" name="scala.AnyRef">AnyRef</span></h3>
+              <h3>Inherited from <a href="https://www.scala-lang.org/api/2.12.18/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></h3>
             </div><div class="parent" name="scala.Any">
-              <h3>Inherited from <span class="extype" name="scala.Any">Any</span></h3>
+              <h3>Inherited from <a href="https://www.scala-lang.org/api/2.12.18/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></h3>
             </div>
         
         </div>

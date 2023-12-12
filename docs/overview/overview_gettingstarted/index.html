@@ -62,16 +62,16 @@
             });
         </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">Getting started</h1></header><article><div><span><h2><a class="anchor" aria-hidden="true" id="dependencies"></a><a href="#dependencies" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Dependencies</h2>
 <p>Start by adding <code>zio-k8s-client</code> as a dependency to your project:</p>
-<pre><code class="hljs css language-scala">libraryDependencies += <span class="hljs-string">"com.coralogix"</span> %% <span class="hljs-string">"zio-k8s-client"</span> % <span class="hljs-string">"1.4.9"</span>
+<pre><code class="hljs css language-scala">libraryDependencies += <span class="hljs-string">"com.coralogix"</span> %% <span class="hljs-string">"zio-k8s-client"</span> % <span class="hljs-string">"2.1.1"</span>
 </code></pre>
 <p>in addition to this, you need to choose an <a href="https://sttp.softwaremill.com/en/latest/">sttp</a> <em>backend</em> that <code>zio-k8s</code> will use to make HTTP requests with. There are two official backends that can be used out of the box:</p>
-<p>In case your application runs on <strong>Java 11</strong> or above, choose the <code>HttpClient</code> based version:</p>
-<pre><code class="hljs css language-scala"><span class="hljs-string">"com.softwaremill.sttp.client3"</span> %% <span class="hljs-string">"httpclient-backend-zio"</span> % <span class="hljs-string">"3.1.1"</span>
-<span class="hljs-string">"com.softwaremill.sttp.client3"</span> %% <span class="hljs-string">"slf4j-backend"</span>          % <span class="hljs-string">"3.1.1"</span>
+<p>In case your application runs on <strong>Java 11</strong> or above, choose the <code>HttpClient</code> based version which is now included in sttp core
+so you may only need to add SLF4j support for logging requests:</p>
+<pre><code class="hljs css language-scala"><span class="hljs-string">"com.softwaremill.sttp.client3"</span> %% <span class="hljs-string">"slf4j-backend"</span>          % <span class="hljs-string">"3.7.0"</span>
 </code></pre>
 <p>Otherwise choose the <code>async-http-client</code> based backend:</p>
-<pre><code class="hljs css language-scala"><span class="hljs-string">"com.softwaremill.sttp.client3"</span> %% <span class="hljs-string">"async-http-client-backend-zio"</span> % <span class="hljs-string">"3.1.1"</span>
-<span class="hljs-string">"com.softwaremill.sttp.client3"</span> %% <span class="hljs-string">"slf4j-backend"</span>                 % <span class="hljs-string">"3.1.1"</span>
+<pre><code class="hljs css language-scala"><span class="hljs-string">"com.softwaremill.sttp.client3"</span> %% <span class="hljs-string">"async-http-client-backend-zio"</span> % <span class="hljs-string">"3.7.0"</span>
+<span class="hljs-string">"com.softwaremill.sttp.client3"</span> %% <span class="hljs-string">"slf4j-backend"</span>                 % <span class="hljs-string">"3.7.0"</span>
 </code></pre>
 <h2><a class="anchor" aria-hidden="true" id="configuration"></a><a href="#configuration" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Configuration</h2>
 <p>With all the dependencies added, we have to create an <em>sttp client</em> and a <em>k8s cluster</em> ZIO layers.
@@ -83,8 +83,6 @@ the chosen HTTP implementation. In case of <code>HttpClient</code> this looks li
 <pre><code class="hljs css language-scala"><span class="hljs-keyword">import</span> com.coralogix.zio.k8s.client.config._
 <span class="hljs-keyword">import</span> com.coralogix.zio.k8s.client.config.httpclient._
 <span class="hljs-keyword">import</span> zio._
-<span class="hljs-keyword">import</span> zio.blocking.<span class="hljs-type">Blocking</span>
-<span class="hljs-keyword">import</span> zio.system.<span class="hljs-type">System</span>
 
 <span class="hljs-keyword">import</span> com.coralogix.zio.k8s.client.v1.configmaps.<span class="hljs-type">ConfigMaps</span>
 <span class="hljs-keyword">import</span> com.coralogix.zio.k8s.client.v1.pods.<span class="hljs-type">Pods</span>
@@ -105,9 +103,9 @@ k8sDefault &gt;&gt;&gt; (<span class="hljs-type">Pods</span>.live ++ <span class
 </ul>
 <p>The more custom functions in the <code>config</code> package are only producing a <code>K8sClusterConfig</code> layer which can be used as
 an input for both <code>K8sCluster</code> and <code>SttpClient</code>. Assuming we have a custom cluster configuration layer <code>config</code>:</p>
-<pre><code class="hljs css language-scala"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">customConfig</span></span>: <span class="hljs-type">ZLayer</span>[<span class="hljs-type">Any</span>, <span class="hljs-type">Nothing</span>, <span class="hljs-type">Has</span>[<span class="hljs-type">K8sClusterConfig</span>]] = ???
+<pre><code class="hljs css language-scala"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">customConfig</span></span>: <span class="hljs-type">ZLayer</span>[<span class="hljs-type">Any</span>, <span class="hljs-type">Nothing</span>, <span class="hljs-type">K8sClusterConfig</span>] = ???
 
-<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">customK8s</span> </span>= (<span class="hljs-type">Blocking</span>.any ++ <span class="hljs-type">System</span>.any ++ customConfig) &gt;&gt;&gt; (k8sCluster ++ k8sSttpClient())
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">customK8s</span> </span>= customConfig &gt;&gt;&gt; (k8sCluster ++ k8sSttpClient())
 </code></pre>
 <h4><a class="anchor" aria-hidden="true" id="trailing-dots"></a><a href="#trailing-dots" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Trailing dots</h4>
 <p>In some cases the kubeconfig may contain cluster host names with a <em>trailing dot</em>. This is causing problems with the SSL engine
@@ -121,7 +119,6 @@ and currently can only used with the following workaround:</p>
 <span class="hljs-keyword">import</span> sttp.client3._
 <span class="hljs-keyword">import</span> sttp.model._
 <span class="hljs-keyword">import</span> zio.<span class="hljs-type">ZLayer</span>
-<span class="hljs-keyword">import</span> zio.blocking.<span class="hljs-type">Blocking</span>
 <span class="hljs-keyword">import</span> zio.nio.file.<span class="hljs-type">Path</span>
 
 <span class="hljs-comment">// Configuration</span>
@@ -146,26 +143,32 @@ and currently can only used with the following workaround:</p>
     )
 </code></pre>
 <pre><code class="hljs css language-scala"><span class="hljs-comment">// K8s configuration and client layers</span>
-<span class="hljs-keyword">val</span> client = <span class="hljs-type">Blocking</span>.any ++ <span class="hljs-type">System</span>.any ++ config &gt;&gt;&gt; k8sSttpClient()
-<span class="hljs-keyword">val</span> cluster = <span class="hljs-type">Blocking</span>.any ++ <span class="hljs-type">System</span>.any ++ config &gt;&gt;&gt; k8sCluster
+<span class="hljs-keyword">val</span> client = config &gt;&gt;&gt; k8sSttpClient()
+<span class="hljs-keyword">val</span> cluster = config &gt;&gt;&gt; k8sCluster
 </code></pre>
 <h3><a class="anchor" aria-hidden="true" id="configuring-with-zio-config--typesafe-config"></a><a href="#configuring-with-zio-config--typesafe-config" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Configuring with zio-config + Typesafe Config</h3>
 <pre><code class="hljs css language-scala"><span class="hljs-keyword">import</span> com.coralogix.zio.k8s.client.config._
 <span class="hljs-keyword">import</span> com.coralogix.zio.k8s.client.config.httpclient._
-<span class="hljs-keyword">import</span> zio.blocking.<span class="hljs-type">Blocking</span>
-<span class="hljs-keyword">import</span> zio.config.<span class="hljs-type">ConfigDescriptor</span>
+<span class="hljs-keyword">import</span> com.coralogix.zio.k8s.client.model._
+<span class="hljs-keyword">import</span> zio.config._
 <span class="hljs-keyword">import</span> zio.config.typesafe._
-<span class="hljs-keyword">import</span> zio.system.<span class="hljs-type">System</span>
+<span class="hljs-keyword">import</span> zio._
 
-<span class="hljs-keyword">case</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Config</span>(<span class="hljs-params">k8s: <span class="hljs-type">K8sClusterConfig</span></span>)</span>
+<span class="hljs-comment">// Define a custom configuration class for your application</span>
+<span class="hljs-keyword">case</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyConfig</span>(<span class="hljs-params">k8s: <span class="hljs-type">K8sClusterConfig</span></span>)</span>
+<span class="hljs-class"><span class="hljs-keyword">object</span> <span class="hljs-title">MyConfig</span> </span>{
+  <span class="hljs-keyword">val</span> configDescriptor: zio.<span class="hljs-type">Config</span>[<span class="hljs-type">MyConfig</span>] = clusterConfigDescriptor.map(k8s =&gt; <span class="hljs-type">MyConfig</span>(k8s))
+  <span class="hljs-keyword">val</span> live = <span class="hljs-type">ZLayer</span>.fromZIO(<span class="hljs-type">ZIO</span>.config(configDescriptor))
+  <span class="hljs-keyword">val</span> k8s = <span class="hljs-type">ZLayer</span>.fromFunction { cfg: <span class="hljs-type">MyConfig</span> =&gt; cfg.k8s }
+}
 
-<span class="hljs-comment">// Loading config from HOCON</span>
-<span class="hljs-keyword">val</span> configDesc = <span class="hljs-type">ConfigDescriptor</span>.nested(<span class="hljs-string">"k8s"</span>)(clusterConfigDescriptor).to[<span class="hljs-type">Config</span>]
-<span class="hljs-keyword">val</span> config = <span class="hljs-type">TypesafeConfig</span>.fromDefaultLoader[<span class="hljs-type">Config</span>](configDesc)
-
-<span class="hljs-comment">// K8s configuration and client layers</span>
-<span class="hljs-keyword">val</span> client = (<span class="hljs-type">Blocking</span>.any ++ <span class="hljs-type">System</span>.any ++ config.project(_.k8s)) &gt;&gt;&gt; k8sSttpClient()
-<span class="hljs-keyword">val</span> cluster = (<span class="hljs-type">Blocking</span>.any ++ <span class="hljs-type">System</span>.any ++ config.project(_.k8s)) &gt;&gt;&gt; k8sCluster
+<span class="hljs-comment">// Set the config provider for the ZIO runtime to load your typesafe config. Typically this is done by overriding </span>
+<span class="hljs-comment">// `ZIOAppDefault.bootstrap` in the Main class of your project.</span>
+<span class="hljs-keyword">val</span> bootstrap: <span class="hljs-type">ZLayer</span>[<span class="hljs-type">Any</span>, <span class="hljs-type">Nothing</span>, <span class="hljs-type">Unit</span>] =
+    zio.<span class="hljs-type">Runtime</span>.setConfigProvider(<span class="hljs-type">TypesafeConfigProvider</span>.fromResourcePath())
+    
+<span class="hljs-comment">//create zio-k8s layers for use in your application</span>
+<span class="hljs-keyword">val</span> k8sLayers = <span class="hljs-type">MyConfig</span>.live &gt;&gt;&gt; <span class="hljs-type">MyConfig</span>.k8s ++ k8sCluster ++ k8sSttpClient()
 </code></pre>
 <p>and place the configuration in <code>application.conf</code>, for example:</p>
 <pre><code class="hljs css language-conf">k8s {
@@ -187,18 +190,18 @@ and currently can only used with the following workaround:</p>
 }
 </code></pre>
 <h2><a class="anchor" aria-hidden="true" id="clients"></a><a href="#clients" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Clients</h2>
-<p>The above created <code>client</code> and <code>cluster</code> modules can be fed to any of the <code>zio-k8s</code> <strong>client modules</strong>
+<p>The above created <code>k8sLayers</code> can be fed to any of the <code>zio-k8s</code> <strong>client modules</strong>
 to access <em>Kubernetes</em> resources. This is explained in details in the <a href="/zio-k8s/docs/overview/overview_resources">resources</a> section.</p>
 <p>The following example demonstrates how to gain access to the <em>Kubernetes pods and config maps</em>:</p>
 <pre><code class="hljs css language-scala"><span class="hljs-keyword">import</span> com.coralogix.zio.k8s.client.v1.configmaps.<span class="hljs-type">ConfigMaps</span>
 <span class="hljs-keyword">import</span> com.coralogix.zio.k8s.client.v1.pods.<span class="hljs-type">Pods</span>
 
-<span class="hljs-keyword">val</span> k8s = (cluster ++ client) &gt;&gt;&gt; (<span class="hljs-type">Pods</span>.live ++ <span class="hljs-type">ConfigMaps</span>.live)
+<span class="hljs-keyword">val</span> k8s = k8sLayers &gt;&gt;&gt; (<span class="hljs-type">Pods</span>.live ++ <span class="hljs-type">ConfigMaps</span>.live)
 </code></pre>
 <h2><a class="anchor" aria-hidden="true" id="notes"></a><a href="#notes" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Notes</h2>
 <p>This library is built on the <em>ZIO modules and layers concept</em>. To learn more about that,
 check <a href="https://zio.dev/docs/howto/howto_use_layers">the official documentation</a>.</p>
-</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/zio-k8s/docs/overview/overview_index"><span class="arrow-prev">← </span><span>Contents</span></a><a class="docs-next button" href="/zio-k8s/docs/overview/overview_resources"><span>Working with resources</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#dependencies">Dependencies</a></li><li><a href="#configuration">Configuration</a><ul class="toc-headings"><li><a href="#default-automatic-configuration">Default automatic configuration</a></li><li><a href="#providing-configuration-from-code">Providing configuration from code</a></li><li><a href="#configuring-with-zio-config--typesafe-config">Configuring with zio-config + Typesafe Config</a></li></ul></li><li><a href="#clients">Clients</a></li><li><a href="#notes">Notes</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/zio-k8s/" class="nav-home"><img src="/zio-k8s/img/sidebar_brand2x.png" alt="ZIO K8s"/></a><div><h5>GitHub</h5><a class="github-button" href="https://github.com/coralogix/zio-k8s" data-icon="octicon-star" data-count-href="/coralogix/zio-k8s/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div><div><h5>Chat with us on Discord</h5><a href="https://discord.gg/2ccFBr4"><img src="/zio-k8s//img/discord.png" width="120" alt="discord"/></a></div><div><h5>Additional resources</h5><a href="/zio-k8s/api/index.html">Scaladoc of zio-k8s</a></div></section><section class="copyright">Copyright © 2022 ZIO Maintainers</section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/zio-k8s/docs/overview/overview_index"><span class="arrow-prev">← </span><span>Contents</span></a><a class="docs-next button" href="/zio-k8s/docs/overview/overview_resources"><span>Working with resources</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#dependencies">Dependencies</a></li><li><a href="#configuration">Configuration</a><ul class="toc-headings"><li><a href="#default-automatic-configuration">Default automatic configuration</a></li><li><a href="#providing-configuration-from-code">Providing configuration from code</a></li><li><a href="#configuring-with-zio-config--typesafe-config">Configuring with zio-config + Typesafe Config</a></li></ul></li><li><a href="#clients">Clients</a></li><li><a href="#notes">Notes</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/zio-k8s/" class="nav-home"><img src="/zio-k8s/img/sidebar_brand2x.png" alt="ZIO K8s"/></a><div><h5>GitHub</h5><a class="github-button" href="https://github.com/coralogix/zio-k8s" data-icon="octicon-star" data-count-href="/coralogix/zio-k8s/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div><div><h5>Chat with us on Discord</h5><a href="https://discord.gg/2ccFBr4"><img src="/zio-k8s//img/discord.png" width="120" alt="discord"/></a></div><div><h5>Additional resources</h5><a href="/zio-k8s/api/index.html">Scaladoc of zio-k8s</a></div></section><section class="copyright">Copyright © 2023 ZIO Maintainers</section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
                 document.addEventListener('keyup', function(e) {
                   if (e.target !== document.body) {
                     return;

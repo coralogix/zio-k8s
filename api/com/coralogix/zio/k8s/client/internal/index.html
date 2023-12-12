@@ -311,11 +311,11 @@
       <p class="shortcomment cmt">Contains data structures, ZIO layers and zio-config descriptors for configuring the zio-k8s
 client.</p><div class="fullcomment"><div class="comment cmt"><p>Contains data structures, ZIO layers and zio-config descriptors for configuring the zio-k8s
 client.</p><p>Each zio-k8s client module depends on two ZIO modules:
-<a href="../model/package$$K8sCluster.html" class="extype" name="com.coralogix.zio.k8s.client.model.K8sCluster">com.coralogix.zio.k8s.client.model.K8sCluster</a> and an <a href="https://javadoc.io/page/com.softwaremill.sttp.client3/core_2.12/3.3.18/sttp/client3/SttpBackend.html" class="extype" name="sttp.client3.SttpBackend">sttp.client3.SttpBackend</a>. To use
+<a href="../model/package$$K8sCluster.html" class="extype" name="com.coralogix.zio.k8s.client.model.K8sCluster">com.coralogix.zio.k8s.client.model.K8sCluster</a> and an <a href="https://javadoc.io/page/com.softwaremill.sttp.client3/core_2.12/3.8.16/sttp/client3/SttpBackend.html" class="extype" name="sttp.client3.SttpBackend">sttp.client3.SttpBackend</a>. To use
 the default configuration (use kubeconfig if available, otherwise fallback to service account
 token), use either <code>asynchttpclient.k8sDefault</code> or <code>httpclient.k8sDefault</code> depending on your
 chosen sttp backend.</p><p>Manual configuration is possible by providing a <a href="../config/package$$K8sClusterConfig.html" class="extype" name="com.coralogix.zio.k8s.client.config.K8sClusterConfig">K8sClusterConfig</a> value to both the
-<a href="../config/index.html#k8sCluster:zio.ZLayer[zio.blocking.Blockingwithzio.Has[com.coralogix.zio.k8s.client.config.package.K8sClusterConfig],Throwable,zio.Has[com.coralogix.zio.k8s.client.model.K8sCluster]]" class="extmbr" name="com.coralogix.zio.k8s.client.config#k8sCluster">k8sCluster</a> layer and either <code>asynchttpclient.k8sSttpClient</code> or <code>httpclient.k8sSttpClient</code>.</p><p>Instead of manually providing the configuration, zio-config descriptors are available to load
+<a href="../config/index.html#k8sCluster:zio.ZLayer[com.coralogix.zio.k8s.client.config.package.K8sClusterConfig,Throwable,com.coralogix.zio.k8s.client.model.K8sCluster]" class="extmbr" name="com.coralogix.zio.k8s.client.config#k8sCluster">k8sCluster</a> layer and either <code>asynchttpclient.k8sSttpClient</code> or <code>httpclient.k8sSttpClient</code>.</p><p>Instead of manually providing the configuration, zio-config descriptors are available to load
 them from any supported source.
 </p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="com.coralogix.zio.k8s.client">client</a></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.client.coordination" visbl="pub" class="indented6 " data-isabs="false" fullComment="yes" group="Ungrouped">
@@ -402,6 +402,10 @@ them from any supported source.
                         <span class="separator"></span>
                         <a class="object" href="CircePrettyFailure$.html" title="Pretty printer for Circe JSON decode failures"></a>
                         <a href="CircePrettyFailure$.html" title="Pretty printer for Circe JSON decode failures">CircePrettyFailure</a>
+                      </li><li class="current-entities indented6">
+                        <a class="object" href="IsOptional$.html" title=""></a>
+                        <a class="trait" href="IsOptional.html" title="Helper to disambiguate decoder and isOption instances of Option and Optional"></a>
+                        <a href="IsOptional.html" title="Helper to disambiguate decoder and isOption instances of Option and Optional">IsOptional</a>
                       </li><li name="com.coralogix.zio.k8s.client.kubernetes" visbl="pub" class="indented6 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="kubernetes"></a><a id="kubernetes:kubernetes"></a>
       <span class="permalink">
@@ -623,7 +627,26 @@ them from any supported source.
         <div id="allMembers">
         
 
-        
+        <div id="types" class="types members">
+              <h3>Type Members</h3>
+              <ol><li name="com.coralogix.zio.k8s.client.internal.IsOptional" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="IsOptional[T]extendsAnyRef"></a><a id="IsOptional[T]:IsOptional[T]"></a>
+      <span class="permalink">
+      <a href="../../../../../../com/coralogix/zio/k8s/client/internal/IsOptional.html" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a title="Helper to disambiguate decoder and isOption instances of Option and Optional" href="IsOptional.html"><span class="name">IsOptional</span></a><span class="tparams">[<span name="T">T</span>]</span><span class="result"> extends <a href="https://www.scala-lang.org/api/2.12.18/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
+      </span>
+      
+      <p class="shortcomment cmt">Helper to disambiguate decoder and isOption instances of Option and Optional</p>
+    </li></ol>
+            </div>
 
         
 
@@ -647,6 +670,22 @@ them from any supported source.
       
       <p class="shortcomment cmt">Pretty printer for Circe JSON decode failures</p><div class="fullcomment"><div class="comment cmt"><p>Pretty printer for Circe JSON decode failures</p><p>Provides nicer error messages for <a href="../K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a> errors.
 </p></div></div>
+    </li><li name="com.coralogix.zio.k8s.client.internal.IsOptional" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="IsOptional"></a><a id="IsOptional:IsOptional"></a>
+      <span class="permalink">
+      <a href="../../../../../../com/coralogix/zio/k8s/client/internal/IsOptional$.html" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="IsOptional$.html"><span class="name">IsOptional</span></a>
+      </span>
+      
+      
     </li>
               </ol>
             </div>

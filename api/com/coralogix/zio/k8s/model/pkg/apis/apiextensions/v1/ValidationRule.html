@@ -414,7 +414,7 @@
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <span class="name">ValidationRule</span><span class="params">(<span name="message">message: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="rule">rule: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <span class="name">ValidationRule</span><span class="params">(<span name="message">message: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../../../../zio/index.html">Optional.Absent</a></span></span></span>, <span name="rule">rule: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result"> extends <a href="https://www.scala-lang.org/api/2.12.18/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a> with <a href="https://www.scala-lang.org/api/2.12.18/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
       </span>
       </h4>
 
@@ -447,9 +447,9 @@ Unknown data preserved in custom resources via x-kubernetes-preserve-unknown-fie
 accessible in CEL expressions. This includes: - Unknown field values that are preserved by
 object schemas with x-kubernetes-preserve-unknown-fields. - Object properties where the property
 schema is of an &quot;unknown type&quot;. An &quot;unknown type&quot; is recursively defined as:
-- A schema with no type and x-kubernetes-preserve-unknown-fields set to true
-- An array where the items schema is of an &quot;unknown type&quot;
-- An object where the additionalProperties schema is of an &quot;unknown type&quot;
+\- A schema with no type and x-kubernetes-preserve-unknown-fields set to true
+\- An array where the items schema is of an &quot;unknown type&quot;
+\- An object where the additionalProperties schema is of an &quot;unknown type&quot;
 Only property names of the form <code>[a-zA-Z_.-/][a-zA-Z0-9_.-/]*</code> are accessible. Accessible
 property names are escaped according to the following rules when accessed in the expression: -
 '<u>' escapes to '</u>underscores<u>' - '.' escapes to '</u>dot<u>' - '-' escapes to '</u>dash<u>' - '/'
@@ -457,21 +457,21 @@ escapes to '</u>slash<u>' - Property names that exactly match a CEL RESERVED key
 '</u>{keyword}<u>'. The keywords are: &quot;true&quot;, &quot;false&quot;, &quot;null&quot;, &quot;in&quot;, &quot;as&quot;, &quot;break&quot;, &quot;const&quot;,
 &quot;continue&quot;, &quot;else&quot;, &quot;for&quot;, &quot;function&quot;, &quot;if&quot;, &quot;import&quot;, &quot;let&quot;, &quot;loop&quot;, &quot;package&quot;, &quot;namespace&quot;,
 &quot;return&quot;. Examples:
-- Rule accessing a property named &quot;namespace&quot;: {&quot;rule&quot;: &quot;self.</u>namespace<u> &gt; 0&quot;}
-- Rule accessing a property named &quot;x-prop&quot;: {&quot;rule&quot;: &quot;self.x</u>dash<u>prop &gt; 0&quot;}
-- Rule accessing a property named &quot;redact</u>d&quot;: {&quot;rule&quot;: &quot;self.redact<u>underscores</u>d &gt; 0&quot;}
+\- Rule accessing a property named &quot;namespace&quot;: {&quot;rule&quot;: &quot;self.</u>namespace<u> &gt; 0&quot;}
+\- Rule accessing a property named &quot;x-prop&quot;: {&quot;rule&quot;: &quot;self.x</u>dash<u>prop &gt; 0&quot;}
+\- Rule accessing a property named &quot;redact</u>d&quot;: {&quot;rule&quot;: &quot;self.redact<u>underscores</u>d &gt; 0&quot;}
 Equality on arrays with x-kubernetes-list-type of 'set' or 'map' ignores element order, i.e. [1,
 2] == [2, 1]. Concatenation on arrays with x-kubernetes-list-type use the semantics of the list
 type:
-- 'set': <code>X + Y</code> performs a union where the array positions of all elements in <code>X</code> are preserved
-and non-intersecting elements in <code>Y</code> are appended, retaining their partial order.
-- 'map': <code>X + Y</code> performs a merge where the array positions of all keys in <code>X</code> are preserved but
-the values are overwritten by values in <code>Y</code> when the key sets of <code>X</code> and <code>Y</code> intersect. Elements
-in <code>Y</code> with non-intersecting keys are appended, retaining their partial order.</p></dd></dl><div class="toggleContainer block">
+\- 'set': <code>X + Y</code> performs a union where the array positions of all elements in <code>X</code> are
+preserved and non-intersecting elements in <code>Y</code> are appended, retaining their partial order.
+\- 'map': <code>X + Y</code> performs a merge where the array positions of all keys in <code>X</code> are preserved
+but the values are overwritten by values in <code>Y</code> when the key sets of <code>X</code> and <code>Y</code> intersect.
+Elements in <code>Y</code> with non-intersecting keys are appended, retaining their partial order.</p></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
-          <div class="superTypes hiddenContent"><span class="extype" name="scala.Serializable">Serializable</span>, <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/io/Serializable.html#java.io.Serializable" class="extype" name="java.io.Serializable">Serializable</a>, <span class="extype" name="scala.Product">Product</span>, <span class="extype" name="scala.Equals">Equals</span>, <span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
+          <div class="superTypes hiddenContent"><a href="https://www.scala-lang.org/api/2.12.18/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a>, <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/io/Serializable.html#java.io.Serializable" class="extype" name="java.io.Serializable">Serializable</a>, <a href="https://www.scala-lang.org/api/2.12.18/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a>, <a href="https://www.scala-lang.org/api/2.12.18/scala/Equals.html#scala.Equals" class="extype" name="scala.Equals">Equals</a>, <a href="https://www.scala-lang.org/api/2.12.18/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a>, <a href="https://www.scala-lang.org/api/2.12.18/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></div>
         </div></div>
         
 
@@ -518,9 +518,9 @@ in <code>Y</code> with non-intersecting keys are appended, retaining their parti
         <div id="constructors" class="members">
               <h3>Instance Constructors</h3>
               <ol><li name="com.coralogix.zio.k8s.model.pkg.apis.apiextensions.v1.ValidationRule#&lt;init&gt;" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="&lt;init&gt;(message:com.coralogix.zio.k8s.client.model.Optional[String],rule:String):com.coralogix.zio.k8s.model.pkg.apis.apiextensions.v1.ValidationRule"></a><a id="&lt;init&gt;:ValidationRule"></a>
+      <a id="&lt;init&gt;(message:zio.prelude.data.Optional[String],rule:String):com.coralogix.zio.k8s.model.pkg.apis.apiextensions.v1.ValidationRule"></a><a id="&lt;init&gt;:ValidationRule"></a>
       <span class="permalink">
-      <a href="../../../../../../../../../com/coralogix/zio/k8s/model/pkg/apis/apiextensions/v1/ValidationRule.html#&lt;init&gt;(message:com.coralogix.zio.k8s.client.model.Optional[String],rule:String):com.coralogix.zio.k8s.model.pkg.apis.apiextensions.v1.ValidationRule" title="Permalink">
+      <a href="../../../../../../../../../com/coralogix/zio/k8s/model/pkg/apis/apiextensions/v1/ValidationRule.html#&lt;init&gt;(message:zio.prelude.data.Optional[String],rule:String):com.coralogix.zio.k8s.model.pkg.apis.apiextensions.v1.ValidationRule" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -529,7 +529,7 @@ in <code>Y</code> with non-intersecting keys are appended, retaining their parti
         <span class="kind">new</span>
       </span>
       <span class="symbol">
-        <span class="name">ValidationRule</span><span class="params">(<span name="message">message: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="rule">rule: <span class="extype" name="scala.Predef.String">String</span></span>)</span>
+        <span class="name">ValidationRule</span><span class="params">(<span name="message">message: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../../../../zio/index.html">Optional.Absent</a></span></span></span>, <span name="rule">rule: <span class="extype" name="scala.Predef.String">String</span></span>)</span>
       </span>
       
       <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">message</dt><dd class="cmt"><p>
@@ -559,9 +559,9 @@ Unknown data preserved in custom resources via x-kubernetes-preserve-unknown-fie
 accessible in CEL expressions. This includes: - Unknown field values that are preserved by
 object schemas with x-kubernetes-preserve-unknown-fields. - Object properties where the property
 schema is of an &quot;unknown type&quot;. An &quot;unknown type&quot; is recursively defined as:
-- A schema with no type and x-kubernetes-preserve-unknown-fields set to true
-- An array where the items schema is of an &quot;unknown type&quot;
-- An object where the additionalProperties schema is of an &quot;unknown type&quot;
+\- A schema with no type and x-kubernetes-preserve-unknown-fields set to true
+\- An array where the items schema is of an &quot;unknown type&quot;
+\- An object where the additionalProperties schema is of an &quot;unknown type&quot;
 Only property names of the form <code>[a-zA-Z_.-/][a-zA-Z0-9_.-/]*</code> are accessible. Accessible
 property names are escaped according to the following rules when accessed in the expression: -
 '<u>' escapes to '</u>underscores<u>' - '.' escapes to '</u>dot<u>' - '-' escapes to '</u>dash<u>' - '/'
@@ -569,17 +569,17 @@ escapes to '</u>slash<u>' - Property names that exactly match a CEL RESERVED key
 '</u>{keyword}<u>'. The keywords are: &quot;true&quot;, &quot;false&quot;, &quot;null&quot;, &quot;in&quot;, &quot;as&quot;, &quot;break&quot;, &quot;const&quot;,
 &quot;continue&quot;, &quot;else&quot;, &quot;for&quot;, &quot;function&quot;, &quot;if&quot;, &quot;import&quot;, &quot;let&quot;, &quot;loop&quot;, &quot;package&quot;, &quot;namespace&quot;,
 &quot;return&quot;. Examples:
-- Rule accessing a property named &quot;namespace&quot;: {&quot;rule&quot;: &quot;self.</u>namespace<u> &gt; 0&quot;}
-- Rule accessing a property named &quot;x-prop&quot;: {&quot;rule&quot;: &quot;self.x</u>dash<u>prop &gt; 0&quot;}
-- Rule accessing a property named &quot;redact</u>d&quot;: {&quot;rule&quot;: &quot;self.redact<u>underscores</u>d &gt; 0&quot;}
+\- Rule accessing a property named &quot;namespace&quot;: {&quot;rule&quot;: &quot;self.</u>namespace<u> &gt; 0&quot;}
+\- Rule accessing a property named &quot;x-prop&quot;: {&quot;rule&quot;: &quot;self.x</u>dash<u>prop &gt; 0&quot;}
+\- Rule accessing a property named &quot;redact</u>d&quot;: {&quot;rule&quot;: &quot;self.redact<u>underscores</u>d &gt; 0&quot;}
 Equality on arrays with x-kubernetes-list-type of 'set' or 'map' ignores element order, i.e. [1,
 2] == [2, 1]. Concatenation on arrays with x-kubernetes-list-type use the semantics of the list
 type:
-- 'set': <code>X + Y</code> performs a union where the array positions of all elements in <code>X</code> are preserved
-and non-intersecting elements in <code>Y</code> are appended, retaining their partial order.
-- 'map': <code>X + Y</code> performs a merge where the array positions of all keys in <code>X</code> are preserved but
-the values are overwritten by values in <code>Y</code> when the key sets of <code>X</code> and <code>Y</code> intersect. Elements
-in <code>Y</code> with non-intersecting keys are appended, retaining their partial order.</p></dd></dl></div>
+\- 'set': <code>X + Y</code> performs a union where the array positions of all elements in <code>X</code> are
+preserved and non-intersecting elements in <code>Y</code> are appended, retaining their partial order.
+\- 'map': <code>X + Y</code> performs a merge where the array positions of all keys in <code>X</code> are preserved
+but the values are overwritten by values in <code>Y</code> when the key sets of <code>X</code> and <code>Y</code> intersect.
+Elements in <code>Y</code> with non-intersecting keys are appended, retaining their partial order.</p></dd></dl></div>
     </li></ol>
             </div>
 
@@ -602,7 +602,7 @@ in <code>Y</code> with non-intersecting keys are appended, retaining their parti
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: $bang$eq" class="name">!=</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+        <span title="gt4s: $bang$eq" class="name">!=</span><span class="params">(<span name="arg0">arg0: <a href="https://www.scala-lang.org/api/2.12.18/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></span>)</span><span class="result">: <a href="https://www.scala-lang.org/api/2.12.18/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -618,7 +618,7 @@ in <code>Y</code> with non-intersecting keys are appended, retaining their parti
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: $hash$hash" class="name">##</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
+        <span title="gt4s: $hash$hash" class="name">##</span><span class="params">()</span><span class="result">: <a href="https://www.scala-lang.org/api/2.12.18/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -634,7 +634,7 @@ in <code>Y</code> with non-intersecting keys are appended, retaining their parti
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: $eq$eq" class="name">==</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+        <span title="gt4s: $eq$eq" class="name">==</span><span class="params">(<span name="arg0">arg0: <a href="https://www.scala-lang.org/api/2.12.18/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></span>)</span><span class="result">: <a href="https://www.scala-lang.org/api/2.12.18/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -666,7 +666,7 @@ in <code>Y</code> with non-intersecting keys are appended, retaining their parti
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">clone</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+        <span class="name">clone</span><span class="params">()</span><span class="result">: <a href="https://www.scala-lang.org/api/2.12.18/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<span class="extype" name="java.lang">lang</span>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -692,7 +692,7 @@ in <code>Y</code> with non-intersecting keys are appended, retaining their parti
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">eq</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.AnyRef">AnyRef</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+        <span class="name">eq</span><span class="params">(<span name="arg0">arg0: <a href="https://www.scala-lang.org/api/2.12.18/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>)</span><span class="result">: <a href="https://www.scala-lang.org/api/2.12.18/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
@@ -771,23 +771,23 @@ other metadata properties are accessible.</p><p>Unknown data preserved in custom
 accessible in CEL expressions. This includes: - Unknown field values that are preserved by
 object schemas with x-kubernetes-preserve-unknown-fields. - Object properties where the
 property schema is of an &quot;unknown type&quot;. An &quot;unknown type&quot; is recursively defined as:
-- A schema with no type and x-kubernetes-preserve-unknown-fields set to true
-- An array where the items schema is of an &quot;unknown type&quot;
-- An object where the additionalProperties schema is of an &quot;unknown type&quot;</p><p>Only property names of the form <code>[a-zA-Z_.-/][a-zA-Z0-9_.-/]*</code> are accessible. Accessible
+\- A schema with no type and x-kubernetes-preserve-unknown-fields set to true
+\- An array where the items schema is of an &quot;unknown type&quot;
+\- An object where the additionalProperties schema is of an &quot;unknown type&quot;</p><p>Only property names of the form <code>[a-zA-Z_.-/][a-zA-Z0-9_.-/]*</code> are accessible. Accessible
 property names are escaped according to the following rules when accessed in the expression: -
 '<u>' escapes to '</u>underscores<u>' - '.' escapes to '</u>dot<u>' - '-' escapes to '</u>dash<u>' - '/'
 escapes to '</u>slash<u>' - Property names that exactly match a CEL RESERVED keyword escape to
 '</u>{keyword}<u>'. The keywords are: &quot;true&quot;, &quot;false&quot;, &quot;null&quot;, &quot;in&quot;, &quot;as&quot;, &quot;break&quot;, &quot;const&quot;,
 &quot;continue&quot;, &quot;else&quot;, &quot;for&quot;, &quot;function&quot;, &quot;if&quot;, &quot;import&quot;, &quot;let&quot;, &quot;loop&quot;, &quot;package&quot;, &quot;namespace&quot;,
 &quot;return&quot;. Examples:
-- Rule accessing a property named &quot;namespace&quot;: {&quot;rule&quot;: &quot;self.</u>namespace<u> &gt; 0&quot;}
-- Rule accessing a property named &quot;x-prop&quot;: {&quot;rule&quot;: &quot;self.x</u>dash<u>prop &gt; 0&quot;}
-- Rule accessing a property named &quot;redact</u>d&quot;: {&quot;rule&quot;: &quot;self.redact<u>underscores</u>d &gt; 0&quot;}</p><p>Equality on arrays with x-kubernetes-list-type of 'set' or 'map' ignores element order, i.e.
+\- Rule accessing a property named &quot;namespace&quot;: {&quot;rule&quot;: &quot;self.</u>namespace<u> &gt; 0&quot;}
+\- Rule accessing a property named &quot;x-prop&quot;: {&quot;rule&quot;: &quot;self.x</u>dash<u>prop &gt; 0&quot;}
+\- Rule accessing a property named &quot;redact</u>d&quot;: {&quot;rule&quot;: &quot;self.redact<u>underscores</u>d &gt; 0&quot;}</p><p>Equality on arrays with x-kubernetes-list-type of 'set' or 'map' ignores element order, i.e.
 [1, 2] == [2, 1]. Concatenation on arrays with x-kubernetes-list-type use the semantics of the
 list type:
-- 'set': <code>X + Y</code> performs a union where the array positions of all elements in <code>X</code> are
+\- 'set': <code>X + Y</code> performs a union where the array positions of all elements in <code>X</code> are
 preserved and non-intersecting elements in <code>Y</code> are appended, retaining their partial order.
-- 'map': <code>X + Y</code> performs a merge where the array positions of all keys in <code>X</code> are preserved
+\- 'map': <code>X + Y</code> performs a merge where the array positions of all keys in <code>X</code> are preserved
 but the values are overwritten by values in <code>Y</code> when the key sets of <code>X</code> and <code>Y</code> intersect.
 Elements in <code>Y</code> with non-intersecting keys are appended, retaining their partial order.</p><p>This effect always succeeds, it is safe to use the field <a href="#rule:String" class="extmbr" name="com.coralogix.zio.k8s.model.pkg.apis.apiextensions.v1.ValidationRule#rule">rule</a> directly.
 </p></div></div>
@@ -803,14 +803,14 @@ Elements in <code>Y</code> with non-intersecting keys are appended, retaining th
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">isInstanceOf</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+        <span class="name">isInstanceOf</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="result">: <a href="https://www.scala-lang.org/api/2.12.18/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.pkg.apis.apiextensions.v1.ValidationRule#message" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="message:com.coralogix.zio.k8s.client.model.Optional[String]"></a><a id="message:Optional[String]"></a>
+      <a id="message:zio.prelude.data.Optional[String]"></a><a id="message:Optional[String]"></a>
       <span class="permalink">
-      <a href="../../../../../../../../../com/coralogix/zio/k8s/model/pkg/apis/apiextensions/v1/ValidationRule.html#message:com.coralogix.zio.k8s.client.model.Optional[String]" title="Permalink">
+      <a href="../../../../../../../../../com/coralogix/zio/k8s/model/pkg/apis/apiextensions/v1/ValidationRule.html#message:zio.prelude.data.Optional[String]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -819,7 +819,7 @@ Elements in <code>Y</code> with non-intersecting keys are appended, retaining th
         <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">message</span><span class="result">: <a href="../../../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>]</span>
+        <span class="name">message</span><span class="result">: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
       
@@ -835,7 +835,7 @@ Elements in <code>Y</code> with non-intersecting keys are appended, retaining th
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">ne</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.AnyRef">AnyRef</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+        <span class="name">ne</span><span class="params">(<span name="arg0">arg0: <a href="https://www.scala-lang.org/api/2.12.18/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>)</span><span class="result">: <a href="https://www.scala-lang.org/api/2.12.18/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
@@ -851,7 +851,7 @@ Elements in <code>Y</code> with non-intersecting keys are appended, retaining th
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">notify</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+        <span class="name">notify</span><span class="params">()</span><span class="result">: <a href="https://www.scala-lang.org/api/2.12.18/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -872,7 +872,7 @@ Elements in <code>Y</code> with non-intersecting keys are appended, retaining th
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">notifyAll</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+        <span class="name">notifyAll</span><span class="params">()</span><span class="result">: <a href="https://www.scala-lang.org/api/2.12.18/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -925,7 +925,7 @@ Elements in <code>Y</code> with non-intersecting keys are appended, retaining th
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Long">Long</span></span>, <span name="arg1">arg1: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <a href="https://www.scala-lang.org/api/2.12.18/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a></span>, <span name="arg1">arg1: <a href="https://www.scala-lang.org/api/2.12.18/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>)</span><span class="result">: <a href="https://www.scala-lang.org/api/2.12.18/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -947,7 +947,7 @@ Elements in <code>Y</code> with non-intersecting keys are appended, retaining th
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Long">Long</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <a href="https://www.scala-lang.org/api/2.12.18/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a></span>)</span><span class="result">: <a href="https://www.scala-lang.org/api/2.12.18/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -971,7 +971,7 @@ Elements in <code>Y</code> with non-intersecting keys are appended, retaining th
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">wait</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+        <span class="name">wait</span><span class="params">()</span><span class="result">: <a href="https://www.scala-lang.org/api/2.12.18/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -1001,7 +1001,7 @@ Elements in <code>Y</code> with non-intersecting keys are appended, retaining th
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name deprecated" title="Deprecated: ">finalize</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+        <span class="name deprecated" title="Deprecated: ">finalize</span><span class="params">()</span><span class="result">: <a href="https://www.scala-lang.org/api/2.12.18/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<span class="extype" name="java.lang">lang</span>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -1019,17 +1019,17 @@ Elements in <code>Y</code> with non-intersecting keys are appended, retaining th
 
         <div id="inheritedMembers">
         <div class="parent" name="scala.Serializable">
-              <h3>Inherited from <span class="extype" name="scala.Serializable">Serializable</span></h3>
+              <h3>Inherited from <a href="https://www.scala-lang.org/api/2.12.18/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></h3>
             </div><div class="parent" name="java.io.Serializable">
               <h3>Inherited from <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/io/Serializable.html#java.io.Serializable" class="extype" name="java.io.Serializable">Serializable</a></h3>
             </div><div class="parent" name="scala.Product">
-              <h3>Inherited from <span class="extype" name="scala.Product">Product</span></h3>
+              <h3>Inherited from <a href="https://www.scala-lang.org/api/2.12.18/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a></h3>
             </div><div class="parent" name="scala.Equals">
-              <h3>Inherited from <span class="extype" name="scala.Equals">Equals</span></h3>
+              <h3>Inherited from <a href="https://www.scala-lang.org/api/2.12.18/scala/Equals.html#scala.Equals" class="extype" name="scala.Equals">Equals</a></h3>
             </div><div class="parent" name="scala.AnyRef">
-              <h3>Inherited from <span class="extype" name="scala.AnyRef">AnyRef</span></h3>
+              <h3>Inherited from <a href="https://www.scala-lang.org/api/2.12.18/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></h3>
             </div><div class="parent" name="scala.Any">
-              <h3>Inherited from <span class="extype" name="scala.Any">Any</span></h3>
+              <h3>Inherited from <a href="https://www.scala-lang.org/api/2.12.18/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></h3>
             </div>
         
         </div>

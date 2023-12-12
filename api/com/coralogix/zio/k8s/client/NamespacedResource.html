@@ -311,11 +311,11 @@
       <p class="shortcomment cmt">Contains data structures, ZIO layers and zio-config descriptors for configuring the zio-k8s
 client.</p><div class="fullcomment"><div class="comment cmt"><p>Contains data structures, ZIO layers and zio-config descriptors for configuring the zio-k8s
 client.</p><p>Each zio-k8s client module depends on two ZIO modules:
-<a href="model/package$$K8sCluster.html" class="extype" name="com.coralogix.zio.k8s.client.model.K8sCluster">com.coralogix.zio.k8s.client.model.K8sCluster</a> and an <a href="https://javadoc.io/page/com.softwaremill.sttp.client3/core_2.12/3.3.18/sttp/client3/SttpBackend.html" class="extype" name="sttp.client3.SttpBackend">sttp.client3.SttpBackend</a>. To use
+<a href="model/package$$K8sCluster.html" class="extype" name="com.coralogix.zio.k8s.client.model.K8sCluster">com.coralogix.zio.k8s.client.model.K8sCluster</a> and an <a href="https://javadoc.io/page/com.softwaremill.sttp.client3/core_2.12/3.8.16/sttp/client3/SttpBackend.html" class="extype" name="sttp.client3.SttpBackend">sttp.client3.SttpBackend</a>. To use
 the default configuration (use kubeconfig if available, otherwise fallback to service account
 token), use either <code>asynchttpclient.k8sDefault</code> or <code>httpclient.k8sDefault</code> depending on your
 chosen sttp backend.</p><p>Manual configuration is possible by providing a <a href="config/package$$K8sClusterConfig.html" class="extype" name="com.coralogix.zio.k8s.client.config.K8sClusterConfig">K8sClusterConfig</a> value to both the
-<a href="config/index.html#k8sCluster:zio.ZLayer[zio.blocking.Blockingwithzio.Has[com.coralogix.zio.k8s.client.config.package.K8sClusterConfig],Throwable,zio.Has[com.coralogix.zio.k8s.client.model.K8sCluster]]" class="extmbr" name="com.coralogix.zio.k8s.client.config#k8sCluster">k8sCluster</a> layer and either <code>asynchttpclient.k8sSttpClient</code> or <code>httpclient.k8sSttpClient</code>.</p><p>Instead of manually providing the configuration, zio-config descriptors are available to load
+<a href="config/index.html#k8sCluster:zio.ZLayer[com.coralogix.zio.k8s.client.config.package.K8sClusterConfig,Throwable,com.coralogix.zio.k8s.client.model.K8sCluster]" class="extmbr" name="com.coralogix.zio.k8s.client.config#k8sCluster">k8sCluster</a> layer and either <code>asynchttpclient.k8sSttpClient</code> or <code>httpclient.k8sSttpClient</code>.</p><p>Instead of manually providing the configuration, zio-config descriptors are available to load
 them from any supported source.
 </p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="com.coralogix.zio.k8s.client">client</a></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.client.coordination" visbl="pub" class="indented6 " data-isabs="false" fullComment="yes" group="Ungrouped">
@@ -576,6 +576,10 @@ them from any supported source.
                         <a href="ClusterResourceStatus.html" title="Extra capability for ClusterResource interfaces to manage status subresources">ClusterResourceStatus</a>
                       </li><li class="current-entities indented5">
                         <span class="separator"></span>
+                        <a class="class" href="CodingFailure.html" title="Error in the UTF-8 character coding of the response from the Kubernetes API"></a>
+                        <a href="CodingFailure.html" title="Error in the UTF-8 character coding of the response from the Kubernetes API">CodingFailure</a>
+                      </li><li class="current-entities indented5">
+                        <span class="separator"></span>
                         <a class="class" href="DecodedFailure.html" title="Failed Kubernetes API request"></a>
                         <a href="DecodedFailure.html" title="Failed Kubernetes API request">DecodedFailure</a>
                       </li><li class="current-entities indented5">
@@ -677,7 +681,7 @@ them from any supported source.
         <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <span class="name">NamespacedResource</span><span class="tparams">[<span name="T">T</span>]</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+        <span class="name">NamespacedResource</span><span class="tparams">[<span name="T">T</span>]</span><span class="result"> extends <a href="https://www.scala-lang.org/api/2.12.18/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
       </span>
       </h4>
 
@@ -688,7 +692,7 @@ them from any supported source.
           <span class="toggle">
             Linear Supertypes
           </span>
-          <div class="superTypes hiddenContent"><span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
+          <div class="superTypes hiddenContent"><a href="https://www.scala-lang.org/api/2.12.18/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a>, <a href="https://www.scala-lang.org/api/2.12.18/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></div>
         </div><div class="toggleContainer block">
             <span class="toggle">
               Known Subclasses
@@ -778,7 +782,7 @@ them from any supported source.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: $bang$eq" class="name">!=</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+        <span title="gt4s: $bang$eq" class="name">!=</span><span class="params">(<span name="arg0">arg0: <a href="https://www.scala-lang.org/api/2.12.18/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></span>)</span><span class="result">: <a href="https://www.scala-lang.org/api/2.12.18/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -794,7 +798,7 @@ them from any supported source.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: $hash$hash" class="name">##</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
+        <span title="gt4s: $hash$hash" class="name">##</span><span class="params">()</span><span class="result">: <a href="https://www.scala-lang.org/api/2.12.18/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -810,7 +814,7 @@ them from any supported source.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: $eq$eq" class="name">==</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+        <span title="gt4s: $eq$eq" class="name">==</span><span class="params">(<span name="arg0">arg0: <a href="https://www.scala-lang.org/api/2.12.18/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></span>)</span><span class="result">: <a href="https://www.scala-lang.org/api/2.12.18/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -842,7 +846,7 @@ them from any supported source.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">clone</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+        <span class="name">clone</span><span class="params">()</span><span class="result">: <a href="https://www.scala-lang.org/api/2.12.18/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<span class="extype" name="java.lang">lang</span>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -868,7 +872,7 @@ them from any supported source.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">create</span><span class="params">(<span name="newResource">newResource: <span class="extype" name="com.coralogix.zio.k8s.client.NamespacedResource.T">T</span></span>, <span name="namespace">namespace: <a href="model/package$$K8sNamespace.html" class="extype" name="com.coralogix.zio.k8s.client.model.K8sNamespace">K8sNamespace</a></span>, <span name="dryRun">dryRun: <span class="extype" name="scala.Boolean">Boolean</span> = <span class="symbol">false</span></span>)</span><span class="result">: <a href="../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="com.coralogix.zio.k8s.client.NamespacedResource.T">T</span>]</span>
+        <span class="name">create</span><span class="params">(<span name="newResource">newResource: <span class="extype" name="com.coralogix.zio.k8s.client.NamespacedResource.T">T</span></span>, <span name="namespace">namespace: <a href="model/package$$K8sNamespace.html" class="extype" name="com.coralogix.zio.k8s.client.model.K8sNamespace">K8sNamespace</a></span>, <span name="dryRun">dryRun: <a href="https://www.scala-lang.org/api/2.12.18/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a> = <span class="symbol">false</span></span>)</span><span class="result">: <a href="../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="com.coralogix.zio.k8s.client.NamespacedResource.T">T</span>]</span>
       </span>
       
       <p class="shortcomment cmt">Creates a new resource</p><div class="fullcomment"><div class="comment cmt"><p>Creates a new resource</p></div><dl class="paramcmts block"><dt class="param">newResource</dt><dd class="cmt"><p>
@@ -888,7 +892,7 @@ them from any supported source.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">eq</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.AnyRef">AnyRef</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+        <span class="name">eq</span><span class="params">(<span name="arg0">arg0: <a href="https://www.scala-lang.org/api/2.12.18/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>)</span><span class="result">: <a href="https://www.scala-lang.org/api/2.12.18/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
@@ -904,7 +908,7 @@ them from any supported source.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">equals</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+        <span class="name">equals</span><span class="params">(<span name="arg0">arg0: <a href="https://www.scala-lang.org/api/2.12.18/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></span>)</span><span class="result">: <a href="https://www.scala-lang.org/api/2.12.18/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -939,7 +943,7 @@ them from any supported source.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">getAll</span><span class="params">(<span name="namespace">namespace: <span class="extype" name="scala.Option">Option</span>[<a href="model/package$$K8sNamespace.html" class="extype" name="com.coralogix.zio.k8s.client.model.K8sNamespace">K8sNamespace</a>]</span>, <span name="chunkSize">chunkSize: <span class="extype" name="scala.Int">Int</span> = <span class="symbol">10</span></span>, <span name="fieldSelector">fieldSelector: <span class="extype" name="scala.Option">Option</span>[<a href="model/FieldSelector.html" class="extype" name="com.coralogix.zio.k8s.client.model.FieldSelector">FieldSelector</a>] = <span class="symbol">None</span></span>, <span name="labelSelector">labelSelector: <span class="extype" name="scala.Option">Option</span>[<a href="model/LabelSelector.html" class="extype" name="com.coralogix.zio.k8s.client.model.LabelSelector">LabelSelector</a>] = <span class="symbol">None</span></span>, <span name="resourceVersion">resourceVersion: <a href="model/ListResourceVersion.html" class="extype" name="com.coralogix.zio.k8s.client.model.ListResourceVersion">ListResourceVersion</a> = <span class="symbol"><span class="name"><a href="../../../../index.html">ListResourceVersion.MostRecent</a></span></span></span>)</span><span class="result">: <span class="extype" name="zio.stream.Stream">Stream</span>[<a href="K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="com.coralogix.zio.k8s.client.NamespacedResource.T">T</span>]</span>
+        <span class="name">getAll</span><span class="params">(<span name="namespace">namespace: <a href="https://www.scala-lang.org/api/2.12.18/scala/Option.html#scala.Option" class="extype" name="scala.Option">Option</a>[<a href="model/package$$K8sNamespace.html" class="extype" name="com.coralogix.zio.k8s.client.model.K8sNamespace">K8sNamespace</a>]</span>, <span name="chunkSize">chunkSize: <a href="https://www.scala-lang.org/api/2.12.18/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a> = <span class="symbol">10</span></span>, <span name="fieldSelector">fieldSelector: <a href="https://www.scala-lang.org/api/2.12.18/scala/Option.html#scala.Option" class="extype" name="scala.Option">Option</a>[<a href="model/FieldSelector.html" class="extype" name="com.coralogix.zio.k8s.client.model.FieldSelector">FieldSelector</a>] = <span class="symbol">None</span></span>, <span name="labelSelector">labelSelector: <a href="https://www.scala-lang.org/api/2.12.18/scala/Option.html#scala.Option" class="extype" name="scala.Option">Option</a>[<a href="model/LabelSelector.html" class="extype" name="com.coralogix.zio.k8s.client.model.LabelSelector">LabelSelector</a>] = <span class="symbol">None</span></span>, <span name="resourceVersion">resourceVersion: <a href="model/ListResourceVersion.html" class="extype" name="com.coralogix.zio.k8s.client.model.ListResourceVersion">ListResourceVersion</a> = <span class="symbol"><span class="name"><a href="../../../../index.html">ListResourceVersion.MostRecent</a></span></span></span>)</span><span class="result">: <span class="extype" name="zio.stream.Stream">Stream</span>[<a href="K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="com.coralogix.zio.k8s.client.NamespacedResource.T">T</span>]</span>
       </span>
       
       <p class="shortcomment cmt">A paginated query of all resources with filtering possibilities</p><div class="fullcomment"><div class="comment cmt"><p>A paginated query of all resources with filtering possibilities</p></div><dl class="paramcmts block"><dt class="param">namespace</dt><dd class="cmt"><p>
@@ -982,7 +986,7 @@ them from any supported source.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">hashCode</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
+        <span class="name">hashCode</span><span class="params">()</span><span class="result">: <a href="https://www.scala-lang.org/api/2.12.18/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd><dt>Annotations</dt><dd>
@@ -1003,7 +1007,7 @@ them from any supported source.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">isInstanceOf</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+        <span class="name">isInstanceOf</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="result">: <a href="https://www.scala-lang.org/api/2.12.18/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
@@ -1019,7 +1023,7 @@ them from any supported source.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">ne</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.AnyRef">AnyRef</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+        <span class="name">ne</span><span class="params">(<span name="arg0">arg0: <a href="https://www.scala-lang.org/api/2.12.18/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>)</span><span class="result">: <a href="https://www.scala-lang.org/api/2.12.18/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
@@ -1035,7 +1039,7 @@ them from any supported source.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">notify</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+        <span class="name">notify</span><span class="params">()</span><span class="result">: <a href="https://www.scala-lang.org/api/2.12.18/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -1056,7 +1060,7 @@ them from any supported source.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">notifyAll</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+        <span class="name">notifyAll</span><span class="params">()</span><span class="result">: <a href="https://www.scala-lang.org/api/2.12.18/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -1077,7 +1081,7 @@ them from any supported source.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">replace</span><span class="params">(<span name="name">name: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="updatedResource">updatedResource: <span class="extype" name="com.coralogix.zio.k8s.client.NamespacedResource.T">T</span></span>, <span name="namespace">namespace: <a href="model/package$$K8sNamespace.html" class="extype" name="com.coralogix.zio.k8s.client.model.K8sNamespace">K8sNamespace</a></span>, <span name="dryRun">dryRun: <span class="extype" name="scala.Boolean">Boolean</span> = <span class="symbol">false</span></span>)</span><span class="result">: <a href="../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="com.coralogix.zio.k8s.client.NamespacedResource.T">T</span>]</span>
+        <span class="name">replace</span><span class="params">(<span name="name">name: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="updatedResource">updatedResource: <span class="extype" name="com.coralogix.zio.k8s.client.NamespacedResource.T">T</span></span>, <span name="namespace">namespace: <a href="model/package$$K8sNamespace.html" class="extype" name="com.coralogix.zio.k8s.client.model.K8sNamespace">K8sNamespace</a></span>, <span name="dryRun">dryRun: <a href="https://www.scala-lang.org/api/2.12.18/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a> = <span class="symbol">false</span></span>)</span><span class="result">: <a href="../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <span class="extype" name="com.coralogix.zio.k8s.client.NamespacedResource.T">T</span>]</span>
       </span>
       
       <p class="shortcomment cmt">Replaces an existing resource selected by its name</p><div class="fullcomment"><div class="comment cmt"><p>Replaces an existing resource selected by its name</p></div><dl class="paramcmts block"><dt class="param">name</dt><dd class="cmt"><p>
@@ -1130,7 +1134,7 @@ them from any supported source.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Long">Long</span></span>, <span name="arg1">arg1: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <a href="https://www.scala-lang.org/api/2.12.18/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a></span>, <span name="arg1">arg1: <a href="https://www.scala-lang.org/api/2.12.18/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>)</span><span class="result">: <a href="https://www.scala-lang.org/api/2.12.18/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -1152,7 +1156,7 @@ them from any supported source.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Long">Long</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <a href="https://www.scala-lang.org/api/2.12.18/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a></span>)</span><span class="result">: <a href="https://www.scala-lang.org/api/2.12.18/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -1176,7 +1180,7 @@ them from any supported source.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">wait</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+        <span class="name">wait</span><span class="params">()</span><span class="result">: <a href="https://www.scala-lang.org/api/2.12.18/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -1198,13 +1202,13 @@ them from any supported source.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">watch</span><span class="params">(<span name="namespace">namespace: <span class="extype" name="scala.Option">Option</span>[<a href="model/package$$K8sNamespace.html" class="extype" name="com.coralogix.zio.k8s.client.model.K8sNamespace">K8sNamespace</a>]</span>, <span name="resourceVersion">resourceVersion: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Predef.String">String</span>]</span>, <span name="fieldSelector">fieldSelector: <span class="extype" name="scala.Option">Option</span>[<a href="model/FieldSelector.html" class="extype" name="com.coralogix.zio.k8s.client.model.FieldSelector">FieldSelector</a>] = <span class="symbol">None</span></span>, <span name="labelSelector">labelSelector: <span class="extype" name="scala.Option">Option</span>[<a href="model/LabelSelector.html" class="extype" name="com.coralogix.zio.k8s.client.model.LabelSelector">LabelSelector</a>] = <span class="symbol">None</span></span>)</span><span class="result">: <span class="extype" name="zio.stream.Stream">Stream</span>[<a href="K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="model/TypedWatchEvent.html" class="extype" name="com.coralogix.zio.k8s.client.model.TypedWatchEvent">TypedWatchEvent</a>[<span class="extype" name="com.coralogix.zio.k8s.client.NamespacedResource.T">T</span>]]</span>
+        <span class="name">watch</span><span class="params">(<span name="namespace">namespace: <a href="https://www.scala-lang.org/api/2.12.18/scala/Option.html#scala.Option" class="extype" name="scala.Option">Option</a>[<a href="model/package$$K8sNamespace.html" class="extype" name="com.coralogix.zio.k8s.client.model.K8sNamespace">K8sNamespace</a>]</span>, <span name="resourceVersion">resourceVersion: <a href="https://www.scala-lang.org/api/2.12.18/scala/Option.html#scala.Option" class="extype" name="scala.Option">Option</a>[<span class="extype" name="scala.Predef.String">String</span>]</span>, <span name="fieldSelector">fieldSelector: <a href="https://www.scala-lang.org/api/2.12.18/scala/Option.html#scala.Option" class="extype" name="scala.Option">Option</a>[<a href="model/FieldSelector.html" class="extype" name="com.coralogix.zio.k8s.client.model.FieldSelector">FieldSelector</a>] = <span class="symbol">None</span></span>, <span name="labelSelector">labelSelector: <a href="https://www.scala-lang.org/api/2.12.18/scala/Option.html#scala.Option" class="extype" name="scala.Option">Option</a>[<a href="model/LabelSelector.html" class="extype" name="com.coralogix.zio.k8s.client.model.LabelSelector">LabelSelector</a>] = <span class="symbol">None</span></span>)</span><span class="result">: <span class="extype" name="zio.stream.Stream">Stream</span>[<a href="K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="model/TypedWatchEvent.html" class="extype" name="com.coralogix.zio.k8s.client.model.TypedWatchEvent">TypedWatchEvent</a>[<span class="extype" name="com.coralogix.zio.k8s.client.NamespacedResource.T">T</span>]]</span>
       </span>
       
       <p class="shortcomment cmt">Watch stream of resource change events of type
 <a href="model/TypedWatchEvent.html" class="extype" name="com.coralogix.zio.k8s.client.model.TypedWatchEvent">com.coralogix.zio.k8s.client.model.TypedWatchEvent</a></p><div class="fullcomment"><div class="comment cmt"><p>Watch stream of resource change events of type
 <a href="model/TypedWatchEvent.html" class="extype" name="com.coralogix.zio.k8s.client.model.TypedWatchEvent">com.coralogix.zio.k8s.client.model.TypedWatchEvent</a></p><p>This function requires the user to control the starting resourceVersion and to restart the
-watch stream when the server closes the connection.</p><p>For a more convenient variant check <a href="#watchForever(namespace:Option[com.coralogix.zio.k8s.client.model.K8sNamespace],fieldSelector:Option[com.coralogix.zio.k8s.client.model.FieldSelector],labelSelector:Option[com.coralogix.zio.k8s.client.model.LabelSelector]):zio.stream.ZStream[zio.clock.Clock,com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.client.model.TypedWatchEvent[T]]" class="extmbr" name="com.coralogix.zio.k8s.client.NamespacedResource#watchForever">watchForever</a>.
+watch stream when the server closes the connection.</p><p>For a more convenient variant check <a href="#watchForever(namespace:Option[com.coralogix.zio.k8s.client.model.K8sNamespace],resourceVersion:Option[String],fieldSelector:Option[com.coralogix.zio.k8s.client.model.FieldSelector],labelSelector:Option[com.coralogix.zio.k8s.client.model.LabelSelector]):zio.stream.ZStream[Any,com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.client.model.TypedWatchEvent[T]]" class="extmbr" name="com.coralogix.zio.k8s.client.NamespacedResource#watchForever">watchForever</a>.
 </p></div><dl class="paramcmts block"><dt class="param">namespace</dt><dd class="cmt"><p>
   Constraint the watched resources by their namespace. If None, all namespaces will be
   watched.</p></dd><dt class="param">resourceVersion</dt><dd class="cmt"><p>
@@ -1213,9 +1217,9 @@ watch stream when the server closes the connection.</p><p>For a more convenient 
   Constrain the returned items by label selectors.</p></dd><dt>returns</dt><dd class="cmt"><p>
   A stream of watch events</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.client.NamespacedResource#watchForever" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="watchForever(namespace:Option[com.coralogix.zio.k8s.client.model.K8sNamespace],fieldSelector:Option[com.coralogix.zio.k8s.client.model.FieldSelector],labelSelector:Option[com.coralogix.zio.k8s.client.model.LabelSelector]):zio.stream.ZStream[zio.clock.Clock,com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.client.model.TypedWatchEvent[T]]"></a><a id="watchForever(Option[K8sNamespace],Option[FieldSelector],Option[LabelSelector]):ZStream[Clock,K8sFailure,TypedWatchEvent[T]]"></a>
+      <a id="watchForever(namespace:Option[com.coralogix.zio.k8s.client.model.K8sNamespace],resourceVersion:Option[String],fieldSelector:Option[com.coralogix.zio.k8s.client.model.FieldSelector],labelSelector:Option[com.coralogix.zio.k8s.client.model.LabelSelector]):zio.stream.ZStream[Any,com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.client.model.TypedWatchEvent[T]]"></a><a id="watchForever(Option[K8sNamespace],Option[String],Option[FieldSelector],Option[LabelSelector]):ZStream[Any,K8sFailure,TypedWatchEvent[T]]"></a>
       <span class="permalink">
-      <a href="../../../../../com/coralogix/zio/k8s/client/NamespacedResource.html#watchForever(namespace:Option[com.coralogix.zio.k8s.client.model.K8sNamespace],fieldSelector:Option[com.coralogix.zio.k8s.client.model.FieldSelector],labelSelector:Option[com.coralogix.zio.k8s.client.model.LabelSelector]):zio.stream.ZStream[zio.clock.Clock,com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.client.model.TypedWatchEvent[T]]" title="Permalink">
+      <a href="../../../../../com/coralogix/zio/k8s/client/NamespacedResource.html#watchForever(namespace:Option[com.coralogix.zio.k8s.client.model.K8sNamespace],resourceVersion:Option[String],fieldSelector:Option[com.coralogix.zio.k8s.client.model.FieldSelector],labelSelector:Option[com.coralogix.zio.k8s.client.model.LabelSelector]):zio.stream.ZStream[Any,com.coralogix.zio.k8s.client.K8sFailure,com.coralogix.zio.k8s.client.model.TypedWatchEvent[T]]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -1224,7 +1228,7 @@ watch stream when the server closes the connection.</p><p>For a more convenient 
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">watchForever</span><span class="params">(<span name="namespace">namespace: <span class="extype" name="scala.Option">Option</span>[<a href="model/package$$K8sNamespace.html" class="extype" name="com.coralogix.zio.k8s.client.model.K8sNamespace">K8sNamespace</a>]</span>, <span name="fieldSelector">fieldSelector: <span class="extype" name="scala.Option">Option</span>[<a href="model/FieldSelector.html" class="extype" name="com.coralogix.zio.k8s.client.model.FieldSelector">FieldSelector</a>] = <span class="symbol">None</span></span>, <span name="labelSelector">labelSelector: <span class="extype" name="scala.Option">Option</span>[<a href="model/LabelSelector.html" class="extype" name="com.coralogix.zio.k8s.client.model.LabelSelector">LabelSelector</a>] = <span class="symbol">None</span></span>)</span><span class="result">: <a href="https://javadoc.io/page/dev.zio/zio-streams_2.12/1.0.17/zio/stream/ZStream.html#zio.stream.ZStream" class="extype" name="zio.stream.ZStream">ZStream</a>[<span class="extype" name="zio.clock.Clock">Clock</span>, <a href="K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="model/TypedWatchEvent.html" class="extype" name="com.coralogix.zio.k8s.client.model.TypedWatchEvent">TypedWatchEvent</a>[<span class="extype" name="com.coralogix.zio.k8s.client.NamespacedResource.T">T</span>]]</span>
+        <span class="name">watchForever</span><span class="params">(<span name="namespace">namespace: <a href="https://www.scala-lang.org/api/2.12.18/scala/Option.html#scala.Option" class="extype" name="scala.Option">Option</a>[<a href="model/package$$K8sNamespace.html" class="extype" name="com.coralogix.zio.k8s.client.model.K8sNamespace">K8sNamespace</a>]</span>, <span name="resourceVersion">resourceVersion: <a href="https://www.scala-lang.org/api/2.12.18/scala/Option.html#scala.Option" class="extype" name="scala.Option">Option</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol">None</span></span>, <span name="fieldSelector">fieldSelector: <a href="https://www.scala-lang.org/api/2.12.18/scala/Option.html#scala.Option" class="extype" name="scala.Option">Option</a>[<a href="model/FieldSelector.html" class="extype" name="com.coralogix.zio.k8s.client.model.FieldSelector">FieldSelector</a>] = <span class="symbol">None</span></span>, <span name="labelSelector">labelSelector: <a href="https://www.scala-lang.org/api/2.12.18/scala/Option.html#scala.Option" class="extype" name="scala.Option">Option</a>[<a href="model/LabelSelector.html" class="extype" name="com.coralogix.zio.k8s.client.model.LabelSelector">LabelSelector</a>] = <span class="symbol">None</span></span>)</span><span class="result">: <a href="https://javadoc.io/page/dev.zio/zio-streams_2.12/2.0.15/zio/stream/ZStream.html#zio.stream.ZStream" class="extype" name="zio.stream.ZStream">ZStream</a>[<a href="https://www.scala-lang.org/api/2.12.18/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a>, <a href="K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="model/TypedWatchEvent.html" class="extype" name="com.coralogix.zio.k8s.client.model.TypedWatchEvent">TypedWatchEvent</a>[<span class="extype" name="com.coralogix.zio.k8s.client.NamespacedResource.T">T</span>]]</span>
       </span>
       
       <p class="shortcomment cmt">Infinite watch stream of resource change events of type
@@ -1256,7 +1260,7 @@ watch stream when the server closes the connection.</p><p>For a more convenient 
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name deprecated" title="Deprecated: ">finalize</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+        <span class="name deprecated" title="Deprecated: ">finalize</span><span class="params">()</span><span class="result">: <a href="https://www.scala-lang.org/api/2.12.18/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<span class="extype" name="java.lang">lang</span>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -1274,9 +1278,9 @@ watch stream when the server closes the connection.</p><p>For a more convenient 
 
         <div id="inheritedMembers">
         <div class="parent" name="scala.AnyRef">
-              <h3>Inherited from <span class="extype" name="scala.AnyRef">AnyRef</span></h3>
+              <h3>Inherited from <a href="https://www.scala-lang.org/api/2.12.18/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></h3>
             </div><div class="parent" name="scala.Any">
-              <h3>Inherited from <span class="extype" name="scala.Any">Any</span></h3>
+              <h3>Inherited from <a href="https://www.scala-lang.org/api/2.12.18/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></h3>
             </div>
         
         </div>

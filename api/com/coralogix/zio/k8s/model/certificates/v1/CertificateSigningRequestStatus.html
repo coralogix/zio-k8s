@@ -238,7 +238,7 @@
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <span class="name">CertificateSigningRequestStatus</span><span class="params">(<span name="certificate">certificate: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="https://javadoc.io/page/dev.zio/zio_2.12/1.0.17/zio/Chunk.html#zio.Chunk" class="extype" name="zio.Chunk">Chunk</a>[<span class="extype" name="scala.Byte">Byte</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="conditions">conditions: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="CertificateSigningRequestCondition.html" class="extype" name="com.coralogix.zio.k8s.model.certificates.v1.CertificateSigningRequestCondition">CertificateSigningRequestCondition</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <span class="name">CertificateSigningRequestStatus</span><span class="params">(<span name="certificate">certificate: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<a href="https://javadoc.io/page/dev.zio/zio_2.12/2.0.15/zio/Chunk.html#zio.Chunk" class="extype" name="zio.Chunk">Chunk</a>[<a href="https://www.scala-lang.org/api/2.12.18/scala/Byte.html#scala.Byte" class="extype" name="scala.Byte">Byte</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../../zio/index.html">Optional.Absent</a></span></span></span>, <span name="conditions">conditions: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="CertificateSigningRequestCondition.html" class="extype" name="com.coralogix.zio.k8s.model.certificates.v1.CertificateSigningRequestCondition">CertificateSigningRequestCondition</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../../zio/index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <a href="https://www.scala-lang.org/api/2.12.18/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a> with <a href="https://www.scala-lang.org/api/2.12.18/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
       </span>
       </h4>
 
@@ -253,7 +253,7 @@ If the certificate signing request is denied, a condition of type &quot;Denied&q
 field remains empty. If the signer cannot issue the certificate, a condition of type &quot;Failed&quot; is
 added and this field remains empty.
 Validation requirements:
-1. certificate must contain one or more PEM blocks. 2. All PEM blocks must have the
+\1. certificate must contain one or more PEM blocks. 2. All PEM blocks must have the
 &quot;CERTIFICATE&quot; label, contain no headers, and the encoded data must be a BER-encoded ASN.1
 Certificate structure as described in section 4 of RFC5280. 3. Non-PEM content may appear before
 or after the &quot;CERTIFICATE&quot; PEM blocks and is unvalidated, to allow for explanatory text as
@@ -263,14 +263,12 @@ not indicate otherwise, the first block is the issued certificate, and subsequen
 be treated as intermediate certificates and presented in TLS handshakes.
 The certificate is encoded in PEM format.
 When serialized as JSON or YAML, the data is additionally base64-encoded, so it consists of:
-base64(
------BEGIN CERTIFICATE----- ...
------END CERTIFICATE----- )</p></dd><dt class="param">conditions</dt><dd class="cmt"><p>
+base64( -----BEGIN CERTIFICATE----- ... -----END CERTIFICATE----- )</p></dd><dt class="param">conditions</dt><dd class="cmt"><p>
   conditions applied to the request. Known conditions are &quot;Approved&quot;, &quot;Denied&quot;, and &quot;Failed&quot;.</p></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
-          <div class="superTypes hiddenContent"><span class="extype" name="scala.Serializable">Serializable</span>, <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/io/Serializable.html#java.io.Serializable" class="extype" name="java.io.Serializable">Serializable</a>, <span class="extype" name="scala.Product">Product</span>, <span class="extype" name="scala.Equals">Equals</span>, <span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
+          <div class="superTypes hiddenContent"><a href="https://www.scala-lang.org/api/2.12.18/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a>, <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/io/Serializable.html#java.io.Serializable" class="extype" name="java.io.Serializable">Serializable</a>, <a href="https://www.scala-lang.org/api/2.12.18/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a>, <a href="https://www.scala-lang.org/api/2.12.18/scala/Equals.html#scala.Equals" class="extype" name="scala.Equals">Equals</a>, <a href="https://www.scala-lang.org/api/2.12.18/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a>, <a href="https://www.scala-lang.org/api/2.12.18/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></div>
         </div></div>
         
 
@@ -317,9 +315,9 @@ base64(
         <div id="constructors" class="members">
               <h3>Instance Constructors</h3>
               <ol><li name="com.coralogix.zio.k8s.model.certificates.v1.CertificateSigningRequestStatus#&lt;init&gt;" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="&lt;init&gt;(certificate:com.coralogix.zio.k8s.client.model.Optional[zio.Chunk[Byte]],conditions:com.coralogix.zio.k8s.client.model.Optional[Vector[com.coralogix.zio.k8s.model.certificates.v1.CertificateSigningRequestCondition]]):com.coralogix.zio.k8s.model.certificates.v1.CertificateSigningRequestStatus"></a><a id="&lt;init&gt;:CertificateSigningRequestStatus"></a>
+      <a id="&lt;init&gt;(certificate:zio.prelude.data.Optional[zio.Chunk[Byte]],conditions:zio.prelude.data.Optional[Vector[com.coralogix.zio.k8s.model.certificates.v1.CertificateSigningRequestCondition]]):com.coralogix.zio.k8s.model.certificates.v1.CertificateSigningRequestStatus"></a><a id="&lt;init&gt;:CertificateSigningRequestStatus"></a>
       <span class="permalink">
-      <a href="../../../../../../../com/coralogix/zio/k8s/model/certificates/v1/CertificateSigningRequestStatus.html#&lt;init&gt;(certificate:com.coralogix.zio.k8s.client.model.Optional[zio.Chunk[Byte]],conditions:com.coralogix.zio.k8s.client.model.Optional[Vector[com.coralogix.zio.k8s.model.certificates.v1.CertificateSigningRequestCondition]]):com.coralogix.zio.k8s.model.certificates.v1.CertificateSigningRequestStatus" title="Permalink">
+      <a href="../../../../../../../com/coralogix/zio/k8s/model/certificates/v1/CertificateSigningRequestStatus.html#&lt;init&gt;(certificate:zio.prelude.data.Optional[zio.Chunk[Byte]],conditions:zio.prelude.data.Optional[Vector[com.coralogix.zio.k8s.model.certificates.v1.CertificateSigningRequestCondition]]):com.coralogix.zio.k8s.model.certificates.v1.CertificateSigningRequestStatus" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -328,7 +326,7 @@ base64(
         <span class="kind">new</span>
       </span>
       <span class="symbol">
-        <span class="name">CertificateSigningRequestStatus</span><span class="params">(<span name="certificate">certificate: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="https://javadoc.io/page/dev.zio/zio_2.12/1.0.17/zio/Chunk.html#zio.Chunk" class="extype" name="zio.Chunk">Chunk</a>[<span class="extype" name="scala.Byte">Byte</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="conditions">conditions: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="CertificateSigningRequestCondition.html" class="extype" name="com.coralogix.zio.k8s.model.certificates.v1.CertificateSigningRequestCondition">CertificateSigningRequestCondition</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span>
+        <span class="name">CertificateSigningRequestStatus</span><span class="params">(<span name="certificate">certificate: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<a href="https://javadoc.io/page/dev.zio/zio_2.12/2.0.15/zio/Chunk.html#zio.Chunk" class="extype" name="zio.Chunk">Chunk</a>[<a href="https://www.scala-lang.org/api/2.12.18/scala/Byte.html#scala.Byte" class="extype" name="scala.Byte">Byte</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../../zio/index.html">Optional.Absent</a></span></span></span>, <span name="conditions">conditions: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="CertificateSigningRequestCondition.html" class="extype" name="com.coralogix.zio.k8s.model.certificates.v1.CertificateSigningRequestCondition">CertificateSigningRequestCondition</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../../zio/index.html">Optional.Absent</a></span></span></span>)</span>
       </span>
       
       <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">certificate</dt><dd class="cmt"><p>
@@ -339,7 +337,7 @@ If the certificate signing request is denied, a condition of type &quot;Denied&q
 field remains empty. If the signer cannot issue the certificate, a condition of type &quot;Failed&quot; is
 added and this field remains empty.
 Validation requirements:
-1. certificate must contain one or more PEM blocks. 2. All PEM blocks must have the
+\1. certificate must contain one or more PEM blocks. 2. All PEM blocks must have the
 &quot;CERTIFICATE&quot; label, contain no headers, and the encoded data must be a BER-encoded ASN.1
 Certificate structure as described in section 4 of RFC5280. 3. Non-PEM content may appear before
 or after the &quot;CERTIFICATE&quot; PEM blocks and is unvalidated, to allow for explanatory text as
@@ -349,9 +347,7 @@ not indicate otherwise, the first block is the issued certificate, and subsequen
 be treated as intermediate certificates and presented in TLS handshakes.
 The certificate is encoded in PEM format.
 When serialized as JSON or YAML, the data is additionally base64-encoded, so it consists of:
-base64(
------BEGIN CERTIFICATE----- ...
------END CERTIFICATE----- )</p></dd><dt class="param">conditions</dt><dd class="cmt"><p>
+base64( -----BEGIN CERTIFICATE----- ... -----END CERTIFICATE----- )</p></dd><dt class="param">conditions</dt><dd class="cmt"><p>
   conditions applied to the request. Known conditions are &quot;Approved&quot;, &quot;Denied&quot;, and &quot;Failed&quot;.</p></dd></dl></div>
     </li></ol>
             </div>
@@ -375,7 +371,7 @@ base64(
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: $bang$eq" class="name">!=</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+        <span title="gt4s: $bang$eq" class="name">!=</span><span class="params">(<span name="arg0">arg0: <a href="https://www.scala-lang.org/api/2.12.18/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></span>)</span><span class="result">: <a href="https://www.scala-lang.org/api/2.12.18/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -391,7 +387,7 @@ base64(
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: $hash$hash" class="name">##</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
+        <span title="gt4s: $hash$hash" class="name">##</span><span class="params">()</span><span class="result">: <a href="https://www.scala-lang.org/api/2.12.18/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -407,7 +403,7 @@ base64(
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: $eq$eq" class="name">==</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+        <span title="gt4s: $eq$eq" class="name">==</span><span class="params">(<span name="arg0">arg0: <a href="https://www.scala-lang.org/api/2.12.18/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></span>)</span><span class="result">: <a href="https://www.scala-lang.org/api/2.12.18/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -428,9 +424,9 @@ base64(
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.certificates.v1.CertificateSigningRequestStatus#certificate" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="certificate:com.coralogix.zio.k8s.client.model.Optional[zio.Chunk[Byte]]"></a><a id="certificate:Optional[Chunk[Byte]]"></a>
+      <a id="certificate:zio.prelude.data.Optional[zio.Chunk[Byte]]"></a><a id="certificate:Optional[Chunk[Byte]]"></a>
       <span class="permalink">
-      <a href="../../../../../../../com/coralogix/zio/k8s/model/certificates/v1/CertificateSigningRequestStatus.html#certificate:com.coralogix.zio.k8s.client.model.Optional[zio.Chunk[Byte]]" title="Permalink">
+      <a href="../../../../../../../com/coralogix/zio/k8s/model/certificates/v1/CertificateSigningRequestStatus.html#certificate:zio.prelude.data.Optional[zio.Chunk[Byte]]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -439,7 +435,7 @@ base64(
         <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">certificate</span><span class="result">: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="https://javadoc.io/page/dev.zio/zio_2.12/1.0.17/zio/Chunk.html#zio.Chunk" class="extype" name="zio.Chunk">Chunk</a>[<span class="extype" name="scala.Byte">Byte</span>]]</span>
+        <span class="name">certificate</span><span class="result">: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<a href="https://javadoc.io/page/dev.zio/zio_2.12/2.0.15/zio/Chunk.html#zio.Chunk" class="extype" name="zio.Chunk">Chunk</a>[<a href="https://www.scala-lang.org/api/2.12.18/scala/Byte.html#scala.Byte" class="extype" name="scala.Byte">Byte</a>]]</span>
       </span>
       
       
@@ -455,7 +451,7 @@ base64(
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">clone</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+        <span class="name">clone</span><span class="params">()</span><span class="result">: <a href="https://www.scala-lang.org/api/2.12.18/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<span class="extype" name="java.lang">lang</span>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -470,9 +466,9 @@ base64(
               
         </dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.certificates.v1.CertificateSigningRequestStatus#conditions" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="conditions:com.coralogix.zio.k8s.client.model.Optional[Vector[com.coralogix.zio.k8s.model.certificates.v1.CertificateSigningRequestCondition]]"></a><a id="conditions:Optional[Vector[CertificateSigningRequestCondition]]"></a>
+      <a id="conditions:zio.prelude.data.Optional[Vector[com.coralogix.zio.k8s.model.certificates.v1.CertificateSigningRequestCondition]]"></a><a id="conditions:Optional[Vector[CertificateSigningRequestCondition]]"></a>
       <span class="permalink">
-      <a href="../../../../../../../com/coralogix/zio/k8s/model/certificates/v1/CertificateSigningRequestStatus.html#conditions:com.coralogix.zio.k8s.client.model.Optional[Vector[com.coralogix.zio.k8s.model.certificates.v1.CertificateSigningRequestCondition]]" title="Permalink">
+      <a href="../../../../../../../com/coralogix/zio/k8s/model/certificates/v1/CertificateSigningRequestStatus.html#conditions:zio.prelude.data.Optional[Vector[com.coralogix.zio.k8s.model.certificates.v1.CertificateSigningRequestCondition]]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -481,7 +477,7 @@ base64(
         <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">conditions</span><span class="result">: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="CertificateSigningRequestCondition.html" class="extype" name="com.coralogix.zio.k8s.model.certificates.v1.CertificateSigningRequestCondition">CertificateSigningRequestCondition</a>]]</span>
+        <span class="name">conditions</span><span class="result">: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="CertificateSigningRequestCondition.html" class="extype" name="com.coralogix.zio.k8s.model.certificates.v1.CertificateSigningRequestCondition">CertificateSigningRequestCondition</a>]]</span>
       </span>
       
       
@@ -497,7 +493,7 @@ base64(
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">eq</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.AnyRef">AnyRef</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+        <span class="name">eq</span><span class="params">(<span name="arg0">arg0: <a href="https://www.scala-lang.org/api/2.12.18/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>)</span><span class="result">: <a href="https://www.scala-lang.org/api/2.12.18/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
@@ -513,7 +509,7 @@ base64(
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">getCertificate</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="https://javadoc.io/page/dev.zio/zio_2.12/1.0.17/zio/Chunk.html#zio.Chunk" class="extype" name="zio.Chunk">Chunk</a>[<span class="extype" name="scala.Byte">Byte</span>]]</span>
+        <span class="name">getCertificate</span><span class="result">: <a href="../../../../../../../zio/index.html#IO[+E,+A]=zio.ZIO[Any,E,A]" class="extmbr" name="zio.IO">IO</a>[<a href="../../../client/K8sFailure.html" class="extype" name="com.coralogix.zio.k8s.client.K8sFailure">K8sFailure</a>, <a href="https://javadoc.io/page/dev.zio/zio_2.12/2.0.15/zio/Chunk.html#zio.Chunk" class="extype" name="zio.Chunk">Chunk</a>[<a href="https://www.scala-lang.org/api/2.12.18/scala/Byte.html#scala.Byte" class="extype" name="scala.Byte">Byte</a>]]</span>
       </span>
       
       <p class="shortcomment cmt">certificate is populated with an issued certificate by the signer after an Approved condition
@@ -522,15 +518,13 @@ is present. This field is set via the /status subresource. Once populated, this 
 immutable.</p><p>If the certificate signing request is denied, a condition of type &quot;Denied&quot; is added and this
 field remains empty. If the signer cannot issue the certificate, a condition of type &quot;Failed&quot;
 is added and this field remains empty.</p><p>Validation requirements:
-1. certificate must contain one or more PEM blocks. 2. All PEM blocks must have the
+\1. certificate must contain one or more PEM blocks. 2. All PEM blocks must have the
 &quot;CERTIFICATE&quot; label, contain no headers, and the encoded data must be a BER-encoded ASN.1
 Certificate structure as described in section 4 of RFC5280. 3. Non-PEM content may appear
 before or after the &quot;CERTIFICATE&quot; PEM blocks and is unvalidated, to allow for explanatory text
 as described in section 5.2 of RFC7468.</p><p>If more than one PEM block is present, and the definition of the requested spec.signerName
 does not indicate otherwise, the first block is the issued certificate, and subsequent blocks
-should be treated as intermediate certificates and presented in TLS handshakes.</p><p>The certificate is encoded in PEM format.</p><p>When serialized as JSON or YAML, the data is additionally base64-encoded, so it consists of:</p><p>base64(
------BEGIN CERTIFICATE----- ...
------END CERTIFICATE----- )</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
+should be treated as intermediate certificates and presented in TLS handshakes.</p><p>The certificate is encoded in PEM format.</p><p>When serialized as JSON or YAML, the data is additionally base64-encoded, so it consists of:</p><p>base64( -----BEGIN CERTIFICATE----- ... -----END CERTIFICATE----- )</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="scala.AnyRef#getClass" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getClass():Class[_]"></a>
@@ -582,7 +576,7 @@ should be treated as intermediate certificates and presented in TLS handshakes.<
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">isInstanceOf</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+        <span class="name">isInstanceOf</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="result">: <a href="https://www.scala-lang.org/api/2.12.18/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
@@ -598,7 +592,7 @@ should be treated as intermediate certificates and presented in TLS handshakes.<
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">ne</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.AnyRef">AnyRef</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+        <span class="name">ne</span><span class="params">(<span name="arg0">arg0: <a href="https://www.scala-lang.org/api/2.12.18/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>)</span><span class="result">: <a href="https://www.scala-lang.org/api/2.12.18/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
@@ -614,7 +608,7 @@ should be treated as intermediate certificates and presented in TLS handshakes.<
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">notify</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+        <span class="name">notify</span><span class="params">()</span><span class="result">: <a href="https://www.scala-lang.org/api/2.12.18/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -635,7 +629,7 @@ should be treated as intermediate certificates and presented in TLS handshakes.<
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">notifyAll</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+        <span class="name">notifyAll</span><span class="params">()</span><span class="result">: <a href="https://www.scala-lang.org/api/2.12.18/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -672,7 +666,7 @@ should be treated as intermediate certificates and presented in TLS handshakes.<
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Long">Long</span></span>, <span name="arg1">arg1: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <a href="https://www.scala-lang.org/api/2.12.18/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a></span>, <span name="arg1">arg1: <a href="https://www.scala-lang.org/api/2.12.18/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>)</span><span class="result">: <a href="https://www.scala-lang.org/api/2.12.18/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -694,7 +688,7 @@ should be treated as intermediate certificates and presented in TLS handshakes.<
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Long">Long</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <a href="https://www.scala-lang.org/api/2.12.18/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a></span>)</span><span class="result">: <a href="https://www.scala-lang.org/api/2.12.18/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -718,7 +712,7 @@ should be treated as intermediate certificates and presented in TLS handshakes.<
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">wait</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+        <span class="name">wait</span><span class="params">()</span><span class="result">: <a href="https://www.scala-lang.org/api/2.12.18/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -748,7 +742,7 @@ should be treated as intermediate certificates and presented in TLS handshakes.<
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name deprecated" title="Deprecated: ">finalize</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+        <span class="name deprecated" title="Deprecated: ">finalize</span><span class="params">()</span><span class="result">: <a href="https://www.scala-lang.org/api/2.12.18/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<span class="extype" name="java.lang">lang</span>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -766,17 +760,17 @@ should be treated as intermediate certificates and presented in TLS handshakes.<
 
         <div id="inheritedMembers">
         <div class="parent" name="scala.Serializable">
-              <h3>Inherited from <span class="extype" name="scala.Serializable">Serializable</span></h3>
+              <h3>Inherited from <a href="https://www.scala-lang.org/api/2.12.18/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></h3>
             </div><div class="parent" name="java.io.Serializable">
               <h3>Inherited from <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/io/Serializable.html#java.io.Serializable" class="extype" name="java.io.Serializable">Serializable</a></h3>
             </div><div class="parent" name="scala.Product">
-              <h3>Inherited from <span class="extype" name="scala.Product">Product</span></h3>
+              <h3>Inherited from <a href="https://www.scala-lang.org/api/2.12.18/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a></h3>
             </div><div class="parent" name="scala.Equals">
-              <h3>Inherited from <span class="extype" name="scala.Equals">Equals</span></h3>
+              <h3>Inherited from <a href="https://www.scala-lang.org/api/2.12.18/scala/Equals.html#scala.Equals" class="extype" name="scala.Equals">Equals</a></h3>
             </div><div class="parent" name="scala.AnyRef">
-              <h3>Inherited from <span class="extype" name="scala.AnyRef">AnyRef</span></h3>
+              <h3>Inherited from <a href="https://www.scala-lang.org/api/2.12.18/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></h3>
             </div><div class="parent" name="scala.Any">
-              <h3>Inherited from <span class="extype" name="scala.Any">Any</span></h3>
+              <h3>Inherited from <a href="https://www.scala-lang.org/api/2.12.18/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></h3>
             </div>
         
         </div>

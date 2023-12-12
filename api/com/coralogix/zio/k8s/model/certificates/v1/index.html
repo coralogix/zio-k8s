@@ -288,13 +288,13 @@
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a title="CertificateSigningRequest objects provide a mechanism to obtain x509 certificates by submitting a certificate signing request, and having it asynchronously approved and issued." href="CertificateSigningRequest.html"><span class="name">CertificateSigningRequest</span></a><span class="params">(<span name="metadata">metadata: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="../../pkg/apis/meta/v1/ObjectMeta.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.ObjectMeta">ObjectMeta</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="spec">spec: <a href="CertificateSigningRequestSpec.html" class="extype" name="com.coralogix.zio.k8s.model.certificates.v1.CertificateSigningRequestSpec">CertificateSigningRequestSpec</a></span>, <span name="status">status: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="CertificateSigningRequestStatus.html" class="extype" name="com.coralogix.zio.k8s.model.certificates.v1.CertificateSigningRequestStatus">CertificateSigningRequestStatus</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a title="CertificateSigningRequest objects provide a mechanism to obtain x509 certificates by submitting a certificate signing request, and having it asynchronously approved and issued." href="CertificateSigningRequest.html"><span class="name">CertificateSigningRequest</span></a><span class="params">(<span name="metadata">metadata: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<a href="../../pkg/apis/meta/v1/ObjectMeta.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.ObjectMeta">ObjectMeta</a>] = <span class="symbol"><span class="name"><a href="../../../../../../../zio/index.html">Optional.Absent</a></span></span></span>, <span name="spec">spec: <a href="CertificateSigningRequestSpec.html" class="extype" name="com.coralogix.zio.k8s.model.certificates.v1.CertificateSigningRequestSpec">CertificateSigningRequestSpec</a></span>, <span name="status">status: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<a href="CertificateSigningRequestStatus.html" class="extype" name="com.coralogix.zio.k8s.model.certificates.v1.CertificateSigningRequestStatus">CertificateSigningRequestStatus</a>] = <span class="symbol"><span class="name"><a href="../../../../../../../zio/index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <a href="https://www.scala-lang.org/api/2.12.18/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a> with <a href="https://www.scala-lang.org/api/2.12.18/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
       </span>
       
       <p class="shortcomment cmt">CertificateSigningRequest objects provide a mechanism to obtain x509 certificates by submitting
 a certificate signing request, and having it asynchronously approved and issued.</p><div class="fullcomment"><div class="comment cmt"><p>CertificateSigningRequest objects provide a mechanism to obtain x509 certificates by submitting
 a certificate signing request, and having it asynchronously approved and issued.</p><p>Kubelets use this API to obtain:
-1. client certificates to authenticate to kube-apiserver (with the
+\1. client certificates to authenticate to kube-apiserver (with the
 &quot;kubernetes.io/kube-apiserver-client-kubelet&quot; signerName). 2. serving certificates for TLS
 endpoints kube-apiserver can connect to securely (with the &quot;kubernetes.io/kubelet-serving&quot;
 signerName).</p><p>This API can be used to request client certificates to authenticate to kube-apiserver (with the
@@ -313,7 +313,7 @@ non-Kubernetes signers.
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a title="CertificateSigningRequestCondition describes a condition of a CertificateSigningRequest object" href="CertificateSigningRequestCondition.html"><span class="name">CertificateSigningRequestCondition</span></a><span class="params">(<span name="lastTransitionTime">lastTransitionTime: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="../../pkg/apis/meta/v1/Time.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Time">Time</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="lastUpdateTime">lastUpdateTime: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="../../pkg/apis/meta/v1/Time.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Time">Time</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="message">message: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="reason">reason: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="status">status: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="type">type: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a title="CertificateSigningRequestCondition describes a condition of a CertificateSigningRequest object" href="CertificateSigningRequestCondition.html"><span class="name">CertificateSigningRequestCondition</span></a><span class="params">(<span name="lastTransitionTime">lastTransitionTime: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<a href="../../pkg/apis/meta/v1/Time.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Time">Time</a>] = <span class="symbol"><span class="name"><a href="../../../../../../../zio/index.html">Optional.Absent</a></span></span></span>, <span name="lastUpdateTime">lastUpdateTime: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<a href="../../pkg/apis/meta/v1/Time.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Time">Time</a>] = <span class="symbol"><span class="name"><a href="../../../../../../../zio/index.html">Optional.Absent</a></span></span></span>, <span name="message">message: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../../zio/index.html">Optional.Absent</a></span></span></span>, <span name="reason">reason: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../../zio/index.html">Optional.Absent</a></span></span></span>, <span name="status">status: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="type">type: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result"> extends <a href="https://www.scala-lang.org/api/2.12.18/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a> with <a href="https://www.scala-lang.org/api/2.12.18/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
       </span>
       
       <p class="shortcomment cmt">CertificateSigningRequestCondition describes a condition of a CertificateSigningRequest object
@@ -345,7 +345,7 @@ Only one condition of a given type is allowed.</p></dd></dl></div>
         <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <a title="" href="CertificateSigningRequestConditionFields.html"><span class="name">CertificateSigningRequestConditionFields</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+        <a title="" href="CertificateSigningRequestConditionFields.html"><span class="name">CertificateSigningRequestConditionFields</span></a><span class="result"> extends <a href="https://www.scala-lang.org/api/2.12.18/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
       </span>
       
       
@@ -361,7 +361,7 @@ Only one condition of a given type is allowed.</p></dd></dl></div>
         <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <a title="" href="CertificateSigningRequestFields.html"><span class="name">CertificateSigningRequestFields</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+        <a title="" href="CertificateSigningRequestFields.html"><span class="name">CertificateSigningRequestFields</span></a><span class="result"> extends <a href="https://www.scala-lang.org/api/2.12.18/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
       </span>
       
       
@@ -377,7 +377,7 @@ Only one condition of a given type is allowed.</p></dd></dl></div>
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a title="CertificateSigningRequestSpec contains the certificate request." href="CertificateSigningRequestSpec.html"><span class="name">CertificateSigningRequestSpec</span></a><span class="params">(<span name="expirationSeconds">expirationSeconds: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Int">Int</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="extra">extra: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="groups">groups: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="request">request: <a href="https://javadoc.io/page/dev.zio/zio_2.12/1.0.17/zio/Chunk.html#zio.Chunk" class="extype" name="zio.Chunk">Chunk</a>[<span class="extype" name="scala.Byte">Byte</span>]</span>, <span name="signerName">signerName: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="uid">uid: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="usages">usages: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="username">username: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a title="CertificateSigningRequestSpec contains the certificate request." href="CertificateSigningRequestSpec.html"><span class="name">CertificateSigningRequestSpec</span></a><span class="params">(<span name="expirationSeconds">expirationSeconds: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<a href="https://www.scala-lang.org/api/2.12.18/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a>] = <span class="symbol"><span class="name"><a href="../../../../../../../zio/index.html">Optional.Absent</a></span></span></span>, <span name="extra">extra: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]]] = <span class="symbol"><span class="name"><a href="../../../../../../../zio/index.html">Optional.Absent</a></span></span></span>, <span name="groups">groups: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../../zio/index.html">Optional.Absent</a></span></span></span>, <span name="request">request: <a href="https://javadoc.io/page/dev.zio/zio_2.12/2.0.15/zio/Chunk.html#zio.Chunk" class="extype" name="zio.Chunk">Chunk</a>[<a href="https://www.scala-lang.org/api/2.12.18/scala/Byte.html#scala.Byte" class="extype" name="scala.Byte">Byte</a>]</span>, <span name="signerName">signerName: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="uid">uid: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../../zio/index.html">Optional.Absent</a></span></span></span>, <span name="usages">usages: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../../zio/index.html">Optional.Absent</a></span></span></span>, <span name="username">username: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../../zio/index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <a href="https://www.scala-lang.org/api/2.12.18/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a> with <a href="https://www.scala-lang.org/api/2.12.18/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
       </span>
       
       <p class="shortcomment cmt">CertificateSigningRequestSpec contains the certificate request.</p><div class="fullcomment"><div class="comment cmt"><p>CertificateSigningRequestSpec contains the certificate request.
@@ -390,7 +390,7 @@ The v1.22+ in-tree implementations of the well-known Kubernetes signers will hon
 long as the requested duration is not greater than the maximum duration they will honor per the
 --cluster-signing-duration CLI flag to the Kubernetes controller manager.
 Certificate signers may not honor this field for various reasons:
-1. Old signer that is unaware of the field (such as the in-tree implementations prior to v1.22)
+\1. Old signer that is unaware of the field (such as the in-tree implementations prior to v1.22)
 2. Signer whose configured maximum is shorter than the requested duration 3. Signer whose
 configured minimum is longer than the requested duration
 The minimum valid value for expirationSeconds is 600, i.e. 10 minutes.
@@ -405,7 +405,7 @@ As of v1.22, this field is beta and is controlled via the CSRDuration feature ga
 List/watch requests for CertificateSigningRequests can filter on this field using a
 &quot;spec.signerName=NAME&quot; fieldSelector.
 Well-known Kubernetes signers are:
-1. &quot;kubernetes.io/kube-apiserver-client&quot;: issues client certificates that can be used to
+\1. &quot;kubernetes.io/kube-apiserver-client&quot;: issues client certificates that can be used to
 authenticate to kube-apiserver. Requests for this signer are never auto-approved by
 kube-controller-manager, can be issued by the &quot;csrsigning&quot; controller in
 kube-controller-manager. 2. &quot;kubernetes.io/kube-apiserver-client-kubelet&quot;: issues client
@@ -419,7 +419,7 @@ kube-controller-manager.
 More details are available at
 https://k8s.io/docs/reference/access-authn-authz/certificate-signing-requests/#kubernetes-signers
 Custom signerNames can also be specified. The signer defines:
-1. Trust distribution: how trust (CA bundles) are distributed. 2. Permitted subjects: and
+\1. Trust distribution: how trust (CA bundles) are distributed. 2. Permitted subjects: and
 behavior when a disallowed subject is requested. 3. Required, permitted, or forbidden x509
 extensions in the request (including whether subjectAltNames are allowed, which types,
 restrictions on allowed values) and behavior when a disallowed extension is requested. 4.
@@ -452,7 +452,7 @@ system&quot;, &quot;ipsec tunnel&quot;, &quot;ipsec user&quot;, &quot;timestampi
         <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <a title="" href="CertificateSigningRequestSpecFields.html"><span class="name">CertificateSigningRequestSpecFields</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+        <a title="" href="CertificateSigningRequestSpecFields.html"><span class="name">CertificateSigningRequestSpecFields</span></a><span class="result"> extends <a href="https://www.scala-lang.org/api/2.12.18/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
       </span>
       
       
@@ -468,7 +468,7 @@ system&quot;, &quot;ipsec tunnel&quot;, &quot;ipsec user&quot;, &quot;timestampi
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a title="CertificateSigningRequestStatus contains conditions used to indicate approved/denied/failed status of the request, and the issued certificate." href="CertificateSigningRequestStatus.html"><span class="name">CertificateSigningRequestStatus</span></a><span class="params">(<span name="certificate">certificate: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="https://javadoc.io/page/dev.zio/zio_2.12/1.0.17/zio/Chunk.html#zio.Chunk" class="extype" name="zio.Chunk">Chunk</a>[<span class="extype" name="scala.Byte">Byte</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="conditions">conditions: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="CertificateSigningRequestCondition.html" class="extype" name="com.coralogix.zio.k8s.model.certificates.v1.CertificateSigningRequestCondition">CertificateSigningRequestCondition</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a title="CertificateSigningRequestStatus contains conditions used to indicate approved/denied/failed status of the request, and the issued certificate." href="CertificateSigningRequestStatus.html"><span class="name">CertificateSigningRequestStatus</span></a><span class="params">(<span name="certificate">certificate: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<a href="https://javadoc.io/page/dev.zio/zio_2.12/2.0.15/zio/Chunk.html#zio.Chunk" class="extype" name="zio.Chunk">Chunk</a>[<a href="https://www.scala-lang.org/api/2.12.18/scala/Byte.html#scala.Byte" class="extype" name="scala.Byte">Byte</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../../zio/index.html">Optional.Absent</a></span></span></span>, <span name="conditions">conditions: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<a href="CertificateSigningRequestCondition.html" class="extype" name="com.coralogix.zio.k8s.model.certificates.v1.CertificateSigningRequestCondition">CertificateSigningRequestCondition</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../../zio/index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <a href="https://www.scala-lang.org/api/2.12.18/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a> with <a href="https://www.scala-lang.org/api/2.12.18/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
       </span>
       
       <p class="shortcomment cmt">CertificateSigningRequestStatus contains conditions used to indicate approved/denied/failed
@@ -482,7 +482,7 @@ If the certificate signing request is denied, a condition of type &quot;Denied&q
 field remains empty. If the signer cannot issue the certificate, a condition of type &quot;Failed&quot; is
 added and this field remains empty.
 Validation requirements:
-1. certificate must contain one or more PEM blocks. 2. All PEM blocks must have the
+\1. certificate must contain one or more PEM blocks. 2. All PEM blocks must have the
 &quot;CERTIFICATE&quot; label, contain no headers, and the encoded data must be a BER-encoded ASN.1
 Certificate structure as described in section 4 of RFC5280. 3. Non-PEM content may appear before
 or after the &quot;CERTIFICATE&quot; PEM blocks and is unvalidated, to allow for explanatory text as
@@ -492,9 +492,7 @@ not indicate otherwise, the first block is the issued certificate, and subsequen
 be treated as intermediate certificates and presented in TLS handshakes.
 The certificate is encoded in PEM format.
 When serialized as JSON or YAML, the data is additionally base64-encoded, so it consists of:
-base64(
------BEGIN CERTIFICATE----- ...
------END CERTIFICATE----- )</p></dd><dt class="param">conditions</dt><dd class="cmt"><p>
+base64( -----BEGIN CERTIFICATE----- ... -----END CERTIFICATE----- )</p></dd><dt class="param">conditions</dt><dd class="cmt"><p>
   conditions applied to the request. Known conditions are &quot;Approved&quot;, &quot;Denied&quot;, and &quot;Failed&quot;.</p></dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.certificates.v1.CertificateSigningRequestStatusFields" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="CertificateSigningRequestStatusFieldsextendsAnyRef"></a><a id="CertificateSigningRequestStatusFields:CertificateSigningRequestStatusFields"></a>
@@ -508,7 +506,7 @@ base64(
         <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <a title="" href="CertificateSigningRequestStatusFields.html"><span class="name">CertificateSigningRequestStatusFields</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+        <a title="" href="CertificateSigningRequestStatusFields.html"><span class="name">CertificateSigningRequestStatusFields</span></a><span class="result"> extends <a href="https://www.scala-lang.org/api/2.12.18/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
       </span>
       
       
@@ -532,7 +530,7 @@ base64(
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a title="" href="CertificateSigningRequest$.html"><span class="name">CertificateSigningRequest</span></a><span class="result"> extends <a href="CertificateSigningRequestFields.html" class="extype" name="com.coralogix.zio.k8s.model.certificates.v1.CertificateSigningRequestFields">CertificateSigningRequestFields</a> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a title="" href="CertificateSigningRequest$.html"><span class="name">CertificateSigningRequest</span></a><span class="result"> extends <a href="CertificateSigningRequestFields.html" class="extype" name="com.coralogix.zio.k8s.model.certificates.v1.CertificateSigningRequestFields">CertificateSigningRequestFields</a> with <a href="https://www.scala-lang.org/api/2.12.18/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
       </span>
       
       
@@ -548,7 +546,7 @@ base64(
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a title="" href="CertificateSigningRequestCondition$.html"><span class="name">CertificateSigningRequestCondition</span></a><span class="result"> extends <a href="CertificateSigningRequestConditionFields.html" class="extype" name="com.coralogix.zio.k8s.model.certificates.v1.CertificateSigningRequestConditionFields">CertificateSigningRequestConditionFields</a> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a title="" href="CertificateSigningRequestCondition$.html"><span class="name">CertificateSigningRequestCondition</span></a><span class="result"> extends <a href="CertificateSigningRequestConditionFields.html" class="extype" name="com.coralogix.zio.k8s.model.certificates.v1.CertificateSigningRequestConditionFields">CertificateSigningRequestConditionFields</a> with <a href="https://www.scala-lang.org/api/2.12.18/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
       </span>
       
       
@@ -564,7 +562,7 @@ base64(
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a title="" href="CertificateSigningRequestSpec$.html"><span class="name">CertificateSigningRequestSpec</span></a><span class="result"> extends <a href="CertificateSigningRequestSpecFields.html" class="extype" name="com.coralogix.zio.k8s.model.certificates.v1.CertificateSigningRequestSpecFields">CertificateSigningRequestSpecFields</a> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a title="" href="CertificateSigningRequestSpec$.html"><span class="name">CertificateSigningRequestSpec</span></a><span class="result"> extends <a href="CertificateSigningRequestSpecFields.html" class="extype" name="com.coralogix.zio.k8s.model.certificates.v1.CertificateSigningRequestSpecFields">CertificateSigningRequestSpecFields</a> with <a href="https://www.scala-lang.org/api/2.12.18/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
       </span>
       
       
@@ -580,7 +578,7 @@ base64(
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a title="" href="CertificateSigningRequestStatus$.html"><span class="name">CertificateSigningRequestStatus</span></a><span class="result"> extends <a href="CertificateSigningRequestStatusFields.html" class="extype" name="com.coralogix.zio.k8s.model.certificates.v1.CertificateSigningRequestStatusFields">CertificateSigningRequestStatusFields</a> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a title="" href="CertificateSigningRequestStatus$.html"><span class="name">CertificateSigningRequestStatus</span></a><span class="result"> extends <a href="CertificateSigningRequestStatusFields.html" class="extype" name="com.coralogix.zio.k8s.model.certificates.v1.CertificateSigningRequestStatusFields">CertificateSigningRequestStatusFields</a> with <a href="https://www.scala-lang.org/api/2.12.18/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
       </span>
       
       

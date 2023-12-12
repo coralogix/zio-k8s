@@ -1598,7 +1598,7 @@
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <span class="name">PersistentVolumeSpec</span><span class="params">(<span name="accessModes">accessModes: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="awsElasticBlockStore">awsElasticBlockStore: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="AWSElasticBlockStoreVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.AWSElasticBlockStoreVolumeSource">AWSElasticBlockStoreVolumeSource</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="azureDisk">azureDisk: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="AzureDiskVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.AzureDiskVolumeSource">AzureDiskVolumeSource</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="azureFile">azureFile: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="AzureFilePersistentVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.AzureFilePersistentVolumeSource">AzureFilePersistentVolumeSource</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="capacity">capacity: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <a href="../../pkg/api/resource/Quantity.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.api.resource.Quantity">Quantity</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="cephfs">cephfs: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="CephFSPersistentVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.CephFSPersistentVolumeSource">CephFSPersistentVolumeSource</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="cinder">cinder: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="CinderPersistentVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.CinderPersistentVolumeSource">CinderPersistentVolumeSource</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="claimRef">claimRef: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="ObjectReference.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.ObjectReference">ObjectReference</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="csi">csi: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="CSIPersistentVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.CSIPersistentVolumeSource">CSIPersistentVolumeSource</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="fc">fc: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="FCVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.FCVolumeSource">FCVolumeSource</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="flexVolume">flexVolume: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="FlexPersistentVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.FlexPersistentVolumeSource">FlexPersistentVolumeSource</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="flocker">flocker: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="FlockerVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.FlockerVolumeSource">FlockerVolumeSource</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="gcePersistentDisk">gcePersistentDisk: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="GCEPersistentDiskVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.GCEPersistentDiskVolumeSource">GCEPersistentDiskVolumeSource</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="glusterfs">glusterfs: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="GlusterfsPersistentVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.GlusterfsPersistentVolumeSource">GlusterfsPersistentVolumeSource</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="hostPath">hostPath: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="HostPathVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.HostPathVolumeSource">HostPathVolumeSource</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="iscsi">iscsi: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="ISCSIPersistentVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.ISCSIPersistentVolumeSource">ISCSIPersistentVolumeSource</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="local">local: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="LocalVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.LocalVolumeSource">LocalVolumeSource</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="mountOptions">mountOptions: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="nfs">nfs: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="NFSVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.NFSVolumeSource">NFSVolumeSource</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="nodeAffinity">nodeAffinity: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="VolumeNodeAffinity.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.VolumeNodeAffinity">VolumeNodeAffinity</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="persistentVolumeReclaimPolicy">persistentVolumeReclaimPolicy: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="photonPersistentDisk">photonPersistentDisk: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="PhotonPersistentDiskVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.PhotonPersistentDiskVolumeSource">PhotonPersistentDiskVolumeSource</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="portworxVolume">portworxVolume: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="PortworxVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.PortworxVolumeSource">PortworxVolumeSource</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="quobyte">quobyte: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="QuobyteVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.QuobyteVolumeSource">QuobyteVolumeSource</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="rbd">rbd: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="RBDPersistentVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.RBDPersistentVolumeSource">RBDPersistentVolumeSource</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="scaleIO">scaleIO: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="ScaleIOPersistentVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.ScaleIOPersistentVolumeSource">ScaleIOPersistentVolumeSource</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="storageClassName">storageClassName: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="storageos">storageos: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="StorageOSPersistentVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.StorageOSPersistentVolumeSource">StorageOSPersistentVolumeSource</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="volumeMode">volumeMode: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="vsphereVolume">vsphereVolume: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="VsphereVirtualDiskVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.VsphereVirtualDiskVolumeSource">VsphereVirtualDiskVolumeSource</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <span class="name">PersistentVolumeSpec</span><span class="params">(<span name="accessModes">accessModes: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../../zio/index.html">Optional.Absent</a></span></span></span>, <span name="awsElasticBlockStore">awsElasticBlockStore: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<a href="AWSElasticBlockStoreVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.AWSElasticBlockStoreVolumeSource">AWSElasticBlockStoreVolumeSource</a>] = <span class="symbol"><span class="name"><a href="../../../../../../../zio/index.html">Optional.Absent</a></span></span></span>, <span name="azureDisk">azureDisk: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<a href="AzureDiskVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.AzureDiskVolumeSource">AzureDiskVolumeSource</a>] = <span class="symbol"><span class="name"><a href="../../../../../../../zio/index.html">Optional.Absent</a></span></span></span>, <span name="azureFile">azureFile: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<a href="AzureFilePersistentVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.AzureFilePersistentVolumeSource">AzureFilePersistentVolumeSource</a>] = <span class="symbol"><span class="name"><a href="../../../../../../../zio/index.html">Optional.Absent</a></span></span></span>, <span name="capacity">capacity: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <a href="../../pkg/api/resource/Quantity.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.api.resource.Quantity">Quantity</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../../zio/index.html">Optional.Absent</a></span></span></span>, <span name="cephfs">cephfs: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<a href="CephFSPersistentVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.CephFSPersistentVolumeSource">CephFSPersistentVolumeSource</a>] = <span class="symbol"><span class="name"><a href="../../../../../../../zio/index.html">Optional.Absent</a></span></span></span>, <span name="cinder">cinder: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<a href="CinderPersistentVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.CinderPersistentVolumeSource">CinderPersistentVolumeSource</a>] = <span class="symbol"><span class="name"><a href="../../../../../../../zio/index.html">Optional.Absent</a></span></span></span>, <span name="claimRef">claimRef: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<a href="ObjectReference.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.ObjectReference">ObjectReference</a>] = <span class="symbol"><span class="name"><a href="../../../../../../../zio/index.html">Optional.Absent</a></span></span></span>, <span name="csi">csi: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<a href="CSIPersistentVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.CSIPersistentVolumeSource">CSIPersistentVolumeSource</a>] = <span class="symbol"><span class="name"><a href="../../../../../../../zio/index.html">Optional.Absent</a></span></span></span>, <span name="fc">fc: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<a href="FCVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.FCVolumeSource">FCVolumeSource</a>] = <span class="symbol"><span class="name"><a href="../../../../../../../zio/index.html">Optional.Absent</a></span></span></span>, <span name="flexVolume">flexVolume: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<a href="FlexPersistentVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.FlexPersistentVolumeSource">FlexPersistentVolumeSource</a>] = <span class="symbol"><span class="name"><a href="../../../../../../../zio/index.html">Optional.Absent</a></span></span></span>, <span name="flocker">flocker: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<a href="FlockerVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.FlockerVolumeSource">FlockerVolumeSource</a>] = <span class="symbol"><span class="name"><a href="../../../../../../../zio/index.html">Optional.Absent</a></span></span></span>, <span name="gcePersistentDisk">gcePersistentDisk: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<a href="GCEPersistentDiskVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.GCEPersistentDiskVolumeSource">GCEPersistentDiskVolumeSource</a>] = <span class="symbol"><span class="name"><a href="../../../../../../../zio/index.html">Optional.Absent</a></span></span></span>, <span name="glusterfs">glusterfs: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<a href="GlusterfsPersistentVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.GlusterfsPersistentVolumeSource">GlusterfsPersistentVolumeSource</a>] = <span class="symbol"><span class="name"><a href="../../../../../../../zio/index.html">Optional.Absent</a></span></span></span>, <span name="hostPath">hostPath: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<a href="HostPathVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.HostPathVolumeSource">HostPathVolumeSource</a>] = <span class="symbol"><span class="name"><a href="../../../../../../../zio/index.html">Optional.Absent</a></span></span></span>, <span name="iscsi">iscsi: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<a href="ISCSIPersistentVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.ISCSIPersistentVolumeSource">ISCSIPersistentVolumeSource</a>] = <span class="symbol"><span class="name"><a href="../../../../../../../zio/index.html">Optional.Absent</a></span></span></span>, <span name="local">local: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<a href="LocalVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.LocalVolumeSource">LocalVolumeSource</a>] = <span class="symbol"><span class="name"><a href="../../../../../../../zio/index.html">Optional.Absent</a></span></span></span>, <span name="mountOptions">mountOptions: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../../zio/index.html">Optional.Absent</a></span></span></span>, <span name="nfs">nfs: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<a href="NFSVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.NFSVolumeSource">NFSVolumeSource</a>] = <span class="symbol"><span class="name"><a href="../../../../../../../zio/index.html">Optional.Absent</a></span></span></span>, <span name="nodeAffinity">nodeAffinity: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<a href="VolumeNodeAffinity.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.VolumeNodeAffinity">VolumeNodeAffinity</a>] = <span class="symbol"><span class="name"><a href="../../../../../../../zio/index.html">Optional.Absent</a></span></span></span>, <span name="persistentVolumeReclaimPolicy">persistentVolumeReclaimPolicy: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../../zio/index.html">Optional.Absent</a></span></span></span>, <span name="photonPersistentDisk">photonPersistentDisk: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<a href="PhotonPersistentDiskVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.PhotonPersistentDiskVolumeSource">PhotonPersistentDiskVolumeSource</a>] = <span class="symbol"><span class="name"><a href="../../../../../../../zio/index.html">Optional.Absent</a></span></span></span>, <span name="portworxVolume">portworxVolume: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<a href="PortworxVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.PortworxVolumeSource">PortworxVolumeSource</a>] = <span class="symbol"><span class="name"><a href="../../../../../../../zio/index.html">Optional.Absent</a></span></span></span>, <span name="quobyte">quobyte: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<a href="QuobyteVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.QuobyteVolumeSource">QuobyteVolumeSource</a>] = <span class="symbol"><span class="name"><a href="../../../../../../../zio/index.html">Optional.Absent</a></span></span></span>, <span name="rbd">rbd: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<a href="RBDPersistentVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.RBDPersistentVolumeSource">RBDPersistentVolumeSource</a>] = <span class="symbol"><span class="name"><a href="../../../../../../../zio/index.html">Optional.Absent</a></span></span></span>, <span name="scaleIO">scaleIO: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<a href="ScaleIOPersistentVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.ScaleIOPersistentVolumeSource">ScaleIOPersistentVolumeSource</a>] = <span class="symbol"><span class="name"><a href="../../../../../../../zio/index.html">Optional.Absent</a></span></span></span>, <span name="storageClassName">storageClassName: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../../zio/index.html">Optional.Absent</a></span></span></span>, <span name="storageos">storageos: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<a href="StorageOSPersistentVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.StorageOSPersistentVolumeSource">StorageOSPersistentVolumeSource</a>] = <span class="symbol"><span class="name"><a href="../../../../../../../zio/index.html">Optional.Absent</a></span></span></span>, <span name="volumeMode">volumeMode: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../../zio/index.html">Optional.Absent</a></span></span></span>, <span name="vsphereVolume">vsphereVolume: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<a href="VsphereVirtualDiskVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.VsphereVirtualDiskVolumeSource">VsphereVirtualDiskVolumeSource</a>] = <span class="symbol"><span class="name"><a href="../../../../../../../zio/index.html">Optional.Absent</a></span></span></span>)</span><span class="result"> extends <a href="https://www.scala-lang.org/api/2.12.18/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a> with <a href="https://www.scala-lang.org/api/2.12.18/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
       </span>
       </h4>
 
@@ -1624,7 +1624,7 @@
           <span class="toggle">
             Linear Supertypes
           </span>
-          <div class="superTypes hiddenContent"><span class="extype" name="scala.Serializable">Serializable</span>, <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/io/Serializable.html#java.io.Serializable" class="extype" name="java.io.Serializable">Serializable</a>, <span class="extype" name="scala.Product">Product</span>, <span class="extype" name="scala.Equals">Equals</span>, <span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
+          <div class="superTypes hiddenContent"><a href="https://www.scala-lang.org/api/2.12.18/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a>, <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/io/Serializable.html#java.io.Serializable" class="extype" name="java.io.Serializable">Serializable</a>, <a href="https://www.scala-lang.org/api/2.12.18/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a>, <a href="https://www.scala-lang.org/api/2.12.18/scala/Equals.html#scala.Equals" class="extype" name="scala.Equals">Equals</a>, <a href="https://www.scala-lang.org/api/2.12.18/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a>, <a href="https://www.scala-lang.org/api/2.12.18/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></div>
         </div></div>
         
 
@@ -1671,9 +1671,9 @@
         <div id="constructors" class="members">
               <h3>Instance Constructors</h3>
               <ol><li name="com.coralogix.zio.k8s.model.core.v1.PersistentVolumeSpec#&lt;init&gt;" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="&lt;init&gt;(accessModes:com.coralogix.zio.k8s.client.model.Optional[Vector[String]],awsElasticBlockStore:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.AWSElasticBlockStoreVolumeSource],azureDisk:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.AzureDiskVolumeSource],azureFile:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.AzureFilePersistentVolumeSource],capacity:com.coralogix.zio.k8s.client.model.Optional[Map[String,com.coralogix.zio.k8s.model.pkg.api.resource.Quantity]],cephfs:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.CephFSPersistentVolumeSource],cinder:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.CinderPersistentVolumeSource],claimRef:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.ObjectReference],csi:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.CSIPersistentVolumeSource],fc:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.FCVolumeSource],flexVolume:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.FlexPersistentVolumeSource],flocker:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.FlockerVolumeSource],gcePersistentDisk:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.GCEPersistentDiskVolumeSource],glusterfs:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.GlusterfsPersistentVolumeSource],hostPath:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.HostPathVolumeSource],iscsi:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.ISCSIPersistentVolumeSource],local:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.LocalVolumeSource],mountOptions:com.coralogix.zio.k8s.client.model.Optional[Vector[String]],nfs:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.NFSVolumeSource],nodeAffinity:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.VolumeNodeAffinity],persistentVolumeReclaimPolicy:com.coralogix.zio.k8s.client.model.Optional[String],photonPersistentDisk:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.PhotonPersistentDiskVolumeSource],portworxVolume:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.PortworxVolumeSource],quobyte:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.QuobyteVolumeSource],rbd:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.RBDPersistentVolumeSource],scaleIO:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.ScaleIOPersistentVolumeSource],storageClassName:com.coralogix.zio.k8s.client.model.Optional[String],storageos:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.StorageOSPersistentVolumeSource],volumeMode:com.coralogix.zio.k8s.client.model.Optional[String],vsphereVolume:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.VsphereVirtualDiskVolumeSource]):com.coralogix.zio.k8s.model.core.v1.PersistentVolumeSpec"></a><a id="&lt;init&gt;:PersistentVolumeSpec"></a>
+      <a id="&lt;init&gt;(accessModes:zio.prelude.data.Optional[Vector[String]],awsElasticBlockStore:zio.prelude.data.Optional[com.coralogix.zio.k8s.model.core.v1.AWSElasticBlockStoreVolumeSource],azureDisk:zio.prelude.data.Optional[com.coralogix.zio.k8s.model.core.v1.AzureDiskVolumeSource],azureFile:zio.prelude.data.Optional[com.coralogix.zio.k8s.model.core.v1.AzureFilePersistentVolumeSource],capacity:zio.prelude.data.Optional[Map[String,com.coralogix.zio.k8s.model.pkg.api.resource.Quantity]],cephfs:zio.prelude.data.Optional[com.coralogix.zio.k8s.model.core.v1.CephFSPersistentVolumeSource],cinder:zio.prelude.data.Optional[com.coralogix.zio.k8s.model.core.v1.CinderPersistentVolumeSource],claimRef:zio.prelude.data.Optional[com.coralogix.zio.k8s.model.core.v1.ObjectReference],csi:zio.prelude.data.Optional[com.coralogix.zio.k8s.model.core.v1.CSIPersistentVolumeSource],fc:zio.prelude.data.Optional[com.coralogix.zio.k8s.model.core.v1.FCVolumeSource],flexVolume:zio.prelude.data.Optional[com.coralogix.zio.k8s.model.core.v1.FlexPersistentVolumeSource],flocker:zio.prelude.data.Optional[com.coralogix.zio.k8s.model.core.v1.FlockerVolumeSource],gcePersistentDisk:zio.prelude.data.Optional[com.coralogix.zio.k8s.model.core.v1.GCEPersistentDiskVolumeSource],glusterfs:zio.prelude.data.Optional[com.coralogix.zio.k8s.model.core.v1.GlusterfsPersistentVolumeSource],hostPath:zio.prelude.data.Optional[com.coralogix.zio.k8s.model.core.v1.HostPathVolumeSource],iscsi:zio.prelude.data.Optional[com.coralogix.zio.k8s.model.core.v1.ISCSIPersistentVolumeSource],local:zio.prelude.data.Optional[com.coralogix.zio.k8s.model.core.v1.LocalVolumeSource],mountOptions:zio.prelude.data.Optional[Vector[String]],nfs:zio.prelude.data.Optional[com.coralogix.zio.k8s.model.core.v1.NFSVolumeSource],nodeAffinity:zio.prelude.data.Optional[com.coralogix.zio.k8s.model.core.v1.VolumeNodeAffinity],persistentVolumeReclaimPolicy:zio.prelude.data.Optional[String],photonPersistentDisk:zio.prelude.data.Optional[com.coralogix.zio.k8s.model.core.v1.PhotonPersistentDiskVolumeSource],portworxVolume:zio.prelude.data.Optional[com.coralogix.zio.k8s.model.core.v1.PortworxVolumeSource],quobyte:zio.prelude.data.Optional[com.coralogix.zio.k8s.model.core.v1.QuobyteVolumeSource],rbd:zio.prelude.data.Optional[com.coralogix.zio.k8s.model.core.v1.RBDPersistentVolumeSource],scaleIO:zio.prelude.data.Optional[com.coralogix.zio.k8s.model.core.v1.ScaleIOPersistentVolumeSource],storageClassName:zio.prelude.data.Optional[String],storageos:zio.prelude.data.Optional[com.coralogix.zio.k8s.model.core.v1.StorageOSPersistentVolumeSource],volumeMode:zio.prelude.data.Optional[String],vsphereVolume:zio.prelude.data.Optional[com.coralogix.zio.k8s.model.core.v1.VsphereVirtualDiskVolumeSource]):com.coralogix.zio.k8s.model.core.v1.PersistentVolumeSpec"></a><a id="&lt;init&gt;:PersistentVolumeSpec"></a>
       <span class="permalink">
-      <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/PersistentVolumeSpec.html#&lt;init&gt;(accessModes:com.coralogix.zio.k8s.client.model.Optional[Vector[String]],awsElasticBlockStore:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.AWSElasticBlockStoreVolumeSource],azureDisk:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.AzureDiskVolumeSource],azureFile:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.AzureFilePersistentVolumeSource],capacity:com.coralogix.zio.k8s.client.model.Optional[Map[String,com.coralogix.zio.k8s.model.pkg.api.resource.Quantity]],cephfs:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.CephFSPersistentVolumeSource],cinder:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.CinderPersistentVolumeSource],claimRef:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.ObjectReference],csi:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.CSIPersistentVolumeSource],fc:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.FCVolumeSource],flexVolume:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.FlexPersistentVolumeSource],flocker:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.FlockerVolumeSource],gcePersistentDisk:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.GCEPersistentDiskVolumeSource],glusterfs:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.GlusterfsPersistentVolumeSource],hostPath:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.HostPathVolumeSource],iscsi:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.ISCSIPersistentVolumeSource],local:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.LocalVolumeSource],mountOptions:com.coralogix.zio.k8s.client.model.Optional[Vector[String]],nfs:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.NFSVolumeSource],nodeAffinity:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.VolumeNodeAffinity],persistentVolumeReclaimPolicy:com.coralogix.zio.k8s.client.model.Optional[String],photonPersistentDisk:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.PhotonPersistentDiskVolumeSource],portworxVolume:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.PortworxVolumeSource],quobyte:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.QuobyteVolumeSource],rbd:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.RBDPersistentVolumeSource],scaleIO:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.ScaleIOPersistentVolumeSource],storageClassName:com.coralogix.zio.k8s.client.model.Optional[String],storageos:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.StorageOSPersistentVolumeSource],volumeMode:com.coralogix.zio.k8s.client.model.Optional[String],vsphereVolume:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.VsphereVirtualDiskVolumeSource]):com.coralogix.zio.k8s.model.core.v1.PersistentVolumeSpec" title="Permalink">
+      <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/PersistentVolumeSpec.html#&lt;init&gt;(accessModes:zio.prelude.data.Optional[Vector[String]],awsElasticBlockStore:zio.prelude.data.Optional[com.coralogix.zio.k8s.model.core.v1.AWSElasticBlockStoreVolumeSource],azureDisk:zio.prelude.data.Optional[com.coralogix.zio.k8s.model.core.v1.AzureDiskVolumeSource],azureFile:zio.prelude.data.Optional[com.coralogix.zio.k8s.model.core.v1.AzureFilePersistentVolumeSource],capacity:zio.prelude.data.Optional[Map[String,com.coralogix.zio.k8s.model.pkg.api.resource.Quantity]],cephfs:zio.prelude.data.Optional[com.coralogix.zio.k8s.model.core.v1.CephFSPersistentVolumeSource],cinder:zio.prelude.data.Optional[com.coralogix.zio.k8s.model.core.v1.CinderPersistentVolumeSource],claimRef:zio.prelude.data.Optional[com.coralogix.zio.k8s.model.core.v1.ObjectReference],csi:zio.prelude.data.Optional[com.coralogix.zio.k8s.model.core.v1.CSIPersistentVolumeSource],fc:zio.prelude.data.Optional[com.coralogix.zio.k8s.model.core.v1.FCVolumeSource],flexVolume:zio.prelude.data.Optional[com.coralogix.zio.k8s.model.core.v1.FlexPersistentVolumeSource],flocker:zio.prelude.data.Optional[com.coralogix.zio.k8s.model.core.v1.FlockerVolumeSource],gcePersistentDisk:zio.prelude.data.Optional[com.coralogix.zio.k8s.model.core.v1.GCEPersistentDiskVolumeSource],glusterfs:zio.prelude.data.Optional[com.coralogix.zio.k8s.model.core.v1.GlusterfsPersistentVolumeSource],hostPath:zio.prelude.data.Optional[com.coralogix.zio.k8s.model.core.v1.HostPathVolumeSource],iscsi:zio.prelude.data.Optional[com.coralogix.zio.k8s.model.core.v1.ISCSIPersistentVolumeSource],local:zio.prelude.data.Optional[com.coralogix.zio.k8s.model.core.v1.LocalVolumeSource],mountOptions:zio.prelude.data.Optional[Vector[String]],nfs:zio.prelude.data.Optional[com.coralogix.zio.k8s.model.core.v1.NFSVolumeSource],nodeAffinity:zio.prelude.data.Optional[com.coralogix.zio.k8s.model.core.v1.VolumeNodeAffinity],persistentVolumeReclaimPolicy:zio.prelude.data.Optional[String],photonPersistentDisk:zio.prelude.data.Optional[com.coralogix.zio.k8s.model.core.v1.PhotonPersistentDiskVolumeSource],portworxVolume:zio.prelude.data.Optional[com.coralogix.zio.k8s.model.core.v1.PortworxVolumeSource],quobyte:zio.prelude.data.Optional[com.coralogix.zio.k8s.model.core.v1.QuobyteVolumeSource],rbd:zio.prelude.data.Optional[com.coralogix.zio.k8s.model.core.v1.RBDPersistentVolumeSource],scaleIO:zio.prelude.data.Optional[com.coralogix.zio.k8s.model.core.v1.ScaleIOPersistentVolumeSource],storageClassName:zio.prelude.data.Optional[String],storageos:zio.prelude.data.Optional[com.coralogix.zio.k8s.model.core.v1.StorageOSPersistentVolumeSource],volumeMode:zio.prelude.data.Optional[String],vsphereVolume:zio.prelude.data.Optional[com.coralogix.zio.k8s.model.core.v1.VsphereVirtualDiskVolumeSource]):com.coralogix.zio.k8s.model.core.v1.PersistentVolumeSpec" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -1682,7 +1682,7 @@
         <span class="kind">new</span>
       </span>
       <span class="symbol">
-        <span class="name">PersistentVolumeSpec</span><span class="params">(<span name="accessModes">accessModes: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="awsElasticBlockStore">awsElasticBlockStore: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="AWSElasticBlockStoreVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.AWSElasticBlockStoreVolumeSource">AWSElasticBlockStoreVolumeSource</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="azureDisk">azureDisk: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="AzureDiskVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.AzureDiskVolumeSource">AzureDiskVolumeSource</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="azureFile">azureFile: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="AzureFilePersistentVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.AzureFilePersistentVolumeSource">AzureFilePersistentVolumeSource</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="capacity">capacity: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <a href="../../pkg/api/resource/Quantity.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.api.resource.Quantity">Quantity</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="cephfs">cephfs: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="CephFSPersistentVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.CephFSPersistentVolumeSource">CephFSPersistentVolumeSource</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="cinder">cinder: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="CinderPersistentVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.CinderPersistentVolumeSource">CinderPersistentVolumeSource</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="claimRef">claimRef: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="ObjectReference.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.ObjectReference">ObjectReference</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="csi">csi: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="CSIPersistentVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.CSIPersistentVolumeSource">CSIPersistentVolumeSource</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="fc">fc: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="FCVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.FCVolumeSource">FCVolumeSource</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="flexVolume">flexVolume: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="FlexPersistentVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.FlexPersistentVolumeSource">FlexPersistentVolumeSource</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="flocker">flocker: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="FlockerVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.FlockerVolumeSource">FlockerVolumeSource</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="gcePersistentDisk">gcePersistentDisk: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="GCEPersistentDiskVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.GCEPersistentDiskVolumeSource">GCEPersistentDiskVolumeSource</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="glusterfs">glusterfs: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="GlusterfsPersistentVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.GlusterfsPersistentVolumeSource">GlusterfsPersistentVolumeSource</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="hostPath">hostPath: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="HostPathVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.HostPathVolumeSource">HostPathVolumeSource</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="iscsi">iscsi: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="ISCSIPersistentVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.ISCSIPersistentVolumeSource">ISCSIPersistentVolumeSource</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="local">local: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="LocalVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.LocalVolumeSource">LocalVolumeSource</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="mountOptions">mountOptions: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="nfs">nfs: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="NFSVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.NFSVolumeSource">NFSVolumeSource</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="nodeAffinity">nodeAffinity: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="VolumeNodeAffinity.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.VolumeNodeAffinity">VolumeNodeAffinity</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="persistentVolumeReclaimPolicy">persistentVolumeReclaimPolicy: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="photonPersistentDisk">photonPersistentDisk: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="PhotonPersistentDiskVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.PhotonPersistentDiskVolumeSource">PhotonPersistentDiskVolumeSource</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="portworxVolume">portworxVolume: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="PortworxVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.PortworxVolumeSource">PortworxVolumeSource</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="quobyte">quobyte: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="QuobyteVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.QuobyteVolumeSource">QuobyteVolumeSource</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="rbd">rbd: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="RBDPersistentVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.RBDPersistentVolumeSource">RBDPersistentVolumeSource</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="scaleIO">scaleIO: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="ScaleIOPersistentVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.ScaleIOPersistentVolumeSource">ScaleIOPersistentVolumeSource</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="storageClassName">storageClassName: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="storageos">storageos: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="StorageOSPersistentVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.StorageOSPersistentVolumeSource">StorageOSPersistentVolumeSource</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="volumeMode">volumeMode: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>, <span name="vsphereVolume">vsphereVolume: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="VsphereVirtualDiskVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.VsphereVirtualDiskVolumeSource">VsphereVirtualDiskVolumeSource</a>] = <span class="symbol"><span class="name"><a href="../../../../../../index.html">Optional.Absent</a></span></span></span>)</span>
+        <span class="name">PersistentVolumeSpec</span><span class="params">(<span name="accessModes">accessModes: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../../zio/index.html">Optional.Absent</a></span></span></span>, <span name="awsElasticBlockStore">awsElasticBlockStore: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<a href="AWSElasticBlockStoreVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.AWSElasticBlockStoreVolumeSource">AWSElasticBlockStoreVolumeSource</a>] = <span class="symbol"><span class="name"><a href="../../../../../../../zio/index.html">Optional.Absent</a></span></span></span>, <span name="azureDisk">azureDisk: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<a href="AzureDiskVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.AzureDiskVolumeSource">AzureDiskVolumeSource</a>] = <span class="symbol"><span class="name"><a href="../../../../../../../zio/index.html">Optional.Absent</a></span></span></span>, <span name="azureFile">azureFile: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<a href="AzureFilePersistentVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.AzureFilePersistentVolumeSource">AzureFilePersistentVolumeSource</a>] = <span class="symbol"><span class="name"><a href="../../../../../../../zio/index.html">Optional.Absent</a></span></span></span>, <span name="capacity">capacity: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <a href="../../pkg/api/resource/Quantity.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.api.resource.Quantity">Quantity</a>]] = <span class="symbol"><span class="name"><a href="../../../../../../../zio/index.html">Optional.Absent</a></span></span></span>, <span name="cephfs">cephfs: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<a href="CephFSPersistentVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.CephFSPersistentVolumeSource">CephFSPersistentVolumeSource</a>] = <span class="symbol"><span class="name"><a href="../../../../../../../zio/index.html">Optional.Absent</a></span></span></span>, <span name="cinder">cinder: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<a href="CinderPersistentVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.CinderPersistentVolumeSource">CinderPersistentVolumeSource</a>] = <span class="symbol"><span class="name"><a href="../../../../../../../zio/index.html">Optional.Absent</a></span></span></span>, <span name="claimRef">claimRef: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<a href="ObjectReference.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.ObjectReference">ObjectReference</a>] = <span class="symbol"><span class="name"><a href="../../../../../../../zio/index.html">Optional.Absent</a></span></span></span>, <span name="csi">csi: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<a href="CSIPersistentVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.CSIPersistentVolumeSource">CSIPersistentVolumeSource</a>] = <span class="symbol"><span class="name"><a href="../../../../../../../zio/index.html">Optional.Absent</a></span></span></span>, <span name="fc">fc: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<a href="FCVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.FCVolumeSource">FCVolumeSource</a>] = <span class="symbol"><span class="name"><a href="../../../../../../../zio/index.html">Optional.Absent</a></span></span></span>, <span name="flexVolume">flexVolume: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<a href="FlexPersistentVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.FlexPersistentVolumeSource">FlexPersistentVolumeSource</a>] = <span class="symbol"><span class="name"><a href="../../../../../../../zio/index.html">Optional.Absent</a></span></span></span>, <span name="flocker">flocker: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<a href="FlockerVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.FlockerVolumeSource">FlockerVolumeSource</a>] = <span class="symbol"><span class="name"><a href="../../../../../../../zio/index.html">Optional.Absent</a></span></span></span>, <span name="gcePersistentDisk">gcePersistentDisk: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<a href="GCEPersistentDiskVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.GCEPersistentDiskVolumeSource">GCEPersistentDiskVolumeSource</a>] = <span class="symbol"><span class="name"><a href="../../../../../../../zio/index.html">Optional.Absent</a></span></span></span>, <span name="glusterfs">glusterfs: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<a href="GlusterfsPersistentVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.GlusterfsPersistentVolumeSource">GlusterfsPersistentVolumeSource</a>] = <span class="symbol"><span class="name"><a href="../../../../../../../zio/index.html">Optional.Absent</a></span></span></span>, <span name="hostPath">hostPath: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<a href="HostPathVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.HostPathVolumeSource">HostPathVolumeSource</a>] = <span class="symbol"><span class="name"><a href="../../../../../../../zio/index.html">Optional.Absent</a></span></span></span>, <span name="iscsi">iscsi: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<a href="ISCSIPersistentVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.ISCSIPersistentVolumeSource">ISCSIPersistentVolumeSource</a>] = <span class="symbol"><span class="name"><a href="../../../../../../../zio/index.html">Optional.Absent</a></span></span></span>, <span name="local">local: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<a href="LocalVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.LocalVolumeSource">LocalVolumeSource</a>] = <span class="symbol"><span class="name"><a href="../../../../../../../zio/index.html">Optional.Absent</a></span></span></span>, <span name="mountOptions">mountOptions: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]] = <span class="symbol"><span class="name"><a href="../../../../../../../zio/index.html">Optional.Absent</a></span></span></span>, <span name="nfs">nfs: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<a href="NFSVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.NFSVolumeSource">NFSVolumeSource</a>] = <span class="symbol"><span class="name"><a href="../../../../../../../zio/index.html">Optional.Absent</a></span></span></span>, <span name="nodeAffinity">nodeAffinity: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<a href="VolumeNodeAffinity.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.VolumeNodeAffinity">VolumeNodeAffinity</a>] = <span class="symbol"><span class="name"><a href="../../../../../../../zio/index.html">Optional.Absent</a></span></span></span>, <span name="persistentVolumeReclaimPolicy">persistentVolumeReclaimPolicy: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../../zio/index.html">Optional.Absent</a></span></span></span>, <span name="photonPersistentDisk">photonPersistentDisk: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<a href="PhotonPersistentDiskVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.PhotonPersistentDiskVolumeSource">PhotonPersistentDiskVolumeSource</a>] = <span class="symbol"><span class="name"><a href="../../../../../../../zio/index.html">Optional.Absent</a></span></span></span>, <span name="portworxVolume">portworxVolume: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<a href="PortworxVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.PortworxVolumeSource">PortworxVolumeSource</a>] = <span class="symbol"><span class="name"><a href="../../../../../../../zio/index.html">Optional.Absent</a></span></span></span>, <span name="quobyte">quobyte: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<a href="QuobyteVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.QuobyteVolumeSource">QuobyteVolumeSource</a>] = <span class="symbol"><span class="name"><a href="../../../../../../../zio/index.html">Optional.Absent</a></span></span></span>, <span name="rbd">rbd: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<a href="RBDPersistentVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.RBDPersistentVolumeSource">RBDPersistentVolumeSource</a>] = <span class="symbol"><span class="name"><a href="../../../../../../../zio/index.html">Optional.Absent</a></span></span></span>, <span name="scaleIO">scaleIO: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<a href="ScaleIOPersistentVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.ScaleIOPersistentVolumeSource">ScaleIOPersistentVolumeSource</a>] = <span class="symbol"><span class="name"><a href="../../../../../../../zio/index.html">Optional.Absent</a></span></span></span>, <span name="storageClassName">storageClassName: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../../zio/index.html">Optional.Absent</a></span></span></span>, <span name="storageos">storageos: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<a href="StorageOSPersistentVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.StorageOSPersistentVolumeSource">StorageOSPersistentVolumeSource</a>] = <span class="symbol"><span class="name"><a href="../../../../../../../zio/index.html">Optional.Absent</a></span></span></span>, <span name="volumeMode">volumeMode: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>] = <span class="symbol"><span class="name"><a href="../../../../../../../zio/index.html">Optional.Absent</a></span></span></span>, <span name="vsphereVolume">vsphereVolume: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<a href="VsphereVirtualDiskVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.VsphereVirtualDiskVolumeSource">VsphereVirtualDiskVolumeSource</a>] = <span class="symbol"><span class="name"><a href="../../../../../../../zio/index.html">Optional.Absent</a></span></span></span>)</span>
       </span>
       
       <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">accessModes</dt><dd class="cmt"><p>
@@ -1724,7 +1724,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: $bang$eq" class="name">!=</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+        <span title="gt4s: $bang$eq" class="name">!=</span><span class="params">(<span name="arg0">arg0: <a href="https://www.scala-lang.org/api/2.12.18/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></span>)</span><span class="result">: <a href="https://www.scala-lang.org/api/2.12.18/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -1740,7 +1740,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: $hash$hash" class="name">##</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
+        <span title="gt4s: $hash$hash" class="name">##</span><span class="params">()</span><span class="result">: <a href="https://www.scala-lang.org/api/2.12.18/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -1756,14 +1756,14 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: $eq$eq" class="name">==</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+        <span title="gt4s: $eq$eq" class="name">==</span><span class="params">(<span name="arg0">arg0: <a href="https://www.scala-lang.org/api/2.12.18/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></span>)</span><span class="result">: <a href="https://www.scala-lang.org/api/2.12.18/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.core.v1.PersistentVolumeSpec#accessModes" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="accessModes:com.coralogix.zio.k8s.client.model.Optional[Vector[String]]"></a><a id="accessModes:Optional[Vector[String]]"></a>
+      <a id="accessModes:zio.prelude.data.Optional[Vector[String]]"></a><a id="accessModes:Optional[Vector[String]]"></a>
       <span class="permalink">
-      <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/PersistentVolumeSpec.html#accessModes:com.coralogix.zio.k8s.client.model.Optional[Vector[String]]" title="Permalink">
+      <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/PersistentVolumeSpec.html#accessModes:zio.prelude.data.Optional[Vector[String]]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -1772,7 +1772,7 @@
         <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">accessModes</span><span class="result">: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]]</span>
+        <span class="name">accessModes</span><span class="result">: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]]</span>
       </span>
       
       
@@ -1793,9 +1793,9 @@
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.core.v1.PersistentVolumeSpec#awsElasticBlockStore" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="awsElasticBlockStore:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.AWSElasticBlockStoreVolumeSource]"></a><a id="awsElasticBlockStore:Optional[AWSElasticBlockStoreVolumeSource]"></a>
+      <a id="awsElasticBlockStore:zio.prelude.data.Optional[com.coralogix.zio.k8s.model.core.v1.AWSElasticBlockStoreVolumeSource]"></a><a id="awsElasticBlockStore:Optional[AWSElasticBlockStoreVolumeSource]"></a>
       <span class="permalink">
-      <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/PersistentVolumeSpec.html#awsElasticBlockStore:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.AWSElasticBlockStoreVolumeSource]" title="Permalink">
+      <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/PersistentVolumeSpec.html#awsElasticBlockStore:zio.prelude.data.Optional[com.coralogix.zio.k8s.model.core.v1.AWSElasticBlockStoreVolumeSource]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -1804,14 +1804,14 @@
         <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">awsElasticBlockStore</span><span class="result">: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="AWSElasticBlockStoreVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.AWSElasticBlockStoreVolumeSource">AWSElasticBlockStoreVolumeSource</a>]</span>
+        <span class="name">awsElasticBlockStore</span><span class="result">: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<a href="AWSElasticBlockStoreVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.AWSElasticBlockStoreVolumeSource">AWSElasticBlockStoreVolumeSource</a>]</span>
       </span>
       
       
     </li><li name="com.coralogix.zio.k8s.model.core.v1.PersistentVolumeSpec#azureDisk" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="azureDisk:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.AzureDiskVolumeSource]"></a><a id="azureDisk:Optional[AzureDiskVolumeSource]"></a>
+      <a id="azureDisk:zio.prelude.data.Optional[com.coralogix.zio.k8s.model.core.v1.AzureDiskVolumeSource]"></a><a id="azureDisk:Optional[AzureDiskVolumeSource]"></a>
       <span class="permalink">
-      <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/PersistentVolumeSpec.html#azureDisk:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.AzureDiskVolumeSource]" title="Permalink">
+      <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/PersistentVolumeSpec.html#azureDisk:zio.prelude.data.Optional[com.coralogix.zio.k8s.model.core.v1.AzureDiskVolumeSource]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -1820,14 +1820,14 @@
         <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">azureDisk</span><span class="result">: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="AzureDiskVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.AzureDiskVolumeSource">AzureDiskVolumeSource</a>]</span>
+        <span class="name">azureDisk</span><span class="result">: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<a href="AzureDiskVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.AzureDiskVolumeSource">AzureDiskVolumeSource</a>]</span>
       </span>
       
       
     </li><li name="com.coralogix.zio.k8s.model.core.v1.PersistentVolumeSpec#azureFile" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="azureFile:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.AzureFilePersistentVolumeSource]"></a><a id="azureFile:Optional[AzureFilePersistentVolumeSource]"></a>
+      <a id="azureFile:zio.prelude.data.Optional[com.coralogix.zio.k8s.model.core.v1.AzureFilePersistentVolumeSource]"></a><a id="azureFile:Optional[AzureFilePersistentVolumeSource]"></a>
       <span class="permalink">
-      <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/PersistentVolumeSpec.html#azureFile:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.AzureFilePersistentVolumeSource]" title="Permalink">
+      <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/PersistentVolumeSpec.html#azureFile:zio.prelude.data.Optional[com.coralogix.zio.k8s.model.core.v1.AzureFilePersistentVolumeSource]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -1836,14 +1836,14 @@
         <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">azureFile</span><span class="result">: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="AzureFilePersistentVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.AzureFilePersistentVolumeSource">AzureFilePersistentVolumeSource</a>]</span>
+        <span class="name">azureFile</span><span class="result">: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<a href="AzureFilePersistentVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.AzureFilePersistentVolumeSource">AzureFilePersistentVolumeSource</a>]</span>
       </span>
       
       
     </li><li name="com.coralogix.zio.k8s.model.core.v1.PersistentVolumeSpec#capacity" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="capacity:com.coralogix.zio.k8s.client.model.Optional[Map[String,com.coralogix.zio.k8s.model.pkg.api.resource.Quantity]]"></a><a id="capacity:Optional[Map[String,Quantity]]"></a>
+      <a id="capacity:zio.prelude.data.Optional[Map[String,com.coralogix.zio.k8s.model.pkg.api.resource.Quantity]]"></a><a id="capacity:Optional[Map[String,Quantity]]"></a>
       <span class="permalink">
-      <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/PersistentVolumeSpec.html#capacity:com.coralogix.zio.k8s.client.model.Optional[Map[String,com.coralogix.zio.k8s.model.pkg.api.resource.Quantity]]" title="Permalink">
+      <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/PersistentVolumeSpec.html#capacity:zio.prelude.data.Optional[Map[String,com.coralogix.zio.k8s.model.pkg.api.resource.Quantity]]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -1852,14 +1852,14 @@
         <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">capacity</span><span class="result">: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <a href="../../pkg/api/resource/Quantity.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.api.resource.Quantity">Quantity</a>]]</span>
+        <span class="name">capacity</span><span class="result">: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <a href="../../pkg/api/resource/Quantity.html" class="extype" name="com.coralogix.zio.k8s.model.pkg.api.resource.Quantity">Quantity</a>]]</span>
       </span>
       
       
     </li><li name="com.coralogix.zio.k8s.model.core.v1.PersistentVolumeSpec#cephfs" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="cephfs:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.CephFSPersistentVolumeSource]"></a><a id="cephfs:Optional[CephFSPersistentVolumeSource]"></a>
+      <a id="cephfs:zio.prelude.data.Optional[com.coralogix.zio.k8s.model.core.v1.CephFSPersistentVolumeSource]"></a><a id="cephfs:Optional[CephFSPersistentVolumeSource]"></a>
       <span class="permalink">
-      <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/PersistentVolumeSpec.html#cephfs:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.CephFSPersistentVolumeSource]" title="Permalink">
+      <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/PersistentVolumeSpec.html#cephfs:zio.prelude.data.Optional[com.coralogix.zio.k8s.model.core.v1.CephFSPersistentVolumeSource]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -1868,14 +1868,14 @@
         <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">cephfs</span><span class="result">: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="CephFSPersistentVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.CephFSPersistentVolumeSource">CephFSPersistentVolumeSource</a>]</span>
+        <span class="name">cephfs</span><span class="result">: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<a href="CephFSPersistentVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.CephFSPersistentVolumeSource">CephFSPersistentVolumeSource</a>]</span>
       </span>
       
       
     </li><li name="com.coralogix.zio.k8s.model.core.v1.PersistentVolumeSpec#cinder" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="cinder:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.CinderPersistentVolumeSource]"></a><a id="cinder:Optional[CinderPersistentVolumeSource]"></a>
+      <a id="cinder:zio.prelude.data.Optional[com.coralogix.zio.k8s.model.core.v1.CinderPersistentVolumeSource]"></a><a id="cinder:Optional[CinderPersistentVolumeSource]"></a>
       <span class="permalink">
-      <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/PersistentVolumeSpec.html#cinder:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.CinderPersistentVolumeSource]" title="Permalink">
+      <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/PersistentVolumeSpec.html#cinder:zio.prelude.data.Optional[com.coralogix.zio.k8s.model.core.v1.CinderPersistentVolumeSource]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -1884,14 +1884,14 @@
         <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">cinder</span><span class="result">: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="CinderPersistentVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.CinderPersistentVolumeSource">CinderPersistentVolumeSource</a>]</span>
+        <span class="name">cinder</span><span class="result">: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<a href="CinderPersistentVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.CinderPersistentVolumeSource">CinderPersistentVolumeSource</a>]</span>
       </span>
       
       
     </li><li name="com.coralogix.zio.k8s.model.core.v1.PersistentVolumeSpec#claimRef" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="claimRef:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.ObjectReference]"></a><a id="claimRef:Optional[ObjectReference]"></a>
+      <a id="claimRef:zio.prelude.data.Optional[com.coralogix.zio.k8s.model.core.v1.ObjectReference]"></a><a id="claimRef:Optional[ObjectReference]"></a>
       <span class="permalink">
-      <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/PersistentVolumeSpec.html#claimRef:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.ObjectReference]" title="Permalink">
+      <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/PersistentVolumeSpec.html#claimRef:zio.prelude.data.Optional[com.coralogix.zio.k8s.model.core.v1.ObjectReference]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -1900,7 +1900,7 @@
         <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">claimRef</span><span class="result">: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="ObjectReference.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.ObjectReference">ObjectReference</a>]</span>
+        <span class="name">claimRef</span><span class="result">: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<a href="ObjectReference.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.ObjectReference">ObjectReference</a>]</span>
       </span>
       
       
@@ -1916,7 +1916,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">clone</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+        <span class="name">clone</span><span class="params">()</span><span class="result">: <a href="https://www.scala-lang.org/api/2.12.18/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<span class="extype" name="java.lang">lang</span>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -1931,9 +1931,9 @@
               
         </dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.core.v1.PersistentVolumeSpec#csi" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="csi:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.CSIPersistentVolumeSource]"></a><a id="csi:Optional[CSIPersistentVolumeSource]"></a>
+      <a id="csi:zio.prelude.data.Optional[com.coralogix.zio.k8s.model.core.v1.CSIPersistentVolumeSource]"></a><a id="csi:Optional[CSIPersistentVolumeSource]"></a>
       <span class="permalink">
-      <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/PersistentVolumeSpec.html#csi:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.CSIPersistentVolumeSource]" title="Permalink">
+      <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/PersistentVolumeSpec.html#csi:zio.prelude.data.Optional[com.coralogix.zio.k8s.model.core.v1.CSIPersistentVolumeSource]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -1942,7 +1942,7 @@
         <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">csi</span><span class="result">: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="CSIPersistentVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.CSIPersistentVolumeSource">CSIPersistentVolumeSource</a>]</span>
+        <span class="name">csi</span><span class="result">: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<a href="CSIPersistentVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.CSIPersistentVolumeSource">CSIPersistentVolumeSource</a>]</span>
       </span>
       
       
@@ -1958,14 +1958,14 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">eq</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.AnyRef">AnyRef</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+        <span class="name">eq</span><span class="params">(<span name="arg0">arg0: <a href="https://www.scala-lang.org/api/2.12.18/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>)</span><span class="result">: <a href="https://www.scala-lang.org/api/2.12.18/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.core.v1.PersistentVolumeSpec#fc" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="fc:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.FCVolumeSource]"></a><a id="fc:Optional[FCVolumeSource]"></a>
+      <a id="fc:zio.prelude.data.Optional[com.coralogix.zio.k8s.model.core.v1.FCVolumeSource]"></a><a id="fc:Optional[FCVolumeSource]"></a>
       <span class="permalink">
-      <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/PersistentVolumeSpec.html#fc:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.FCVolumeSource]" title="Permalink">
+      <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/PersistentVolumeSpec.html#fc:zio.prelude.data.Optional[com.coralogix.zio.k8s.model.core.v1.FCVolumeSource]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -1974,14 +1974,14 @@
         <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">fc</span><span class="result">: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="FCVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.FCVolumeSource">FCVolumeSource</a>]</span>
+        <span class="name">fc</span><span class="result">: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<a href="FCVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.FCVolumeSource">FCVolumeSource</a>]</span>
       </span>
       
       
     </li><li name="com.coralogix.zio.k8s.model.core.v1.PersistentVolumeSpec#flexVolume" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="flexVolume:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.FlexPersistentVolumeSource]"></a><a id="flexVolume:Optional[FlexPersistentVolumeSource]"></a>
+      <a id="flexVolume:zio.prelude.data.Optional[com.coralogix.zio.k8s.model.core.v1.FlexPersistentVolumeSource]"></a><a id="flexVolume:Optional[FlexPersistentVolumeSource]"></a>
       <span class="permalink">
-      <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/PersistentVolumeSpec.html#flexVolume:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.FlexPersistentVolumeSource]" title="Permalink">
+      <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/PersistentVolumeSpec.html#flexVolume:zio.prelude.data.Optional[com.coralogix.zio.k8s.model.core.v1.FlexPersistentVolumeSource]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -1990,14 +1990,14 @@
         <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">flexVolume</span><span class="result">: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="FlexPersistentVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.FlexPersistentVolumeSource">FlexPersistentVolumeSource</a>]</span>
+        <span class="name">flexVolume</span><span class="result">: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<a href="FlexPersistentVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.FlexPersistentVolumeSource">FlexPersistentVolumeSource</a>]</span>
       </span>
       
       
     </li><li name="com.coralogix.zio.k8s.model.core.v1.PersistentVolumeSpec#flocker" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="flocker:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.FlockerVolumeSource]"></a><a id="flocker:Optional[FlockerVolumeSource]"></a>
+      <a id="flocker:zio.prelude.data.Optional[com.coralogix.zio.k8s.model.core.v1.FlockerVolumeSource]"></a><a id="flocker:Optional[FlockerVolumeSource]"></a>
       <span class="permalink">
-      <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/PersistentVolumeSpec.html#flocker:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.FlockerVolumeSource]" title="Permalink">
+      <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/PersistentVolumeSpec.html#flocker:zio.prelude.data.Optional[com.coralogix.zio.k8s.model.core.v1.FlockerVolumeSource]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -2006,14 +2006,14 @@
         <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">flocker</span><span class="result">: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="FlockerVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.FlockerVolumeSource">FlockerVolumeSource</a>]</span>
+        <span class="name">flocker</span><span class="result">: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<a href="FlockerVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.FlockerVolumeSource">FlockerVolumeSource</a>]</span>
       </span>
       
       
     </li><li name="com.coralogix.zio.k8s.model.core.v1.PersistentVolumeSpec#gcePersistentDisk" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="gcePersistentDisk:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.GCEPersistentDiskVolumeSource]"></a><a id="gcePersistentDisk:Optional[GCEPersistentDiskVolumeSource]"></a>
+      <a id="gcePersistentDisk:zio.prelude.data.Optional[com.coralogix.zio.k8s.model.core.v1.GCEPersistentDiskVolumeSource]"></a><a id="gcePersistentDisk:Optional[GCEPersistentDiskVolumeSource]"></a>
       <span class="permalink">
-      <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/PersistentVolumeSpec.html#gcePersistentDisk:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.GCEPersistentDiskVolumeSource]" title="Permalink">
+      <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/PersistentVolumeSpec.html#gcePersistentDisk:zio.prelude.data.Optional[com.coralogix.zio.k8s.model.core.v1.GCEPersistentDiskVolumeSource]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -2022,7 +2022,7 @@
         <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">gcePersistentDisk</span><span class="result">: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="GCEPersistentDiskVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.GCEPersistentDiskVolumeSource">GCEPersistentDiskVolumeSource</a>]</span>
+        <span class="name">gcePersistentDisk</span><span class="result">: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<a href="GCEPersistentDiskVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.GCEPersistentDiskVolumeSource">GCEPersistentDiskVolumeSource</a>]</span>
       </span>
       
       
@@ -2569,9 +2569,9 @@ in raw block state. Value of Filesystem is implied when not included in spec.</p
       <p class="shortcomment cmt">Gets vsphereVolume.</p><div class="fullcomment"><div class="comment cmt"><p>Gets vsphereVolume.</p><p>If the field is not present, fails with <a href="../../../client/UndefinedField.html" class="extype" name="com.coralogix.zio.k8s.client.UndefinedField">com.coralogix.zio.k8s.client.UndefinedField</a>.
 </p></div></div>
     </li><li name="com.coralogix.zio.k8s.model.core.v1.PersistentVolumeSpec#glusterfs" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="glusterfs:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.GlusterfsPersistentVolumeSource]"></a><a id="glusterfs:Optional[GlusterfsPersistentVolumeSource]"></a>
+      <a id="glusterfs:zio.prelude.data.Optional[com.coralogix.zio.k8s.model.core.v1.GlusterfsPersistentVolumeSource]"></a><a id="glusterfs:Optional[GlusterfsPersistentVolumeSource]"></a>
       <span class="permalink">
-      <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/PersistentVolumeSpec.html#glusterfs:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.GlusterfsPersistentVolumeSource]" title="Permalink">
+      <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/PersistentVolumeSpec.html#glusterfs:zio.prelude.data.Optional[com.coralogix.zio.k8s.model.core.v1.GlusterfsPersistentVolumeSource]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -2580,14 +2580,14 @@ in raw block state. Value of Filesystem is implied when not included in spec.</p
         <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">glusterfs</span><span class="result">: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="GlusterfsPersistentVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.GlusterfsPersistentVolumeSource">GlusterfsPersistentVolumeSource</a>]</span>
+        <span class="name">glusterfs</span><span class="result">: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<a href="GlusterfsPersistentVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.GlusterfsPersistentVolumeSource">GlusterfsPersistentVolumeSource</a>]</span>
       </span>
       
       
     </li><li name="com.coralogix.zio.k8s.model.core.v1.PersistentVolumeSpec#hostPath" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="hostPath:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.HostPathVolumeSource]"></a><a id="hostPath:Optional[HostPathVolumeSource]"></a>
+      <a id="hostPath:zio.prelude.data.Optional[com.coralogix.zio.k8s.model.core.v1.HostPathVolumeSource]"></a><a id="hostPath:Optional[HostPathVolumeSource]"></a>
       <span class="permalink">
-      <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/PersistentVolumeSpec.html#hostPath:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.HostPathVolumeSource]" title="Permalink">
+      <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/PersistentVolumeSpec.html#hostPath:zio.prelude.data.Optional[com.coralogix.zio.k8s.model.core.v1.HostPathVolumeSource]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -2596,7 +2596,7 @@ in raw block state. Value of Filesystem is implied when not included in spec.</p
         <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">hostPath</span><span class="result">: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="HostPathVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.HostPathVolumeSource">HostPathVolumeSource</a>]</span>
+        <span class="name">hostPath</span><span class="result">: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<a href="HostPathVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.HostPathVolumeSource">HostPathVolumeSource</a>]</span>
       </span>
       
       
@@ -2612,14 +2612,14 @@ in raw block state. Value of Filesystem is implied when not included in spec.</p
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">isInstanceOf</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+        <span class="name">isInstanceOf</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="result">: <a href="https://www.scala-lang.org/api/2.12.18/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.core.v1.PersistentVolumeSpec#iscsi" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="iscsi:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.ISCSIPersistentVolumeSource]"></a><a id="iscsi:Optional[ISCSIPersistentVolumeSource]"></a>
+      <a id="iscsi:zio.prelude.data.Optional[com.coralogix.zio.k8s.model.core.v1.ISCSIPersistentVolumeSource]"></a><a id="iscsi:Optional[ISCSIPersistentVolumeSource]"></a>
       <span class="permalink">
-      <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/PersistentVolumeSpec.html#iscsi:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.ISCSIPersistentVolumeSource]" title="Permalink">
+      <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/PersistentVolumeSpec.html#iscsi:zio.prelude.data.Optional[com.coralogix.zio.k8s.model.core.v1.ISCSIPersistentVolumeSource]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -2628,14 +2628,14 @@ in raw block state. Value of Filesystem is implied when not included in spec.</p
         <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">iscsi</span><span class="result">: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="ISCSIPersistentVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.ISCSIPersistentVolumeSource">ISCSIPersistentVolumeSource</a>]</span>
+        <span class="name">iscsi</span><span class="result">: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<a href="ISCSIPersistentVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.ISCSIPersistentVolumeSource">ISCSIPersistentVolumeSource</a>]</span>
       </span>
       
       
     </li><li name="com.coralogix.zio.k8s.model.core.v1.PersistentVolumeSpec#local" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="local:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.LocalVolumeSource]"></a><a id="local:Optional[LocalVolumeSource]"></a>
+      <a id="local:zio.prelude.data.Optional[com.coralogix.zio.k8s.model.core.v1.LocalVolumeSource]"></a><a id="local:Optional[LocalVolumeSource]"></a>
       <span class="permalink">
-      <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/PersistentVolumeSpec.html#local:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.LocalVolumeSource]" title="Permalink">
+      <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/PersistentVolumeSpec.html#local:zio.prelude.data.Optional[com.coralogix.zio.k8s.model.core.v1.LocalVolumeSource]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -2644,14 +2644,14 @@ in raw block state. Value of Filesystem is implied when not included in spec.</p
         <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">local</span><span class="result">: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="LocalVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.LocalVolumeSource">LocalVolumeSource</a>]</span>
+        <span class="name">local</span><span class="result">: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<a href="LocalVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.LocalVolumeSource">LocalVolumeSource</a>]</span>
       </span>
       
       
     </li><li name="com.coralogix.zio.k8s.model.core.v1.PersistentVolumeSpec#mountOptions" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="mountOptions:com.coralogix.zio.k8s.client.model.Optional[Vector[String]]"></a><a id="mountOptions:Optional[Vector[String]]"></a>
+      <a id="mountOptions:zio.prelude.data.Optional[Vector[String]]"></a><a id="mountOptions:Optional[Vector[String]]"></a>
       <span class="permalink">
-      <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/PersistentVolumeSpec.html#mountOptions:com.coralogix.zio.k8s.client.model.Optional[Vector[String]]" title="Permalink">
+      <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/PersistentVolumeSpec.html#mountOptions:zio.prelude.data.Optional[Vector[String]]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -2660,7 +2660,7 @@ in raw block state. Value of Filesystem is implied when not included in spec.</p
         <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">mountOptions</span><span class="result">: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]]</span>
+        <span class="name">mountOptions</span><span class="result">: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<span class="extype" name="scala.Vector">Vector</span>[<span class="extype" name="scala.Predef.String">String</span>]]</span>
       </span>
       
       
@@ -2676,14 +2676,14 @@ in raw block state. Value of Filesystem is implied when not included in spec.</p
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">ne</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.AnyRef">AnyRef</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+        <span class="name">ne</span><span class="params">(<span name="arg0">arg0: <a href="https://www.scala-lang.org/api/2.12.18/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>)</span><span class="result">: <a href="https://www.scala-lang.org/api/2.12.18/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.core.v1.PersistentVolumeSpec#nfs" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="nfs:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.NFSVolumeSource]"></a><a id="nfs:Optional[NFSVolumeSource]"></a>
+      <a id="nfs:zio.prelude.data.Optional[com.coralogix.zio.k8s.model.core.v1.NFSVolumeSource]"></a><a id="nfs:Optional[NFSVolumeSource]"></a>
       <span class="permalink">
-      <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/PersistentVolumeSpec.html#nfs:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.NFSVolumeSource]" title="Permalink">
+      <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/PersistentVolumeSpec.html#nfs:zio.prelude.data.Optional[com.coralogix.zio.k8s.model.core.v1.NFSVolumeSource]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -2692,14 +2692,14 @@ in raw block state. Value of Filesystem is implied when not included in spec.</p
         <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">nfs</span><span class="result">: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="NFSVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.NFSVolumeSource">NFSVolumeSource</a>]</span>
+        <span class="name">nfs</span><span class="result">: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<a href="NFSVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.NFSVolumeSource">NFSVolumeSource</a>]</span>
       </span>
       
       
     </li><li name="com.coralogix.zio.k8s.model.core.v1.PersistentVolumeSpec#nodeAffinity" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="nodeAffinity:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.VolumeNodeAffinity]"></a><a id="nodeAffinity:Optional[VolumeNodeAffinity]"></a>
+      <a id="nodeAffinity:zio.prelude.data.Optional[com.coralogix.zio.k8s.model.core.v1.VolumeNodeAffinity]"></a><a id="nodeAffinity:Optional[VolumeNodeAffinity]"></a>
       <span class="permalink">
-      <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/PersistentVolumeSpec.html#nodeAffinity:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.VolumeNodeAffinity]" title="Permalink">
+      <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/PersistentVolumeSpec.html#nodeAffinity:zio.prelude.data.Optional[com.coralogix.zio.k8s.model.core.v1.VolumeNodeAffinity]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -2708,7 +2708,7 @@ in raw block state. Value of Filesystem is implied when not included in spec.</p
         <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">nodeAffinity</span><span class="result">: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="VolumeNodeAffinity.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.VolumeNodeAffinity">VolumeNodeAffinity</a>]</span>
+        <span class="name">nodeAffinity</span><span class="result">: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<a href="VolumeNodeAffinity.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.VolumeNodeAffinity">VolumeNodeAffinity</a>]</span>
       </span>
       
       
@@ -2724,7 +2724,7 @@ in raw block state. Value of Filesystem is implied when not included in spec.</p
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">notify</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+        <span class="name">notify</span><span class="params">()</span><span class="result">: <a href="https://www.scala-lang.org/api/2.12.18/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -2745,7 +2745,7 @@ in raw block state. Value of Filesystem is implied when not included in spec.</p
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">notifyAll</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+        <span class="name">notifyAll</span><span class="params">()</span><span class="result">: <a href="https://www.scala-lang.org/api/2.12.18/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -2755,9 +2755,9 @@ in raw block state. Value of Filesystem is implied when not included in spec.</p
               
         </dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.core.v1.PersistentVolumeSpec#persistentVolumeReclaimPolicy" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="persistentVolumeReclaimPolicy:com.coralogix.zio.k8s.client.model.Optional[String]"></a><a id="persistentVolumeReclaimPolicy:Optional[String]"></a>
+      <a id="persistentVolumeReclaimPolicy:zio.prelude.data.Optional[String]"></a><a id="persistentVolumeReclaimPolicy:Optional[String]"></a>
       <span class="permalink">
-      <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/PersistentVolumeSpec.html#persistentVolumeReclaimPolicy:com.coralogix.zio.k8s.client.model.Optional[String]" title="Permalink">
+      <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/PersistentVolumeSpec.html#persistentVolumeReclaimPolicy:zio.prelude.data.Optional[String]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -2766,14 +2766,14 @@ in raw block state. Value of Filesystem is implied when not included in spec.</p
         <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">persistentVolumeReclaimPolicy</span><span class="result">: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>]</span>
+        <span class="name">persistentVolumeReclaimPolicy</span><span class="result">: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
       
     </li><li name="com.coralogix.zio.k8s.model.core.v1.PersistentVolumeSpec#photonPersistentDisk" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="photonPersistentDisk:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.PhotonPersistentDiskVolumeSource]"></a><a id="photonPersistentDisk:Optional[PhotonPersistentDiskVolumeSource]"></a>
+      <a id="photonPersistentDisk:zio.prelude.data.Optional[com.coralogix.zio.k8s.model.core.v1.PhotonPersistentDiskVolumeSource]"></a><a id="photonPersistentDisk:Optional[PhotonPersistentDiskVolumeSource]"></a>
       <span class="permalink">
-      <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/PersistentVolumeSpec.html#photonPersistentDisk:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.PhotonPersistentDiskVolumeSource]" title="Permalink">
+      <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/PersistentVolumeSpec.html#photonPersistentDisk:zio.prelude.data.Optional[com.coralogix.zio.k8s.model.core.v1.PhotonPersistentDiskVolumeSource]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -2782,14 +2782,14 @@ in raw block state. Value of Filesystem is implied when not included in spec.</p
         <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">photonPersistentDisk</span><span class="result">: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="PhotonPersistentDiskVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.PhotonPersistentDiskVolumeSource">PhotonPersistentDiskVolumeSource</a>]</span>
+        <span class="name">photonPersistentDisk</span><span class="result">: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<a href="PhotonPersistentDiskVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.PhotonPersistentDiskVolumeSource">PhotonPersistentDiskVolumeSource</a>]</span>
       </span>
       
       
     </li><li name="com.coralogix.zio.k8s.model.core.v1.PersistentVolumeSpec#portworxVolume" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="portworxVolume:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.PortworxVolumeSource]"></a><a id="portworxVolume:Optional[PortworxVolumeSource]"></a>
+      <a id="portworxVolume:zio.prelude.data.Optional[com.coralogix.zio.k8s.model.core.v1.PortworxVolumeSource]"></a><a id="portworxVolume:Optional[PortworxVolumeSource]"></a>
       <span class="permalink">
-      <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/PersistentVolumeSpec.html#portworxVolume:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.PortworxVolumeSource]" title="Permalink">
+      <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/PersistentVolumeSpec.html#portworxVolume:zio.prelude.data.Optional[com.coralogix.zio.k8s.model.core.v1.PortworxVolumeSource]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -2798,14 +2798,14 @@ in raw block state. Value of Filesystem is implied when not included in spec.</p
         <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">portworxVolume</span><span class="result">: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="PortworxVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.PortworxVolumeSource">PortworxVolumeSource</a>]</span>
+        <span class="name">portworxVolume</span><span class="result">: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<a href="PortworxVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.PortworxVolumeSource">PortworxVolumeSource</a>]</span>
       </span>
       
       
     </li><li name="com.coralogix.zio.k8s.model.core.v1.PersistentVolumeSpec#quobyte" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="quobyte:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.QuobyteVolumeSource]"></a><a id="quobyte:Optional[QuobyteVolumeSource]"></a>
+      <a id="quobyte:zio.prelude.data.Optional[com.coralogix.zio.k8s.model.core.v1.QuobyteVolumeSource]"></a><a id="quobyte:Optional[QuobyteVolumeSource]"></a>
       <span class="permalink">
-      <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/PersistentVolumeSpec.html#quobyte:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.QuobyteVolumeSource]" title="Permalink">
+      <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/PersistentVolumeSpec.html#quobyte:zio.prelude.data.Optional[com.coralogix.zio.k8s.model.core.v1.QuobyteVolumeSource]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -2814,14 +2814,14 @@ in raw block state. Value of Filesystem is implied when not included in spec.</p
         <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">quobyte</span><span class="result">: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="QuobyteVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.QuobyteVolumeSource">QuobyteVolumeSource</a>]</span>
+        <span class="name">quobyte</span><span class="result">: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<a href="QuobyteVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.QuobyteVolumeSource">QuobyteVolumeSource</a>]</span>
       </span>
       
       
     </li><li name="com.coralogix.zio.k8s.model.core.v1.PersistentVolumeSpec#rbd" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="rbd:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.RBDPersistentVolumeSource]"></a><a id="rbd:Optional[RBDPersistentVolumeSource]"></a>
+      <a id="rbd:zio.prelude.data.Optional[com.coralogix.zio.k8s.model.core.v1.RBDPersistentVolumeSource]"></a><a id="rbd:Optional[RBDPersistentVolumeSource]"></a>
       <span class="permalink">
-      <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/PersistentVolumeSpec.html#rbd:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.RBDPersistentVolumeSource]" title="Permalink">
+      <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/PersistentVolumeSpec.html#rbd:zio.prelude.data.Optional[com.coralogix.zio.k8s.model.core.v1.RBDPersistentVolumeSource]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -2830,14 +2830,14 @@ in raw block state. Value of Filesystem is implied when not included in spec.</p
         <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">rbd</span><span class="result">: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="RBDPersistentVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.RBDPersistentVolumeSource">RBDPersistentVolumeSource</a>]</span>
+        <span class="name">rbd</span><span class="result">: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<a href="RBDPersistentVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.RBDPersistentVolumeSource">RBDPersistentVolumeSource</a>]</span>
       </span>
       
       
     </li><li name="com.coralogix.zio.k8s.model.core.v1.PersistentVolumeSpec#scaleIO" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="scaleIO:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.ScaleIOPersistentVolumeSource]"></a><a id="scaleIO:Optional[ScaleIOPersistentVolumeSource]"></a>
+      <a id="scaleIO:zio.prelude.data.Optional[com.coralogix.zio.k8s.model.core.v1.ScaleIOPersistentVolumeSource]"></a><a id="scaleIO:Optional[ScaleIOPersistentVolumeSource]"></a>
       <span class="permalink">
-      <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/PersistentVolumeSpec.html#scaleIO:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.ScaleIOPersistentVolumeSource]" title="Permalink">
+      <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/PersistentVolumeSpec.html#scaleIO:zio.prelude.data.Optional[com.coralogix.zio.k8s.model.core.v1.ScaleIOPersistentVolumeSource]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -2846,14 +2846,14 @@ in raw block state. Value of Filesystem is implied when not included in spec.</p
         <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">scaleIO</span><span class="result">: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="ScaleIOPersistentVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.ScaleIOPersistentVolumeSource">ScaleIOPersistentVolumeSource</a>]</span>
+        <span class="name">scaleIO</span><span class="result">: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<a href="ScaleIOPersistentVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.ScaleIOPersistentVolumeSource">ScaleIOPersistentVolumeSource</a>]</span>
       </span>
       
       
     </li><li name="com.coralogix.zio.k8s.model.core.v1.PersistentVolumeSpec#storageClassName" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="storageClassName:com.coralogix.zio.k8s.client.model.Optional[String]"></a><a id="storageClassName:Optional[String]"></a>
+      <a id="storageClassName:zio.prelude.data.Optional[String]"></a><a id="storageClassName:Optional[String]"></a>
       <span class="permalink">
-      <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/PersistentVolumeSpec.html#storageClassName:com.coralogix.zio.k8s.client.model.Optional[String]" title="Permalink">
+      <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/PersistentVolumeSpec.html#storageClassName:zio.prelude.data.Optional[String]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -2862,14 +2862,14 @@ in raw block state. Value of Filesystem is implied when not included in spec.</p
         <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">storageClassName</span><span class="result">: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>]</span>
+        <span class="name">storageClassName</span><span class="result">: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
       
     </li><li name="com.coralogix.zio.k8s.model.core.v1.PersistentVolumeSpec#storageos" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="storageos:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.StorageOSPersistentVolumeSource]"></a><a id="storageos:Optional[StorageOSPersistentVolumeSource]"></a>
+      <a id="storageos:zio.prelude.data.Optional[com.coralogix.zio.k8s.model.core.v1.StorageOSPersistentVolumeSource]"></a><a id="storageos:Optional[StorageOSPersistentVolumeSource]"></a>
       <span class="permalink">
-      <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/PersistentVolumeSpec.html#storageos:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.StorageOSPersistentVolumeSource]" title="Permalink">
+      <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/PersistentVolumeSpec.html#storageos:zio.prelude.data.Optional[com.coralogix.zio.k8s.model.core.v1.StorageOSPersistentVolumeSource]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -2878,7 +2878,7 @@ in raw block state. Value of Filesystem is implied when not included in spec.</p
         <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">storageos</span><span class="result">: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="StorageOSPersistentVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.StorageOSPersistentVolumeSource">StorageOSPersistentVolumeSource</a>]</span>
+        <span class="name">storageos</span><span class="result">: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<a href="StorageOSPersistentVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.StorageOSPersistentVolumeSource">StorageOSPersistentVolumeSource</a>]</span>
       </span>
       
       
@@ -2899,9 +2899,9 @@ in raw block state. Value of Filesystem is implied when not included in spec.</p
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
     </li><li name="com.coralogix.zio.k8s.model.core.v1.PersistentVolumeSpec#volumeMode" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="volumeMode:com.coralogix.zio.k8s.client.model.Optional[String]"></a><a id="volumeMode:Optional[String]"></a>
+      <a id="volumeMode:zio.prelude.data.Optional[String]"></a><a id="volumeMode:Optional[String]"></a>
       <span class="permalink">
-      <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/PersistentVolumeSpec.html#volumeMode:com.coralogix.zio.k8s.client.model.Optional[String]" title="Permalink">
+      <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/PersistentVolumeSpec.html#volumeMode:zio.prelude.data.Optional[String]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -2910,14 +2910,14 @@ in raw block state. Value of Filesystem is implied when not included in spec.</p
         <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">volumeMode</span><span class="result">: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>]</span>
+        <span class="name">volumeMode</span><span class="result">: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       
       
     </li><li name="com.coralogix.zio.k8s.model.core.v1.PersistentVolumeSpec#vsphereVolume" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="vsphereVolume:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.VsphereVirtualDiskVolumeSource]"></a><a id="vsphereVolume:Optional[VsphereVirtualDiskVolumeSource]"></a>
+      <a id="vsphereVolume:zio.prelude.data.Optional[com.coralogix.zio.k8s.model.core.v1.VsphereVirtualDiskVolumeSource]"></a><a id="vsphereVolume:Optional[VsphereVirtualDiskVolumeSource]"></a>
       <span class="permalink">
-      <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/PersistentVolumeSpec.html#vsphereVolume:com.coralogix.zio.k8s.client.model.Optional[com.coralogix.zio.k8s.model.core.v1.VsphereVirtualDiskVolumeSource]" title="Permalink">
+      <a href="../../../../../../../com/coralogix/zio/k8s/model/core/v1/PersistentVolumeSpec.html#vsphereVolume:zio.prelude.data.Optional[com.coralogix.zio.k8s.model.core.v1.VsphereVirtualDiskVolumeSource]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -2926,7 +2926,7 @@ in raw block state. Value of Filesystem is implied when not included in spec.</p
         <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">vsphereVolume</span><span class="result">: <a href="../../../client/model/Optional.html" class="extype" name="com.coralogix.zio.k8s.client.model.Optional">Optional</a>[<a href="VsphereVirtualDiskVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.VsphereVirtualDiskVolumeSource">VsphereVirtualDiskVolumeSource</a>]</span>
+        <span class="name">vsphereVolume</span><span class="result">: <a href="https://javadoc.io/page/dev.zio/zio-prelude_2.12/1.0.0-RC19/zio/prelude/data/Optional.html#zio.prelude.data.Optional" class="extype" name="zio.prelude.data.Optional">Optional</a>[<a href="VsphereVirtualDiskVolumeSource.html" class="extype" name="com.coralogix.zio.k8s.model.core.v1.VsphereVirtualDiskVolumeSource">VsphereVirtualDiskVolumeSource</a>]</span>
       </span>
       
       
@@ -2942,7 +2942,7 @@ in raw block state. Value of Filesystem is implied when not included in spec.</p
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Long">Long</span></span>, <span name="arg1">arg1: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <a href="https://www.scala-lang.org/api/2.12.18/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a></span>, <span name="arg1">arg1: <a href="https://www.scala-lang.org/api/2.12.18/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>)</span><span class="result">: <a href="https://www.scala-lang.org/api/2.12.18/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -2964,7 +2964,7 @@ in raw block state. Value of Filesystem is implied when not included in spec.</p
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Long">Long</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <a href="https://www.scala-lang.org/api/2.12.18/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a></span>)</span><span class="result">: <a href="https://www.scala-lang.org/api/2.12.18/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -2988,7 +2988,7 @@ in raw block state. Value of Filesystem is implied when not included in spec.</p
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">wait</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+        <span class="name">wait</span><span class="params">()</span><span class="result">: <a href="https://www.scala-lang.org/api/2.12.18/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -3018,7 +3018,7 @@ in raw block state. Value of Filesystem is implied when not included in spec.</p
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name deprecated" title="Deprecated: ">finalize</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+        <span class="name deprecated" title="Deprecated: ">finalize</span><span class="params">()</span><span class="result">: <a href="https://www.scala-lang.org/api/2.12.18/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<span class="extype" name="java.lang">lang</span>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -3036,17 +3036,17 @@ in raw block state. Value of Filesystem is implied when not included in spec.</p
 
         <div id="inheritedMembers">
         <div class="parent" name="scala.Serializable">
-              <h3>Inherited from <span class="extype" name="scala.Serializable">Serializable</span></h3>
+              <h3>Inherited from <a href="https://www.scala-lang.org/api/2.12.18/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></h3>
             </div><div class="parent" name="java.io.Serializable">
               <h3>Inherited from <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/io/Serializable.html#java.io.Serializable" class="extype" name="java.io.Serializable">Serializable</a></h3>
             </div><div class="parent" name="scala.Product">
-              <h3>Inherited from <span class="extype" name="scala.Product">Product</span></h3>
+              <h3>Inherited from <a href="https://www.scala-lang.org/api/2.12.18/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a></h3>
             </div><div class="parent" name="scala.Equals">
-              <h3>Inherited from <span class="extype" name="scala.Equals">Equals</span></h3>
+              <h3>Inherited from <a href="https://www.scala-lang.org/api/2.12.18/scala/Equals.html#scala.Equals" class="extype" name="scala.Equals">Equals</a></h3>
             </div><div class="parent" name="scala.AnyRef">
-              <h3>Inherited from <span class="extype" name="scala.AnyRef">AnyRef</span></h3>
+              <h3>Inherited from <a href="https://www.scala-lang.org/api/2.12.18/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></h3>
             </div><div class="parent" name="scala.Any">
-              <h3>Inherited from <span class="extype" name="scala.Any">Any</span></h3>
+              <h3>Inherited from <a href="https://www.scala-lang.org/api/2.12.18/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></h3>
             </div>
         
         </div>

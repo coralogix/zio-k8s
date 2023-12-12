@@ -276,7 +276,7 @@
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a title="Quantity is a fixed-point representation of a number." href="Quantity.html"><span class="name">Quantity</span></a><span class="params">(<span name="value">value: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result"> extends <span class="extype" name="scala.AnyVal">AnyVal</span> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a title="Quantity is a fixed-point representation of a number." href="Quantity.html"><span class="name">Quantity</span></a><span class="params">(<span name="value">value: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result"> extends <a href="https://www.scala-lang.org/api/2.12.18/scala/AnyVal.html#scala.AnyVal" class="extype" name="scala.AnyVal">AnyVal</a> with <a href="https://www.scala-lang.org/api/2.12.18/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a> with <a href="https://www.scala-lang.org/api/2.12.18/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
       </span>
       
       <p class="shortcomment cmt">Quantity is a fixed-point representation of a number.</p><div class="fullcomment"><div class="comment cmt"><p>Quantity is a fixed-point representation of a number. It provides convenient
@@ -293,10 +293,8 @@ precise will be capped or rounded up. (E.g.: 0.1m will rounded up to 1m.) This m
 in the future if we require larger or smaller quantities.</p><p>When a Quantity is parsed from a string, it will remember the type of suffix it had, and will
 use the same type again when it is serialized.</p><p>Before serializing, Quantity will be put in &quot;canonical form&quot;. This means that Exponent/suffix
 will be adjusted up or down (with a corresponding increase or decrease in Mantissa) such that:
-a. No precision is lost b. No fractional digits will be emitted c. The exponent (or suffix) is
-as large as possible. The sign will be omitted unless the number is negative.</p><p>Examples:
-1.5 will be serialized as &quot;1500m&quot;
-1.5Gi will be serialized as &quot;1536Mi&quot;</p><p>Note that the quantity will NEVER be internally represented by a floating point number. That is
+\a. No precision is lost b. No fractional digits will be emitted c. The exponent (or suffix) is
+as large as possible. The sign will be omitted unless the number is negative.</p><p>Examples: 1.5 will be serialized as &quot;1500m&quot; 1.5Gi will be serialized as &quot;1536Mi&quot;</p><p>Note that the quantity will NEVER be internally represented by a floating point number. That is
 the whole point of this exercise.</p><p>Non-canonical values will still parse as long as they are well formed, but will be re-emitted in
 their canonical form. (So always use canonical form, or don't diff.)</p><p>This format is intended to make it difficult to use these numbers without writing some sort of
 special handling code in the hopes that that will cause implementors to also use a fixed point
@@ -322,7 +320,7 @@ implementation.
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a title="" href="Quantity$.html"><span class="name">Quantity</span></a><span class="result"> extends <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <a title="" href="Quantity$.html"><span class="name">Quantity</span></a><span class="result"> extends <a href="https://www.scala-lang.org/api/2.12.18/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
       </span>
       
       
