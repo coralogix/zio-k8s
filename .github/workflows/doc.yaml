@@ -4,6 +4,7 @@ on:
   push:
     tags:
       - 'v1.*'
+      - 'v2.*'
 
 jobs:
   publish:
