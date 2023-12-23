@@ -1,6 +1,7 @@
 package com.coralogix.zio.k8s.codegen
 
 import com.coralogix.zio.k8s.codegen.K8sSwaggerPlugin.autoImport.*
+import io.github.vigoo.metagen.core.*
 import sbt.Keys.*
 import sbt.*
 import zio.Unsafe
@@ -24,12 +25,19 @@ object K8sOpticsCodegenPlugin extends AutoPlugin {
         ) { input: Set[File] =>
           input.foldLeft(Set.empty[File]) { (result, k8sSwagger) =>
             Unsafe.unsafe { implicit u =>
-              val fs = runtime.unsafe.run(
-                codegen.generateAllOptics(
-                  ZPath.fromJava(k8sSwagger.toPath),
-                  ZPath.fromJava(sourcesDir.toPath)
-                )
-              ).getOrThrow()
+              val fs = runtime.unsafe.run {
+                val generator =
+                  for {
+                    _ <- Generator.setRoot(ZPath.fromJava(sourcesDir.toPath))
+                    _ <- Generator.setScalaVersion(scalaVer)
+                    _ <- Generator.enableFormatting()
+                    result <- codegen.generateAllOptics(
+                      ZPath.fromJava(k8sSwagger.toPath)
+                    )
+                  } yield result
+
+                generator.provideLayer(Generator.live)
+              }.getOrThrowFiberFailure()
               result union fs.toSet
             }
           }

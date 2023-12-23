@@ -17,7 +17,8 @@ import scala.meta.Term.ArgClause
 trait ModelGenerator {
   this: Common =>
 
-  val modelRoot = Vector("com", "coralogix", "zio", "k8s", "model")
+  val modelRootPkg = Package("com", "coralogix", "zio", "k8s", "model") // TODO: rename
+  val modelRoot = Vector("com", "coralogix", "zio", "k8s", "model") // TODO: remove
   def logger: sbt.Logger
 
   protected def generateAllModels(

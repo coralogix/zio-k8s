@@ -4,6 +4,7 @@ import io.github.vigoo.metagen.core.Package
 
 object Packages {
   val zio: Package = Package("zio")
+  val zioOptics: Package = zio / "optics"
   val zioPrelude: Package = zio / "prelude"
 
   val k8sModel: Package = Package("com", "coralogix", "zio", "k8s", "model")

@@ -2,13 +2,14 @@ package com.coralogix.zio.k8s.codegen.internal
 
 import com.coralogix.zio.k8s.codegen.internal.CodegenIO.{readTextFile, writeTextFile}
 import com.coralogix.zio.k8s.codegen.internal.Conversions.{splitName, splitNameOld}
+import io.github.vigoo.metagen.core.ScalaType
 import io.swagger.v3.oas.models.media.ObjectSchema
 import org.scalafmt.interfaces.Scalafmt
 import zio.ZIO
 import zio.nio.file.Path
 
 import java.nio.file.{Path as JPath, Paths as JPaths}
-import scala.meta.Tree
+import scala.meta.{Pat, Tree}
 import scala.meta.internal.prettyprinters.TreeSyntax
 
 trait Common {
@@ -48,4 +49,12 @@ trait Common {
         formatted = scalafmt.format(JPaths.get(".scalafmt.conf"), path.toFile.toPath, code)
         _        <- writeTextFile(path, formatted)
       } yield path
+
+  implicit class ScalaTypeOps(scalaType: ScalaType) {
+    def pat: Pat.Var = Pat.Var(scalaType.termName)
+
+    def renamed(f: String => String): ScalaType =
+      ScalaType(scalaType.pkg, f(scalaType.name), scalaType.params *)
+  }
 }
+

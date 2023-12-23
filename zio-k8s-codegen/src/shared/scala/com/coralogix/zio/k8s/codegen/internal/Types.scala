@@ -122,4 +122,8 @@ object Types {
 
   def monocleOptional(s: ScalaType, a: ScalaType): ScalaType =
     ScalaType(Packages.monocle, "Optional", s, a)
+
+  def zioOpticsLens(s: ScalaType, a: ScalaType) = ScalaType(Packages.zioOptics, "Lens", s, a)
+
+  val zioOpticsLens_ : ScalaType = ScalaType(Packages.zioOptics, "Lens")
 }

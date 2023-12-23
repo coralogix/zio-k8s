@@ -3,14 +3,14 @@ package com.coralogix.zio.k8s.codegen
 import com.coralogix.zio.k8s.codegen.internal.CodegenIO.*
 import com.coralogix.zio.k8s.codegen.internal.Conversions.*
 import com.coralogix.zio.k8s.codegen.internal.*
-import io.github.vigoo.metagen.core.{Generator, GeneratorFailure}
+import io.github.vigoo.metagen.core.{ Generator, GeneratorFailure }
 import io.swagger.parser.OpenAPIParser
 import io.swagger.v3.oas.models.OpenAPI
 import io.swagger.v3.parser.core.models.ParseOptions
 import org.scalafmt.interfaces.Scalafmt
 import zio.nio.file.Path
 import zio.nio.file.Files
-import zio.{Task, ZIO}
+import zio.{ Task, ZIO }
 import zio.ZIO.*
 
 import java.io.File
@@ -78,13 +78,11 @@ class K8sResourceCodegen(val logger: sbt.Logger, val scalaVersion: String)
     } yield opticsPaths.map(_.toFile).toSeq
 
   def generateAllOptics(
-    from: Path,
-    targetDir: Path
-  ): ZIO[Any, Throwable, Seq[File]] =
+    from: Path
+  ): ZIO[Generator, GeneratorFailure[Throwable], Seq[File]] =
     for {
       // Loading
-      spec     <- loadK8sSwagger(from)
-      scalafmt <- ZIO.attempt(Scalafmt.create(this.getClass.getClassLoader))
+      spec <- loadK8sSwagger(from).mapError(GeneratorFailure.CustomFailure(_))
 
       // Identifying
       definitions  = spec.getComponents.getSchemas.asScala
@@ -92,7 +90,7 @@ class K8sResourceCodegen(val logger: sbt.Logger, val scalaVersion: String)
                        .toSet
 
       // Generating code
-      opticsPaths <- generateAllZioOptics(scalafmt, targetDir, definitions)
+      opticsPaths <- generateAllZioOptics(definitions)
     } yield opticsPaths.map(_.toFile).toSeq
 
   private def loadK8sSwagger(from: Path): ZIO[Any, Throwable, OpenAPI] =
