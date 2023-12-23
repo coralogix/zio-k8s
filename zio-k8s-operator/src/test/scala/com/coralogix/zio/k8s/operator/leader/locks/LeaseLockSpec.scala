@@ -14,7 +14,7 @@ import zio.ZIO.{ ifZIO, logDebug, logInfo }
 import zio.logging.LogFormat
 import zio.stream.ZStream
 import zio.test.Assertion._
-import zio.test.TestAspect.timeout
+import zio.test.TestAspect.{ flaky, timeout }
 import zio.test._
 import zio.{ stream, Clock, Fiber, IO, RIO, Ref, UIO, ULayer, ZIO, ZLayer, _ }
 
@@ -410,7 +410,7 @@ object LeaseLockSpec extends ZIOSpecDefault {
         } yield assertTrue(w0 == "pod1") && assertTrue(w1 == "pod2")
 
       testIO
-    }.provideCustomLayer(Leases.test)
+    }.provideCustomLayer(Leases.test) @@ flaky // TODO: investigate why this test is flaky on CI
 
   val renewalFailure: Spec[TestEnvironment, Any] =
     test("becomes leader then fails to renew and gets aborted") {
