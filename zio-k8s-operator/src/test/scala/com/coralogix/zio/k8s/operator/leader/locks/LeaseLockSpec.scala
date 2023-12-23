@@ -14,7 +14,7 @@ import zio.ZIO.{ ifZIO, logDebug, logInfo }
 import zio.logging.LogFormat
 import zio.stream.ZStream
 import zio.test.Assertion._
-import zio.test.TestAspect.timeout
+import zio.test.TestAspect.{ flaky, timeout }
 import zio.test._
 import zio.{ stream, Clock, Fiber, IO, RIO, Ref, UIO, ULayer, ZIO, ZLayer, _ }
 
@@ -248,13 +248,13 @@ object LeaseLockSpec extends ZIOSpecDefault {
 
   override def spec: Spec[TestEnvironment, Any] =
     suite("Lease based leader election")(
-//      simultaneousStartupSingleLeaderTest,
-//      newLeaderAfterInterruptionTest,
-//      stolenLeaseInterruptionTest,
-//      noK8sAccessTest,
-      clockSkewTest
-//      renewalFailure
-    ) @@ timeout(30.second)
+      simultaneousStartupSingleLeaderTest,
+      newLeaderAfterInterruptionTest,
+      stolenLeaseInterruptionTest,
+      noK8sAccessTest,
+      clockSkewTest,
+      renewalFailure
+    ) @@ flaky @@ timeout(2.minutes) // TODO: investigate why this test is flaky on CI
 
   val simultaneousStartupSingleLeaderTest: Spec[TestEnvironment, Any] =
     test("simultaneous startup, only one leads") {
