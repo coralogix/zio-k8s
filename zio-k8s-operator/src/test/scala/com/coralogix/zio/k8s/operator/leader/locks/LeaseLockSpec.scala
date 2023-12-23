@@ -248,13 +248,13 @@ object LeaseLockSpec extends ZIOSpecDefault {
 
   override def spec: Spec[TestEnvironment, Any] =
     suite("Lease based leader election")(
-//      simultaneousStartupSingleLeaderTest,
-//      newLeaderAfterInterruptionTest,
-//      stolenLeaseInterruptionTest,
-//      noK8sAccessTest,
-      clockSkewTest
-//      renewalFailure
-    ) @@ timeout(30.second)
+      simultaneousStartupSingleLeaderTest,
+      newLeaderAfterInterruptionTest,
+      stolenLeaseInterruptionTest,
+      noK8sAccessTest,
+      clockSkewTest,
+      renewalFailure
+    ) @@ flaky @@ timeout(2.minutes) // TODO: investigate why this test is flaky on CI
 
   val simultaneousStartupSingleLeaderTest: Spec[TestEnvironment, Any] =
     test("simultaneous startup, only one leads") {
@@ -410,7 +410,7 @@ object LeaseLockSpec extends ZIOSpecDefault {
         } yield assertTrue(w0 == "pod1") && assertTrue(w1 == "pod2")
 
       testIO
-    }.provideCustomLayer(Leases.test) @@ flaky // TODO: investigate why this test is flaky on CI
+    }.provideCustomLayer(Leases.test)
 
   val renewalFailure: Spec[TestEnvironment, Any] =
     test("becomes leader then fails to renew and gets aborted") {
