@@ -8,7 +8,7 @@ import sttp.capabilities.zio.ZioStreams
 import sttp.client3.SttpBackend
 import sttp.client3.asynchttpclient.zio._
 import sttp.client3.logging.LoggingBackend
-import sttp.client3.logging.slf4j.{ Slf4jLogger, Slf4jLoggingBackend }
+import sttp.client3.logging.slf4j.Slf4jLogger
 import zio._
 
 /** HTTP client implementation based on the async-http-client-zio backend

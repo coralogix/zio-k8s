@@ -1,13 +1,13 @@
-val scala212Version = "2.12.17"
-val scala213Version = "2.13.10"
-val scala3Version = "3.2.2"
+val scala212Version = "2.12.18"
+val scala213Version = "2.13.11"
+val scala3Version = "3.3.1"
 
-val zioVersion = "2.0.13"
-val zioConfigVersion = "3.0.7"
-val zioLoggingVersion = "2.1.12"
-val sttpVersion = "3.8.15"
-val zioNioVersion = "2.0.1"
-val zioPreludeVersion = "1.0.0-RC18"
+val zioVersion = "2.0.15"
+val zioConfigVersion = "4.0.0-RC16"
+val zioLoggingVersion = "2.1.13"
+val sttpVersion = "3.8.16"
+val zioNioVersion = "2.0.2"
+val zioPreludeVersion = "1.0.0-RC19"
 
 Global / onChangedBuildSource := ReloadOnSourceChanges
 
@@ -63,20 +63,22 @@ lazy val client = Project("zio-k8s-client", file("zio-k8s-client"))
       "dev.zio"                       %% "zio"                           % zioVersion,
       "dev.zio"                       %% "zio-streams"                   % zioVersion,
       "dev.zio"                       %% "zio-config"                    % zioConfigVersion,
+      "dev.zio"                       %% "zio-config-derivation"         % zioConfigVersion,
+      "dev.zio"                       %% "zio-config-magnolia"           % zioConfigVersion,
       "dev.zio"                       %% "zio-nio"                       % zioNioVersion,
       "dev.zio"                       %% "zio-process"                   % "0.7.2",
       "dev.zio"                       %% "zio-prelude"                   % zioPreludeVersion,
       "com.softwaremill.sttp.client3" %% "core"                          % sttpVersion,
       "com.softwaremill.sttp.client3" %% "zio"                           % sttpVersion,
       "com.softwaremill.sttp.client3" %% "circe"                         % sttpVersion,
-      "io.circe"                      %% "circe-core"                    % "0.14.5",
-      "io.circe"                      %% "circe-generic"                 % "0.14.5",
-      "io.circe"                      %% "circe-parser"                  % "0.14.5",
+      "io.circe"                      %% "circe-core"                    % "0.14.6",
+      "io.circe"                      %% "circe-generic"                 % "0.14.6",
+      "io.circe"                      %% "circe-parser"                  % "0.14.6",
       "io.circe"                      %% "circe-yaml"                    % "0.14.2",
-      "org.bouncycastle"               % "bcpkix-jdk18on"                % "1.73",
+      "org.bouncycastle"               % "bcpkix-jdk18on"                % "1.75",
+      "dev.zio"                       %% "zio-config-typesafe"           % zioConfigVersion % Test,
       "dev.zio"                       %% "zio-test"                      % zioVersion       % Test,
       "dev.zio"                       %% "zio-test-sbt"                  % zioVersion       % Test,
-      "dev.zio"                       %% "zio-config-typesafe"           % zioConfigVersion % Test,
       "com.softwaremill.sttp.client3" %% "slf4j-backend"                 % sttpVersion      % Optional,
       "com.softwaremill.sttp.client3" %% "async-http-client-backend-zio" % sttpVersion      % Optional
     ),
@@ -102,7 +104,7 @@ lazy val clientQuicklens = Project("zio-k8s-client-quicklens", file("zio-k8s-cli
   .settings(commonSettings)
   .settings(
     libraryDependencies ++= Seq(
-      "com.softwaremill.quicklens" %% "quicklens"    % "1.9.2",
+      "com.softwaremill.quicklens" %% "quicklens"    % "1.9.6",
       "dev.zio"                    %% "zio-test"     % zioVersion % Test,
       "dev.zio"                    %% "zio-test-sbt" % zioVersion % Test
     ),
@@ -178,7 +180,7 @@ lazy val crd = Project("zio-k8s-crd", file("zio-k8s-crd"))
   .settings(commonSettings)
   .settings(
     sbtPlugin          := true,
-    scalaVersion       := "2.12.17",
+    scalaVersion       := scala212Version,
     crossVersion       := CrossVersion.disabled,
     Compile / unmanagedSourceDirectories += baseDirectory.value / "../zio-k8s-codegen/src/shared/scala",
     libraryDependencies ++= Seq(
