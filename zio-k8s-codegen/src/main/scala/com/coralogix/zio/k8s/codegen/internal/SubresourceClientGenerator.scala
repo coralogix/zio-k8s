@@ -1,13 +1,13 @@
 package com.coralogix.zio.k8s.codegen.internal
 
 import com.coralogix.zio.k8s.codegen.internal.CodegenIO.writeTextFile
-import com.coralogix.zio.k8s.codegen.internal.Conversions.splitName
+import com.coralogix.zio.k8s.codegen.internal.Conversions.{splitName, splitNameOld}
 import org.scalafmt.interfaces.Scalafmt
 import zio.ZIO
 import zio.nio.file.Path
 import zio.nio.file.Files
 
-import scala.meta._
+import scala.meta.*
 
 trait SubresourceClientGenerator {
   this: ModelGenerator with Common =>
@@ -19,7 +19,7 @@ trait SubresourceClientGenerator {
   ): ZIO[Any, Throwable, Set[Path]] = {
     val targetDir = targetRoot / "com" / "coralogix" / "zio" / "k8s" / "client" / "subresources"
     ZIO.foreach(subresources) { subid =>
-      val (modelPkg, modelName) = splitName(subid.modelName)
+      val (modelPkg, modelName) = splitNameOld(subid.modelName)
       val src = subresourceSource(subid, modelPkg, modelName)
       val targetPkgDir = modelPkg.foldLeft(targetDir)(_ / _)
       val targetPath = targetPkgDir / (subid.name + ".scala")

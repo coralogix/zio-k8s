@@ -1,15 +1,15 @@
 package com.coralogix.zio.k8s.codegen.internal
 
 import com.coralogix.zio.k8s.codegen.internal.CodegenIO.writeTextFile
-import com.coralogix.zio.k8s.codegen.internal.Conversions.splitName
+import com.coralogix.zio.k8s.codegen.internal.Conversions.{splitName, splitNameOld}
 import io.swagger.v3.oas.models.media.ObjectSchema
 import org.scalafmt.interfaces.Scalafmt
 import zio.ZIO
-import zio.ZIO._
+import zio.ZIO.*
 import zio.nio.file.Path
 import zio.nio.file.Files
 
-import scala.collection.JavaConverters._
+import scala.collection.JavaConverters.*
 
 trait ZioOpticsGenerator {
   this: Common with ModelGenerator =>
@@ -28,7 +28,7 @@ trait ZioOpticsGenerator {
           logger.info(s"Generating ZIO Optics for ${filteredDefinitions.size} models...")
         )
       paths <- ZIO.foreach(filteredDefinitions) { d =>
-                 val (groupName, entityName) = splitName(d.name)
+                 val (groupName, entityName) = splitNameOld(d.name)
                  val pkg = (opticsRoot ++ groupName)
                  val modelPkg = (modelRoot ++ groupName)
 

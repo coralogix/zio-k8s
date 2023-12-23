@@ -3,14 +3,14 @@ package com.coralogix.zio.k8s.codegen.internal
 import io.swagger.v3.oas.models.media.ObjectSchema
 import org.scalafmt.interfaces.Scalafmt
 import sbt.util.Logger
-import zio.{ Task, ZIO }
-import com.coralogix.zio.k8s.codegen.internal.Conversions.{ groupNameToPackageName, splitName }
-import com.coralogix.zio.k8s.codegen.internal.CodegenIO._
+import zio.{Task, ZIO}
+import com.coralogix.zio.k8s.codegen.internal.Conversions.{groupNameToPackageName, splitName, splitNameOld}
+import com.coralogix.zio.k8s.codegen.internal.CodegenIO.*
 import org.atteo.evo.inflector.English
 import zio.nio.file.Path
 import zio.nio.file.Files
 
-import scala.meta._
+import scala.meta.*
 
 trait ClientModuleGenerator {
   this: Common =>
@@ -316,13 +316,15 @@ trait ClientModuleGenerator {
           val typeAlias = q"""type $typeAliasT = ${t"$serviceT"}"""
           val typeAliasGeneric = q"""type Generic = $typeAliasRhs"""
 
-          val mainInterfaceI = Init(mainInterface, Name.Anonymous(), List.empty)
-          val extraInterfaceIs = extraInterfaces.map(t => Init(t, Name.Anonymous(), List.empty))
+          val mainInterfaceI = Init(mainInterface, Name.Anonymous(), Seq.empty)
+          val extraInterfaceIs = extraInterfaces.map(t => Init(t, Name.Anonymous(), Seq.empty))
 
           val interfacesWrappedInEnv =
             extraInterfaces.foldLeft[Term](q"ZEnvironment[$mainInterface](this)") { case (l, t) =>
               q"$l ++ ZEnvironment[$t](this)"
             }
+
+          val emptyMod: List[Mod] = Nil
 
           q"""package $basePackage.$ver {
 
@@ -350,11 +352,7 @@ trait ClientModuleGenerator {
           import zio._
 
           package object $moduleName {
-            $typeAlias
-
             object $typeAliasTerm {
-              $typeAliasGeneric
-
               trait Service
                 extends $mainInterfaceI with ..$extraInterfaceIs {
 
@@ -365,6 +363,7 @@ trait ClientModuleGenerator {
                 ..$clientExposure
               }
 
+              $typeAliasGeneric
               $live
               $any
               $test
@@ -434,6 +433,7 @@ trait ClientModuleGenerator {
 
             ..$customResourceDefinition
 
+            $typeAlias
           }
           }
           """
@@ -561,8 +561,8 @@ trait ClientModuleGenerator {
           val typeAlias = q"""type $typeAliasT = ${t"$serviceT"}"""
           val typeAliasGeneric = q"""type Generic = $typeAliasRhs"""
 
-          val mainInterfaceI = Init(mainInterface, Name.Anonymous(), List.empty)
-          val extraInterfaceIs = extraInterfaces.map(t => Init(t, Name.Anonymous(), List.empty))
+          val mainInterfaceI = Init(mainInterface, Name.Anonymous(), Seq.empty)
+          val extraInterfaceIs = extraInterfaces.map(t => Init(t, Name.Anonymous(), Seq.empty))
 
           val interfacesWrappedInEnv =
             extraInterfaces.foldLeft[Term](q"ZEnvironment[$mainInterface](this)") { case (l, t) =>
@@ -595,10 +595,7 @@ trait ClientModuleGenerator {
           import zio._
 
           package object $moduleName {
-            $typeAlias
-
             object $typeAliasTerm {
-              $typeAliasGeneric
 
               trait Service
                 extends $mainInterfaceI with ..$extraInterfaceIs {
@@ -610,6 +607,7 @@ trait ClientModuleGenerator {
                 ..$clientExposure
               }
 
+              $typeAliasGeneric
               $live
               $any
               $test
@@ -672,6 +670,7 @@ trait ClientModuleGenerator {
 
             ..$customResourceDefinition
 
+            $typeAlias
           }
           }
           """
@@ -739,7 +738,7 @@ trait ClientModuleGenerator {
     subresource: SubresourceId,
     fullyQualified: Boolean = false
   ): Type.Ref = {
-    val (modelPkg, modelName) = splitName(subresource.modelName)
+    val (modelPkg, modelName) = splitNameOld(subresource.modelName)
     if (modelPkg.nonEmpty) {
       val modelNs =
         (if (fullyQualified)
@@ -757,7 +756,7 @@ trait ClientModuleGenerator {
     wrapperName: Type.Name,
     entityT: Type
   ): Type = {
-    val (modelPkg, _) = splitName(subresource.modelName)
+    val (modelPkg, _) = splitNameOld(subresource.modelName)
     val ns =
       if (modelPkg.nonEmpty) {
         "com.coralogix.zio.k8s.client.subresources." + modelPkg.mkString(".")

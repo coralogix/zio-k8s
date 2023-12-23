@@ -1,16 +1,18 @@
 package com.coralogix.zio.k8s.codegen.internal
 
-import io.swagger.v3.oas.models.media.{ ArraySchema, ObjectSchema, Schema }
+import io.github.vigoo.metagen.core.*
+import io.swagger.v3.oas.models.media.{ArraySchema, ObjectSchema, Schema}
 import org.scalafmt.interfaces.Scalafmt
 import sbt.util.Logger
 import zio.ZIO
 import com.coralogix.zio.k8s.codegen.internal.CodegenIO.writeTextFile
-import com.coralogix.zio.k8s.codegen.internal.Conversions.splitName
+import com.coralogix.zio.k8s.codegen.internal.Conversions.{splitName, splitNameOld}
 import zio.nio.file.Path
 import zio.nio.file.Files
 
-import scala.collection.JavaConverters._
-import scala.meta._
+import scala.collection.JavaConverters.*
+import scala.meta.*
+import scala.meta.Term.ArgClause
 
 trait ModelGenerator {
   this: Common =>
@@ -28,7 +30,7 @@ trait ModelGenerator {
     for {
       _     <- ZIO.attempt(logger.info(s"Generating code for ${filteredDefinitions.size} models..."))
       paths <- ZIO.foreach(filteredDefinitions) { d =>
-                 val (groupName, entityName) = splitName(d.name)
+                 val (groupName, entityName) = splitNameOld(d.name)
                  val pkg = (modelRoot ++ groupName)
 
                  for {
@@ -75,7 +77,7 @@ trait ModelGenerator {
     val entityNameN = Term.Name(entityName)
     val entityNameT = Type.Name(entityName)
     val entityFieldsT = Type.Name(entityName + "Fields")
-    val entityFieldsInit = Init(entityFieldsT, Name.Anonymous(), List(List(q"Chunk.empty")))
+    val entityFieldsInit = Init(entityFieldsT, Name.Anonymous(), List(ArgClause(List(q"Chunk.empty"), None)))
 
     val defs: List[Stat] =
       Option(d.schema.getType) match {
@@ -480,10 +482,77 @@ trait ModelGenerator {
       .replace("*/", "*&#47;")
       .replace("$", "$$")
 
+  // TODO: rename to toType
+  protected def toTypeNew(name: String, propSchema: Schema[_]): ScalaType =
+    (Option(propSchema.getType), Option(propSchema.get$ref())) match {
+      case (None, Some(ref)) =>
+        splitName(ref.drop("#/components/schemas/".length))
+
+      case (Some("string"), _) =>
+        Option(propSchema.getFormat) match {
+          case Some("byte") =>
+            t"Chunk[Byte]"
+            Types.chunk(ScalaType.byte)
+          case Some(unknown) =>
+            logger.error(s"UNHANDLED STRING FORMAT for $name: $unknown")
+            ScalaType.nothing
+          case None =>
+            ScalaType.string
+        }
+
+      case (Some("boolean"), _) =>
+        ScalaType.boolean
+      case (Some("integer"), _) =>
+        Option(propSchema.getFormat) match {
+          case Some("int32") =>
+            ScalaType.int
+          case Some("int64") =>
+            ScalaType.long
+          case Some(unknown) =>
+            logger.error(s"UNHANDLED INT FORMAT for $name: $unknown")
+            ScalaType.nothing
+          case None =>
+            ScalaType.int
+        }
+      case (Some("number"), _) =>
+        Option(propSchema.getFormat) match {
+          case Some("double") =>
+            ScalaType.double
+          case Some(unknown) =>
+            logger.error(s"UNHANDLED NUMBER FORMAT for $name: $unknown")
+            ScalaType.nothing
+          case None =>
+            ScalaType.double
+        }
+      case (Some("array"), _) =>
+        val arraySchema = propSchema.asInstanceOf[ArraySchema]
+        val itemType = toTypeNew(s"$name items", arraySchema.getItems)
+        ScalaType.vector(itemType)
+
+      case (Some("object"), _) =>
+        Option(propSchema.getAdditionalProperties).map(_.asInstanceOf[Schema[_]]) match {
+          case Some(additionalProperties) =>
+            val valueType = toTypeNew(s"$name values", additionalProperties)
+            ScalaType.map(ScalaType.string, valueType)
+          case None =>
+            logger.error(s"UNHANDLED object type for $name")
+            ScalaType.nothing
+        }
+
+      case (Some(unknown), _) =>
+        logger.error(s"!!! UNHANDLED TYPE for $name: $unknown")
+        ScalaType.nothing
+      case (None, None) =>
+        logger.error(s"!!! No type and no ref for $name")
+        ScalaType.nothing
+    }
+
+
+  // TODO: Delete
   protected def toType(name: String, propSchema: Schema[_]): Type =
     (Option(propSchema.getType), Option(propSchema.get$ref())) match {
       case (None, Some(ref)) =>
-        val (nsParts, n) = splitName(ref.drop("#/components/schemas/".length))
+        val (nsParts, n) = splitNameOld(ref.drop("#/components/schemas/".length))
         val ns = nsParts.mkString(".").parse[Term].get.asInstanceOf[Term.Ref]
         Type.Select(ns, Type.Name(n))
 

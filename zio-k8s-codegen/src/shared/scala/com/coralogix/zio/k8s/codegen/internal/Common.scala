@@ -1,15 +1,13 @@
 package com.coralogix.zio.k8s.codegen.internal
 
-import com.coralogix.zio.k8s.codegen.internal.CodegenIO.{ readTextFile, writeTextFile }
-import com.coralogix.zio.k8s.codegen.internal.Conversions.splitName
+import com.coralogix.zio.k8s.codegen.internal.CodegenIO.{readTextFile, writeTextFile}
+import com.coralogix.zio.k8s.codegen.internal.Conversions.{splitName, splitNameOld}
 import io.swagger.v3.oas.models.media.ObjectSchema
 import org.scalafmt.interfaces.Scalafmt
 import zio.ZIO
-
 import zio.nio.file.Path
 
-import java.nio.file.{ Path => JPath, Paths => JPaths }
-
+import java.nio.file.{Path as JPath, Paths as JPaths}
 import scala.meta.Tree
 import scala.meta.internal.prettyprinters.TreeSyntax
 
@@ -27,7 +25,7 @@ trait Common {
       properties       <- Option(modelSchema.getProperties)
       statusPropSchema <- Option(properties.get("status"))
       ref              <- Option(statusPropSchema.get$ref())
-      (pkg, name)       = splitName(ref.drop("#/components/schemas/".length))
+      (pkg, name)       = splitNameOld(ref.drop("#/components/schemas/".length))
     } yield pkg.mkString(".") + "." + name
 
   def scalaVersion: String

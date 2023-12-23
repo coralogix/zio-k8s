@@ -1,19 +1,21 @@
 package com.coralogix.zio.k8s.codegen
 
-import com.coralogix.zio.k8s.codegen.internal.CodegenIO._
-import com.coralogix.zio.k8s.codegen.internal.Conversions._
-import com.coralogix.zio.k8s.codegen.internal._
+import com.coralogix.zio.k8s.codegen.internal.CodegenIO.*
+import com.coralogix.zio.k8s.codegen.internal.Conversions.*
+import com.coralogix.zio.k8s.codegen.internal.*
+import io.github.vigoo.metagen.core.{Generator, GeneratorFailure}
 import io.swagger.parser.OpenAPIParser
 import io.swagger.v3.oas.models.OpenAPI
 import io.swagger.v3.parser.core.models.ParseOptions
 import org.scalafmt.interfaces.Scalafmt
 import zio.nio.file.Path
 import zio.nio.file.Files
-import zio.{ Task, ZIO }
-import zio.ZIO._
+import zio.{Task, ZIO}
+import zio.ZIO.*
+
 import java.io.File
 import java.nio.charset.StandardCharsets
-import scala.collection.JavaConverters._
+import scala.collection.JavaConverters.*
 
 class K8sResourceCodegen(val logger: sbt.Logger, val scalaVersion: String)
     extends Common with ModelGenerator with ClientModuleGenerator with MonocleOpticsGenerator
@@ -60,13 +62,11 @@ class K8sResourceCodegen(val logger: sbt.Logger, val scalaVersion: String)
       .toSeq
 
   def generateAllMonocle(
-    from: Path,
-    targetDir: Path
-  ): ZIO[Any, Throwable, Seq[File]] =
+    from: Path
+  ): ZIO[Generator, GeneratorFailure[Throwable], Seq[File]] =
     for {
       // Loading
-      spec     <- loadK8sSwagger(from)
-      scalafmt <- ZIO.attempt(Scalafmt.create(this.getClass.getClassLoader))
+      spec <- loadK8sSwagger(from).mapError(GeneratorFailure.CustomFailure(_))
 
       // Identifying
       definitions  = spec.getComponents.getSchemas.asScala
@@ -74,7 +74,7 @@ class K8sResourceCodegen(val logger: sbt.Logger, val scalaVersion: String)
                        .toSet
 
       // Generating code
-      opticsPaths <- generateAllMonocleOptics(scalafmt, targetDir, definitions)
+      opticsPaths <- generateAllMonocleOptics(definitions)
     } yield opticsPaths.map(_.toFile).toSeq
 
   def generateAllOptics(
@@ -141,7 +141,7 @@ class K8sResourceCodegen(val logger: sbt.Logger, val scalaVersion: String)
       groupName = groupNameToPackageName(resource.gvk.group)
       pkg       = (clientRoot ++ groupName) :+ resource.gvk.version :+ resource.plural
 
-      (entityPkg, entity) = splitName(resource.modelName)
+      (entityPkg, entity) = splitNameOld(resource.modelName)
       deleteResponse      = resource.actions
                               .map(_.endpointType)
                               .collectFirst { case EndpointType.Delete(_, _, responseTypeRef) =>
