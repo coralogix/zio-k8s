@@ -3,7 +3,7 @@ package com.coralogix.zio.k8s.codegen
 import com.coralogix.zio.k8s.codegen.internal.CodegenIO.*
 import com.coralogix.zio.k8s.codegen.internal.Conversions.*
 import com.coralogix.zio.k8s.codegen.internal.*
-import io.github.vigoo.metagen.core.{ Generator, GeneratorFailure }
+import io.github.vigoo.metagen.core.*
 import io.swagger.parser.OpenAPIParser
 import io.swagger.v3.oas.models.OpenAPI
 import io.swagger.v3.parser.core.models.ParseOptions
@@ -21,11 +21,10 @@ class K8sResourceCodegen(val logger: sbt.Logger, val scalaVersion: String)
     extends Common with ModelGenerator with ClientModuleGenerator with MonocleOpticsGenerator
     with SubresourceClientGenerator with UnifiedClientModuleGenerator with ZioOpticsGenerator {
 
-  def generateAll(from: Path, targetDir: Path): ZIO[Any, Throwable, Seq[File]] =
+  def generateAll(from: Path): ZIO[Generator, GeneratorFailure[Throwable], Seq[File]] =
     for {
       // Loading
-      spec     <- loadK8sSwagger(from)
-      scalafmt <- ZIO.attempt(Scalafmt.create(this.getClass.getClassLoader))
+      spec <- loadK8sSwagger(from).mapError(GeneratorFailure.CustomFailure(_))
 
       // Identifying
       definitions   = spec.getComponents.getSchemas.asScala
@@ -45,15 +44,13 @@ class K8sResourceCodegen(val logger: sbt.Logger, val scalaVersion: String)
       resources        <- ClassifiedResource.classifyActions(logger, definitionMap, identified.toSet)
       subresources      = resources.flatMap(_.subresources)
       subresourceIds    = subresources.map(_.id)
-      subresourcePaths <- generateSubresourceAliases(scalafmt, targetDir, subresourceIds)
+      subresourcePaths <- generateSubresourceAliases(subresourceIds)
 
       // Generating code
-      packagePaths <- generateAllPackages(scalafmt, targetDir, definitionMap, resources)
-      modelPaths   <- generateAllModels(scalafmt, targetDir, definitionMap, resources)
+      packagePaths <- generateAllPackages(definitionMap, resources)
+      modelPaths   <- generateAllModels(definitionMap, resources)
       unifiedPaths <- generateUnifiedClientModule(
-                        scalafmt,
-                        targetDir,
-                        clientRoot.mkString("."),
+                        clientRoot,
                         definitionMap,
                         resources
                       )
@@ -115,68 +112,58 @@ class K8sResourceCodegen(val logger: sbt.Logger, val scalaVersion: String)
         }
       }
 
-  private val clientRoot = Vector("com", "coralogix", "zio", "k8s", "client")
+  private val clientRoot = Package("com", "coralogix", "zio", "k8s", "client")
 
   def generateAllPackages(
-    scalafmt: Scalafmt,
-    targetRoot: Path,
     definitionMap: Map[String, IdentifiedSchema],
     resources: Set[SupportedResource]
-  ): ZIO[Any, Throwable, Set[Path]] =
+  ): ZIO[Generator, GeneratorFailure[Throwable], Set[Path]] =
     ZIO.foreach(resources) { resource =>
-      generatePackage(scalafmt, targetRoot, definitionMap, resource)
+      generatePackage(definitionMap, resource)
     }
 
   private def generatePackage(
-    scalafmt: Scalafmt,
-    targetRoot: Path,
     definitionMap: Map[String, IdentifiedSchema],
     resource: SupportedResource
-  ): ZIO[Any, Throwable, Path] =
+  ): ZIO[Generator, GeneratorFailure[Throwable], Path] =
     for {
-      _ <- ZIO.attempt(logger.info(s"Generating package code for ${resource.id}"))
+      _ <- ZIO.succeed(logger.info(s"Generating package code for ${resource.id}"))
 
       groupName = groupNameToPackageName(resource.gvk.group)
-      pkg       = (clientRoot ++ groupName) :+ resource.gvk.version :+ resource.plural
+      pkg       = clientRoot / groupName / resource.gvk.version
 
-      (entityPkg, entity) = splitNameOld(resource.modelName)
-      deleteResponse      = resource.actions
-                              .map(_.endpointType)
-                              .collectFirst { case EndpointType.Delete(_, _, responseTypeRef) =>
-                                s"com.coralogix.zio.k8s.model.$responseTypeRef"
-                              }
-                              .getOrElse("com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Status")
+      deleteResponse = resource.actions
+                         .map(_.endpointType)
+                         .collectFirst { case EndpointType.Delete(_, _, responseTypeRef) =>
+                           s"com.coralogix.zio.k8s.model.$responseTypeRef"
+                         }
+                         .getOrElse("com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Status")
 
-      src       <- generateModuleCode(
-                     basePackageName = clientRoot.mkString("."),
-                     modelPackageName = "com.coralogix.zio.k8s.model." + entityPkg.mkString("."),
-                     name = resource.plural,
-                     entity = entity,
-                     statusEntity = findStatusEntity(definitionMap, resource.modelName).map(s =>
-                       s"com.coralogix.zio.k8s.model.$s"
-                     ),
-                     deleteResponse = deleteResponse,
-                     gvk = resource.gvk,
-                     isNamespaced = resource.namespaced,
-                     subresources = resource.subresources.map(_.id),
-                     None,
-                     resource.supportsDeleteMany
-                   )
-      targetDir  = pkg.foldLeft(targetRoot)(_ / _)
-      _         <- Files.createDirectories(targetDir)
-      targetPath = targetDir / "package.scala"
-      _         <- writeTextFile(targetPath, src)
-      _         <- format(scalafmt, targetPath)
+      targetPath <- Generator.generateScalaPackageObject[Any, Throwable](pkg, resource.plural) {
+                      generateModuleCode(
+                        pkg = pkg,
+                        name = resource.plural,
+                        entity = resource.model,
+                        statusEntity =
+                          findStatusEntity(Packages.k8sModel, definitionMap, resource.schemaName),
+                        deleteResponse = deleteResponse,
+                        gvk = resource.gvk,
+                        isNamespaced = resource.namespaced,
+                        subresources = resource.subresources.map(_.id),
+                        None,
+                        resource.supportsDeleteMany
+                      )
+                    }
     } yield targetPath
 
-  private def checkUnidentifiedPaths(paths: Seq[IdentifiedPath]): Task[Unit] =
+  private def checkUnidentifiedPaths(paths: Seq[IdentifiedPath]): ZIO[Any, GeneratorFailure[Throwable], Unit] =
     for {
       whitelistInfo <- ZIO.foreach(paths) { path =>
                          Whitelist.isWhitelistedPath(path) match {
                            case s @ Some(_) => ZIO.succeed(s)
                            case None        =>
                              ZIO
-                               .attempt(
+                               .succeed(
                                  logger.error(s"Unsupported, non-whitelisted path: ${path.name}")
                                )
                                .as(None)
@@ -185,14 +172,16 @@ class K8sResourceCodegen(val logger: sbt.Logger, val scalaVersion: String)
       issues         = whitelistInfo.collect { case Some(issueRef) => issueRef }.toSet
       _             <- ZIO
                          .fail(
+                           GeneratorFailure.CustomFailure(
                            new sbt.MessageOnlyException(
                              "Unknown, non-whitelisted path found. See the code generation log."
                            )
+                           )
                          )
                          .when(whitelistInfo.contains(None))
-      _             <- ZIO.attempt(logger.info(s"Issues for currently unsupported paths:"))
+      _             <- ZIO.succeed(logger.info(s"Issues for currently unsupported paths:"))
       _             <- ZIO.foreachDiscard(issues) { issue =>
-                         ZIO.attempt(logger.info(s" - ${issue.url}"))
+                         ZIO.succeed(logger.info(s" - ${issue.url}"))
                        }
     } yield ()
 }

@@ -1,10 +1,11 @@
 package com.coralogix.zio.k8s.codegen.internal
 
-import scala.meta._
+import scala.meta.*
+import _root_.io.github.vigoo.metagen.core.ScalaType
 
 case class SubresourceId(
   name: String,
-  modelName: String,
+  model: ScalaType,
   actionVerbs: Set[String],
   customParameters: Map[String, Type]
 ) {
@@ -35,15 +36,12 @@ case class SubresourceId(
       q"List(..$pairs).flatten.toMap"
     }
 
-  def hasStreamingGet: Boolean = modelName == "String"
+  def hasStreamingGet: Boolean = model == ScalaType.string
 
   def streamingGetTransducer: Term =
-    modelName match {
-      case "String" =>
-        val opName = Lit.String(s"get $name")
-        q"zio.stream.ZPipeline.fromChannel(zio.stream.ZPipeline.utf8Decode.channel.orDie) >>> zio.stream.ZPipeline.splitLines" // TODO: map to CodingFailure, needs metadata access
-      case _        => q"???"
-    }
+    if (model == ScalaType.string) {
+      q"zio.stream.ZPipeline.fromChannel(zio.stream.ZPipeline.utf8Decode.channel.orDie) >>> zio.stream.ZPipeline.splitLines" // TODO: map to CodingFailure, needs metadata access
+    } else { q"???" }
 
   private def valueToString(typ: Type, name: String): Term = {
     val nameTerm = Term.Name(name)

@@ -3,7 +3,7 @@ package com.coralogix.zio.k8s.codegen.internal
 import io.github.vigoo.metagen.core.*
 
 object Conversions {
-  val modelRoot = Packages.k8sModel
+  val modelRoot: Package = Packages.k8sModel
 
   def groupNameToPackageName(groupName: String): Vector[String] = {
     val base = groupName

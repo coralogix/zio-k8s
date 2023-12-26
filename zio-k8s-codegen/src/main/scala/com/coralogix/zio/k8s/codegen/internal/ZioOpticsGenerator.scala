@@ -74,7 +74,7 @@ trait ZioOpticsGenerator {
               .toList
               .flatMap { case (name, propSchema) =>
                 val isRequired = requiredProperties.contains(name)
-                val prop = toTypeNew(name, propSchema)
+                val prop = toType(name, propSchema)
                 val nameP = ScalaType(opticsEntity.pkg / opticsEntity.name, name)
                 val nameL = nameP.renamed(_ + "L")
                 val nameO = nameP.renamed(_ + "O")

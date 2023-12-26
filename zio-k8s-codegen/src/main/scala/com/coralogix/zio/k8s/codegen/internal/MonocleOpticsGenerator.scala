@@ -65,7 +65,7 @@ trait MonocleOpticsGenerator {
               .toList
               .flatMap { case (name, propSchema) =>
                 val isRequired = requiredProperties.contains(name)
-                val prop = toTypeNew(name, propSchema)
+                val prop = toType(name, propSchema)
 
                 val nameN = Term.Name(name)
                 val nameLN = Term.Name(name + "L")

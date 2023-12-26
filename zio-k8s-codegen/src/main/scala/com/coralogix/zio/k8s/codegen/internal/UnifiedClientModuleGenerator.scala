@@ -3,6 +3,7 @@ package com.coralogix.zio.k8s.codegen.internal
 import com.coralogix.zio.k8s.codegen.internal.CodegenIO.writeTextFile
 import com.coralogix.zio.k8s.codegen.internal.Conversions.{groupNameToPackageName, splitName, splitNameOld}
 import com.coralogix.zio.k8s.codegen.internal.UnifiedClientModuleGenerator.*
+import io.github.vigoo.metagen.core.*
 import org.scalafmt.interfaces.Scalafmt
 
 import scala.meta.*
@@ -17,30 +18,23 @@ trait UnifiedClientModuleGenerator {
   this: Common with ClientModuleGenerator =>
 
   def generateUnifiedClientModule(
-    scalafmt: Scalafmt,
-    targetRoot: Path,
-    basePackageName: String,
+    basePackage: Package,
     definitionMap: Map[String, IdentifiedSchema],
     resources: Set[SupportedResource]
-  ): ZIO[Any, Throwable, Set[Path]] = {
+  ): ZIO[Generator, GeneratorFailure[Throwable], Set[Path]] = {
     val gvkTree = toTree(resources)
-    val source = generateUnifiedClientModuleSource(gvkTree, basePackageName, definitionMap)
-
-    val pkg = basePackageName.split('.')
-    val targetDir = pkg.foldLeft(targetRoot)(_ / _) / "kubernetes"
     for {
-      _         <- Files.createDirectories(targetDir)
-      targetPath = targetDir / "package.scala"
-      _         <- writeTextFile(targetPath, source)
-      _         <- format(scalafmt, targetPath)
+      targetPath <- Generator.generateScalaPackageObject[Any, Nothing](basePackage, "kubernetes") {
+        generateUnifiedClientModuleCode(gvkTree, basePackage, definitionMap)
+      }
     } yield Set(targetPath)
   }
 
-  private def generateUnifiedClientModuleSource(
+  private def generateUnifiedClientModuleCode(
     gvkTree: PackageNode,
-    basePackageName: String,
+    basePackage: Package,
     definitionMap: Map[String, IdentifiedSchema]
-  ): String = {
+  ): ZIO[CodeFileGenerator, Nothing, Term.Block] = {
     val interfaces =
       pkgNodeToInterfaces(definitionMap, basePackageName, "Service", gvkTree)
     val liveClass =

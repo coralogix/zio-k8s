@@ -1,5 +1,6 @@
 package com.coralogix.zio.k8s.codegen
 
+import io.github.vigoo.metagen.core.Generator
 import sbt.Keys.*
 import sbt.*
 
@@ -26,12 +27,19 @@ object K8sResourceCodegenPlugin extends AutoPlugin {
         ) { input: Set[File] =>
           input.foldLeft(Set.empty[File]) { (result, k8sSwagger) =>
             Unsafe.unsafe { implicit u =>
-              val fs = runtime.unsafe.run(
-                codegen.generateAll(
-                  ZPath.fromJava(k8sSwagger.toPath),
-                  ZPath.fromJava(sourcesDir.toPath)
-                )
-              ).getOrThrow()
+              val fs = runtime.unsafe.run {
+                val generator =
+                  for {
+                    _ <- Generator.setRoot(ZPath.fromJava(sourcesDir.toPath))
+                    _ <- Generator.setScalaVersion(scalaVer)
+                    _ <- Generator.enableFormatting()
+                    result <- codegen.generateAll(
+                      ZPath.fromJava(k8sSwagger.toPath)
+                    )
+                  } yield result
+
+                generator.provideLayer(Generator.live)
+              }.getOrThrowFiberFailure()
               result union fs.toSet
             }
           }
