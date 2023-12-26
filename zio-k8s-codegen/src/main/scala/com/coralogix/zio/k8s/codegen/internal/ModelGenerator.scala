@@ -1,45 +1,45 @@
 package com.coralogix.zio.k8s.codegen.internal
 
+import io.github.vigoo.metagen.core.*
 import io.swagger.v3.oas.models.media.{ ArraySchema, ObjectSchema, Schema }
 import org.scalafmt.interfaces.Scalafmt
 import sbt.util.Logger
 import zio.ZIO
 import com.coralogix.zio.k8s.codegen.internal.CodegenIO.writeTextFile
-import com.coralogix.zio.k8s.codegen.internal.Conversions.splitName
+import com.coralogix.zio.k8s.codegen.internal.Conversions.{ splitName, splitNameOld }
 import zio.nio.file.Path
 import zio.nio.file.Files
 
-import scala.collection.JavaConverters._
-import scala.meta._
+import scala.collection.JavaConverters.*
+import scala.meta.*
+import scala.meta.Term.ArgClause
 
 trait ModelGenerator {
   this: Common =>
 
-  val modelRoot = Vector("com", "coralogix", "zio", "k8s", "model")
+  val modelRootPkg = Package("com", "coralogix", "zio", "k8s", "model") // TODO: rename
+  val modelRoot = Vector("com", "coralogix", "zio", "k8s", "model") // TODO: remove
   def logger: sbt.Logger
 
   protected def generateAllModels(
-    scalafmt: Scalafmt,
-    targetRoot: Path,
     definitionMap: Map[String, IdentifiedSchema],
     resources: Set[SupportedResource]
-  ): ZIO[Any, Throwable, Set[Path]] = {
+  ): ZIO[Generator, GeneratorFailure[Throwable], Set[Path]] = {
     val filteredDefinitions = definitionMap.values.filter(d => !isListModel(d)).toSet
     for {
-      _     <- ZIO.attempt(logger.info(s"Generating code for ${filteredDefinitions.size} models..."))
+      _     <- ZIO.succeed(logger.info(s"Generating code for ${filteredDefinitions.size} models..."))
       paths <- ZIO.foreach(filteredDefinitions) { d =>
-                 val (groupName, entityName) = splitName(d.name)
-                 val pkg = (modelRoot ++ groupName)
+                 val entity = splitName(d.name)
 
                  for {
-                   _         <-
-                     ZIO.attempt(logger.info(s"Generating '$entityName' to ${pkg.mkString(".")}"))
-                   src        = generateModel(modelRoot, pkg, entityName, d, resources, definitionMap)
-                   targetDir  = pkg.foldLeft(targetRoot)(_ / _)
-                   _         <- Files.createDirectories(targetDir)
-                   targetPath = targetDir / s"$entityName.scala"
-                   _         <- writeTextFile(targetPath, src)
-                   _         <- format(scalafmt, targetPath)
+                   _          <-
+                     ZIO.succeed(
+                       logger.info(s"Generating '${entity.name}' to ${entity.pkg.asString}")
+                     )
+                   targetPath <-
+                     Generator.generateScalaPackage[Any, Nothing](entity.pkg, entity.name) {
+                       generateModel(modelRootPkg, entity, d, resources, definitionMap)
+                     }
                  } yield targetPath
                }
     } yield paths
@@ -58,24 +58,19 @@ trait ModelGenerator {
       .getOrElse(gvk.kind)
 
   private def generateModel(
-    rootPackage: Vector[String],
-    pkg: Vector[String],
-    entityName: String,
+    rootPackage: Package,
+    entity: ScalaType,
     d: IdentifiedSchema,
     resources: Set[SupportedResource],
     definitionMap: Map[String, IdentifiedSchema]
-  ): String = {
+  ): ZIO[CodeFileGenerator, Nothing, Term.Block] = {
     import scala.meta._
-    val rootPackageTerm = rootPackage.mkString(".").parse[Term].get.asInstanceOf[Term.Ref]
-    val packageTerm = pkg.mkString(".").parse[Term].get.asInstanceOf[Term.Ref]
 
-    val encoderName = Pat.Var(Term.Name(entityName + "Encoder"))
-    val decoderName = Pat.Var(Term.Name(entityName + "Decoder"))
-
-    val entityNameN = Term.Name(entityName)
-    val entityNameT = Type.Name(entityName)
-    val entityFieldsT = Type.Name(entityName + "Fields")
-    val entityFieldsInit = Init(entityFieldsT, Name.Anonymous(), List(List(q"Chunk.empty")))
+    val encoderName = Pat.Var(Term.Name(entity.name + "Encoder"))
+    val decoderName = Pat.Var(Term.Name(entity.name + "Decoder"))
+    val entityFieldsT = Type.Name(entity.name + "Fields")
+    val entityFieldsInit =
+      Init(entityFieldsT, Name.Anonymous(), List(ArgClause(List(q"Chunk.empty"), None)))
 
     val defs: List[Stat] =
       Option(d.schema.getType) match {
@@ -91,13 +86,13 @@ trait ModelGenerator {
                 .toList
                 .map { case (name, propSchema) =>
                   val isRequired = requiredProperties.contains(name)
-                  val propT = toType(name, propSchema)
+                  val prop = toType(name, propSchema)
 
                   val nameN = Name(name)
                   if (isRequired)
-                    param"""$nameN: $propT"""
+                    param"""$nameN: ${prop.typ}"""
                   else
-                    param"""$nameN: Optional[$propT] = Optional.Absent"""
+                    param"""$nameN: ${Types.optional(prop).typ} = ${Types.optionalAbsent.term}"""
                 }
 
               val getters =
@@ -106,19 +101,21 @@ trait ModelGenerator {
                   .toList
                   .map { case (name, propSchema) =>
                     val isRequired = requiredProperties.contains(name)
-                    val propT = toType(name, propSchema)
+                    val prop = toType(name, propSchema)
                     val valueName = Term.Name(name)
                     val valueLit = Lit.String(name)
                     val getterName = Term.Name(s"get${name.capitalize}")
 
                     if (isRequired)
-                      q"""def $getterName: IO[K8sFailure, $propT] = ZIO.succeed($valueName)"""
+                      q"""def $getterName: ${Types.k8sIO(prop).typ} = ZIO.succeed($valueName)"""
                     else
-                      q"""def $getterName: IO[K8sFailure, $propT] = ZIO.fromEither($valueName.toRight(UndefinedField($valueLit)))"""
+                      q"""def $getterName: ${Types
+                          .k8sIO(prop)
+                          .typ} = ZIO.fromEither($valueName.toRight(UndefinedField($valueLit)))"""
                   }
 
               val classDef =
-                q"""case class $entityNameT(..$props) {
+                q"""case class ${entity.typName}(..$props) {
                       ..$getters
                     }
                  """
@@ -144,8 +141,8 @@ trait ModelGenerator {
                       baseJsonFields
                 }
 
-                q"""implicit val $encoderName: Encoder[$entityNameT] =
-                      (value: $entityNameT) => Json.obj(
+                q"""implicit val $encoderName: ${Types.jsonEncoder(entity).typ} =
+                      (value: ${entity.typ}) => Json.obj(
                         ..$jsonFields
                       )
                  """
@@ -156,23 +153,23 @@ trait ModelGenerator {
                   .filterKeys(filterKeysOf(d))
                   .map { case (k, propSchema) =>
                     val isRequired = requiredProperties.contains(k)
-                    val propT =
+                    val prop =
                       if (isRequired)
                         toType(k, propSchema)
                       else
-                        t"Optional[${toType(k, propSchema)}]"
+                        Types.optional(toType(k, propSchema))
 
                     val fieldLit = Lit.String(k)
-                    enumerator"${Pat.Var(Term.Name(k))} <- cursor.downField($fieldLit).as[$propT]"
+                    enumerator"${Pat.Var(Term.Name(k))} <- cursor.downField($fieldLit).as[${prop.typ}]"
                   }
                   .toList
                 val propTerms = properties.map { case (k, _) => Term.Name(k) }.toList
 
                 q"""
-                   implicit val $decoderName: Decoder[$entityNameT] =
+                   implicit val $decoderName: ${Types.jsonDecoder(entity).typ} =
                      (cursor: HCursor) =>
                       for { ..$propDecoders }
-                      yield $entityNameN(..$propTerms)
+                      yield ${entity.termName}(..$propTerms)
                  """
               } else {
                 val forProductN = Term.Name("forProduct" + props.size)
@@ -182,8 +179,8 @@ trait ModelGenerator {
                   .toList
 
                 q"""
-                implicit val $decoderName: Decoder[$entityNameT] =
-                  Decoder.$forProductN(..$propNameLits)($entityNameN.apply)
+                implicit val $decoderName: ${Types.jsonDecoder(entity).typ} =
+                  Decoder.$forProductN(..$propNameLits)(${entity.termName}.apply)
                 """
               }
 
@@ -196,7 +193,7 @@ trait ModelGenerator {
                         gvk @ GroupVersionKind(group, version, kind),
                         schema
                       ) =>
-                    val metadataT = properties.get("metadata").map(toType("metadata", _))
+                    val metadata = properties.get("metadata").map(toType("metadata", _))
                     val metadataIsRequired = requiredProperties.contains("metadata")
                     val groupLit = Lit.String(group)
                     val versionLit = Lit.String(version)
@@ -216,26 +213,26 @@ trait ModelGenerator {
                           val statusIsRequired = requiredProperties.contains("status")
                           List(
                             if (statusIsRequired)
-                              q"""implicit val k8sObjectStatus: com.coralogix.zio.k8s.client.model.K8sObjectStatus[$entityNameT, $statusT] =
-                              new com.coralogix.zio.k8s.client.model.K8sObjectStatus[$entityNameT, $statusT] {
-                                def status(obj: $entityNameT): Optional[$statusT] =
+                              q"""implicit val k8sObjectStatus: com.coralogix.zio.k8s.client.model.K8sObjectStatus[${entity.typ}, ${statusEntity.typ}] =
+                              new com.coralogix.zio.k8s.client.model.K8sObjectStatus[${entity.typ}, ${statusEntity.typ}] {
+                                def status(obj: ${entity.typ}): Optional[${statusEntity.typ}] =
                                   Optional.Present(obj.status)
-                                def mapStatus(f: $statusT => $statusT)(obj: $entityNameT): $entityNameT =
+                                def mapStatus(f: ${statusEntity.typ} => ${statusEntity.typ})(obj: ${entity.typ}): ${entity.typ} =
                                   obj.copy(status = f(obj.status))
                               }
                               """
                             else
-                              q"""implicit val k8sObjectStatus: com.coralogix.zio.k8s.client.model.K8sObjectStatus[$entityNameT, $statusT] =
-                              new com.coralogix.zio.k8s.client.model.K8sObjectStatus[$entityNameT, $statusT] {
-                                def status(obj: $entityNameT): Optional[$statusT] =
+                              q"""implicit val k8sObjectStatus: com.coralogix.zio.k8s.client.model.K8sObjectStatus[${entity.typ}, ${statusEntity.typ}] =
+                              new com.coralogix.zio.k8s.client.model.K8sObjectStatus[${entity.typ}, ${statusEntity.typ}] {
+                                def status(obj: ${entity.typ}): Optional[${statusEntity.typ}] =
                                   obj.status
-                                def mapStatus(f: $statusT => $statusT)(obj: $entityNameT): $entityNameT =
+                                def mapStatus(f: ${statusEntity.typ} => ${statusEntity.typ})(obj: ${entity.typ}): ${entity.typ} =
                                   obj.copy(status = obj.status.map(f))
                               }
                         """,
-                            q"""implicit class StatusOps(protected val obj: $entityNameT)
-                                extends com.coralogix.zio.k8s.client.model.K8sObjectStatusOps[$entityNameT, $statusT] {
-                                protected override val impl: com.coralogix.zio.k8s.client.model.K8sObjectStatus[$entityNameT, $statusT] = k8sObjectStatus
+                            q"""implicit class StatusOps(protected val obj: ${entity.typ})
+                                extends com.coralogix.zio.k8s.client.model.K8sObjectStatusOps[${entity.typ}, ${statusEntity.typ}] {
+                                protected override val impl: com.coralogix.zio.k8s.client.model.K8sObjectStatus[${entity.typ}, ${statusEntity.typ}] = k8sObjectStatus
                               }
                            """
                           )
@@ -243,47 +240,47 @@ trait ModelGenerator {
                           List.empty
                       }
 
-                    statusOps ++ ((metadataT, metadataIsRequired) match {
-                      case (Some(t), false) if t.toString == "pkg.apis.meta.v1.ObjectMeta" =>
+                    statusOps ++ ((metadata, metadataIsRequired) match {
+                      case (Some(t), false) if t.asString == "pkg.apis.meta.v1.ObjectMeta" =>
                         List(
-                          q"""implicit val k8sObject: com.coralogix.zio.k8s.client.model.K8sObject[$entityNameT] =
-                              new com.coralogix.zio.k8s.client.model.K8sObject[$entityNameT] {
-                                def metadata(obj: $entityNameT): Optional[pkg.apis.meta.v1.ObjectMeta] =
+                          q"""implicit val k8sObject: com.coralogix.zio.k8s.client.model.K8sObject[${entity.typ}] =
+                              new com.coralogix.zio.k8s.client.model.K8sObject[${entity.typ}] {
+                                def metadata(obj: ${entity.typ}): Optional[pkg.apis.meta.v1.ObjectMeta] =
                                   obj.metadata
-                                def mapMetadata(f: pkg.apis.meta.v1.ObjectMeta => pkg.apis.meta.v1.ObjectMeta)(obj: $entityNameT): $entityNameT =
+                                def mapMetadata(f: pkg.apis.meta.v1.ObjectMeta => pkg.apis.meta.v1.ObjectMeta)(obj: ${entity.typ}): ${entity.typ} =
                                   obj.copy(metadata = obj.metadata.map(f))
                               }
                         """,
-                          q"""implicit class Ops(protected val obj: $entityNameT)
-                                extends com.coralogix.zio.k8s.client.model.K8sObjectOps[$entityNameT] {
-                                protected override val impl: com.coralogix.zio.k8s.client.model.K8sObject[$entityNameT] = k8sObject
+                          q"""implicit class Ops(protected val obj: ${entity.typ})
+                                extends com.coralogix.zio.k8s.client.model.K8sObjectOps[${entity.typ}] {
+                                protected override val impl: com.coralogix.zio.k8s.client.model.K8sObject[${entity.typ}] = k8sObject
                               }
                            """,
-                          q"""implicit val resourceMetadata: ResourceMetadata[$entityNameT] =
-                                new ResourceMetadata[$entityNameT] {
+                          q"""implicit val resourceMetadata: ResourceMetadata[${entity.typ}] =
+                                new ResourceMetadata[${entity.typ}] {
                                   override val kind: String = $kindLit
                                   override val apiVersion: String = $apiVersionLit
                                   override val resourceType: K8sResourceType = K8sResourceType($pluralLit, $groupLit, $versionLit)
                                 }
                            """
                         )
-                      case (Some(t), true) if t.toString == "pkg.apis.meta.v1.ObjectMeta"  =>
+                      case (Some(t), true) if t.asString == "pkg.apis.meta.v1.ObjectMeta"  =>
                         List(
-                          q"""implicit val k8sObject: com.coralogix.zio.k8s.client.model.K8sObject[$entityNameT] =
-                              new com.coralogix.zio.k8s.client.model.K8sObject[$entityNameT] {
-                                def metadata(obj: $entityNameT): Optional[pkg.apis.meta.v1.ObjectMeta] =
+                          q"""implicit val k8sObject: com.coralogix.zio.k8s.client.model.K8sObject[${entity.typ}] =
+                              new com.coralogix.zio.k8s.client.model.K8sObject[${entity.typ}] {
+                                def metadata(obj: ${entity.typ}): Optional[pkg.apis.meta.v1.ObjectMeta] =
                                   Some(obj.metadata)
-                                def mapMetadata(f: pkg.apis.meta.v1.ObjectMeta => pkg.apis.meta.v1.ObjectMeta)(obj: $entityNameT): $entityNameT =
+                                def mapMetadata(f: pkg.apis.meta.v1.ObjectMeta => pkg.apis.meta.v1.ObjectMeta)(obj: ${entity.typ}): ${entity.typ} =
                                   obj.copy(metadata = f(obj.metadata))
                               }
                         """,
-                          q"""implicit class Ops(protected val obj: $entityNameT)
-                                extends com.coralogix.zio.k8s.client.model.K8sObjectOps[$entityNameT] {
-                                protected override val impl: com.coralogix.zio.k8s.client.model.K8sObject[$entityNameT] = k8sObject
+                          q"""implicit class Ops(protected val obj: ${entity.typ})
+                                extends com.coralogix.zio.k8s.client.model.K8sObjectOps[${entity.typ}] {
+                                protected override val impl: com.coralogix.zio.k8s.client.model.K8sObject[${entity.typ}] = k8sObject
                               }
                            """,
-                          q"""implicit val resourceMetadata: ResourceMetadata[$entityNameT] =
-                                new ResourceMetadata[$entityNameT] {
+                          q"""implicit val resourceMetadata: ResourceMetadata[${entity.typ}] =
+                                new ResourceMetadata[${entity.typ}] {
                                   override val kind: String = $kindLit
                                   override val apiVersion: String = $apiVersionLit
                                   override val resourceType: K8sResourceType = K8sResourceType($pluralLit, $groupLit, $versionLit)
@@ -300,17 +297,16 @@ trait ModelGenerator {
                   .filterKeys(filterKeysOf(d))
                   .toList
                   .map { case (name, propSchema) =>
-                    val propT = toType(name, propSchema)
+                    val prop = toType(name, propSchema)
                     val valueName = Term.Name(name)
                     val valueLit = Lit.String(name)
 
-                    propT match {
-                      case Type.Select(ns, Type.Name(n))
-                          if refersToObject(definitionMap, propSchema) =>
-                        val propN = Term.Select(ns, Term.Name(n))
-                        val propFieldsT = Type.Select(ns, Type.Name(n + "Fields"))
+                    prop match {
+                      case ScalaType(pkg, name, _)
+                          if pkg != Package.scala && refersToObject(definitionMap, propSchema) =>
+                        val propFields = ScalaType(pkg, name + "Fields")
 
-                        q"""def $valueName: $propFieldsT = $propN.nestedField(_prefix :+ $valueLit)"""
+                        q"""def $valueName: $propFields = $propN.nestedField(_prefix :+ $valueLit)"""
                       case _ =>
                         q"""def $valueName: Field = com.coralogix.zio.k8s.client.model.field(_prefix :+ $valueLit)"""
                     }
@@ -319,7 +315,7 @@ trait ModelGenerator {
               List(
                 classDef,
                 q"""
-                      object $entityNameN extends $entityFieldsInit {
+                      object ${entity.termName} extends $entityFieldsInit {
                         def nestedField(prefix: Chunk[String]): $entityFieldsT = new $entityFieldsT(prefix)
 
                         $encoder
@@ -333,10 +329,14 @@ trait ModelGenerator {
               )
             case None             =>
               q"""
-                case class $entityNameT(value: Json)
-                object $entityNameN {
-                  implicit val $encoderName: Encoder[$entityNameT] = (v: $entityNameT) => v.value
-                  implicit val $decoderName: Decoder[$entityNameT] = (cursor: HCursor) => Right($entityNameN(cursor.value))
+                case class ${entity.typName}(value: Json)
+                object ${entity.termName} {
+                  implicit val $encoderName: ${Types
+                  .jsonEncoder(entity)
+                  .typ} = (v: ${entity.typ}) => v.value
+                  implicit val $decoderName: ${Types
+                  .jsonDecoder(entity)
+                  .typ} = (cursor: HCursor) => Right(${entity.term}(cursor.value))
 
                   def nestedField(prefix: Chunk[String]): $entityFieldsT = new $entityFieldsT(prefix)
                 }
@@ -349,42 +349,46 @@ trait ModelGenerator {
         case Some("string") =>
           Option(d.schema.getFormat) match {
             case None                  =>
-              q"""case class $entityNameT(value: String) extends AnyVal
-                  object $entityNameN {
-                    implicit val $encoderName: Encoder[$entityNameT] = Encoder.encodeString.contramap(_.value)
-                    implicit val $decoderName: Decoder[$entityNameT] = Decoder.decodeString.map($entityNameN.apply)
+              q"""case class ${entity.typName}(value: String) extends AnyVal
+                  object ${entity.termName} {
+                    implicit val $encoderName: ${Types
+                  .jsonEncoder(entity)
+                  .typ} = Encoder.encodeString.contramap(_.value)
+                    implicit val $decoderName: ${Types
+                  .jsonDecoder(entity)
+                  .typ} = Decoder.decodeString.map(${entity.term}.apply)
                   }
                """.stats
             case Some("int-or-string") =>
               q"""
-                  case class $entityNameT(value: Either[Int, String])
-                  object $entityNameN {
-                    def fromInt(value: Int): $entityNameT = $entityNameN(Left(value))
-                    def fromString(value: String): $entityNameT = $entityNameN(Right(value))
+                  case class ${entity.typName}(value: Either[Int, String])
+                  object ${entity.termName} {
+                    def fromInt(value: Int): ${entity.typ} = ${entity.term}(Left(value))
+                    def fromString(value: String): ${entity.typ} = ${entity.term}(Right(value))
 
-                    implicit val $encoderName: Encoder[$entityNameT] =
-                      (value: $entityNameT) => value.value match {
+                    implicit val $encoderName: ${Types.jsonEncoder(entity).typ} =
+                      (value: ${entity.typ}) => value.value match {
                         case Left(int) => Json.fromInt(int)
                         case Right(str) => Json.fromString(str)
                       }
-                    implicit val $decoderName: Decoder[$entityNameT] =
+                    implicit val $decoderName: ${Types.jsonDecoder(entity).typ} =
 
-                      (cursor: HCursor) => cursor.as[Int].map(v => $entityNameN(Left(v))) match {
+                      (cursor: HCursor) => cursor.as[Int].map(v => ${entity.term}(Left(v))) match {
                         case Left(_) =>
                           cursor
                             .as[String]
-                            .map(v => $entityNameN(Right(v)))
+                            .map(v => ${entity.term}(Right(v)))
                         case Right(value) => Right(value)
                       }
                   }
               """.stats
             case Some("date-time")     =>
-              q"""case class $entityNameT(value: OffsetDateTime) extends AnyVal
-                  object $entityNameN {
-                    implicit val $encoderName: Encoder[$entityNameT] =
+              q"""case class ${entity.typName}(value: OffsetDateTime) extends AnyVal
+                  object ${entity.termName} {
+                    implicit val $encoderName: ${Types.jsonEncoder(entity).typ} =
                       Encoder.encodeString.contramap(_.value.format(com.coralogix.zio.k8s.client.model.k8sDateTimeFormatter))
-                    implicit val $decoderName: Decoder[$entityNameT] =
-                      Decoder.decodeString.emapTry(str => Try(OffsetDateTime.parse(str, java.time.format.DateTimeFormatter.ISO_OFFSET_DATE_TIME)).map($entityNameN.apply))
+                    implicit val $decoderName: ${Types.jsonDecoder(entity).typ} =
+                      Decoder.decodeString.emapTry(str => Try(OffsetDateTime.parse(str, java.time.format.DateTimeFormatter.ISO_OFFSET_DATE_TIME)).map(${entity.term}.apply))
                   }
                """.stats
             case Some(other)           =>
@@ -392,29 +396,11 @@ trait ModelGenerator {
               List.empty
           }
         case _              =>
-          logger.error(s"!!! Special type $entityName not handled yet")
+          logger.error(s"!!! Special type ${entity.name} not handled yet")
           List.empty
       }
 
-    val tree =
-      q"""package $packageTerm {
-
-          import io.circe._
-          import io.circe.syntax._
-          import java.time.OffsetDateTime
-          import scala.util.Try
-          import zio.{Chunk, IO, ZIO}
-          import zio.prelude.data.Optional
-
-          import com.coralogix.zio.k8s.client.{K8sFailure, UndefinedField}
-          import com.coralogix.zio.k8s.client.model.{Field, K8sResourceType, ResourceMetadata, optionalDecoder, optionalEncoder}
-          import com.coralogix.zio.k8s.client.model.codecs.{chunkByteDecoder, chunkByteEncoder}
-
-          import $rootPackageTerm._
-
-          ..$defs
-          }
-      """
+    val tree = Term.Block(defs)
 
     val paramDescs =
       (Option(d.schema.getType).getOrElse("object")) match {
@@ -469,10 +455,13 @@ trait ModelGenerator {
         case _        => Map.empty
       }
 
-    getterDocs.foldLeft(
-      prettyPrint(tree)
-        .replace("case class", classDesc + "\ncase class")
-    ) { case (code, (from, to)) => code.replace(from, to) }
+    ZIO.succeed(tree)
+
+    // TODO: docs support
+//    getterDocs.foldLeft(
+//      prettyPrint(tree)
+//        .replace("case class", classDesc + "\ncase class")
+//    ) { case (code, (from, to)) => code.replace(from, to) }
   }
 
   private def escapeDocString(s: String): String =
@@ -480,70 +469,70 @@ trait ModelGenerator {
       .replace("*/", "*&#47;")
       .replace("$", "$$")
 
-  protected def toType(name: String, propSchema: Schema[_]): Type =
+  protected def toType(name: String, propSchema: Schema[_]): ScalaType =
     (Option(propSchema.getType), Option(propSchema.get$ref())) match {
       case (None, Some(ref)) =>
-        val (nsParts, n) = splitName(ref.drop("#/components/schemas/".length))
-        val ns = nsParts.mkString(".").parse[Term].get.asInstanceOf[Term.Ref]
-        Type.Select(ns, Type.Name(n))
+        splitName(ref.drop("#/components/schemas/".length))
 
       case (Some("string"), _) =>
         Option(propSchema.getFormat) match {
           case Some("byte")  =>
             t"Chunk[Byte]"
+            Types.chunk(ScalaType.byte)
           case Some(unknown) =>
             logger.error(s"UNHANDLED STRING FORMAT for $name: $unknown")
-            t"CodeGeneratorError"
+            ScalaType.nothing
           case None          =>
-            t"String"
+            ScalaType.string
         }
 
       case (Some("boolean"), _) =>
-        t"Boolean"
+        ScalaType.boolean
       case (Some("integer"), _) =>
         Option(propSchema.getFormat) match {
           case Some("int32") =>
-            t"Int"
+            ScalaType.int
           case Some("int64") =>
-            t"Long"
+            ScalaType.long
           case Some(unknown) =>
             logger.error(s"UNHANDLED INT FORMAT for $name: $unknown")
-            t"CodeGeneratorError"
+            ScalaType.nothing
           case None          =>
-            t"Int"
+            ScalaType.int
         }
       case (Some("number"), _)  =>
         Option(propSchema.getFormat) match {
           case Some("double") =>
-            t"Double"
+            ScalaType.double
           case Some(unknown)  =>
             logger.error(s"UNHANDLED NUMBER FORMAT for $name: $unknown")
-            t"CodeGeneratorError"
+            ScalaType.nothing
           case None           =>
-            t"Double"
+            ScalaType.double
         }
       case (Some("array"), _)   =>
         val arraySchema = propSchema.asInstanceOf[ArraySchema]
         val itemType = toType(s"$name items", arraySchema.getItems)
-        t"Vector[$itemType]"
+        ScalaType.vector(itemType)
 
       case (Some("object"), _) =>
         Option(propSchema.getAdditionalProperties).map(_.asInstanceOf[Schema[_]]) match {
           case Some(additionalProperties) =>
-            val keyType = toType(s"$name values", additionalProperties)
-            t"Map[String, $keyType]"
+            val valueType = toType(s"$name values", additionalProperties)
+            ScalaType.map(ScalaType.string, valueType)
           case None                       =>
             logger.error(s"UNHANDLED object type for $name")
-            t"CodeGeneratorError"
+            ScalaType.nothing
         }
 
       case (Some(unknown), _) =>
         logger.error(s"!!! UNHANDLED TYPE for $name: $unknown")
-        t"CodeGeneratorError"
+        ScalaType.nothing
       case (None, None)       =>
         logger.error(s"!!! No type and no ref for $name")
-        t"CodeGeneratorError"
+        ScalaType.nothing
     }
+
 
   protected def filterKeysOf(d: IdentifiedSchema): String => Boolean =
     d match {

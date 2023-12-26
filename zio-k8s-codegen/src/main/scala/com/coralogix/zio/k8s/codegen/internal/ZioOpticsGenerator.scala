@@ -1,70 +1,69 @@
 package com.coralogix.zio.k8s.codegen.internal
 
 import com.coralogix.zio.k8s.codegen.internal.CodegenIO.writeTextFile
-import com.coralogix.zio.k8s.codegen.internal.Conversions.splitName
+import com.coralogix.zio.k8s.codegen.internal.Conversions.{ splitName, splitNameOld }
+import io.github.vigoo.metagen.core.*
 import io.swagger.v3.oas.models.media.ObjectSchema
 import org.scalafmt.interfaces.Scalafmt
 import zio.ZIO
-import zio.ZIO._
+import zio.ZIO.*
 import zio.nio.file.Path
 import zio.nio.file.Files
 
-import scala.collection.JavaConverters._
+import scala.collection.JavaConverters.*
+import scala.meta.Term
 
 trait ZioOpticsGenerator {
   this: Common with ModelGenerator =>
 
-  private val opticsRoot = Vector("com", "coralogix", "zio", "k8s", "optics")
+  private val opticsRoot = Package("com", "coralogix", "zio", "k8s", "optics")
 
   protected def generateAllZioOptics(
-    scalafmt: Scalafmt,
-    targetRoot: Path,
     definitions: Set[IdentifiedSchema]
-  ): ZIO[Any, Throwable, Set[Path]] = {
+  ): ZIO[Generator, GeneratorFailure[Nothing], Set[Path]] = {
     val filteredDefinitions = definitions.filter(d => !isListModel(d))
     for {
       _     <-
-        ZIO.attempt(
+        ZIO.succeed(
           logger.info(s"Generating ZIO Optics for ${filteredDefinitions.size} models...")
         )
       paths <- ZIO.foreach(filteredDefinitions) { d =>
-                 val (groupName, entityName) = splitName(d.name)
-                 val pkg = (opticsRoot ++ groupName)
-                 val modelPkg = (modelRoot ++ groupName)
+                 val modelEntity = splitName(d.name, modelRootPkg)
+                 val opticsEntity = splitName(d.name, opticsRoot)
 
                  for {
-                   _         <-
-                     ZIO.attempt(logger.info(s"Generating '$entityName' to ${pkg.mkString(".")}"))
-                   src        =
-                     generateZioOptics(modelRoot, pkg, modelPkg, entityName, d)
-                   targetDir  = pkg.foldLeft(targetRoot)(_ / _)
-                   _         <- Files.createDirectories(targetDir)
-                   targetPath = targetDir / s"$entityName.scala"
-                   _         <- writeTextFile(targetPath, src)
-                   _         <- format(scalafmt, targetPath)
+                   _          <-
+                     ZIO.succeed(
+                       logger.info(
+                         s"Generating '${opticsEntity.name}' to ${opticsEntity.pkg.asString}"
+                       )
+                     )
+                   targetPath <-
+                     Generator
+                       .generateScalaPackage[Any, Nothing](opticsEntity.pkg, opticsEntity.name)(
+                         generateZioOptics(
+                           modelEntity,
+                           opticsEntity,
+                           d
+                         )
+                       )
                  } yield targetPath
                }
     } yield paths
   }
 
   private def generateZioOptics(
-    modelRootPackage: Vector[String],
-    pkg: Vector[String],
-    modelPkg: Vector[String],
-    entityName: String,
+    modelEntity: ScalaType,
+    opticsEntity: ScalaType,
     d: IdentifiedSchema
-  ): String = {
+  ): ZIO[CodeFileGenerator, Nothing, Term.Block] = {
     import scala.meta._
-    val modelRootPackageTerm = modelRootPackage.mkString(".").parse[Term].get.asInstanceOf[Term.Ref]
-    val modelPackageTerm = modelPkg.mkString(".").parse[Term].get.asInstanceOf[Term.Ref]
-    val packageTerm = pkg.mkString(".").parse[Term].get.asInstanceOf[Term.Ref]
-
-    val entityNameT = Type.Name(entityName)
-    val entityOpticsN = Term.Name(entityName + "O")
 
     val optics = Option(d.schema.getType) match {
       case Some("object") =>
         val objectSchema = d.schema.asInstanceOf[ObjectSchema]
+
+        val presentHelper = ScalaType(opticsRoot, "present")
 
         Option(objectSchema.getProperties).map(_.asScala) match {
           case Some(properties) =>
@@ -75,22 +74,23 @@ trait ZioOpticsGenerator {
               .toList
               .flatMap { case (name, propSchema) =>
                 val isRequired = requiredProperties.contains(name)
-                val propT = toType(name, propSchema)
-
-                val nameN = Term.Name(name)
-                val nameLN = Term.Name(name + "L")
-                val nameLP = Pat.Var(nameLN)
-                val nameON = Term.Name(name + "O")
-                val nameOP = Pat.Var(nameON)
+                val prop = toType(name, propSchema)
+                val nameP = ScalaType(opticsEntity.pkg / opticsEntity.name, name)
+                val nameL = nameP.renamed(_ + "L")
+                val nameO = nameP.renamed(_ + "O")
 
                 if (isRequired)
                   List(
-                    q"""val $nameLP: Lens[$entityNameT, $propT] = Lens(obj => Right(obj.$nameN), value => obj => Right(obj.copy($nameN = value)))"""
+                    q"""val ${nameL.pat}: ${Types
+                        .zioOpticsLens(modelEntity, prop)
+                        .typ} = ${Types.zioOpticsLens_.term}(obj => Right(obj.${nameP.termName}), value => obj => Right(obj.copy(${nameP.termName} = value)))"""
                   )
                 else
                   List(
-                    q"""val $nameLP: Lens[$entityNameT, Optional[$propT]] = Lens(obj => Right(obj.$nameN), value => obj => Right(obj.copy($nameN = value)))""",
-                    q"""val $nameOP = $nameLN >>> present[$propT, $propT]"""
+                    q"""val ${nameL.pat}: ${Types
+                        .zioOpticsLens(modelEntity, Types.optional(prop))
+                        .typ} = ${Types.zioOpticsLens_.term}(obj => Right(obj.${nameP.termName}), value => obj => Right(obj.copy(${nameP.termName} = value)))""",
+                    q"""val ${nameO.pat} = ${nameL.term} >>> ${presentHelper.term}[${prop.typ}, ${prop.typ}]"""
                   )
               }
           case _                => List.empty
@@ -98,24 +98,12 @@ trait ZioOpticsGenerator {
       case _              => List.empty
     }
 
-    val tree =
-      q"""package $packageTerm {
-
-          import java.time.OffsetDateTime
-          import zio.Chunk
-          import zio.optics._
-
-          import zio.prelude.data.Optional
-          import com.coralogix.zio.k8s.optics.{absent, present}
-
-          import $modelRootPackageTerm._
-          import $modelPackageTerm._
-
-          object $entityOpticsN {
+    ZIO.succeed {
+      Term.Block(List(q"""
+          object ${opticsEntity.termName} {
             ..$optics
           }
-          }
-      """
-    prettyPrint(tree)
+         """))
+    }
   }
 }

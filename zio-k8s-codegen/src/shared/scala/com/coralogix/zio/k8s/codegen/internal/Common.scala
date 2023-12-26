@@ -1,34 +1,34 @@
 package com.coralogix.zio.k8s.codegen.internal
 
-import com.coralogix.zio.k8s.codegen.internal.CodegenIO.{ readTextFile, writeTextFile }
-import com.coralogix.zio.k8s.codegen.internal.Conversions.splitName
+import com.coralogix.zio.k8s.codegen.internal.CodegenIO.{readTextFile, writeTextFile}
+import com.coralogix.zio.k8s.codegen.internal.Conversions.{splitName, splitNameOld}
+import io.github.vigoo.metagen.core.{Package, ScalaType}
 import io.swagger.v3.oas.models.media.ObjectSchema
 import org.scalafmt.interfaces.Scalafmt
 import zio.ZIO
-
 import zio.nio.file.Path
+import zio.prelude.NonEmptyList
 
-import java.nio.file.{ Path => JPath, Paths => JPaths }
-
-import scala.meta.Tree
+import java.nio.file.{Path as JPath, Paths as JPaths}
+import scala.meta.{Pat, Tree}
 import scala.meta.internal.prettyprinters.TreeSyntax
 
 trait Common {
   protected def findStatusEntity(
     definitions: Map[String, IdentifiedSchema],
     modelName: String
-  ): Option[String] = {
+  ): Option[ScalaType] = {
     val modelSchema = definitions(modelName).schema.asInstanceOf[ObjectSchema]
     findStatusEntityOfSchema(modelSchema)
   }
 
-  protected def findStatusEntityOfSchema(modelSchema: ObjectSchema): Option[String] =
+  protected def findStatusEntityOfSchema(modelSchema: ObjectSchema): Option[ScalaType] =
     for {
       properties       <- Option(modelSchema.getProperties)
       statusPropSchema <- Option(properties.get("status"))
       ref              <- Option(statusPropSchema.get$ref())
-      (pkg, name)       = splitName(ref.drop("#/components/schemas/".length))
-    } yield pkg.mkString(".") + "." + name
+      statusEntity       = splitName(ref.drop("#/components/schemas/".length))
+    } yield statusEntity
 
   def scalaVersion: String
 
@@ -50,4 +50,33 @@ trait Common {
         formatted = scalafmt.format(JPaths.get(".scalafmt.conf"), path.toFile.toPath, code)
         _        <- writeTextFile(path, formatted)
       } yield path
+
+  implicit class PackageOps(pkg: Package) {
+    def /(subPackages: Vector[String]): Package =
+      subPackages.foldLeft(pkg)(_ / _)
+
+    def /(subPackages: Package): Package =
+      subPackages.path.foldLeft(pkg)(_ / _)
+
+    def show: String =
+      pkg.path.mkString(".")
+
+    def dropPrefix(prefix: Package): Package = {
+      val commonPrefixLength =
+        prefix.path.zip(pkg.path).prefixLength { case (a, b) => a == b }
+
+      pkg.path.drop(commonPrefixLength) match {
+        case Nil             => pkg
+        case cons @ ::(_, _) => new Package(NonEmptyList.fromCons(cons))
+      }
+    }
+  }
+
+  implicit class ScalaTypeOps(scalaType: ScalaType) {
+    def pat: Pat.Var = Pat.Var(scalaType.termName)
+
+    def renamed(f: String => String): ScalaType =
+      ScalaType(scalaType.pkg, f(scalaType.name), scalaType.params *)
+  }
 }
+

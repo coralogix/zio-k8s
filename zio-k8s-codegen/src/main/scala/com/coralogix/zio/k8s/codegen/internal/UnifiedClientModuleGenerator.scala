@@ -1,45 +1,40 @@
 package com.coralogix.zio.k8s.codegen.internal
 
 import com.coralogix.zio.k8s.codegen.internal.CodegenIO.writeTextFile
-import com.coralogix.zio.k8s.codegen.internal.Conversions.{ groupNameToPackageName, splitName }
-import com.coralogix.zio.k8s.codegen.internal.UnifiedClientModuleGenerator._
+import com.coralogix.zio.k8s.codegen.internal.Conversions.{groupNameToPackageName, splitName, splitNameOld}
+import com.coralogix.zio.k8s.codegen.internal.UnifiedClientModuleGenerator.*
+import io.github.vigoo.metagen.core.*
 import org.scalafmt.interfaces.Scalafmt
 
-import scala.meta._
+import scala.meta.*
 import zio.ZIO
 import zio.nio.file.Path
 import zio.nio.file.Files
 
 import scala.collection.immutable
+import scala.meta.Term.ArgClause
 
 trait UnifiedClientModuleGenerator {
   this: Common with ClientModuleGenerator =>
 
   def generateUnifiedClientModule(
-    scalafmt: Scalafmt,
-    targetRoot: Path,
-    basePackageName: String,
+    basePackage: Package,
     definitionMap: Map[String, IdentifiedSchema],
     resources: Set[SupportedResource]
-  ): ZIO[Any, Throwable, Set[Path]] = {
+  ): ZIO[Generator, GeneratorFailure[Throwable], Set[Path]] = {
     val gvkTree = toTree(resources)
-    val source = generateUnifiedClientModuleSource(gvkTree, basePackageName, definitionMap)
-
-    val pkg = basePackageName.split('.')
-    val targetDir = pkg.foldLeft(targetRoot)(_ / _) / "kubernetes"
     for {
-      _         <- Files.createDirectories(targetDir)
-      targetPath = targetDir / "package.scala"
-      _         <- writeTextFile(targetPath, source)
-      _         <- format(scalafmt, targetPath)
+      targetPath <- Generator.generateScalaPackageObject[Any, Nothing](basePackage, "kubernetes") {
+        generateUnifiedClientModuleCode(gvkTree, basePackage, definitionMap)
+      }
     } yield Set(targetPath)
   }
 
-  private def generateUnifiedClientModuleSource(
+  private def generateUnifiedClientModuleCode(
     gvkTree: PackageNode,
-    basePackageName: String,
+    basePackage: Package,
     definitionMap: Map[String, IdentifiedSchema]
-  ): String = {
+  ): ZIO[CodeFileGenerator, Nothing, Term.Block] = {
     val interfaces =
       pkgNodeToInterfaces(definitionMap, basePackageName, "Service", gvkTree)
     val liveClass =
@@ -225,7 +220,7 @@ trait UnifiedClientModuleGenerator {
     ifaceStack: Vector[String]
   ): Defn = {
     val namePat = Pat.Var(Term.Name(name))
-    val ifaceType = Init(ifaceStack.mkString(".").parse[Type].get, Name.Anonymous(), List.empty)
+    val ifaceType = Init(ifaceStack.mkString(".").parse[Type].get, Name.Anonymous(), Seq.empty)
     q"""
        lazy val $namePat = new $ifaceType {
          ..$childDefs
@@ -252,7 +247,7 @@ trait UnifiedClientModuleGenerator {
           .get
           .asInstanceOf[Term.Ref]
 
-    val (entityPkg, entity) = splitName(resource.modelName)
+    val (entityPkg, entity) = splitNameOld(resource.modelName)
     val dtoPackage = ("com.coralogix.zio.k8s.model." + entityPkg.mkString("."))
       .parse[Term]
       .get
@@ -298,7 +293,7 @@ trait UnifiedClientModuleGenerator {
       val liveInit = Init(
         Type.Select(obj, Type.Name("Live")),
         Name.Anonymous(),
-        List(testClientConstruction.map(_._1))
+        List(ArgClause(testClientConstruction.map(_._1), None))
       )
 
       q"""lazy val $namePat: $serviceT = zio.Unsafe.unsafeCompat { implicit u =>
@@ -323,7 +318,7 @@ trait UnifiedClientModuleGenerator {
       val liveInit = Init(
         Type.Select(obj, Type.Name("Live")),
         Name.Anonymous(),
-        List(cons)
+        List(ArgClause(cons, None))
       )
       q"""lazy val $namePat: $serviceT = {
             val resourceType = implicitly[ResourceMetadata[$entityT]].resourceType

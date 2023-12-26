@@ -1,13 +1,13 @@
 package com.coralogix.zio.k8s.codegen.internal
 
-import com.coralogix.zio.k8s.codegen.internal.Conversions.splitName
+import com.coralogix.zio.k8s.codegen.internal.Conversions.{splitName, splitNameOld}
 import com.coralogix.zio.k8s.codegen.internal.EndpointType.SubresourceEndpoint
-import io.swagger.v3.oas.models.media.{ ArraySchema, Schema }
+import io.swagger.v3.oas.models.media.{ArraySchema, Schema}
 import io.swagger.v3.oas.models.parameters.Parameter
-import io.swagger.v3.oas.models.{ Operation, PathItem }
+import io.swagger.v3.oas.models.{Operation, PathItem}
 
 import java.util
-import scala.collection.JavaConverters._
+import scala.collection.JavaConverters.*
 import scala.util.Try
 
 sealed trait Identified {
@@ -172,7 +172,7 @@ case class IdentifiedAction(
       firstContent <- content.asScala.values.headOption
       schema       <- Option(firstContent.getSchema)
       ref          <- Option(schema.get$ref())
-      (pkg, name)   = splitName(ref.drop("#/components/schemas/".length))
+      (pkg, name)   = splitNameOld(ref.drop("#/components/schemas/".length))
     } yield pkg.mkString(".") + "." + name
 }
 
