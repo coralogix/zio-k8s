@@ -7,7 +7,7 @@ val zioConfigVersion = "4.0.1"
 val zioLoggingVersion = "2.1.16"
 val sttpVersion = "3.9.5"
 val zioNioVersion = "2.0.2"
-val zioPreludeVersion = "1.0.0-RC23"
+val zioPreludeVersion = "1.0.0-RC24"
 
 Global / onChangedBuildSource := ReloadOnSourceChanges
 
