@@ -3,11 +3,11 @@ val scala213Version = "2.13.12"
 val scala3Version = "3.3.3"
 
 val zioVersion = "2.0.22"
-val zioConfigVersion = "4.0.1"
+val zioConfigVersion = "4.0.2"
 val zioLoggingVersion = "2.1.16"
 val sttpVersion = "3.9.5"
 val zioNioVersion = "2.0.2"
-val zioPreludeVersion = "1.0.0-RC23"
+val zioPreludeVersion = "1.0.0-RC24"
 
 Global / onChangedBuildSource := ReloadOnSourceChanges
 
@@ -71,9 +71,9 @@ lazy val client = Project("zio-k8s-client", file("zio-k8s-client"))
       "com.softwaremill.sttp.client3" %% "core"                          % sttpVersion,
       "com.softwaremill.sttp.client3" %% "zio"                           % sttpVersion,
       "com.softwaremill.sttp.client3" %% "circe"                         % sttpVersion,
-      "io.circe"                      %% "circe-core"                    % "0.14.6",
-      "io.circe"                      %% "circe-generic"                 % "0.14.6",
-      "io.circe"                      %% "circe-parser"                  % "0.14.6",
+      "io.circe"                      %% "circe-core"                    % "0.14.7",
+      "io.circe"                      %% "circe-generic"                 % "0.14.7",
+      "io.circe"                      %% "circe-parser"                  % "0.14.7",
       "io.circe"                      %% "circe-yaml"                    % "0.14.2",
       "org.bouncycastle"               % "bcpkix-jdk18on"                % "1.78",
       "dev.zio"                       %% "zio-config-typesafe"           % zioConfigVersion % Test,
