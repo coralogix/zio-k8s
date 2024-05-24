@@ -4,9 +4,9 @@ import _root_.io.circe._
 import _root_.io.circe.parser._
 import cats.data.NonEmptyList
 import com.coralogix.zio.k8s.client._
+import com.coralogix.zio.k8s.client.config.backend.SttpStreamsAndWebSockets
 import com.coralogix.zio.k8s.client.model._
-import com.coralogix.zio.k8s.model.pkg.apis.meta.v1.{ DeleteOptions, Status, WatchEvent }
-import sttp.capabilities.WebSockets
+import com.coralogix.zio.k8s.model.pkg.apis.meta.v1.{DeleteOptions, Status, WatchEvent}
 import sttp.capabilities.zio.ZioStreams
 import sttp.client3._
 import sttp.client3.circe._
@@ -38,7 +38,7 @@ final class ResourceClient[
 ](
   override protected val resourceType: K8sResourceType,
   override protected val cluster: K8sCluster,
-  override protected val backend: SttpBackend[Task, ZioStreams with WebSockets]
+  override protected val backend: SttpStreamsAndWebSockets
 ) extends Resource[T] with ResourceDelete[T, DeleteResult] with ResourceDeleteAll[T]
     with ResourceClientBase {
 

@@ -1,16 +1,13 @@
 package com.coralogix.zio.k8s.codegen.internal
 
 import com.coralogix.zio.k8s.codegen.internal.CodegenIO.writeTextFile
-import com.coralogix.zio.k8s.codegen.internal.Conversions.{ groupNameToPackageName, splitName }
-import com.coralogix.zio.k8s.codegen.internal.UnifiedClientModuleGenerator._
+import com.coralogix.zio.k8s.codegen.internal.Conversions.{groupNameToPackageName, splitName}
+import com.coralogix.zio.k8s.codegen.internal.UnifiedClientModuleGenerator.*
 import org.scalafmt.interfaces.Scalafmt
-
-import scala.meta._
 import zio.ZIO
-import zio.nio.file.Path
-import zio.nio.file.Files
+import zio.nio.file.{Files, Path}
 
-import scala.collection.immutable
+import scala.meta.*
 
 trait UnifiedClientModuleGenerator {
   this: Common with ClientModuleGenerator =>
@@ -52,10 +49,10 @@ trait UnifiedClientModuleGenerator {
       .asInstanceOf[Term.Ref]
 
     val liveLayer =
-      q"""val live: ZLayer[SttpBackend[Task, ZioStreams with WebSockets] with K8sCluster, Nothing, Kubernetes] =
+      q"""val live: ZLayer[SttpStreamsAndWebSockets with K8sCluster, Nothing, Kubernetes] =
             ZLayer.fromZIO {
               for {
-                backend <- ZIO.service[SttpBackend[Task, ZioStreams with WebSockets]]
+                backend <- ZIO.service[SttpStreamsAndWebSockets]
                 cluster <- ZIO.service[K8sCluster]
               } yield new Api(backend, cluster)
             }
@@ -77,9 +74,7 @@ trait UnifiedClientModuleGenerator {
         import com.coralogix.zio.k8s.client.model.{K8sCluster, ResourceMetadata}
         import com.coralogix.zio.k8s.client.impl.{ResourceClient, ResourceStatusClient, SubresourceClient}
         import com.coralogix.zio.k8s.client.test.{TestResourceClient, TestResourceStatusClient, TestSubresourceClient}
-        import sttp.capabilities.WebSockets
-        import sttp.capabilities.zio.ZioStreams
-        import sttp.client3.SttpBackend
+        import com.coralogix.zio.k8s.client.config.backend.SttpStreamsAndWebSockets
         import zio._
 
         package object kubernetes {
@@ -213,7 +208,7 @@ trait UnifiedClientModuleGenerator {
      """
     else
       q"""
-       class $nameT(backend: SttpBackend[Task, ZioStreams with WebSockets], cluster: K8sCluster) extends Service {
+       class $nameT(backend: SttpStreamsAndWebSockets, cluster: K8sCluster) extends Service {
          ..$childDefs
        }
      """

@@ -1,11 +1,9 @@
 package com.coralogix.zio.k8s.client.config
 
+import com.coralogix.zio.k8s.client.config.backend.SttpStreamsAndWebSockets
 import com.coralogix.zio.k8s.client.model.K8sCluster
-import io.netty.handler.ssl.{ ClientAuth, IdentityCipherSuiteFilter, JdkSslContext }
+import io.netty.handler.ssl.{ClientAuth, IdentityCipherSuiteFilter, JdkSslContext}
 import org.asynchttpclient.Dsl
-import sttp.capabilities.WebSockets
-import sttp.capabilities.zio.ZioStreams
-import sttp.client3.SttpBackend
 import sttp.client3.asynchttpclient.zio._
 import sttp.client3.logging.LoggingBackend
 import sttp.client3.logging.slf4j.Slf4jLogger
@@ -20,7 +18,7 @@ package object asynchttpclient {
     */
   def k8sSttpClient(
     loggerName: String = "sttp.client3.logging.slf4j.Slf4jLoggingBackend"
-  ): ZLayer[K8sClusterConfig, Throwable, SttpBackend[Task, ZioStreams with WebSockets]] =
+  ): ZLayer[K8sClusterConfig, Throwable, SttpStreamsAndWebSockets] =
     ZLayer.scoped {
       for {
         config                      <- ZIO.service[K8sClusterConfig]
@@ -60,7 +58,7 @@ package object asynchttpclient {
                 new Slf4jLogger(loggerName, backend.responseMonad),
                 logRequestBody = config.client.debug,
                 logResponseBody = config.client.debug
-              )
+              ).asInstanceOf[SttpStreamsAndWebSockets]
             }
       } yield client
     }
@@ -75,7 +73,6 @@ package object asynchttpclient {
   /** Layer producing a [[K8sCluster]] and an sttp backend module that can be directly used to
     * initialize specific Kubernetes client modules, using the [[defaultConfigChain]].
     */
-  val k8sDefault
-    : ZLayer[Any, Throwable, K8sCluster with SttpBackend[Task, ZioStreams with WebSockets]] =
+  val k8sDefault: ZLayer[Any, Throwable, K8sCluster with SttpStreamsAndWebSockets] =
     defaultConfigChain >>> (k8sCluster ++ k8sSttpClient())
 }

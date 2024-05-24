@@ -1,14 +1,12 @@
 package com.coralogix.zio.k8s.examples.leader
 
-import com.coralogix.zio.k8s.client.impl.{ ResourceClient, ResourceStatusClient }
-import com.coralogix.zio.k8s.client.model._
 import com.coralogix.zio.k8s.client._
-import com.coralogix.zio.k8s.model.pkg.apis.meta.v1.{ ObjectMeta, Status }
+import com.coralogix.zio.k8s.client.config.backend.SttpStreamsAndWebSockets
+import com.coralogix.zio.k8s.client.impl.{ResourceClient, ResourceStatusClient}
+import com.coralogix.zio.k8s.client.model._
+import com.coralogix.zio.k8s.model.pkg.apis.meta.v1.{ObjectMeta, Status}
 import io.circe.Codec
 import io.circe.generic.semiauto._
-import sttp.capabilities.WebSockets
-import sttp.capabilities.zio.ZioStreams
-import sttp.client3.SttpBackend
 import zio._
 import zio.prelude.data.Optional
 
@@ -70,10 +68,10 @@ package object crontabs {
     ) extends Service
 
     val live
-      : ZLayer[K8sCluster with SttpBackend[Task, ZioStreams with WebSockets], Nothing, Crontabs] =
+      : ZLayer[K8sCluster with SttpStreamsAndWebSockets, Nothing, Crontabs] =
       ZLayer {
         for {
-          backend <- ZIO.service[SttpBackend[Task, ZioStreams with WebSockets]]
+          backend <- ZIO.service[SttpStreamsAndWebSockets]
           cluster <- ZIO.service[K8sCluster]
         } yield {
           val client =

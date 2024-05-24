@@ -2,21 +2,14 @@ package com.coralogix.zio.k8s.client.impl
 
 import _root_.io.circe._
 import cats.data.NonEmptyList
-import com.coralogix.zio.k8s.client.model.{ K8sCluster, K8sNamespace, K8sResourceType }
-import com.coralogix.zio.k8s.client.{ K8sFailure, K8sRequestInfo, RequestFailure, Subresource }
-import sttp.capabilities.WebSockets
+import com.coralogix.zio.k8s.client.config.backend.SttpStreamsAndWebSockets
+import com.coralogix.zio.k8s.client.model.{K8sCluster, K8sNamespace, K8sResourceType}
+import com.coralogix.zio.k8s.client.{K8sFailure, K8sRequestInfo, RequestFailure, Subresource}
 import sttp.capabilities.zio.ZioStreams
 import sttp.client3.circe._
-import sttp.client3.{
-  asEither,
-  asStreamAlwaysUnsafe,
-  asStringAlways,
-  HttpError,
-  ResponseException,
-  SttpBackend
-}
-import zio.stream.{ ZPipeline, ZStream }
-import zio.{ IO, Task }
+import sttp.client3.{HttpError, ResponseException, asEither, asStreamAlwaysUnsafe, asStringAlways}
+import zio.IO
+import zio.stream.{ZPipeline, ZStream}
 
 /** Generic implementation for [[Subresource]]
   * @param resourceType
@@ -33,7 +26,7 @@ import zio.{ IO, Task }
 final class SubresourceClient[T: Encoder: Decoder](
   override protected val resourceType: K8sResourceType,
   override protected val cluster: K8sCluster,
-  override protected val backend: SttpBackend[Task, ZioStreams with WebSockets],
+  override protected val backend: SttpStreamsAndWebSockets,
   subresourceName: String
 ) extends Subresource[T] with ResourceClientBase {
 
