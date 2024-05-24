@@ -6,7 +6,7 @@ import cats.data.NonEmptyList
 import com.coralogix.zio.k8s.client._
 import com.coralogix.zio.k8s.client.config.backend.SttpStreamsAndWebSockets
 import com.coralogix.zio.k8s.client.model._
-import com.coralogix.zio.k8s.model.pkg.apis.meta.v1.{DeleteOptions, Status, WatchEvent}
+import com.coralogix.zio.k8s.model.pkg.apis.meta.v1.{ DeleteOptions, Status, WatchEvent }
 import sttp.capabilities.zio.ZioStreams
 import sttp.client3._
 import sttp.client3.circe._

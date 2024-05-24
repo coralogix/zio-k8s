@@ -3,14 +3,19 @@ package com.coralogix.zio.k8s.operator.leader.locks
 import com.coralogix.zio.k8s.client.config.backend.SttpStreamsAndWebSockets
 import com.coralogix.zio.k8s.client.impl.ResourceClient
 import com.coralogix.zio.k8s.client.model._
-import com.coralogix.zio.k8s.client.{NamespacedResource, NamespacedResourceDelete, ResourceDelete, model}
+import com.coralogix.zio.k8s.client.{
+  model,
+  NamespacedResource,
+  NamespacedResourceDelete,
+  ResourceDelete
+}
 import com.coralogix.zio.k8s.model.pkg.apis.apiextensions.v1.CustomResourceDefinition
-import com.coralogix.zio.k8s.model.pkg.apis.meta.v1.{ObjectMeta, Status}
+import com.coralogix.zio.k8s.model.pkg.apis.meta.v1.{ ObjectMeta, Status }
 import io.circe._
 import io.circe.syntax._
 import zio._
 import zio.prelude.data.Optional
-import zio.stream.{ZPipeline, ZStream}
+import zio.stream.{ ZPipeline, ZStream }
 
 case class LeaderLockResource(metadata: Optional[ObjectMeta])
 

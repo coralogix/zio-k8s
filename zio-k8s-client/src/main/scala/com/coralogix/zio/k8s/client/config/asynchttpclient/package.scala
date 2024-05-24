@@ -2,7 +2,7 @@ package com.coralogix.zio.k8s.client.config
 
 import com.coralogix.zio.k8s.client.config.backend.SttpStreamsAndWebSockets
 import com.coralogix.zio.k8s.client.model.K8sCluster
-import io.netty.handler.ssl.{ClientAuth, IdentityCipherSuiteFilter, JdkSslContext}
+import io.netty.handler.ssl.{ ClientAuth, IdentityCipherSuiteFilter, JdkSslContext }
 import org.asynchttpclient.Dsl
 import sttp.client3.asynchttpclient.zio._
 import sttp.client3.logging.LoggingBackend

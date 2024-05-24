@@ -6,12 +6,24 @@ import com.coralogix.zio.k8s.client.config.backend.SttpStreamsAndWebSockets
 import com.coralogix.zio.k8s.client.internal.IsOptional
 import com.coralogix.zio.k8s.client.model._
 import com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Status
-import io.circe.{Decoder, Error}
-import io.circe.parser.{decode, decodeAccumulating}
+import io.circe.parser.{ decode, decodeAccumulating }
+import io.circe.{ Decoder, Error }
 import sttp.client3.json.RichResponseAs
-import sttp.client3.{DeserializationException, Empty, HttpError, IsOption, RequestT, Response, ResponseAs, ResponseException, ShowError, SttpBackend, asString, basicRequest}
-import sttp.model.{StatusCode, Uri}
-import zio.{Duration, IO, Task, ZIO}
+import sttp.client3.{
+  asString,
+  basicRequest,
+  DeserializationException,
+  Empty,
+  HttpError,
+  IsOption,
+  RequestT,
+  Response,
+  ResponseAs,
+  ResponseException,
+  ShowError
+}
+import sttp.model.{ StatusCode, Uri }
+import zio.{ Duration, IO, Task, ZIO }
 
 trait ResourceClientBase {
   protected val resourceType: K8sResourceType

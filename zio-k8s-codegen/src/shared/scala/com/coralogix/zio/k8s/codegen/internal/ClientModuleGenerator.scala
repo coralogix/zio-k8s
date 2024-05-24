@@ -1,9 +1,9 @@
 package com.coralogix.zio.k8s.codegen.internal
 
-import com.coralogix.zio.k8s.codegen.internal.Conversions.{groupNameToPackageName, splitName}
+import com.coralogix.zio.k8s.codegen.internal.Conversions.{ groupNameToPackageName, splitName }
 import org.atteo.evo.inflector.English
 import zio.nio.file.Path
-import zio.{Task, ZIO}
+import zio.{ Task, ZIO }
 
 import scala.meta.*
 

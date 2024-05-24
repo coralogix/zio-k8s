@@ -3,13 +3,13 @@ package com.coralogix.zio.k8s.client.impl
 import _root_.io.circe._
 import cats.data.NonEmptyList
 import com.coralogix.zio.k8s.client.config.backend.SttpStreamsAndWebSockets
-import com.coralogix.zio.k8s.client.model.{K8sCluster, K8sNamespace, K8sResourceType}
-import com.coralogix.zio.k8s.client.{K8sFailure, K8sRequestInfo, RequestFailure, Subresource}
+import com.coralogix.zio.k8s.client.model.{ K8sCluster, K8sNamespace, K8sResourceType }
+import com.coralogix.zio.k8s.client.{ K8sFailure, K8sRequestInfo, RequestFailure, Subresource }
 import sttp.capabilities.zio.ZioStreams
 import sttp.client3.circe._
-import sttp.client3.{HttpError, ResponseException, asEither, asStreamAlwaysUnsafe, asStringAlways}
+import sttp.client3.{ asEither, asStreamAlwaysUnsafe, asStringAlways, HttpError, ResponseException }
 import zio.IO
-import zio.stream.{ZPipeline, ZStream}
+import zio.stream.{ ZPipeline, ZStream }
 
 /** Generic implementation for [[Subresource]]
   * @param resourceType
