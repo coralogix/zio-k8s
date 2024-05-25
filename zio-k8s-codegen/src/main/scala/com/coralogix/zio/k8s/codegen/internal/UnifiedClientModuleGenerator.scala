@@ -7,7 +7,7 @@ import org.scalafmt.interfaces.Scalafmt
 import zio.ZIO
 import zio.nio.file.{Files, Path}
 
-import scala.meta.*
+import scala.meta._
 
 trait UnifiedClientModuleGenerator {
   this: Common with ClientModuleGenerator =>

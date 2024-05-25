@@ -5,7 +5,7 @@ import org.atteo.evo.inflector.English
 import zio.nio.file.Path
 import zio.{ Task, ZIO }
 
-import scala.meta.*
+import scala.meta._
 
 trait ClientModuleGenerator {
   this: Common =>
