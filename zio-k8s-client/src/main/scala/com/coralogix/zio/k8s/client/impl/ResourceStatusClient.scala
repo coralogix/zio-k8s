@@ -40,7 +40,7 @@ final class ResourceStatusClient[StatusT: Encoder, T: K8sObject: Encoder: Decode
                       .put(modifying(name = name, subresource = Some("status"), namespace, dryRun))
                       .body(toStatusUpdate(of, updatedStatus))
                       .response(asJsonAccumulating[T])
-                      .send(backend)
+                      .send(backend.value)
                   }
     } yield response
 
@@ -49,7 +49,7 @@ final class ResourceStatusClient[StatusT: Encoder, T: K8sObject: Encoder: Decode
       k8sRequest
         .get(simple(Some(name), subresource = Some("status"), namespace))
         .response(asJsonAccumulating[T])
-        .send(backend)
+        .send(backend.value)
     }
 
   private def toStatusUpdate(of: T, newStatus: StatusT): Json =

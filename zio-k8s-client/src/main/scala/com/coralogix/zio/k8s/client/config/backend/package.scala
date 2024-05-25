@@ -6,6 +6,7 @@ import sttp.client3.SttpBackend
 import zio.Task
 
 package object backend {
-  // trait serving as alias helping with Scala 3 compilation issues
-  trait SttpStreamsAndWebSockets extends SttpBackend[Task, ZioStreams with WebSockets]
+  // wrapper helping with Scala 3 compilation issues
+  case class SttpStreamsAndWebSockets(value: SttpBackend[Task, ZioStreams with WebSockets])
+      extends AnyVal
 }

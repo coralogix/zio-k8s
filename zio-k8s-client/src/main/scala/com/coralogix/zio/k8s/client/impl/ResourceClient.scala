@@ -63,7 +63,7 @@ final class ResourceClient[
             )
           )
           .response(asJsonAccumulating[ObjectList[T]])
-          .send(backend)
+          .send(backend.value)
       }.map { initialResponse =>
         val rest = ZStream.fromPull {
           for {
@@ -94,7 +94,7 @@ final class ResourceClient[
                                                                        )
                                                                      )
                                                                      .response(asJsonAccumulating[ObjectList[T]])
-                                                                     .send(backend)
+                                                                     .send(backend.value)
                                                                  }.mapError(Some.apply)
                                                           _   <- nextContinueToken.set(lst.metadata.flatMap(_.continue))
                                                         } yield Chunk.fromIterable(lst.items)
@@ -130,7 +130,7 @@ final class ResourceClient[
             .get(watching(namespace, resourceVersion, fieldSelector, labelSelector))
             .response(asStreamUnsafeWithError)
             .readTimeout(10.minutes.asScala)
-            .send(backend)
+            .send(backend.value)
         }.map(_.mapError(RequestFailure(reqInfo, _)))
       }
       .via(
@@ -176,7 +176,7 @@ final class ResourceClient[
       k8sRequest
         .get(simple(Some(name), subresource = None, namespace))
         .response(asJsonAccumulating[T])
-        .send(backend)
+        .send(backend.value)
     }
 
   override def create(
@@ -189,7 +189,7 @@ final class ResourceClient[
         .post(creating(namespace, dryRun))
         .body(newResource)
         .response(asJsonAccumulating[T])
-        .send(backend)
+        .send(backend.value)
     }
 
   override def replace(
@@ -203,7 +203,7 @@ final class ResourceClient[
         .put(modifying(name = name, subresource = None, namespace, dryRun))
         .body(updatedResource)
         .response(asJsonAccumulating[T])
-        .send(backend)
+        .send(backend.value)
     }
 
   override def delete(
@@ -228,7 +228,7 @@ final class ResourceClient[
         )
         .body(deleteOptions)
         .response(asJsonAccumulating[DeleteResult])
-        .send(backend)
+        .send(backend.value)
     }
 
   def deleteAll(
@@ -254,7 +254,7 @@ final class ResourceClient[
         )
         .body(deleteOptions)
         .response(asJsonAccumulating[Status])
-        .send(backend)
+        .send(backend.value)
     }
 }
 

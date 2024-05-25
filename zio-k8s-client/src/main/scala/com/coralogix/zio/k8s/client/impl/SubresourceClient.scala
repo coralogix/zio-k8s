@@ -42,7 +42,7 @@ final class SubresourceClient[T: Encoder: Decoder](
             .addParams(customParameters)
         )
         .response(asJsonAccumulating[T])
-        .send(backend)
+        .send(backend.value)
     }
 
   def streamingGet(
@@ -70,7 +70,7 @@ final class SubresourceClient[T: Encoder: Decoder](
               asStreamAlwaysUnsafe(ZioStreams)
             )
           )
-          .send(backend)
+          .send(backend.value)
       }.map { (stream: ZioStreams.BinaryStream) =>
         stream
           .mapError(
@@ -91,7 +91,7 @@ final class SubresourceClient[T: Encoder: Decoder](
         .put(modifying(name, Some(subresourceName), namespace, dryRun))
         .body(updatedValue)
         .response(asJsonAccumulating[T])
-        .send(backend)
+        .send(backend.value)
     }
 
   def create(
@@ -105,6 +105,6 @@ final class SubresourceClient[T: Encoder: Decoder](
         .post(modifying(name, Some(subresourceName), namespace, dryRun))
         .body(value)
         .response(asJsonAccumulating[T])
-        .send(backend)
+        .send(backend.value)
     }
 }

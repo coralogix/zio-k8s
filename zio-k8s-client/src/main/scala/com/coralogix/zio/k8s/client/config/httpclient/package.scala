@@ -2,6 +2,9 @@ package com.coralogix.zio.k8s.client.config
 
 import com.coralogix.zio.k8s.client.config.backend.SttpStreamsAndWebSockets
 import com.coralogix.zio.k8s.client.model.K8sCluster
+import sttp.capabilities.WebSockets
+import sttp.capabilities.zio.ZioStreams
+import sttp.client3.SttpBackend
 import sttp.client3.httpclient.zio._
 import sttp.client3.logging.LoggingBackend
 import sttp.client3.logging.slf4j.Slf4jLogger
@@ -47,12 +50,14 @@ package object httpclient {
                             )
                           )(_.close().ignore)
                           .map { backend =>
-                            LoggingBackend(
-                              backend,
-                              new Slf4jLogger(loggerName, backend.responseMonad),
-                              logRequestBody = config.client.debug,
-                              logResponseBody = config.client.debug
-                            ).asInstanceOf[SttpStreamsAndWebSockets]
+                            SttpStreamsAndWebSockets(
+                              LoggingBackend(
+                                backend,
+                                new Slf4jLogger(loggerName, backend.responseMonad),
+                                logRequestBody = config.client.debug,
+                                logResponseBody = config.client.debug
+                              )
+                            )
                           }
                       )
       } yield client

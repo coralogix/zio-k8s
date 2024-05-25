@@ -53,12 +53,14 @@ package object asynchttpclient {
               }
             )(_.close().ignore)
             .map { backend =>
-              LoggingBackend(
-                backend,
-                new Slf4jLogger(loggerName, backend.responseMonad),
-                logRequestBody = config.client.debug,
-                logResponseBody = config.client.debug
-              ).asInstanceOf[SttpStreamsAndWebSockets]
+              SttpStreamsAndWebSockets(
+                LoggingBackend(
+                  backend,
+                  new Slf4jLogger(loggerName, backend.responseMonad),
+                  logRequestBody = config.client.debug,
+                  logResponseBody = config.client.debug
+                )
+              )
             }
       } yield client
     }
