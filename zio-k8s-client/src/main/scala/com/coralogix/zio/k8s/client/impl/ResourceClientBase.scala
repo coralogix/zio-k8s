@@ -2,7 +2,7 @@ package com.coralogix.zio.k8s.client.impl
 
 import cats.data.NonEmptyList
 import com.coralogix.zio.k8s.client._
-import com.coralogix.zio.k8s.client.config.backend.SttpStreamsAndWebSockets
+import com.coralogix.zio.k8s.client.config.backend.K8sBackend
 import com.coralogix.zio.k8s.client.internal.IsOptional
 import com.coralogix.zio.k8s.client.model._
 import com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Status
@@ -28,7 +28,7 @@ import zio.{ Duration, IO, Task, ZIO }
 trait ResourceClientBase {
   protected val resourceType: K8sResourceType
   protected val cluster: K8sCluster
-  protected val backend: SttpStreamsAndWebSockets
+  protected val backend: K8sBackend
 
   protected val k8sRequest: RequestT[Empty, Either[String, String], Any] =
     cluster.applyToken match {

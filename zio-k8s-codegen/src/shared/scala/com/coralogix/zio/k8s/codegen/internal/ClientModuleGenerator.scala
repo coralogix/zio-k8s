@@ -145,10 +145,10 @@ trait ClientModuleGenerator {
         )
 
       val live =
-        q"""val live: ZLayer[SttpStreamsAndWebSockets with K8sCluster, Nothing, $typeAliasT] =
+        q"""val live: ZLayer[K8sBackend with K8sCluster, Nothing, $typeAliasT] =
               ZLayer.fromZIO {
                 for {
-                  backend <- ZIO.service[SttpStreamsAndWebSockets]
+                  backend <- ZIO.service[K8sBackend]
                   cluster <- ZIO.service[K8sCluster]
                 } yield {
                     val resourceType = implicitly[ResourceMetadata[$entityT]].resourceType
@@ -338,7 +338,7 @@ trait ClientModuleGenerator {
             ResourceMetadata,
             TypedWatchEvent
           }
-          import com.coralogix.zio.k8s.client.config.backend.SttpStreamsAndWebSockets
+          import com.coralogix.zio.k8s.client.config.backend.K8sBackend
           import zio.stream.{ZStream, ZPipeline}
           import zio._
 
@@ -581,7 +581,7 @@ trait ClientModuleGenerator {
             ResourceMetadata,
             TypedWatchEvent
           }
-          import com.coralogix.zio.k8s.client.config.backend.SttpStreamsAndWebSockets
+          import com.coralogix.zio.k8s.client.config.backend.K8sBackend
           import zio.stream.{ZStream, ZPipeline}
           import zio._
 

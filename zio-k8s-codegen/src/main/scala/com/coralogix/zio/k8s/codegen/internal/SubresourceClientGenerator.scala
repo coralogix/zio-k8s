@@ -138,7 +138,7 @@ trait SubresourceClientGenerator {
         import com.coralogix.zio.k8s.client.model.{K8sCluster, K8sNamespace, ResourceMetadata}
         import com.coralogix.zio.k8s.client.Subresource
         import com.coralogix.zio.k8s.client.impl.SubresourceClient
-        import com.coralogix.zio.k8s.client.config.backend.SttpStreamsAndWebSockets
+        import com.coralogix.zio.k8s.client.config.backend.K8sBackend
         import zio._
         import zio.stream._
 
@@ -149,7 +149,7 @@ trait SubresourceClientGenerator {
         }
 
         object $namespacedTerm {
-          def makeClient[T : EnvironmentTag : ResourceMetadata](backend: SttpStreamsAndWebSockets, cluster: K8sCluster): SubresourceClient[$modelT] =
+          def makeClient[T : EnvironmentTag : ResourceMetadata](backend: K8sBackend, cluster: K8sCluster): SubresourceClient[$modelT] =
             new SubresourceClient[$modelT](implicitly[ResourceMetadata[T]].resourceType, cluster, backend, $nameLit)
         }
 
@@ -160,7 +160,7 @@ trait SubresourceClientGenerator {
         }
 
         object $clusterTerm {
-          def makeClient[T : EnvironmentTag : ResourceMetadata](backend: SttpStreamsAndWebSockets, cluster: K8sCluster): SubresourceClient[$modelT] =
+          def makeClient[T : EnvironmentTag : ResourceMetadata](backend: K8sBackend, cluster: K8sCluster): SubresourceClient[$modelT] =
             new SubresourceClient[$modelT](implicitly[ResourceMetadata[T]].resourceType, cluster, backend, $nameLit)
         }
         }

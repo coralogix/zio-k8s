@@ -1,6 +1,6 @@
 package com.coralogix.zio.k8s.operator.leader.locks
 
-import com.coralogix.zio.k8s.client.config.backend.SttpStreamsAndWebSockets
+import com.coralogix.zio.k8s.client.config.backend.K8sBackend
 import com.coralogix.zio.k8s.client.impl.ResourceClient
 import com.coralogix.zio.k8s.client.model._
 import com.coralogix.zio.k8s.client.{
@@ -81,12 +81,12 @@ package object leaderlockresources {
     }
 
     val live: ZLayer[
-      K8sCluster with SttpStreamsAndWebSockets,
+      K8sCluster with K8sBackend,
       Nothing,
       LeaderLockResources
     ] = ZLayer {
       for {
-        backend <- ZIO.service[SttpStreamsAndWebSockets]
+        backend <- ZIO.service[K8sBackend]
         cluster <- ZIO.service[K8sCluster]
       } yield {
         val client = new ResourceClient[LeaderLockResource, Status](

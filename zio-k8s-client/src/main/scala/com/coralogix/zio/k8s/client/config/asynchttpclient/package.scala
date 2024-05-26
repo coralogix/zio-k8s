@@ -1,6 +1,6 @@
 package com.coralogix.zio.k8s.client.config
 
-import com.coralogix.zio.k8s.client.config.backend.SttpStreamsAndWebSockets
+import com.coralogix.zio.k8s.client.config.backend.K8sBackend
 import com.coralogix.zio.k8s.client.model.K8sCluster
 import io.netty.handler.ssl.{ ClientAuth, IdentityCipherSuiteFilter, JdkSslContext }
 import org.asynchttpclient.Dsl
@@ -18,7 +18,7 @@ package object asynchttpclient {
     */
   def k8sSttpClient(
     loggerName: String = "sttp.client3.logging.slf4j.Slf4jLoggingBackend"
-  ): ZLayer[K8sClusterConfig, Throwable, SttpStreamsAndWebSockets] =
+  ): ZLayer[K8sClusterConfig, Throwable, K8sBackend] =
     ZLayer.scoped {
       for {
         config                      <- ZIO.service[K8sClusterConfig]
@@ -53,7 +53,7 @@ package object asynchttpclient {
               }
             )(_.close().ignore)
             .map { backend =>
-              SttpStreamsAndWebSockets(
+              K8sBackend(
                 LoggingBackend(
                   backend,
                   new Slf4jLogger(loggerName, backend.responseMonad),
@@ -75,6 +75,6 @@ package object asynchttpclient {
   /** Layer producing a [[K8sCluster]] and an sttp backend module that can be directly used to
     * initialize specific Kubernetes client modules, using the [[defaultConfigChain]].
     */
-  val k8sDefault: ZLayer[Any, Throwable, K8sCluster with SttpStreamsAndWebSockets] =
+  val k8sDefault: ZLayer[Any, Throwable, K8sCluster with K8sBackend] =
     defaultConfigChain >>> (k8sCluster ++ k8sSttpClient())
 }

@@ -7,6 +7,5 @@ import zio.Task
 
 package object backend {
   // wrapper helping with Scala 3 compilation issues
-  case class SttpStreamsAndWebSockets(value: SttpBackend[Task, ZioStreams with WebSockets])
-      extends AnyVal
+  case class K8sBackend(value: SttpBackend[Task, ZioStreams with WebSockets]) extends AnyVal
 }

@@ -7,7 +7,7 @@ This page explains how to define manually the data model and client module for _
 on the `zio-k8s-crd` code generator plugin.
 
 ```scala mdoc:invisible
-import com.coralogix.zio.k8s.client.config.backend.SttpStreamsAndWebSockets
+import com.coralogix.zio.k8s.client.config.backend.K8sBackend
 import com.coralogix.zio.k8s.client.impl.{ ResourceClient, ResourceStatusClient }
 import com.coralogix.zio.k8s.client.model.{
   K8sCluster,
@@ -109,10 +109,10 @@ object crontabs {
     ) extends Service
 
     val live
-      : ZLayer[K8sCluster with SttpStreamsAndWebSockets, Nothing, Crontabs] = 
+      : ZLayer[K8sCluster with K8sBackend, Nothing, Crontabs] = 
         ZLayer {
           for {
-            backend <- ZIO.service[SttpStreamsAndWebSockets]
+            backend <- ZIO.service[K8sBackend]
             cluster <- ZIO.service[K8sCluster]
             client = new ResourceClient[Crontab, Status](metadata.resourceType, cluster, backend)
             statusClient = new ResourceStatusClient[CrontabStatus, Crontab](

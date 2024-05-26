@@ -1,6 +1,6 @@
 package com.coralogix.zio.k8s.client.impl
 
-import com.coralogix.zio.k8s.client.config.backend.SttpStreamsAndWebSockets
+import com.coralogix.zio.k8s.client.config.backend.K8sBackend
 import com.coralogix.zio.k8s.client.model.{ K8sCluster, K8sNamespace, K8sObject, K8sResourceType }
 import com.coralogix.zio.k8s.client.{ K8sFailure, ResourceStatus }
 import io.circe._
@@ -23,7 +23,7 @@ import zio.IO
 final class ResourceStatusClient[StatusT: Encoder, T: K8sObject: Encoder: Decoder](
   override protected val resourceType: K8sResourceType,
   override protected val cluster: K8sCluster,
-  override protected val backend: SttpStreamsAndWebSockets
+  override protected val backend: K8sBackend
 ) extends ResourceStatus[StatusT, T] with ResourceClientBase {
   import K8sObject._
 
