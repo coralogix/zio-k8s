@@ -115,7 +115,8 @@ trait ResourceClientBase {
     namespace: Option[K8sNamespace],
     resourceVersion: Option[String],
     fieldSelector: Option[FieldSelector],
-    labelSelector: Option[LabelSelector]
+    labelSelector: Option[LabelSelector],
+    sendInitialEvents: Boolean
   ): Uri =
     K8sWatchUri(
       resourceType,
@@ -123,7 +124,8 @@ trait ResourceClientBase {
       resourceVersion,
       allowBookmarks = true,
       fieldSelector,
-      labelSelector
+      labelSelector,
+      sendInitialEvents
     ).toUri(
       cluster
     )

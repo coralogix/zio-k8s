@@ -119,24 +119,25 @@ final class ResourceClient[
     namespace: Option[K8sNamespace],
     fieldSelector: Option[FieldSelector],
     labelSelector: Option[LabelSelector],
-    resourceVersion: Option[String]
+    resourceVersion: Option[String],
+    sendInitialEvents: Boolean = false,
+    readTimeout: Duration = Duration.Infinity
   ): Stream[K8sFailure, ParsedWatchEvent[T]] = {
-    val reqInfo =
-      K8sRequestInfo(resourceType, "watch", namespace, fieldSelector, labelSelector, None)
+    val reqInfo = K8sRequestInfo(resourceType, "watch", namespace, fieldSelector, labelSelector, None)
     ZStream
       .unwrap {
         handleFailures("watch", namespace, fieldSelector, labelSelector, None) {
           k8sRequest
-            .get(watching(namespace, resourceVersion, fieldSelector, labelSelector))
+            .get(watching(namespace, resourceVersion, fieldSelector, labelSelector, sendInitialEvents))
             .response(asStreamUnsafeWithError)
-            .readTimeout(10.minutes.asScala)
+            .readTimeout(readTimeout.asScala)
             .send(backend.value)
         }.map(_.mapError(RequestFailure(reqInfo, _)))
       }
       .via(
         ZPipeline.fromChannel(
           ZPipeline.utf8Decode.channel.mapError(CodingFailure(reqInfo, _))
-        ) >>> ZPipeline.splitLines
+        ) andThen ZPipeline.splitLines
       )
       .mapZIO { line =>
         for {
@@ -149,27 +150,40 @@ final class ResourceClient[
       }
   }
 
-  override def watch(
-    namespace: Option[K8sNamespace],
-    resourceVersion: Option[String],
-    fieldSelector: Option[FieldSelector] = None,
-    labelSelector: Option[LabelSelector] = None
-  ): ZStream[Any, K8sFailure, TypedWatchEvent[T]] =
-    ZStream.unwrap {
-      Ref.make(resourceVersion).map { lastResourceVersion =>
-        ZStream
-          .fromZIO(lastResourceVersion.get)
-          .flatMap(watchStream(namespace, fieldSelector, labelSelector, _))
-          .tap {
-            case ParsedTypedWatchEvent(event)    => lastResourceVersion.set(event.resourceVersion)
-            case ParsedBookmark(resourceVersion) => lastResourceVersion.set(Some(resourceVersion))
-          }
-          .collect { case ParsedTypedWatchEvent(event) =>
-            event
-          }
-          .forever
-      }
+override def watch(
+  namespace: Option[K8sNamespace],
+  resourceVersion: Option[String],
+  fieldSelector: Option[FieldSelector] = None,
+  labelSelector: Option[LabelSelector] = None,
+  sendInitialEvents: Boolean = false,
+  readTimeout: Duration = Duration.Infinity
+): ZStream[Any, K8sFailure, TypedWatchEvent[T]] =
+  ZStream.unwrap {
+    for {
+      lastResourceVersion <- Ref.make(resourceVersion)
+      sendInitialEvents   <- Ref.make(sendInitialEvents)
+    } yield {
+      ZStream
+        .fromZIO(lastResourceVersion.get.zip(sendInitialEvents.get))
+        .flatMap { case (lastResourceVersion, sendInitialEvents) =>
+          watchStream(namespace, fieldSelector, labelSelector, lastResourceVersion, sendInitialEvents, readTimeout)
+        }
+        .tap {
+          case ParsedTypedWatchEvent(event) =>
+            lastResourceVersion.set(event.resourceVersion)
+          case ParsedBookmark(resourceVersion) =>
+            // If we receive a Bookmark, it means that all initial events have been sent. If we reopen the stream,
+            // we should not fetch all events again.
+            lastResourceVersion.set(Some(resourceVersion)) *>
+              sendInitialEvents.set(false)
+        }
+        .collect {
+          case ParsedTypedWatchEvent(event) => event
+        }
+        .forever
     }
+}
+
 
   def get(name: String, namespace: Option[K8sNamespace]): IO[K8sFailure, T] =
     handleFailures("get", namespace, name) {

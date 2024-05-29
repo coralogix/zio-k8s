@@ -179,7 +179,8 @@ package object model extends LabelSelector.Syntax with FieldSelector.Syntax {
     resourceVersion: Option[String],
     allowBookmarks: Boolean,
     fieldSelector: Option[FieldSelector] = None,
-    labelSelector: Option[LabelSelector] = None
+    labelSelector: Option[LabelSelector] = None,
+    sendInitialEvents: Boolean = false
   ) extends K8sUri {
     override def toUri(cluster: K8sCluster): Uri =
       K8sSimpleUri(resource, None, None, namespace)
@@ -189,6 +190,7 @@ package object model extends LabelSelector.Syntax with FieldSelector.Syntax {
         .addParam("fieldSelector", fieldSelector.map(_.asQuery))
         .addParam("labelSelector", labelSelector.map(_.asQuery))
         .addParam("allowWatchBookmarks", if (allowBookmarks) Some("true") else None)
+        .addParam("sendInitialEvents", if (sendInitialEvents) Some("true") else None)
   }
 
   val k8sDateTimeFormatter: DateTimeFormatter = DateTimeFormatter

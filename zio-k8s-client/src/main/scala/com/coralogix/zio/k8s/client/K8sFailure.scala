@@ -2,7 +2,10 @@ package com.coralogix.zio.k8s.client
 
 import _root_.io.circe
 import cats.data.NonEmptyList
+import com.coralogix.zio.k8s.client.model.ParsedWatchEvent
 import com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Status
+import io.circe.Decoder
+import io.circe.generic.semiauto.deriveDecoder
 import sttp.model.StatusCode
 import zio.ZIO
 
@@ -89,6 +92,12 @@ case object Gone extends K8sFailure
   *   The unrecognized event type from the server
   */
 final case class InvalidEvent(requestInfo: K8sRequestInfo, eventType: String) extends K8sFailure
+
+final case class ErrorEvent(status: String, message: String, reason: String, code: Int) extends K8sFailure
+
+object ErrorEvent {
+  implicit val errorDecoder: Decoder[ErrorEvent] = deriveDecoder[ErrorEvent]
+}
 
 /** Error produced by the generated getter methods on Kubernetes data structures.
   *

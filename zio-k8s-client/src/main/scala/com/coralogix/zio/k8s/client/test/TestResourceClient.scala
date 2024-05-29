@@ -66,7 +66,9 @@ final class TestResourceClient[T: K8sObject: Encoder, DeleteResult] private (
     namespace: Option[K8sNamespace],
     resourceVersion: Option[String],
     fieldSelector: Option[FieldSelector] = None,
-    labelSelector: Option[LabelSelector] = None
+    labelSelector: Option[LabelSelector] = None,
+    sendInitialEvents: Boolean = false,
+    readTimeout: Duration = Duration.Infinity
   ): Stream[K8sFailure, TypedWatchEvent[T]] =
     ZStream.fromTQueue(events).filter {
       case Reseted()      => true
