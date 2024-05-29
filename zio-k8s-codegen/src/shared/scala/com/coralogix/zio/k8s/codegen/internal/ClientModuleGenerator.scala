@@ -1,14 +1,9 @@
 package com.coralogix.zio.k8s.codegen.internal
 
-import io.swagger.v3.oas.models.media.ObjectSchema
-import org.scalafmt.interfaces.Scalafmt
-import sbt.util.Logger
-import zio.{ Task, ZIO }
 import com.coralogix.zio.k8s.codegen.internal.Conversions.{ groupNameToPackageName, splitName }
-import com.coralogix.zio.k8s.codegen.internal.CodegenIO._
 import org.atteo.evo.inflector.English
 import zio.nio.file.Path
-import zio.nio.file.Files
+import zio.{ Task, ZIO }
 
 import scala.meta._
 
@@ -150,10 +145,10 @@ trait ClientModuleGenerator {
         )
 
       val live =
-        q"""val live: ZLayer[SttpBackend[Task, ZioStreams with WebSockets] with K8sCluster, Nothing, $typeAliasT] =
+        q"""val live: ZLayer[K8sBackend with K8sCluster, Nothing, $typeAliasT] =
               ZLayer.fromZIO {
                 for {
-                  backend <- ZIO.service[SttpBackend[Task, ZioStreams with WebSockets]]
+                  backend <- ZIO.service[K8sBackend]
                   cluster <- ZIO.service[K8sCluster]
                 } yield {
                     val resourceType = implicitly[ResourceMetadata[$entityT]].resourceType
@@ -343,9 +338,7 @@ trait ClientModuleGenerator {
             ResourceMetadata,
             TypedWatchEvent
           }
-          import sttp.capabilities.WebSockets
-          import sttp.capabilities.zio.ZioStreams
-          import sttp.client3.SttpBackend
+          import com.coralogix.zio.k8s.client.config.backend.K8sBackend
           import zio.stream.{ZStream, ZPipeline}
           import zio._
 
@@ -588,9 +581,7 @@ trait ClientModuleGenerator {
             ResourceMetadata,
             TypedWatchEvent
           }
-          import sttp.capabilities.WebSockets
-          import sttp.capabilities.zio.ZioStreams
-          import sttp.client3.SttpBackend
+          import com.coralogix.zio.k8s.client.config.backend.K8sBackend
           import zio.stream.{ZStream, ZPipeline}
           import zio._
 

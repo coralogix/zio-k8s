@@ -4,9 +4,9 @@ import _root_.io.circe._
 import _root_.io.circe.parser._
 import cats.data.NonEmptyList
 import com.coralogix.zio.k8s.client._
+import com.coralogix.zio.k8s.client.config.backend.K8sBackend
 import com.coralogix.zio.k8s.client.model._
 import com.coralogix.zio.k8s.model.pkg.apis.meta.v1.{ DeleteOptions, Status, WatchEvent }
-import sttp.capabilities.WebSockets
 import sttp.capabilities.zio.ZioStreams
 import sttp.client3._
 import sttp.client3.circe._
@@ -38,7 +38,7 @@ final class ResourceClient[
 ](
   override protected val resourceType: K8sResourceType,
   override protected val cluster: K8sCluster,
-  override protected val backend: SttpBackend[Task, ZioStreams with WebSockets]
+  override protected val backend: K8sBackend
 ) extends Resource[T] with ResourceDelete[T, DeleteResult] with ResourceDeleteAll[T]
     with ResourceClientBase {
 
@@ -63,7 +63,7 @@ final class ResourceClient[
             )
           )
           .response(asJsonAccumulating[ObjectList[T]])
-          .send(backend)
+          .send(backend.value)
       }.map { initialResponse =>
         val rest = ZStream.fromPull {
           for {
@@ -94,7 +94,7 @@ final class ResourceClient[
                                                                        )
                                                                      )
                                                                      .response(asJsonAccumulating[ObjectList[T]])
-                                                                     .send(backend)
+                                                                     .send(backend.value)
                                                                  }.mapError(Some.apply)
                                                           _   <- nextContinueToken.set(lst.metadata.flatMap(_.continue))
                                                         } yield Chunk.fromIterable(lst.items)
@@ -130,7 +130,7 @@ final class ResourceClient[
             .get(watching(namespace, resourceVersion, fieldSelector, labelSelector))
             .response(asStreamUnsafeWithError)
             .readTimeout(10.minutes.asScala)
-            .send(backend)
+            .send(backend.value)
         }.map(_.mapError(RequestFailure(reqInfo, _)))
       }
       .via(
@@ -176,7 +176,7 @@ final class ResourceClient[
       k8sRequest
         .get(simple(Some(name), subresource = None, namespace))
         .response(asJsonAccumulating[T])
-        .send(backend)
+        .send(backend.value)
     }
 
   override def create(
@@ -189,7 +189,7 @@ final class ResourceClient[
         .post(creating(namespace, dryRun))
         .body(newResource)
         .response(asJsonAccumulating[T])
-        .send(backend)
+        .send(backend.value)
     }
 
   override def replace(
@@ -203,7 +203,7 @@ final class ResourceClient[
         .put(modifying(name = name, subresource = None, namespace, dryRun))
         .body(updatedResource)
         .response(asJsonAccumulating[T])
-        .send(backend)
+        .send(backend.value)
     }
 
   override def delete(
@@ -228,7 +228,7 @@ final class ResourceClient[
         )
         .body(deleteOptions)
         .response(asJsonAccumulating[DeleteResult])
-        .send(backend)
+        .send(backend.value)
     }
 
   def deleteAll(
@@ -254,7 +254,7 @@ final class ResourceClient[
         )
         .body(deleteOptions)
         .response(asJsonAccumulating[Status])
-        .send(backend)
+        .send(backend.value)
     }
 }
 

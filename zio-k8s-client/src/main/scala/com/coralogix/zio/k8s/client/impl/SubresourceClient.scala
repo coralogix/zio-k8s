@@ -2,21 +2,14 @@ package com.coralogix.zio.k8s.client.impl
 
 import _root_.io.circe._
 import cats.data.NonEmptyList
+import com.coralogix.zio.k8s.client.config.backend.K8sBackend
 import com.coralogix.zio.k8s.client.model.{ K8sCluster, K8sNamespace, K8sResourceType }
 import com.coralogix.zio.k8s.client.{ K8sFailure, K8sRequestInfo, RequestFailure, Subresource }
-import sttp.capabilities.WebSockets
 import sttp.capabilities.zio.ZioStreams
 import sttp.client3.circe._
-import sttp.client3.{
-  asEither,
-  asStreamAlwaysUnsafe,
-  asStringAlways,
-  HttpError,
-  ResponseException,
-  SttpBackend
-}
+import sttp.client3.{ asEither, asStreamAlwaysUnsafe, asStringAlways, HttpError, ResponseException }
+import zio.IO
 import zio.stream.{ ZPipeline, ZStream }
-import zio.{ IO, Task }
 
 /** Generic implementation for [[Subresource]]
   * @param resourceType
@@ -33,7 +26,7 @@ import zio.{ IO, Task }
 final class SubresourceClient[T: Encoder: Decoder](
   override protected val resourceType: K8sResourceType,
   override protected val cluster: K8sCluster,
-  override protected val backend: SttpBackend[Task, ZioStreams with WebSockets],
+  override protected val backend: K8sBackend,
   subresourceName: String
 ) extends Subresource[T] with ResourceClientBase {
 
@@ -49,7 +42,7 @@ final class SubresourceClient[T: Encoder: Decoder](
             .addParams(customParameters)
         )
         .response(asJsonAccumulating[T])
-        .send(backend)
+        .send(backend.value)
     }
 
   def streamingGet(
@@ -77,7 +70,7 @@ final class SubresourceClient[T: Encoder: Decoder](
               asStreamAlwaysUnsafe(ZioStreams)
             )
           )
-          .send(backend)
+          .send(backend.value)
       }.map { (stream: ZioStreams.BinaryStream) =>
         stream
           .mapError(
@@ -98,7 +91,7 @@ final class SubresourceClient[T: Encoder: Decoder](
         .put(modifying(name, Some(subresourceName), namespace, dryRun))
         .body(updatedValue)
         .response(asJsonAccumulating[T])
-        .send(backend)
+        .send(backend.value)
     }
 
   def create(
@@ -112,6 +105,6 @@ final class SubresourceClient[T: Encoder: Decoder](
         .post(modifying(name, Some(subresourceName), namespace, dryRun))
         .body(value)
         .response(asJsonAccumulating[T])
-        .send(backend)
+        .send(backend.value)
     }
 }

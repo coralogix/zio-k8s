@@ -1,14 +1,12 @@
 package com.coralogix.zio.k8s.client.impl
 
+import com.coralogix.zio.k8s.client.config.backend.K8sBackend
 import com.coralogix.zio.k8s.client.model.{ K8sCluster, K8sNamespace, K8sObject, K8sResourceType }
 import com.coralogix.zio.k8s.client.{ K8sFailure, ResourceStatus }
 import io.circe._
 import io.circe.syntax._
-import sttp.capabilities.WebSockets
-import sttp.capabilities.zio.ZioStreams
-import sttp.client3.SttpBackend
 import sttp.client3.circe._
-import zio.{ IO, Task }
+import zio.IO
 
 /** Generic implementation for [[ResourceStatus]]
   * @param resourceType
@@ -25,7 +23,7 @@ import zio.{ IO, Task }
 final class ResourceStatusClient[StatusT: Encoder, T: K8sObject: Encoder: Decoder](
   override protected val resourceType: K8sResourceType,
   override protected val cluster: K8sCluster,
-  override protected val backend: SttpBackend[Task, ZioStreams with WebSockets]
+  override protected val backend: K8sBackend
 ) extends ResourceStatus[StatusT, T] with ResourceClientBase {
   import K8sObject._
 
@@ -42,7 +40,7 @@ final class ResourceStatusClient[StatusT: Encoder, T: K8sObject: Encoder: Decode
                       .put(modifying(name = name, subresource = Some("status"), namespace, dryRun))
                       .body(toStatusUpdate(of, updatedStatus))
                       .response(asJsonAccumulating[T])
-                      .send(backend)
+                      .send(backend.value)
                   }
     } yield response
 
@@ -51,7 +49,7 @@ final class ResourceStatusClient[StatusT: Encoder, T: K8sObject: Encoder: Decode
       k8sRequest
         .get(simple(Some(name), subresource = Some("status"), namespace))
         .response(asJsonAccumulating[T])
-        .send(backend)
+        .send(backend.value)
     }
 
   private def toStatusUpdate(of: T, newStatus: StatusT): Json =

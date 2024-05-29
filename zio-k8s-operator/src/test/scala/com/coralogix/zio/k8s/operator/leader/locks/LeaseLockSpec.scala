@@ -44,200 +44,198 @@ object LeaseLockSpec extends ZIOSpecDefault {
     ZIO.service[TestLeases].flatMap(_.disableFailures)
 
   private def failingLeases: ULayer[Leases with TestLeases] =
-    Leases.test >>> (ZLayer {
-      ZIO
-        .service[Leases]
-        .flatMap { testImpl =>
-          Ref.make(true).map { failSwitch =>
-            val testLeases = new TestLeases {
-              override def enableFailures: UIO[Unit] =
-                failSwitch.set(true)
+    Leases.test >>> ZLayer.fromZIOEnvironment {
+      ZIO.serviceWithZIO[Leases] { testImpl =>
+        Ref.make(true).map { failSwitch =>
+          val testLeases = new TestLeases {
+            override def enableFailures: UIO[Unit] =
+              failSwitch.set(true)
 
-              override def disableFailures: UIO[Unit] =
-                failSwitch.set(false)
-            }
-            val leases = new Leases.Live(
-              new Resource[Lease] with ResourceDelete[Lease, Status] with ResourceDeleteAll[Lease] {
-                override def getAll(
-                  namespace: Option[K8sNamespace],
-                  chunkSize: Int,
-                  fieldSelector: Option[FieldSelector],
-                  labelSelector: Option[LabelSelector],
-                  resourceVersion: ListResourceVersion
-                ): stream.Stream[K8sFailure, Lease] =
-                  ZStream.unwrap {
-                    ifZIO(failSwitch.get)(
-                      ZIO.succeed(
-                        ZStream.fail(
-                          RequestFailure(
-                            K8sRequestInfo(
-                              K8sResourceType("kind", "group", "version"),
-                              "getAll",
-                              namespace
-                            ),
-                            new RuntimeException("test failure")
-                          )
-                        )
-                      ),
-                      ZIO.succeed(
-                        testImpl.getAll(
-                          namespace,
-                          chunkSize,
-                          fieldSelector,
-                          labelSelector,
-                          resourceVersion
-                        )
-                      )
-                    )
-                  }
-
-                override def watch(
-                  namespace: Option[K8sNamespace],
-                  resourceVersion: Option[String],
-                  fieldSelector: Option[FieldSelector],
-                  labelSelector: Option[LabelSelector]
-                ): stream.Stream[K8sFailure, TypedWatchEvent[Lease]] =
-                  ZStream.unwrap {
-                    ifZIO(failSwitch.get)(
-                      ZIO.succeed(
-                        ZStream.fail(
-                          RequestFailure(
-                            K8sRequestInfo(
-                              K8sResourceType("kind", "group", "version"),
-                              "watch",
-                              namespace
-                            ),
-                            new RuntimeException("test failure")
-                          )
-                        )
-                      ),
-                      ZIO.succeed(
-                        testImpl.watch(namespace, resourceVersion, fieldSelector, labelSelector)
-                      )
-                    )
-                  }
-
-                override def get(name: String, namespace: Option[K8sNamespace])
-                  : IO[K8sFailure, Lease] =
-                  ifZIO(failSwitch.get)(
-                    ZIO.fail(
-                      RequestFailure(
-                        K8sRequestInfo(
-                          K8sResourceType("kind", "group", "version"),
-                          "get",
-                          namespace
-                        ),
-                        new RuntimeException("test failure")
-                      )
-                    ),
-                    testImpl.get(name, namespace.get)
-                  )
-
-                override def create(
-                  newResource: Lease,
-                  namespace: Option[K8sNamespace],
-                  dryRun: Boolean
-                ): IO[K8sFailure, Lease] =
-                  ifZIO(failSwitch.get)(
-                    ZIO.fail(
-                      RequestFailure(
-                        K8sRequestInfo(
-                          K8sResourceType("kind", "group", "version"),
-                          "create",
-                          namespace
-                        ),
-                        new RuntimeException("test failure")
-                      )
-                    ),
-                    testImpl.create(newResource, namespace.get, dryRun)
-                  )
-
-                override def replace(
-                  name: String,
-                  updatedResource: Lease,
-                  namespace: Option[K8sNamespace],
-                  dryRun: Boolean
-                ): IO[K8sFailure, Lease] =
-                  ifZIO(failSwitch.get)(
-                    ZIO.fail(
-                      RequestFailure(
-                        K8sRequestInfo(
-                          K8sResourceType("kind", "group", "version"),
-                          "replace",
-                          namespace
-                        ),
-                        new RuntimeException("test failure")
-                      )
-                    ),
-                    testImpl.replace(name, updatedResource, namespace.get, dryRun)
-                  )
-
-                override def delete(
-                  name: String,
-                  deleteOptions: DeleteOptions,
-                  namespace: Option[K8sNamespace],
-                  dryRun: Boolean,
-                  gracePeriod: Option[Duration],
-                  propagationPolicy: Option[PropagationPolicy]
-                ): IO[K8sFailure, Status] =
-                  ifZIO(failSwitch.get)(
-                    ZIO.fail(
-                      RequestFailure(
-                        K8sRequestInfo(
-                          K8sResourceType("kind", "group", "version"),
-                          "delete",
-                          namespace
-                        ),
-                        new RuntimeException("test failure")
-                      )
-                    ),
-                    testImpl.delete(
-                      name,
-                      deleteOptions,
-                      namespace.get,
-                      dryRun,
-                      gracePeriod,
-                      propagationPolicy
-                    )
-                  )
-
-                override def deleteAll(
-                  deleteOptions: DeleteOptions,
-                  namespace: Option[K8sNamespace],
-                  dryRun: Boolean,
-                  gracePeriod: Option[Duration],
-                  propagationPolicy: Option[PropagationPolicy],
-                  fieldSelector: Option[FieldSelector],
-                  labelSelector: Option[LabelSelector]
-                ): IO[K8sFailure, Status] =
-                  ifZIO(failSwitch.get)(
-                    ZIO.fail(
-                      RequestFailure(
-                        K8sRequestInfo(
-                          K8sResourceType("kind", "group", "version"),
-                          "deleteAll",
-                          namespace
-                        ),
-                        new RuntimeException("test failure")
-                      )
-                    ),
-                    testImpl.deleteAll(
-                      deleteOptions,
-                      namespace.get,
-                      dryRun,
-                      gracePeriod,
-                      propagationPolicy,
-                      fieldSelector,
-                      labelSelector
-                    )
-                  )
-              }
-            )
-
-            ZLayer.succeed(leases) ++ ZLayer.succeed(testLeases)
+            override def disableFailures: UIO[Unit] =
+              failSwitch.set(false)
           }
+          val leases = new Leases.Live(
+            new Resource[Lease] with ResourceDelete[Lease, Status] with ResourceDeleteAll[Lease] {
+              override def getAll(
+                namespace: Option[K8sNamespace],
+                chunkSize: Int,
+                fieldSelector: Option[FieldSelector],
+                labelSelector: Option[LabelSelector],
+                resourceVersion: ListResourceVersion
+              ): stream.Stream[K8sFailure, Lease] =
+                ZStream.unwrap {
+                  ifZIO(failSwitch.get)(
+                    ZIO.succeed(
+                      ZStream.fail(
+                        RequestFailure(
+                          K8sRequestInfo(
+                            K8sResourceType("kind", "group", "version"),
+                            "getAll",
+                            namespace
+                          ),
+                          new RuntimeException("test failure")
+                        )
+                      )
+                    ),
+                    ZIO.succeed(
+                      testImpl.getAll(
+                        namespace,
+                        chunkSize,
+                        fieldSelector,
+                        labelSelector,
+                        resourceVersion
+                      )
+                    )
+                  )
+                }
+
+              override def watch(
+                namespace: Option[K8sNamespace],
+                resourceVersion: Option[String],
+                fieldSelector: Option[FieldSelector],
+                labelSelector: Option[LabelSelector]
+              ): stream.Stream[K8sFailure, TypedWatchEvent[Lease]] =
+                ZStream.unwrap {
+                  ifZIO(failSwitch.get)(
+                    ZIO.succeed(
+                      ZStream.fail(
+                        RequestFailure(
+                          K8sRequestInfo(
+                            K8sResourceType("kind", "group", "version"),
+                            "watch",
+                            namespace
+                          ),
+                          new RuntimeException("test failure")
+                        )
+                      )
+                    ),
+                    ZIO.succeed(
+                      testImpl.watch(namespace, resourceVersion, fieldSelector, labelSelector)
+                    )
+                  )
+                }
+
+              override def get(name: String, namespace: Option[K8sNamespace])
+                : IO[K8sFailure, Lease] =
+                ifZIO(failSwitch.get)(
+                  ZIO.fail(
+                    RequestFailure(
+                      K8sRequestInfo(
+                        K8sResourceType("kind", "group", "version"),
+                        "get",
+                        namespace
+                      ),
+                      new RuntimeException("test failure")
+                    )
+                  ),
+                  testImpl.get(name, namespace.get)
+                )
+
+              override def create(
+                newResource: Lease,
+                namespace: Option[K8sNamespace],
+                dryRun: Boolean
+              ): IO[K8sFailure, Lease] =
+                ifZIO(failSwitch.get)(
+                  ZIO.fail(
+                    RequestFailure(
+                      K8sRequestInfo(
+                        K8sResourceType("kind", "group", "version"),
+                        "create",
+                        namespace
+                      ),
+                      new RuntimeException("test failure")
+                    )
+                  ),
+                  testImpl.create(newResource, namespace.get, dryRun)
+                )
+
+              override def replace(
+                name: String,
+                updatedResource: Lease,
+                namespace: Option[K8sNamespace],
+                dryRun: Boolean
+              ): IO[K8sFailure, Lease] =
+                ifZIO(failSwitch.get)(
+                  ZIO.fail(
+                    RequestFailure(
+                      K8sRequestInfo(
+                        K8sResourceType("kind", "group", "version"),
+                        "replace",
+                        namespace
+                      ),
+                      new RuntimeException("test failure")
+                    )
+                  ),
+                  testImpl.replace(name, updatedResource, namespace.get, dryRun)
+                )
+
+              override def delete(
+                name: String,
+                deleteOptions: DeleteOptions,
+                namespace: Option[K8sNamespace],
+                dryRun: Boolean,
+                gracePeriod: Option[Duration],
+                propagationPolicy: Option[PropagationPolicy]
+              ): IO[K8sFailure, Status] =
+                ifZIO(failSwitch.get)(
+                  ZIO.fail(
+                    RequestFailure(
+                      K8sRequestInfo(
+                        K8sResourceType("kind", "group", "version"),
+                        "delete",
+                        namespace
+                      ),
+                      new RuntimeException("test failure")
+                    )
+                  ),
+                  testImpl.delete(
+                    name,
+                    deleteOptions,
+                    namespace.get,
+                    dryRun,
+                    gracePeriod,
+                    propagationPolicy
+                  )
+                )
+
+              override def deleteAll(
+                deleteOptions: DeleteOptions,
+                namespace: Option[K8sNamespace],
+                dryRun: Boolean,
+                gracePeriod: Option[Duration],
+                propagationPolicy: Option[PropagationPolicy],
+                fieldSelector: Option[FieldSelector],
+                labelSelector: Option[LabelSelector]
+              ): IO[K8sFailure, Status] =
+                ifZIO(failSwitch.get)(
+                  ZIO.fail(
+                    RequestFailure(
+                      K8sRequestInfo(
+                        K8sResourceType("kind", "group", "version"),
+                        "deleteAll",
+                        namespace
+                      ),
+                      new RuntimeException("test failure")
+                    )
+                  ),
+                  testImpl.deleteAll(
+                    deleteOptions,
+                    namespace.get,
+                    dryRun,
+                    gracePeriod,
+                    propagationPolicy,
+                    fieldSelector,
+                    labelSelector
+                  )
+                )
+            }
+          )
+
+          ZEnvironment(leases, testLeases)
         }
-    }).flatten
+      }
+    }
 
   private def singleton(
     counter: Ref[Int],

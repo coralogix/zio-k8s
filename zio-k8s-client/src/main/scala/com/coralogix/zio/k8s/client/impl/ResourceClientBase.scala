@@ -2,13 +2,12 @@ package com.coralogix.zio.k8s.client.impl
 
 import cats.data.NonEmptyList
 import com.coralogix.zio.k8s.client._
+import com.coralogix.zio.k8s.client.config.backend.K8sBackend
 import com.coralogix.zio.k8s.client.internal.IsOptional
 import com.coralogix.zio.k8s.client.model._
 import com.coralogix.zio.k8s.model.pkg.apis.meta.v1.Status
-import io.circe.{ Decoder, Error }
 import io.circe.parser.{ decode, decodeAccumulating }
-import sttp.capabilities.WebSockets
-import sttp.capabilities.zio.ZioStreams
+import io.circe.{ Decoder, Error }
 import sttp.client3.json.RichResponseAs
 import sttp.client3.{
   asString,
@@ -21,8 +20,7 @@ import sttp.client3.{
   Response,
   ResponseAs,
   ResponseException,
-  ShowError,
-  SttpBackend
+  ShowError
 }
 import sttp.model.{ StatusCode, Uri }
 import zio.{ Duration, IO, Task, ZIO }
@@ -30,7 +28,7 @@ import zio.{ Duration, IO, Task, ZIO }
 trait ResourceClientBase {
   protected val resourceType: K8sResourceType
   protected val cluster: K8sCluster
-  protected val backend: SttpBackend[Task, ZioStreams with WebSockets]
+  protected val backend: K8sBackend
 
   protected val k8sRequest: RequestT[Empty, Either[String, String], Any] =
     cluster.applyToken match {
