@@ -22,35 +22,39 @@ case class OperatorError[E](error: E) extends OperatorFailure[E]
 
 object OperatorFailure {
   implicit val k8sFailureToThrowable: ConvertableToThrowable[K8sFailure] = {
-    case Unauthorized(reqInfo, message)         =>
+    case Unauthorized(reqInfo, message)            =>
       new RuntimeException(formatErrorWithK8sContext(reqInfo, s"K8s authorization error: $message"))
-    case HttpFailure(reqInfo, message, code)    =>
+    case HttpFailure(reqInfo, message, code)       =>
       new RuntimeException(
         formatErrorWithK8sContext(reqInfo, s"K8s HTTP error: $message with code $code")
       )
-    case CodingFailure(reqInfo, failure)        =>
+    case CodingFailure(reqInfo, failure)           =>
       new RuntimeException(
         formatErrorWithK8sContext(reqInfo, "K8s character coding error"),
         failure
       )
-    case DecodedFailure(reqInfo, status, code)  =>
+    case DecodedFailure(reqInfo, status, code)     =>
       new RuntimeException(
         formatErrorWithK8sContext(reqInfo, s"K8s error: ${status.message} with code $code")
       )
-    case DeserializationFailure(reqInfo, error) =>
+    case DeserializationFailure(reqInfo, error)    =>
       val prettyPrintedError = error.toList.map(CircePrettyFailure.prettyPrint).mkString("\n")
       new RuntimeException(
         formatErrorWithK8sContext(reqInfo, s"K8s deserialization failure: $prettyPrintedError")
       )
-    case RequestFailure(reqInfo, reason)        =>
+    case RequestFailure(reqInfo, reason)           =>
       new RuntimeException(formatErrorWithK8sContext(reqInfo, "K8s request error"), reason)
-    case Gone                                   =>
+    case Gone                                      =>
       new RuntimeException(s"Gone")
-    case InvalidEvent(reqInfo, eventType)       =>
+    case InvalidEvent(reqInfo, eventType)          =>
       new RuntimeException(formatErrorWithK8sContext(reqInfo, s"Invalid event type: $eventType"))
-    case UndefinedField(fieldName)              =>
+    case UndefinedField(fieldName)                 =>
       new RuntimeException(s"Undefined field $fieldName")
-    case NotFound                               =>
+    case ErrorEvent(status, message, reason, code) =>
+      new RuntimeException(
+        s"Received error event. Status $status, message: $message, reason: $reason, code: $code"
+      )
+    case NotFound                                  =>
       new RuntimeException(s"Not found")
   }
 

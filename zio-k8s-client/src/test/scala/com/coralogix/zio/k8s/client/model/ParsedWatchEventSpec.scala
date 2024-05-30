@@ -1,12 +1,12 @@
 package com.coralogix.zio.k8s.client.model
 
-import com.coralogix.zio.k8s.client.{ErrorEvent, K8sRequestInfo}
-import com.coralogix.zio.k8s.model.pkg.apis.meta.v1.{ObjectMeta, WatchEvent}
+import com.coralogix.zio.k8s.client.{ ErrorEvent, K8sRequestInfo }
+import com.coralogix.zio.k8s.model.pkg.apis.meta.v1.{ ObjectMeta, WatchEvent }
 import io.circe.Decoder
 import io.circe.parser.decode
 import zio.prelude.data.Optional
-import zio.test.Assertion.{equalTo, isLeft}
-import zio.test.{Spec, TestEnvironment, ZIOSpecDefault, assert}
+import zio.test.Assertion.{ equalTo, isLeft }
+import zio.test.{ assert, Spec, TestEnvironment, ZIOSpecDefault }
 
 object ParsedWatchEventSpec extends ZIOSpecDefault {
   override def spec: Spec[TestEnvironment, Any] =
@@ -18,18 +18,18 @@ object ParsedWatchEventSpec extends ZIOSpecDefault {
         val code = 410
 
         val errorStr = s"""
-        |{
-        |  "type": "ERROR",
-        |  "object": {
-        |    "kind": "Status",
-        |    "apiVersion": "v1",
-        |    "metadata": {},
-        |    "status": "$status",
-        |    "message": "$message",
-        |    "reason": "$reason",
-        |    "code": $code
-        |  }
-        |}""".stripMargin
+                          |{
+                          |  "type": "ERROR",
+                          |  "object": {
+                          |    "kind": "Status",
+                          |    "apiVersion": "v1",
+                          |    "metadata": {},
+                          |    "status": "$status",
+                          |    "message": "$message",
+                          |    "reason": "$reason",
+                          |    "code": $code
+                          |  }
+                          |}""".stripMargin
 
         val expectedErrEvt = ErrorEvent(status, message, reason, code)
 

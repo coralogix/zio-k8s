@@ -65,8 +65,9 @@ trait Resource[T] {
     * @param labelSelector
     *   Constrain the returned items by label selectors.
     * @param sendInitialEvents
-    *   Whether to set sendInitialEvents=true in the k8s watch request. Only has an effect in k8s 1.28+. If set,
-    *   k8s returns all existing resources as synthetic Added events before sending updates.
+    *   Whether to set sendInitialEvents=true in the k8s watch request. Only has an effect in k8s
+    *   1.28+. If set, k8s returns all existing resources as synthetic Added events before sending
+    *   updates.
     * @return
     *   A stream of watch events
     */
@@ -94,8 +95,9 @@ trait Resource[T] {
     * @param labelSelector
     *   Constrain the returned items by label selectors.
     * @param sendInitialEvents
-    *   Whether to set sendInitialEvents=true in the k8s watch request. Only has an effect in k8s 1.28+. If set,
-    *   k8s returns all existing resources as synthetic Added events before sending updates.
+    *   Whether to set sendInitialEvents=true in the k8s watch request. Only has an effect in k8s
+    *   1.28+. If set, k8s returns all existing resources as synthetic Added events before sending
+    *   updates.
     * @return
     *   A stream of watch events
     */
@@ -107,8 +109,16 @@ trait Resource[T] {
     sendInitialEvents: Boolean = false,
     readTimeout: Duration = Duration.Infinity
   ): ZStream[Any, K8sFailure, TypedWatchEvent[T]] =
-    ZStream.succeed(Reseted[T]()) ++ watch(namespace, resourceVersion, fieldSelector, labelSelector)
-      .retry(Schedule.recurWhileEquals(Gone))
+    ZStream.succeed(Reseted[T]()) ++
+      watch(
+        namespace,
+        resourceVersion,
+        fieldSelector,
+        labelSelector,
+        sendInitialEvents,
+        readTimeout
+      )
+        .retry(Schedule.recurWhileEquals(Gone))
 
   /** Get a resource by its name
     * @param name
@@ -210,8 +220,9 @@ trait NamespacedResource[T] {
     * @param labelSelector
     *   Constrain the returned items by label selectors.
     * @param sendInitialEvents
-    *   Whether to set sendInitialEvents=true in the k8s watch request. Only has an effect in k8s 1.28+. If set,
-    *   k8s returns all existing resources as synthetic Added events before sending updates.
+    *   Whether to set sendInitialEvents=true in the k8s watch request. Only has an effect in k8s
+    *   1.28+. If set, k8s returns all existing resources as synthetic Added events before sending
+    *   updates.
     * @return
     *   A stream of watch events
     */
@@ -223,7 +234,14 @@ trait NamespacedResource[T] {
     sendInitialEvents: Boolean = false,
     readTimeout: Duration = Duration.Infinity
   ): Stream[K8sFailure, TypedWatchEvent[T]] =
-    asGenericResource.watch(namespace, resourceVersion, fieldSelector, labelSelector)
+    asGenericResource.watch(
+      namespace,
+      resourceVersion,
+      fieldSelector,
+      labelSelector,
+      sendInitialEvents,
+      readTimeout
+    )
 
   /** Infinite watch stream of resource change events of type
     * [[com.coralogix.zio.k8s.client.model.TypedWatchEvent]]
@@ -238,8 +256,9 @@ trait NamespacedResource[T] {
     * @param labelSelector
     *   Constrain the returned items by label selectors.
     * @param sendInitialEvents
-    *   Whether to set sendInitialEvents=true in the k8s watch request. Only has an effect in k8s 1.28+. If set,
-    *   k8s returns all existing resources as synthetic Added events before sending updates.
+    *   Whether to set sendInitialEvents=true in the k8s watch request. Only has an effect in k8s
+    *   1.28+. If set, k8s returns all existing resources as synthetic Added events before sending
+    *   updates.
     * @return
     *   A stream of watch events
     */
@@ -251,7 +270,15 @@ trait NamespacedResource[T] {
     sendInitialEvents: Boolean = false,
     readTimeout: Duration = Duration.Infinity
   ): ZStream[Any, K8sFailure, TypedWatchEvent[T]] =
-    asGenericResource.watchForever(namespace, resourceVersion, fieldSelector, labelSelector)
+    asGenericResource
+      .watchForever(
+        namespace,
+        resourceVersion,
+        fieldSelector,
+        labelSelector,
+        sendInitialEvents,
+        readTimeout
+      )
 
   /** Get a resource by its name
     * @param name
@@ -355,7 +382,14 @@ trait ClusterResource[T] {
     sendInitialEvents: Boolean = false,
     readTimeout: Duration = Duration.Infinity
   ): Stream[K8sFailure, TypedWatchEvent[T]] =
-    asGenericResource.watch(None, resourceVersion, fieldSelector, labelSelector)
+    asGenericResource.watch(
+      None,
+      resourceVersion,
+      fieldSelector,
+      labelSelector,
+      sendInitialEvents,
+      readTimeout
+    )
 
   /** Infinite watch stream of resource change events of type
     * [[com.coralogix.zio.k8s.client.model.TypedWatchEvent]]
@@ -376,7 +410,14 @@ trait ClusterResource[T] {
     sendInitialEvents: Boolean = false,
     readTimeout: Duration = Duration.Infinity
   ): ZStream[Any, K8sFailure, TypedWatchEvent[T]] =
-    asGenericResource.watchForever(None, resourceVersion, fieldSelector, labelSelector)
+    asGenericResource.watchForever(
+      None,
+      resourceVersion,
+      fieldSelector,
+      labelSelector,
+      sendInitialEvents,
+      readTimeout
+    )
 
   /** Get a resource by its name
     * @param name

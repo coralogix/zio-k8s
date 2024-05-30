@@ -93,7 +93,8 @@ case object Gone extends K8sFailure
   */
 final case class InvalidEvent(requestInfo: K8sRequestInfo, eventType: String) extends K8sFailure
 
-final case class ErrorEvent(status: String, message: String, reason: String, code: Int) extends K8sFailure
+final case class ErrorEvent(status: String, message: String, reason: String, code: Int)
+    extends K8sFailure
 
 object ErrorEvent {
   implicit val errorDecoder: Decoder[ErrorEvent] = deriveDecoder[ErrorEvent]
