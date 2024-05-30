@@ -191,6 +191,10 @@ package object model extends LabelSelector.Syntax with FieldSelector.Syntax {
         .addParam("labelSelector", labelSelector.map(_.asQuery))
         .addParam("allowWatchBookmarks", if (allowBookmarks) Some("true") else None)
         .addParam("sendInitialEvents", if (sendInitialEvents) Some("true") else None)
+        // Per the K8s doc (https://kubernetes.io/docs/reference/using-api/api-concepts/#streaming-lists):
+        //   "When you set sendInitialEvents=true in the query string, Kubernetes also requires that you set
+        //   resourceVersionMatch to NotOlderThan value."
+        .addParam("resourceVersionMatch", if (sendInitialEvents) Some("NotOlderThan") else None)
   }
 
   val k8sDateTimeFormatter: DateTimeFormatter = DateTimeFormatter
