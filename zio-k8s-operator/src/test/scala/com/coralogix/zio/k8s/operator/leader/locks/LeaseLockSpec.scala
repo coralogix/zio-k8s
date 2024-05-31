@@ -93,7 +93,9 @@ object LeaseLockSpec extends ZIOSpecDefault {
                 namespace: Option[K8sNamespace],
                 resourceVersion: Option[String],
                 fieldSelector: Option[FieldSelector],
-                labelSelector: Option[LabelSelector]
+                labelSelector: Option[LabelSelector],
+                sendInitialEvents: Boolean = false,
+                readTimeout: Duration = Duration.Infinity
               ): stream.Stream[K8sFailure, TypedWatchEvent[Lease]] =
                 ZStream.unwrap {
                   ifZIO(failSwitch.get)(

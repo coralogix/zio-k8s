@@ -2,13 +2,17 @@ package com.coralogix.zio.k8s.client.model
 
 import com.coralogix.zio.k8s.client.{
   DeserializationFailure,
+  ErrorEvent,
   InvalidEvent,
   K8sFailure,
   K8sRequestInfo
 }
+import com.coralogix.zio.k8s.client.ErrorEvent.errorDecoder
 import com.coralogix.zio.k8s.model.pkg.apis.meta.v1.WatchEvent
-import io.circe.{ Decoder, Json }
+import io.circe.{ parser, Decoder, Json }
 import zio.{ IO, ZIO }
+import io.circe.generic.semiauto.deriveDecoder
+import io.circe.parser._
 
 /** Watch event with parsed payload
   *
@@ -75,6 +79,12 @@ object ParsedWatchEvent {
       case "BOOKMARK" =>
         parseOrFail(requestInfo, event.`object`.value)(bookmarkedResourceVersion)
           .map(ParsedBookmark.apply)
+      case "ERROR"    =>
+        val json = event.`object`.value
+        ZIO
+          .fromEither(errorDecoder.decodeAccumulating(json.hcursor).toEither)
+          .mapError(DeserializationFailure(requestInfo, _))
+          .flatMap(ZIO.fail(_))
       case _          =>
         ZIO.fail(InvalidEvent(requestInfo, event.`type`))
     }

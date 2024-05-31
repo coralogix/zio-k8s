@@ -313,8 +313,7 @@ object TestResourceClientSpec extends ZIOSpecDefault {
         val fieldSelector = FieldSelector.FieldEquals(Chunk("metadata", "name"), name)
 
         for {
-          client  <-
-            TestResourceClient.make[Node, Status](() => Status())
+          client  <- TestResourceClient.make[Node, Status](() => Status())
           created <- client.create(node, None)
           _       <- client.create(node2, None)
           // bump version and change label
