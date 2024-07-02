@@ -3,7 +3,7 @@ name: testing
 on: [push]
 
 jobs:
-  testing:
+  testing-2:
     runs-on: ubuntu-latest
 
     steps:
