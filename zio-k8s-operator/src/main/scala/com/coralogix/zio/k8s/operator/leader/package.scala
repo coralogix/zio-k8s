@@ -9,6 +9,7 @@ import com.coralogix.zio.k8s.operator.OperatorLogging.logFailure
 import com.coralogix.zio.k8s.operator.contextinfo.{ ContextInfo, ContextInfoFailure }
 import com.coralogix.zio.k8s.operator.leader.locks.leaderlockresources.LeaderLockResources
 import com.coralogix.zio.k8s.operator.leader.locks.{ ConfigMapLock, CustomLeaderLock, LeaseLock }
+import zio.ZIO.logInfo
 import zio._
 
 package object leader {
@@ -24,27 +25,26 @@ package object leader {
         * @param f
         *   Inner effect to protect
         */
-      def runAsLeader[R, E, A](f: ZIO[R, E, A]): ZIO[R with Any, E, Option[A]] =
+      def runAsLeader[R, E, A](f: ZIO[R, E, A]): ZIO[R, E, Option[A]] = ZIO.scoped[R] {
         lease
           .zipRight(f.mapBoth(ApplicationError.apply, Some.apply))
           .catchAll((failure: LeaderElectionFailure[E]) =>
             logLeaderElectionFailure(failure).as(None)
           )
+      }
 
       /** Creates a managed lock implementing the leader election algorithm
         */
-      def lease: ZIO[Any, LeaderElectionFailure[Nothing], Unit]
+      def lease: ZIO[Scope, LeaderElectionFailure[Nothing], Unit]
     }
 
     class Live(contextInfo: ContextInfo.Service, lock: LeaderLock) extends Service {
-      override def lease: ZIO[Any, LeaderElectionFailure[Nothing], Unit] =
-        ZIO.scoped {
-          for {
-            namespace   <- contextInfo.namespace.mapError(ContextInfoError.apply)
-            pod         <- contextInfo.pod.mapError(ContextInfoError.apply)
-            managedLock <- lock.acquireLock(namespace, pod)
-          } yield managedLock
-        }
+      override def lease: ZIO[Scope, LeaderElectionFailure[Nothing], Unit] =
+        for {
+          namespace   <- contextInfo.namespace.mapError(ContextInfoError.apply)
+          pod         <- contextInfo.pod.mapError(ContextInfoError.apply)
+          managedLock <- lock.acquireLock(namespace, pod)
+        } yield managedLock
     }
 
     class LiveTemporary(
@@ -229,7 +229,7 @@ package object leader {
     */
   def runAsLeader[R, E, A](
     f: ZIO[R, E, A]
-  ): ZIO[R with Any with LeaderElection, E, Option[A]] =
+  ): ZIO[R with LeaderElection, E, Option[A]] =
     ZIO.serviceWithZIO[LeaderElection](_.runAsLeader(f))
 
   /** Creates a managed lock implementing the leader election algorithm
