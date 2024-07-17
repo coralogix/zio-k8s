@@ -29,14 +29,14 @@ class LeaseLock(
   override def acquireLock(
     namespace: K8sNamespace,
     pod: Pod
-  ): ZIO[Any, leader.LeaderElectionFailure[Nothing], Unit] =
-    ZIO.scoped(for {
+  ): ZIO[Scope, leader.LeaderElectionFailure[Nothing], Unit] =
+    for {
       store <- Ref.make(Option.empty[VersionedRecord])
       name  <- pod.getName.mapError(KubernetesError.apply)
       impl   = new Impl(store, namespace, name)
       _     <- ZIO.acquireReleaseInterruptible(impl.acquire())(impl.release())
       _     <- impl.renew().fork
-    } yield ())
+    } yield ()
 
   class Impl(
     store: Ref[Option[VersionedRecord]],

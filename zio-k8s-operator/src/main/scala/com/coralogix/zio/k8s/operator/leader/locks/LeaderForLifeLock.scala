@@ -9,7 +9,7 @@ import com.coralogix.zio.k8s.model.pkg.apis.meta.v1.{ DeleteOptions, Status }
 import com.coralogix.zio.k8s.operator.OperatorFailure.k8sFailureToThrowable
 import com.coralogix.zio.k8s.operator.OperatorLogging.logFailure
 import com.coralogix.zio.k8s.operator.leader.{ KubernetesError, LeaderElectionFailure, LeaderLock }
-import zio.{ Cause, IO, Schedule, ZIO, ZLayer }
+import zio.{ Cause, IO, Schedule, Scope, ZIO, ZLayer }
 
 abstract class LeaderForLifeLock[T: K8sObject](
   lockName: String,
@@ -47,26 +47,22 @@ abstract class LeaderForLifeLock[T: K8sObject](
   def acquireLock(
     namespace: K8sNamespace,
     self: Pod
-  ): ZIO[Any, LeaderElectionFailure[Nothing], Unit] =
-    ZIO.scoped {
-      for {
-        alreadyOwned <- checkIfAlreadyOwned(namespace, self)
-        lock         <-
-          if (alreadyOwned)
-            ZIO
-              .logAnnotate("name", "Leader") {
-                ZIO.logInfo(
-                  s"Lock '$lockName' in namespace '${namespace.value}' is already owned by the current pod"
-                )
-              } flatMap { _ =>
-              ZIO.acquireRelease(ZIO.unit)(_ => deleteLock(lockName, namespace))
+  ): ZIO[Scope, LeaderElectionFailure[Nothing], Unit] =
+    for {
+      alreadyOwned <- checkIfAlreadyOwned(namespace, self)
+      lock         <-
+        if (alreadyOwned)
+          ZIO
+            .logAnnotate("name", "Leader") {
+              ZIO.logInfo(
+                s"Lock '$lockName' in namespace '${namespace.value}' is already owned by the current pod"
+              )
             }
-          else
-            ZIO.acquireRelease(
-              tryCreateLock(namespace, self)
-            )(_ => deleteLock(lockName, namespace))
-      } yield lock
-    }
+        else
+          ZIO.acquireRelease(
+            tryCreateLock(namespace, self)
+          )(_ => deleteLock(lockName, namespace))
+    } yield lock
 
   private def checkIfAlreadyOwned(
     namespace: K8sNamespace,
@@ -91,20 +87,25 @@ abstract class LeaderForLifeLock[T: K8sObject](
     self: Pod
   ): ZIO[Any, LeaderElectionFailure[Nothing], Unit] =
     ZIO.logAnnotate("name", "Leader") {
+      val podName = self.metadata.flatMap(_.name).getOrElse("(unknown name)")
       for {
-        _               <- ZIO.logInfo(s"Acquiring lock '$lockName' in namespace '${namespace.value}'")
+        _               <-
+          ZIO.logInfo(s"Pod $podName acquiring lock '$lockName' in namespace '${namespace.value}'")
         lock            <- makeLock(lockName, namespace, self)
         finalRetryPolicy = retryPolicy && Schedule.recurWhileZIO[Any, K8sFailure] {
                              case DecodedFailure(_, status, code)
                                  if status.reason.contains("AlreadyExists") =>
                                ZIO.logInfo(s"Lock is already taken, retrying...").as(true)
                              case _ =>
-                               ZIO.succeed(false)
+                               ZIO
+                                 .logInfo(s"Pod $podName failed to acquire lock '$lockName''")
+                                 .as(false)
                            }
         _               <- client
                              .create(lock, Some(namespace))
                              .retry(finalRetryPolicy)
                              .mapError(KubernetesError.apply)
+        _               <- ZIO.logInfo(s"Pod $podName successfully acquired lock '$lockName'")
       } yield ()
     }
 
