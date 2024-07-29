@@ -13,17 +13,18 @@ Global / onChangedBuildSource := ReloadOnSourceChanges
 
 inThisBuild(
   List(
-    organization := "com.coralogix",
-    homepage     := Some(url("https://github.com/coralogix/zio-k8s")),
-    licenses     := List("Apache-2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0")),
-    developers   := List(
+    organization  := "com.coralogix",
+    homepage      := Some(url("https://github.com/coralogix/zio-k8s")),
+    licenses      := List("Apache-2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0")),
+    developers    := List(
       Developer(
         "vigoo",
         "Daniel Vigovszky",
         "daniel.vigovszky@gmail.com",
         url("https://www.coralogix.com")
       )
-    )
+    ),
+    versionScheme := Some("early-semver")
   )
 )
 
