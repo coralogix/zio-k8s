@@ -1,6 +1,6 @@
 val scala212Version = "2.12.19"
 val scala213Version = "2.13.14"
-val scala3Version = "3.3.3"
+val scala3Version = "3.3.4"
 
 val zioVersion = "2.1.6"
 val zioConfigVersion = "4.0.2"
