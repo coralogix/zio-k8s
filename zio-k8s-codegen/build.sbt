@@ -13,7 +13,7 @@ libraryDependencies ++= Seq(
   "dev.zio"             %% "zio"              % "2.1.11",
   "dev.zio"             %% "zio-nio"          % "2.0.2",
   "io.swagger.parser.v3" % "swagger-parser"   % "2.0.24",
-  "io.circe"            %% "circe-core"       % "0.14.9",
+  "io.circe"            %% "circe-core"       % "0.14.14",
   "io.circe"            %% "circe-parser"     % "0.14.9",
   "io.circe"            %% "circe-yaml"       % "0.14.2",
   "org.scalameta"       %% "scalameta"        % "4.4.21",
