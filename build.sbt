@@ -198,7 +198,10 @@ lazy val crd = Project("zio-k8s-crd", file("zio-k8s-crd"))
         Seq("-Xmx1024M", "-Xss2048k", "-Dplugin.version=" + version.value)
     },
     scriptedBufferLog  := false,
-    publishLocal       := publishLocal.dependsOn(client / publishLocal).value
+    publishLocal       := publishLocal.dependsOn(client / publishLocal).value,
+    dependencyOverrides += (
+      "io.swagger.parser.v3" % "swagger-parser" % "2.1.22",
+    )
   )
   .dependsOn(client)
   .enablePlugins(SbtPlugin)
