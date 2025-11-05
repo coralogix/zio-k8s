@@ -1,8 +1,8 @@
 package com.coralogix.zio.k8s.crd.guardrail
 
 import cats.data.NonEmptyList
-import cats.implicits._
-import com.twilio.guardrail.core.CoreTermInterp
+import cats.implicits.*
+import com.twilio.guardrail.core.{ CoreTermInterp, StructuredLogger }
 import com.twilio.guardrail.generators.ScalaModule
 import com.twilio.guardrail.languages.{ JavaLanguage, ScalaLanguage }
 import com.twilio.guardrail.terms.CoreTerms
@@ -12,12 +12,14 @@ import com.twilio.guardrail.{
   CLICommon,
   CodegenTarget,
   Context,
+  ReadSwagger,
   Target,
-  UnparseableArgument
+  UnparseableArgument,
+  WriteTree
 }
-import io.circe._
-import io.circe.syntax._
-import io.circe.yaml.parser._
+import io.circe.*
+import io.circe.syntax.*
+import io.circe.yaml.parser.*
 import org.scalafmt.interfaces.Scalafmt
 import zio.{ Chunk, ZIO }
 import zio.blocking.Blocking
@@ -28,10 +30,10 @@ import zio.stream.{ Transducer, ZStream }
 import java.io.IOException
 import java.nio.charset.StandardCharsets
 import java.nio.file.attribute.FileAttribute
-import java.nio.file.{ Path => JPath }
-import scala.meta._
+import scala.meta.*
+import com.coralogix.zio.k8s.codegen.internal.CodegenIO.*
 
-import com.coralogix.zio.k8s.codegen.internal.CodegenIO._
+import scala.io.AnsiColor
 
 object GuardrailModelGenerator {
   class K8sCodegen(implicit k8sContext: K8sCodegenContext) extends CLICommon {
@@ -50,6 +52,25 @@ object GuardrailModelGenerator {
 
     override implicit def javaInterpreter: CoreTerms[JavaLanguage, Target] =
       CLI.javaInterpreter
+
+    override def guardrailRunner
+      : Map[String, NonEmptyList[Args]] => Target[List[java.nio.file.Path]] = { tasks =>
+      runLanguages(tasks)
+        .flatMap(
+          _.flatTraverse(rs =>
+            ReadSwaggerImpl
+              .readSwagger(rs)
+              .flatMap(_.traverse(WriteTree.writeTree))
+              .leftFlatMap(value =>
+                Target.pushLogger(
+                  StructuredLogger.error(s"${AnsiColor.RED}Error in ${rs.path}${AnsiColor.RESET}")
+                ) *> Target.raiseError[List[java.nio.file.Path]](value)
+              )
+              .productL(Target.pushLogger(StructuredLogger.reset))
+          )
+        )
+        .map(_.distinct)
+    }
   }
 
   def generateModelFiles(

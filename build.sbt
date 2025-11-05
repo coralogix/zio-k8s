@@ -60,7 +60,7 @@ lazy val client = Project("zio-k8s-client", file("zio-k8s-client"))
       "io.circe"                      %% "circe-core"                    % "0.14.2",
       "io.circe"                      %% "circe-generic"                 % "0.14.2",
       "io.circe"                      %% "circe-parser"                  % "0.14.2",
-      "io.circe"                      %% "circe-yaml"                    % "0.14.1",
+      "io.circe"                      %% "circe-yaml"                    % "0.15.2",
       "org.bouncycastle"               % "bcpkix-jdk18on"                % "1.71",
       "dev.zio"                       %% "zio-test"                      % zioVersion       % Test,
       "dev.zio"                       %% "zio-test-sbt"                  % zioVersion       % Test,
@@ -171,14 +171,15 @@ lazy val crd = Project("zio-k8s-crd", file("zio-k8s-crd"))
     crossVersion       := CrossVersion.disabled,
     Compile / unmanagedSourceDirectories += baseDirectory.value / "../zio-k8s-codegen/src/shared/scala",
     libraryDependencies ++= Seq(
-      "dev.zio"       %% "zio"              % zioVersion,
-      "dev.zio"       %% "zio-streams"      % zioVersion,
-      "dev.zio"       %% "zio-nio"          % zioNioVersion,
-      "com.twilio"    %% "guardrail"        % "0.64.1",
-      "org.scalameta" %% "scalafmt-dynamic" % "2.7.5",
-      "org.atteo"      % "evo-inflector"    % "1.3",
-      "dev.zio"       %% "zio-test"         % zioVersion % Test,
-      "dev.zio"       %% "zio-test-sbt"     % zioVersion % Test
+      "dev.zio"             %% "zio"              % zioVersion,
+      "dev.zio"             %% "zio-streams"      % zioVersion,
+      "dev.zio"             %% "zio-nio"          % zioNioVersion,
+      "com.twilio"          %% "guardrail"        % "0.64.1",
+      "io.swagger.parser.v3" % "swagger-parser"   % "2.1.19",
+      "org.scalameta"       %% "scalafmt-dynamic" % "2.7.5",
+      "org.atteo"            % "evo-inflector"    % "1.3",
+      "dev.zio"             %% "zio-test"         % zioVersion % Test,
+      "dev.zio"             %% "zio-test-sbt"     % zioVersion % Test
     ),
     testFrameworks += new TestFramework("zio.test.sbt.ZTestFramework"),
     compile / skip     := {
