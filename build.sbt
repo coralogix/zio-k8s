@@ -1,5 +1,5 @@
-val scala212Version = "2.12.17"
-val scala213Version = "2.13.10"
+val scala212Version = "2.12.19"
+val scala213Version = "2.13.17"
 val scala3Version = "3.3.7"
 
 val zioVersion = "1.0.17"
@@ -27,7 +27,15 @@ val commonSettings = Seq(
   organization       := "com.coralogix",
   scalaVersion       := scala212Version,
   crossScalaVersions := List(scala212Version, scala213Version, scala3Version),
-  autoAPIMappings    := true
+  autoAPIMappings    := true,
+  excludeDependencies ++=
+    (CrossVersion.partialVersion(scalaVersion.value) match {
+      case Some((3, _)) =>
+        Seq(
+          ExclusionRule("org.scala-lang.modules", "scala-collection-compat_2.13")
+        )
+      case _            => Seq.empty[ExclusionRule]
+    })
 )
 
 lazy val root = Project("zio-k8s", file("."))
