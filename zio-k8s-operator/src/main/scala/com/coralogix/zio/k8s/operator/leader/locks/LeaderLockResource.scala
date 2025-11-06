@@ -78,9 +78,10 @@ package object leaderlockresources {
       val asGenericResourceDelete: ResourceDelete[LeaderLockResource, Status] = asGenericResource
     }
 
-    val live: ZLayer[Has[K8sCluster] with Has[
-      SttpBackend[Task, ZioStreams with WebSockets]
-    ], Nothing, LeaderLockResources] =
+    val live: ZLayer[Has[K8sCluster]
+      with Has[
+        SttpBackend[Task, ZioStreams with WebSockets]
+      ], Nothing, LeaderLockResources] =
       ZLayer.fromServices[SttpBackend[Task, ZioStreams with WebSockets], K8sCluster, Service] {
         (backend: SttpBackend[Task, ZioStreams with WebSockets], cluster: K8sCluster) =>
           val client = new ResourceClient[LeaderLockResource, Status](
