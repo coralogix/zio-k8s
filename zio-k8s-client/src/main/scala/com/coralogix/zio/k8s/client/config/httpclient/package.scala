@@ -35,32 +35,22 @@ package object httpclient {
                                          }
                                          .when(disableHostnameVerification)
 
-        sslContext <- SSL(config.client.serverCertificate, config.authentication)
-        client     <- ZIO.scoped(
-                        ZIO
-                          .acquireRelease(
-                            ZIO.attempt(
-                              HttpClientZioBackend.usingClient(
-                                HttpClient
-                                  .newBuilder()
-                                  .followRedirects(HttpClient.Redirect.NORMAL)
-                                  .sslContext(sslContext)
-                                  .build()
-                              )
-                            )
-                          )(_.close().ignore)
-                          .map { backend =>
-                            K8sBackend(
-                              LoggingBackend(
-                                backend,
-                                new Slf4jLogger(loggerName, backend.responseMonad),
-                                logRequestBody = config.client.debug,
-                                logResponseBody = config.client.debug
-                              )
-                            )
-                          }
-                      )
-      } yield client
+        sslContext  <- SSL(config.client.serverCertificate, config.authentication)
+        sttpBackend <- HttpClientZioBackend.scopedUsingClient(
+                         HttpClient
+                           .newBuilder()
+                           .followRedirects(HttpClient.Redirect.NORMAL)
+                           .sslContext(sslContext)
+                           .build()
+                       )
+      } yield K8sBackend(
+        LoggingBackend(
+          sttpBackend,
+          new Slf4jLogger(loggerName, sttpBackend.responseMonad),
+          logRequestBody = config.client.debug,
+          logResponseBody = config.client.debug
+        )
+      )
     }
 
   /** Layer producing a [[K8sCluster]] and an STTP backend module that can be directly used to

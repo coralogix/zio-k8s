@@ -25,44 +25,32 @@ package object asynchttpclient {
         runtime                     <- ZIO.runtime[Any]
         sslContext                  <- SSL(config.client.serverCertificate, config.authentication)
         disableHostnameVerification <- ZIO.succeed(getHostnameVerificationDisabled(config))
-        client                      <-
-          ZIO
-            .acquireRelease(
-              ZIO.attempt {
-                AsyncHttpClientZioBackend.usingClient(
-                  runtime,
-                  Dsl.asyncHttpClient(
-                    Dsl
-                      .config()
-                      .setFollowRedirect(true)
-                      .setDisableHttpsEndpointIdentificationAlgorithm(disableHostnameVerification)
-                      .setSslContext(
-                        new JdkSslContext(
-                          sslContext,
-                          true,
-                          null,
-                          IdentityCipherSuiteFilter.INSTANCE,
-                          null,
-                          ClientAuth.NONE,
-                          null,
-                          false
-                        )
-                      )
-                  )
-                )
-              }
-            )(_.close().ignore)
-            .map { backend =>
-              K8sBackend(
-                LoggingBackend(
-                  backend,
-                  new Slf4jLogger(loggerName, backend.responseMonad),
-                  logRequestBody = config.client.debug,
-                  logResponseBody = config.client.debug
+        sttpBackend                 <-
+          AsyncHttpClientZioBackend.usingConfigBuilder(configBuilder =>
+            configBuilder
+              .setFollowRedirect(true)
+              .setDisableHttpsEndpointIdentificationAlgorithm(disableHostnameVerification)
+              .setSslContext(
+                new JdkSslContext(
+                  sslContext,
+                  true,
+                  null,
+                  IdentityCipherSuiteFilter.INSTANCE,
+                  null,
+                  ClientAuth.NONE,
+                  null,
+                  false
                 )
               )
-            }
-      } yield client
+          )
+      } yield K8sBackend(
+        LoggingBackend(
+          sttpBackend,
+          new Slf4jLogger(loggerName, sttpBackend.responseMonad),
+          logRequestBody = config.client.debug,
+          logResponseBody = config.client.debug
+        )
+      )
     }
 
   def getHostnameVerificationDisabled(config: K8sClusterConfig) =
