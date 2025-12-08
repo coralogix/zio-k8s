@@ -26,7 +26,7 @@ package object asynchttpclient {
         sslContext                  <- SSL(config.client.serverCertificate, config.authentication)
         disableHostnameVerification <- ZIO.succeed(getHostnameVerificationDisabled(config))
         sttpBackend                 <-
-          AsyncHttpClientZioBackend.usingConfigBuilder(configBuilder =>
+          AsyncHttpClientZioBackend.scopedUsingConfigBuilder(configBuilder =>
             configBuilder
               .setFollowRedirect(true)
               .setDisableHttpsEndpointIdentificationAlgorithm(disableHostnameVerification)
