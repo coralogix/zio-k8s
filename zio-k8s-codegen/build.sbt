@@ -3,7 +3,7 @@ sbtPlugin := true
 organization := "com.coralogix"
 name         := "zio-k8s-codegen"
 
-scalaVersion := "2.12.19"
+scalaVersion := "2.12.21"
 
 Compile / unmanagedSourceDirectories += baseDirectory.value / "src/shared/scala"
 
