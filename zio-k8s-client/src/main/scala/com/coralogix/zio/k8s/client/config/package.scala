@@ -425,8 +425,8 @@ package object config extends Descriptors {
       Decoder.instance { c =>
         for {
           maybeCert <-
-            c.get[Option[String]]("clientCertificateData").map(_.map(KeySource.FromString))
-          maybeKey  <- c.get[Option[String]]("clientKeyData").map(_.map(KeySource.FromString))
+            c.get[Option[String]]("clientCertificateData").map(_.map(KeySource.FromString.apply))
+          maybeKey  <- c.get[Option[String]]("clientKeyData").map(_.map(KeySource.FromString.apply))
         } yield (maybeCert, maybeKey) match {
           case (Some(cert), Some(key)) =>
             K8sAuthentication.ClientCertificates(cert, key, password = None).some

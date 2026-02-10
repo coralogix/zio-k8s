@@ -20,7 +20,7 @@ object ResourceClientBaseSpec extends DefaultRunnableSpec {
       testM("builds a fresh request on each access") {
         val index = new AtomicInteger(0)
 
-        val client = new ResourceClientBase {
+        final class AuthorizationClient extends ResourceClientBase {
           override protected val resourceType: K8sResourceType = K8sResourceType("pods", "", "v1")
           override protected val cluster: K8sCluster =
             K8sCluster(
@@ -39,6 +39,7 @@ object ResourceClientBaseSpec extends DefaultRunnableSpec {
                 .map(_.value)
             )
         }
+        val client = new AuthorizationClient
 
         assertM(client.authorization.zip(client.authorization))(
           Assertion.equalTo((Some("Bearer token-1"), Some("Bearer token-2")))
@@ -50,7 +51,7 @@ object ResourceClientBaseSpec extends DefaultRunnableSpec {
         val attempts = new AtomicInteger(0)
         val invalidations = new AtomicInteger(0)
 
-        val client = new ResourceClientBase {
+        final class RetryClient extends ResourceClientBase {
           override protected val resourceType: K8sResourceType = K8sResourceType("pods", "", "v1")
           override protected val cluster: K8sCluster =
             K8sCluster(
@@ -64,6 +65,7 @@ object ResourceClientBaseSpec extends DefaultRunnableSpec {
           def run(request: Task[Response[ResponseBody]]): IO[K8sFailure, String] =
             handleFailures("get", None, "pod1")(request)
         }
+        val client = new RetryClient
 
         val unauthorizedResponse: Response[ResponseBody] =
           Response(
