@@ -73,6 +73,7 @@ package object asynchttpclient {
   /** Layer producing a [[K8sCluster]] and an [[SttpClient]] module that can be directly used to
     * initialize specific Kubernetes client modules, using the [[defaultConfigChain]].
     */
-  val k8sDefault: ZLayer[Blocking with System with Clock, Throwable, Has[K8sCluster] with SttpClient] =
+  val k8sDefault
+    : ZLayer[Blocking with System with Clock, Throwable, Has[K8sCluster] with SttpClient] =
     (Blocking.any ++ System.any ++ Clock.any) >+> defaultConfigChain >>> (k8sCluster ++ k8sSttpClient())
 }

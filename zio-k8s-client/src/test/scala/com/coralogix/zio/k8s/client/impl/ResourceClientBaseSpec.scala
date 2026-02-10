@@ -25,7 +25,9 @@ object ResourceClientBaseSpec extends DefaultRunnableSpec {
           override protected val cluster: K8sCluster =
             K8sCluster(
               uri"https://kubernetes.default.svc",
-              Some(request => Task.succeed(request.auth.bearer(s"token-${index.incrementAndGet()}")))
+              Some(request =>
+                Task.succeed(request.auth.bearer(s"token-${index.incrementAndGet()}"))
+              )
             )
           override protected val backend: SttpBackend[Task, ZioStreams with WebSockets] =
             null.asInstanceOf[SttpBackend[Task, ZioStreams with WebSockets]]
@@ -64,7 +66,10 @@ object ResourceClientBaseSpec extends DefaultRunnableSpec {
         }
 
         val unauthorizedResponse: Response[ResponseBody] =
-          Response(Left(HttpError("expired token", StatusCode.Unauthorized)), StatusCode.Unauthorized)
+          Response(
+            Left(HttpError("expired token", StatusCode.Unauthorized)),
+            StatusCode.Unauthorized
+          )
         val successfulResponse: Response[ResponseBody] =
           Response(Right("ok"), StatusCode.Ok)
         val requestTask: Task[Response[ResponseBody]] =

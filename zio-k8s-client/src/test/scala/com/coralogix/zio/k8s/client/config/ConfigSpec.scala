@@ -52,7 +52,11 @@ object ConfigSpec extends DefaultRunnableSpec {
       },
       testM("load client config with token cache") {
         val loadConfig =
-          TypesafeConfig.fromHoconString[Config](exampleWithTokenCache, configDesc).build.useNow.map(_.get)
+          TypesafeConfig
+            .fromHoconString[Config](exampleWithTokenCache, configDesc)
+            .build
+            .useNow
+            .map(_.get)
 
         assertM(loadConfig)(
           Assertion.equalTo(
@@ -150,7 +154,7 @@ object ConfigSpec extends DefaultRunnableSpec {
             result         <- authentication match {
                                 case ServiceAccountToken(FromString(token), _) =>
                                   ZIO.succeed(token.some)
-                                case _                                      =>
+                                case _                                         =>
                                   ZIO.none
                               }
           } yield result
@@ -163,88 +167,105 @@ object ConfigSpec extends DefaultRunnableSpec {
         )
       },
       testM("reload service account token from file") {
-        val toChunk: String => Chunk[Byte] = s => Chunk.fromArray(s.getBytes(StandardCharsets.UTF_8))
+        val toChunk: String => Chunk[Byte] =
+          s => Chunk.fromArray(s.getBytes(StandardCharsets.UTF_8))
 
         assertM(
           Files
             .createTempFileManaged(prefix = "zio_k8s_test_token_".some)
             .use { path =>
               for {
-                _             <- Files.writeBytes(path, toChunk("token-1"))
-                authData      <- serviceAccountTokenAuthenticator(KeySource.FromFile(path))
-                token1        <- authData.authenticator(basicRequest).map(
-                                   _.headers
-                                     .find(_.is("Authorization"))
-                                     .map(_.value)
-                                 )
-                _             <- Files.writeBytes(path, toChunk("token-2"))
-                token2        <- authData.authenticator(basicRequest).map(
-                                   _.headers
-                                     .find(_.is("Authorization"))
-                                     .map(_.value)
-                                 )
+                _        <- Files.writeBytes(path, toChunk("token-1"))
+                authData <- serviceAccountTokenAuthenticator(KeySource.FromFile(path))
+                token1   <- authData
+                              .authenticator(basicRequest)
+                              .map(
+                                _.headers
+                                  .find(_.is("Authorization"))
+                                  .map(_.value)
+                              )
+                _        <- Files.writeBytes(path, toChunk("token-2"))
+                token2   <- authData
+                              .authenticator(basicRequest)
+                              .map(
+                                _.headers
+                                  .find(_.is("Authorization"))
+                                  .map(_.value)
+                              )
               } yield (token1, token2)
             }
         )(Assertion.equalTo((Some("Bearer token-1"), Some("Bearer token-2"))))
       },
       testM("cache service account token from file for configured seconds") {
-        val toChunk: String => Chunk[Byte] = s => Chunk.fromArray(s.getBytes(StandardCharsets.UTF_8))
+        val toChunk: String => Chunk[Byte] =
+          s => Chunk.fromArray(s.getBytes(StandardCharsets.UTF_8))
 
         assertM(
           Files
             .createTempFileManaged(prefix = "zio_k8s_test_cached_token_".some)
             .use { path =>
               for {
-                _             <- Files.writeBytes(path, toChunk("token-1"))
-                authData      <- serviceAccountTokenAuthenticator(
-                                   KeySource.FromFile(path),
-                                   tokenCacheSeconds = 60
-                                 )
-                token1        <- authData.authenticator(basicRequest).map(
-                                   _.headers
-                                     .find(_.is("Authorization"))
-                                     .map(_.value)
-                                 )
-                _             <- Files.writeBytes(path, toChunk("token-2"))
-                token2        <- authData.authenticator(basicRequest).map(
-                                   _.headers
-                                     .find(_.is("Authorization"))
-                                     .map(_.value)
-                                 )
+                _        <- Files.writeBytes(path, toChunk("token-1"))
+                authData <- serviceAccountTokenAuthenticator(
+                              KeySource.FromFile(path),
+                              tokenCacheSeconds = 60
+                            )
+                token1   <- authData
+                              .authenticator(basicRequest)
+                              .map(
+                                _.headers
+                                  .find(_.is("Authorization"))
+                                  .map(_.value)
+                              )
+                _        <- Files.writeBytes(path, toChunk("token-2"))
+                token2   <- authData
+                              .authenticator(basicRequest)
+                              .map(
+                                _.headers
+                                  .find(_.is("Authorization"))
+                                  .map(_.value)
+                              )
               } yield (token1, token2)
             }
         )(Assertion.equalTo((Some("Bearer token-1"), Some("Bearer token-1"))))
       },
       testM("refresh cached token after cache window elapsed") {
-        val toChunk: String => Chunk[Byte] = s => Chunk.fromArray(s.getBytes(StandardCharsets.UTF_8))
+        val toChunk: String => Chunk[Byte] =
+          s => Chunk.fromArray(s.getBytes(StandardCharsets.UTF_8))
 
         assertM(
           Files
             .createTempFileManaged(prefix = "zio_k8s_test_cached_token_refresh_".some)
             .use { path =>
               for {
-                _             <- Files.writeBytes(path, toChunk("token-1"))
-                authData      <- serviceAccountTokenAuthenticator(
-                                   KeySource.FromFile(path),
-                                   tokenCacheSeconds = 5
-                                 )
-                token1        <- authData.authenticator(basicRequest).map(
-                                   _.headers
-                                     .find(_.is("Authorization"))
-                                     .map(_.value)
-                                 )
-                _             <- Files.writeBytes(path, toChunk("token-2"))
-                token2Before  <- authData.authenticator(basicRequest).map(
-                                   _.headers
-                                     .find(_.is("Authorization"))
-                                     .map(_.value)
-                                 )
-                _             <- TestClock.adjust(6.seconds)
-                token2After   <- authData.authenticator(basicRequest).map(
-                                   _.headers
-                                     .find(_.is("Authorization"))
-                                     .map(_.value)
-                                 )
+                _            <- Files.writeBytes(path, toChunk("token-1"))
+                authData     <- serviceAccountTokenAuthenticator(
+                                  KeySource.FromFile(path),
+                                  tokenCacheSeconds = 5
+                                )
+                token1       <- authData
+                                  .authenticator(basicRequest)
+                                  .map(
+                                    _.headers
+                                      .find(_.is("Authorization"))
+                                      .map(_.value)
+                                  )
+                _            <- Files.writeBytes(path, toChunk("token-2"))
+                token2Before <- authData
+                                  .authenticator(basicRequest)
+                                  .map(
+                                    _.headers
+                                      .find(_.is("Authorization"))
+                                      .map(_.value)
+                                  )
+                _            <- TestClock.adjust(6.seconds)
+                token2After  <- authData
+                                  .authenticator(basicRequest)
+                                  .map(
+                                    _.headers
+                                      .find(_.is("Authorization"))
+                                      .map(_.value)
+                                  )
               } yield (token1, token2Before, token2After)
             }
         )(

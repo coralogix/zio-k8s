@@ -195,7 +195,8 @@ package object config extends Descriptors {
     * This can be used to either set up from a configuration source with zio-config or provide the
     * hostname and token programmatically for the Kubernetes client.
     */
-  val k8sCluster: ZLayer[Blocking with Clock with Has[K8sClusterConfig], Throwable, Has[K8sCluster]] =
+  val k8sCluster
+    : ZLayer[Blocking with Clock with Has[K8sClusterConfig], Throwable, Has[K8sCluster]] =
     (for {
       config <- getConfig[K8sClusterConfig]
       result <- config.authentication match {
@@ -208,7 +209,7 @@ package object config extends Descriptors {
                           authData.invalidateToken
                         )
                       )
-                  case K8sAuthentication.BasicAuth(username, password)    =>
+                  case K8sAuthentication.BasicAuth(username, password)                       =>
                     ZIO.succeed(
                       K8sCluster(
                         config.host,
@@ -216,7 +217,7 @@ package object config extends Descriptors {
                         None
                       )
                     )
-                  case K8sAuthentication.ClientCertificates(_, _, _)      =>
+                  case K8sAuthentication.ClientCertificates(_, _, _)                         =>
                     ZIO.succeed(K8sCluster(config.host, None))
                 }
     } yield result).toLayer
@@ -622,9 +623,9 @@ package object config extends Descriptors {
           def readTokenFromFile: Task[String] =
             Task.effect {
               val stream = new FileInputStream(path.toFile)
-              try {
+              try
                 new String(stream.readAllBytes(), StandardCharsets.US_ASCII)
-              } finally stream.close()
+              finally stream.close()
             }
 
           def refresh(nowMillis: Long): Task[String] =
@@ -645,11 +646,10 @@ package object config extends Descriptors {
                                                else refresh(now)
                  } yield token
                }).map(token => request.auth.bearer(token)),
-            invalidateToken =
-              Some(
-                if (cacheMillis == 0) ZIO.unit
-                else tokenState.update { case (token, _) => (token, 0L) }.unit
-              )
+            invalidateToken = Some(
+              if (cacheMillis == 0) ZIO.unit
+              else tokenState.update { case (token, _) => (token, 0L) }.unit
+            )
           )
         }
       case _                        =>

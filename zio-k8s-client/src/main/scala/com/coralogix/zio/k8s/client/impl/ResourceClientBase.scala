@@ -152,7 +152,7 @@ trait ResourceClientBase {
           cluster.invalidateToken.get
             .mapError(RequestFailure.apply(reqInfo, _)) *>
             runRequest.flatMap(responseAfterRetry => decodeResponse(reqInfo, responseAfterRetry))
-        case _                                                                  =>
+        case _                                                                                =>
           decodeResponse(reqInfo, response)
       }
     }

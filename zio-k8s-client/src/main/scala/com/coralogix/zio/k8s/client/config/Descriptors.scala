@@ -51,8 +51,7 @@ trait Descriptors {
     keySourceFromFile <> keySourceFromString <> keySourceFromBase64
 
   private val tokenCacheSeconds: ConfigDescriptor[Int] =
-    int("tokenCacheSeconds")
-      .optional
+    int("tokenCacheSeconds").optional
       .transform(
         _.getOrElse(0),
         value => if (value == 0) None else Some(value)

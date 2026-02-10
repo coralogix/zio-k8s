@@ -40,7 +40,9 @@ final class ResourceStatusClient[StatusT: Encoder, T: K8sObject: Encoder: Decode
       response <- handleFailures("replaceStatus", namespace, None, None, None) {
                     k8sRequest.flatMap { request =>
                       request
-                        .put(modifying(name = name, subresource = Some("status"), namespace, dryRun))
+                        .put(
+                          modifying(name = name, subresource = Some("status"), namespace, dryRun)
+                        )
                         .body(toStatusUpdate(of, updatedStatus))
                         .response(asJsonAccumulating[T])
                         .send(backend)

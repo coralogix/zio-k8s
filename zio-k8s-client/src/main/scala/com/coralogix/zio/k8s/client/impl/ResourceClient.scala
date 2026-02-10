@@ -91,8 +91,7 @@ final class ResourceClient[
                                                                          paginated(
                                                                            namespace,
                                                                            chunkSize,
-                                                                           continueToken =
-                                                                             Some(token),
+                                                                           continueToken = Some(token),
                                                                            fieldSelector,
                                                                            labelSelector,
                                                                            resourceVersion
