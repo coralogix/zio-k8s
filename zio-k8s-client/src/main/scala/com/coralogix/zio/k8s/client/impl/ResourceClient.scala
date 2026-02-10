@@ -51,19 +51,21 @@ final class ResourceClient[
   ): Stream[K8sFailure, T] =
     ZStream.unwrap {
       handleFailures("getAll", namespace, fieldSelector, labelSelector, None) {
-        k8sRequest
-          .get(
-            paginated(
-              namespace,
-              chunkSize,
-              continueToken = None,
-              fieldSelector,
-              labelSelector,
-              resourceVersion
+        k8sRequest.flatMap { request =>
+          request
+            .get(
+              paginated(
+                namespace,
+                chunkSize,
+                continueToken = None,
+                fieldSelector,
+                labelSelector,
+                resourceVersion
+              )
             )
-          )
-          .response(asJsonAccumulating[ObjectList[T]])
-          .send(backend.value)
+            .response(asJsonAccumulating[ObjectList[T]])
+            .send(backend.value)
+        }
       }.map { initialResponse =>
         val rest = ZStream.fromPull {
           for {
@@ -82,19 +84,21 @@ final class ResourceClient[
                                                                    labelSelector,
                                                                    None
                                                                  ) {
-                                                                   k8sRequest
-                                                                     .get(
-                                                                       paginated(
-                                                                         namespace,
-                                                                         chunkSize,
-                                                                         continueToken = Some(token),
-                                                                         fieldSelector,
-                                                                         labelSelector,
-                                                                         resourceVersion
+                                                                   k8sRequest.flatMap { request =>
+                                                                     request
+                                                                       .get(
+                                                                         paginated(
+                                                                           namespace,
+                                                                           chunkSize,
+                                                                           continueToken = Some(token),
+                                                                           fieldSelector,
+                                                                           labelSelector,
+                                                                           resourceVersion
+                                                                         )
                                                                        )
-                                                                     )
-                                                                     .response(asJsonAccumulating[ObjectList[T]])
-                                                                     .send(backend.value)
+                                                                       .response(asJsonAccumulating[ObjectList[T]])
+                                                                       .send(backend.value)
+                                                                   }
                                                                  }.mapError(Some.apply)
                                                           _   <- nextContinueToken.set(lst.metadata.flatMap(_.continue))
                                                         } yield Chunk.fromIterable(lst.items)
@@ -128,13 +132,21 @@ final class ResourceClient[
     ZStream
       .unwrap {
         handleFailures("watch", namespace, fieldSelector, labelSelector, None) {
-          k8sRequest
-            .get(
-              watching(namespace, resourceVersion, fieldSelector, labelSelector, sendInitialEvents)
-            )
-            .response(asStreamUnsafeWithError)
-            .readTimeout(readTimeout.asScala)
-            .send(backend.value)
+          k8sRequest.flatMap { request =>
+            request
+              .get(
+                watching(
+                  namespace,
+                  resourceVersion,
+                  fieldSelector,
+                  labelSelector,
+                  sendInitialEvents
+                )
+              )
+              .response(asStreamUnsafeWithError)
+              .readTimeout(readTimeout.asScala)
+              .send(backend.value)
+          }
         }.map(_.mapError(RequestFailure(reqInfo, _)))
       }
       .via(
@@ -194,10 +206,12 @@ final class ResourceClient[
 
   def get(name: String, namespace: Option[K8sNamespace]): IO[K8sFailure, T] =
     handleFailures("get", namespace, name) {
-      k8sRequest
-        .get(simple(Some(name), subresource = None, namespace))
-        .response(asJsonAccumulating[T])
-        .send(backend.value)
+      k8sRequest.flatMap { request =>
+        request
+          .get(simple(Some(name), subresource = None, namespace))
+          .response(asJsonAccumulating[T])
+          .send(backend.value)
+      }
     }
 
   override def create(
@@ -206,11 +220,13 @@ final class ResourceClient[
     dryRun: Boolean
   ): IO[K8sFailure, T] =
     handleFailures("create", namespace, None, None, None) {
-      k8sRequest
-        .post(creating(namespace, dryRun))
-        .body(newResource)
-        .response(asJsonAccumulating[T])
-        .send(backend.value)
+      k8sRequest.flatMap { request =>
+        request
+          .post(creating(namespace, dryRun))
+          .body(newResource)
+          .response(asJsonAccumulating[T])
+          .send(backend.value)
+      }
     }
 
   override def replace(
@@ -220,11 +236,13 @@ final class ResourceClient[
     dryRun: Boolean
   ): IO[K8sFailure, T] =
     handleFailures("replace", namespace, name) {
-      k8sRequest
-        .put(modifying(name = name, subresource = None, namespace, dryRun))
-        .body(updatedResource)
-        .response(asJsonAccumulating[T])
-        .send(backend.value)
+      k8sRequest.flatMap { request =>
+        request
+          .put(modifying(name = name, subresource = None, namespace, dryRun))
+          .body(updatedResource)
+          .response(asJsonAccumulating[T])
+          .send(backend.value)
+      }
     }
 
   override def delete(
@@ -236,20 +254,22 @@ final class ResourceClient[
     propagationPolicy: Option[PropagationPolicy] = None
   ): IO[K8sFailure, DeleteResult] =
     handleFailures("delete", namespace, name) {
-      k8sRequest
-        .delete(
-          deleting(
-            name = name,
-            subresource = None,
-            namespace,
-            dryRun,
-            gracePeriod,
-            propagationPolicy
+      k8sRequest.flatMap { request =>
+        request
+          .delete(
+            deleting(
+              name = name,
+              subresource = None,
+              namespace,
+              dryRun,
+              gracePeriod,
+              propagationPolicy
+            )
           )
-        )
-        .body(deleteOptions)
-        .response(asJsonAccumulating[DeleteResult])
-        .send(backend.value)
+          .body(deleteOptions)
+          .response(asJsonAccumulating[DeleteResult])
+          .send(backend.value)
+      }
     }
 
   def deleteAll(
@@ -262,20 +282,22 @@ final class ResourceClient[
     labelSelector: Option[LabelSelector] = None
   ): IO[K8sFailure, Status] =
     handleFailures("deleteAll", namespace, fieldSelector, labelSelector, None) {
-      k8sRequest
-        .delete(
-          deletingMany(
-            namespace,
-            dryRun,
-            gracePeriod,
-            propagationPolicy,
-            fieldSelector,
-            labelSelector
+      k8sRequest.flatMap { request =>
+        request
+          .delete(
+            deletingMany(
+              namespace,
+              dryRun,
+              gracePeriod,
+              propagationPolicy,
+              fieldSelector,
+              labelSelector
+            )
           )
-        )
-        .body(deleteOptions)
-        .response(asJsonAccumulating[Status])
-        .send(backend.value)
+          .body(deleteOptions)
+          .response(asJsonAccumulating[Status])
+          .send(backend.value)
+      }
     }
 }
 

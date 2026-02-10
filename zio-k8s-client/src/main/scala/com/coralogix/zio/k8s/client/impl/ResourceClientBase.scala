@@ -30,10 +30,10 @@ trait ResourceClientBase {
   protected val cluster: K8sCluster
   protected val backend: K8sBackend
 
-  protected val k8sRequest: RequestT[Empty, Either[String, String], Any] =
+  protected def k8sRequest: Task[RequestT[Empty, Either[String, String], Any]] =
     cluster.applyToken match {
       case Some(f) => f(basicRequest)
-      case None    => basicRequest
+      case None    => ZIO.succeed(basicRequest)
     }
 
   protected def simple(
@@ -145,29 +145,42 @@ trait ResourceClientBase {
   ): IO[K8sFailure, A] = {
     val reqInfo =
       K8sRequestInfo(resourceType, operation, namespace, fieldSelector, labelSelector, name)
-    f.mapError(RequestFailure.apply(reqInfo, _))
-      .flatMap { response =>
-        response.body match {
-          case Left(HttpError(error, StatusCode.Unauthorized)) =>
-            ZIO.fail(Unauthorized(reqInfo, error))
-          case Left(HttpError(_, StatusCode.Gone))             =>
-            ZIO.fail(Gone)
-          case Left(HttpError(_, StatusCode.NotFound))         =>
-            ZIO.fail(NotFound)
-          case Left(HttpError(error, code))                    =>
-            decode[Status](error) match {
-              case Left(_)       =>
-                ZIO.fail(HttpFailure(reqInfo, error, code))
-              case Right(status) =>
-                ZIO.fail(DecodedFailure(reqInfo, status, code))
-            }
-          case Left(DeserializationException(_, errors))       =>
-            ZIO.fail(DeserializationFailure(reqInfo, errors))
-          case Right(value)                                    =>
-            ZIO.succeed(value)
-        }
+    val runRequest = f.mapError(RequestFailure.apply(reqInfo, _))
+    runRequest.flatMap { response =>
+      response.body match {
+        case Left(HttpError(_, StatusCode.Unauthorized)) if cluster.invalidateToken.isDefined =>
+          cluster.invalidateToken.get
+            .mapError(RequestFailure.apply(reqInfo, _)) *>
+            runRequest.flatMap(responseAfterRetry => decodeResponse(reqInfo, responseAfterRetry))
+        case _                                                                                =>
+          decodeResponse(reqInfo, response)
       }
+    }
   }
+
+  private def decodeResponse[A](
+    reqInfo: K8sRequestInfo,
+    response: Response[Either[ResponseException[String, NonEmptyList[Error]], A]]
+  ): IO[K8sFailure, A] =
+    response.body match {
+      case Left(HttpError(error, StatusCode.Unauthorized)) =>
+        ZIO.fail(Unauthorized(reqInfo, error))
+      case Left(HttpError(_, StatusCode.Gone))             =>
+        ZIO.fail(Gone)
+      case Left(HttpError(_, StatusCode.NotFound))         =>
+        ZIO.fail(NotFound)
+      case Left(HttpError(error, code))                    =>
+        decode[Status](error) match {
+          case Left(_)       =>
+            ZIO.fail(HttpFailure(reqInfo, error, code))
+          case Right(status) =>
+            ZIO.fail(DecodedFailure(reqInfo, status, code))
+        }
+      case Left(DeserializationException(_, errors))       =>
+        ZIO.fail(DeserializationFailure(reqInfo, errors))
+      case Right(value)                                    =>
+        ZIO.succeed(value)
+    }
 
   /** If the response is successful (2xx), tries to deserialize the body from a string into JSON.
     * Returns:
