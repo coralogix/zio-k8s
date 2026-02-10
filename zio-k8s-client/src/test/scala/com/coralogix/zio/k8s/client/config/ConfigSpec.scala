@@ -7,7 +7,15 @@ import io.circe.yaml.parser.parse
 import sttp.client3._
 import zio.config.typesafe.TypesafeConfigProvider
 import zio.nio.file.{ Files, Path }
-import zio.test.{ assertCompletes, assertZIO, Assertion, Spec, TestClock, TestEnvironment, ZIOSpecDefault }
+import zio.test.{
+  assertCompletes,
+  assertZIO,
+  Assertion,
+  Spec,
+  TestClock,
+  TestEnvironment,
+  ZIOSpecDefault
+}
 import zio._
 
 import java.nio.charset.StandardCharsets
@@ -123,7 +131,8 @@ object ConfigSpec extends ZIOSpecDefault {
             K8sClusterConfig(
               uri"https://kubernetes.default.svc",
               authentication = K8sAuthentication.ServiceAccountToken(
-                token = KeySource.FromFile(Path("/var/run/secrets/kubernetes.io/serviceaccount/token")),
+                token =
+                  KeySource.FromFile(Path("/var/run/secrets/kubernetes.io/serviceaccount/token")),
                 tokenCacheSeconds = 5
               ),
               client = K8sClientConfig(

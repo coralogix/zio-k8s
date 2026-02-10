@@ -135,7 +135,13 @@ final class ResourceClient[
           k8sRequest.flatMap { request =>
             request
               .get(
-                watching(namespace, resourceVersion, fieldSelector, labelSelector, sendInitialEvents)
+                watching(
+                  namespace,
+                  resourceVersion,
+                  fieldSelector,
+                  labelSelector,
+                  sendInitialEvents
+                )
               )
               .response(asStreamUnsafeWithError)
               .readTimeout(readTimeout.asScala)

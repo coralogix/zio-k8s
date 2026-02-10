@@ -25,9 +25,7 @@ object ResourceClientBaseSpec extends ZIOSpecDefault {
           override protected val cluster: K8sCluster =
             K8sCluster(
               uri"https://kubernetes.default.svc",
-              Some(request =>
-                ZIO.succeed(request.auth.bearer(s"token-${index.incrementAndGet()}"))
-              )
+              Some(request => ZIO.succeed(request.auth.bearer(s"token-${index.incrementAndGet()}")))
             )
           override protected val backend: K8sBackend =
             K8sBackend(
