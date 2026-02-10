@@ -50,12 +50,23 @@ trait Descriptors {
   private val keySource: ConfigDescriptor[KeySource] =
     keySourceFromFile <> keySourceFromString <> keySourceFromBase64
 
+  private val tokenCacheSeconds: ConfigDescriptor[Int] =
+    int("tokenCacheSeconds").optional
+      .transform(
+        _.getOrElse(0),
+        value => if (value == 0) None else Some(value)
+      )
+
   private val serviceAccountToken: ConfigDescriptor[K8sAuthentication] =
-    nested("serviceAccountToken")(keySource).transformOrFailRight(
-      (s: KeySource) => K8sAuthentication.ServiceAccountToken(s),
+    nested("serviceAccountToken")((keySource |@| tokenCacheSeconds).tupled).transformOrFailRight(
+      { case (token, cacheSeconds) =>
+        K8sAuthentication.ServiceAccountToken(token, cacheSeconds)
+      },
       {
-        case K8sAuthentication.ServiceAccountToken(token) => Right(token)
-        case _                                            => Left("Not a K8sAuthentication.ServiceAccountToken")
+        case K8sAuthentication.ServiceAccountToken(token, cacheSeconds) =>
+          Right((token, cacheSeconds))
+        case _                                                          =>
+          Left("Not a K8sAuthentication.ServiceAccountToken")
       }
     )
 

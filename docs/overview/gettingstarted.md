@@ -49,6 +49,7 @@ import com.coralogix.zio.k8s.client.config._
 import com.coralogix.zio.k8s.client.config.httpclient._
 import zio._
 import zio.blocking.Blocking
+import zio.clock.Clock
 import zio.system.System
 
 import com.coralogix.zio.k8s.client.v1.configmaps.ConfigMaps
@@ -74,7 +75,8 @@ an input for both `K8sCluster` and `SttpClient`. Assuming we have a custom clust
 ```scala mdoc:silent
 def customConfig: ZLayer[Any, Nothing, Has[K8sClusterConfig]] = ???
 
-def customK8s = (Blocking.any ++ System.any ++ customConfig) >>> (k8sCluster ++ k8sSttpClient())
+def customK8s =
+  (Blocking.any ++ System.any ++ Clock.any ++ customConfig) >>> (k8sCluster ++ k8sSttpClient())
 ```
 
 #### Trailing dots
@@ -95,6 +97,7 @@ import sttp.client3._
 import sttp.model._
 import zio.ZLayer
 import zio.blocking.Blocking
+import zio.clock.Clock
 import zio.nio.file.Path
 
 // Configuration
@@ -104,7 +107,8 @@ val config = ZLayer.succeed(
         authentication = K8sAuthentication.ServiceAccountToken(
           KeySource.FromFile(
             Path("/var/run/secrets/kubernetes.io/serviceaccount/token")
-          )
+          ),
+          tokenCacheSeconds = 5 // optional, 0 means reload from file for each request
         ),
         K8sClientConfig(
           debug = false,
@@ -122,7 +126,7 @@ val config = ZLayer.succeed(
 ```scala mdoc:silent
 // K8s configuration and client layers
 val client = Blocking.any ++ System.any ++ config >>> k8sSttpClient()
-val cluster = Blocking.any ++ System.any ++ config >>> k8sCluster
+val cluster = Blocking.any ++ Clock.any ++ config >>> k8sCluster
 ```
 
 ### Configuring with zio-config + Typesafe Config
@@ -131,6 +135,7 @@ val cluster = Blocking.any ++ System.any ++ config >>> k8sCluster
 import com.coralogix.zio.k8s.client.config._
 import com.coralogix.zio.k8s.client.config.httpclient._
 import zio.blocking.Blocking
+import zio.clock.Clock
 import zio.config.ConfigDescriptor
 import zio.config.typesafe._
 import zio.system.System
@@ -143,7 +148,7 @@ val config = TypesafeConfig.fromDefaultLoader[Config](configDesc)
 
 // K8s configuration and client layers
 val client = (Blocking.any ++ System.any ++ config.project(_.k8s)) >>> k8sSttpClient()
-val cluster = (Blocking.any ++ System.any ++ config.project(_.k8s)) >>> k8sCluster
+val cluster = (Blocking.any ++ Clock.any ++ config.project(_.k8s)) >>> k8sCluster
 ```
 
 and place the configuration in `application.conf`, for example:
@@ -154,6 +159,7 @@ k8s {
   authentication {
     serviceAccountToken {
       path = "/var/run/secrets/kubernetes.io/serviceaccount/token"
+      tokenCacheSeconds = 5 # optional, 0 means reload from file for each request
     }
   }
   client {

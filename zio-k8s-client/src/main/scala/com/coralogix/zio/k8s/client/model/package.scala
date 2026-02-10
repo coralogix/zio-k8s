@@ -5,6 +5,7 @@ import sttp.client3.{ Empty, RequestT, UriContext }
 import sttp.model._
 import zio.Chunk
 import zio.duration._
+import zio.Task
 
 import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
@@ -18,12 +19,17 @@ package object model extends LabelSelector.Syntax with FieldSelector.Syntax {
     *   Host to connect to
     * @param applyToken
     *   Function to apply an authentication token to the HTTP request
+    * @param invalidateToken
+    *   Optional hook to force token refresh on auth failures
     */
   case class K8sCluster(
     host: Uri,
     applyToken: Option[
-      RequestT[Empty, Either[String, String], Any] => RequestT[Empty, Either[String, String], Any]
-    ]
+      RequestT[Empty, Either[String, String], Any] => Task[
+        RequestT[Empty, Either[String, String], Any]
+      ]
+    ],
+    invalidateToken: Option[Task[Unit]] = None
   )
 
   /** Metadata identifying a Kubernetes resource

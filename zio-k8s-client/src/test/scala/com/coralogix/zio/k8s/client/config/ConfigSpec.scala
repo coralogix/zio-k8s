@@ -5,8 +5,9 @@ import sttp.client3._
 import zio.{ Chunk, Has, ZIO }
 import zio.config._
 import zio.config.typesafe.TypesafeConfig
+import zio.duration.durationInt
 import zio.nio.file.Path
-import zio.test.environment.TestEnvironment
+import zio.test.environment.{ TestClock, TestEnvironment }
 import zio.test.{ assertCompletes, assertM, Assertion, DefaultRunnableSpec, ZSpec }
 import cats.implicits._
 import com.coralogix.zio.k8s.client.config.K8sAuthentication.ServiceAccountToken
@@ -34,6 +35,38 @@ object ConfigSpec extends DefaultRunnableSpec {
                 authentication = K8sAuthentication.ServiceAccountToken(
                   token =
                     KeySource.FromFile(Path("/var/run/secrets/kubernetes.io/serviceaccount/token"))
+                ),
+                client = K8sClientConfig(
+                  debug = false,
+                  serverCertificate = K8sServerCertificate.Secure(
+                    disableHostnameVerification = false,
+                    certificate = KeySource.FromFile(
+                      Path("/var/run/secrets/kubernetes.io/serviceaccount/ca.crt")
+                    )
+                  )
+                )
+              )
+            )
+          )
+        )
+      },
+      testM("load client config with token cache") {
+        val loadConfig =
+          TypesafeConfig
+            .fromHoconString[Config](exampleWithTokenCache, configDesc)
+            .build
+            .useNow
+            .map(_.get)
+
+        assertM(loadConfig)(
+          Assertion.equalTo(
+            Config(
+              K8sClusterConfig(
+                uri"https://kubernetes.default.svc",
+                authentication = K8sAuthentication.ServiceAccountToken(
+                  token =
+                    KeySource.FromFile(Path("/var/run/secrets/kubernetes.io/serviceaccount/token")),
+                  tokenCacheSeconds = 5
                 ),
                 client = K8sClientConfig(
                   debug = false,
@@ -119,9 +152,9 @@ object ConfigSpec extends DefaultRunnableSpec {
             authentication <-
               ZIO.access[Has[K8sClusterConfig]](_.get[K8sClusterConfig].authentication)
             result         <- authentication match {
-                                case ServiceAccountToken(FromString(token)) =>
+                                case ServiceAccountToken(FromString(token), _) =>
                                   ZIO.succeed(token.some)
-                                case _                                      =>
+                                case _                                         =>
                                   ZIO.none
                               }
           } yield result
@@ -131,6 +164,114 @@ object ConfigSpec extends DefaultRunnableSpec {
             configLayer <- ZIO.effect(kubeconfigFile(path))
             maybeToken  <- loadTokenByCommand.provideLayer(configLayer)
           } yield maybeToken)(Assertion.equalTo(Some("bearer-token")))
+        )
+      },
+      testM("reload service account token from file") {
+        val toChunk: String => Chunk[Byte] =
+          s => Chunk.fromArray(s.getBytes(StandardCharsets.UTF_8))
+
+        assertM(
+          Files
+            .createTempFileManaged(prefix = "zio_k8s_test_token_".some)
+            .use { path =>
+              for {
+                _        <- Files.writeBytes(path, toChunk("token-1"))
+                authData <- serviceAccountTokenAuthenticator(KeySource.FromFile(path))
+                token1   <- authData
+                              .authenticator(basicRequest)
+                              .map(
+                                _.headers
+                                  .find(_.is("Authorization"))
+                                  .map(_.value)
+                              )
+                _        <- Files.writeBytes(path, toChunk("token-2"))
+                token2   <- authData
+                              .authenticator(basicRequest)
+                              .map(
+                                _.headers
+                                  .find(_.is("Authorization"))
+                                  .map(_.value)
+                              )
+              } yield (token1, token2)
+            }
+        )(Assertion.equalTo((Some("Bearer token-1"), Some("Bearer token-2"))))
+      },
+      testM("cache service account token from file for configured seconds") {
+        val toChunk: String => Chunk[Byte] =
+          s => Chunk.fromArray(s.getBytes(StandardCharsets.UTF_8))
+
+        assertM(
+          Files
+            .createTempFileManaged(prefix = "zio_k8s_test_cached_token_".some)
+            .use { path =>
+              for {
+                _        <- Files.writeBytes(path, toChunk("token-1"))
+                authData <- serviceAccountTokenAuthenticator(
+                              KeySource.FromFile(path),
+                              tokenCacheSeconds = 60
+                            )
+                token1   <- authData
+                              .authenticator(basicRequest)
+                              .map(
+                                _.headers
+                                  .find(_.is("Authorization"))
+                                  .map(_.value)
+                              )
+                _        <- Files.writeBytes(path, toChunk("token-2"))
+                token2   <- authData
+                              .authenticator(basicRequest)
+                              .map(
+                                _.headers
+                                  .find(_.is("Authorization"))
+                                  .map(_.value)
+                              )
+              } yield (token1, token2)
+            }
+        )(Assertion.equalTo((Some("Bearer token-1"), Some("Bearer token-1"))))
+      },
+      testM("refresh cached token after cache window elapsed") {
+        val toChunk: String => Chunk[Byte] =
+          s => Chunk.fromArray(s.getBytes(StandardCharsets.UTF_8))
+
+        assertM(
+          Files
+            .createTempFileManaged(prefix = "zio_k8s_test_cached_token_refresh_".some)
+            .use { path =>
+              for {
+                _            <- Files.writeBytes(path, toChunk("token-1"))
+                authData     <- serviceAccountTokenAuthenticator(
+                                  KeySource.FromFile(path),
+                                  tokenCacheSeconds = 5
+                                )
+                token1       <- authData
+                                  .authenticator(basicRequest)
+                                  .map(
+                                    _.headers
+                                      .find(_.is("Authorization"))
+                                      .map(_.value)
+                                  )
+                _            <- Files.writeBytes(path, toChunk("token-2"))
+                token2Before <- authData
+                                  .authenticator(basicRequest)
+                                  .map(
+                                    _.headers
+                                      .find(_.is("Authorization"))
+                                      .map(_.value)
+                                  )
+                _            <- TestClock.adjust(6.seconds)
+                token2After  <- authData
+                                  .authenticator(basicRequest)
+                                  .map(
+                                    _.headers
+                                      .find(_.is("Authorization"))
+                                      .map(_.value)
+                                  )
+              } yield (token1, token2Before, token2After)
+            }
+        )(
+          Assertion.equalTo(
+            (Some("Bearer token-1"), Some("Bearer token-1"), Some("Bearer token-2"))
+          )
         )
       }
     )
@@ -146,6 +287,26 @@ object ConfigSpec extends DefaultRunnableSpec {
       |  authentication {
       |    serviceAccountToken {
       |      path = "/var/run/secrets/kubernetes.io/serviceaccount/token"
+      |    }
+      |  }
+      |  client {
+      |    debug = false
+      |    secure {
+      |      certificate {
+      |        path = "/var/run/secrets/kubernetes.io/serviceaccount/ca.crt"
+      |      }
+      |      disableHostnameVerification = false
+      |    }
+      |  }
+      |}""".stripMargin
+
+  val exampleWithTokenCache: String =
+    """k8s {
+      |  host = "https://kubernetes.default.svc"
+      |  authentication {
+      |    serviceAccountToken {
+      |      path = "/var/run/secrets/kubernetes.io/serviceaccount/token"
+      |      tokenCacheSeconds = 5
       |    }
       |  }
       |  client {

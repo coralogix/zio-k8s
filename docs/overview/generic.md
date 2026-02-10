@@ -39,6 +39,7 @@ import sttp.client3._
 import sttp.model._
 import zio._
 import zio.blocking.Blocking
+import zio.clock.Clock
 import zio.nio.file.Path
 import zio.system.System
 ```
@@ -47,8 +48,8 @@ import zio.system.System
 import com.coralogix.zio.k8s.client.v1.pods.Pods
 import com.coralogix.zio.k8s.client.K8sFailure
 
-val pods: ZLayer[Blocking with System, Throwable, Pods] = k8sDefault >>> Pods.live
-val generic: ZLayer[Blocking with System, Throwable, Pods.Generic] = pods.map(_.get.asGeneric)
+val pods: ZLayer[Blocking with System with Clock, Throwable, Pods] = k8sDefault >>> Pods.live
+val generic: ZLayer[Blocking with System with Clock, Throwable, Pods.Generic] = pods.map(_.get.asGeneric)
 ```
 
 This `generic` layer can be provided to generic functions that work with any kind of resource:

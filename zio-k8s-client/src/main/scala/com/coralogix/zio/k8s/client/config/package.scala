@@ -4,18 +4,20 @@ import com.coralogix.zio.k8s.client.model.K8sCluster
 import io.circe.Decoder
 import io.circe.generic.semiauto.deriveDecoder
 import io.circe.parser
-import sttp.client3.UriContext
+import sttp.client3.{ Empty, RequestT, UriContext }
 import sttp.model.Uri
 import zio.blocking.Blocking
+import zio.clock.Clock
 import zio.config._
 import zio.nio.file.Path
 import zio.process.Command
 import zio.system.System
-import zio.{ system, Has, RIO, Task, ZIO, ZLayer, ZManaged }
+import zio.{ system, Has, RIO, Ref, Task, ZIO, ZLayer, ZManaged }
 import cats.implicits._
 
 import java.io.{ ByteArrayInputStream, File, FileInputStream, InputStream }
 import java.nio.charset.StandardCharsets
+import java.util.concurrent.TimeUnit
 import java.util.Base64
 import javax.net.ssl.KeyManager
 
@@ -89,8 +91,11 @@ package object config extends Descriptors {
       * https://kubernetes.io/docs/reference/access-authn-authz/authentication/#service-account-tokens
       * @param token
       *   The key source must point to a PEM encoded bearer token file, or a raw bearer token value.
+      * @param tokenCacheSeconds
+      *   How long to cache file-based tokens in memory. Use `0` to reload for each request.
       */
-    final case class ServiceAccountToken(token: KeySource) extends K8sAuthentication
+    final case class ServiceAccountToken(token: KeySource, tokenCacheSeconds: Int = 0)
+        extends K8sAuthentication
 
     /** Authenticate with basic authentication
       *
@@ -190,17 +195,29 @@ package object config extends Descriptors {
     * This can be used to either set up from a configuration source with zio-config or provide the
     * hostname and token programmatically for the Kubernetes client.
     */
-  val k8sCluster: ZLayer[Blocking with Has[K8sClusterConfig], Throwable, Has[K8sCluster]] =
+  val k8sCluster
+    : ZLayer[Blocking with Clock with Has[K8sClusterConfig], Throwable, Has[K8sCluster]] =
     (for {
       config <- getConfig[K8sClusterConfig]
       result <- config.authentication match {
-                  case K8sAuthentication.ServiceAccountToken(tokenSource) =>
-                    loadKeyString(tokenSource).use { token =>
-                      ZIO.succeed(K8sCluster(config.host, Some(_.auth.bearer(token))))
-                    }
-                  case K8sAuthentication.BasicAuth(username, password)    =>
-                    ZIO.succeed(K8sCluster(config.host, Some(_.auth.basic(username, password))))
-                  case K8sAuthentication.ClientCertificates(_, _, _)      =>
+                  case K8sAuthentication.ServiceAccountToken(tokenSource, tokenCacheSeconds) =>
+                    serviceAccountTokenAuthenticator(tokenSource, tokenCacheSeconds)
+                      .map(authData =>
+                        K8sCluster(
+                          config.host,
+                          Some(authData.authenticator),
+                          authData.invalidateToken
+                        )
+                      )
+                  case K8sAuthentication.BasicAuth(username, password)                       =>
+                    ZIO.succeed(
+                      K8sCluster(
+                        config.host,
+                        Some(request => ZIO.succeed(request.auth.basic(username, password))),
+                        None
+                      )
+                    )
+                  case K8sAuthentication.ClientCertificates(_, _, _)                         =>
                     ZIO.succeed(K8sCluster(config.host, None))
                 }
     } yield result).toLayer
@@ -408,8 +425,8 @@ package object config extends Descriptors {
       Decoder.instance { c =>
         for {
           maybeCert <-
-            c.get[Option[String]]("clientCertificateData").map(_.map(KeySource.FromString))
-          maybeKey  <- c.get[Option[String]]("clientKeyData").map(_.map(KeySource.FromString))
+            c.get[Option[String]]("clientCertificateData").map(_.map(KeySource.FromString.apply))
+          maybeKey  <- c.get[Option[String]]("clientKeyData").map(_.map(KeySource.FromString.apply))
         } yield (maybeCert, maybeKey) match {
           case (Some(cert), Some(key)) =>
             K8sAuthentication.ClientCertificates(cert, key, password = None).some
@@ -581,5 +598,69 @@ package object config extends Descriptors {
         )
       case KeySource.FromString(value)  =>
         ZManaged.succeed(value)
+    }
+
+  private[config] final case class ServiceAccountAuthData(
+    authenticator: RequestT[Empty, Either[String, String], Any] => Task[
+      RequestT[Empty, Either[String, String], Any]
+    ],
+    invalidateToken: Option[Task[Unit]]
+  )
+
+  private[config] def serviceAccountTokenAuthenticator(
+    tokenSource: KeySource,
+    tokenCacheSeconds: Int = 0
+  ): ZIO[Clock, Throwable, ServiceAccountAuthData] =
+    tokenSource match {
+      case KeySource.FromFile(path) =>
+        for {
+          initialToken <- loadKeyString(tokenSource).use(ZIO.succeed(_))
+          tokenState   <- Ref.make((initialToken, 0L))
+          clockService <- ZIO.service[Clock.Service]
+        } yield {
+          val cacheMillis = tokenCacheSeconds.max(0).toLong * 1000
+
+          def readTokenFromFile: Task[String] =
+            Task.effect {
+              val stream = new FileInputStream(path.toFile)
+              try
+                new String(stream.readAllBytes(), StandardCharsets.US_ASCII)
+              finally stream.close()
+            }
+
+          def refresh(nowMillis: Long): Task[String] =
+            readTokenFromFile
+              .tap(token => tokenState.set((token, nowMillis + cacheMillis)))
+              .orElse(tokenState.get.map(_._1))
+
+          ServiceAccountAuthData(
+            authenticator = (request: RequestT[Empty, Either[String, String], Any]) =>
+              (if (cacheMillis == 0) {
+                 refresh(0L)
+               } else {
+                 for {
+                   now                      <- clockService.currentTime(TimeUnit.MILLISECONDS)
+                   currentState             <- tokenState.get
+                   (currentToken, refreshAt) = currentState
+                   token                    <- if (now < refreshAt) ZIO.succeed(currentToken)
+                                               else refresh(now)
+                 } yield token
+               }).map(token => request.auth.bearer(token)),
+            invalidateToken = Some(
+              if (cacheMillis == 0) ZIO.unit
+              else tokenState.update { case (token, _) => (token, 0L) }.unit
+            )
+          )
+        }
+      case _                        =>
+        loadKeyString(tokenSource).use { token =>
+          ZIO.succeed(
+            ServiceAccountAuthData(
+              authenticator = (request: RequestT[Empty, Either[String, String], Any]) =>
+                ZIO.succeed(request.auth.bearer(token)),
+              invalidateToken = None
+            )
+          )
+        }
     }
 }
