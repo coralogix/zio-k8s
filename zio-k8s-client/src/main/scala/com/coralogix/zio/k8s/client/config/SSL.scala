@@ -41,7 +41,7 @@ object SSL {
       for {
         keyManagers   <-
           authentication match {
-            case K8sAuthentication.ServiceAccountToken(_)                         => ZIO.none
+            case K8sAuthentication.ServiceAccountToken(_, _)                      => ZIO.none
             case K8sAuthentication.BasicAuth(_, _)                                => ZIO.none
             case K8sAuthentication.ClientCertificates(certificate, key, password) =>
               KeyManagers(certificate, key, password).map(Some(_))

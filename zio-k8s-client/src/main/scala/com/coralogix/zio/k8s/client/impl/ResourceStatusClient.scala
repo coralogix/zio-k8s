@@ -38,20 +38,24 @@ final class ResourceStatusClient[StatusT: Encoder, T: K8sObject: Encoder: Decode
     for {
       name     <- of.getName
       response <- handleFailures("replaceStatus", namespace, None, None, None) {
-                    k8sRequest
-                      .put(modifying(name = name, subresource = Some("status"), namespace, dryRun))
-                      .body(toStatusUpdate(of, updatedStatus))
-                      .response(asJsonAccumulating[T])
-                      .send(backend)
+                    k8sRequest.flatMap { request =>
+                      request
+                        .put(modifying(name = name, subresource = Some("status"), namespace, dryRun))
+                        .body(toStatusUpdate(of, updatedStatus))
+                        .response(asJsonAccumulating[T])
+                        .send(backend)
+                    }
                   }
     } yield response
 
   override def getStatus(name: String, namespace: Option[K8sNamespace]): IO[K8sFailure, T] =
     handleFailures("getStatus", namespace, name) {
-      k8sRequest
-        .get(simple(Some(name), subresource = Some("status"), namespace))
-        .response(asJsonAccumulating[T])
-        .send(backend)
+      k8sRequest.flatMap { request =>
+        request
+          .get(simple(Some(name), subresource = Some("status"), namespace))
+          .response(asJsonAccumulating[T])
+          .send(backend)
+      }
     }
 
   private def toStatusUpdate(of: T, newStatus: StatusT): Json =

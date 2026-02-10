@@ -14,6 +14,7 @@ import sttp.client3._
 import sttp.model._
 import zio._
 import zio.blocking.Blocking
+import zio.clock.Clock
 import zio.nio.file.Path
 import zio.system.System
 ```
@@ -23,7 +24,7 @@ import com.coralogix.zio.k8s.client.v1.configmaps.ConfigMaps
 import com.coralogix.zio.k8s.client.v1.pods.Pods
 import com.coralogix.zio.k8s.client.K8sFailure
 
-val k8s: ZLayer[Blocking with System, Throwable, Pods with ConfigMaps] = 
+val k8s: ZLayer[Blocking with System with Clock, Throwable, Pods with ConfigMaps] = 
   k8sDefault >>> (Pods.live ++ ConfigMaps.live)
 ```
 

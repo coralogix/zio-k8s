@@ -8,6 +8,7 @@ import com.coralogix.zio.k8s.client.v1.pods.Pods
 import com.coralogix.zio.k8s.client.v1.pods
 import zio._
 import zio.blocking.Blocking
+import zio.clock.Clock
 import zio.console.Console
 import zio.logging.{ LogFormat, LogLevel, Logging }
 import zio.system.System
@@ -22,7 +23,7 @@ object LogsExample extends App {
 
     // K8s configuration and client layers
     val client = (Blocking.any ++ System.any ++ config) >>> k8sSttpClient("test_logger")
-    val cluster = (Blocking.any ++ config) >>> k8sCluster
+    val cluster = (Blocking.any ++ Clock.any ++ config) >>> k8sCluster
 
     val pods = (client ++ cluster) >>> Pods.live
 

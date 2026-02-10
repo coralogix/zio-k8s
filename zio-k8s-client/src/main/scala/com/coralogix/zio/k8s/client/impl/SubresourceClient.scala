@@ -43,13 +43,15 @@ final class SubresourceClient[T: Encoder: Decoder](
     customParameters: Map[String, String] = Map.empty
   ): IO[K8sFailure, T] =
     handleFailures(s"get $subresourceName", namespace, name) {
-      k8sRequest
-        .get(
-          simple(Some(name), Some(subresourceName), namespace)
-            .addParams(customParameters)
-        )
-        .response(asJsonAccumulating[T])
-        .send(backend)
+      k8sRequest.flatMap { request =>
+        request
+          .get(
+            simple(Some(name), Some(subresourceName), namespace)
+              .addParams(customParameters)
+          )
+          .response(asJsonAccumulating[T])
+          .send(backend)
+      }
     }
 
   def streamingGet(
@@ -60,24 +62,26 @@ final class SubresourceClient[T: Encoder: Decoder](
   ): ZStream[Any, K8sFailure, T] =
     ZStream.unwrap {
       handleFailures(s"get $subresourceName", namespace, name) {
-        k8sRequest
-          .get(
-            simple(Some(name), Some(subresourceName), namespace)
-              .addParams(customParameters)
-          )
-          .response(
-            asEither[ResponseException[
-              String,
-              NonEmptyList[Error]
-            ], ZioStreams.BinaryStream, ZioStreams](
-              asStringAlways.mapWithMetadata { case (body, meta) =>
-                HttpError(body, meta.code)
-                  .asInstanceOf[ResponseException[String, NonEmptyList[Error]]]
-              },
-              asStreamAlwaysUnsafe(ZioStreams)
+        k8sRequest.flatMap { request =>
+          request
+            .get(
+              simple(Some(name), Some(subresourceName), namespace)
+                .addParams(customParameters)
             )
-          )
-          .send(backend)
+            .response(
+              asEither[ResponseException[
+                String,
+                NonEmptyList[Error]
+              ], ZioStreams.BinaryStream, ZioStreams](
+                asStringAlways.mapWithMetadata { case (body, meta) =>
+                  HttpError(body, meta.code)
+                    .asInstanceOf[ResponseException[String, NonEmptyList[Error]]]
+                },
+                asStreamAlwaysUnsafe(ZioStreams)
+              )
+            )
+            .send(backend)
+        }
       }.map { (stream: ZioStreams.BinaryStream) =>
         stream
           .mapError(
@@ -97,11 +101,13 @@ final class SubresourceClient[T: Encoder: Decoder](
     dryRun: Boolean
   ): IO[K8sFailure, T] =
     handleFailures(s"replace $subresourceName", namespace, name) {
-      k8sRequest
-        .put(modifying(name, Some(subresourceName), namespace, dryRun))
-        .body(updatedValue)
-        .response(asJsonAccumulating[T])
-        .send(backend)
+      k8sRequest.flatMap { request =>
+        request
+          .put(modifying(name, Some(subresourceName), namespace, dryRun))
+          .body(updatedValue)
+          .response(asJsonAccumulating[T])
+          .send(backend)
+      }
     }
 
   def create(
@@ -111,10 +117,12 @@ final class SubresourceClient[T: Encoder: Decoder](
     dryRun: Boolean
   ): IO[K8sFailure, T] =
     handleFailures(s"create $subresourceName", namespace, name) {
-      k8sRequest
-        .post(modifying(name, Some(subresourceName), namespace, dryRun))
-        .body(value)
-        .response(asJsonAccumulating[T])
-        .send(backend)
+      k8sRequest.flatMap { request =>
+        request
+          .post(modifying(name, Some(subresourceName), namespace, dryRun))
+          .body(value)
+          .response(asJsonAccumulating[T])
+          .send(backend)
+      }
     }
 }

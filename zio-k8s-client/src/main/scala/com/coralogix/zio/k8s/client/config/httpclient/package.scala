@@ -5,6 +5,7 @@ import sttp.client3.httpclient.zio._
 import sttp.client3.logging.LoggingBackend
 import sttp.client3.logging.slf4j.Slf4jLogger
 import zio.blocking.Blocking
+import zio.clock.Clock
 import zio.system.System
 import zio.{ Has, ZIO, ZLayer, ZManaged }
 
@@ -61,6 +62,6 @@ package object httpclient {
   /** Layer producing a [[K8sCluster]] and an [[SttpClient]] module that can be directly used to
     * initialize specific Kubernetes client modules, using the [[defaultConfigChain]].
     */
-  val k8sDefault: ZLayer[Blocking with System, Throwable, Has[K8sCluster] with SttpClient] =
-    (Blocking.any ++ System.any) >+> defaultConfigChain >>> (k8sCluster ++ k8sSttpClient())
+  val k8sDefault: ZLayer[Blocking with System with Clock, Throwable, Has[K8sCluster] with SttpClient] =
+    (Blocking.any ++ System.any ++ Clock.any) >+> defaultConfigChain >>> (k8sCluster ++ k8sSttpClient())
 }
