@@ -27,8 +27,14 @@ trait Descriptors {
   private val keySource: Config[KeySource] =
     keySourceFromFile orElse keySourceFromString orElse keySourceFromBase64
 
+  private val tokenCacheSeconds: Config[Int] =
+    Config.int("tokenCacheSeconds").optional.map(_.getOrElse(0))
+
   private val serviceAccountToken: Config[K8sAuthentication] =
-    keySource.nested("serviceAccountToken").map(ks => K8sAuthentication.ServiceAccountToken(ks))
+    (keySource zip tokenCacheSeconds).nested("serviceAccountToken").map {
+      case (token, cacheSeconds) =>
+        K8sAuthentication.ServiceAccountToken(token, cacheSeconds)
+    }
 
   private val basicAuth: Config[K8sAuthentication] =
     (Config.string("username") zip Config.string("password")).nested("basicAuth") map {

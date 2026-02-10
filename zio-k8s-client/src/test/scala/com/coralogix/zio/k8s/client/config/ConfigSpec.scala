@@ -7,8 +7,8 @@ import io.circe.yaml.parser.parse
 import sttp.client3._
 import zio.config.typesafe.TypesafeConfigProvider
 import zio.nio.file.{ Files, Path }
-import zio.test.{ assertCompletes, assertZIO, Assertion, Spec, TestEnvironment, ZIOSpecDefault }
-import zio.{ Chunk, ZIO }
+import zio.test.{ assertCompletes, assertZIO, Assertion, Spec, TestClock, TestEnvironment, ZIOSpecDefault }
+import zio._
 
 import java.nio.charset.StandardCharsets
 
@@ -17,8 +17,12 @@ object ConfigSpec extends ZIOSpecDefault {
     suite("K8sClusterConfig descriptors")(
       loadKubeConfigFromString,
       clientConfigSpec,
+      clientConfigWithTokenCacheSpec,
       parseKubeConfig,
-      runLocalConfigLoading
+      runLocalConfigLoading,
+      reloadServiceAccountTokenFromFile,
+      cacheServiceAccountTokenFromFileForConfiguredSeconds,
+      refreshCachedTokenAfterCacheWindowElapsed
     )
 
   val parseKubeConfig: Spec[TestEnvironment, Any] = test("parse kube config") {
@@ -107,6 +111,36 @@ object ConfigSpec extends ZIOSpecDefault {
     )
   }
 
+  val clientConfigWithTokenCacheSpec: Spec[TestEnvironment, Any] =
+    test("load client config with token cache") {
+      val loadConfig = ZIO.scoped {
+        TypesafeConfigProvider.fromHoconString(exampleWithTokenCache).load(configDesc)
+      }
+
+      assertZIO(loadConfig)(
+        Assertion.equalTo(
+          Config(
+            K8sClusterConfig(
+              uri"https://kubernetes.default.svc",
+              authentication = K8sAuthentication.ServiceAccountToken(
+                token = KeySource.FromFile(Path("/var/run/secrets/kubernetes.io/serviceaccount/token")),
+                tokenCacheSeconds = 5
+              ),
+              client = K8sClientConfig(
+                debug = false,
+                serverCertificate = K8sServerCertificate.Secure(
+                  disableHostnameVerification = false,
+                  certificate = KeySource.FromFile(
+                    Path("/var/run/secrets/kubernetes.io/serviceaccount/ca.crt")
+                  )
+                )
+              )
+            )
+          )
+        )
+      )
+    }
+
   val runLocalConfigLoading: Spec[TestEnvironment, Any] = test("run local config loading") {
     def createTempKubeConfigFile =
       for {
@@ -123,9 +157,9 @@ object ConfigSpec extends ZIOSpecDefault {
       for {
         result <-
           ZIO.environmentWithZIO[K8sClusterConfig](_.get.authentication match {
-            case ServiceAccountToken(FromString(token)) =>
+            case ServiceAccountToken(FromString(token), _) =>
               ZIO.succeed(token.some)
-            case _                                      =>
+            case _                                         =>
               ZIO.none
           })
       } yield result
@@ -141,6 +175,126 @@ object ConfigSpec extends ZIOSpecDefault {
     assertZIO(testIO)(Assertion.equalTo(Some("bearer-token")))
   }
 
+  val reloadServiceAccountTokenFromFile: Spec[TestEnvironment, Any] =
+    test("reload service account token from file") {
+      val toChunk: String => Chunk[Byte] =
+        s => Chunk.fromArray(s.getBytes(StandardCharsets.UTF_8))
+
+      assertZIO(
+        ZIO.scoped {
+          Files
+            .createTempFileScoped(prefix = "zio_k8s_test_token_".some)
+            .flatMap { path =>
+              for {
+                _        <- Files.writeBytes(path, toChunk("token-1"))
+                authData <- serviceAccountTokenAuthenticator(KeySource.FromFile(path))
+                token1   <- authData
+                              .authenticator(basicRequest)
+                              .map(
+                                _.headers
+                                  .find(_.is("Authorization"))
+                                  .map(_.value)
+                              )
+                _        <- Files.writeBytes(path, toChunk("token-2"))
+                token2   <- authData
+                              .authenticator(basicRequest)
+                              .map(
+                                _.headers
+                                  .find(_.is("Authorization"))
+                                  .map(_.value)
+                              )
+              } yield (token1, token2)
+            }
+        }
+      )(Assertion.equalTo((Some("Bearer token-1"), Some("Bearer token-2"))))
+    }
+
+  val cacheServiceAccountTokenFromFileForConfiguredSeconds: Spec[TestEnvironment, Any] =
+    test("cache service account token from file for configured seconds") {
+      val toChunk: String => Chunk[Byte] =
+        s => Chunk.fromArray(s.getBytes(StandardCharsets.UTF_8))
+
+      assertZIO(
+        ZIO.scoped {
+          Files
+            .createTempFileScoped(prefix = "zio_k8s_test_cached_token_".some)
+            .flatMap { path =>
+              for {
+                _        <- Files.writeBytes(path, toChunk("token-1"))
+                authData <- serviceAccountTokenAuthenticator(
+                              KeySource.FromFile(path),
+                              tokenCacheSeconds = 60
+                            )
+                token1   <- authData
+                              .authenticator(basicRequest)
+                              .map(
+                                _.headers
+                                  .find(_.is("Authorization"))
+                                  .map(_.value)
+                              )
+                _        <- Files.writeBytes(path, toChunk("token-2"))
+                token2   <- authData
+                              .authenticator(basicRequest)
+                              .map(
+                                _.headers
+                                  .find(_.is("Authorization"))
+                                  .map(_.value)
+                              )
+              } yield (token1, token2)
+            }
+        }
+      )(Assertion.equalTo((Some("Bearer token-1"), Some("Bearer token-1"))))
+    }
+
+  val refreshCachedTokenAfterCacheWindowElapsed: Spec[TestEnvironment, Any] =
+    test("refresh cached token after cache window elapsed") {
+      val toChunk: String => Chunk[Byte] =
+        s => Chunk.fromArray(s.getBytes(StandardCharsets.UTF_8))
+
+      assertZIO(
+        ZIO.scoped {
+          Files
+            .createTempFileScoped(prefix = "zio_k8s_test_cached_token_refresh_".some)
+            .flatMap { path =>
+              for {
+                _            <- Files.writeBytes(path, toChunk("token-1"))
+                authData     <- serviceAccountTokenAuthenticator(
+                                  KeySource.FromFile(path),
+                                  tokenCacheSeconds = 5
+                                )
+                token1       <- authData
+                                  .authenticator(basicRequest)
+                                  .map(
+                                    _.headers
+                                      .find(_.is("Authorization"))
+                                      .map(_.value)
+                                  )
+                _            <- Files.writeBytes(path, toChunk("token-2"))
+                token2Before <- authData
+                                  .authenticator(basicRequest)
+                                  .map(
+                                    _.headers
+                                      .find(_.is("Authorization"))
+                                      .map(_.value)
+                                  )
+                _            <- TestClock.adjust(6.seconds)
+                token2After  <- authData
+                                  .authenticator(basicRequest)
+                                  .map(
+                                    _.headers
+                                      .find(_.is("Authorization"))
+                                      .map(_.value)
+                                  )
+              } yield (token1, token2Before, token2After)
+            }
+        }
+      )(
+        Assertion.equalTo(
+          (Some("Bearer token-1"), Some("Bearer token-1"), Some("Bearer token-2"))
+        )
+      )
+    }
+
   case class Config(k8s: K8sClusterConfig)
 
   val configDesc: zio.Config[Config] = clusterConfigDescriptor.nested("k8s").map(Config)
@@ -151,6 +305,26 @@ object ConfigSpec extends ZIOSpecDefault {
       |  authentication {
       |    serviceAccountToken {
       |      path = "/var/run/secrets/kubernetes.io/serviceaccount/token"
+      |    }
+      |  }
+      |  client {
+      |    debug = false
+      |    secure {
+      |      certificate {
+      |        path = "/var/run/secrets/kubernetes.io/serviceaccount/ca.crt"
+      |      }
+      |      disableHostnameVerification = false
+      |    }
+      |  }
+      |}""".stripMargin
+
+  val exampleWithTokenCache: String =
+    """k8s {
+      |  host = "https://kubernetes.default.svc"
+      |  authentication {
+      |    serviceAccountToken {
+      |      path = "/var/run/secrets/kubernetes.io/serviceaccount/token"
+      |      tokenCacheSeconds = 5
       |    }
       |  }
       |  client {

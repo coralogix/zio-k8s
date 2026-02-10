@@ -101,7 +101,8 @@ val config = ZLayer.succeed(
         authentication = K8sAuthentication.ServiceAccountToken(
           KeySource.FromFile(
             Path("/var/run/secrets/kubernetes.io/serviceaccount/token")
-          )
+          ),
+          tokenCacheSeconds = 5 // optional, 0 means reload from file for each request
         ),
         K8sClientConfig(
           debug = false,
@@ -157,6 +158,7 @@ k8s {
   authentication {
     serviceAccountToken {
       path = "/var/run/secrets/kubernetes.io/serviceaccount/token"
+      tokenCacheSeconds = 5 # optional, 0 means reload from file for each request
     }
   }
   client {
