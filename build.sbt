@@ -67,7 +67,7 @@ lazy val client = Project("zio-k8s-client", file("zio-k8s-client"))
       "dev.zio"                       %% "zio-config-derivation"         % zioConfigVersion,
       "dev.zio"                       %% "zio-config-magnolia"           % zioConfigVersion,
       "dev.zio"                       %% "zio-nio"                       % zioNioVersion,
-      "dev.zio"                       %% "zio-process"                   % "0.7.2",
+      "dev.zio"                       %% "zio-process"                   % "0.8.0",
       "dev.zio"                       %% "zio-prelude"                   % zioPreludeVersion,
       "com.softwaremill.sttp.client3" %% "core"                          % sttpVersion,
       "com.softwaremill.sttp.client3" %% "zio"                           % sttpVersion,
