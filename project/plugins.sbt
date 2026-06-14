@@ -4,7 +4,7 @@ addSbtPlugin("com.github.sbt"                    % "sbt-native-packager" % "1.11
 addSbtPlugin("org.scalameta"                     % "sbt-mdoc"            % "2.9.0")
 addSbtPlugin("com.github.sbt"                    % "sbt-unidoc"          % "0.6.1")
 addSbtPlugin("com.eed3si9n"                      % "sbt-buildinfo"       % "0.13.1")
-addSbtPlugin("com.thoughtworks.sbt-api-mappings" % "sbt-api-mappings"    % "3.0.2")
+addSbtPlugin("com.thoughtworks.sbt-api-mappings" % "sbt-api-mappings"    % "3.0.3")
 addSbtPlugin("ch.epfl.scala"                     % "sbt-scalafix"        % "0.14.6")
 
 libraryDependencies += "com.fasterxml.jackson.module" %% "jackson-module-scala" % "2.11.1"
