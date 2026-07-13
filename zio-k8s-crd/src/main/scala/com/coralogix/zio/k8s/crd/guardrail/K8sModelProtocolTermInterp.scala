@@ -121,8 +121,19 @@ class K8sModelProtocolTermInterp(implicit
 
     val code = parentOpt
       .fold(withoutParent) { parent =>
-          q"""case class ${Type.Name(clsName)}(..${terms}) extends ${template"..${init"${Type.Name(parent.clsName)}(...$Nil)" ::
-            parent.interfaces.map(a => init"${Type.Name(a)}(...$Nil)")} { ..$toStringMethod }"}"""
+        val tname = Type.Name(clsName)
+        val parents = template"..${init"${Type.Name(parent.clsName)}(...$Nil)" :: parent.interfaces.map(a => init"${Type.Name(a)}(...$Nil)")} { ..$toStringMethod }"
+        Defn.Class(
+          List(Mod.Final(), Mod.Case()),
+          tname,
+          Nil,
+          Ctor.Primary(
+            Nil,
+            Name.Anonymous(),
+            List(terms)
+          ),
+          parents
+        )
       }
 
     // format: on
