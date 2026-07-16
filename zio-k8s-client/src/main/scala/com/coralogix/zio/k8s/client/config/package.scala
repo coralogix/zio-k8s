@@ -105,12 +105,17 @@ package object config extends Descriptors {
       * See
       * https://kubernetes.io/docs/reference/access-authn-authz/authentication/#x509-client-certs
       *
+      * Private keys must use an unencrypted PEM encoding. Supported PEM types are PKCS#8 `PRIVATE
+      * KEY`, PKCS#1 `RSA PRIVATE KEY`, and SEC1 `EC PRIVATE KEY`. PKCS#8 keys are decoded through
+      * the registered JCA providers, so their algorithm must have an available `KeyFactory`
+      * implementation.
+      *
       * @param certificate
       *   Client certificate
       * @param key
       *   Client's private key
       * @param password
-      *   Passphrase for the key if needed
+      *   Password for the loaded key entry. This does not enable encrypted PEM key decoding.
       */
     final case class ClientCertificates(
       certificate: KeySource,
