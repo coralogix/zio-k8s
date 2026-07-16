@@ -173,6 +173,29 @@ k8s {
 }
 ```
 
+### Client certificate private-key formats
+
+When using `K8sAuthentication.ClientCertificates` or the kubeconfig `client-key` and
+`client-key-data` fields, zio-k8s accepts the following unencrypted PEM private-key
+formats:
+
+| PEM type | Encoding | Supported key algorithm |
+| --- | --- | --- |
+| `PRIVATE KEY` | PKCS#8 | Any algorithm available through a registered JCA `KeyFactory` |
+| `RSA PRIVATE KEY` | PKCS#1 | RSA |
+| `EC PRIVATE KEY` | SEC1 | EC |
+
+Encrypted PEM keys and other algorithm-specific traditional formats, including
+`DSA PRIVATE KEY`, are not supported. `K8sAuthentication.ClientCertificates.password`
+does not decrypt PEM input. Convert a legacy unencrypted private key to PKCS#8 before
+using it:
+
+```shell
+openssl pkcs8 -topk8 -nocrypt \
+  -in legacy-private-key.pem \
+  -out private-key.pkcs8.pem
+```
+
 ## Clients
 
 The above created `k8sLayers` can be fed to any of the `zio-k8s` **client modules**

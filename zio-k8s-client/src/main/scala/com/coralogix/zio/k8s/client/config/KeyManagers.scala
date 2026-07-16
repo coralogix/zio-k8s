@@ -1,13 +1,9 @@
 package com.coralogix.zio.k8s.client.config
 
-import org.bouncycastle.asn1.pkcs.PrivateKeyInfo
-import org.bouncycastle.jce.provider.BouncyCastleProvider
-import org.bouncycastle.openssl.jcajce.JcaPEMKeyConverter
-import org.bouncycastle.openssl.{ PEMKeyPair, PEMParser }
 import zio.{ System, ZIO }
 
-import java.io.{ File, FileInputStream, InputStreamReader }
-import java.security.KeyStore
+import java.io.{ File, FileInputStream }
+import java.security.{ KeyStore, PrivateKey, PublicKey }
 import java.security.cert.{ CertificateFactory, X509Certificate }
 import javax.net.ssl.{ KeyManager, KeyManagerFactory }
 
@@ -39,41 +35,34 @@ private object KeyManagers {
     password: Option[String]
   ): ZIO[Any, Throwable, Array[KeyManager]] =
     for {
-      keyStore <- getDefaultKeyStore
-      provider <- ZIO.attempt(new BouncyCastleProvider())
-
-      privateKey <- ZIO.scoped(loadKeyStream(key) flatMap { stream =>
-                      ZIO.attempt {
-                        val pemKeyPair = new PEMParser(new InputStreamReader(stream))
-                        val converter = new JcaPEMKeyConverter().setProvider(provider)
-                        pemKeyPair.readObject() match {
-                          case pair: PEMKeyPair   => converter.getPrivateKey(pair.getPrivateKeyInfo)
-                          case pk: PrivateKeyInfo => converter.getPrivateKey(pk)
-                          case other: Any         =>
-                            throw new IllegalStateException(
-                              s"Unexpected key pair type ${other.getClass.getSimpleName}"
-                            )
-                        }
-                      }
-                    })
-
+      keyStore           <- getDefaultKeyStore
+      keyPassword         = password.getOrElse("changeit").toCharArray
       certificateFactory <- ZIO.attempt(CertificateFactory.getInstance("X509"))
       x509Cert           <- ZIO.scoped(loadKeyStream(certificate) flatMap { stream =>
                               ZIO.attempt(
                                 certificateFactory.generateCertificate(stream).asInstanceOf[X509Certificate]
                               )
                             })
+      privateKey         <- ZIO.scoped(loadPrivateKey(key, x509Cert.getPublicKey))
 
       _ <- ZIO.attempt {
              keyStore.setKeyEntry(
                x509Cert.getIssuerX500Principal.getName,
                privateKey,
-               password.getOrElse("changeit").toCharArray,
+               keyPassword,
                Array(x509Cert)
              )
            }
 
       kmf <- ZIO.attempt(KeyManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm))
-      _   <- ZIO.attempt(kmf.init(keyStore, "changeit".toCharArray))
+      _   <- ZIO.attempt(kmf.init(keyStore, keyPassword))
     } yield kmf.getKeyManagers
+
+  private[config] def loadPrivateKey(
+    key: KeySource,
+    publicKey: PublicKey
+  ): ZIO[zio.Scope, Throwable, PrivateKey] =
+    loadKeyStream(key) flatMap { stream =>
+      ZIO.attempt(PrivateKeyDecoder.decode(stream, publicKey))
+    }
 }
