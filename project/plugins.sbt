@@ -3,7 +3,7 @@ addSbtPlugin("com.github.sbt"                    % "sbt-ci-release"      % "1.11
 addSbtPlugin("com.github.sbt"                    % "sbt-native-packager" % "1.11.7")
 addSbtPlugin("org.scalameta"                     % "sbt-mdoc"            % "2.9.0")
 addSbtPlugin("com.github.sbt"                    % "sbt-unidoc"          % "0.6.1")
-addSbtPlugin("com.eed3si9n"                      % "sbt-buildinfo"       % "0.13.1")
+addSbtPlugin("com.eed3si9n"                      % "sbt-buildinfo"       % "0.13.2")
 addSbtPlugin("com.thoughtworks.sbt-api-mappings" % "sbt-api-mappings"    % "3.0.2")
 addSbtPlugin("ch.epfl.scala"                     % "sbt-scalafix"        % "0.14.6")
 
